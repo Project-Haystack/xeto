@@ -14,7 +14,7 @@ VavZoneAhu : Ahu {
 
 //  VAV which is fed by an AHU
 AhuVav : Vav {
-  ahu: Query<of:Ahu, via:"airRef+">
+  myAhu: Query<of:Ahu, via:"airRef+">
 }
 
 
