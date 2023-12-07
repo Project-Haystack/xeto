@@ -1,8 +1,10 @@
-// Auto-generated 05-Dec-2023
+// Auto-generated 07-Dec-2023
 
 // Top-level dicts with a unique identifier.
 // See `docHaystack::Ontology#entities` chapter.
 Entity: Dict <abstract> {
+  dis: Str?
+  id:  Ref
 }
 
 // AC Electricity meter.
@@ -132,6 +134,7 @@ ChilledBeam: RadiantEquip {
 // compression or an absorption refrigeration cycle.
 Chiller: Equip {
   chiller
+  coolingCapacity: Number?
 }
 
 // Electrical circuit and its associated components such as breakers.
@@ -165,6 +168,7 @@ Conduit: Equip <abstract> {
 // actuators or via network [protocols]`protocol`.
 Controller: Device {
   controller
+  equipRef: Ref?
 }
 
 // Panel housing controllers and networking gear
@@ -197,6 +201,9 @@ Crac: Fcu {
 // Also see `docHaystack::Points#cur` chapter.
 CurPoint: Point <abstract> {
   cur
+  curErr:    Str?
+  curStatus: Str?
+  curVal:    Obj?
 }
 
 // Actuator to regulate the flow of air.
@@ -278,7 +285,11 @@ Elevator: VerticalTransport {
 // See `docHaystack::Equips` chapter.
 Equip: Entity <abstract> {
   equip
-  points: Query<of:Point, inverse:"ph::Point.equips">  // Points contained by this equip
+  equipRef:  Ref?
+  siteRef:   Ref
+  spaceRef:  Ref?
+  systemRef: Ref?
+  points:    Query<of:Point, inverse:"ph::Point.equips">  // Points contained by this equip
 }
 
 // Moving staircase used to move people between floors.
@@ -334,6 +345,7 @@ Fcu: AirHandlingEquip {
 // Storey of a building.  See `docHaystack::Spaces#floors` chapter.
 Floor: Space {
   floor
+  floorNum: Number?
 }
 
 // Meter to measure flow rate and total volume of fluid.
@@ -383,6 +395,10 @@ HeatingCoil: Coil {
 // Also see `docHaystack::Points#his` chapter.
 HisPoint: Point <abstract> {
   his
+  hisErr:       Str?
+  hisMode:      Str?
+  hisStatus:    Str?
+  hisTotalized: Marker?
 }
 
 // Boiler which outputs hot water
@@ -459,6 +475,7 @@ Mau: Doas {
 // See `docHaystack::Meters` chapter.
 Meter: Equip {
   meter
+  submeterOf: Ref?
 }
 
 // Cellular phone providing telecommunication over radio links.
@@ -470,6 +487,7 @@ MobilePhone: Phone {
 // See `docHaystack::Motors` chapter.
 Motor: Equip {
   motor
+  vfd: Marker?
 }
 
 // Conveyor to move people across a horizontal or inclined plane.
@@ -525,7 +543,20 @@ Plant: Equip {
 // See `docHaystack::Points` chapter.
 Point: Entity <abstract> {
   point
-  equips: Query<of:Equip, via:"equipRef+">  // Parent equips that contain this point
+  cur:       Marker?
+  enum:      Str?
+  equipRef:  Ref
+  his:       Marker?
+  kind:      Str
+  maxVal:    Number?
+  minVal:    Number?
+  siteRef:   Ref
+  spaceRef:  Ref?
+  systemRef: Ref?
+  tz:        Str?
+  unit:      Str? 
+  writable:  Marker?
+  equips:    Query<of:Equip, via:"equipRef+">  // Parent equips that contain this point
 }
 
 // Grouping of children points used by spaces and equipment
@@ -597,12 +628,20 @@ ServerComputer: Computer {
 // street address.  See `docHaystack::Sites` chapter.
 Site: Entity {
   site
+  area:              Number?
+  primaryFunction:   Str?
+  tz:                Str?
+  weatherStationRef: Ref?
+  yearBuilt:         Number?
 }
 
 // Space is a three-dimensional volume in the built environment.
 // See `docHaystack::Spaces` chapter.
 Space: Entity <abstract> {
   space
+  area:     Number?
+  siteRef:  Ref
+  spaceRef: Ref?
 }
 
 // Boiler which outputs steam
@@ -632,6 +671,7 @@ SubterraneanFloor: Floor {
 // See `docHaystack::Systems` chapter.
 System: Entity {
   system
+  systemRef: Ref?
 }
 
 // Mobile device with touch screen for user input.
@@ -745,12 +785,14 @@ WaterSystem: System {
 // See `docHaystack::Weather#points` chapter.
 WeatherPoint: Point <abstract> {
   weather
+  weatherStationRef: Ref?
 }
 
 // Logical weather station and its measurement points.
 // See `docHaystack::Weather#stations` chapter.
 WeatherStation: Entity {
   weatherStation
+  tz: Str?
 }
 
 // A well is a source of groundwater and potentially thermal energy.  When
@@ -794,6 +836,10 @@ Wire: Conduit {
 // Also see `docHaystack::Points#writable` chapter.
 WritablePoint: Point <abstract> {
   writable
+  writeErr:    Str?
+  writeLevel:  Number?
+  writeStatus: Str?
+  writeVal:    Obj?
 }
 
 // Space associated with a specific system.
