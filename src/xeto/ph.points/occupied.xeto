@@ -10,7 +10,7 @@
 // state where false means unoccupied and true means occupied.
 OccupiedPoint  : BoolPoint <abstract> {
   occupied
-  enum: "unoccupied,occupied"
+  enum: Str "unoccupied,occupied"
 }
 
 // Occupancy sensor
