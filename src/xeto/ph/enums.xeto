@@ -1,0 +1,529 @@
+// Auto-generated 08-Dec-2023
+
+// Status of point's current value reading.  The `curVal` is only available
+// when curStatus is "ok" or "stale".  However a "stale" value should
+// be used with caution since the local system does not have a fresh value.
+// It is recommended that the `curVal` tag is removed from a point
+// when the curStatus is not "ok" nor "stale".
+CurStatus: Enum {
+  ok              // all is okay
+  stale           // the point's curVal is not fresh data
+  fault           // a configuration or hardware problem - see `curErr`
+  down            // a communication or network problem - see `curErr`
+  disabled        // manual disable of the point or connector
+  unknown         // we don't know anything (usually boot state)
+  remoteFault     // point in remote system is fault
+  remoteDown      // point in remote system is down
+  remoteDisabled  // point in remote system is disabled
+  remoteUnknown   // point in remote system is unknown
+}
+
+// Time between sunrise and sunset
+Daytime: Enum {
+  nighttime  // false indicates sun is below horizon
+  daytime    // true indicates sun is above horizon
+}
+
+// Geographic country as [ISO 3166-1]`http://en.wikipedia.org/wiki/ISO_3166-1`
+// two letter code
+GeoCountry: Enum {
+  af <key:"AF">  // Afghanistan
+  ax <key:"AX">  // Aland Islands
+  al <key:"AL">  // Albania
+  dz <key:"DZ">  // Algeria
+  as <key:"AS">  // American Samoa
+  ad <key:"AD">  // Andorra
+  ao <key:"AO">  // Angola
+  ai <key:"AI">  // Anguilla
+  aq <key:"AQ">  // Antarctica
+  ag <key:"AG">  // Antigua and Barbuda
+  ar <key:"AR">  // Argentina
+  am <key:"AM">  // Armenia
+  aw <key:"AW">  // Aruba
+  au <key:"AU">  // Australia
+  at <key:"AT">  // Austria
+  az <key:"AZ">  // Azerbaijan
+  bs <key:"BS">  // Bahamas
+  bh <key:"BH">  // Bahrain
+  bd <key:"BD">  // Bangladesh
+  bb <key:"BB">  // Barbados
+  by <key:"BY">  // Belarus
+  be <key:"BE">  // Belgium
+  bz <key:"BZ">  // Belize
+  bj <key:"BJ">  // Benin
+  bm <key:"BM">  // Bermuda
+  bt <key:"BT">  // Bhutan
+  bo <key:"BO">  // Bolivia
+  ba <key:"BA">  // Herzegovina
+  bw <key:"BW">  // Botswana
+  bv <key:"BV">  // Bouvet Island
+  br <key:"BR">  // Brazil
+  io <key:"IO">  // British Indian Ocean Territory
+  bn <key:"BN">  // Brunei Darussalam
+  bg <key:"BG">  // Bulgaria
+  bf <key:"BF">  // Burkina Faso
+  bi <key:"BI">  // Burundi
+  kh <key:"KH">  // Cambodia
+  cm <key:"CM">  // Cameroon
+  ca <key:"CA">  // Canada
+  cv <key:"CV">  // Cape Verde
+  ky <key:"KY">  // Cayman Islands
+  cf <key:"CF">  // Central African Republic
+  td <key:"TD">  // Chad
+  cl <key:"CL">  // Chile
+  cn <key:"CN">  // China
+  cx <key:"CX">  // Christmas Island
+  cc <key:"CC">  // Cocos
+  co <key:"CO">  // Colombia
+  km <key:"KM">  // Comoros
+  cg <key:"CG">  // Congo
+  cd <key:"CD">  // Congo, the Democratic Republic of the
+  ck <key:"CK">  // Cook Islands
+  cr <key:"CR">  // Costa Rica
+  ci <key:"CI">  // Cote D'ivoire
+  hr <key:"HR">  // Croatia
+  cu <key:"CU">  // Cuba
+  cy <key:"CY">  // Cyprus
+  cz <key:"CZ">  // Czech Republic
+  dk <key:"DK">  // Denmark
+  dj <key:"DJ">  // Djibouti
+  dm <key:"DM">  // Dominica
+  do <key:"DO">  // Dominican Republic
+  ec <key:"EC">  // Ecuador
+  eg <key:"EG">  // Egypt
+  sv <key:"SV">  // El Salvador
+  gq <key:"GQ">  // Equatorial Guinea
+  er <key:"ER">  // Eritrea
+  ee <key:"EE">  // Vatican City State See Holy
+  et <key:"ET">  // Ethiopia
+  fk <key:"FK">  // Falkland Islands
+  fo <key:"FO">  // Faroe Islands
+  fj <key:"FJ">  // Fiji
+  fi <key:"FI">  // Finland
+  fr <key:"FR">  // France
+  gf <key:"GF">  // French Guiana
+  pf <key:"PF">  // French Polynesia
+  tf <key:"TF">  // French Southern Territories
+  ga <key:"GA">  // Gabon
+  gm <key:"GM">  // Gambia
+  ge <key:"GE">  // Georgia
+  de <key:"DE">  // Germany
+  gh <key:"GH">  // Ghana
+  gi <key:"GI">  // Gibraltar
+  gr <key:"GR">  // Greece
+  gl <key:"GL">  // Greenland
+  gd <key:"GD">  // Grenada
+  gp <key:"GP">  // Guadeloupe
+  gu <key:"GU">  // Guam
+  gt <key:"GT">  // Guatemala
+  gg <key:"GG">  // Guernsey
+  gn <key:"GN">  // Guinea
+  gw <key:"GW">  // Guinea-bissau
+  gy <key:"GY">  // Guyana
+  ht <key:"HT">  // Haiti
+  hm <key:"HM">  // Heard Island and Mcdonald Islands
+  va <key:"VA">  // Vatican
+  hn <key:"HN">  // Honduras
+  hk <key:"HK">  // Hong Kong
+  hu <key:"HU">  // Hungary
+  is <key:"IS">  // Iceland
+  in <key:"IN">  // India
+  id <key:"ID">  // Indonesia
+  ir <key:"IR">  // Iran
+  iq <key:"IQ">  // Iraq
+  ie <key:"IE">  // Ireland
+  im <key:"IM">  // Isle of Man
+  il <key:"IL">  // Israel
+  it <key:"IT">  // Italy
+  jm <key:"JM">  // Jamaica
+  jp <key:"JP">  // Japan
+  je <key:"JE">  // Jersey
+  jo <key:"JO">  // Jordan
+  kz <key:"KZ">  // Kazakhstan
+  ke <key:"KE">  // Kenya
+  ki <key:"KI">  // Kiribati
+  kp <key:"KP">  // Korea, Democratic People's Republic of
+  kr <key:"KR">  // Korea
+  kw <key:"KW">  // Kuwait
+  kg <key:"KG">  // Kyrgyzstan
+  la <key:"LA">  // Lao
+  lv <key:"LV">  // Latvia
+  lb <key:"LB">  // Lebanon
+  ls <key:"LS">  // Lesotho
+  lr <key:"LR">  // Liberia
+  ly <key:"LY">  // Libyan Arab Jamahiriya
+  li <key:"LI">  // Liechtenstein
+  lt <key:"LT">  // Lithuania
+  lu <key:"LU">  // Luxembourg
+  mo <key:"MO">  // Macao
+  mk <key:"MK">  // Macedonia
+  mg <key:"MG">  // Madagascar
+  mw <key:"MW">  // Malawi
+  my <key:"MY">  // Malaysia
+  mv <key:"MV">  // Maldives
+  ml <key:"ML">  // Mali
+  mt <key:"MT">  // Malta
+  mh <key:"MH">  // Marshall Islands
+  mq <key:"MQ">  // Martinique
+  mr <key:"MR">  // Mauritania
+  mu <key:"MU">  // Mauritius
+  yt <key:"YT">  // Mayotte
+  mx <key:"MX">  // Mexico
+  fm <key:"FM">  // Micronesia
+  md <key:"MD">  // Moldova
+  mc <key:"MC">  // Monaco
+  mn <key:"MN">  // Mongolia
+  me <key:"ME">  // Montenegro
+  ms <key:"MS">  // Montserrat
+  ma <key:"MA">  // Morocco
+  mz <key:"MZ">  // Mozambique
+  mm <key:"MM">  // Myanmar
+  na <key:"NA">  // Namibia
+  nr <key:"NR">  // Nauru
+  np <key:"NP">  // Nepal
+  nl <key:"NL">  // Netherlands
+  an <key:"AN">  // Netherlands Antilles
+  nc <key:"NC">  // New Caledonia
+  nz <key:"NZ">  // New Zealand
+  ni <key:"NI">  // Nicaragua
+  ne <key:"NE">  // Niger
+  ng <key:"NG">  // Nigeria
+  nu <key:"NU">  // Niue
+  nf <key:"NF">  // Norfolk Island
+  mp <key:"MP">  // Northern Mariana Islands
+  no <key:"NO">  // Norway
+  om <key:"OM">  // Oman
+  pk <key:"PK">  // Pakistan
+  pw <key:"PW">  // Palau
+  ps <key:"PS">  // Palestine
+  pa <key:"PA">  // Panama
+  pg <key:"PG">  // Papua New Guinea
+  py <key:"PY">  // Paraguay
+  pe <key:"PE">  // Peru
+  ph <key:"PH">  // Philippines
+  pn <key:"PN">  // Pitcairn
+  pl <key:"PL">  // Poland
+  pt <key:"PT">  // Portugal
+  pr <key:"PR">  // Puerto Rico
+  qa <key:"QA">  // Qatar
+  re <key:"RE">  // Reunion
+  ro <key:"RO">  // Romania
+  ru <key:"RU">  // Russian Federation
+  rw <key:"RW">  // Rwanda
+  bl <key:"BL">  // Saint Barthelemy
+  sh <key:"SH">  // Saint Helena
+  kn <key:"KN">  // Saint Kitts and Nevis
+  lc <key:"LC">  // Saint Lucia
+  mf <key:"MF">  // Saint Martin
+  pm <key:"PM">  // Saint Pierre and Miquelon
+  vc <key:"VC">  // Saint Vincent and the Grenadines
+  ws <key:"WS">  // Samoa
+  sm <key:"SM">  // San Marino
+  st <key:"ST">  // Sao Tome and Principe
+  sa <key:"SA">  // Saudi Arabia
+  sn <key:"SN">  // Senegal
+  rs <key:"RS">  // Serbia
+  sc <key:"SC">  // Seychelles
+  sl <key:"SL">  // Sierra Leone
+  sg <key:"SG">  // Singapore
+  sk <key:"SK">  // Slovakia
+  si <key:"SI">  // Slovenia
+  sb <key:"SB">  // Solomon Islands
+  so <key:"SO">  // Somalia
+  za <key:"ZA">  // South Africa
+  gs <key:"GS">  // South Georgia and the South Sandwich Islands
+  es <key:"ES">  // Spain
+  lk <key:"LK">  // Sri Lanka
+  sd <key:"SD">  // Sudan
+  sr <key:"SR">  // Suriname
+  sj <key:"SJ">  // Svalbard and Jan Mayen
+  sz <key:"SZ">  // Swaziland
+  se <key:"SE">  // Sweden
+  ch <key:"CH">  // Switzerland
+  sy <key:"SY">  // Syrian Arab Republic
+  tw <key:"TW">  // Taiwan
+  tj <key:"TJ">  // Tajikistan
+  tz <key:"TZ">  // Tanzania
+  th <key:"TH">  // Thailand
+  tl <key:"TL">  // Timor-leste
+  tg <key:"TG">  // Togo
+  tk <key:"TK">  // Tokelau
+  to <key:"TO">  // Tonga
+  tt <key:"TT">  // Trinidad and Tobago
+  tn <key:"TN">  // Tunisia
+  tr <key:"TR">  // Turkey
+  tm <key:"TM">  // Turkmenistan
+  tc <key:"TC">  // Turks and Caicos Islands
+  tv <key:"TV">  // Tuvalu
+  ug <key:"UG">  // Uganda
+  ua <key:"UA">  // Ukraine
+  ae <key:"AE">  // United Arab Emirates
+  gb <key:"GB">  // Great Britain
+  us <key:"US">  // USA
+  um <key:"UM">  // United States Minor Outlying Islands
+  uy <key:"UY">  // Uruguay
+  uz <key:"UZ">  // Uzbekistan
+  vu <key:"VU">  // Vanuatu
+  ve <key:"VE">  // Venezuela
+  vn <key:"VN">  // Viet Nam
+  vg <key:"VG">  // Virgin Islands, British
+  vi <key:"VI">  // Virgin Islands, U.S.
+  wf <key:"WF">  // Wallis and Futuna
+  eh <key:"EH">  // Western Sahara
+  ye <key:"YE">  // Yemen
+  zm <key:"ZM">  // Zambia
+  zw <key:"ZW">  // Zimbabwe
+}
+
+// State or province name; for US this is two letter state code. May be
+// used in other countries to model administrative area between the geoCity
+// and geoCountry level.
+GeoState: Enum {
+  al <key:"AL">  // Alabama
+  ak <key:"AK">  // Alaska
+  as <key:"AS">  // American Samoa
+  az <key:"AZ">  // Arizona
+  ar <key:"AR">  // Arkansas
+  ca <key:"CA">  // California
+  co <key:"CO">  // Colorado
+  ct <key:"CT">  // Connecticut
+  de <key:"DE">  // Delaware
+  dc <key:"DC">  // District of Columbia
+  fm <key:"FM">  // Federated States of Micronesia
+  fl <key:"FL">  // Florida
+  ga <key:"GA">  // Georgia
+  gu <key:"GU">  // Guam
+  hi <key:"HI">  // Hawaii
+  id <key:"ID">  // Idaho
+  il <key:"IL">  // Illinois
+  in <key:"IN">  // Indiana
+  ia <key:"IA">  // Iowa
+  ks <key:"KS">  // Kansas
+  ky <key:"KY">  // Kentucky
+  la <key:"LA">  // Louisiana
+  me <key:"ME">  // Maine
+  mh <key:"MH">  // Marshall Islands
+  md <key:"MD">  // Maryland
+  ma <key:"MA">  // Massachusetts
+  mi <key:"MI">  // Michigan
+  mn <key:"MN">  // Minnesota
+  ms <key:"MS">  // Mississippi
+  mo <key:"MO">  // Missouri
+  mt <key:"MT">  // Montana
+  ne <key:"NE">  // Nebraska
+  nv <key:"NV">  // Nevada
+  nh <key:"NH">  // New Hampshire
+  nj <key:"NJ">  // New Jersey
+  nm <key:"NM">  // New Mexico
+  ny <key:"NY">  // New York
+  nc <key:"NC">  // North Carolina
+  nd <key:"ND">  // North Dakota
+  mp <key:"MP">  // Northern Mariana Islands
+  oh <key:"OH">  // Ohio
+  ok <key:"OK">  // Oklahoma
+  or <key:"OR">  // Oregon
+  pw <key:"PW">  // Palau
+  pa <key:"PA">  // Pennsylvania
+  pr <key:"PR">  // Puerto Rico
+  ri <key:"RI">  // Rhode Island
+  sc <key:"SC">  // South Carolina
+  sd <key:"SD">  // South Dakota
+  tn <key:"TN">  // Tennessee
+  tx <key:"TX">  // Texas
+  ut <key:"UT">  // Utah
+  va <key:"VA">  // Virginia
+  vi <key:"VI">  // Virgin Islands
+  vt <key:"VT">  // Vermont
+  wa <key:"WA">  // Washington
+  wv <key:"WV">  // West Virginia
+  wi <key:"WI">  // Wisconsin
+  wy <key:"WY">  // Wyoming
+}
+
+// Indicates the way that history data is collected for a point.
+HisMode: Enum {
+  // Data is sampled on a regular interval. The timestamp
+  // indicates exactly when the sample was taken, and we assume linear
+  // interpolation between samples.
+  sampled
+
+  // Data is logged when it changes. The means the timestamp
+  // indicates exactly when it changed (inclusive) and it remains that
+  // value until the next sample's timestamp (exclusive).
+  cov
+
+  // Integral data is sampled on a regular interval and
+  // logged at the *end* of the interval. The timestamp indicates the
+  // *end* of the interval. Therefore, the raw data is logged as
+  // start *exclusive*, end *inclusive*.  This is mode is typical for
+  // consumption meters.
+  consumption
+}
+
+// Status of point's history collection or synchronization
+HisStatus: Enum {
+  ok        // last sync attempt was successful
+  fault     // a configuration problem - see `hisErr`
+  down      // a communication or network problem - see `hisErr`
+  disabled  // manual disable of the point or parent connector
+  unknown   // we don't know anything (usually boot state)
+  pending   // sync has been scheduled and is waiting to running
+  syncing   // sync is currently running
+}
+
+// Operational mode for HVAC equipment
+HvacMode: Enum {
+  cooling
+  heating
+  reheat
+  warmup        // morning warmup where AHU is supplying warm air
+  purge         // night purge when AHU is supplying 100% fresh air
+  pressurize
+  depressurize
+  manual
+}
+
+// Kind name used to identity a value data type
+Kind: Enum {
+  marker <key:"Marker">      // is-a label
+  bool <key:"Bool">          // true or false
+  na <key:"NA">              // not available
+  number <key:"Number">      // floating point with optional unit
+  str <key:"Str">            // Unicode string
+  uri <key:"Uri">            // Universal resource identifier
+  ref <key:"Ref">            // reference to an entity
+  date <key:"Date">          // an ISO 8601 date as year, month, day: 2011-06-07
+  time <key:"Time">          // an ISO 8601 time as hour, minute, seconds: 09:51:27.354
+  dateTime <key:"DateTime">  // an ISO 8601 timestamp followed by timezone name
+  coord <key:"Coord">        // geographic coordinate in latitude/longitude formatted as C(lat,lng)
+  xstr <key:"XStr">          // extended string with type name
+  list <key:"List">          // ordered sequence
+  dict <key:"Dict">          // key/value map
+  grid <key:"Grid">          // two dimensional tabular data collection
+}
+
+// Phase measurement in a three-phase electrical system
+Phase: Enum {
+  a <key:"A">    // line-to-neutral measurement
+  b <key:"B">    // line-to-neutral measurement
+  c <key:"C">    // line-to-neutral measurement
+  ab <key:"AB">  // line-to-line measurement
+  bc <key:"BC">  // line-to-line measurement
+  ca <key:"CA">  // line-to-line measurement
+  n <key:"N">    // neutral current
+}
+
+// Primary function of building as US Energy Star key
+PrimaryFunction: Enum {
+  adultEducation <key:"Adult Education">
+  ambulatorySurgicalCenter <key:"Ambulatory Surgical Center">
+  aquarium <key:"Aquarium">
+  automobileDealership <key:"Automobile Dealership">
+  bankBranch <key:"Bank Branch">
+  barNightclub <key:"Bar/Nightclub">
+  barracks <key:"Barracks">
+  bowlingAlley <key:"Bowling Alley">
+  casino <key:"Casino">
+  collegeUniversity <key:"College/University">
+  convenienceStoreWithGasStation <key:"Convenience Store with Gas Station">
+  convenienceStoreWithoutGasStation <key:"Convenience Store without Gas Station">
+  conventionCenter <key:"Convention Center">
+  courthouse <key:"Courthouse">
+  dataCenter <key:"Data Center">
+  distributionCenter <key:"Distribution Center">
+  drinkingWaterTreatmentDistribution <key:"Drinking Water Treatment & Distribution">
+  enclosedMall <key:"Enclosed Mall">
+  energyPowerStation <key:"Energy/Power Station">
+  fastFoodRestaurant <key:"Fast Food Restaurant">
+  financialOffice <key:"Financial Office">
+  fireStation <key:"Fire Station">
+  fitnessCenterHealthClubGym <key:"Fitness Center/Health Club/Gym">
+  foodSales <key:"Food Sales">
+  foodService <key:"Food Service">
+  hospitalGeneralMedicalSurgical <key:"Hospital (General Medical & Surgical)">
+  hotel <key:"Hotel">
+  iceCurlingRink <key:"Ice/Curling Rink">
+  indoorArena <key:"Indoor Arena">
+  k12School <key:"K-12 School">
+  laboratory <key:"Laboratory">
+  library <key:"Library">
+  lifestyleCenter <key:"Lifestyle Center">
+  mailingCenterPostOffice <key:"Mailing Center/Post Office">
+  manufacturingIndustrialPlant <key:"Manufacturing/Industrial Plant">
+  medicalOffice <key:"Medical Office">
+  mixedUseProperty <key:"Mixed Use Property">
+  movieTheater <key:"Movie Theater">
+  multifamilyHousing <key:"Multifamily Housing">
+  museum <key:"Museum">
+  nonRefrigeratedWarehouse <key:"Non-Refrigerated Warehouse">
+  office <key:"Office">
+  otherEducation <key:"Other - Education">
+  otherEntertainmentPublicAssembly <key:"Other - Entertainment/Public Assembly">
+  otherLodgingResidential <key:"Other - Lodging/Residential">
+  otherMall <key:"Other - Mall">
+  otherPublicServices <key:"Other - Public Services">
+  otherRecreation <key:"Other - Recreation">
+  otherRestaurantBar <key:"Other - Restaurant/Bar">
+  otherServices <key:"Other - Services">
+  otherStadium <key:"Other - Stadium">
+  otherTechnologyScience <key:"Other - Technology/Science">
+  otherUtility <key:"Other - Utility">
+  other <key:"Other">
+  otherSpecialtyHospital <key:"Other/Specialty Hospital">
+  outpatientRehabilitationPhysicalTherapy <key:"Outpatient Rehabilitation/Physical Therapy">
+  parking <key:"Parking">
+  performingArts <key:"Performing Arts">
+  personalServicesHealthBeautyDryCleaningEtc <key:"Personal Services (Health/Beauty, Dry Cleaning, etc)">
+  policeStation <key:"Police Station">
+  preSchoolDaycare <key:"Pre-school/Daycare">
+  prisonIncarceration <key:"Prison/Incarceration">
+  raceTrack <key:"Race Track">
+  refrigeratedWarehouse <key:"Refrigerated Warehouse">
+  repairServicesVehicleShoeLocksmithEtc <key:"Repair Services (Vehicle, Shoe, Locksmith, etc)">
+  residenceHallDormitory <key:"Residence Hall/Dormitory">
+  restaurant <key:"Restaurant">
+  retailStore <key:"Retail Store">
+  rollerRink <key:"Roller Rink">
+  selfStorageFacility <key:"Self-Storage Facility">
+  seniorCareCommunity <key:"Senior Care Community">
+  singleFamilyHome <key:"Single Family Home">
+  socialMeetingHall <key:"Social/Meeting Hall">
+  stadiumClosed <key:"Stadium (Closed)">
+  stadiumOpen <key:"Stadium (Open)">
+  stripMall <key:"Strip Mall">
+  supermarketGroceryStore <key:"Supermarket/Grocery Store">
+  swimmingPool <key:"Swimming Pool">
+  transportationTerminalStation <key:"Transportation Terminal/Station">
+  urgentCareClinicOtherOutpatient <key:"Urgent Care/Clinic/Other Outpatient">
+  veterinaryOffice <key:"Veterinary Office">
+  vocationalSchool <key:"Vocational School">
+  wastewaterTreatmentPlant <key:"Wastewater Treatment Plant">
+  wholesaleClubSupercenter <key:"Wholesale Club/Supercenter">
+  worshipFacility <key:"Worship Facility">
+  zoo <key:"Zoo">
+}
+
+// Enumeration of weather conditions
+WeatherCond: Enum {
+  unknown
+  clear
+  partlyCloudy
+  cloudy
+  showers
+  rain
+  thunderstorms
+  ice
+  flurries
+  snow
+}
+
+// Current status of a writable point output
+WriteStatus: Enum {
+  unbound   // writable point is not bound to any output
+  ok        // last write was successful
+  down      // connectivity/networking problem - see `writeErr`
+  fault     // configuration or hardware error  - see `writeErr`
+  disabled  // manual disable of the point or connector
+  unknown   // we don't know anything (typically boot state)
+}
+
