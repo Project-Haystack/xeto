@@ -22,3 +22,6 @@ Choice: Scalar <of:Marker>
 // Two dimension table of columns and rows.
 Grid: Seq <of:Dict>
 
+// Feature namespace of definitions identified as 'lib::feature:name'
+Feature: Dict <abstract>
+

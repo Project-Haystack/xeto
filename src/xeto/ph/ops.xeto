@@ -1,0 +1,96 @@
+// Auto-generated 11-Dec-2023
+
+// Operation for HTTP API.  See `docHaystack::Ops` chapter.
+Op: Feature {
+  // Op marker
+  op
+
+  // Marks a function or operation as having no side effects.  The function
+  // may or may not be *pure* in that calling it multiple times with the
+  // same arguments always evaluates to the same result.
+  noSideEffects: Marker?
+}
+
+// Query basic information about the server.
+// See `docHaystack::Ops#about` chapter.
+@op:about : Op {
+  noSideEffects
+}
+
+// Close the current session and cancel the auth bearer token.
+// See `docHaystack::Ops#close` chapter.
+@op:close : Op {
+}
+
+// Query the definitions in the current namespace.
+// See `docHaystack::Ops#defs` chapter.
+@op:defs : Op {
+  noSideEffects
+}
+
+// Query the filetype defs in the current namespace.
+// See `docHaystack::Ops#filetypes` chapter.
+@op:filetypes : Op {
+  noSideEffects
+}
+
+// Read historized time series data from a `his-point`.
+// See `docHaystack::Ops#hisRead` chapter.
+@op:hisRead : Op {
+  noSideEffects
+}
+
+// Write historized time series data from a `his-point`.
+// See `docHaystack::Ops#hisWrite` chapter.
+@op:hisWrite : Op {
+}
+
+// Invoke a user action on a target entity.
+// See `docHaystack::Ops#invokeAction` chapter.
+@op:invokeAction : Op {
+}
+
+// Query the lib defs in the current namespace.
+// See `docHaystack::Ops#libs` chapter.
+@op:libs : Op {
+  noSideEffects
+}
+
+// Query the navigation tree for discovery.
+// See `docHaystack::Ops#nav` chapter.
+@op:nav : Op {
+  noSideEffects
+}
+
+// Query the op defs in the current namespace.
+// See `docHaystack::Ops#ops` chapter.
+@op:ops : Op {
+  noSideEffects
+}
+
+// Read or command a `writable-point`.
+// See `docHaystack::Ops#pointWrite` chapter.
+@op:pointWrite : Op {
+}
+
+// Query the a set of entity records by id or by filter.
+// See `docHaystack::Ops#read` chapter.
+@op:read : Op {
+  noSideEffects
+}
+
+// Poll a watch subscription.
+// See `docHaystack::Ops#watchPoll` chapter.
+@op:watchPoll : Op {
+}
+
+// Subscribe to entity data.
+// See `docHaystack::Ops#watchSub` chapter.
+@op:watchSub : Op {
+}
+
+// Unsubscribe to entity data.
+// See `docHaystack::Ops#watchUnsub` chapter.
+@op:watchUnsub : Op {
+}
+

@@ -1,0 +1,55 @@
+// Auto-generated 11-Dec-2023
+
+// File format type definition
+Filetype: Feature {
+  filetype       // Filetype marker
+  fileExt: Str?  // Filename extension such as "csv"
+  mime:    Str?  // Mime type formatted as "type/subtype"
+}
+
+// Comma Separated Values - see `docHaystack::Csv`
+@filetype:csv : Filetype {
+  dis: "CSV"
+  fileExt: "csv"
+  mime: "text/csv"
+  wikipedia: "https://wikipedia.org/wiki/Comma-separated_values"
+}
+
+// Haystack JavaScript Object Notation format - see `docHaystack::Json`
+@filetype:json : Filetype {
+  dis: "JSON"
+  fileExt: "json"
+  mime: "application/json"
+  wikipedia: "https://wikipedia.org/wiki/JSON"
+}
+
+// JavaScript Object Notation for Linked Data - see `docHaystack::Rdf`
+@filetype:jsonld : Filetype {
+  dis: "JSON-LD"
+  fileExt: "jsonld"
+  mime: "application/ld+json"
+  wikipedia: "https://wikipedia.org/wiki/JSON-LD"
+}
+
+// Haystack Tag Record Input Output - see `docHaystack::Trio`
+@filetype:trio : Filetype {
+  dis: "Trio"
+  fileExt: "trio"
+  mime: "text/trio"
+}
+
+// RDF Turtle - see `docHaystack::Rdf`
+@filetype:turtle : Filetype {
+  dis: "Turtle"
+  fileExt: "ttl"
+  mime: "text/turtle"
+  wikipedia: "https://wikipedia.org/wiki/Turtle_(syntax)"
+}
+
+// Haystack typed CSV format - see `docHaystack::Zinc`
+@filetype:zinc : Filetype {
+  dis: "Zinc"
+  fileExt: "zinc"
+  mime: "text/zinc"
+}
+
