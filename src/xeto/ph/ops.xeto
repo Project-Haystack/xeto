@@ -1,4 +1,8 @@
+//
+// Copyright (c) 2011-2023, Project-Haystack
+// Licensed under the Academic Free License version 3.0
 // Auto-generated 11-Dec-2023
+//
 
 // Operation for HTTP API.  See `docHaystack::Ops` chapter.
 Op: Feature {
