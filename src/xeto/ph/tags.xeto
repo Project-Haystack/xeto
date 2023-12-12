@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2023, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 11-Dec-2023
+// Auto-generated 12-Dec-2023
 //
 
 // Cooling process using energy from heat source such as hot water
@@ -78,10 +78,6 @@ area: Number
 
 // A collection of manufactured parts or subassemblies.
 assembly: Marker
-
-// Associations model ontological relationships between definitions.
-// See [Associations]`docHaystack::Associations` chapter.
-association: List <of:Symbol>
 
 // Aquifer Thermal Energy Storage system.
 // See `docHaystack::ATES` chapter.
@@ -295,12 +291,6 @@ conduit: Marker
 // Delivers a constant volume of air flow.  Typically this means
 // equipment with a single speed fan.
 constantAirVolume: Marker
-
-// The entity is logically contained by the referent.
-containedBy: Symbol
-
-// Entities logically contained by this entity
-contains: Symbol
 
 // Microprocessor based device used in a control system.  Controllers
 // interact with the physical world through direct I/O to sensors and
@@ -825,10 +815,6 @@ inlet: Marker
 // Entity inputs a substance which flows from another entity
 input: Marker
 
-// The entity inputs a substance from the referent.
-// The value of this tag is what is received.
-inputs: Symbol
-
 // Unitless integer number
 int: Number
 
@@ -1056,10 +1042,6 @@ outdoorUnit: Marker
 // Entity outputs a substance with flows to other entities
 output: Marker
 
-// The entity outputs a substance to the referent.
-// The value of this tag is what is supplied.
-outputs: Symbol
-
 // Duct to access fresh outside air for both ventilation and economizer.
 outside: Marker
 
@@ -1194,14 +1176,8 @@ purge: Marker
 // Quantity measured against standard metric
 quality: Marker
 
-// Quantities used to measure this phenomenon
-quantities: List <of:Symbol>
-
 // Measurable property of a substance or phenomenon
 quantity: Marker
-
-// Associates quantity as measurement of a phenomenon
-quantityOf: List
 
 // Enclosure or chassis used to mount computer and networking gear.
 // Devices are mounted to rails of a standard width, typically 19 or 23
@@ -1246,10 +1222,6 @@ refrigRef: Ref
 
 // Command point for reheating process
 reheat: Marker
-
-// Ref tags used to model entity-to-entity relationships.
-// See [Relationships]`docHaystack::Relationships` chapter.
-relationship: Symbol
 
 // Duct returning air back to equipment
 return: Marker
@@ -1393,9 +1365,6 @@ systemRef: Ref
 
 // Mobile device with touch screen for user input.
 tablet: Marker
-
-// Tags used with this entity
-tags: List <of:Symbol>
 
 // Tank used to store a substance for temporary holding
 tank: Marker
