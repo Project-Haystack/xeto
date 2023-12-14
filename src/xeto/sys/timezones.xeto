@@ -4,7 +4,7 @@
 // Auto-generated 14-Dec-2023
 //
 
-// Timezone identifier from standard [timezone database]`docHaystack::TimeZones`
+// TimeZone names for standardized database
 TimeZone: Enum {
   abidjan <key:"Abidjan">
   accra <key:"Accra">
