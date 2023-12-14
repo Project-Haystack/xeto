@@ -557,7 +557,7 @@ Point: Entity <abstract> {
   siteRef:   Ref
   spaceRef:  Ref?
   systemRef: Ref?
-  tz:        Str?
+  tz:        TimeZone?
   unit:      Str?
   writable:  Marker?
   equips:    Query<of:Equip, via:"equipRef+">  // Parent equips that contain this point
@@ -634,7 +634,7 @@ Site: Entity {
   site
   area:              Number?
   primaryFunction:   PrimaryFunction?
-  tz:                Str?
+  tz:                TimeZone?
   weatherStationRef: Ref?
   yearBuilt:         Number?
 }
@@ -796,7 +796,7 @@ WeatherPoint: Point <abstract> {
 // See `docHaystack::Weather#stations` chapter.
 WeatherStation: Entity {
   weatherStation
-  tz: Str?
+  tz: TimeZone?
 }
 
 // A well is a source of groundwater and potentially thermal energy.  When

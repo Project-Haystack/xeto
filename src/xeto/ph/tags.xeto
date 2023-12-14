@@ -1407,7 +1407,7 @@ tripleDuct: Marker
 tvoc: Marker
 
 // Timezone identifier from standard [timezone database]`docHaystack::TimeZones`
-tz: Str
+tz: TimeZone
 
 // Unit identifier from standard unit database
 unit: Str
