@@ -4,7 +4,519 @@
 // Auto-generated 14-Dec-2023
 //
 
-// Unit symbol from standard unit database
+// Unit symbols for standardized database
 Unit: Enum {
-   // TODO
+  percent <key:"%">
+  pixel <key:"px">
+  decibel <key:"db">
+  power_factor <key:"pf">
+  ph <key:"pH">
+  percent_relative_humidity <key:"%RH">
+  grams_of_water_per_kilogram_dry_air <key:"gH₂O/kgAir">
+  volts_per_degree_kelvin <key:"V/K">
+  degree_days_celsius <key:"°daysC">
+  degree_days_fahrenheit <key:"°daysF">
+  percent_obscuration_per_foot <key:"%obsc/ft">
+  percent_obscuration_per_meter <key:"%obsc/m">
+  psi_per_degree_fahrenheit <key:"psi/°F">
+  square_meters_per_newton <key:"m²/N">
+  watts_per_square_meter_degree_kelvin <key:"W/m²K">
+  db_millivolt <key:"dBmV">
+  db_microvolt <key:"dBµV">
+  parts_per_unit <key:"ppu">
+  parts_per_million <key:"ppm">
+  parts_per_billion <key:"ppb">
+  grams_per_kilogram <key:"g/kg">
+  radian <key:"rad">
+  degrees_angular <key:"deg">
+  degrees_phase <key:"degPh">
+  steradian <key:"sr">
+  nephelometric_turbidity_units <key:"ntu">
+  formazin_nephelometric_unit <key:"fnu">
+  power_usage_effectiveness <key:"PUE">
+  data_center_infrastructure_efficiency <key:"DCIE">
+
+  afghani <key:"Af", quantity:"currency">
+  algerian_dinar <key:"DZD", quantity:"currency">
+  argentine_peso <key:"ARS", quantity:"currency">
+  armenian_dram <key:"Դ", quantity:"currency">
+  aruban_guilder_florin <key:"ƒ", quantity:"currency">
+  australian_dollar <key:"AUD", quantity:"currency">
+  azerbaijanian_manat <key:"ман", quantity:"currency">
+  bahamian_dollar <key:"BSD", quantity:"currency">
+  bahraini_dinar <key:"BHD", quantity:"currency">
+  baht <key:"฿", quantity:"currency">
+  balboa <key:"PAB", quantity:"currency">
+  barbados_dollar <key:"BBD", quantity:"currency">
+  belarussian_ruble <key:"Br", quantity:"currency">
+  belize_dollar <key:"BZD", quantity:"currency">
+  bermudian_dollar <key:"BMD", quantity:"currency">
+  bolivar_fuerte <key:"VEF", quantity:"currency">
+  boliviano <key:"BOB", quantity:"currency">
+  brazilian_real <key:"R\$", quantity:"currency">
+  brunei_dollar <key:"BND", quantity:"currency">
+  bulgarian_lev <key:"лв", quantity:"currency">
+  burundi_franc <key:"BIF", quantity:"currency">
+  canadian_dollar <key:"CAD", quantity:"currency">
+  cape_verde_escudo <key:"CVE", quantity:"currency">
+  cayman_islands_dollar <key:"KYD", quantity:"currency">
+  cedi <key:"₵", quantity:"currency">
+  cfa_franc_bceao <key:"XAF", quantity:"currency">
+  cfp_franc <key:"XPF", quantity:"currency">
+  chilean_peso <key:"CLP", quantity:"currency">
+  chinese_yuan <key:"元", quantity:"currency">
+  congolese_franc <key:"CDF", quantity:"currency">
+  cordoba_oro <key:"C\$", quantity:"currency">
+  costa_rican_colon <key:"₡", quantity:"currency">
+  croatian_kuna <key:"Kn", quantity:"currency">
+  cuban_peso <key:"CUP", quantity:"currency">
+  czech_koruna <key:"Kč", quantity:"currency">
+  dalasi <key:"GMD", quantity:"currency">
+  danish_krone <key:"kr", quantity:"currency">
+  denar <key:"ден", quantity:"currency">
+  djibouti_franc <key:"DJF", quantity:"currency">
+  dobra <key:"Db", quantity:"currency">
+  dominican_peso <key:"DOP", quantity:"currency">
+  dong <key:"₫", quantity:"currency">
+  east_caribbean_dollar <key:"XCD", quantity:"currency">
+  egyptian_pound <key:"EGP", quantity:"currency">
+  ethiopian_birr <key:"ETB", quantity:"currency">
+  euro <key:"€", quantity:"currency">
+  falkland_islands_pound <key:"FKP", quantity:"currency">
+  fiji_dollar <key:"FJD", quantity:"currency">
+  forint <key:"HUF", quantity:"currency">
+  gibraltar_pound <key:"GIP", quantity:"currency">
+  gourde <key:"HTG", quantity:"currency">
+  guarani <key:"₲", quantity:"currency">
+  guinea_franc <key:"GNF", quantity:"currency">
+  guyana_dollar <key:"GYD", quantity:"currency">
+  hong_kong_dollar <key:"HKD", quantity:"currency">
+  hryvnia <key:"₴", quantity:"currency">
+  iceland_krona <key:"Kr", quantity:"currency">
+  indian_rupee <key:"₹", quantity:"currency">
+  iranian_rial <key:"IRR", quantity:"currency">
+  iraqi_dinar <key:"IQD", quantity:"currency">
+  jamaican_dollar <key:"JMD", quantity:"currency">
+  jordanian_dinar <key:"JOD", quantity:"currency">
+  kenyan_shilling <key:"Sh", quantity:"currency">
+  kina <key:"PGK", quantity:"currency">
+  kip <key:"₭", quantity:"currency">
+  konvertibilna_marka <key:"КМ", quantity:"currency">
+  kuwaiti_dinar <key:"KWD", quantity:"currency">
+  kwacha <key:"MK", quantity:"currency">
+  kwanza <key:"Kz", quantity:"currency">
+  kyat <key:"MMK", quantity:"currency">
+  lari <key:"ლ", quantity:"currency">
+  lebanese_pound <key:"LBP", quantity:"currency">
+  lek <key:"ALL", quantity:"currency">
+  lempira <key:"HNL", quantity:"currency">
+  leone <key:"Le", quantity:"currency">
+  leu <key:"RON", quantity:"currency">
+  liberian_dollar <key:"LRD", quantity:"currency">
+  libyan_dinar <key:"LYD", quantity:"currency">
+  lilangeni <key:"SZL", quantity:"currency">
+  loti <key:"LSL", quantity:"currency">
+  malagasy_ariary <key:"MGA", quantity:"currency">
+  malaysian_ringgit <key:"RM", quantity:"currency">
+  manat <key:"TMT", quantity:"currency">
+  mauritius_rupee <key:"MUR", quantity:"currency">
+  metical <key:"MTn", quantity:"currency">
+  mexican_peso <key:"MXN", quantity:"currency">
+  moldavian_leu <key:"MDL", quantity:"currency">
+  moroccan_dirham <key:"MAD", quantity:"currency">
+  naira <key:"₦", quantity:"currency">
+  nakfa <key:"Nfk", quantity:"currency">
+  namibia_dollar <key:"NAD", quantity:"currency">
+  nepalese_rupee <key:"NPR", quantity:"currency">
+  new_israeli_shekel <key:"₪", quantity:"currency">
+  new_zealand_dollar <key:"NZD", quantity:"currency">
+  ngultrum <key:"BTN", quantity:"currency">
+  north_korean_won <key:"KPW", quantity:"currency">
+  norwegian_krone <key:"NOK", quantity:"currency">
+  nuevo_sol <key:"PEN", quantity:"currency">
+  ouguiya <key:"UM", quantity:"currency">
+  pakistan_rupee <key:"₨", quantity:"currency">
+  pataca <key:"MOP", quantity:"currency">
+  peso_uruguayo <key:"UYU", quantity:"currency">
+  philippine_peso <key:"₱", quantity:"currency">
+  pound_sterling <key:"£", quantity:"currency">
+  pula <key:"BWP", quantity:"currency">
+  pzloty <key:"zł", quantity:"currency">
+  qatari_rial <key:"QAR", quantity:"currency">
+  quetzal <key:"GTQ", quantity:"currency">
+  rand <key:"ZAR", quantity:"currency">
+  rial_omani <key:"OMR", quantity:"currency">
+  riel <key:"KHR", quantity:"currency">
+  rufiyaa <key:"MVR", quantity:"currency">
+  rupiah <key:"Rp", quantity:"currency">
+  russian_ruble <key:"RUB", quantity:"currency">
+  rwanda_franc <key:"RWF", quantity:"currency">
+  saint_helena_pound <key:"SHP", quantity:"currency">
+  saudi_riyal <key:"SAR", quantity:"currency">
+  serbian_dinar <key:"din", quantity:"currency">
+  seychelles_rupee <key:"SCR", quantity:"currency">
+  singapore_dollar <key:"SGD", quantity:"currency">
+  solomon_islands_dollar <key:"SBD", quantity:"currency">
+  som <key:"KGS", quantity:"currency">
+  somali_shilling <key:"SOS", quantity:"currency">
+  somoni <key:"ЅМ", quantity:"currency">
+  south_korean_won <key:"₩", quantity:"currency">
+  sri_lanka_rupee <key:"Rs", quantity:"currency">
+  sudanese_pound <key:"SDG", quantity:"currency">
+  suriname_dollar <key:"SRD", quantity:"currency">
+  swedish_krona <key:"SEK", quantity:"currency">
+  swiss_franc <key:"SFr", quantity:"currency">
+  syrian_pound <key:"SYP", quantity:"currency">
+  taiwan_dollar <key:"TWD", quantity:"currency">
+  taka <key:"৳", quantity:"currency">
+  tala <key:"WST", quantity:"currency">
+  tanzanian_shilling <key:"TZS", quantity:"currency">
+  tenge <key:"〒", quantity:"currency">
+  trinidad_and_tobago_dollar <key:"TTD", quantity:"currency">
+  tugrik <key:"₮", quantity:"currency">
+  tunisian_dinar <key:"TND", quantity:"currency">
+  turkish_lira <key:"₤", quantity:"currency">
+  uae_dirham <key:"AED", quantity:"currency">
+  uganda_shilling <key:"UGX", quantity:"currency">
+  us_dollar <key:"\$", quantity:"currency">
+  uzbekistan_sum <key:"UZS", quantity:"currency">
+  vatu <key:"Vt", quantity:"currency">
+  yemeni_rial <key:"YER", quantity:"currency">
+  yen <key:"¥", quantity:"currency">
+  zambian_kwacha <key:"ZK", quantity:"currency">
+  zimbabwe_dollar <key:"ZWL", quantity:"currency">
+
+  meters_per_second_squared <key:"m/s²", quantity:"acceleration">
+
+  radians_per_second_squared <key:"rad/s²", quantity:"angularAcceleration">
+
+  joule_second <key:"Js", quantity:"angularMomentum">
+
+  radians_per_second <key:"rad/s", quantity:"angularVelocity">
+  revolutions_per_minute <key:"rpm", quantity:"angularVelocity">
+
+  square_meter <key:"m²", quantity:"area">
+  square_millimeter <key:"mm²", quantity:"area">
+  square_centimeter <key:"cm²", quantity:"area">
+  square_kilometer <key:"km²", quantity:"area">
+  square_inch <key:"in²", quantity:"area">
+  square_foot <key:"ft²", quantity:"area">
+  square_yard <key:"yd²", quantity:"area">
+  square_mile <key:"mile²", quantity:"area">
+  acre <key:"acre", quantity:"area">
+
+  farad <key:"F", quantity:"capacitance">
+
+  coefficient_of_performance <key:"COP", quantity:"coolingEfficiency">
+  energy_efficiency_ratio <key:"EER", quantity:"coolingEfficiency">
+  kilowatt_per_ton <key:"kW/ton", quantity:"coolingEfficiency">
+
+  kilograms_per_cubic_meter <key:"kg/m³", quantity:"density">
+  grams_per_cubic_meter <key:"g/m³", quantity:"density">
+  milligrams_per_cubic_meter <key:"mg/m³", quantity:"density">
+  micrograms_per_cubic_meter <key:"µg/m³", quantity:"density">
+  kilograms_per_liter <key:"kg/L", quantity:"density">
+  milligrams_per_liter <key:"mg/L", quantity:"density">
+
+  coulomb <key:"C", quantity:"electricCharge">
+  ampere_hour <key:"Ah", quantity:"electricCharge">
+
+  siemens <key:"S", quantity:"electricConductance">
+
+  ampere <key:"A", quantity:"electricCurrent">
+  milliampere <key:"mA", quantity:"electricCurrent">
+
+  ampere_square_meter <key:"Am²", quantity:"electromagneticMoment">
+
+  amperes_per_square_meter <key:"A/m²", quantity:"electricCurrentDensity">
+
+  volts_per_meter <key:"V/m", quantity:"electricFieldStrength">
+
+  volt <key:"V", quantity:"electricPotential">
+  millivolt <key:"mV", quantity:"electricPotential">
+  kilovolt <key:"kV", quantity:"electricPotential">
+  megavolt <key:"MV", quantity:"electricPotential">
+
+  ohm <key:"Ω", quantity:"electricResistance">
+  kilohm <key:"kΩ", quantity:"electricResistance">
+  megohm <key:"MΩ", quantity:"electricResistance">
+  milliohm <key:"mΩ", quantity:"electricResistance">
+
+  siemens_per_meter <key:"S/m", quantity:"electricalConductivity">
+
+  ohm_meter <key:"Ωm", quantity:"electricalResistivity">
+
+  joule <key:"J", quantity:"energy">
+  kilojoule <key:"kJ", quantity:"energy">
+  watt_hour <key:"Wh", quantity:"energy">
+  kilowatt_hour <key:"kWh", quantity:"energy">
+  megawatt_hour <key:"MWh", quantity:"energy">
+  gigawatt_hour <key:"GWh", quantity:"energy">
+  btu <key:"BTU", quantity:"energy">
+  kilobtu <key:"kBTU", quantity:"energy">
+  megabtu <key:"MMBTU", quantity:"energy">
+  horsepower_hour <key:"hph", quantity:"energy">
+  calorie <key:"cal", quantity:"energy">
+  therm <key:"therm", quantity:"energy">
+  tons_refrigeration_hour <key:"tonrefh", quantity:"energy">
+  megajoule <key:"MJ", quantity:"energy">
+  gigajoule <key:"GJ", quantity:"energy">
+  newton_meter <key:"Nm", quantity:"energy">
+  cubic_meters_natural_gas <key:"m³_gas", quantity:"energy">
+  cubic_feet_natural_gas <key:"ft³_gas", quantity:"energy">
+  hundred_cubic_feet_natural_gas <key:"Hcf_natural_gas", quantity:"energy">
+  centum_cubic_feet_natural_gas <key:"Ccf_natural_gas", quantity:"energy">
+  thousand_cubic_feet_natural_gas <key:"Mcf_natural_gas", quantity:"energy">
+  million_cubic_feet_natural_gas <key:"MMcf_natural_gas", quantity:"energy">
+
+  volt_ampere_hour <key:"VAh", quantity:"apparentEnergy">
+  kilovolt_ampere_hour <key:"kVAh", quantity:"apparentEnergy">
+  megavolt_ampere_hour <key:"MVAh", quantity:"apparentEnergy">
+
+  volt_ampere_reactive_hour <key:"VARh", quantity:"reactiveEnergy">
+  kilovolt_ampere_reactive_hour <key:"kVARh", quantity:"reactiveEnergy">
+  megavolt_ampere_reactive_hour <key:"MVARh", quantity:"reactiveEnergy">
+
+  joules_per_square_meter <key:"J/m²", quantity:"energyByArea">
+  watt_hours_per_square_meter <key:"Wh/m²", quantity:"energyByArea">
+  watt_hours_per_square_foot <key:"Wh/ft²", quantity:"energyByArea">
+  kilowatt_hours_per_square_meter <key:"kWh/m²", quantity:"energyByArea">
+  kilowatt_hours_per_square_foot <key:"kWh/ft²", quantity:"energyByArea">
+  megawatt_hours_per_square_meter <key:"MWh/m²", quantity:"energyByArea">
+  megawatt_hours_per_square_foot <key:"MWh/ft²", quantity:"energyByArea">
+  megajoules_per_square_meter <key:"MJ/m²", quantity:"energyByArea">
+  megajoules_per_square_foot <key:"MJ/ft²", quantity:"energyByArea">
+  btu_per_square_foot <key:"BTU/ft²", quantity:"energyByArea">
+  kilobtu_per_square_foot <key:"kBTU/ft²", quantity:"energyByArea">
+  megabtu_per_square_foot <key:"MBTU/ft²", quantity:"energyByArea">
+
+  joules_per_gram <key:"J/g", quantity:"enthalpy">
+  joules_per_kilogram <key:"J/kg", quantity:"enthalpy">
+  joules_per_kilogram_dry_air <key:"J/kg_dry", quantity:"enthalpy">
+  btu_per_pound <key:"BTU/lb", quantity:"enthalpy">
+  btus_per_pound_dry_air <key:"btu/lb_dry", quantity:"enthalpy">
+  kilojoules_per_kilogram <key:"kJ/kg", quantity:"enthalpy">
+  kilojoules_per_kilogram_dry_air <key:"kJ/kg_dry", quantity:"enthalpy">
+  megajoules_per_kilogram_dry_air <key:"MJ/kg_dry", quantity:"enthalpy">
+  calorie_per_gram <key:"cal/g", quantity:"enthalpy">
+
+  joules_per_degree_kelvin <key:"J/°K", quantity:"entropy">
+  kilojoules_per_degree_kelvin <key:"kJ/°K", quantity:"entropy">
+  megajoules_per_degree_kelvin <key:"MJ/°K", quantity:"entropy">
+
+  newton <key:"N", quantity:"force">
+  pound_force <key:"lbf", quantity:"force">
+
+  hertz <key:"Hz", quantity:"frequency">
+  kilohertz <key:"kHz", quantity:"frequency">
+  cycles_per_hour <key:"cph", quantity:"frequency">
+  cycles_per_minute <key:"cpm", quantity:"frequency">
+  megahertz <key:"MHz", quantity:"frequency">
+  per_minute <key:"/min", quantity:"frequency">
+  per_second <key:"/s", quantity:"frequency">
+  per_hour <key:"/h", quantity:"frequency">
+  percent_per_second <key:"%/s", quantity:"frequency">
+  air_changes_per_hour <key:"ACH", quantity:"frequency">
+
+  kilograms_per_square_meter <key:"kg/m²", quantity:"grammage">
+  grams_per_square_meter <key:"g/m²", quantity:"grammage">
+
+  degrees_kelvin_per_second <key:"K/s", quantity:"heatingRate">
+  degrees_celsius_per_hour <key:"°C/h", quantity:"heatingRate">
+  degrees_celsius_per_minute <key:"°C/min", quantity:"heatingRate">
+  degrees_fahrenheit_per_hour <key:"°F/h", quantity:"heatingRate">
+  degrees_fahrenheit_per_minute <key:"°F/min", quantity:"heatingRate">
+  degrees_kelvin_per_hour <key:"K/h", quantity:"heatingRate">
+  degrees_kelvin_per_minute <key:"K/min", quantity:"heatingRate">
+
+  lux <key:"lx", quantity:"illuminance">
+  footcandle <key:"fc", quantity:"illuminance">
+  phot <key:"phot", quantity:"illuminance">
+
+  henry <key:"H", quantity:"inductance">
+
+  watts_per_square_meter_irradiance <key:"W/m²_irr", quantity:"irradiance">
+  watts_per_square_foot_irradiance <key:"W/ft²_irr", quantity:"irradiance">
+
+  meter <key:"m", quantity:"length">
+  micrometer <key:"µm", quantity:"length">
+  millimeter <key:"mm", quantity:"length">
+  centimeter <key:"cm", quantity:"length">
+  kilometer <key:"km", quantity:"length">
+  inch <key:"in", quantity:"length">
+  foot <key:"ft", quantity:"length">
+  yard <key:"yd", quantity:"length">
+  mile <key:"mile", quantity:"length">
+
+  candelas_per_square_meter <key:"cd/m²", quantity:"luminance">
+  candels_per_square_foot <key:"cd/ft²", quantity:"luminance">
+
+  lumen <key:"lm", quantity:"luminousFlux">
+
+  candela <key:"cd", quantity:"luminousIntensity">
+
+  amperes_per_meter <key:"A/m", quantity:"magneticFieldStrength">
+
+  weber <key:"Wb", quantity:"magneticFlux">
+
+  tesla <key:"T", quantity:"magneticFluxDensity">
+
+  kilogram <key:"kg", quantity:"mass">
+  milligram <key:"mg", quantity:"mass">
+  gram <key:"g", quantity:"mass">
+  ounce <key:"oz", quantity:"mass">
+  pound <key:"lb", quantity:"mass">
+  kilopound <key:"klb", quantity:"mass">
+  metric_ton <key:"ton", quantity:"mass">
+  short_ton <key:"t", quantity:"mass">
+
+  kilograms_per_second <key:"kg/s", quantity:"massFlow">
+  kilograms_per_minute <key:"kg/min", quantity:"massFlow">
+  kilograms_per_hour <key:"kg/h", quantity:"massFlow">
+  pounds_per_minute <key:"lb/min", quantity:"massFlow">
+  pounds_per_hour <key:"lb/h", quantity:"massFlow">
+  pounds_per_second <key:"lb/s", quantity:"massFlow">
+  kilopounds_per_hour <key:"klb/h", quantity:"massFlow">
+  grams_per_second <key:"g/s", quantity:"massFlow">
+  grams_per_minute <key:"g/min", quantity:"massFlow">
+  metric_tons_per_hour <key:"ton/h", quantity:"massFlow">
+
+  newton_second <key:"Ns", quantity:"momentum">
+
+  watt <key:"W", quantity:"power">
+  milliwatt <key:"mW", quantity:"power">
+  kilowatt <key:"kW", quantity:"power">
+  megawatt <key:"MW", quantity:"power">
+  gigawatt <key:"GW", quantity:"power">
+  btus_per_hour <key:"BTU/h", quantity:"power">
+  therms_per_hour <key:"therm/h", quantity:"power">
+  horsepower <key:"hp", quantity:"power">
+  foot_pounds_per_second <key:"ftlbs/sec", quantity:"power">
+  tons_refrigeration <key:"tonref", quantity:"power">
+  kilobtus_per_hour <key:"kBTU/h", quantity:"power">
+  megabtus_per_hour <key:"MMBTU/h", quantity:"power">
+  joules_per_hour <key:"J/h", quantity:"power">
+  kilojoules_per_hour <key:"kJ/h", quantity:"power">
+  megajoules_per_hour <key:"MJ/h", quantity:"power">
+  gigajoules_per_hour <key:"GJ/h", quantity:"power">
+
+  watts_per_square_meter <key:"W/m²", quantity:"powerByArea">
+  watts_per_square_foot <key:"W/ft²", quantity:"powerByArea">
+  kilowatts_per_square_meter <key:"kW/m²", quantity:"powerByArea">
+  kilowatts_per_square_foot <key:"kW/ft²", quantity:"powerByArea">
+  kilobtus_per_hour_per_square_foot <key:"kBTU/h/ft²", quantity:"powerByArea">
+
+  watts_per_cubic_meters_per_second <key:"W/m³/s", quantity:"powerByVolumetricFlow">
+  watts_per_cubic_feet_per_minute <key:"W/cfm", quantity:"powerByVolumetricFlow">
+  kilowatts_per_kilocubic_feet_per_minute <key:"kW/kcfm", quantity:"powerByVolumetricFlow">
+  kilowatts_per_gallons_per_minute <key:"kW/gal/min", quantity:"powerByVolumetricFlow">
+
+  volt_ampere <key:"VA", quantity:"apparentPower">
+  kilovolt_ampere <key:"kVA", quantity:"apparentPower">
+  megavolt_ampere <key:"mVA", quantity:"apparentPower">
+
+  volt_ampere_reactive <key:"VAR", quantity:"reactivePower">
+  kilovolt_ampere_reactive <key:"kVAR", quantity:"reactivePower">
+  megavolt_ampere_reactive <key:"MVAR", quantity:"reactivePower">
+
+  pascal <key:"Pa", quantity:"pressure">
+  kilopascal <key:"kPa", quantity:"pressure">
+  bar <key:"bar", quantity:"pressure">
+  atmosphere <key:"atm", quantity:"pressure">
+  pounds_per_square_inch <key:"psi", quantity:"pressure">
+  centimeters_of_water <key:"cmH₂O", quantity:"pressure">
+  inches_of_water <key:"inH₂O", quantity:"pressure">
+  millimeters_of_mercury <key:"mmHg", quantity:"pressure">
+  centimeters_of_mercury <key:"cmHg", quantity:"pressure">
+  inches_of_mercury <key:"inHg", quantity:"pressure">
+  hectopascal <key:"hPa", quantity:"pressure">
+  millibar <key:"mbar", quantity:"pressure">
+
+  joules_per_kilogram_degree_kelvin <key:"J/kg°K", quantity:"specificEntropy">
+
+  newtons_per_meter <key:"N/m", quantity:"surfaceTension">
+
+  fahrenheit <key:"°F", quantity:"temperature">
+  celsius <key:"°C", quantity:"temperature">
+  kelvin <key:"K", quantity:"temperature">
+
+  fahrenheit_degrees <key:"Δ°F", quantity:"temperatureDifferential">
+  celsius_degrees <key:"Δ°C", quantity:"temperatureDifferential">
+  kelvin_degrees <key:"ΔK", quantity:"temperatureDifferential">
+
+  watts_per_meter_degree_kelvin <key:"W/m°K", quantity:"thermalConductivity">
+
+  nanosecond <key:"ns", quantity:"time">
+  microsecond <key:"µs", quantity:"time">
+  millisecond <key:"ms", quantity:"time">
+  hundredths_second <key:"cs", quantity:"time">
+  tenths_second <key:"ds", quantity:"time">
+  second <key:"s", quantity:"time">
+  minute <key:"min", quantity:"time">
+  hour <key:"h", quantity:"time">
+  day <key:"day", quantity:"time">
+  week <key:"wk", quantity:"time">
+  julian_month <key:"mo", quantity:"time">
+  year <key:"yr", quantity:"time">
+
+  meters_per_second <key:"m/s", quantity:"velocity">
+  kilometers_per_second <key:"km/s", quantity:"velocity">
+  kilometers_per_hour <key:"km/h", quantity:"velocity">
+  miles_per_hour <key:"mph", quantity:"velocity">
+  feet_per_second <key:"ft/s", quantity:"velocity">
+  feet_per_minute <key:"ft/min", quantity:"velocity">
+  inches_per_hour <key:"in/h", quantity:"velocity">
+  millimeters_per_second <key:"mm/s", quantity:"velocity">
+  millimeters_per_minute <key:"mm/min", quantity:"velocity">
+  millimeters_per_hour <key:"mm/h", quantity:"velocity">
+  meters_per_minute <key:"m/min", quantity:"velocity">
+  meters_per_hour <key:"m/h", quantity:"velocity">
+  knot <key:"knot", quantity:"velocity">
+  cubic_feet_per_minute_per_square_foot <key:"cfm/ft²", quantity:"velocity">
+
+  cubic_meter <key:"m³", quantity:"volume">
+  cubic_millimeter <key:"mm³", quantity:"volume">
+  cubic_centimeter <key:"cm³", quantity:"volume">
+  milliliter <key:"mL", quantity:"volume">
+  hectoliter <key:"hL", quantity:"volume">
+  liter <key:"L", quantity:"volume">
+  kiloliter <key:"kL", quantity:"volume">
+  cubic_inch <key:"in³", quantity:"volume">
+  cubic_foot <key:"ft³", quantity:"volume">
+  cubic_yard <key:"yd³", quantity:"volume">
+  gallon <key:"gal", quantity:"volume">
+  kilogallon <key:"kgal", quantity:"volume">
+  quart <key:"qt", quantity:"volume">
+  pint <key:"pt", quantity:"volume">
+  fluid_ounce <key:"fl_oz", quantity:"volume">
+  imperial_gallon <key:"galUK", quantity:"volume">
+  hecto_cubic_foot <key:"hft³", quantity:"volume">
+  hundred_cubic_feet <key:"Hcf", quantity:"volume">
+  centum_cubic_feet <key:"Ccf", quantity:"volume">
+  thousand_cubic_feet <key:"Mcf", quantity:"volume">
+  million_cubic_feet <key:"MMcf", quantity:"volume">
+
+  cubic_meters_per_second <key:"m³/s", quantity:"volumetricFlow">
+  milliliters_per_second <key:"mL/s", quantity:"volumetricFlow">
+  hectoliters_per_second <key:"hL/s", quantity:"volumetricFlow">
+  liters_per_second <key:"L/s", quantity:"volumetricFlow">
+  cubic_feet_per_second <key:"cfs", quantity:"volumetricFlow">
+  cubic_feet_per_minute <key:"cfm", quantity:"volumetricFlow">
+  cubic_feet_per_hour <key:"cfh", quantity:"volumetricFlow">
+  kilocubic_feet_per_minute <key:"kcfm", quantity:"volumetricFlow">
+  imperial_gallons_per_minute <key:"galUK/min", quantity:"volumetricFlow">
+  liters_per_minute <key:"L/min", quantity:"volumetricFlow">
+  gallons_per_minute <key:"gal/min", quantity:"volumetricFlow">
+  gallons_per_hour <key:"gph", quantity:"volumetricFlow">
+  liters_per_hour <key:"L/h", quantity:"volumetricFlow">
+  cubic_meters_per_minute <key:"m³/min", quantity:"volumetricFlow">
+  cubic_meters_per_hour <key:"m³/h", quantity:"volumetricFlow">
+
+  byte <key:"byte", quantity:"bytes">
+  kilobyte <key:"kB", quantity:"bytes">
+  megabyte <key:"MB", quantity:"bytes">
+  gigabyte <key:"GB", quantity:"bytes">
+  terabyte <key:"TB", quantity:"bytes">
+  petabyte <key:"PB", quantity:"bytes">
+
 }

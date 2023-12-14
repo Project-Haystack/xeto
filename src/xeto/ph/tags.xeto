@@ -1410,7 +1410,7 @@ tvoc: Marker
 tz: TimeZone
 
 // Unit identifier from standard unit database
-unit: Str
+unit: Unit
 
 // Unit Ventilator: An FCU that has direct access to outside air to provide
 // the space with ventilation.  See `docHaystack::AHUs` chapter.

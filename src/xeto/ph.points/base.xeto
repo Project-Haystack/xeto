@@ -18,7 +18,7 @@ BoolPoint : Point <abstract> {
 // Numeric or analog point with floating point value
 NumberPoint : Point <abstract> {
   kind: "Number"
-  unit: Str
+  unit: Unit
 }
 
 // Enumerated or multi-state point with string value

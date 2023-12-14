@@ -558,7 +558,7 @@ Point: Entity <abstract> {
   spaceRef:  Ref?
   systemRef: Ref?
   tz:        TimeZone?
-  unit:      Str?
+  unit:      Unit?
   writable:  Marker?
   equips:    Query<of:Equip, via:"equipRef+">  // Parent equips that contain this point
 }
