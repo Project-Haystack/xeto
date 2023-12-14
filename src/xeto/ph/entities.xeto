@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2023, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 11-Dec-2023
+// Auto-generated 14-Dec-2023
 //
 
 // Top-level dicts with a unique identifier.
@@ -206,7 +206,7 @@ Crac: Fcu {
 CurPoint: Point <abstract> {
   cur
   curErr:    Str?
-  curStatus: Str?
+  curStatus: CurStatus?
   curVal:    Obj?
 }
 
@@ -400,8 +400,8 @@ HeatingCoil: Coil {
 HisPoint: Point <abstract> {
   his
   hisErr:       Str?
-  hisMode:      Str?
-  hisStatus:    Str?
+  hisMode:      HisMode?
+  hisStatus:    HisStatus?
   hisTotalized: Marker?
 }
 
@@ -551,7 +551,7 @@ Point: Entity <abstract> {
   enum:      Str?
   equipRef:  Ref
   his:       Marker?
-  kind:      Str
+  kind:      Kind
   maxVal:    Number?
   minVal:    Number?
   siteRef:   Ref
@@ -633,7 +633,7 @@ ServerComputer: Computer {
 Site: Entity {
   site
   area:              Number?
-  primaryFunction:   Str?
+  primaryFunction:   PrimaryFunction?
   tz:                Str?
   weatherStationRef: Ref?
   yearBuilt:         Number?
@@ -842,7 +842,7 @@ WritablePoint: Point <abstract> {
   writable
   writeErr:    Str?
   writeLevel:  Number?
-  writeStatus: Str?
+  writeStatus: WriteStatus?
   writeVal:    Obj?
 }
 
