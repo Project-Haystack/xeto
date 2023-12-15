@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2023, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 14-Dec-2023
+// Auto-generated 15-Dec-2023
 //
 
 // Unit symbols for standardized database
@@ -519,4 +519,66 @@ Unit: Enum {
   terabyte <key:"TB", quantity:"bytes">
   petabyte <key:"PB", quantity:"bytes">
 
+}
+
+// Unit quantity types for standardized database
+UnitQuantity: Enum {
+  currency
+  acceleration
+  angularAcceleration
+  angularMomentum
+  angularVelocity
+  area
+  capacitance
+  coolingEfficiency
+  density
+  electricCharge
+  electricConductance
+  electricCurrent
+  electromagneticMoment
+  electricCurrentDensity
+  electricFieldStrength
+  electricPotential
+  electricResistance
+  electricalConductivity
+  electricalResistivity
+  energy
+  apparentEnergy
+  reactiveEnergy
+  energyByArea
+  enthalpy
+  entropy
+  force
+  frequency
+  grammage
+  heatingRate
+  illuminance
+  inductance
+  irradiance
+  length
+  luminance
+  luminousFlux
+  luminousIntensity
+  magneticFieldStrength
+  magneticFlux
+  magneticFluxDensity
+  mass
+  massFlow
+  momentum
+  power
+  powerByArea
+  powerByVolumetricFlow
+  apparentPower
+  reactivePower
+  pressure
+  specificEntropy
+  surfaceTension
+  temperature
+  temperatureDifferential
+  thermalConductivity
+  time
+  velocity
+  volume
+  volumetricFlow
+  bytes
 }

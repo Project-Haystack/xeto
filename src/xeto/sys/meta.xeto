@@ -36,11 +36,14 @@ Spec: Dict {
   // Regex pattern for scalar string encoding
   pattern: Str?
 
-  // Inclusive minimum value
+  // Inclusive minimum value for numbers
   minVal: Self?
 
-  // Inclusive maximum value
+  // Inclusive maximum value for numbers
   maxVal: Self?
+
+  // Restrict number or unit enum to specific quantity
+  quantity: UnitQuantity?
 
   // Named path to traverse to execute query
   via: Str?
