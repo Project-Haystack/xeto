@@ -49,7 +49,7 @@ Spec: Dict {
   via: Str?
 
   // Inverse query to run against parent
-  inverse: Spec?
+  inverse: Str?
 }
 
 // Library module meta data
@@ -69,6 +69,7 @@ Lib: Dict {
 LibDepend: Dict {
   lib: Str                      // Library qualified dotted name
   versions: LibDependVersions   // Version constraints for dependency
+  org: LibOrg?                  // Organization that published library
 }
 
 // Version constraints for a library dependency.
