@@ -42,6 +42,9 @@ Spec: Dict {
   // Inclusive maximum value for numbers
   maxVal: Self?
 
+  // Restrict number or unit enum to specific unit
+  unit: Unit?
+
   // Restrict number or unit enum to specific quantity
   quantity: UnitQuantity?
 
