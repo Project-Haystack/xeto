@@ -10,8 +10,7 @@
 AirTempPoint : NumberPoint <abstract> {
   air
   temp
-  unit: "°F"
-// TODO  unit: "°C" | "°F"
+  unit: Unit<quantity:"temperature"> "°F"
 }
 
 // Sensor for drybulb air temperature

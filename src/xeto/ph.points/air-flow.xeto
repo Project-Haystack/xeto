@@ -10,7 +10,7 @@
 AirFlowPoint : NumberPoint <abstract> {
   air
   flow
-// TODO unit: "cfm" | "m³/s"
+  unit: Unit<quantity:"volumetricFlow"> "cfm"
 }
 
 // Sensor for volumetric air flow

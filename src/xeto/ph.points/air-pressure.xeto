@@ -10,7 +10,7 @@
 AirPressurePoint : NumberPoint <abstract> {
   air
   pressure
-// TODO  unit: "Pa" | "kPa" | "inH₂O"
+  unit: Unit<quantity:"pressure"> "inH₂O"
 }
 
 // Sensor for static air pressure
