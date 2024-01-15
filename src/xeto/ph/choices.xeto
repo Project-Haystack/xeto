@@ -1,0 +1,376 @@
+//
+// Copyright (c) 2011-2024, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+// Auto-generated 15-Jan-2024
+//
+
+//////////////////////////////////////////////////////////////////////////
+// AhuZoneDelivery
+//////////////////////////////////////////////////////////////////////////
+
+// AHU delivery method of conditioned air to the zone
+AhuZoneDelivery: Choice
+
+// AHU discharge air is split into a duct per zone
+MultiZoneAhu: AhuZoneDelivery { multiZone }
+
+// AHU supplies air directly to the zone
+DirectZoneAhu: AhuZoneDelivery { directZone }
+
+// AHU supplies air to chilled beam terminal units
+ChilledBeamZoneAhu: AhuZoneDelivery { chilledBeamZone }
+
+// AHU supplies air to VAV terminal units
+VavZoneAhu: AhuZoneDelivery { vavZone }
+
+//////////////////////////////////////////////////////////////////////////
+// AirVolumeAdjustability
+//////////////////////////////////////////////////////////////////////////
+
+// Ability of air handling equip to adjust volume of air flow
+AirVolumeAdjustability: Choice
+
+// Delivers a variable volume of air flow.   Most variable volume systems
+// are powered by a VFD fan. However other techniques such as inlet vanes
+// may be used in older systems.
+VariableAirVolume: AirVolumeAdjustability { variableAirVolume }
+
+// Delivers a constant volume of air flow.  Typically this means
+// equipment with a single speed fan.
+ConstantAirVolume: AirVolumeAdjustability { constantAirVolume }
+
+//////////////////////////////////////////////////////////////////////////
+// AtesDesign
+//////////////////////////////////////////////////////////////////////////
+
+// Design type of the ATES underground system.
+AtesDesign: Choice
+
+// The ATES has one or more pairs of a separate warm and cool well.
+AtesDoublet: AtesDesign { atesDoublet }
+
+// The ATES has only one physical well.  This well is deep enough
+// to penetrate two layers of groundwater.
+AtesMono: AtesDesign { atesMono }
+
+// The ATES is as a doublet, but with specific warm and cool wells linked together.
+// These linked wells do not exchange water with other wells.
+AtesDoubletPaired: AtesDesign { atesDoubletPaired }
+
+// The ATES uses closed piping to transport a water/glycol mixture
+// through the ground. The system works like a heat exchanger; there
+// is no ground water transported.
+AtesClosedLoop: AtesDesign { atesClosedLoop }
+
+// Similar to a doublet, but water always flows in the same direction from
+// the extraction to the infiltration well.
+AtesUnidirectional: AtesDesign { atesUnidirectional }
+
+//////////////////////////////////////////////////////////////////////////
+// ChillerMechanism
+//////////////////////////////////////////////////////////////////////////
+
+// Primary mechanism of chiller
+ChillerMechanism: Choice
+
+// Piston compressor driven by a crankshaft
+ReciprocalChiller: ChillerMechanism { reciprocal }
+
+// Cooling process using energy from heat source such as hot water
+AbsorptionChiller: ChillerMechanism { absorption }
+
+// Rotary screw compression
+RotaryScrewChiller: ChillerMechanism { rotaryScrew }
+
+// Compression via a continuous flow of fluid through an impeller
+CentrifugalChiller: ChillerMechanism { centrifugal }
+
+//////////////////////////////////////////////////////////////////////////
+// CondenserLoop
+//////////////////////////////////////////////////////////////////////////
+
+// Open or closed loop for condenser working fluid
+CondenserLoop: Choice
+
+// Uses working fluid itself for evaporation into the atmosphere
+CondenserOpenLoop: CondenserLoop { condenserOpenLoop }
+
+// Working fluid is kept separate from fluid used for heat transfer into the atmosphere
+CondenserClosedLoop: CondenserLoop { condenserClosedLoop }
+
+//////////////////////////////////////////////////////////////////////////
+// CoolingProcess
+//////////////////////////////////////////////////////////////////////////
+
+// Processed used to cool a substance
+CoolingProcess: Choice
+
+// Cooling by dissipating heat into the surrounding air
+AirCooling: CoolingProcess { airCooling }
+
+// Cooling using transfer of heat to chilled water
+ChilledWaterCooling: CoolingProcess { chilledWaterCooling }
+
+// Cooling using direct expansion of a refrigerant vapor.
+// Also see `dxHeating` and `heatPump`.
+DxCooling: CoolingProcess { dxCooling }
+
+// Cooling using transfer of heat to water which is not explicitly chilled
+WaterCooling: CoolingProcess { waterCooling }
+
+// Removal of heat through the process of water condensation
+CondenserCooling: CoolingProcess { condenserCooling }
+
+//////////////////////////////////////////////////////////////////////////
+// DuctConfig
+//////////////////////////////////////////////////////////////////////////
+
+// Ductwork configuration
+DuctConfig: Choice
+
+// One single duct
+SingleDuct: DuctConfig { singleDuct }
+
+// Two ducts: combination of hotDeck, coldDeck, or neutralDeck
+DualDuct: DuctConfig { dualDuct }
+
+// Three ducts: hotDeck, coldDeck, or neutralDeck
+TripleDuct: DuctConfig { tripleDuct }
+
+//////////////////////////////////////////////////////////////////////////
+// DuctDeck
+//////////////////////////////////////////////////////////////////////////
+
+// Cold, hot, or neutral deck. Can be applied to 'ahu' equip if the AHU
+// is part of a 'dualDuct' or 'tripleDuct' system but only serves a single
+// deck type.
+DuctDeck: Choice
+
+// Duct carries air which by-passes both heating and cooling coils
+NeutralDeck: DuctDeck { neutralDeck }
+
+// Duct carries air for cooling
+ColdDeck: DuctDeck { coldDeck }
+
+// Duct carries air for heating
+HotDeck: DuctDeck { hotDeck }
+
+//////////////////////////////////////////////////////////////////////////
+// DuctSection
+//////////////////////////////////////////////////////////////////////////
+
+// Equipment section of ductwork
+DuctSection: Choice
+
+// Duct to access fresh outside air only for economizing, not ventilation
+EconomizerDuct: DuctSection { economizer }
+
+// Duct for exhausting combustion
+FlueDuct: DuctSection { flue }
+
+// Duct with air entering an equipment
+InletDuct: DuctSection { inlet }
+
+// Duct to access fresh outside air only for ventilation, not economizing
+VentilationDuct: DuctSection { ventilation }
+
+// Duct to access fresh outside air for both ventilation and economizer.
+OutsideDuct: DuctSection { outside }
+
+// Duct for air leaving an equipment
+DischargeDuct: DuctSection { discharge }
+
+// Duct used to expel air back outside
+ExhaustDuct: DuctSection { exhaust }
+
+// Duct returning air back to equipment
+ReturnDuct: DuctSection { return }
+
+// Duct where fresh outside air and return air is mixed together
+MixedDuct: DuctSection { mixed }
+
+//////////////////////////////////////////////////////////////////////////
+// HeatingProcess
+//////////////////////////////////////////////////////////////////////////
+
+// Processed used to heat a substance
+HeatingProcess: Choice
+
+// Heating using energy of steam
+SteamHeating: HeatingProcess { steamHeating }
+
+// Heating by the combustion of fuel oil
+FuelOilHeating: HeatingProcess { fuelOilHeating }
+
+// Heating by the conversion of electrical energy
+ElecHeating: HeatingProcess { elecHeating }
+
+// Heating using energy of hot water
+HotWaterHeating: HeatingProcess { hotWaterHeating }
+
+// Heating by the combustion of natural gas
+NaturalGasHeating: HeatingProcess { naturalGasHeating }
+
+// Heating by the combustion of biomass
+BiomassHeating: HeatingProcess { biomassHeating }
+
+// Heating by the combustion of coal
+CoalHeating: HeatingProcess { coalHeating }
+
+// Heating using direct expansion of a refrigerant vapor.
+// Also see `dxCooling` and `heatPump`.
+DxHeating: HeatingProcess { dxHeating }
+
+// Heating by the combustion of propane
+PropaneHeating: HeatingProcess { propaneHeating }
+
+//////////////////////////////////////////////////////////////////////////
+// MeterScope
+//////////////////////////////////////////////////////////////////////////
+
+// Classifies a meter as a main site meter or submeter
+MeterScope: Choice
+
+// Submeters measure usage of a sub-system or equipment within a site
+Submeter: MeterScope { submeter }
+
+// Main meter for the associated site
+SiteMeter: MeterScope { siteMeter }
+
+//////////////////////////////////////////////////////////////////////////
+// PhaseCount
+//////////////////////////////////////////////////////////////////////////
+
+// Number of phases for an AC electrical power system or
+// connected equipment: single-phase or three-phase.
+PhaseCount: Choice
+
+// Three-phase AC electrical power. Power is provided by three AC voltage
+// sources, each separated from the others by a 120-degree phase angle.
+ThreePhase: PhaseCount { threePhase }
+
+// Single-phase AC electrical power. Power is provided by a
+// single AC voltage source.
+SinglePhase: PhaseCount { singlePhase }
+
+//////////////////////////////////////////////////////////////////////////
+// PipeFluid
+//////////////////////////////////////////////////////////////////////////
+
+// Type of fluid conveyed by piping
+PipeFluid: Choice
+
+//////////////////////////////////////////////////////////////////////////
+// PipeSection
+//////////////////////////////////////////////////////////////////////////
+
+// Equipment section of piping
+PipeSection: Choice
+
+// Pipe conveys fluid into an equipment
+EnteringPipe: PipeSection { entering }
+
+// Pipe used to circulate fluid through an equipment or system
+CircPipe: PipeSection { circ }
+
+// Pipe conveys fluid out of an equipment
+LeavingPipe: PipeSection { leaving }
+
+// Pipe used to bypass an equipment
+BypassPipe: PipeSection { bypass }
+
+// Pipe used as central connection or manifold for other piping runs.
+HeaderPipe: PipeSection { header }
+
+//////////////////////////////////////////////////////////////////////////
+// PlantLoop
+//////////////////////////////////////////////////////////////////////////
+
+// Plant piping loop: primary, secondary, or tertiary
+PlantLoop: Choice
+
+// Pipework which circulates within the building.
+TertiaryLoop: PlantLoop { tertiaryLoop }
+
+// Pipework which circulates closest to the energy source.  In a central
+// plant, the primary loop indicates the pipes and equipment within the
+// central plant.  In context of heat exchangers between the primary
+// and secondary loops, this tag indicates the side closest to the plant.
+PrimaryLoop: PlantLoop { primaryLoop }
+
+// Pipework which circulates closest to the building or end use. In a
+// central plant, the secondary loop indicates the pipes and equipment between
+// the central plant and the building.  In context of heat exchangers between
+// the primary and secondary loops, this tag indicates the side closest to
+// the building.
+SecondaryLoop: PlantLoop { secondaryLoop }
+
+//////////////////////////////////////////////////////////////////////////
+// PointFunction
+//////////////////////////////////////////////////////////////////////////
+
+// Classifies the point as a sensor, command, or setpoint.
+// See `docHaystack::Points#function` chapter.
+PointFunction: Choice
+
+// Point is a command, actuator, AO/BO.
+// See `docHaystack::Points#function` chapter.
+Cmd: PointFunction { cmd }
+
+// Point is a sensor, input, AI/BI.
+// See `docHaystack::Points#function` chapter.
+Sensor: PointFunction { sensor }
+
+// Point is a setpoint, soft point, internal control variable, schedule.
+// See `docHaystack::Points#function` chapter.
+Sp: PointFunction { sp }
+
+//////////////////////////////////////////////////////////////////////////
+// PointQuantity
+//////////////////////////////////////////////////////////////////////////
+
+// Quantity the point senses or controls
+PointQuantity: Choice
+
+//////////////////////////////////////////////////////////////////////////
+// PointSubject
+//////////////////////////////////////////////////////////////////////////
+
+// What the point senses or controls
+PointSubject: Choice
+
+//////////////////////////////////////////////////////////////////////////
+// TankSubstance
+//////////////////////////////////////////////////////////////////////////
+
+// Substance stored by a tank
+TankSubstance: Choice
+
+//////////////////////////////////////////////////////////////////////////
+// VavAirCircuit
+//////////////////////////////////////////////////////////////////////////
+
+// How does the VAV pull in air
+VavAirCircuit: Choice
+
+// VAV pulls air from the primary air flow
+SeriesVav: VavAirCircuit { series }
+
+// VAV pulls air from outside the primary air flow
+ParallelVav: VavAirCircuit { parallel }
+
+//////////////////////////////////////////////////////////////////////////
+// VavModulation
+//////////////////////////////////////////////////////////////////////////
+
+// How does VAV modulate the temp based on duct pressure
+VavModulation: Choice
+
+// VAV damper modulates to control space temp; dependent on duct pressure
+// being maintained
+PressureDependentVav: VavModulation { pressureDependent }
+
+// VAV damper or a control valve that modulates to maintain desired flow
+// setpoint; independent of the duct pressure
+PressureIndependentVav: VavModulation { pressureIndependent }
+

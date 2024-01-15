@@ -60,8 +60,11 @@ Time: Scalar <sealed, pattern: "\\d\\d:\\d\\d:\\d\\d(\\.\\d+)*"> "00:00:00"
 // ISO 8601 timestamp followed by timezone identifier
 DateTime: Scalar <sealed, pattern: "\\d\\d\\d\\d-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d(\\.\\d+)*[Z+-][\\d:]*[ ]*[-+a-zA-Z_\\d]*"> "2000-01-01T00:00:00Z UTC"
 
-// Closed enumerated choice
+// Closed enumerated set of string values
 Enum: Scalar
+
+// Open enumerated taxonomy of marker tags
+Choice: Dict
 
 // Sequence is base type for all collections
 Seq: Obj <abstract>
