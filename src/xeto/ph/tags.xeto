@@ -31,9 +31,6 @@ actuator: Marker
 // the air.  See `docHaystack::AHUs` chapter.
 ahu: Marker
 
-// AHU delivery method of conditioned air to the zone
-ahuZoneDelivery: Marker
-
 // The mixture of gases which surrounds the earth
 air: Marker
 
@@ -58,9 +55,6 @@ airRef: Ref
 // responsible for delivery of air to the space and tempering the temperature.
 airTerminalUnit: Marker
 
-// Ability of air handling equip to adjust volume of air flow
-airVolumeAdjustability: Marker
-
 // Notification of a condition which requires attention
 alarm: Marker
 
@@ -84,9 +78,6 @@ ates: Marker
 // through the ground. The system works like a heat exchanger; there
 // is no ground water transported.
 atesClosedLoop: Marker
-
-// Design type of the ATES underground system.
-atesDesign: Marker
 
 // The ATES has one or more pairs of a separate warm and cool well.
 atesDoublet: Marker
@@ -191,9 +182,6 @@ chilledWaterRef: Ref
 // compression or an absorption refrigeration cycle.
 chiller: Marker
 
-// Primary mechanism of chiller
-chillerMechanism: Marker
-
 // Choice specifies an exclusive marker selection.
 // See [Choices]`docHaystack::Choices` chapter.
 choice: Marker
@@ -269,9 +257,6 @@ condenserClosedLoop: Marker
 // Removal of heat through the process of water condensation
 condenserCooling: Marker
 
-// Open or closed loop for condenser working fluid
-condenserLoop: Marker
-
 // Uses working fluid itself for evaporation into the atmosphere
 condenserOpenLoop: Marker
 
@@ -314,9 +299,6 @@ coolingCoil: Marker
 
 // Equipment without heating
 coolingOnly: Marker
-
-// Processed used to cool a substance
-coolingProcess: Marker
 
 // Equipment to transfer waste heat into the atmosphere
 coolingTower: Marker
@@ -453,17 +435,6 @@ duct: Marker
 
 // Config point on a `vav` for duct area measured in ft² or m²
 ductArea: Marker
-
-// Ductwork configuration
-ductConfig: Marker
-
-// Cold, hot, or neutral deck. Can be applied to 'ahu' equip if the AHU
-// is part of a 'dualDuct' or 'tripleDuct' system but only serves a single
-// deck type.
-ductDeck: Marker
-
-// Equipment section of ductwork
-ductSection: Marker
 
 // Number with a unit of time
 duration: Number
@@ -718,9 +689,6 @@ heatingCoil: Marker
 // Equipment without cooling
 heatingOnly: Marker
 
-// Processed used to heat a substance
-heatingProcess: Marker
-
 // Hydrofluorocarbons
 hfc: Marker
 
@@ -893,9 +861,6 @@ mech: Marker
 // See `docHaystack::Meters` chapter.
 meter: Marker
 
-// Classifies a meter as a main site meter or submeter
-meterScope: Marker
-
 // Mime type formatted as type/subtype
 mime: Str
 
@@ -1054,28 +1019,15 @@ pfc: Marker
 // Phase measurement in a three-phase electrical system
 phase: Phase
 
-// Number of phases for an AC electrical power system or
-// connected equipment: single-phase or three-phase.
-phaseCount: Marker
-
 // Telephone used for voice telecommunication.
 phone: Marker
 
 // Conduit used to convey a fluid
 pipe: Marker
 
-// Type of fluid conveyed by piping
-pipeFluid: Marker
-
-// Equipment section of piping
-pipeSection: Marker
-
 // Central plant used to generate a substance for a process.
 // See `docHaystack::Plants`.
 plant: Marker
-
-// Plant piping loop: primary, secondary, or tertiary
-plantLoop: Marker
 
 // Particulate matter 0.1; atmospheric pollutant of fine particles with an aerodynamic diameter of 0.1 micrometers or less
 pm01: Marker
@@ -1090,18 +1042,8 @@ pm25: Marker
 // See `docHaystack::Points` chapter.
 point: Marker
 
-// Classifies the point as a sensor, command, or setpoint.
-// See `docHaystack::Points#function` chapter.
-pointFunction: Marker
-
 // Grouping of children points used by spaces and equipment
 pointGroup: Marker
-
-// Quantity the point senses or controls
-pointQuantity: Marker
-
-// What the point senses or controls
-pointSubject: Marker
 
 // Post Office Protocol version 3 for retrieving email
 pop3: Marker
@@ -1351,9 +1293,6 @@ tablet: Marker
 // Tank used to store a substance for temporary holding
 tank: Marker
 
-// Substance stored by a tank
-tankSubstance: Marker
-
 // Temperature - measure of hot and cold
 temp: Marker
 
@@ -1419,12 +1358,6 @@ variableAirVolume: Marker
 // Variable air volume terminal unit.  VAV systems use a constant air
 // temperature with a variable air flow rate.  See `docHaystack::VAVs` chapter.
 vav: Marker
-
-// How does the VAV pull in air
-vavAirCircuit: Marker
-
-// How does VAV modulate the temp based on duct pressure
-vavModulation: Marker
 
 // AHU supplies air to VAV terminal units
 vavZone: Marker
