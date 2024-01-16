@@ -7,4 +7,4 @@
 //
 
 // Temperature conditioning mode for a zone in an HVAC system
-ZoneAirHvacModeSp : StrPoint & Sp { zone, air, hvacMode }
+ZoneAirHvacModeSp : EnumPoint & Sp { zone, air, hvacMode }

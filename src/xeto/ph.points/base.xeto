@@ -22,7 +22,7 @@ NumberPoint : Point <abstract> {
 }
 
 // Enumerated or multi-state point with string value
-StrPoint : Point <abstract> {
+EnumPoint : Point <abstract> {
   kind: "Str"
   enum: Str
 }
