@@ -1,7 +1,7 @@
 //
-// Copyright (c) 2011-2023, Project-Haystack
+// Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 14-Dec-2023
+// Auto-generated 16-Jan-2024
 //
 
 // Cooling process using energy from heat source such as hot water
@@ -44,9 +44,6 @@ airCooling: Marker
 // Conditioning of air includes heating, cooling, humidification,
 // dehumidification, and ventilation. See `docHaystack::AHUs` chapter.
 airHandlingEquip: Marker
-
-// Concentration of contaminants in the air
-airQuality: Marker
 
 // Entity with logical grouping of zone air quality points.
 // See `docHaystack::Zones#airQuality` chapter.
@@ -610,9 +607,6 @@ flowInverter: Marker
 // Duct for exhausting combustion
 flue: Marker
 
-// Liquid or gas
-fluid: Marker
-
 // Measurement through a given surface
 flux: Marker
 
@@ -638,9 +632,6 @@ fuelOilRef: Ref
 
 // Ventilation equipment to limit exposure to hazardous fumes.
 fumeHood: Marker
-
-// Substance with neither definite volume nor shape
-gas: Marker
 
 // Petroleum derived liquid used as a fuel source
 gasoline: Marker
@@ -857,9 +848,6 @@ lighting: Marker
 // See `docHaystack::Zones#lighting` chapter.
 lightingZonePoints: Marker
 
-// Substance with definite volume but takes the shape of its container
-liquid: Marker
-
 // Chiller point to command or measure the chiller's load as a percentage
 // from "0%" to "100%". When paired with cmd this models the chiller's
 // load limit. When paired with sensor this models the chiller's current
@@ -1069,9 +1057,6 @@ phase: Phase
 // Number of phases for an AC electrical power system or
 // connected equipment: single-phase or three-phase.
 phaseCount: Marker
-
-// Aspect of scientific interest with measurable quantities
-phenomenon: Marker
 
 // Telephone used for voice telecommunication.
 phone: Marker
@@ -1346,9 +1331,6 @@ submeter: Marker
 
 // Reference to parent meter which is immediately upstream of this meter
 submeterOf: Ref
-
-// Matter in one the three states solid, liquid, or gas
-substance: Marker
 
 // Below the surface of the earth
 subterranean: Marker

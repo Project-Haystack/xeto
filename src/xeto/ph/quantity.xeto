@@ -23,7 +23,7 @@ Cloudage: Quantity { cloudage }
 Concentration: Quantity { concentration }
 
 // Concentration of contaminants in the air
-AirQuality: Concentration { airQuality }
+AirQuality: Concentration
 
 // Concentration of formaldehyde (CH₂O) in the air.
 Ch2oConcentration: AirQuality { ch2o }

@@ -5,7 +5,7 @@
 //
 
 // Aspect of scientific interest with measurable quantities
-Phenomenon: Choice { phenomenon }
+Phenomenon: Choice
 
 // Associated with electricity or with electrical force, power, or energy.
 // This is often opposed to `mech` mechanical energy.
@@ -24,16 +24,16 @@ Light: Phenomenon { light }
 Solar: Phenomenon { solar }
 
 // Matter in one the three states solid, liquid, or gas
-Substance: Phenomenon { substance }
+Substance: Phenomenon
 
 // Plant or animal material used as fuel to produce electricity or heat
 Biomass: Substance { biomass }
 
 // Liquid or gas
-Fluid: Substance { fluid }
+Fluid: Substance
 
 // Substance with neither definite volume nor shape
-Gas: Fluid { gas }
+Gas: Fluid
 
 // The mixture of gases which surrounds the earth
 Air: Gas { air }
@@ -94,7 +94,7 @@ Steam: Gas { steam }
 Tvoc: Gas { tvoc }
 
 // Substance with definite volume but takes the shape of its container
-Liquid: Fluid { liquid }
+Liquid: Fluid
 
 // Liquid phase produced by the condensation of steam or other gas
 Condensate: Liquid { condensate }
