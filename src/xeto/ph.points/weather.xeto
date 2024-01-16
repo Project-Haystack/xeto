@@ -1,0 +1,115 @@
+//
+// Copyright (c) 2024, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   16 Jan 2024  Brian Frank  Creation
+//
+
+// Weather observation point
+WeatherPoint : Point & Sensor <abstract> {
+  weather
+}
+
+// Weather enumeration for condition such as clear, cloudy, rain, etc
+WeatherCondPoint : WeatherPoint & EnumPoint {
+  weatherCond
+  //enum: WeatherCondEnum TODO
+}
+
+// Weather boolean point that is true between sunrise and sunset
+WeatherDaytimePoint : WeatherPoint & BoolPoint {
+  daytime
+  //enum: WeatherDaytimeEnum TODO
+}
+
+// Numeric weather observation point
+WeatherNumberPoint : WeatherPoint & NumberPoint <abstract> {
+}
+
+// Dry bulb weather temperature
+WeatherTempPoint : WeatherNumberPoint {
+  temp
+  unit: Unit<quantity:"temperature"> "°F"
+}
+
+// Wet bulb weather temperature
+WeatherWetbulbPoint : WeatherNumberPoint {
+  webBulb
+  unit: Unit<quantity:"temperature"> "°F"
+}
+
+// Apparent weather temperature considering humidity, wind 
+// chill, and heat index
+WeatherFeelsLikePoint : WeatherNumberPoint {
+  feelsLike
+  unit: Unit<quantity:"temperature"> "°F"
+}
+
+// Weather dew point temperature at whicih water vapor will form dew
+WeatherDewPointPoint : WeatherNumberPoint {
+  dewPoint
+  unit: Unit<quantity:"temperature"> "°F"
+}
+
+// Weather percent relative humidity
+WeatherHumidityPoint : WeatherNumberPoint {
+  humidity
+  unit: "%RH"
+}
+
+// Weather enthalpy is sum of heat energy in the dry air and water vapor
+WeatherEnthalpyPoint : WeatherNumberPoint {
+  enthalpy
+  unit: Unit<quantity:"enthalpy"> "BTU/lb"
+}
+
+// Weather barometric pressure in millibar or inHg
+WeatherAtmosphericPressurePoint : WeatherNumberPoint {
+  atmospheric 
+  pressure
+  unit: Unit<quantity:"pressure"> "inHg"
+}
+
+// Weather cloudiness as percentage
+WeatherCloudagePoint : WeatherNumberPoint {
+  cloudage
+  unit: "%"
+}
+
+// Weather fallen atmospheric water vapor in mm or in 
+WeatherPrecipitationPoint : WeatherNumberPoint {
+  precipitation
+  unit: Unit<quantity:"temperature"> "in"
+}
+
+// Weather energy received from the sun in W/m²
+WeatherSolarIrradiancePoint : WeatherNumberPoint {
+  solar 
+  irradiance 
+  unit: Unit<quantity:"energy"> "W/m²"
+}
+
+// Weather wind speed in km/h or mph
+WeatherWindSpeedPoint : WeatherNumberPoint {
+  wind 
+  speed 
+  unit: Unit<quantity:"velocity"> "mph"
+}
+
+// Weather direction that wind originates in degrees
+WeatherWindDirectionPoint : WeatherNumberPoint {
+  wind 
+  direction
+  unit: "deg"
+}
+
+// Weather visibility at which light can be discerned in km or mile
+WeatherVisibilityPoint : WeatherNumberPoint {
+  visibility
+  unit: Unit<quantity:"length"> "mile"
+}
+
+
+
+
