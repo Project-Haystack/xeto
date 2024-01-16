@@ -1,7 +1,7 @@
 //
-// Copyright (c) 2011-2023, Project-Haystack
+// Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 11-Dec-2023
+// Auto-generated 16-Jan-2024
 //
 
 // Status of point's current value reading.  The `curVal` is only available
@@ -23,7 +23,7 @@ CurStatus: Enum {
 }
 
 // Time between sunrise and sunset
-Daytime: Enum {
+DaytimeEnum: Enum {
   nighttime  // false indicates sun is below horizon
   daytime    // true indicates sun is above horizon
 }
@@ -508,7 +508,7 @@ PrimaryFunction: Enum {
 }
 
 // Enumeration of weather conditions
-WeatherCond: Enum {
+WeatherCondEnum: Enum {
   unknown
   clear
   partlyCloudy
