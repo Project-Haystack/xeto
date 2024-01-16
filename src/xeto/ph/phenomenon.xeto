@@ -1,0 +1,175 @@
+//
+// Copyright (c) 2011-2024, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+// Auto-generated 16-Jan-2024
+//
+
+// Aspect of scientific interest with measurable quantities
+Phenomenon: Choice { phenomenon }
+
+// Associated with electricity or with electrical force, power, or energy.
+// This is often opposed to `mech` mechanical energy.
+Elec: Phenomenon { elec }
+
+// Alternating current electricity
+AcElec: Elec { ac }
+
+// Direct current electricity
+DcElec: Elec { dc }
+
+// Electromagnetic radiation in the visible spectrum
+Light: Phenomenon { light }
+
+// Relating to energy from the sun
+Solar: Phenomenon { solar }
+
+// Matter in one the three states solid, liquid, or gas
+Substance: Phenomenon { substance }
+
+// Plant or animal material used as fuel to produce electricity or heat
+Biomass: Substance { biomass }
+
+// Liquid or gas
+Fluid: Substance { fluid }
+
+// Substance with neither definite volume nor shape
+Gas: Fluid { gas }
+
+// The mixture of gases which surrounds the earth
+Air: Gas { air }
+
+// Formaldehyde (CH₂O)
+Ch2o: Gas { ch2o }
+
+// Methane (CH₄)
+Ch4: Gas { ch4 }
+
+// Carbon monoxide (CO)
+Co: Gas { co }
+
+// Carbon dioxide (CO₂)
+Co2: Gas { co2 }
+
+// Hydrofluorocarbons
+Hfc: Gas { hfc }
+
+// Nitrous oxide (N₂O)
+N2o: Gas { n2o }
+
+// Fossil fuel energy source consisting largely of methane and other hydrocarbons.
+//
+// The energy content of natural gas varies by region within a range determined
+// on impurities in the gas.  You can find a table of these conversions
+// [here]`https://en.wikipedia.org/wiki/Heat_of_combustion#Higher_heating_values_of_natural_gases_from_various_sources`
+NaturalGas: Gas { naturalGas }
+
+// Nitrogen trifluoride (NF₃)
+Nf3: Gas { nf3 }
+
+// Ammonia (NH₃)
+Nh3: Gas { nh3 }
+
+// Nitrogen dioxide (NO₂)
+No2: Gas { no2 }
+
+// Oxygen (O₂) - the common dioxygen allotrope in the air
+O2: Gas { o2 }
+
+// Ozone (O₃)
+O3: Gas { o3 }
+
+// Perfluorocarbons
+Pfc: Gas { pfc }
+
+// By-product of natural gas processing and petroleum refining (C₃H₈)
+Propane: Gas { propane }
+
+// Sulphur hexafluoride (SF₆)
+Sf6: Gas { sf6 }
+
+// Water in its gas form
+Steam: Gas { steam }
+
+// Total volatile organic compound (TVOC).
+Tvoc: Gas { tvoc }
+
+// Substance with definite volume but takes the shape of its container
+Liquid: Fluid { liquid }
+
+// Liquid phase produced by the condensation of steam or other gas
+Condensate: Liquid { condensate }
+
+// Liquid fuel specifically designed for use in diesel engines
+Diesel: Liquid { diesel }
+
+// Petroleum based oil burned for energy
+FuelOil: Liquid { fuelOil }
+
+// Petroleum derived liquid used as a fuel source
+Gasoline: Liquid { gasoline }
+
+// Water in its liquid form
+Water: Liquid { water }
+
+// Water expelled from a system to remove mineral build up
+BlowdownWater: Water { blowdown }
+
+// Water cooled for use in HVAC and industrial processes
+ChilledWater: Water { chilled }
+
+// Water supplied to cold taps
+ColdWater: Water { cold }
+
+// Water used used to remove heat through condensation
+CondenserWater: Water { condenser }
+
+// Relatively cool water without active chilling
+CoolWater: Water { cool }
+
+// Tap water for drinking, washing, cooking, and flushing of toilets
+DomesticWater: Water { domestic }
+
+// Water present under the ground or from a well
+GroundWater: Water { ground }
+
+// Hot water used for HVAC heating or supplied to hot taps
+HotWater: Water { hot }
+
+// Water used used to makeup water loss through leaks, evaporation, or blowdown
+MakeupWater: Water { makeup }
+
+// Water expelled from a system to remove contaminants.
+PurgeWater: Water { purge }
+
+// Relatively warm water without active heating
+WarmWater: Water { warm }
+
+// Fluid used in refrigeration and heat exchange.  Refrigerants typically
+// alternate between liquid and gas state.
+Refrig: Fluid { refrig }
+
+// Substance with definite shape and volume
+Solid: Substance { solid }
+
+// Combustible sedimentary rock
+Coal: Solid { coal }
+
+// Water in its solid form
+Ice: Solid { ice }
+
+// Particulate matter 0.1; atmospheric pollutant of fine particles with an aerodynamic diameter of 0.1 micrometers or less
+Pm01: Solid { pm01 }
+
+// Particulate matter 10; atmospheric pollutant of fine particles with an aerodynamic diameter of 10 micrometers or less
+Pm10: Solid { pm10 }
+
+// Particulate matter 2.5; atmospheric pollutant of fine particles with an aerodynamic diameter of 2.5 micrometers or less
+Pm25: Solid { pm25 }
+
+// Associated with atmospheric air or phenomenon.
+// See `docHaystack::Weather` chapter.
+Weather: Phenomenon { weather }
+
+// Flow of air on surface of the Earth
+Wind: Phenomenon { wind }
+

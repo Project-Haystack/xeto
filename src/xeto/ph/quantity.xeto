@@ -1,0 +1,244 @@
+//
+// Copyright (c) 2011-2024, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+// Auto-generated 16-Jan-2024
+//
+
+// Measurable property of a substance or phenomenon
+Quantity: Choice { quantity }
+
+// Rate of air movement as distance over time
+AirVelocity: Quantity { air, velocity }
+
+// Integral of `apparent-power` over time
+ApparentEnergy: Quantity { apparent, energy }
+
+// Apparent power is perceived magnitude of power due to the combination of active and reactive power
+ApparentPower: Quantity { apparent, power }
+
+// Percentage of sky obscured by clouds. This is also known as cloudiness, or cloud amount.
+Cloudage: Quantity { cloudage }
+
+// Abundance of substance in the total volume of a mixture.
+Concentration: Quantity { concentration }
+
+// Concentration of contaminants in the air
+AirQuality: Concentration { airQuality }
+
+// Concentration of formaldehyde (CH₂O) in the air.
+Ch2oConcentration: AirQuality { ch2o }
+
+// Concentration of carbon monoxide (CO) in the air.
+CoConcentration: AirQuality { co }
+
+// Concentration of carbon dioxide (CO₂) in the air.
+Co2Concentration: AirQuality { co2 }
+
+// Concentration of ammonia (NH₃) in the air
+Nh3Concentration: AirQuality { nh3 }
+
+// Concentration of nitrogen dioxide (NO₂) in the air
+No2Concentration: AirQuality { no2 }
+
+// Concentration of ozone (O₃) in the air
+O3Concentration: AirQuality { o3 }
+
+// Concentration of particulate matter 0.1 in the air.
+Pm01Concentration: AirQuality { pm01 }
+
+// Concentration of particulate matter 10 in the air
+Pm10Concentration: AirQuality { pm10 }
+
+// Concentration of particulate matter 2.5 in the air.
+Pm25Concentration: AirQuality { pm25 }
+
+// Concentration of total volatile organic compounds (TVOC) in the air
+TvocConcentration: AirQuality { tvoc }
+
+// AC current phase angle
+CurrentAngle: Quantity { current, angle }
+
+// Current phase imbalance in a multiphase AC system
+CurrentImbalance: Quantity { current, imbalance }
+
+// Total harmonic current distortion
+CurrentThd: Quantity { current, thd }
+
+// Time between sunrise and sunset
+Daytime: Quantity { daytime }
+
+// Dew point temperature at which water vapor will form dew
+DewPoint: Quantity { dewPoint }
+
+// Compass direction measured in degrees: North: 0° = 360°, East: 90°, South: 180°, West: 270°
+Direction: Quantity { direction }
+
+// Compass direction from which wind originates
+WindDirection: Direction { wind }
+
+// Electrical current
+ElecCurrent: Quantity { elec, current }
+
+// Magnitude of electrical current
+CurrentMagnitude: ElecCurrent { current, magnitude }
+
+// Electrical voltage, potential difference
+ElecVolt: Quantity { elec, volt }
+
+// Magnitude of electrical voltage
+VoltMagnitude: ElecVolt { volt, magnitude }
+
+// Amount of a substance discharged into the air
+Emission: Quantity { emission }
+
+// Greenhouse gas emission of methane (CH₄) into the air.
+Ch4Emission: Emission { ch4 }
+
+// Greenhouse gas emission of carbon dioxide (CO₂) into the air.
+Co2Emission: Emission { co2 }
+
+// Greenhouse gas emission of hydrofluorocarbons into the air.
+HfcEmission: Emission { hfc }
+
+// Greenhouse gas emission of nitrous oxide (N₂O) into the air.
+N2oEmission: Emission { n2o }
+
+// Greenhouse gas emission of nitrogen trifluoride (NF₃) into the air.
+Nf3Emission: Emission { nf3 }
+
+// Greenhouse gas emission of perfluorocarbons into the air.
+PfcEmission: Emission { pfc }
+
+// Greenhouse gas emission of sulphur hexafluoride (SF₆) into the air.
+Sf6Emission: Emission { sf6 }
+
+// Measure of ability to do work
+Energy: Quantity { energy }
+
+// Electrical energy consumed
+ElecEnergy: Energy { elec }
+
+// Integral of `active-power` over time
+ActiveEnergy: ElecEnergy { active }
+
+// Total heat content of a system. It is defined as internal energy of the system plus the product of pressure and volume.
+Enthalpy: Quantity { enthalpy }
+
+// Apparent temperature perceived when considering humidity, wind chill, and heat index
+FeelsLike: Quantity { feelsLike }
+
+// Measure of volumetric flow of fluid
+Flow: Quantity { flow }
+
+// Occurrences per unit time
+Freq: Quantity { freq }
+
+// Frequency of alternating current
+AcFreq: Freq { ac }
+
+// Percent relative humidity; measure of moisture in the air
+Humidity: Quantity { humidity }
+
+// Luminous flux hitting the inside of the sphere at a specific point.
+//
+// Also see [ies.org]`https://www.ies.org/definitions/illuminance/`
+Illuminance: Quantity { illuminance }
+
+// Energy received at a surface by area
+Irradiance: Quantity { irradiance }
+
+// Energy received on surface of the earth from the sun
+SolarIrradiance: Irradiance { solar }
+
+// Range from 0% to 100%.  When paired with a fluid this implies a fill
+// level where 0% is empty and 100% is full.
+Level: Quantity { level }
+
+// Sensed or controlled dimming level of electrical lighting.
+// Level is measured as a percentage where 0% is off and 100%
+// is full brightness.
+LightLevel: Level { light }
+
+// Energy of light in a given direction.
+//
+// Also see [ies.org]`https://www.ies.org/definitions/luminance/`
+Luminance: Quantity { luminance }
+
+// Total perceived light in all directions.
+//
+// Also see [ies.org]`https://www.ies.org/definitions/luminous-flux/`
+LuminousFlux: Quantity { luminous, flux }
+
+// Perceived light in a particular direction per unit solid angle.
+//
+// Also see [ies.org]`https://www.ies.org/definitions/luminous-intensity/`
+LuminousIntensity: Quantity { luminous, intensity }
+
+// Electrical power factor; unitless number between 0.0 and 1.0 which is ratio
+// of active to apparent power in an AC power system.
+Pf: Quantity { pf }
+
+// Energy consumed per unit time
+Power: Quantity { power }
+
+// Electrical energy consumed per unit time
+ElecPower: Power { elec }
+
+// Active power or real power; energy transfer that contributes useful work
+ActivePower: ElecPower { active }
+
+// Active power averaged over a rolling interval.  For utility meters
+// the demand interval is based on the billing period.
+ElecDemand: ActivePower { elec, demand }
+
+// Amount of atmospheric water vapor fallen including rain, sleet, snow, and hail
+Precipitation: Quantity { precipitation }
+
+// Measure of force applied
+Pressure: Quantity { pressure }
+
+// Barometric pressure exerted by the weight of the atmosphere
+AtmosphericPressure: Pressure { atmospheric }
+
+// Integral of `reactive-power` over time
+ReactiveEnergy: Quantity { reactive, energy }
+
+// Reactive power or imaginary power; energy transfer that contributes useful work
+ReactivePower: Quantity { reactive, power }
+
+// Distance per unit time
+Speed: Quantity { speed }
+
+// Wind flow speed
+WindSpeed: Speed { wind }
+
+// Temperature - measure of hot and cold
+Temp: Quantity { temp }
+
+// Dry bulb temperature
+AirTemp: Temp { air }
+
+// VFD frequency measured in "Hz".
+VfdFreq: Quantity { vfd, freq }
+
+// VFD speed measured in "%"; 0% is off and 100% is the fastest speed.
+VfdSpeed: Quantity { vfd, speed }
+
+// Distance at which light can be clearly discerned
+Visibility: Quantity { visibility }
+
+// AC voltage phase angle
+VoltAngle: Quantity { volt, angle }
+
+// AC voltage phase imbalance
+VoltImbalance: Quantity { volt, imbalance }
+
+// Three dimensional space occupied by a substance
+Volume: Quantity { volume }
+
+// Enumeration of weather conditions
+WeatherCond: Quantity { weatherCond }
+
+// Wet bulb air temperature.  Temperature which the air would have if cooled to saturation by the evaporation of water into it.
+WetBulb: Quantity { wetBulb }
+
