@@ -27,17 +27,5 @@ StrPoint : Point <abstract> {
   enum: Str
 }
 
-//////////////////////////////////////////////////////////////////////////
-// Point Functions
-//////////////////////////////////////////////////////////////////////////
-
-// Point is a sensor, input, AI/BI
-Sensor : Point <abstract> { sensor }
-
-// Point is a command, actuator, AO/BO
-Cmd : Point <abstract> { cmd }
-
-// Point is a setpoint, soft point, internal control variable, schedule
-Sp : Point <abstract> { sp }
 
 
