@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 16-Jan-2024
+// Auto-generated 18-Jan-2024
 //
 
 // Cooling process using energy from heat source such as hot water
@@ -37,23 +37,8 @@ air: Marker
 // Cooling by dissipating heat into the surrounding air
 airCooling: Marker
 
-// HVAC equipment that conditions and delivers air via one or more fans.
-// Conditioning of air includes heating, cooling, humidification,
-// dehumidification, and ventilation. See `docHaystack::AHUs` chapter.
-airHandlingEquip: Marker
-
-// Entity with logical grouping of zone air quality points.
-// See `docHaystack::Zones#airQuality` chapter.
-airQualityZonePoints: Marker
-
 // Air flows from the referent to this entity
 airRef: Ref
-
-// Equipment in air distribution systems which terminate at the space.
-// Terminal units receive air from `airHandlingEquip` which have the
-// primarily responsibility to condition air.  Terminal units are primarily
-// responsible for delivery of air to the space and tempering the temperature.
-airTerminalUnit: Marker
 
 // Notification of a condition which requires attention
 alarm: Marker
@@ -218,10 +203,6 @@ coalHeating: Marker
 // Constrained Application Protocol
 coap: Marker
 
-// Heat exchanger used to heat or cool air.  Coils are sub-components
-// of HVAC equipment such as `airHandlingEquip`.
-coil: Marker
-
 // Having low degree of heat
 cold: Marker
 
@@ -266,9 +247,6 @@ condenserWaterRef: Ref
 // Related to cleaning, heating, cooling, humidifying, dehumidifying,
 // ventilating or circulating  air. 
 conditioning: Marker
-
-// Duct, pipe, or cable to convey a substance or phenomenon
-conduit: Marker
 
 // Delivers a constant volume of air flow.  Typically this means
 // equipment with a single speed fan.
@@ -490,9 +468,20 @@ entering: Marker
 // Total heat content of a system. It is defined as internal energy of the system plus the product of pressure and volume.
 enthalpy: Marker
 
-// Top-level dicts with a unique identifier.
-// See `docHaystack::Ontology#entities` chapter.
-entity: Marker
+// Defines an eumeration of string key names.  The range may also be applied
+// to format a Bool ordered as "false,true".  The value of this tag may be
+// formatted in one of five ways:
+//  - dict of dicts keyed by name and Dict values for meta such as 'doc' tag
+//  - comma separated names on one line
+//  - names separated by a "\n" newline character
+//  - markdown unordered list formatted as a series of "- name: description\n"
+//  - ref to a Xeto 'sys::Enum' spec
+//
+// Enum names *should* follow valid tag naming rules (start with lowercase
+// ASCII letter and contain only ASCII letters and numbers).  However in
+// cases where mapping directly to external enumerations enum names can
+// contain arbitrary characters such as space.
+enum: Obj
 
 // Equipment asset.
 // See `docHaystack::Equips` chapter.
@@ -735,10 +724,6 @@ hvac: Marker
 // Operational mode for HVAC equipment
 hvacMode: Marker
 
-// Entity with logical grouping of zone HVAC air points.
-// See `docHaystack::Zones#hvac` chapter.
-hvacZonePoints: Marker
-
 // Water in its solid form
 ice: Marker
 
@@ -811,10 +796,6 @@ light: Marker
 
 // Systems associated with illumination in the built environment
 lighting: Marker
-
-// Entity with logical grouping of lighting points.
-// See `docHaystack::Zones#lighting` chapter.
-lightingZonePoints: Marker
 
 // Chiller point to command or measure the chiller's load as a percentage
 // from "0%" to "100%". When paired with cmd this models the chiller's
@@ -1042,9 +1023,6 @@ pm25: Marker
 // See `docHaystack::Points` chapter.
 point: Marker
 
-// Grouping of children points used by spaces and equipment
-pointGroup: Marker
-
 // Post Office Protocol version 3 for retrieving email
 pop3: Marker
 
@@ -1112,9 +1090,6 @@ quantity: Marker
 // A full rack has a height of 42U.
 // See `docHaystack::DataCenters#racks` chapter.
 rack: Marker
-
-// HVAC equipment that conditions a space without forced air.
-radiantEquip: Marker
 
 // Heats a space using pipes or cables embedded beneath floor.
 radiantFloor: Marker
@@ -1370,9 +1345,6 @@ ventilation: Marker
 
 // Version string formatted as decimal integers separated by a dot
 version: Str
-
-// Equipment to move humans and materials
-verticalTransport: Marker
 
 // Variable-frequency drive.
 // See `docHaystack::Motors` chapter.

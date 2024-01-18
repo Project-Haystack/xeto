@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 16-Jan-2024
+// Auto-generated 18-Jan-2024
 //
 
 // Top-level dicts with a unique identifier.
@@ -69,11 +69,6 @@ AirHandlingEquip: Equip <abstract> {
   ductConfig:             DuctConfig?
   ductDeck:               DuctDeck?
   heatingProcess:         HeatingProcess?
-}
-
-// Entity with logical grouping of zone air quality points.
-// See `docHaystack::Zones#airQuality` chapter.
-AirQualityZonePoints: PointGroup <abstract> {
 }
 
 // Equipment in air distribution systems which terminate at the space.
@@ -455,12 +450,6 @@ HvacZoneSpace: ZoneSpace {
   hvac
 }
 
-// Entity with logical grouping of zone HVAC air points.
-// See `docHaystack::Zones#hvac` chapter.
-HvacZonePoints: PointGroup {
-  hvacZonePoints
-}
-
 // Portable laptop computer.
 Laptop: Computer {
   laptop
@@ -475,12 +464,6 @@ LightingSystem: ElecSystem {
 // See `docHaystack::Spaces#zones` and `docHaystack::Zones#lighting` chapters.
 LightingZoneSpace: ZoneSpace {
   lighting
-}
-
-// Entity with logical grouping of lighting points.
-// See `docHaystack::Zones#lighting` chapter.
-LightingZonePoints: PointGroup {
-  lightingZonePoints
 }
 
 // Light fixture using electricity to provide illumination
@@ -573,7 +556,7 @@ Plant: Equip {
 Point: Entity <abstract> {
   point
   cur:           Marker?
-  enum:          Str?
+  enum:          Obj?
   equipRef:      Ref
   his:           Marker?
   kind:          Kind
@@ -589,11 +572,6 @@ Point: Entity <abstract> {
   unit:          Unit?
   writable:      Marker?
   equips:        Query<of:Equip, via:"equipRef+">  // Parent equips that contain this point
-}
-
-// Grouping of children points used by spaces and equipment
-PointGroup: Entity {
-  pointGroup
 }
 
 // Motor used with a pump to move fluid.
