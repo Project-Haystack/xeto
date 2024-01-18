@@ -9,8 +9,11 @@
 // Point associated with the primary on/off state for equipment
 RunPoint : BoolPoint <abstract> {
   run
-  enum: "off,on"
+  enum: Ref "ph.points::RunEnum"
 }
+
+// On and off enumeration
+RunEnum: Enum { off, on }
 
 // Sensor for the primary on/off command for equipment
 RunSensor : RunPoint & Sensor <abstract>
@@ -21,7 +24,7 @@ RunCmd : RunPoint & Cmd <abstract>
 // Point associated with secondary on/off state for equipment
 EnablePoint : BoolPoint & Sensor <abstract> {
   enable
-  enum: "off,on"
+  enum: Ref "ph.points::RunEnum"
 }
 
 // Sensor for the secondary on/off command for equipment

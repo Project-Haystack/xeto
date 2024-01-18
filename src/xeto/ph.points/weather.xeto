@@ -14,13 +14,13 @@ WeatherPoint : Point & Sensor <abstract> {
 // Weather enumeration for condition such as clear, cloudy, rain, etc
 WeatherCondPoint : WeatherPoint & EnumPoint {
   weatherCond
-  //enum: WeatherCondEnum TODO
+  enum: Ref "ph::WeatherCondEnum"
 }
 
 // Weather boolean point that is true between sunrise and sunset
 WeatherDaytimePoint : WeatherPoint & BoolPoint {
   daytime
-  //enum: WeatherDaytimeEnum TODO
+  enum: Ref "ph::WeatherDaytimeEnum"
 }
 
 // Numeric weather observation point

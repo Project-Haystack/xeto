@@ -8,10 +8,13 @@
 
 // Point associated with the occupied state.  This is a boolean
 // state where false means unoccupied and true means occupied.
-OccupiedPoint  : BoolPoint <abstract> {
+OccupiedPoint : BoolPoint <abstract> {
   occupied
-  enum: Str "unoccupied,occupied"
+  enum: Ref "ph.points::OccupiedEnum"
 }
+
+// Unoccupied/occupied enumeration
+OccupiedEnum : Enum { unoccupied, occupied }
 
 // Occupancy sensor
 OccupiedSensor : OccupiedPoint & Sensor <abstract>
