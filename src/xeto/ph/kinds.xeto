@@ -16,9 +16,6 @@ Coord:  Scalar "C(0,0)"
 // Extended string - type name and string value encoding.
 XStr: Scalar
 
-// Exclusive choice type
-Choice: Scalar <of:Marker>
-
 // Two dimension table of columns and rows.
 Grid: Seq <of:Dict>
 
