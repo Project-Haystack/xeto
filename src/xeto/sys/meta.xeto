@@ -42,6 +42,9 @@ Spec: Dict {
   // Inclusive maximum value for numbers
   maxVal: Self?
 
+  // Applied to Choices to allow multiple selections
+  multiChoice: Marker?
+
   // Restrict number or unit enum to specific unit
   unit: Unit?
 

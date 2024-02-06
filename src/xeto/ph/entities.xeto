@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 18-Jan-2024
+// Auto-generated 06-Feb-2024
 //
 
 // Top-level dicts with a unique identifier.
@@ -65,10 +65,10 @@ AirVentilationSystem: AirSystem {
 AirHandlingEquip: Equip <abstract> {
   ahuZoneDelivery:        AhuZoneDelivery?
   airVolumeAdjustability: AirVolumeAdjustability?
-  coolingProcess:         CoolingProcess?
+  coolingProcess:         CoolingProcess? <multiChoice>
   ductConfig:             DuctConfig?
   ductDeck:               DuctDeck?
-  heatingProcess:         HeatingProcess?
+  heatingProcess:         HeatingProcess? <multiChoice>
 }
 
 // Equipment in air distribution systems which terminate at the space.
