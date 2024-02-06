@@ -83,6 +83,14 @@ Or: Obj
 // It is an intersection of the set of types.
 And: Obj
 
+// Function represents the signature of a computation with
+// zero or more parameter types and one return type.  The 'returns'
+// slot specifies the return type, and all other slots specify
+// the parameters.
+Func: Dict {
+  returns: Obj?  // Return type of the function
+}
+
 // Query defines a named data set
 Query: Dict
 
