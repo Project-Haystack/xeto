@@ -1,0 +1,19 @@
+//
+// Copyright (c) 2024, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   21 Mar 2024 Brian Frank  Creation
+//
+
+// Water flow meter
+WaterMeter : FlowMeter { water }
+
+// Domestic water flow meter
+DomesticWaterMeter : WaterMeter { domestic }
+
+//  VAV which is fed by an AHU
+NaturalGasMeter : FlowMeter { naturalGas }
+
+
+
