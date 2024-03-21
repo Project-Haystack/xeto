@@ -9,7 +9,7 @@
 // Point associated with relative humidity; measure of moisture in the air
 AirHumidityPoint : NumberPoint <abstract> {
   air
-  pressure
+  humidity
   unit: "%RH"
 }
 
@@ -48,5 +48,3 @@ ZoneAirHumiditySensor : AirHumiditySensor { zone }
 
 // Setpoint for relative humidity in the zone
 ZoneAirHumiditySp : AirHumiditySp { zone }
-
-

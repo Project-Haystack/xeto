@@ -37,7 +37,7 @@ EnableCmd : EnablePoint & Cmd <abstract>
 AlarmSensor : BoolPoint & Sensor <abstract> { alarm }
 
 // Point associated with VFD frequency measured in Hertz
-VfdFreqPoint : NumberPoint & Sensor <abstract> {
+VfdFreqPoint : NumberPoint <abstract> {
   vfd
   freq
   unit: "Hz"
@@ -51,7 +51,7 @@ VfdFreqCmd : VfdFreqPoint & Cmd <abstract>
 
 // Point associated with VFD speed.  Speed is measured as
 // percentage where 0% is off and 100% if full speed
-VfdSpeedPoint : VfdFreqPoint & Sensor <abstract> {
+VfdSpeedPoint : NumberPoint <abstract> {
   vfd
   speed
   unit: "%"
@@ -62,6 +62,3 @@ VfdSpeedSensor : VfdSpeedPoint & Sensor <abstract>
 
 // VFD speed command as percentage where 0% is off, 100% if full speed
 VfdSpeedCmd : VfdSpeedPoint & Cmd <abstract>
-
-
-
