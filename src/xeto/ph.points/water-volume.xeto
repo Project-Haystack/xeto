@@ -1,0 +1,30 @@
+//
+// Copyright (c) 2024, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   21 Mar 2024  Brian Frank  Creation
+//
+
+// Point associated with volumetric consumption of water
+WaterVolumePoint : NumberPoint <abstract> {
+  water
+  volume
+  unit: Unit<quantity:"volume"> "gallon"
+}
+
+// Sensor for volumetric consumption of water
+WaterVolumeSensor : WaterVolumePoint & Sensor <abstract>
+
+// Setpoint for volumetric consumption of water
+WaterVolumeSp : WaterVolumePoint & Sp <abstract>
+
+//////////////////////////////////////////////////////////////////////////
+// Domestic
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for volumetric consumption of domestic water
+DomesticWaterVolumeSensor : WaterVolumeSensor { domestic }
+
+// Setpoint for volumetric consumption of domestic water
+DomesticWaterVolumeSp : WaterVolumeSp { domestic }

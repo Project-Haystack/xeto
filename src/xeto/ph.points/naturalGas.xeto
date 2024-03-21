@@ -1,0 +1,58 @@
+//
+// Copyright (c) 2024, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   21 Mar 2024  Brian Frank  Creation
+//
+
+//////////////////////////////////////////////////////////////////////////
+// Flow
+//////////////////////////////////////////////////////////////////////////
+
+// Point associated with rate of volumetric flow of natural gas
+NaturalGasFlowPoint : NumberPoint <abstract> {
+  naturalGas
+  flow
+  unit: Unit<quantity:"volumetricFlow"> "cfm"
+}
+
+// Sensor for volumetric flow of natural gas
+NaturalGasFlowSensor : NaturalGasFlowPoint & Sensor
+
+// Setpoint for volumetric flow of natural gas
+NaturalGasFlowSp : NaturalGasFlowPoint & Sp
+
+//////////////////////////////////////////////////////////////////////////
+// Volume
+//////////////////////////////////////////////////////////////////////////
+
+// Point associated with volumetric consumption of natural gas
+NaturalGasVolumePoint : NumberPoint <abstract> {
+  naturalGas
+  volume
+  unit: Unit<quantity:"volume"> "Ccf"
+}
+
+// Sensor for volumetric consumption of natural gas
+NaturalGasVolumeSensor : NaturalGasVolumePoint & Sensor
+
+// Setpoint for volumetric consumption of natural gas
+NaturalGasVolumeSp : NaturalGasVolumePoint & Sp
+
+//////////////////////////////////////////////////////////////////////////
+// Volume
+//////////////////////////////////////////////////////////////////////////
+
+// Point associated with energy consumption of natural gas
+NaturalGasEnergyPoint : NumberPoint <abstract> {
+  naturalGas
+  energy
+  unit: Unit<quantity:"energy"> "Ccf_natural_gas"
+}
+
+// Sensor for energy consumption of natural gas
+NaturalGasEnergySensor : NaturalGasEnergyPoint & Sensor
+
+// Setpoint for energy consumption of natural gas
+NaturalGasEnergySp : NaturalGasEnergyPoint & Sp

@@ -1,0 +1,30 @@
+//
+// Copyright (c) 2024, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   21 Mar 2024  Brian Frank  Creation
+//
+
+// Point associated with rate of volumetric flow of water
+WaterFlowPoint : NumberPoint <abstract> {
+  water
+  flow
+  unit: Unit<quantity:"volumetricFlow"> "gpm"
+}
+
+// Sensor for volumetric flow of water
+WaterFlowSensor : WaterFlowPoint & Sensor <abstract>
+
+// Setpoint for volumetric flow of water
+WaterFlowSp : WaterFlowPoint & Sp <abstract>
+
+//////////////////////////////////////////////////////////////////////////
+// Domestic
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for volumetric flow of domestic water
+DomesticWaterFlowSensor : WaterFlowSensor { domestic }
+
+// Setpoint for volumetric flow of domestic water
+DomesticWaterFlowSp : WaterFlowSp { domestic }
