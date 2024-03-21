@@ -22,7 +22,7 @@ RunSensor : RunPoint & Sensor <abstract>
 RunCmd : RunPoint & Cmd <abstract>
 
 // Point associated with secondary on/off state for equipment
-EnablePoint : BoolPoint & Sensor <abstract> {
+EnablePoint : BoolPoint <abstract> {
   enable
   enum: Ref "ph.points::RunEnum"
 }
@@ -62,5 +62,6 @@ VfdSpeedSensor : VfdSpeedPoint & Sensor <abstract>
 
 // VFD speed command as percentage where 0% is off, 100% if full speed
 VfdSpeedCmd : VfdSpeedPoint & Cmd <abstract>
+
 
 

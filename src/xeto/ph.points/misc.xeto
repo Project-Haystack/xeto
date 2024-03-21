@@ -6,5 +6,16 @@
 //   5 Apr 2023  Brian Frank  Creation
 //
 
+// Cooling enable command
+CoolCmd : BoolPoint { cool }
+
+// Heating enable command
+HeatCmd : BoolPoint { heat }
+
+// Dessicant dehumidifier enable command
+DessicantDehumidifierCmd : BoolPoint { dessicantDehumidifier }
+
 // Temperature conditioning mode for a zone in an HVAC system
 ZoneAirHvacModeSp : EnumPoint & Sp { zone, air, hvacMode }
+
+
