@@ -31,3 +31,15 @@ serialNumber: Marker
 // Date the asset was produced by the manufacturer.
 manufactureDate: Marker
 
+// Dimensional length of the asset
+length: Marker
+
+// Dimensional width of the asset
+width: Marker
+
+// Dimensional height of the asset
+height: Marker
+
+// Weight of the asset
+weight: Marker
+

@@ -28,3 +28,13 @@ NumberAttr: Attr {
   val: Number    // Number value of the attribute
 }
 
+// Attribute with a number value with length unit
+LengthAttr: Attr {
+  val: Number <quantity:"length">
+}
+
+// Attribute with a number value with mass (weight) unit
+MassAttr: Attr {
+  val: Number <quantity:"mass">
+}
+
