@@ -1,0 +1,30 @@
+//
+// Copyright (c) 2024, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   27 Mar 2024 Brian Frank  Creation
+//
+
+// Attribute is a single datum of static information on an entity.
+// Attributes often represent nameplate data or design/rated data.
+Attr: Entity {
+  attr           // Required marker tag for all attributes
+  val: Obj       // Value of the attribute
+}
+
+// Attribute with a string value type
+StrAttr: Attr {
+  val: Str       // String value of the attribute
+}
+
+// Attribute with a date value type
+DateAttr: Attr {
+  val: Date      // Date value of the attribute
+}
+
+// Attribute with a number value type
+NumberAttr: Attr {
+  val: Number    // Number value of the attribute
+}
+

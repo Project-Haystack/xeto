@@ -1,0 +1,25 @@
+//
+// Copyright (c) 2024, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   27 Mar 2024 Brian Frank  Creation
+//
+
+// Company name that produced the asset
+Manufacturer : StrAttr { manufacturer }
+
+// Manufacturer assigned alphanumeric identifier for a general product line.
+// For example, modelName is "iPhone 12", but modelNumber is "MGF43LL/A".
+ModelName: StrAttr { modelName }
+
+// Manufacturer assigned alphanumeric identifier for a specific product configuration.
+// For example, modelName is "iPhone 12", but modelNumber is "MGF43LL/A".
+ModelNumber: StrAttr { modelNumber }
+
+// Manufacturer assigned unique, alphanumeric identifier for an equip.
+SerialNumber: StrAttr { serialNum }
+
+// Date that the asset was produced by the manufacturer.
+ManufactureDate: DateAttr { manufactureDate }
+

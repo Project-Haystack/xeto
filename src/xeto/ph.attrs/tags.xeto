@@ -1,0 +1,33 @@
+//
+// Copyright (c) 2024, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   27 Mar 2024 Brian Frank  Creation
+//
+
+//
+// TODO: these are experimental tags not standardized yet
+//
+
+// Attribute is a single datum of static information on an entity.
+// Attributes often represent nameplate data or design/rated data.
+attr: Marker
+
+// Company name that produced the asset.
+manufacturer : Marker
+
+// Manufacturer assigned alphanumeric identifier for a general product line.
+// For example, modelName is "iPhone 12", but modelNumber is "MGF43LL/A".
+modelName: Marker
+
+// Manufacturer assigned alphanumeric identifier for a specific product configuration.
+// For example, modelName is "iPhone 12", but modelNumber is "MGF43LL/A".
+modelNumber: Marker
+
+// Manufacturer assigned unique, alphanumeric identifier for a specific asset.
+serialNumber: Marker
+
+// Date the asset was produced by the manufacturer.
+manufactureDate: Marker
+
