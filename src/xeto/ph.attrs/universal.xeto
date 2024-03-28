@@ -24,13 +24,13 @@ SerialNumberAttr : StrAttr { serialNum }
 ManufactureDateAttr : DateAttr { manufactureDate }
 
 // Dimensional length of the asset
-LengthAttr : LengthAttr { length }
+DimesionLengthAttr : LengthAttr { length }
 
 // Dimensional width of the asset
-WidthAttr : LengthAttr { width }
+DimesionWidthAttr : LengthAttr { width }
 
 // Dimensional height of the asset
-HeightAttr : LengthAttr { height }
+DimesionHeightAttr : LengthAttr { height }
 
 // Weight of the asset
 WeightAttr : MassAttr { weight }
