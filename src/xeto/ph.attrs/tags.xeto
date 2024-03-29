@@ -15,14 +15,16 @@
 attr: Marker
 
 // Company name that produced the asset.
-manufacturer : Marker
+manufacturer: Marker
 
-// Manufacturer assigned alphanumeric identifier for a general product line.
-// For example, modelName is "iPhone 12", but modelNumber is "MGF43LL/A".
-modelName: Marker
+// Manufacturer assigned identifier for a general product line.
+// For example, modelSeries is "iPhone 12", but modelNumber is "MGF43LL/A".
+// The modelSeries tends to be a marketing name and not an exact identifier.
+// Always use modelNumber for the actual model identifier.
+modeSeries: Marker
 
 // Manufacturer assigned alphanumeric identifier for a specific product configuration.
-// For example, modelName is "iPhone 12", but modelNumber is "MGF43LL/A".
+// For example, modelSeries is "iPhone 12", but modelNumber is "MGF43LL/A".
 modelNumber: Marker
 
 // Manufacturer assigned unique, alphanumeric identifier for a specific asset.

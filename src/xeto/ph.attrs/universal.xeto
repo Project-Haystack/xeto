@@ -9,12 +9,14 @@
 // Company name that produced the asset
 ManufacturerAttr : StrAttr { manufacturer }
 
-// Manufacturer assigned alphanumeric identifier for a general product line.
-// For example, modelName is "iPhone 12", but modelNumber is "MGF43LL/A".
-ModelNameAttr : StrAttr { modelName }
+// Manufacturer assigned identifier for a general product line.
+// For example, modelSeries is "iPhone 12", but modelNumber is "MGF43LL/A".
+// The modelSeries tends to be a marketing name and not an exact identifier.
+// Always use modelNumber for the actual model identifier.
+ModelSeriesAttr : StrAttr { modelSeries }
 
 // Manufacturer assigned alphanumeric identifier for a specific product configuration.
-// For example, modelName is "iPhone 12", but modelNumber is "MGF43LL/A".
+// For example, modelSeries is "iPhone 12", but modelNumber is "MGF43LL/A".
 ModelNumberAttr : StrAttr { modelNumber }
 
 // Manufacturer assigned unique, alphanumeric identifier for an equip.
@@ -24,13 +26,13 @@ SerialNumberAttr : StrAttr { serialNum }
 ManufactureDateAttr : DateAttr { manufactureDate }
 
 // Dimensional length of the asset
-DimesionLengthAttr : LengthAttr { length }
+DimensionLengthAttr : LengthAttr { length }
 
 // Dimensional width of the asset
-DimesionWidthAttr : LengthAttr { width }
+DimensionWidthAttr : LengthAttr { width }
 
 // Dimensional height of the asset
-DimesionHeightAttr : LengthAttr { height }
+DimensionHeightAttr : LengthAttr { height }
 
 // Weight of the asset
 WeightAttr : MassAttr { weight }
