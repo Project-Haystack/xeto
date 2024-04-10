@@ -75,7 +75,6 @@ Lib: Dict {
 LibDepend: Dict {
   lib: Str                      // Library qualified dotted name
   versions: LibDependVersions   // Version constraints for dependency
-  org: LibOrg?                  // Organization that published library
 }
 
 // Version constraints for a library dependency.
@@ -98,6 +97,4 @@ LibOrg: Dict {
   dis: Str     // Display name for the organization
   uri: Uri     // URI for organization website
 }
-
-
 

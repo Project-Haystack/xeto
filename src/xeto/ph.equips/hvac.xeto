@@ -17,4 +17,3 @@ AhuVav : Vav {
   myAhu: Query<of:Ahu, via:"airRef+">
 }
 
-
