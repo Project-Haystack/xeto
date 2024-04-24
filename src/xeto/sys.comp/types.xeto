@@ -1,0 +1,20 @@
+//
+// Copyright (c) 2024, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   24 Apr 2024  Brian Frank  Creation
+//
+
+// Component or function block
+Comp: Dict {
+  links: List<of:Link, maybe>
+}
+
+// Component link is a dataflow between two slots
+Link: Dict {
+  fromRef: Ref     // Reference to source component
+  fromSlot: Str    // Slot name of source component
+  toSlot: Str      // Slot name to this component
+}
+
