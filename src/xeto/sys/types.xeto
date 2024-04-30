@@ -91,11 +91,9 @@ Func: Dict {
   returns: Obj?  // Return type of the function
 }
 
+// Filter query string
+Filter: Scalar
+
 // Query defines a named data set
 Query: Dict
-
-
-
-
-
 
