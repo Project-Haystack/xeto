@@ -8,7 +8,9 @@
 
 // Component or function block
 Comp: Dict {
-  links: List<of:Link, maybe>
+  comp                            // required  marker tag
+  compName: Str                   // required component name
+  links: List<of:Link, maybe>     // list of links to this component
 }
 
 // Component link is a dataflow between two slots

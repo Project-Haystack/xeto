@@ -75,6 +75,9 @@ Dict: Seq
 // Ordered list of zero or more values
 List: Seq
 
+// Two dimension table of columns and rows.
+Grid: Seq <of:Dict>
+
 // Or type is a choice between one of multiple types.
 // It is a union of the set of types.
 Or: Obj
