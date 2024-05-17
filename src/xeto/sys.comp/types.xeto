@@ -8,15 +8,19 @@
 
 // Component or function block
 Comp: Dict {
-  comp                            // required  marker tag
-  compName: Str                   // required component name
-  links: List<of:Link, maybe>     // list of links to this component
+  compName: Str             // Required component name
+  parentRef: Ref?<of:Comp>  // Component tree parent
+  links: Links?             // List of links to this component
 }
 
 // Component link is a dataflow between two slots
 Link: Dict {
-  fromRef: Ref     // Reference to source component
-  fromSlot: Str    // Slot name of source component
-  toSlot: Str      // Slot name to this component
+  fromRef: Ref              // Reference to source component
+  fromSlot: Str             // Slot name of source component
+  toSlot: Str               // Slot name to this component
 }
+
+// Incoming links on a component as dict keyed by toSlot name.
+// The values for each slot name may be a Link or a list of Link.
+Links: Dict <of:Link | List<of:Link>>
 
