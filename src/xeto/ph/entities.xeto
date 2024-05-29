@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 06-Feb-2024
+// Auto-generated 29-May-2024
 //
 
 // Top-level dicts with a unique identifier.
@@ -302,11 +302,13 @@ Elevator: VerticalTransport {
 // See `docHaystack::Equips` chapter.
 Equip: Entity <abstract> {
   equip
-  equipRef:  Ref?
-  siteRef:   Ref
-  spaceRef:  Ref?
-  systemRef: Ref?
-  points:    Query<of:Point, inverse:"ph::Point.equips">  // Points contained by this equip
+  equipRef:     Ref?
+  siteRef:      Ref
+  spaceRef:     Ref?
+  systemRef:    Ref?
+  parentEquips: Query<of:Point, via:"equipRef+">                  // Parent equips that contain this point
+  childEquips:  Query<of:Point, inverse:"ph::Equip.parentEquips"> // Sub-equips contained by this equip
+  points:       Query<of:Point, inverse:"ph::Point.equips">       // Points contained by this equip
 }
 
 // Moving staircase used to move people between floors.
