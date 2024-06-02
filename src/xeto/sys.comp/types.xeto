@@ -8,7 +8,7 @@
 
 // Component or function block
 Comp: Dict {
-  compName: Str             // Required component name
+  compName: Str?            // Component name in parent
   parentRef: Ref?<of:Comp>  // Component tree parent
   links: Links?             // List of links to this component
 }
