@@ -1,26 +1,4 @@
 //////////////////////////////////////////////////////////////////////////
-// Temporary defs - later we will put them in def trio
-//////////////////////////////////////////////////////////////////////////
-
-ElecLine : Enum {
-  pL1 <key:"L1">
-  pL2 <key:"L2">
-  pL3 <key:"L3">
-}
-
-ElecLineToLine : Enum {
-  pL1L2 <key:"L1-L2">
-  pL2L3 <key:"L2-L3">
-  pL3L1 <key:"L3-L1">
-}
-
-ElecLineToNeutral : Enum {
-  pL1N <key:"L1-N">
-  pL2N <key:"L2-N">
-  pL3N <key:"L3-N">
-}
-
-//////////////////////////////////////////////////////////////////////////
 // Sensor for electricity (abstract)
 //////////////////////////////////////////////////////////////////////////
 
@@ -187,7 +165,7 @@ ElecApparentPowerSensor : ElecPowerSensor & ElecAcSensor <abstract> { apparent }
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for phase AC electric power
-ElecPhasePowerSensor : ElecPowerSensor & ElecAcSensor <abstract> { phasePower: ElecLine }
+ElecPhasePowerSensor : ElecPowerSensor & ElecAcSensor <abstract> { phasePower: PhasePower }
 
 // Sensor for line 1 AC electric active power
 ElecL1ActivePowerSensor : ElecActivePowerSensor & ElecPhasePowerSensor <abstract> { phasePower: "L1" }
@@ -221,7 +199,7 @@ ElecL3ApparentPowerSensor : ElecApparentPowerSensor & ElecPhasePowerSensor <abst
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for line AC electric power
-ElecLinePowerSensor : ElecPowerSensor & ElecAcSensor <abstract> { linePower: ElecLineToLine }
+ElecLinePowerSensor : ElecPowerSensor & ElecAcSensor <abstract> { linePower: LinePower }
 
 // Sensor for line 1 to line 2 AC electric active power
 ElecL1L2ActivePowerSensor : ElecActivePowerSensor & ElecLinePowerSensor <abstract> { linePower: "L1-L2" }
@@ -546,7 +524,7 @@ ElecApparentPowerSp : ElecPowerSp & ElecAcSp <abstract> { apparent }
 //////////////////////////////////////////////////////////////////////////
 
 // Setpoint for phase AC electric power
-ElecPhasePowerSp : ElecPowerSp & ElecAcSp <abstract> { phasePower: ElecLine }
+ElecPhasePowerSp : ElecPowerSp & ElecAcSp <abstract> { phasePower: PhasePower }
 
 // Setpoint for line 1 AC electric active power
 ElecL1ActivePowerSp : ElecActivePowerSp & ElecPhasePowerSp <abstract> { phasePower: "L1" }
@@ -580,7 +558,7 @@ ElecL3ApparentPowerSp : ElecApparentPowerSp & ElecPhasePowerSp <abstract> { phas
 //////////////////////////////////////////////////////////////////////////
 
 // Setpoint for line AC electric power
-ElecLinePowerSp : ElecPowerSp & ElecAcSp <abstract> { linePower: ElecLineToLine }
+ElecLinePowerSp : ElecPowerSp & ElecAcSp <abstract> { linePower: LinePower }
 
 // Setpoint for line 1 to line 2 AC electric active power
 ElecL1L2ActivePowerSp : ElecActivePowerSp & ElecLinePowerSp <abstract> { linePower: "L1-L2" }
@@ -833,7 +811,7 @@ ElecApparentEnergySensor : ElecEnergySensor & ElecAcSensor <abstract> { apparent
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for phase AC electric energy
-ElecPhaseEnergySensor : ElecEnergySensor & ElecAcSensor <abstract> { phaseEnergy: ElecLine }
+ElecPhaseEnergySensor : ElecEnergySensor & ElecAcSensor <abstract> { phaseEnergy: PhaseEnergy }
 
 // Sensor for line 1 AC electric active energy
 ElecL1ActiveEnergySensor : ElecActiveEnergySensor & ElecPhaseEnergySensor <abstract> { phaseEnergy: "L1" }
@@ -867,7 +845,7 @@ ElecL3ApparentEnergySensor : ElecApparentEnergySensor & ElecPhaseEnergySensor <a
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for line AC electric energy
-ElecLineEnergySensor : ElecEnergySensor & ElecAcSensor <abstract> { lineEnergy: ElecLineToLine }
+ElecLineEnergySensor : ElecEnergySensor & ElecAcSensor <abstract> { lineEnergy: LineEnergy }
 
 // Sensor for line 1 to line 2 AC electric active energy
 ElecL1L2ActiveEnergySensor : ElecActiveEnergySensor & ElecLineEnergySensor <abstract> { lineEnergy: "L1-L2" }
@@ -1159,7 +1137,7 @@ ElecImbalanceCurrentSensor : ElecCurrentSensor & ElecAcSensor <abstract> { imbal
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for phase AC electric current
-ElecPhaseCurrentSensor : ElecCurrentSensor & ElecAcSensor <abstract> { phaseCurrent: ElecLineToLine }
+ElecPhaseCurrentSensor : ElecCurrentSensor & ElecAcSensor <abstract> { phaseCurrent: PhaseCurrent }
 
 // Sensor for line 1 to line 2 AC electric magnitude current
 ElecL1L2MagnitudeCurrentSensor : ElecMagnitudeCurrentSensor & ElecPhaseCurrentSensor { phaseCurrent: "L1-L2" }
@@ -1202,7 +1180,7 @@ ElecL3L1ImbalanceCurrentSensor : ElecImbalanceCurrentSensor & ElecPhaseCurrentSe
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for line AC electric current
-ElecLineCurrentSensor : ElecCurrentSensor & ElecAcSensor <abstract> { lineCurrent: ElecLine }
+ElecLineCurrentSensor : ElecCurrentSensor & ElecAcSensor <abstract> { lineCurrent: LineCurrent }
 
 // Sensor for line 1 AC electric magnitude current
 ElecL1MagnitudeCurrentSensor : ElecMagnitudeCurrentSensor & ElecLineCurrentSensor { lineCurrent: "L1" }
@@ -1280,7 +1258,7 @@ ElecMagnitudeCurrentSp : ElecCurrentSp & ElecAcSp <abstract> { magnitude }
 //////////////////////////////////////////////////////////////////////////
 
 // Setpoint for phase AC electric current
-ElecPhaseCurrentSp : ElecCurrentSp & ElecAcSp <abstract> { phaseCurrent: ElecLineToLine }
+ElecPhaseCurrentSp : ElecCurrentSp & ElecAcSp <abstract> { phaseCurrent: PhaseCurrent }
 
 // Setpoint for line 1 to line 2 AC electric magnitude current
 ElecL1L2MagnitudeCurrentSp : ElecMagnitudeCurrentSp & ElecPhaseCurrentSp { phaseCurrent: "L1-L2" }
@@ -1296,7 +1274,7 @@ ElecL3L1MagnitudeCurrentSp : ElecMagnitudeCurrentSp & ElecPhaseCurrentSp { phase
 //////////////////////////////////////////////////////////////////////////
 
 // Setpoint for line AC electric current
-ElecLineCurrentSp : ElecCurrentSp & ElecAcSp <abstract> { lineCurrent: ElecLine }
+ElecLineCurrentSp : ElecCurrentSp & ElecAcSp <abstract> { lineCurrent: LineCurrent }
 
 // Setpoint for line 1 AC electric magnitude current
 ElecL1MagnitudeCurrentSp : ElecMagnitudeCurrentSp & ElecLineCurrentSp { lineCurrent: "L1" }
@@ -1328,7 +1306,7 @@ ElecImbalanceVoltSensor : ElecVoltSensor & ElecAcSensor <abstract> { imbalance }
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for phase AC electric voltage
-ElecPhaseVoltSensor : ElecVoltSensor & ElecAcSensor <abstract> { phaseVolt: ElecLineToNeutral }
+ElecPhaseVoltSensor : ElecVoltSensor & ElecAcSensor <abstract> { phaseVolt: PhaseVolt }
 
 // Sensor for line 1 to neutral AC electric magnitude voltage
 ElecL1NMagnitudeVoltSensor : ElecMagnitudeVoltSensor & ElecPhaseVoltSensor { phaseVolt: "L1-N" }
@@ -1371,7 +1349,7 @@ ElecL3NImbalanceVoltSensor : ElecImbalanceVoltSensor & ElecPhaseVoltSensor { pha
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for line AC electric voltage
-ElecLineVoltSensor : ElecVoltSensor & ElecAcSensor <abstract> { lineVolt: ElecLineToLine }
+ElecLineVoltSensor : ElecVoltSensor & ElecAcSensor <abstract> { lineVolt: LineVolt }
 
 // Sensor for line 1 to line 2 AC electric magnitude voltage
 ElecL1L2MagnitudeVoltSensor : ElecMagnitudeVoltSensor & ElecLineVoltSensor { lineVolt: "L1-L2" }
@@ -1499,7 +1477,7 @@ ElecNetTotalApparentDemandSensor : ElecTotalApparentDemandSensor { net }
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for phase AC electric power factor
-ElecPhasePfSensor : ElecPfSensor & ElecAcSensor <abstract> { phasePf: ElecLine }
+ElecPhasePfSensor : ElecPfSensor & ElecAcSensor <abstract> { phasePf: PhasePf }
 
 // Sensor for line 1 AC electric power factor
 ElecL1PfSensor : ElecPhasePfSensor <abstract> { phasePf: "L1" }
@@ -1515,7 +1493,7 @@ ElecL3PfSensor : ElecPhasePfSensor <abstract> { phasePf: "L3" }
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for line AC electric power factor
-ElecLinePfSensor : ElecPfSensor & ElecAcSensor <abstract> { linePf: ElecLineToLine }
+ElecLinePfSensor : ElecPfSensor & ElecAcSensor <abstract> { linePf: LinePf }
 
 // Sensor for line 1 to line 2 AC electric power factor
 ElecL1L2PfSensor : ElecLinePfSensor <abstract> { linePf: "L1-L2" }
