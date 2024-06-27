@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 16-Jan-2024
+// Auto-generated 27-Jun-2024
 //
 
 //////////////////////////////////////////////////////////////////////////
@@ -236,6 +236,26 @@ Submeter: MeterScope { submeter }
 
 // Main meter for the associated site
 SiteMeter: MeterScope { siteMeter }
+
+//////////////////////////////////////////////////////////////////////////
+// PfScope
+//////////////////////////////////////////////////////////////////////////
+
+// Power factor scope
+PfScope: Choice
+
+// True power factor, which includes effects of harmonic distortion.
+// Power factor is assumed to be true power factor when `pfScope` is not
+// defined.  However, it is recommended to specify a scope for power
+// factor to help avoid misinterpretation of data.
+PfTrue: PfScope { pfTrue }
+
+// Displacement power factor, which excludes effects of harmonic
+// distortion.
+PfDisplacement: PfScope { pfDisplacement }
+
+// Distortion power factor
+PfDistortion: PfScope { pfDistortion }
 
 //////////////////////////////////////////////////////////////////////////
 // PhaseCount

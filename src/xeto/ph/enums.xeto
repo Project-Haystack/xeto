@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 18-Jan-2024
+// Auto-generated 27-Jun-2024
 //
 
 // Status of point's current value reading.  The `curVal` is only available
@@ -20,6 +20,30 @@ CurStatus: Enum {
   remoteDown      // point in remote system is down
   remoteDisabled  // point in remote system is disabled
   remoteUnknown   // point in remote system is unknown
+}
+
+// Single-phase line measurement of an electric quantity in an AC electric
+// power system.
+ElecLine: Enum {
+  pL1 <key:"L1">  // line 1 measurement
+  pL2 <key:"L2">  // line 2 measurement
+  pL3 <key:"L3">  // line 3 measurement
+}
+
+// Single-phase electric quantity measured line-to-line in an AC electric
+// power system.
+ElecLineToLine: Enum {
+  pL1L2 <key:"L1-L2">  // line 1 to line 2 measurement
+  pL2L3 <key:"L2-L3">  // line 2 to line 3 measurement
+  pL3L1 <key:"L3-L1">  // line 3 to line 1 measurement
+}
+
+// Single-phase electric quantity measured line-to-neutral in an AC
+// electric power system.
+ElecLineToNeutral: Enum {
+  pL1N <key:"L1-N">  // line 1 to neutral measurement
+  pL2N <key:"L2-N">  // line 2 to neutral measurement
+  pL3N <key:"L3-N">  // line 3 to neutral measurement
 }
 
 // Geographic country as [ISO 3166-1]`http://en.wikipedia.org/wiki/ISO_3166-1`
@@ -400,7 +424,61 @@ Kind: Enum {
   grid <key:"Grid">          // two dimensional tabular data collection
 }
 
-// Phase measurement in a three-phase electrical system
+// Single-phase line current measured in an AC electric power system.
+LineCurrent: Enum {
+  pL1 <key:"L1">  // line 1 measurement
+  pL2 <key:"L2">  // line 2 measurement
+  pL3 <key:"L3">  // line 3 measurement
+}
+
+// Single-phase energy measured line-to-line in an AC electric power
+// system.
+LineEnergy: Enum {
+  pL1L2 <key:"L1-L2">  // line 1 to line 2 measurement
+  pL2L3 <key:"L2-L3">  // line 2 to line 3 measurement
+  pL3L1 <key:"L3-L1">  // line 3 to line 1 measurement
+}
+
+// Single-phase power factor measured line-to-line in an AC electric power
+// system.
+LinePf: Enum {
+  pL1L2 <key:"L1-L2">  // line 1 to line 2 measurement
+  pL2L3 <key:"L2-L3">  // line 2 to line 3 measurement
+  pL3L1 <key:"L3-L1">  // line 3 to line 1 measurement
+}
+
+// Single-phase power measured line-to-line in an AC electric power system.
+// May also be referred to as a line power measurement.
+LinePower: Enum {
+  pL1L2 <key:"L1-L2">  // line 1 to line 2 measurement
+  pL2L3 <key:"L2-L3">  // line 2 to line 3 measurement
+  pL3L1 <key:"L3-L1">  // line 3 to line 1 measurement
+}
+
+// Single-phase voltage measured line-to-line in an AC electric power
+// system.  May also be referred to as a line voltage measurement.
+LineVolt: Enum {
+  pL1L2 <key:"L1-L2">  // line 1 to line 2 measurement
+  pL2L3 <key:"L2-L3">  // line 2 to line 3 measurement
+  pL3L1 <key:"L3-L1">  // line 3 to line 1 measurement
+}
+
+// Phase measurement in a three-phase electrical system.  Phase is
+// deprecated in favor of more explicit tags:
+// - `lineVolt`
+// - `phaseVolt`
+// - `lineCurrent`
+// - `phaseCurrent`
+// - `linePower`
+// - `phasePower`
+// - `linePf`
+// - `phasePf`
+// - `lineEnergy`
+// - `phaseEnergy`
+// - `lineAvg`
+// - `phaseAvg`
+// - `neutral`
+// - `ground`
 Phase: Enum {
   a <key:"A">    // line-to-neutral measurement
   b <key:"B">    // line-to-neutral measurement
@@ -409,6 +487,46 @@ Phase: Enum {
   bc <key:"BC">  // line-to-line measurement
   ca <key:"CA">  // line-to-line measurement
   n <key:"N">    // neutral current
+}
+
+// Single-phase current measured line-to-line in an AC electric power
+// system.  May also be referred to as a phase current measurement.
+PhaseCurrent: Enum {
+  pL1L2 <key:"L1-L2">  // line 1 to line 2 measurement
+  pL2L3 <key:"L2-L3">  // line 2 to line 3 measurement
+  pL3L1 <key:"L3-L1">  // line 3 to line 1 measurement
+}
+
+// Single-phase energy measured line-to-neutral in an AC electric power
+// system.  Neutral might not be referenced, but implied.
+PhaseEnergy: Enum {
+  pL1 <key:"L1">  // line 1 measurement
+  pL2 <key:"L2">  // line 2 measurement
+  pL3 <key:"L3">  // line 3 measurement
+}
+
+// Single-phase power factor measured line-to-neutral in an AC electric
+// power system.  Neutral might not be referenced, but implied.
+PhasePf: Enum {
+  pL1 <key:"L1">  // line 1 measurement
+  pL2 <key:"L2">  // line 2 measurement
+  pL3 <key:"L3">  // line 3 measurement
+}
+
+// Single-phase power measured line-to-neutral in an AC electric power
+// system.  May also be referred to as a phase power measurement.
+PhasePower: Enum {
+  pL1 <key:"L1">  // line 1 measurement
+  pL2 <key:"L2">  // line 2 measurement
+  pL3 <key:"L3">  // line 3 measurement
+}
+
+// Single-phase voltage measured line-to-neutral in an AC electric power
+// system.  May also be referred to as a phase voltage measurement.
+PhaseVolt: Enum {
+  pL1N <key:"L1-N">  // line 1 to neutral measurement
+  pL2N <key:"L2-N">  // line 2 to neutral measurement
+  pL3N <key:"L3-N">  // line 3 to neutral measurement
 }
 
 // Primary function of building as US Energy Star key
