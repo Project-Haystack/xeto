@@ -60,6 +60,34 @@ Time: Scalar <sealed, pattern: "\\d\\d:\\d\\d:\\d\\d(\\.\\d+)*"> "00:00:00"
 // ISO 8601 timestamp followed by timezone identifier
 DateTime: Scalar <sealed, pattern: "\\d\\d\\d\\d-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d(\\.\\d+)*[Z+-][\\d:]*[ ]*[-+a-zA-Z_\\d]*"> "2000-01-01T00:00:00Z UTC"
 
+// Span models a time range between two DateTimes.
+// It supports the following string encoding:
+//   - relative 'SpanMode' name such as "yesterday"
+//   - absolute single date: 'YYYY-MM-DD'
+//   - absolute date span: 'YYYY-MM-DD,YYYY-MM-DD'
+//   - absolute date time span: 'YYYY-MM-DDThh:mm:ss.FFF zzzz,YYYY-MM-DDThh:mm:ss.FFF zzzz'
+// In the case of two DateTime, the timezones must match.  In the other
+// cases the timezone to use is context sensitive based on the application.
+Span: Scalar
+
+// Relative span to current date
+SpanMode: Enum {
+  today        // Current date
+  yesterday    // Day before current date
+  thisWeek     // Localized week which includes today
+  lastWeek     // Localized week before thisWeek
+  pastWeek     // Past 7 dates including today
+  thisMonth    // Calendar month which includes today
+  lastMonth    // Calendar month before thisMonth
+  pastMonth    // Past 28 days including today
+  thisQuarter  // Three month quarter which includes today
+  lastQuarter  // Three month quarter before thisQuarter
+  pastQuarter  // Past 90 days including today
+  thisYear     // Calendar year which includes today
+  lastYear     // Calendar year before thisYear
+  pastYear     // Past 365 days including today
+}
+
 // Closed enumerated set of string values
 Enum: Scalar
 
