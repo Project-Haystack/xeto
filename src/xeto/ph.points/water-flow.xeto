@@ -10,7 +10,7 @@
 WaterFlowPoint : NumberPoint <abstract> {
   water
   flow
-  unit: Unit<quantity:"volumetricFlow"> "gpm"
+  unit: Unit<quantity:"volumetricFlow"> "gal/min"
 }
 
 // Sensor for volumetric flow of water
@@ -28,3 +28,4 @@ DomesticWaterFlowSensor : WaterFlowSensor { domestic }
 
 // Setpoint for volumetric flow of domestic water
 DomesticWaterFlowSp : WaterFlowSp { domestic }
+
