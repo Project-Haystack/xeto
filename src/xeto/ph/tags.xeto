@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 27-Jun-2024
+// Auto-generated 11-Jul-2024
 //
 
 // Cooling process using energy from heat source such as hot water
@@ -51,9 +51,6 @@ apparent: Marker
 
 // Area of a shape or floor space
 area: Number <quantity:"area">
-
-// A collection of manufactured parts or subassemblies.
-assembly: Marker
 
 // Aquifer Thermal Energy Storage system.
 // See `docHaystack::ATES` chapter.
@@ -383,6 +380,9 @@ dis: Str
 // Duct for air leaving an equipment
 discharge: Marker
 
+// Equipment that releases a specific amount of a substance.
+dispenser: Marker
+
 // Three way valve which inputs one pipe and diverts between two output pipes.
 diverting: Marker
 
@@ -510,6 +510,36 @@ evaporator: Marker
 
 // Electric Vehicle Supply Equipment.  See `docHaystack::EVSE` chapter.
 evse: Marker
+
+// Physical type of `evse-cable`.
+evseCableType: EvseCableType
+
+// Describes an event during which an `evse-port` can deliver power to an EV.
+// The EVSE may need to authorize a user to initiate an `evseSession`.
+//
+// At minimum has the following data:
+//  - ts:  when the event was logged by the system of record
+//  - started:  when the event started
+//  - stopped:  when the event stopped
+//  - tx:  transaction ID for the event
+//  - targetRef:  reference to the `evse-port`
+//  - energyDelivered:  energy delivered during the `evseSession`
+//  - event:  marker tag
+//  - meterStart:  meter register's value at the beginning of the `evseSession`
+//
+// In the future additional data might be included, such as the means of
+// EV charging session authorization.
+evseSession: Dict
+
+// Status of one or more `evse-port` reported by an EVSE.
+//
+// When applied to an `evse-port`, indicates the status of an EVSE port.
+//
+// When applied to an `evse-dispenser` or `evse-powerConverter`, indicates
+// the status of one or more `evse-port` within an EVSE manufacturer's
+// package.  In this case only the enum values available, unavailable,
+// and fault apply.
+evseStatus: EvseStatus
 
 // Duct used to expel air back outside
 exhaust: Marker
@@ -1156,6 +1186,21 @@ port: Marker
 // Energy consumed per unit time
 power: Marker
 
+// Converts one electrical waveform to another using power electronic
+// circuitry.  Involves the use of one or more power modules.
+//
+// May convert:
+//  - `ac` to `dc`
+//  - `ac` to `ac`
+//  - `dc` to `dc`
+//  - `dc` to `ac`
+//
+// Note:  An AC/AC power converter performs the same task as a power
+// transformer but using power electronics.  Similarly, a DC/DC power
+// converter transforms an input DC voltage to an output DC voltage at
+// another level.
+powerConverter: Marker
+
 // Amount of atmospheric water vapor fallen including rain, sleet, snow, and hail
 precipitation: Marker
 
@@ -1357,6 +1402,11 @@ stage: Number
 
 // Readiness mode of a space
 standby: Marker
+
+// State of charge (SoC) of an electric `battery`.  Uses a percentage in
+// the range of 0% to 100%, where no charge is indicated as 0% and full
+// charge is indicated as 100%.
+stateOfCharge: Marker
 
 // Water in its gas form
 steam: Marker

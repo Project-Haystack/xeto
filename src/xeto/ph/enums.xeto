@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 27-Jun-2024
+// Auto-generated 11-Jul-2024
 //
 
 // Status of point's current value reading.  The `curVal` is only available
@@ -44,6 +44,87 @@ ElecLineToNeutral: Enum {
   pL1N <key:"L1-N">  // line 1 to neutral measurement
   pL2N <key:"L2-N">  // line 2 to neutral measurement
   pL3N <key:"L3-N">  // line 3 to neutral measurement
+}
+
+// Physical type of `evse-cable`.
+EvseCableType: Enum {
+  ccs1      // CCS1 charging cable
+  ccs2      // CCS2 charging cable
+  chademo   // CHAdeMO charging cable
+  saeJ3400  // SAE J3400 charging cable
+  saeJ1772  // SAE J1772 charging cable
+  saeJ3068  // SAE J3068 charging cable
+  iecType2  // IEC 62196 Type 2 charging cable
+  mcs       // Megawatt Charging System charging cable
+  gbt       // GB/T charging cable
+}
+
+// Status of one or more `evse-port` reported by an EVSE.
+//
+// When applied to an `evse-port`, indicates the status of an EVSE port.
+//
+// When applied to an `evse-dispenser` or `evse-powerConverter`, indicates
+// the status of one or more `evse-port` within an EVSE manufacturer's
+// package.  In this case only the enum values available, unavailable,
+// and fault apply.
+EvseStatus: Enum {
+  // When the point references an `evse-port`, indicates the
+  // `evse-port` is available for recharging a vehicle.  During this
+  // condition none of the `evse-cable` that reference the `evse-port` are
+  // plugged into a vehicle charging inlet.  Also, a parked vehicle may
+  // prohibit another vehicle from recharging.
+  // When the point references `evse-dispenser` or `evse-powerConverter`,
+  // indicates `evse-port` within the EVSE manufacturer's package are
+  // available for an `evseSession` and may actively be in one.  Also, an
+  // `evse-port` may have another `evseStatus` based on its condition.
+  available
+
+  // After an `evse-port` is no longer available and before an
+  // `evseSession` begins.  Typically this condition applies during the
+  // authorization of an `evseSession`.  This value is deprecated in favor
+  // of the occupied value.
+  preparing
+
+  // When there is an active `evseSession` and the contactor
+  // for the `evse-port` is closed.  This value is deprecated in favor of
+  // the occupied value.
+  charging
+
+  // When the `evse-port` is occupied and not within an
+  // active `evseSession` due to inavailability of power to deliver to the
+  // vehicle or an unsuccessful attempt to establish an `evseSession`.
+  // This value is deprecated in favor of the occupied value.
+  suspendedEVSE
+
+  // When a vehicle does not accept power being offered by
+  // the `evse-port` during an active `evseSession`.  This value is
+  // deprecated in favor of the occupied value.
+  suspendedEV
+
+  // After an `evseSession` when the `evse-port` is still
+  // occupied.  This value is deprecated in favor of the occupied value.
+  finishing
+
+  // When an `evse-cable` that references the `evse-port` is
+  // plugged into a vehicle's charging inlet.  During this condition the
+  // `evse-port` may or may not be within an active `evseSession`.
+  occupied
+
+  // When the `evse-port` is dedicated to a specific user.
+  // During this condition only the intended user can authorize an
+  // `evseSession` with their vehicle.  An unauthorized user and their
+  // parked vehicle may prohibit an authorized user from recharging.
+  reserved
+
+  // When the EVSE prohibits EV charging on the `evse-port`
+  // due to an applied software setting for the `evse-port` or EVSE
+  // manufacturer's package.
+  unavailable
+
+  // When the EVSE prohibits EV charging on the `evse-port` due to
+  // a fault condition within the `evse-port` or EVSE manufacturer's
+  // package.
+  fault
 }
 
 // Geographic country as [ISO 3166-1]`http://en.wikipedia.org/wiki/ISO_3166-1`

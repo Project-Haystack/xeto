@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 29-May-2024
+// Auto-generated 11-Jul-2024
 //
 
 // Top-level dicts with a unique identifier.
@@ -16,6 +16,20 @@ Entity: Dict <abstract> {
 AcElecMeter: ElecMeter {
   ac
   phaseCount: PhaseCount?
+}
+
+// An AC EVSE port delivers `ac` electricity to a single EV charging inlet
+// at a time.  See `docHaystack::EVSE#port` chapter.
+//
+// Typically a max current or max power setpoint should reference an AC
+// EVSE port, but not both.  Usually it is preferred to control an AC EVSE
+// port using a max current setpoint.
+//
+// It is recommended to include electrical location related tags on
+// electrical points that reference an AC EVSE port.  See
+// `docHaystack::Meters#elecMeters` chapter for more details.
+AcEvsePort: EvsePort {
+  ac
 }
 
 // Equipment to move or control a mechanism.  Actuators may be manually
@@ -77,11 +91,6 @@ AirHandlingEquip: Equip <abstract> {
 // responsible for delivery of air to the space and tempering the temperature.
 AirTerminalUnit: Equip <abstract> {
   ductConfig: DuctConfig?
-}
-
-// A collection of manufactured parts or subassemblies.
-Assembly: Equip {
-  assembly
 }
 
 // Aquifer Thermal Energy Storage system.
@@ -238,6 +247,16 @@ DcElecMeter: ElecMeter {
   dc
 }
 
+// A DC EVSE port delivers `dc` electricity to a single EV charging inlet
+// at a time.  See `docHaystack::EVSE#port` chapter.
+//
+// Typically a max current or max power setpoint should reference a DC
+// EVSE port, but not both.  Usually it is preferred to control a DC EVSE
+// port using a max power setpoint.
+DcEvsePort: EvsePort {
+  dc
+}
+
 // Microprocessor based hardware device.  This is the general term for
 // all computers, mobile phones, controllers, and I/O modules.
 // See `docHaystack::Devices#networks` chapter.
@@ -316,16 +335,24 @@ Escalator: VerticalTransport {
   escalator
 }
 
-// Equipment that delivers electricity via EVSE ports to charging inlets
-// located on EVs.  See `docHaystack::EVSE#assembly` chapter.
-EvseAssembly: EvseEquip {
-  assembly
-}
-
-// Models the electrical connection between an `evse-port` and an EV charging
-// inlet.  See `docHaystack::EVSE#cable` chapter.
+// The electrical cable between an `evse-port` and an EV charging inlet
+// used by an EV driver.  `evseCableType` distinguishes the type of cable.
+// See `docHaystack::EVSE#cable` chapter.
 EvseCable: EvseEquip {
   cable
+  evseCableType: EvseCableType?
+}
+
+// Equipment that dispenses electricity to an EV.  It consists of a
+// physical EVSE enclosure and its contents to which an `evse-cable`
+// attaches.  An `evse-dispenser` can contain zero or more `evse-port`.
+//
+// Children points are used to describe or control one or more `evse-port`
+// within the EVSE manufacturer's package.
+//
+// See `docHaystack::EVSE#dispenser` chapter.
+EvseDispenser: EvseEquip {
+  dispenser
 }
 
 // Equipment that supports the delivery of electricity to charging inlets
@@ -335,9 +362,30 @@ EvseEquip: Equip {
 }
 
 // An EVSE port delivers electricity to a single EV charging inlet at a
-// time.  See `docHaystack::EVSE#port` chapter.
+// time.  Comprised of a software-controlled electrical contactor or
+// circuit breaker.  Typically contained within an `evse-dispenser`, but
+// may be contained within an `evse-powerConverter`.  More than one
+// `evse-cable` may be connected to a single `evse-port`, however, only one
+// may be energized at any given time.
+//
+// Note:  In the future we might add an entity that describes `evse-port`
+// contained in an AC distribution panel.  This scenario is not common.
+//
+// See `docHaystack::EVSE#port` chapter.
 EvsePort: EvseEquip {
   port
+}
+
+// A power converter that has a `dc` electrical output applied to a
+// `dc-evse-port`.  May be contained within an `evse-dispenser` or in a
+// separate dedicated equipment enclosure.
+//
+// Children points are used to describe or control one or more `evse-port`
+// within the EVSE manufacturer's package.
+//
+// See `docHaystack::EVSE#powerConverter` chapter.
+EvsePowerConverter: EvseEquip {
+  powerConverter
 }
 
 // A system that supplies electricity to EVSE assembly equipment and its
@@ -560,6 +608,7 @@ Point: Entity <abstract> {
   cur:           Marker?
   enum:          Obj?
   equipRef:      Ref
+  evseStatus:    EvseStatus?
   his:           Marker?
   kind:          Kind
   maxVal:        Number?

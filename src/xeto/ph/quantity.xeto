@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 16-Jan-2024
+// Auto-generated 11-Jul-2024
 //
 
 // Measurable property of a substance or phenomenon
@@ -211,6 +211,11 @@ Speed: Quantity { speed }
 
 // Wind flow speed
 WindSpeed: Speed { wind }
+
+// State of charge (SoC) of an electric `battery`.  Uses a percentage in
+// the range of 0% to 100%, where no charge is indicated as 0% and full
+// charge is indicated as 100%.
+StateOfCharge: Quantity { stateOfCharge }
 
 // Temperature - measure of hot and cold
 Temp: Quantity { temp }
