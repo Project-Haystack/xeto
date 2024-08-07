@@ -1,11 +1,12 @@
 //
-// Copyright (c) 2011-2023, Project-Haystack
+// Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 14-Dec-2023
+// Auto-generated 07-Aug-2024
 //
 
 // TimeZone names for standardized database
 TimeZone: Enum {
+  utc <key:"UTC">
   abidjan <key:"Abidjan">
   accra <key:"Accra">
   adak <key:"Adak">
@@ -363,7 +364,6 @@ TimeZone: Enum {
   troll <key:"Troll">
   tucuman <key:"Tucuman">
   tunis <key:"Tunis">
-  utc <key:"UTC">
   ulaanbaatar <key:"Ulaanbaatar">
   ulyanovsk <key:"Ulyanovsk">
   urumqi <key:"Urumqi">
