@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 11-Jul-2024
+// Auto-generated 08-Aug-2024
 //
 
 // Cooling process using energy from heat source such as hot water
@@ -359,7 +359,7 @@ dessicantDehumidifier: Marker
 device: Marker
 
 // Device which controls a monitors this entity
-deviceRef: Ref
+deviceRef: Ref <of:Device>
 
 // Dew point temperature at which water vapor will form dew
 dewPoint: Marker
@@ -500,7 +500,7 @@ enum: Obj
 equip: Marker
 
 // Reference to equip which contains this entity
-equipRef: Ref
+equipRef: Ref <of:Equip>
 
 // Moving staircase used to move people between floors.
 escalator: Marker
@@ -987,7 +987,7 @@ net: Marker
 network: Marker
 
 // Associates a device which communicates on specific a network.
-networkRef: Ref
+networkRef: Ref <of:Network>
 
 // Related to data communication networks
 networking: Marker
@@ -1365,7 +1365,7 @@ site: Marker
 siteMeter: Marker
 
 // Reference to site which contains the entity
-siteRef: Ref
+siteRef: Ref <of:Site>
 
 // Simple Mail Transfer Protocol for sending email
 smtp: Marker
@@ -1391,7 +1391,7 @@ sp: Marker
 space: Marker
 
 // Reference to space which contains this entity
-spaceRef: Ref
+spaceRef: Ref <of:Space>
 
 // Distance per unit time
 speed: Marker
@@ -1421,7 +1421,7 @@ steamRef: Ref
 submeter: Marker
 
 // Reference to parent meter which is immediately upstream of this meter
-submeterOf: Ref
+submeterOf: Ref <of:Meter>
 
 // Below the surface of the earth
 subterranean: Marker
@@ -1434,7 +1434,7 @@ switch: Marker
 system: Marker
 
 // Reference to system
-systemRef: Ref
+systemRef: Ref <of:System>
 
 // Mobile device with touch screen for user input.
 tablet: Marker
@@ -1559,7 +1559,7 @@ weatherCond: Marker
 weatherStation: Marker
 
 // Reference to weather station for to use this entity
-weatherStationRef: Ref
+weatherStationRef: Ref <of:WeatherStation>
 
 // A well is a source of groundwater and potentially thermal energy.  When
 // used within an [ATES]`docHaystack::ATES` system, the well facilitates thermal
