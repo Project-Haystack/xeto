@@ -114,6 +114,11 @@ Or: Obj
 // It is an intersection of the set of types.
 And: Obj
 
+// Blob of raw binary data in base64url encoding as specified by
+// RFC 4648.  This encoding does not use padding and uses minus "-"
+// and underbar "_" as the 62nd and 63 char respectively.
+Buf: Scalar
+
 // Filter query string
 Filter: Scalar
 
