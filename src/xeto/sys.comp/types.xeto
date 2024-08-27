@@ -17,7 +17,6 @@ Comp: Dict {
 Link: Dict {
   fromRef: Ref              // Reference to source component
   fromSlot: Str             // Slot name of source component
-  toSlot: Str               // Slot name to this component
 }
 
 // Incoming links on a component as dict keyed by toSlot name.
