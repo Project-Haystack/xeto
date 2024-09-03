@@ -1,39 +1,12 @@
 //////////////////////////////////////////////////////////////////////////
-// Sensor for electricity (abstract)
+// Point kind specs
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for electricity
 ElecSensor : NumberPoint & Sensor <abstract> { elec }
 
 //////////////////////////////////////////////////////////////////////////
-// Sensors for electricity type (abstract)
-//////////////////////////////////////////////////////////////////////////
-
-// Sensor for AC electricity
-ElecAcSensor : ElecSensor <abstract> { ac }
-
-// Sensor for DC electricity
-ElecDcSensor : ElecSensor <abstract> { dc }
-
-//////////////////////////////////////////////////////////////////////////
-// Setpoint for electricity (abstract)
-//////////////////////////////////////////////////////////////////////////
-
-// Setpoint for electricity
-ElecSp : NumberPoint & Sp <abstract> { elec }
-
-//////////////////////////////////////////////////////////////////////////
-// Setpoints for electricity type (abstract)
-//////////////////////////////////////////////////////////////////////////
-
-// Setpoint for AC electricity
-ElecAcSp : ElecSp <abstract> { ac }
-
-// Setpoint for DC electricity
-ElecDcSp : ElecSp <abstract> { dc }
-
-//////////////////////////////////////////////////////////////////////////
-// Sensors for primary quantities (all specs, except freq, are abstract)
+// Primary quantity specs
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for electric voltage
@@ -54,1551 +27,840 @@ ElecPowerSensor : ElecSensor <abstract> {
   unit: Unit<quantity:"power"> "kW"
 }
 
-// Sensor for electric energy
-ElecEnergySensor : ElecSensor <abstract> {
-  energy
-  unit: Unit<quantity:"energy"> "kWh"
-}
-
 // Sensor for electric demand
 ElecDemandSensor : ElecSensor <abstract> {
   demand
   unit: Unit<quantity:"power"> "kW"
 }
 
-// Sensor for electric power factor
-ElecPfSensor : ElecSensor <abstract> { pf }
-
-// Sensor for electric frequency
-ElecFreqSensor : ElecSensor & ElecAcSensor {
-  freq
-  unit: Unit<quantity:"frequency"> "Hz"
-}
-
-//////////////////////////////////////////////////////////////////////////
-// Setpoints for primary quantities (all specs, except freq, are abstract)
-//////////////////////////////////////////////////////////////////////////
-
-// Setpoint for electric voltage
-ElecVoltSp : ElecSp <abstract> {
-  volt
-  unit: Unit<quantity:"electricPotential"> "V"
-}
-
-// Setpoint for electric current
-ElecCurrentSp : ElecSp <abstract> {
-  current
-  unit: Unit<quantity:"electricCurrent"> "A"
-}
-
-// Setpoint for electric power
-ElecPowerSp : ElecSp <abstract> {
-  power
-  unit: Unit<quantity:"power"> "kW"
-}
-
-// Setpoint for electric energy
-ElecEnergySp : ElecSp <abstract> {
+// Sensor for electric energy
+ElecEnergySensor : ElecSensor <abstract> {
   energy
   unit: Unit<quantity:"energy"> "kWh"
 }
 
-// Setpoint for electric demand
-ElecDemandSp : ElecSp <abstract> {
-  demand
-  unit: Unit<quantity:"power"> "kW"
-}
-
-// Setpoint for electric power factor
-ElecPfSp : ElecSp <abstract> { pf }
-
-// Setpoint for electric frequency
-ElecFreqSp : ElecSp & ElecAcSp {
-  freq
-  unit: Unit<quantity:"frequency"> "Hz"
-}
-
 //////////////////////////////////////////////////////////////////////////
-// Sensors for DC electricity type (leaves)
+// DC primary quantity specs
 //////////////////////////////////////////////////////////////////////////
-
-// Sensor for DC electric current
-ElecDcCurrentSensor : ElecCurrentSensor & ElecDcSensor
 
 // Sensor for DC electric voltage
-ElecDcVoltSensor : ElecVoltSensor & ElecDcSensor
+ElecDcVoltSensor : ElecVoltSensor { dc }
+
+// Sensor for DC electric current
+ElecDcCurrentSensor : ElecCurrentSensor <abstract> { dc }
 
 // Sensor for DC electric power
-ElecDcPowerSensor : ElecPowerSensor & ElecDcSensor
+ElecDcPowerSensor : ElecPowerSensor <abstract> { dc }
+
+// Sensor for DC electric demand
+ElecDcDemandSensor : ElecDemandSensor <abstract> { dc }
 
 // Sensor for DC electric energy
-ElecDcEnergySensor : ElecEnergySensor & ElecDcSensor
+ElecDcEnergySensor : ElecEnergySensor <abstract> { dc }
+
+// Sensor for DC electric state of charge
+ElecDcStateOfChargeSensor : ElecSensor {
+  stateOfCharge
+  unit: "%"
+  dc
+}
+
+//////////////////////////////////////////////////////////////////////////
+// AC primary quantity specs
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for AC electric power factor
+ElecAcPfSensor : ElecSensor <abstract> {
+  pf
+  unit: "%"
+  ac
+}
+
+// Sensor for AC electric frequency
+ElecAcFreqSensor : ElecSensor {
+  freq
+  unit: "Hz"
+  ac
+}
+
+//////////////////////////////////////////////////////////////////////////
+// AC subtype specs
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for magnitude of AC electric voltage
+ElecAcMagnitudeVoltSensor : ElecVoltSensor <abstract> {
+  magnitude
+  ac
+}
+
+// Sensor for angle of AC electric voltage
+ElecAcAngleVoltSensor : ElecSensor <abstract> {
+  volt
+  angle
+  unit: "deg"
+  ac
+}
+
+// Sensor for imbalance of AC electric voltage
+ElecAcImbalanceVoltSensor : ElecSensor <abstract> {
+  volt
+  imbalance
+  unit: "%"
+  ac
+}
+
+// Sensor for total harmonic distortion of AC electric voltage
+ElecAcThdVoltSensor : ElecSensor <abstract> {
+  volt
+  thd
+  unit: "%"
+  ac
+}
+
+// Sensor for magnitude of AC electric current
+ElecAcMagnitudeCurrentSensor : ElecCurrentSensor <abstract> {
+  magnitude
+  ac
+}
+
+// Sensor for angle of AC electric current
+ElecAcAngleCurrentSensor : ElecSensor <abstract> {
+  current
+  angle
+  unit: "deg"
+  ac
+}
+
+// Sensor for imbalance of AC electric current
+ElecAcImbalanceCurrentSensor : ElecSensor <abstract> {
+  current
+  imbalance
+  unit: "%"
+  ac
+}
+
+// Sensor for total harmonic distortion of AC electric current
+ElecAcThdCurrentSensor : ElecSensor <abstract> {
+  current
+  thd
+  unit: "%"
+  ac
+}
+
+// Sensor for AC electric active power
+ElecAcActivePowerSensor : ElecPowerSensor <abstract> {
+  active
+  ac
+}
+
+// Sensor for AC electric reactive power
+ElecAcReactivePowerSensor : ElecSensor <abstract> {
+  power
+  reactive
+  unit: Unit<quantity:"reactivePower"> "kVAR"
+  ac
+}
 
-//////////////////////////////////////////////////////////////////////////
-// Setpoints for DC electricity type (leaves)
-//////////////////////////////////////////////////////////////////////////
-
-// Setpoint for DC electric current
-ElecDcCurrentSp : ElecCurrentSp & ElecDcSp
-
-// Setpoint for DC electric voltage
-ElecDcVoltSp : ElecVoltSp & ElecDcSp
-
-// Setpoint for DC electric power
-ElecDcPowerSp : ElecPowerSp & ElecDcSp
-
-//////////////////////////////////////////////////////////////////////////
-// Sensors for AC power subtypes (abstract)
-//////////////////////////////////////////////////////////////////////////
-
-// Sensor for AC active power
-ElecActivePowerSensor : ElecPowerSensor & ElecAcSensor <abstract> { active }
-
-// Sensor for AC reactive power
-ElecReactivePowerSensor : ElecPowerSensor & ElecAcSensor <abstract> { reactive }
-
-// Sensor for AC apparent power
-ElecApparentPowerSensor : ElecPowerSensor & ElecAcSensor <abstract> { apparent }
-
-//////////////////////////////////////////////////////////////////////////
-// Sensors for the phase location of AC electric power (abstract)
-//////////////////////////////////////////////////////////////////////////
-
-// Sensor for phase AC electric power
-ElecPhasePowerSensor : ElecPowerSensor & ElecAcSensor <abstract> { phasePower: PhasePower }
-
-// Sensor for line 1 AC electric active power
-ElecL1ActivePowerSensor : ElecActivePowerSensor & ElecPhasePowerSensor <abstract> { phasePower: "L1" }
-
-// Sensor for line 2 AC electric active power
-ElecL2ActivePowerSensor : ElecActivePowerSensor & ElecPhasePowerSensor <abstract> { phasePower: "L2" }
-
-// Sensor for line 3 AC electric active power
-ElecL3ActivePowerSensor : ElecActivePowerSensor & ElecPhasePowerSensor <abstract> { phasePower: "L3" }
-
-// Sensor for line 1 AC electric reactive power
-ElecL1ReactivePowerSensor : ElecReactivePowerSensor & ElecPhasePowerSensor <abstract> { phasePower: "L1" }
-
-// Sensor for line 2 AC electric reactive power
-ElecL2ReactivePowerSensor : ElecReactivePowerSensor & ElecPhasePowerSensor <abstract> { phasePower: "L2" }
-
-// Sensor for line 3 AC electric reactive power
-ElecL3ReactivePowerSensor : ElecReactivePowerSensor & ElecPhasePowerSensor <abstract> { phasePower: "L3" }
-
-// Sensor for line 1 AC electric apparent power
-ElecL1ApparentPowerSensor : ElecApparentPowerSensor & ElecPhasePowerSensor <abstract> { phasePower: "L1" }
-
-// Sensor for line 2 AC electric apparent power
-ElecL2ApparentPowerSensor : ElecApparentPowerSensor & ElecPhasePowerSensor <abstract> { phasePower: "L2" }
-
-// Sensor for line 3 AC electric apparent power
-ElecL3ApparentPowerSensor : ElecApparentPowerSensor & ElecPhasePowerSensor <abstract> { phasePower: "L3" }
-
-//////////////////////////////////////////////////////////////////////////
-// Sensors for the line location of AC electric power (abstract)
-//////////////////////////////////////////////////////////////////////////
-
-// Sensor for line AC electric power
-ElecLinePowerSensor : ElecPowerSensor & ElecAcSensor <abstract> { linePower: LinePower }
-
-// Sensor for line 1 to line 2 AC electric active power
-ElecL1L2ActivePowerSensor : ElecActivePowerSensor & ElecLinePowerSensor <abstract> { linePower: "L1-L2" }
-
-// Sensor for line 2 to line 3 AC electric active power
-ElecL2L3ActivePowerSensor : ElecActivePowerSensor & ElecLinePowerSensor <abstract> { linePower: "L2-L3" }
-
-// Sensor for line 3 to line 1 AC electric active power
-ElecL3L1ActivePowerSensor : ElecActivePowerSensor & ElecLinePowerSensor <abstract> { linePower: "L3-L1" }
-
-// Sensor for line 1 to line 2 AC electric reactive power
-ElecL1L2ReactivePowerSensor : ElecReactivePowerSensor & ElecLinePowerSensor <abstract> { linePower: "L1-L2" }
-
-// Sensor for line 2 to line 3 AC electric reactive power
-ElecL2L3ReactivePowerSensor : ElecReactivePowerSensor & ElecLinePowerSensor <abstract> { linePower: "L2-L3" }
-
-// Sensor for line 3 to line 1 AC electric reactive power
-ElecL3L1ReactivePowerSensor : ElecReactivePowerSensor & ElecLinePowerSensor <abstract> { linePower: "L3-L1" }
-
-// Sensor for line 1 to line 2 AC electric apparent power
-ElecL1L2ApparentPowerSensor : ElecApparentPowerSensor & ElecLinePowerSensor <abstract> { linePower: "L1-L2" }
-
-// Sensor for line 2 to line 3 AC electric apparent power
-ElecL2L3ApparentPowerSensor : ElecApparentPowerSensor & ElecLinePowerSensor <abstract> { linePower: "L2-L3" }
-
-// Sensor for line 3 to line 1 AC electric apparent power
-ElecL3L1ApparentPowerSensor : ElecApparentPowerSensor & ElecLinePowerSensor <abstract> { linePower: "L3-L1" }
-
-//////////////////////////////////////////////////////////////////////////
-// Sensors for the aggregate location of AC electric power (abstract)
-//////////////////////////////////////////////////////////////////////////
-
-// Sensor for line average AC electric active power
-ElecLineAvgActivePowerSensor : ElecActivePowerSensor <abstract> { lineAvg }
-
-// Sensor for phase average AC electric active power
-ElecPhaseAvgActivePowerSensor : ElecActivePowerSensor <abstract> { phaseAvg }
-
-// Sensor for total AC electric active power
-ElecTotalActivePowerSensor : ElecActivePowerSensor <abstract> { total }
-
-// Sensor for line average AC electric reactive power
-ElecLineAvgReactivePowerSensor : ElecReactivePowerSensor <abstract> { lineAvg }
-
-// Sensor for phase average AC electric reactive power
-ElecPhaseAvgReactivePowerSensor : ElecReactivePowerSensor <abstract> { phaseAvg }
-
-// Sensor for total AC electric reactive power
-ElecTotalReactivePowerSensor : ElecReactivePowerSensor <abstract> { total }
-
-// Sensor for line average AC electric apparent power
-ElecLineAvgApparentPowerSensor : ElecApparentPowerSensor <abstract> { lineAvg }
-
-// Sensor for phase average AC electric apparent power
-ElecPhaseAvgApparentPowerSensor : ElecApparentPowerSensor <abstract> { phaseAvg }
-
-// Sensor for total AC electric apparent power
-ElecTotalApparentPowerSensor : ElecApparentPowerSensor <abstract> { total }
-
-//////////////////////////////////////////////////////////////////////////
-// Sensors for the direction of AC electric power (leaves)
-//////////////////////////////////////////////////////////////////////////
-
-// Sensor for line 1 import of AC electric active power
-ElecImportL1ActivePowerSensor : ElecL1ActivePowerSensor { import }
-
-// Sensor for line 1 export of AC electric active power
-ElecExportL1ActivePowerSensor : ElecL1ActivePowerSensor { export }
-
-// Sensor for line 1 net of AC electric active power
-ElecNetL1ActivePowerSensor : ElecL1ActivePowerSensor { net }
-
-// Sensor for line 2 import of AC electric active power
-ElecImportL2ActivePowerSensor : ElecL2ActivePowerSensor { import }
-
-// Sensor for line 2 export of AC electric active power
-ElecExportL2ActivePowerSensor : ElecL2ActivePowerSensor { export }
-
-// Sensor for line 2 net of AC electric active power
-ElecNetL2ActivePowerSensor : ElecL2ActivePowerSensor { net }
-
-// Sensor for line 3 import of AC electric active power
-ElecImportL3ActivePowerSensor : ElecL3ActivePowerSensor { import }
-
-// Sensor for line 3 export of AC electric active power
-ElecExportL3ActivePowerSensor : ElecL3ActivePowerSensor { export }
-
-// Sensor for line 3 net of AC electric active power
-ElecNetL3ActivePowerSensor : ElecL3ActivePowerSensor { net }
-
-// Sensor for line 1 import of AC electric reactive power
-ElecImportL1ReactivePowerSensor : ElecL1ReactivePowerSensor { import }
-
-// Sensor for line 1 export of AC electric reactive power
-ElecExportL1ReactivePowerSensor : ElecL1ReactivePowerSensor { export }
-
-// Sensor for line 1 net of AC electric reactive power
-ElecNetL1ReactivePowerSensor : ElecL1ReactivePowerSensor { net }
-
-// Sensor for line 2 import of AC electric reactive power
-ElecImportL2ReactivePowerSensor : ElecL2ReactivePowerSensor { import }
-
-// Sensor for line 2 export of AC electric reactive power
-ElecExportL2ReactivePowerSensor : ElecL2ReactivePowerSensor { export }
-
-// Sensor for line 2 net of AC electric reactive power
-ElecNetL2ReactivePowerSensor : ElecL2ReactivePowerSensor { net }
-
-// Sensor for line 3 import of AC electric reactive power
-ElecImportL3ReactivePowerSensor : ElecL3ReactivePowerSensor { import }
-
-// Sensor for line 3 export of AC electric reactive power
-ElecExportL3ReactivePowerSensor : ElecL3ReactivePowerSensor { export }
-
-// Sensor for line 3 net of AC electric reactive power
-ElecNetL3ReactivePowerSensor : ElecL3ReactivePowerSensor { net }
-
-// Sensor for line 1 import of AC electric apparent power
-ElecImportL1ApparentPowerSensor : ElecL1ApparentPowerSensor { import }
-
-// Sensor for line 1 export of AC electric apparent power
-ElecExportL1ApparentPowerSensor : ElecL1ApparentPowerSensor { export }
-
-// Sensor for line 1 net of AC electric apparent power
-ElecNetL1ApparentPowerSensor : ElecL1ApparentPowerSensor { net }
-
-// Sensor for line 2 import of AC electric apparent power
-ElecImportL2ApparentPowerSensor : ElecL2ApparentPowerSensor { import }
-
-// Sensor for line 2 export of AC electric apparent power
-ElecExportL2ApparentPowerSensor : ElecL2ApparentPowerSensor { export }
-
-// Sensor for line 2 net of AC electric apparent power
-ElecNetL2ApparentPowerSensor : ElecL2ApparentPowerSensor { net }
-
-// Sensor for line 3 import of AC electric apparent power
-ElecImportL3ApparentPowerSensor : ElecL3ApparentPowerSensor { import }
-
-// Sensor for line 3 export of AC electric apparent power
-ElecExportL3ApparentPowerSensor : ElecL3ApparentPowerSensor { export }
-
-// Sensor for line 3 net of AC electric apparent power
-ElecNetL3ApparentPowerSensor : ElecL3ApparentPowerSensor { net }
-
-// Sensor for line 1 to line 2 import of AC electric active power
-ElecImportL1L2ActivePowerSensor : ElecL1L2ActivePowerSensor { import }
-
-// Sensor for line 1 to line 2 export of AC electric active power
-ElecExportL1L2ActivePowerSensor : ElecL1L2ActivePowerSensor { export }
-
-// Sensor for line 1 to line 2 net of AC electric active power
-ElecNetL1L2ActivePowerSensor : ElecL1L2ActivePowerSensor { net }
-
-// Sensor for line 2 to line 3 import of AC electric active power
-ElecImportL2L3ActivePowerSensor : ElecL2L3ActivePowerSensor { import }
-
-// Sensor for line 2 to line 3 export of AC electric active power
-ElecExportL2L3ActivePowerSensor : ElecL2L3ActivePowerSensor { export }
-
-// Sensor for line 2 to line 3 net of AC electric active power
-ElecNetL2L3ActivePowerSensor : ElecL2L3ActivePowerSensor { net }
-
-// Sensor for line 3 to line 1 import of AC electric active power
-ElecImportL3L1ActivePowerSensor : ElecL3L1ActivePowerSensor { import }
-
-// Sensor for line 3 to line 1 export of AC electric active power
-ElecExportL3L1ActivePowerSensor : ElecL3L1ActivePowerSensor { export }
-
-// Sensor for line 3 to line 1 net of AC electric active power
-ElecNetL3L1ActivePowerSensor : ElecL3L1ActivePowerSensor { net }
-
-// Sensor for line 1 to line 2 import of AC electric reactive power
-ElecImportL1L2ReactivePowerSensor : ElecL1L2ReactivePowerSensor { import }
-
-// Sensor for line 1 to line 2 export of AC electric reactive power
-ElecExportL1L2ReactivePowerSensor : ElecL1L2ReactivePowerSensor { export }
-
-// Sensor for line 1 to line 2 net of AC electric reactive power
-ElecNetL1L2ReactivePowerSensor : ElecL1L2ReactivePowerSensor { net }
-
-// Sensor for line 2 to line 3 import of AC electric reactive power
-ElecImportL2L3ReactivePowerSensor : ElecL2L3ReactivePowerSensor { import }
-
-// Sensor for line 2 to line 3 export of AC electric reactive power
-ElecExportL2L3ReactivePowerSensor : ElecL2L3ReactivePowerSensor { export }
-
-// Sensor for line 2 to line 3 net of AC electric reactive power
-ElecNetL2L3ReactivePowerSensor : ElecL2L3ReactivePowerSensor { net }
-
-// Sensor for line 3 to line 1 import of AC electric reactive power
-ElecImportL3L1ReactivePowerSensor : ElecL3L1ReactivePowerSensor { import }
-
-// Sensor for line 3 to line 1 export of AC electric reactive power
-ElecExportL3L1ReactivePowerSensor : ElecL3L1ReactivePowerSensor { export }
-
-// Sensor for line 3 to line 1 net of AC electric reactive power
-ElecNetL3L1ReactivePowerSensor : ElecL3L1ReactivePowerSensor { net }
-
-// Sensor for line 1 to line 2 import of AC electric apparent power
-ElecImportL1L2ApparentPowerSensor : ElecL1L2ApparentPowerSensor { import }
-
-// Sensor for line 1 to line 2 export of AC electric apparent power
-ElecExportL1L2ApparentPowerSensor : ElecL1L2ApparentPowerSensor { export }
-
-// Sensor for line 1 to line 2 net of AC electric apparent power
-ElecNetL1L2ApparentPowerSensor : ElecL1L2ApparentPowerSensor { net }
-
-// Sensor for line 2 to line 3 import of AC electric apparent power
-ElecImportL2L3ApparentPowerSensor : ElecL2L3ApparentPowerSensor { import }
-
-// Sensor for line 2 to line 3 export of AC electric apparent power
-ElecExportL2L3ApparentPowerSensor : ElecL2L3ApparentPowerSensor { export }
-
-// Sensor for line 2 to line 3 net of AC electric apparent power
-ElecNetL2L3ApparentPowerSensor : ElecL2L3ApparentPowerSensor { net }
-
-// Sensor for line 3 to line 1 import of AC electric apparent power
-ElecImportL3L1ApparentPowerSensor : ElecL3L1ApparentPowerSensor { import }
-
-// Sensor for line 3 to line 1 export of AC electric apparent power
-ElecExportL3L1ApparentPowerSensor : ElecL3L1ApparentPowerSensor { export }
-
-// Sensor for line 3 to line 1 net of AC electric apparent power
-ElecNetL3L1ApparentPowerSensor : ElecL3L1ApparentPowerSensor { net }
-
-// Sensor for line average import of AC electric active power
-ElecImportLineAvgActivePowerSensor : ElecLineAvgActivePowerSensor { import }
-
-// Sensor for line average export of AC electric active power
-ElecExportLineAvgActivePowerSensor : ElecLineAvgActivePowerSensor { export }
-
-// Sensor for line average net of AC electric active power
-ElecNetLineAvgActivePowerSensor : ElecLineAvgActivePowerSensor { net }
-
-// Sensor for phase average import of AC electric active power
-ElecImportPhaseAvgActivePowerSensor : ElecPhaseAvgActivePowerSensor { import }
-
-// Sensor for phase average export of AC electric active power
-ElecExportPhaseAvgActivePowerSensor : ElecPhaseAvgActivePowerSensor { export }
-
-// Sensor for phase average net of AC electric active power
-ElecNetPhaseAvgActivePowerSensor : ElecPhaseAvgActivePowerSensor { net }
-
-// Sensor for total import of AC electric active power
-ElecImportTotalActivePowerSensor : ElecTotalActivePowerSensor { import }
-
-// Sensor for total export of AC electric active power
-ElecExportTotalActivePowerSensor : ElecTotalActivePowerSensor { export }
-
-// Sensor for total net of AC electric active power
-ElecNetTotalActivePowerSensor : ElecTotalActivePowerSensor { net }
-
-// Sensor for line average import of AC electric reactive power
-ElecImportLineAvgReactivePowerSensor : ElecLineAvgReactivePowerSensor { import }
-
-// Sensor for line average export of AC electric reactive power
-ElecExportLineAvgReactivePowerSensor : ElecLineAvgReactivePowerSensor { export }
-
-// Sensor for line average net of AC electric reactive power
-ElecNetLineAvgReactivePowerSensor : ElecLineAvgReactivePowerSensor { net }
-
-// Sensor for phase average import of AC electric reactive power
-ElecImportPhaseAvgReactivePowerSensor : ElecPhaseAvgReactivePowerSensor { import }
-
-// Sensor for phase average export of AC electric reactive power
-ElecExportPhaseAvgReactivePowerSensor : ElecPhaseAvgReactivePowerSensor { export }
-
-// Sensor for phase average net of AC electric reactive power
-ElecNetPhaseAvgReactivePowerSensor : ElecPhaseAvgReactivePowerSensor { net }
-
-// Sensor for total import of AC electric reactive power
-ElecImportTotalReactivePowerSensor : ElecTotalReactivePowerSensor { import }
-
-// Sensor for total export of AC electric reactive power
-ElecExportTotalReactivePowerSensor : ElecTotalReactivePowerSensor { export }
-
-// Sensor for total net of AC electric reactive power
-ElecNetTotalReactivePowerSensor : ElecTotalReactivePowerSensor { net }
-
-// Sensor for line average import of AC electric apparent power
-ElecImportLineAvgApparentPowerSensor : ElecLineAvgApparentPowerSensor { import }
-
-// Sensor for line average export of AC electric apparent power
-ElecExportLineAvgApparentPowerSensor : ElecLineAvgApparentPowerSensor { export }
-
-// Sensor for line average net of AC electric apparent power
-ElecNetLineAvgApparentPowerSensor : ElecLineAvgApparentPowerSensor { net }
-
-// Sensor for phase average import of AC electric apparent power
-ElecImportPhaseAvgApparentPowerSensor : ElecPhaseAvgApparentPowerSensor { import }
-
-// Sensor for phase average export of AC electric apparent power
-ElecExportPhaseAvgApparentPowerSensor : ElecPhaseAvgApparentPowerSensor { export }
-
-// Sensor for phase average net of AC electric apparent power
-ElecNetPhaseAvgApparentPowerSensor : ElecPhaseAvgApparentPowerSensor { net }
-
-// Sensor for total import of AC electric apparent power
-ElecImportTotalApparentPowerSensor : ElecTotalApparentPowerSensor { import }
-
-// Sensor for total export of AC electric apparent power
-ElecExportTotalApparentPowerSensor : ElecTotalApparentPowerSensor { export }
-
-// Sensor for total net of AC electric apparent power
-ElecNetTotalApparentPowerSensor : ElecTotalApparentPowerSensor { net }
-
-//////////////////////////////////////////////////////////////////////////
-// Setpoints for AC power subtypes (abstract)
-//////////////////////////////////////////////////////////////////////////
-
-// Setpoint for AC active power
-ElecActivePowerSp : ElecPowerSp & ElecAcSp <abstract> { active }
-
-// Setpoint for AC reactive power
-ElecReactivePowerSp : ElecPowerSp & ElecAcSp <abstract> { reactive }
-
-// Setpoint for AC apparent power
-ElecApparentPowerSp : ElecPowerSp & ElecAcSp <abstract> { apparent }
-
-//////////////////////////////////////////////////////////////////////////
-// Setpoints for the phase location of AC electric power (abstract)
-//////////////////////////////////////////////////////////////////////////
-
-// Setpoint for phase AC electric power
-ElecPhasePowerSp : ElecPowerSp & ElecAcSp <abstract> { phasePower: PhasePower }
-
-// Setpoint for line 1 AC electric active power
-ElecL1ActivePowerSp : ElecActivePowerSp & ElecPhasePowerSp <abstract> { phasePower: "L1" }
-
-// Setpoint for line 2 AC electric active power
-ElecL2ActivePowerSp : ElecActivePowerSp & ElecPhasePowerSp <abstract> { phasePower: "L2" }
-
-// Setpoint for line 3 AC electric active power
-ElecL3ActivePowerSp : ElecActivePowerSp & ElecPhasePowerSp <abstract> { phasePower: "L3" }
-
-// Setpoint for line 1 AC electric reactive power
-ElecL1ReactivePowerSp : ElecReactivePowerSp & ElecPhasePowerSp <abstract> { phasePower: "L1" }
-
-// Setpoint for line 2 AC electric reactive power
-ElecL2ReactivePowerSp : ElecReactivePowerSp & ElecPhasePowerSp <abstract> { phasePower: "L2" }
-
-// Setpoint for line 3 AC electric reactive power
-ElecL3ReactivePowerSp : ElecReactivePowerSp & ElecPhasePowerSp <abstract> { phasePower: "L3" }
-
-// Setpoint for line 1 AC electric apparent power
-ElecL1ApparentPowerSp : ElecApparentPowerSp & ElecPhasePowerSp <abstract> { phasePower: "L1" }
-
-// Setpoint for line 2 AC electric apparent power
-ElecL2ApparentPowerSp : ElecApparentPowerSp & ElecPhasePowerSp <abstract> { phasePower: "L2" }
-
-// Setpoint for line 3 AC electric apparent power
-ElecL3ApparentPowerSp : ElecApparentPowerSp & ElecPhasePowerSp <abstract> { phasePower: "L3" }
-
-//////////////////////////////////////////////////////////////////////////
-// Setpoints for the line location of AC electric power (abstract)
-//////////////////////////////////////////////////////////////////////////
-
-// Setpoint for line AC electric power
-ElecLinePowerSp : ElecPowerSp & ElecAcSp <abstract> { linePower: LinePower }
-
-// Setpoint for line 1 to line 2 AC electric active power
-ElecL1L2ActivePowerSp : ElecActivePowerSp & ElecLinePowerSp <abstract> { linePower: "L1-L2" }
-
-// Setpoint for line 2 to line 3 AC electric active power
-ElecL2L3ActivePowerSp : ElecActivePowerSp & ElecLinePowerSp <abstract> { linePower: "L2-L3" }
+// Sensor for AC electric apparent power
+ElecAcApparentPowerSensor : ElecSensor <abstract> {
+  power
+  apparent
+  unit: Unit<quantity:"apparentPower"> "kVA"
+  ac
+}
 
-// Setpoint for line 3 to line 1 AC electric active power
-ElecL3L1ActivePowerSp : ElecActivePowerSp & ElecLinePowerSp <abstract> { linePower: "L3-L1" }
+// Sensor for true power factor of AC electric power
+ElecAcTruePfSensor : ElecAcPfSensor <abstract> { pfTrue }
 
-// Setpoint for line 1 to line 2 AC electric reactive power
-ElecL1L2ReactivePowerSp : ElecReactivePowerSp & ElecLinePowerSp <abstract> { linePower: "L1-L2" }
+// Sensor for displacement power factor of AC electric power
+ElecAcDisplacementPfSensor : ElecAcPfSensor <abstract> { pfDisplacement }
 
-// Setpoint for line 2 to line 3 AC electric reactive power
-ElecL2L3ReactivePowerSp : ElecReactivePowerSp & ElecLinePowerSp <abstract> { linePower: "L2-L3" }
+// Sensor for distortion power factor of AC electric power
+ElecAcDistortionPfSensor : ElecAcPfSensor <abstract> { pfDistortion }
 
-// Setpoint for line 3 to line 1 AC electric reactive power
-ElecL3L1ReactivePowerSp : ElecReactivePowerSp & ElecLinePowerSp <abstract> { linePower: "L3-L1" }
+// Sensor for AC electric active demand
+ElecAcActiveDemandSensor : ElecDemandSensor <abstract> {
+  active
+  ac
+}
 
-// Setpoint for line 1 to line 2 AC electric apparent power
-ElecL1L2ApparentPowerSp : ElecApparentPowerSp & ElecLinePowerSp <abstract> { linePower: "L1-L2" }
+// Sensor for AC electric reactive demand
+ElecAcReactiveDemandSensor : ElecSensor <abstract> {
+  demand
+  reactive
+  unit: Unit<quantity:"reactivePower"> "kVAR"
+  ac
+}
 
-// Setpoint for line 2 to line 3 AC electric apparent power
-ElecL2L3ApparentPowerSp : ElecApparentPowerSp & ElecLinePowerSp <abstract> { linePower: "L2-L3" }
+// Sensor for AC electric apparent demand
+ElecAcApparentDemandSensor : ElecSensor <abstract> {
+  demand
+  apparent
+  unit: Unit<quantity:"apparentPower"> "kVA"
+  ac
+}
 
-// Setpoint for line 3 to line 1 AC electric apparent power
-ElecL3L1ApparentPowerSp : ElecApparentPowerSp & ElecLinePowerSp <abstract> { linePower: "L3-L1" }
+// Sensor for AC electric active energy
+ElecAcActiveEnergySensor : ElecEnergySensor <abstract> {
+  active
+  ac
+}
 
-//////////////////////////////////////////////////////////////////////////
-// Setpoints for the aggregate location of AC electric power (abstract)
-//////////////////////////////////////////////////////////////////////////
-
-// Setpoint for total AC electric active power
-ElecTotalActivePowerSp : ElecActivePowerSp <abstract> { total }
-
-// Setpoint for total AC electric reactive power
-ElecTotalReactivePowerSp : ElecReactivePowerSp <abstract> { total }
-
-// Setpoint for total AC electric apparent power
-ElecTotalApparentPowerSp : ElecApparentPowerSp <abstract> { total }
-
-//////////////////////////////////////////////////////////////////////////
-// Setpoints for the direction of AC electric power (leaves)
-//////////////////////////////////////////////////////////////////////////
-
-// Setpoint for line 1 import of AC electric active power
-ElecImportL1ActivePowerSp : ElecL1ActivePowerSp { import }
-
-// Setpoint for line 1 export of AC electric active power
-ElecExportL1ActivePowerSp : ElecL1ActivePowerSp { export }
-
-// Setpoint for line 1 net of AC electric active power
-ElecNetL1ActivePowerSp : ElecL1ActivePowerSp { net }
-
-// Setpoint for line 2 import of AC electric active power
-ElecImportL2ActivePowerSp : ElecL2ActivePowerSp { import }
-
-// Setpoint for line 2 export of AC electric active power
-ElecExportL2ActivePowerSp : ElecL2ActivePowerSp { export }
-
-// Setpoint for line 2 net of AC electric active power
-ElecNetL2ActivePowerSp : ElecL2ActivePowerSp { net }
-
-// Setpoint for line 3 import of AC electric active power
-ElecImportL3ActivePowerSp : ElecL3ActivePowerSp { import }
-
-// Setpoint for line 3 export of AC electric active power
-ElecExportL3ActivePowerSp : ElecL3ActivePowerSp { export }
-
-// Setpoint for line 3 net of AC electric active power
-ElecNetL3ActivePowerSp : ElecL3ActivePowerSp { net }
-
-// Setpoint for line 1 import of AC electric reactive power
-ElecImportL1ReactivePowerSp : ElecL1ReactivePowerSp { import }
-
-// Setpoint for line 1 export of AC electric reactive power
-ElecExportL1ReactivePowerSp : ElecL1ReactivePowerSp { export }
-
-// Setpoint for line 1 net of AC electric reactive power
-ElecNetL1ReactivePowerSp : ElecL1ReactivePowerSp { net }
-
-// Setpoint for line 2 import of AC electric reactive power
-ElecImportL2ReactivePowerSp : ElecL2ReactivePowerSp { import }
-
-// Setpoint for line 2 export of AC electric reactive power
-ElecExportL2ReactivePowerSp : ElecL2ReactivePowerSp { export }
-
-// Setpoint for line 2 net of AC electric reactive power
-ElecNetL2ReactivePowerSp : ElecL2ReactivePowerSp { net }
-
-// Setpoint for line 3 import of AC electric reactive power
-ElecImportL3ReactivePowerSp : ElecL3ReactivePowerSp { import }
-
-// Setpoint for line 3 export of AC electric reactive power
-ElecExportL3ReactivePowerSp : ElecL3ReactivePowerSp { export }
-
-// Setpoint for line 3 net of AC electric reactive power
-ElecNetL3ReactivePowerSp : ElecL3ReactivePowerSp { net }
-
-// Setpoint for line 1 import of AC electric apparent power
-ElecImportL1ApparentPowerSp : ElecL1ApparentPowerSp { import }
-
-// Setpoint for line 1 export of AC electric apparent power
-ElecExportL1ApparentPowerSp : ElecL1ApparentPowerSp { export }
-
-// Setpoint for line 1 net of AC electric apparent power
-ElecNetL1ApparentPowerSp : ElecL1ApparentPowerSp { net }
-
-// Setpoint for line 2 import of AC electric apparent power
-ElecImportL2ApparentPowerSp : ElecL2ApparentPowerSp { import }
-
-// Setpoint for line 2 export of AC electric apparent power
-ElecExportL2ApparentPowerSp : ElecL2ApparentPowerSp { export }
-
-// Setpoint for line 2 net of AC electric apparent power
-ElecNetL2ApparentPowerSp : ElecL2ApparentPowerSp { net }
-
-// Setpoint for line 3 import of AC electric apparent power
-ElecImportL3ApparentPowerSp : ElecL3ApparentPowerSp { import }
-
-// Setpoint for line 3 export of AC electric apparent power
-ElecExportL3ApparentPowerSp : ElecL3ApparentPowerSp { export }
-
-// Setpoint for line 3 net of AC electric apparent power
-ElecNetL3ApparentPowerSp : ElecL3ApparentPowerSp { net }
-
-// Setpoint for line 1 to line 2 import of AC electric active power
-ElecImportL1L2ActivePowerSp : ElecL1L2ActivePowerSp { import }
-
-// Setpoint for line 1 to line 2 export of AC electric active power
-ElecExportL1L2ActivePowerSp : ElecL1L2ActivePowerSp { export }
-
-// Setpoint for line 1 to line 2 net of AC electric active power
-ElecNetL1L2ActivePowerSp : ElecL1L2ActivePowerSp { net }
-
-// Setpoint for line 2 to line 3 import of AC electric active power
-ElecImportL2L3ActivePowerSp : ElecL2L3ActivePowerSp { import }
+// Sensor for AC electric reactive energy
+ElecAcReactiveEnergySensor : ElecSensor <abstract> {
+  energy
+  reactive
+  unit: Unit<quantity:"reactiveEnergy"> "kVARh"
+  ac
+}
 
-// Setpoint for line 2 to line 3 export of AC electric active power
-ElecExportL2L3ActivePowerSp : ElecL2L3ActivePowerSp { export }
+// Sensor for AC electric apparent energy
+ElecAcApparentEnergySensor : ElecSensor <abstract> {
+  energy
+  apparent
+  unit: Unit<quantity:"apparentEnergy"> "kVAh"
+  ac
+}
 
-// Setpoint for line 2 to line 3 net of AC electric active power
-ElecNetL2L3ActivePowerSp : ElecL2L3ActivePowerSp { net }
-
-// Setpoint for line 3 to line 1 import of AC electric active power
-ElecImportL3L1ActivePowerSp : ElecL3L1ActivePowerSp { import }
-
-// Setpoint for line 3 to line 1 export of AC electric active power
-ElecExportL3L1ActivePowerSp : ElecL3L1ActivePowerSp { export }
-
-// Setpoint for line 3 to line 1 net of AC electric active power
-ElecNetL3L1ActivePowerSp : ElecL3L1ActivePowerSp { net }
-
-// Setpoint for line 1 to line 2 import of AC electric reactive power
-ElecImportL1L2ReactivePowerSp : ElecL1L2ReactivePowerSp { import }
-
-// Setpoint for line 1 to line 2 export of AC electric reactive power
-ElecExportL1L2ReactivePowerSp : ElecL1L2ReactivePowerSp { export }
-
-// Setpoint for line 1 to line 2 net of AC electric reactive power
-ElecNetL1L2ReactivePowerSp : ElecL1L2ReactivePowerSp { net }
-
-// Setpoint for line 2 to line 3 import of AC electric reactive power
-ElecImportL2L3ReactivePowerSp : ElecL2L3ReactivePowerSp { import }
-
-// Setpoint for line 2 to line 3 export of AC electric reactive power
-ElecExportL2L3ReactivePowerSp : ElecL2L3ReactivePowerSp { export }
-
-// Setpoint for line 2 to line 3 net of AC electric reactive power
-ElecNetL2L3ReactivePowerSp : ElecL2L3ReactivePowerSp { net }
-
-// Setpoint for line 3 to line 1 import of AC electric reactive power
-ElecImportL3L1ReactivePowerSp : ElecL3L1ReactivePowerSp { import }
-
-// Setpoint for line 3 to line 1 export of AC electric reactive power
-ElecExportL3L1ReactivePowerSp : ElecL3L1ReactivePowerSp { export }
-
-// Setpoint for line 3 to line 1 net of AC electric reactive power
-ElecNetL3L1ReactivePowerSp : ElecL3L1ReactivePowerSp { net }
-
-// Setpoint for line 1 to line 2 import of AC electric apparent power
-ElecImportL1L2ApparentPowerSp : ElecL1L2ApparentPowerSp { import }
-
-// Setpoint for line 1 to line 2 export of AC electric apparent power
-ElecExportL1L2ApparentPowerSp : ElecL1L2ApparentPowerSp { export }
-
-// Setpoint for line 1 to line 2 net of AC electric apparent power
-ElecNetL1L2ApparentPowerSp : ElecL1L2ApparentPowerSp { net }
-
-// Setpoint for line 2 to line 3 import of AC electric apparent power
-ElecImportL2L3ApparentPowerSp : ElecL2L3ApparentPowerSp { import }
-
-// Setpoint for line 2 to line 3 export of AC electric apparent power
-ElecExportL2L3ApparentPowerSp : ElecL2L3ApparentPowerSp { export }
-
-// Setpoint for line 2 to line 3 net of AC electric apparent power
-ElecNetL2L3ApparentPowerSp : ElecL2L3ApparentPowerSp { net }
-
-// Setpoint for line 3 to line 1 import of AC electric apparent power
-ElecImportL3L1ApparentPowerSp : ElecL3L1ApparentPowerSp { import }
-
-// Setpoint for line 3 to line 1 export of AC electric apparent power
-ElecExportL3L1ApparentPowerSp : ElecL3L1ApparentPowerSp { export }
-
-// Setpoint for line 3 to line 1 net of AC electric apparent power
-ElecNetL3L1ApparentPowerSp : ElecL3L1ApparentPowerSp { net }
-
-// Setpoint for total import of AC electric active power
-ElecImportTotalActivePowerSp : ElecTotalActivePowerSp { import }
-
-// Setpoint for total export of AC electric active power
-ElecExportTotalActivePowerSp : ElecTotalActivePowerSp { export }
-
-// Setpoint for total net of AC electric active power
-ElecNetTotalActivePowerSp : ElecTotalActivePowerSp { net }
-
-// Setpoint for total import of AC electric reactive power
-ElecImportTotalReactivePowerSp : ElecTotalReactivePowerSp { import }
-
-// Setpoint for total export of AC electric reactive power
-ElecExportTotalReactivePowerSp : ElecTotalReactivePowerSp { export }
-
-// Setpoint for total net of AC electric reactive power
-ElecNetTotalReactivePowerSp : ElecTotalReactivePowerSp { net }
-
-// Setpoint for total import of AC electric apparent power
-ElecImportTotalApparentPowerSp : ElecTotalApparentPowerSp { import }
-
-// Setpoint for total export of AC electric apparent power
-ElecExportTotalApparentPowerSp : ElecTotalApparentPowerSp { export }
-
-// Setpoint for total net of AC electric apparent power
-ElecNetTotalApparentPowerSp : ElecTotalApparentPowerSp { net }
-
-//////////////////////////////////////////////////////////////////////////
-// Sensors for AC energy subtypes (abstract)
-//////////////////////////////////////////////////////////////////////////
-
-// Sensor for AC active energy
-ElecActiveEnergySensor : ElecEnergySensor & ElecAcSensor <abstract> { active }
-
-// Sensor for AC reactive energy
-ElecReactiveEnergySensor : ElecEnergySensor & ElecAcSensor <abstract> { reactive }
-
-// Sensor for AC apparent energy
-ElecApparentEnergySensor : ElecEnergySensor & ElecAcSensor <abstract> { apparent }
-
 //////////////////////////////////////////////////////////////////////////
-// Sensors for the phase location of AC electric energy (abstract)
+// DC direction specs
 //////////////////////////////////////////////////////////////////////////
-
-// Sensor for phase AC electric energy
-ElecPhaseEnergySensor : ElecEnergySensor & ElecAcSensor <abstract> { phaseEnergy: PhaseEnergy }
-
-// Sensor for line 1 AC electric active energy
-ElecL1ActiveEnergySensor : ElecActiveEnergySensor & ElecPhaseEnergySensor <abstract> { phaseEnergy: "L1" }
-
-// Sensor for line 2 AC electric active energy
-ElecL2ActiveEnergySensor : ElecActiveEnergySensor & ElecPhaseEnergySensor <abstract> { phaseEnergy: "L2" }
 
-// Sensor for line 3 AC electric active energy
-ElecL3ActiveEnergySensor : ElecActiveEnergySensor & ElecPhaseEnergySensor <abstract> { phaseEnergy: "L3" }
+// Sensor for DC electric current imported
+ElecImportDcCurrentSensor : ElecDcCurrentSensor { import }
 
-// Sensor for line 1 AC electric reactive energy
-ElecL1ReactiveEnergySensor : ElecReactiveEnergySensor & ElecPhaseEnergySensor <abstract> { phaseEnergy: "L1" }
+// Sensor for DC electric power imported
+ElecImportDcPowerSensor : ElecDcPowerSensor { import }
 
-// Sensor for line 2 AC electric reactive energy
-ElecL2ReactiveEnergySensor : ElecReactiveEnergySensor & ElecPhaseEnergySensor <abstract> { phaseEnergy: "L2" }
+// Sensor for DC electric demand imported
+ElecImportDcDemandSensor : ElecDcDemandSensor { import }
 
-// Sensor for line 3 AC electric reactive energy
-ElecL3ReactiveEnergySensor : ElecReactiveEnergySensor & ElecPhaseEnergySensor <abstract> { phaseEnergy: "L3" }
+// Sensor for DC electric energy imported
+ElecImportDcEnergySensor : ElecDcEnergySensor { import }
 
-// Sensor for line 1 AC electric apparent energy
-ElecL1ApparentEnergySensor : ElecApparentEnergySensor & ElecPhaseEnergySensor <abstract> { phaseEnergy: "L1" }
-
-// Sensor for line 2 AC electric apparent energy
-ElecL2ApparentEnergySensor : ElecApparentEnergySensor & ElecPhaseEnergySensor <abstract> { phaseEnergy: "L2" }
-
-// Sensor for line 3 AC electric apparent energy
-ElecL3ApparentEnergySensor : ElecApparentEnergySensor & ElecPhaseEnergySensor <abstract> { phaseEnergy: "L3" }
-
 //////////////////////////////////////////////////////////////////////////
-// Sensors for the line location of AC electric energy (abstract)
+// AC direction specs
 //////////////////////////////////////////////////////////////////////////
 
-// Sensor for line AC electric energy
-ElecLineEnergySensor : ElecEnergySensor & ElecAcSensor <abstract> { lineEnergy: LineEnergy }
+// Sensor for magnitude of AC electric current imported
+ElecImportAcMagnitudeCurrentSensor : ElecAcMagnitudeCurrentSensor <abstract> { import }
 
-// Sensor for line 1 to line 2 AC electric active energy
-ElecL1L2ActiveEnergySensor : ElecActiveEnergySensor & ElecLineEnergySensor <abstract> { lineEnergy: "L1-L2" }
+// Sensor for angle of AC electric current imported
+ElecImportAcAngleCurrentSensor : ElecAcAngleCurrentSensor <abstract> { import }
 
-// Sensor for line 2 to line 3 AC electric active energy
-ElecL2L3ActiveEnergySensor : ElecActiveEnergySensor & ElecLineEnergySensor <abstract> { lineEnergy: "L2-L3" }
+// Sensor for imbalance of AC electric current imported
+ElecImportAcImbalanceCurrentSensor : ElecAcImbalanceCurrentSensor <abstract> { import }
 
-// Sensor for line 3 to line 1 AC electric active energy
-ElecL3L1ActiveEnergySensor : ElecActiveEnergySensor & ElecLineEnergySensor <abstract> { lineEnergy: "L3-L1" }
+// Sensor for total harmonic distortion of AC electric current imported
+ElecImportAcThdCurrentSensor : ElecAcThdCurrentSensor <abstract> { import }
 
-// Sensor for line 1 to line 2 AC electric reactive energy
-ElecL1L2ReactiveEnergySensor : ElecReactiveEnergySensor & ElecLineEnergySensor <abstract> { lineEnergy: "L1-L2" }
+// Sensor for AC electric active power imported
+ElecImportAcActivePowerSensor : ElecAcActivePowerSensor <abstract> { import }
 
-// Sensor for line 2 to line 3 AC electric reactive energy
-ElecL2L3ReactiveEnergySensor : ElecReactiveEnergySensor & ElecLineEnergySensor <abstract> { lineEnergy: "L2-L3" }
+// Sensor for AC electric reactive power imported
+ElecImportAcReactivePowerSensor : ElecAcReactivePowerSensor <abstract> { import }
 
-// Sensor for line 3 to line 1 AC electric reactive energy
-ElecL3L1ReactiveEnergySensor : ElecReactiveEnergySensor & ElecLineEnergySensor <abstract> { lineEnergy: "L3-L1" }
+// Sensor for AC electric apparent power imported
+ElecImportAcApparentPowerSensor : ElecAcApparentPowerSensor <abstract> { import }
 
-// Sensor for line 1 to line 2 AC electric apparent energy
-ElecL1L2ApparentEnergySensor : ElecApparentEnergySensor & ElecLineEnergySensor <abstract> { lineEnergy: "L1-L2" }
+// Sensor for true power factor of AC electric power imported
+ElecImportAcTruePfSensor : ElecAcTruePfSensor <abstract> { import }
 
-// Sensor for line 2 to line 3 AC electric apparent energy
-ElecL2L3ApparentEnergySensor : ElecApparentEnergySensor & ElecLineEnergySensor <abstract> { lineEnergy: "L2-L3" }
+// Sensor for displacement power factor of AC electric power imported
+ElecImportAcDisplacementPfSensor : ElecAcDisplacementPfSensor <abstract> { import }
 
-// Sensor for line 3 to line 1 AC electric apparent energy
-ElecL3L1ApparentEnergySensor : ElecApparentEnergySensor & ElecLineEnergySensor <abstract> { lineEnergy: "L3-L1" }
-
-//////////////////////////////////////////////////////////////////////////
-// Sensors for the aggregate location of AC electric energy (abstract)
-//////////////////////////////////////////////////////////////////////////
+// Sensor for distortion power factor of AC electric power imported
+ElecImportAcDistortionPfSensor : ElecAcDistortionPfSensor <abstract> { import }
 
-// Sensor for total AC electric active energy
-ElecTotalActiveEnergySensor : ElecActiveEnergySensor <abstract> { total }
+// Sensor for AC electric active demand imported
+ElecImportAcActiveDemandSensor : ElecAcActiveDemandSensor <abstract> { import }
 
-// Sensor for avg AC electric active energy
-ElecAvgActiveEnergySensor : ElecActiveEnergySensor <abstract> { avg }
+// Sensor for AC electric reactive demand imported
+ElecImportAcReactiveDemandSensor : ElecAcReactiveDemandSensor <abstract> { import }
 
-// Sensor for total AC electric reactive energy
-ElecTotalReactiveEnergySensor : ElecReactiveEnergySensor <abstract> { total }
+// Sensor for AC electric apparent demand imported
+ElecImportAcApparentDemandSensor : ElecAcApparentDemandSensor <abstract> { import }
 
-// Sensor for avg AC electric reactive energy
-ElecAvgReactiveEnergySensor : ElecReactiveEnergySensor <abstract> { avg }
+// Sensor for AC electric active energy imported
+ElecImportAcActiveEnergySensor : ElecAcActiveEnergySensor <abstract> { import }
 
-// Sensor for total AC electric apparent energy
-ElecTotalApparentEnergySensor : ElecApparentEnergySensor <abstract> { total }
+// Sensor for AC electric reactive energy imported
+ElecImportAcReactiveEnergySensor : ElecAcReactiveEnergySensor <abstract> { import }
 
-// Sensor for avg AC electric apparent energy
-ElecAvgApparentEnergySensor : ElecApparentEnergySensor <abstract> { avg }
+// Sensor for AC electric apparent energy imported
+ElecImportAcApparentEnergySensor : ElecAcApparentEnergySensor <abstract> { import }
 
 //////////////////////////////////////////////////////////////////////////
-// Sensors for the direction of AC electric energy (leaves)
+// AC location specs
 //////////////////////////////////////////////////////////////////////////
-
-// Sensor for line 1 import of AC electric active energy
-ElecImportL1ActiveEnergySensor : ElecL1ActiveEnergySensor { import }
-
-// Sensor for line 1 export of AC electric active energy
-ElecExportL1ActiveEnergySensor : ElecL1ActiveEnergySensor { export }
-
-// Sensor for line 1 net of AC electric active energy
-ElecNetL1ActiveEnergySensor : ElecL1ActiveEnergySensor { net }
-
-// Sensor for line 2 import of AC electric active energy
-ElecImportL2ActiveEnergySensor : ElecL2ActiveEnergySensor { import }
-
-// Sensor for line 2 export of AC electric active energy
-ElecExportL2ActiveEnergySensor : ElecL2ActiveEnergySensor { export }
-
-// Sensor for line 2 net of AC electric active energy
-ElecNetL2ActiveEnergySensor : ElecL2ActiveEnergySensor { net }
-
-// Sensor for line 3 import of AC electric active energy
-ElecImportL3ActiveEnergySensor : ElecL3ActiveEnergySensor { import }
-
-// Sensor for line 3 export of AC electric active energy
-ElecExportL3ActiveEnergySensor : ElecL3ActiveEnergySensor { export }
-
-// Sensor for line 3 net of AC electric active energy
-ElecNetL3ActiveEnergySensor : ElecL3ActiveEnergySensor { net }
-
-// Sensor for line 1 import of AC electric reactive energy
-ElecImportL1ReactiveEnergySensor : ElecL1ReactiveEnergySensor { import }
-
-// Sensor for line 1 export of AC electric reactive energy
-ElecExportL1ReactiveEnergySensor : ElecL1ReactiveEnergySensor { export }
-
-// Sensor for line 1 net of AC electric reactive energy
-ElecNetL1ReactiveEnergySensor : ElecL1ReactiveEnergySensor { net }
-
-// Sensor for line 2 import of AC electric reactive energy
-ElecImportL2ReactiveEnergySensor : ElecL2ReactiveEnergySensor { import }
-
-// Sensor for line 2 export of AC electric reactive energy
-ElecExportL2ReactiveEnergySensor : ElecL2ReactiveEnergySensor { export }
-
-// Sensor for line 2 net of AC electric reactive energy
-ElecNetL2ReactiveEnergySensor : ElecL2ReactiveEnergySensor { net }
-
-// Sensor for line 3 import of AC electric reactive energy
-ElecImportL3ReactiveEnergySensor : ElecL3ReactiveEnergySensor { import }
-
-// Sensor for line 3 export of AC electric reactive energy
-ElecExportL3ReactiveEnergySensor : ElecL3ReactiveEnergySensor { export }
-
-// Sensor for line 3 net of AC electric reactive energy
-ElecNetL3ReactiveEnergySensor : ElecL3ReactiveEnergySensor { net }
-
-// Sensor for line 1 import of AC electric apparent energy
-ElecImportL1ApparentEnergySensor : ElecL1ApparentEnergySensor { import }
-
-// Sensor for line 1 export of AC electric apparent energy
-ElecExportL1ApparentEnergySensor : ElecL1ApparentEnergySensor { export }
-
-// Sensor for line 1 net of AC electric apparent energy
-ElecNetL1ApparentEnergySensor : ElecL1ApparentEnergySensor { net }
-
-// Sensor for line 2 import of AC electric apparent energy
-ElecImportL2ApparentEnergySensor : ElecL2ApparentEnergySensor { import }
-
-// Sensor for line 2 export of AC electric apparent energy
-ElecExportL2ApparentEnergySensor : ElecL2ApparentEnergySensor { export }
-
-// Sensor for line 2 net of AC electric apparent energy
-ElecNetL2ApparentEnergySensor : ElecL2ApparentEnergySensor { net }
-
-// Sensor for line 3 import of AC electric apparent energy
-ElecImportL3ApparentEnergySensor : ElecL3ApparentEnergySensor { import }
-
-// Sensor for line 3 export of AC electric apparent energy
-ElecExportL3ApparentEnergySensor : ElecL3ApparentEnergySensor { export }
-
-// Sensor for line 3 net of AC electric apparent energy
-ElecNetL3ApparentEnergySensor : ElecL3ApparentEnergySensor { net }
-
-// Sensor for line 1 to line 2 import of AC electric active energy
-ElecImportL1L2ActiveEnergySensor : ElecL1L2ActiveEnergySensor { import }
-
-// Sensor for line 1 to line 2 export of AC electric active energy
-ElecExportL1L2ActiveEnergySensor : ElecL1L2ActiveEnergySensor { export }
-
-// Sensor for line 1 to line 2 net of AC electric active energy
-ElecNetL1L2ActiveEnergySensor : ElecL1L2ActiveEnergySensor { net }
-
-// Sensor for line 2 to line 3 import of AC electric active energy
-ElecImportL2L3ActiveEnergySensor : ElecL2L3ActiveEnergySensor { import }
-
-// Sensor for line 2 to line 3 export of AC electric active energy
-ElecExportL2L3ActiveEnergySensor : ElecL2L3ActiveEnergySensor { export }
-
-// Sensor for line 2 to line 3 net of AC electric active energy
-ElecNetL2L3ActiveEnergySensor : ElecL2L3ActiveEnergySensor { net }
-
-// Sensor for line 3 to line 1 import of AC electric active energy
-ElecImportL3L1ActiveEnergySensor : ElecL3L1ActiveEnergySensor { import }
 
-// Sensor for line 3 to line 1 export of AC electric active energy
-ElecExportL3L1ActiveEnergySensor : ElecL3L1ActiveEnergySensor { export }
+// Sensor for line magnitude of AC electric voltage
+ElecLineAcMagnitudeVoltSensor : ElecAcMagnitudeVoltSensor <abstract> { lineVolt: LineVolt }
 
-// Sensor for line 3 to line 1 net of AC electric active energy
-ElecNetL3L1ActiveEnergySensor : ElecL3L1ActiveEnergySensor { net }
+// Sensor for line 1 to line 2 magnitude of AC electric voltage
+ElecL1L2AcMagnitudeVoltSensor : ElecLineAcMagnitudeVoltSensor { lineVolt: "L1-L2" }
 
-// Sensor for line 1 to line 2 import of AC electric reactive energy
-ElecImportL1L2ReactiveEnergySensor : ElecL1L2ReactiveEnergySensor { import }
+// Sensor for line 2 to line 3 magnitude of AC electric voltage
+ElecL2L3AcMagnitudeVoltSensor : ElecLineAcMagnitudeVoltSensor { lineVolt: "L2-L3" }
 
-// Sensor for line 1 to line 2 export of AC electric reactive energy
-ElecExportL1L2ReactiveEnergySensor : ElecL1L2ReactiveEnergySensor { export }
+// Sensor for line 3 to line 1 magnitude of AC electric voltage
+ElecL3L1AcMagnitudeVoltSensor : ElecLineAcMagnitudeVoltSensor { lineVolt: "L3-L1" }
 
-// Sensor for line 1 to line 2 net of AC electric reactive energy
-ElecNetL1L2ReactiveEnergySensor : ElecL1L2ReactiveEnergySensor { net }
+// Sensor for line average magnitude of AC electric voltage
+ElecLineAvgAcMagnitudeVoltSensor : ElecAcMagnitudeVoltSensor { lineAvg }
 
-// Sensor for line 2 to line 3 import of AC electric reactive energy
-ElecImportL2L3ReactiveEnergySensor : ElecL2L3ReactiveEnergySensor { import }
+// Sensor for phase magnitude of AC electric voltage
+ElecPhaseAcMagnitudeVoltSensor : ElecAcMagnitudeVoltSensor <abstract> { phaseVolt: PhaseVolt }
 
-// Sensor for line 2 to line 3 export of AC electric reactive energy
-ElecExportL2L3ReactiveEnergySensor : ElecL2L3ReactiveEnergySensor { export }
+// Sensor for line 1 to neutral magnitude of AC electric voltage
+ElecL1NAcMagnitudeVoltSensor : ElecPhaseAcMagnitudeVoltSensor { phaseVolt: "L1-N" }
 
-// Sensor for line 2 to line 3 net of AC electric reactive energy
-ElecNetL2L3ReactiveEnergySensor : ElecL2L3ReactiveEnergySensor { net }
+// Sensor for line 2 to neutral magnitude of AC electric voltage
+ElecL2NAcMagnitudeVoltSensor : ElecPhaseAcMagnitudeVoltSensor { phaseVolt: "L2-N" }
 
-// Sensor for line 3 to line 1 import of AC electric reactive energy
-ElecImportL3L1ReactiveEnergySensor : ElecL3L1ReactiveEnergySensor { import }
+// Sensor for line 3 to neutral magnitude of AC electric voltage
+ElecL3NAcMagnitudeVoltSensor : ElecPhaseAcMagnitudeVoltSensor { phaseVolt: "L3-N" }
 
-// Sensor for line 3 to line 1 export of AC electric reactive energy
-ElecExportL3L1ReactiveEnergySensor : ElecL3L1ReactiveEnergySensor { export }
+// Sensor for phase average magnitude of AC electric voltage
+ElecPhaseAvgAcMagnitudeVoltSensor : ElecAcMagnitudeVoltSensor { phaseAvg }
 
-// Sensor for line 3 to line 1 net of AC electric reactive energy
-ElecNetL3L1ReactiveEnergySensor : ElecL3L1ReactiveEnergySensor { net }
+// Sensor for line angle of AC electric voltage
+ElecLineAcAngleVoltSensor : ElecAcAngleVoltSensor <abstract> { lineVolt: LineVolt }
 
-// Sensor for line 1 to line 2 import of AC electric apparent energy
-ElecImportL1L2ApparentEnergySensor : ElecL1L2ApparentEnergySensor { import }
+// Sensor for line 1 to line 2 angle of AC electric voltage
+ElecL1L2AcAngleVoltSensor : ElecLineAcAngleVoltSensor { lineVolt: "L1-L2" }
 
-// Sensor for line 1 to line 2 export of AC electric apparent energy
-ElecExportL1L2ApparentEnergySensor : ElecL1L2ApparentEnergySensor { export }
+// Sensor for line 2 to line 3 angle of AC electric voltage
+ElecL2L3AcAngleVoltSensor : ElecLineAcAngleVoltSensor { lineVolt: "L2-L3" }
 
-// Sensor for line 1 to line 2 net of AC electric apparent energy
-ElecNetL1L2ApparentEnergySensor : ElecL1L2ApparentEnergySensor { net }
+// Sensor for line 3 to line 1 angle of AC electric voltage
+ElecL3L1AcAngleVoltSensor : ElecLineAcAngleVoltSensor { lineVolt: "L3-L1" }
 
-// Sensor for line 2 to line 3 import of AC electric apparent energy
-ElecImportL2L3ApparentEnergySensor : ElecL2L3ApparentEnergySensor { import }
+// Sensor for line average angle of AC electric voltage
+ElecLineAvgAcAngleVoltSensor : ElecAcAngleVoltSensor { lineAvg }
 
-// Sensor for line 2 to line 3 export of AC electric apparent energy
-ElecExportL2L3ApparentEnergySensor : ElecL2L3ApparentEnergySensor { export }
+// Sensor for phase angle of AC electric voltage
+ElecPhaseAcAngleVoltSensor : ElecAcAngleVoltSensor <abstract> { phaseVolt: PhaseVolt }
 
-// Sensor for line 2 to line 3 net of AC electric apparent energy
-ElecNetL2L3ApparentEnergySensor : ElecL2L3ApparentEnergySensor { net }
+// Sensor for line 1 to neutral angle of AC electric voltage
+ElecL1NAcAngleVoltSensor : ElecPhaseAcAngleVoltSensor { phaseVolt: "L1-N" }
 
-// Sensor for line 3 to line 1 import of AC electric apparent energy
-ElecImportL3L1ApparentEnergySensor : ElecL3L1ApparentEnergySensor { import }
+// Sensor for line 2 to neutral angle of AC electric voltage
+ElecL2NAcAngleVoltSensor : ElecPhaseAcAngleVoltSensor { phaseVolt: "L2-N" }
 
-// Sensor for line 3 to line 1 export of AC electric apparent energy
-ElecExportL3L1ApparentEnergySensor : ElecL3L1ApparentEnergySensor { export }
+// Sensor for line 3 to neutral angle of AC electric voltage
+ElecL3NAcAngleVoltSensor : ElecPhaseAcAngleVoltSensor { phaseVolt: "L3-N" }
 
-// Sensor for line 3 to line 1 net of AC electric apparent energy
-ElecNetL3L1ApparentEnergySensor : ElecL3L1ApparentEnergySensor { net }
+// Sensor for phase average angle of AC electric voltage
+ElecPhaseAvgAcAngleVoltSensor : ElecAcAngleVoltSensor { phaseAvg }
 
-// Sensor for total import of AC electric active energy
-ElecImportTotalActiveEnergySensor : ElecTotalActiveEnergySensor { import }
+// Sensor for line imbalance of AC electric voltage
+ElecLineAcImbalanceVoltSensor : ElecAcImbalanceVoltSensor <abstract> { lineVolt: LineVolt }
 
-// Sensor for total export of AC electric active energy
-ElecExportTotalActiveEnergySensor : ElecTotalActiveEnergySensor { export }
+// Sensor for line 1 to line 2 imbalance of AC electric voltage
+ElecL1L2AcImbalanceVoltSensor : ElecLineAcImbalanceVoltSensor { lineVolt: "L1-L2" }
 
-// Sensor for total net of AC electric active energy
-ElecNetTotalActiveEnergySensor : ElecTotalActiveEnergySensor { net }
+// Sensor for line 2 to line 3 imbalance of AC electric voltage
+ElecL2L3AcImbalanceVoltSensor : ElecLineAcImbalanceVoltSensor { lineVolt: "L2-L3" }
 
-// Sensor for avg import of AC electric active energy
-ElecImportAvgActiveEnergySensor : ElecAvgActiveEnergySensor { import }
+// Sensor for line 3 to line 1 imbalance of AC electric voltage
+ElecL3L1AcImbalanceVoltSensor : ElecLineAcImbalanceVoltSensor { lineVolt: "L3-L1" }
 
-// Sensor for avg export of AC electric active energy
-ElecExportAvgActiveEnergySensor : ElecAvgActiveEnergySensor { export }
+// Sensor for line average imbalance of AC electric voltage
+ElecLineAvgAcImbalanceVoltSensor : ElecAcImbalanceVoltSensor { lineAvg }
 
-// Sensor for avg net of AC electric active energy
-ElecNetAvgActiveEnergySensor : ElecAvgActiveEnergySensor { net }
+// Sensor for phase imbalance of AC electric voltage
+ElecPhaseAcImbalanceVoltSensor : ElecAcImbalanceVoltSensor <abstract> { phaseVolt: PhaseVolt }
 
-// Sensor for total import of AC electric reactive energy
-ElecImportTotalReactiveEnergySensor : ElecTotalReactiveEnergySensor { import }
+// Sensor for line 1 to neutral imbalance of AC electric voltage
+ElecL1NAcImbalanceVoltSensor : ElecPhaseAcImbalanceVoltSensor { phaseVolt: "L1-N" }
 
-// Sensor for total export of AC electric reactive energy
-ElecExportTotalReactiveEnergySensor : ElecTotalReactiveEnergySensor { export }
+// Sensor for line 2 to neutral imbalance of AC electric voltage
+ElecL2NAcImbalanceVoltSensor : ElecPhaseAcImbalanceVoltSensor { phaseVolt: "L2-N" }
 
-// Sensor for total net of AC electric reactive energy
-ElecNetTotalReactiveEnergySensor : ElecTotalReactiveEnergySensor { net }
+// Sensor for line 3 to neutral imbalance of AC electric voltage
+ElecL3NAcImbalanceVoltSensor : ElecPhaseAcImbalanceVoltSensor { phaseVolt: "L3-N" }
 
-// Sensor for avg import of AC electric reactive energy
-ElecImportAvgReactiveEnergySensor : ElecAvgReactiveEnergySensor { import }
+// Sensor for phase average imbalance of AC electric voltage
+ElecPhaseAvgAcImbalanceVoltSensor : ElecAcImbalanceVoltSensor { phaseAvg }
 
-// Sensor for avg export of AC electric reactive energy
-ElecExportAvgReactiveEnergySensor : ElecAvgReactiveEnergySensor { export }
+// Sensor for line total harmonic distortion of AC electric voltage
+ElecLineAcThdVoltSensor : ElecAcThdVoltSensor <abstract> { lineVolt: LineVolt }
 
-// Sensor for avg net of AC electric reactive energy
-ElecNetAvgReactiveEnergySensor : ElecAvgReactiveEnergySensor { net }
+// Sensor for line 1 to line 2 total harmonic distortion of AC electric voltage
+ElecL1L2AcThdVoltSensor : ElecLineAcThdVoltSensor { lineVolt: "L1-L2" }
 
-// Sensor for total import of AC electric apparent energy
-ElecImportTotalApparentEnergySensor : ElecTotalApparentEnergySensor { import }
+// Sensor for line 2 to line 3 total harmonic distortion of AC electric voltage
+ElecL2L3AcThdVoltSensor : ElecLineAcThdVoltSensor { lineVolt: "L2-L3" }
 
-// Sensor for total export of AC electric apparent energy
-ElecExportTotalApparentEnergySensor : ElecTotalApparentEnergySensor { export }
+// Sensor for line 3 to line 1 total harmonic distortion of AC electric voltage
+ElecL3L1AcThdVoltSensor : ElecLineAcThdVoltSensor { lineVolt: "L3-L1" }
 
-// Sensor for total net of AC electric apparent energy
-ElecNetTotalApparentEnergySensor : ElecTotalApparentEnergySensor { net }
+// Sensor for line average total harmonic distortion of AC electric voltage
+ElecLineAvgAcThdVoltSensor : ElecAcThdVoltSensor { lineAvg }
 
-// Sensor for avg import of AC electric apparent energy
-ElecImportAvgApparentEnergySensor : ElecAvgApparentEnergySensor { import }
+// Sensor for phase total harmonic distortion of AC electric voltage
+ElecPhaseAcThdVoltSensor : ElecAcThdVoltSensor <abstract> { phaseVolt: PhaseVolt }
 
-// Sensor for avg export of AC electric apparent energy
-ElecExportAvgApparentEnergySensor : ElecAvgApparentEnergySensor { export }
+// Sensor for line 1 to neutral total harmonic distortion of AC electric voltage
+ElecL1NAcThdVoltSensor : ElecPhaseAcThdVoltSensor { phaseVolt: "L1-N" }
 
-// Sensor for avg net of AC electric apparent energy
-ElecNetAvgApparentEnergySensor : ElecAvgApparentEnergySensor { net }
+// Sensor for line 2 to neutral total harmonic distortion of AC electric voltage
+ElecL2NAcThdVoltSensor : ElecPhaseAcThdVoltSensor { phaseVolt: "L2-N" }
 
-//////////////////////////////////////////////////////////////////////////
-// Sensors for AC current subtypes (abstract)
-//////////////////////////////////////////////////////////////////////////
-
-// Sensor for AC magnitude current
-ElecMagnitudeCurrentSensor : ElecCurrentSensor & ElecAcSensor <abstract> { magnitude }
-
-// Sensor for AC angle current
-ElecAngleCurrentSensor : ElecCurrentSensor & ElecAcSensor <abstract> { angle }
-
-// Sensor for AC THD current
-ElecThdCurrentSensor : ElecCurrentSensor & ElecAcSensor <abstract> { thd }
+// Sensor for line 3 to neutral total harmonic distortion of AC electric voltage
+ElecL3NAcThdVoltSensor : ElecPhaseAcThdVoltSensor { phaseVolt: "L3-N" }
 
-// Sensor for AC imbalance current
-ElecImbalanceCurrentSensor : ElecCurrentSensor & ElecAcSensor <abstract> { imbalance }
+// Sensor for phase average total harmonic distortion of AC electric voltage
+ElecPhaseAvgAcThdVoltSensor : ElecAcThdVoltSensor { phaseAvg }
 
-//////////////////////////////////////////////////////////////////////////
-// Sensors for the phase location of AC electric current (abstract)
-//////////////////////////////////////////////////////////////////////////
+// Sensor for line magnitude of AC electric current imported
+ElecLineImportAcMagnitudeCurrentSensor : ElecImportAcMagnitudeCurrentSensor <abstract> { lineCurrent: LineCurrent }
 
-// Sensor for phase AC electric current
-ElecPhaseCurrentSensor : ElecCurrentSensor & ElecAcSensor <abstract> { phaseCurrent: PhaseCurrent }
+// Sensor for line 1 magnitude of AC electric current imported
+ElecL1ImportAcMagnitudeCurrentSensor : ElecLineImportAcMagnitudeCurrentSensor { lineCurrent: "L1" }
 
-// Sensor for line 1 to line 2 AC electric magnitude current
-ElecL1L2MagnitudeCurrentSensor : ElecMagnitudeCurrentSensor & ElecPhaseCurrentSensor { phaseCurrent: "L1-L2" }
+// Sensor for line 2 magnitude of AC electric current imported
+ElecL2ImportAcMagnitudeCurrentSensor : ElecLineImportAcMagnitudeCurrentSensor { lineCurrent: "L2" }
 
-// Sensor for line 2 to line 3 AC electric magnitude current
-ElecL2L3MagnitudeCurrentSensor : ElecMagnitudeCurrentSensor & ElecPhaseCurrentSensor { phaseCurrent: "L2-L3" }
+// Sensor for line 3 magnitude of AC electric current imported
+ElecL3ImportAcMagnitudeCurrentSensor : ElecLineImportAcMagnitudeCurrentSensor { lineCurrent: "L3" }
 
-// Sensor for line 3 to line 1 AC electric magnitude current
-ElecL3L1MagnitudeCurrentSensor : ElecMagnitudeCurrentSensor & ElecPhaseCurrentSensor { phaseCurrent: "L3-L1" }
+// Sensor for line average magnitude of AC electric current imported
+ElecLineAvgImportAcMagnitudeCurrentSensor : ElecImportAcMagnitudeCurrentSensor { lineAvg }
 
-// Sensor for line 1 to line 2 AC electric angle current
-ElecL1L2AngleCurrentSensor : ElecAngleCurrentSensor & ElecPhaseCurrentSensor { phaseCurrent: "L1-L2" }
+// Sensor for phase magnitude of AC electric current imported
+ElecPhaseImportAcMagnitudeCurrentSensor : ElecImportAcMagnitudeCurrentSensor <abstract> { phaseCurrent: PhaseCurrent }
 
-// Sensor for line 2 to line 3 AC electric angle current
-ElecL2L3AngleCurrentSensor : ElecAngleCurrentSensor & ElecPhaseCurrentSensor { phaseCurrent: "L2-L3" }
+// Sensor for line 1 to line 2 magnitude of AC electric current imported
+ElecL1L2ImportAcMagnitudeCurrentSensor : ElecPhaseImportAcMagnitudeCurrentSensor { phaseCurrent: "L1-L2" }
 
-// Sensor for line 3 to line 1 AC electric angle current
-ElecL3L1AngleCurrentSensor : ElecAngleCurrentSensor & ElecPhaseCurrentSensor { phaseCurrent: "L3-L1" }
+// Sensor for line 2 to line 3 magnitude of AC electric current imported
+ElecL2L3ImportAcMagnitudeCurrentSensor : ElecPhaseImportAcMagnitudeCurrentSensor { phaseCurrent: "L2-L3" }
 
-// Sensor for line 1 to line 2 AC electric THD current
-ElecL1L2ThdCurrentSensor : ElecThdCurrentSensor & ElecPhaseCurrentSensor { phaseCurrent: "L1-L2" }
+// Sensor for line 3 to line 1 magnitude of AC electric current imported
+ElecL3L1ImportAcMagnitudeCurrentSensor : ElecPhaseImportAcMagnitudeCurrentSensor { phaseCurrent: "L3-L1" }
 
-// Sensor for line 2 to line 3 AC electric THD current
-ElecL2L3ThdCurrentSensor : ElecThdCurrentSensor & ElecPhaseCurrentSensor { phaseCurrent: "L2-L3" }
+// Sensor for phase average magnitude of AC electric current imported
+ElecPhaseAvgImportAcMagnitudeCurrentSensor : ElecImportAcMagnitudeCurrentSensor { phaseAvg }
 
-// Sensor for line 3 to line 1 AC electric THD current
-ElecL3L1ThdCurrentSensor : ElecThdCurrentSensor & ElecPhaseCurrentSensor { phaseCurrent: "L3-L1" }
+// Sensor for neutral magnitude of AC electric current imported
+ElecNeutralImportAcMagnitudeCurrentSensor : ElecImportAcMagnitudeCurrentSensor { neutral }
 
-// Sensor for line 1 to line 2 AC electric imbalance current
-ElecL1L2ImbalanceCurrentSensor : ElecImbalanceCurrentSensor & ElecPhaseCurrentSensor { phaseCurrent: "L1-L2" }
+// Sensor for ground magnitude of AC electric current imported
+ElecGroundImportAcMagnitudeCurrentSensor : ElecImportAcMagnitudeCurrentSensor { ground }
 
-// Sensor for line 2 to line 3 AC electric imbalance current
-ElecL2L3ImbalanceCurrentSensor : ElecImbalanceCurrentSensor & ElecPhaseCurrentSensor { phaseCurrent: "L2-L3" }
+// Sensor for line angle of AC electric current imported
+ElecLineImportAcAngleCurrentSensor : ElecImportAcAngleCurrentSensor <abstract> { lineCurrent: LineCurrent }
 
-// Sensor for line 3 to line 1 AC electric imbalance current
-ElecL3L1ImbalanceCurrentSensor : ElecImbalanceCurrentSensor & ElecPhaseCurrentSensor { phaseCurrent: "L3-L1" }
-
-//////////////////////////////////////////////////////////////////////////
-// Sensors for the line location of AC electric current (abstract)
-//////////////////////////////////////////////////////////////////////////
+// Sensor for line 1 angle of AC electric current imported
+ElecL1ImportAcAngleCurrentSensor : ElecLineImportAcAngleCurrentSensor { lineCurrent: "L1" }
 
-// Sensor for line AC electric current
-ElecLineCurrentSensor : ElecCurrentSensor & ElecAcSensor <abstract> { lineCurrent: LineCurrent }
+// Sensor for line 2 angle of AC electric current imported
+ElecL2ImportAcAngleCurrentSensor : ElecLineImportAcAngleCurrentSensor { lineCurrent: "L2" }
 
-// Sensor for line 1 AC electric magnitude current
-ElecL1MagnitudeCurrentSensor : ElecMagnitudeCurrentSensor & ElecLineCurrentSensor { lineCurrent: "L1" }
+// Sensor for line 3 angle of AC electric current imported
+ElecL3ImportAcAngleCurrentSensor : ElecLineImportAcAngleCurrentSensor { lineCurrent: "L3" }
 
-// Sensor for line 2 AC electric magnitude current
-ElecL2MagnitudeCurrentSensor : ElecMagnitudeCurrentSensor & ElecLineCurrentSensor { lineCurrent: "L2" }
+// Sensor for line average angle of AC electric current imported
+ElecLineAvgImportAcAngleCurrentSensor : ElecImportAcAngleCurrentSensor { lineAvg }
 
-// Sensor for line 3 AC electric magnitude current
-ElecL3MagnitudeCurrentSensor : ElecMagnitudeCurrentSensor & ElecLineCurrentSensor { lineCurrent: "L3" }
+// Sensor for phase angle of AC electric current imported
+ElecPhaseImportAcAngleCurrentSensor : ElecImportAcAngleCurrentSensor <abstract> { phaseCurrent: PhaseCurrent }
 
-// Sensor for line 1 AC electric angle current
-ElecL1AngleCurrentSensor : ElecAngleCurrentSensor & ElecLineCurrentSensor { lineCurrent: "L1" }
+// Sensor for line 1 to line 2 angle of AC electric current imported
+ElecL1L2ImportAcAngleCurrentSensor : ElecPhaseImportAcAngleCurrentSensor { phaseCurrent: "L1-L2" }
 
-// Sensor for line 2 AC electric angle current
-ElecL2AngleCurrentSensor : ElecAngleCurrentSensor & ElecLineCurrentSensor { lineCurrent: "L2" }
+// Sensor for line 2 to line 3 angle of AC electric current imported
+ElecL2L3ImportAcAngleCurrentSensor : ElecPhaseImportAcAngleCurrentSensor { phaseCurrent: "L2-L3" }
 
-// Sensor for line 3 AC electric angle current
-ElecL3AngleCurrentSensor : ElecAngleCurrentSensor & ElecLineCurrentSensor { lineCurrent: "L3" }
+// Sensor for line 3 to line 1 angle of AC electric current imported
+ElecL3L1ImportAcAngleCurrentSensor : ElecPhaseImportAcAngleCurrentSensor { phaseCurrent: "L3-L1" }
 
-// Sensor for line 1 AC electric THD current
-ElecL1ThdCurrentSensor : ElecThdCurrentSensor & ElecLineCurrentSensor { lineCurrent: "L1" }
+// Sensor for phase average angle of AC electric current imported
+ElecPhaseAvgImportAcAngleCurrentSensor : ElecImportAcAngleCurrentSensor { phaseAvg }
 
-// Sensor for line 2 AC electric THD current
-ElecL2ThdCurrentSensor : ElecThdCurrentSensor & ElecLineCurrentSensor { lineCurrent: "L2" }
+// Sensor for neutral angle of AC electric current imported
+ElecNeutralImportAcAngleCurrentSensor : ElecImportAcAngleCurrentSensor { neutral }
 
-// Sensor for line 3 AC electric THD current
-ElecL3ThdCurrentSensor : ElecThdCurrentSensor & ElecLineCurrentSensor { lineCurrent: "L3" }
+// Sensor for ground angle of AC electric current imported
+ElecGroundImportAcAngleCurrentSensor : ElecImportAcAngleCurrentSensor { ground }
 
-// Sensor for line 1 AC electric imbalance current
-ElecL1ImbalanceCurrentSensor : ElecImbalanceCurrentSensor & ElecLineCurrentSensor { lineCurrent: "L1" }
+// Sensor for line imbalance of AC electric current imported
+ElecLineImportAcImbalanceCurrentSensor : ElecImportAcImbalanceCurrentSensor <abstract> { lineCurrent: LineCurrent }
 
-// Sensor for line 2 AC electric imbalance current
-ElecL2ImbalanceCurrentSensor : ElecImbalanceCurrentSensor & ElecLineCurrentSensor { lineCurrent: "L2" }
+// Sensor for line 1 imbalance of AC electric current imported
+ElecL1ImportAcImbalanceCurrentSensor : ElecLineImportAcImbalanceCurrentSensor { lineCurrent: "L1" }
 
-// Sensor for line 3 AC electric imbalance current
-ElecL3ImbalanceCurrentSensor : ElecImbalanceCurrentSensor & ElecLineCurrentSensor { lineCurrent: "L3" }
+// Sensor for line 2 imbalance of AC electric current imported
+ElecL2ImportAcImbalanceCurrentSensor : ElecLineImportAcImbalanceCurrentSensor { lineCurrent: "L2" }
 
-//////////////////////////////////////////////////////////////////////////
-// Sensors for the aggregate location of AC electric current (leaves)
-//////////////////////////////////////////////////////////////////////////
+// Sensor for line 3 imbalance of AC electric current imported
+ElecL3ImportAcImbalanceCurrentSensor : ElecLineImportAcImbalanceCurrentSensor { lineCurrent: "L3" }
 
-// Sensor for line average AC electric magnitude current
-ElecLineAvgMagnitudeCurrentSensor : ElecMagnitudeCurrentSensor { lineAvg }
+// Sensor for line average imbalance of AC electric current imported
+ElecLineAvgImportAcImbalanceCurrentSensor : ElecImportAcImbalanceCurrentSensor { lineAvg }
 
-// Sensor for phase average AC electric magnitude current
-ElecPhaseAvgMagnitudeCurrentSensor : ElecMagnitudeCurrentSensor { phaseAvg }
+// Sensor for phase imbalance of AC electric current imported
+ElecPhaseImportAcImbalanceCurrentSensor : ElecImportAcImbalanceCurrentSensor <abstract> { phaseCurrent: PhaseCurrent }
 
-// Sensor for line average AC electric angle current
-ElecLineAvgAngleCurrentSensor : ElecAngleCurrentSensor { lineAvg }
+// Sensor for line 1 to line 2 imbalance of AC electric current imported
+ElecL1L2ImportAcImbalanceCurrentSensor : ElecPhaseImportAcImbalanceCurrentSensor { phaseCurrent: "L1-L2" }
 
-// Sensor for phase average AC electric angle current
-ElecPhaseAvgAngleCurrentSensor : ElecAngleCurrentSensor { phaseAvg }
+// Sensor for line 2 to line 3 imbalance of AC electric current imported
+ElecL2L3ImportAcImbalanceCurrentSensor : ElecPhaseImportAcImbalanceCurrentSensor { phaseCurrent: "L2-L3" }
 
-// Sensor for line average AC electric THD current
-ElecLineAvgThdCurrentSensor : ElecThdCurrentSensor { lineAvg }
+// Sensor for line 3 to line 1 imbalance of AC electric current imported
+ElecL3L1ImportAcImbalanceCurrentSensor : ElecPhaseImportAcImbalanceCurrentSensor { phaseCurrent: "L3-L1" }
 
-// Sensor for phase average AC electric THD current
-ElecPhaseAvgThdCurrentSensor : ElecThdCurrentSensor { phaseAvg }
+// Sensor for phase average imbalance of AC electric current imported
+ElecPhaseAvgImportAcImbalanceCurrentSensor : ElecImportAcImbalanceCurrentSensor { phaseAvg }
 
-// Sensor for line average AC electric imbalance current
-ElecLineAvgImbalanceCurrentSensor : ElecImbalanceCurrentSensor { lineAvg }
+// Sensor for neutral imbalance of AC electric current imported
+ElecNeutralImportAcImbalanceCurrentSensor : ElecImportAcImbalanceCurrentSensor { neutral }
 
-// Sensor for phase average AC electric imbalance current
-ElecPhaseAvgImbalanceCurrentSensor : ElecImbalanceCurrentSensor { phaseAvg }
+// Sensor for ground imbalance of AC electric current imported
+ElecGroundImportAcImbalanceCurrentSensor : ElecImportAcImbalanceCurrentSensor { ground }
 
-//////////////////////////////////////////////////////////////////////////
-// Setpoints for AC current subtypes (abstract)
-//////////////////////////////////////////////////////////////////////////
+// Sensor for line total harmonic distortion of AC electric current imported
+ElecLineImportAcThdCurrentSensor : ElecImportAcThdCurrentSensor <abstract> { lineCurrent: LineCurrent }
 
-// Setpoint for AC magnitude current
-ElecMagnitudeCurrentSp : ElecCurrentSp & ElecAcSp <abstract> { magnitude }
+// Sensor for line 1 total harmonic distortion of AC electric current imported
+ElecL1ImportAcThdCurrentSensor : ElecLineImportAcThdCurrentSensor { lineCurrent: "L1" }
 
-//////////////////////////////////////////////////////////////////////////
-// Setpoints for the phase location of AC electric current (abstract)
-//////////////////////////////////////////////////////////////////////////
+// Sensor for line 2 total harmonic distortion of AC electric current imported
+ElecL2ImportAcThdCurrentSensor : ElecLineImportAcThdCurrentSensor { lineCurrent: "L2" }
 
-// Setpoint for phase AC electric current
-ElecPhaseCurrentSp : ElecCurrentSp & ElecAcSp <abstract> { phaseCurrent: PhaseCurrent }
+// Sensor for line 3 total harmonic distortion of AC electric current imported
+ElecL3ImportAcThdCurrentSensor : ElecLineImportAcThdCurrentSensor { lineCurrent: "L3" }
 
-// Setpoint for line 1 to line 2 AC electric magnitude current
-ElecL1L2MagnitudeCurrentSp : ElecMagnitudeCurrentSp & ElecPhaseCurrentSp { phaseCurrent: "L1-L2" }
+// Sensor for line average total harmonic distortion of AC electric current imported
+ElecLineAvgImportAcThdCurrentSensor : ElecImportAcThdCurrentSensor { lineAvg }
 
-// Setpoint for line 2 to line 3 AC electric magnitude current
-ElecL2L3MagnitudeCurrentSp : ElecMagnitudeCurrentSp & ElecPhaseCurrentSp { phaseCurrent: "L2-L3" }
+// Sensor for phase total harmonic distortion of AC electric current imported
+ElecPhaseImportAcThdCurrentSensor : ElecImportAcThdCurrentSensor <abstract> { phaseCurrent: PhaseCurrent }
 
-// Setpoint for line 3 to line 1 AC electric magnitude current
-ElecL3L1MagnitudeCurrentSp : ElecMagnitudeCurrentSp & ElecPhaseCurrentSp { phaseCurrent: "L3-L1" }
+// Sensor for line 1 to line 2 total harmonic distortion of AC electric current imported
+ElecL1L2ImportAcThdCurrentSensor : ElecPhaseImportAcThdCurrentSensor { phaseCurrent: "L1-L2" }
 
-//////////////////////////////////////////////////////////////////////////
-// Setpoints for the line location of AC electric current (abstract)
-//////////////////////////////////////////////////////////////////////////
+// Sensor for line 2 to line 3 total harmonic distortion of AC electric current imported
+ElecL2L3ImportAcThdCurrentSensor : ElecPhaseImportAcThdCurrentSensor { phaseCurrent: "L2-L3" }
 
-// Setpoint for line AC electric current
-ElecLineCurrentSp : ElecCurrentSp & ElecAcSp <abstract> { lineCurrent: LineCurrent }
+// Sensor for line 3 to line 1 total harmonic distortion of AC electric current imported
+ElecL3L1ImportAcThdCurrentSensor : ElecPhaseImportAcThdCurrentSensor { phaseCurrent: "L3-L1" }
 
-// Setpoint for line 1 AC electric magnitude current
-ElecL1MagnitudeCurrentSp : ElecMagnitudeCurrentSp & ElecLineCurrentSp { lineCurrent: "L1" }
+// Sensor for phase average total harmonic distortion of AC electric current imported
+ElecPhaseAvgImportAcThdCurrentSensor : ElecImportAcThdCurrentSensor { phaseAvg }
 
-// Setpoint for line 2 AC electric magnitude current
-ElecL2MagnitudeCurrentSp : ElecMagnitudeCurrentSp & ElecLineCurrentSp { lineCurrent: "L2" }
+// Sensor for neutral total harmonic distortion of AC electric current imported
+ElecNeutralImportAcThdCurrentSensor : ElecImportAcThdCurrentSensor { neutral }
 
-// Setpoint for line 3 AC electric magnitude current
-ElecL3MagnitudeCurrentSp : ElecMagnitudeCurrentSp & ElecLineCurrentSp { lineCurrent: "L3" }
+// Sensor for ground total harmonic distortion of AC electric current imported
+ElecGroundImportAcThdCurrentSensor : ElecImportAcThdCurrentSensor { ground }
 
-//////////////////////////////////////////////////////////////////////////
-// Sensors for AC voltage subtypes (abstract)
-//////////////////////////////////////////////////////////////////////////
+// Sensor for total AC electric active power imported
+ElecTotalImportAcActivePowerSensor : ElecImportAcActivePowerSensor { total }
 
-// Sensor for AC magnitude voltage
-ElecMagnitudeVoltSensor : ElecVoltSensor & ElecAcSensor <abstract> { magnitude }
+// Sensor for line AC electric active power imported
+ElecLineImportAcActivePowerSensor : ElecImportAcActivePowerSensor <abstract> { linePower: LinePower }
 
-// Sensor for AC angle voltage
-ElecAngleVoltSensor : ElecVoltSensor & ElecAcSensor <abstract> { angle }
+// Sensor for line 1 to line 2 AC electric active power imported
+ElecL1L2ImportAcActivePowerSensor : ElecLineImportAcActivePowerSensor { linePower: "L1-L2" }
 
-// Sensor for AC THD voltage
-ElecThdVoltSensor : ElecVoltSensor & ElecAcSensor <abstract> { thd }
+// Sensor for line 2 to line 3 AC electric active power imported
+ElecL2L3ImportAcActivePowerSensor : ElecLineImportAcActivePowerSensor { linePower: "L2-L3" }
 
-// Sensor for AC imbalance voltage
-ElecImbalanceVoltSensor : ElecVoltSensor & ElecAcSensor <abstract> { imbalance }
+// Sensor for line 3 to line 1 AC electric active power imported
+ElecL3L1ImportAcActivePowerSensor : ElecLineImportAcActivePowerSensor { linePower: "L3-L1" }
 
-//////////////////////////////////////////////////////////////////////////
-// Sensors for the phase location of AC electric voltage (abstract)
-//////////////////////////////////////////////////////////////////////////
+// Sensor for line average AC electric active power imported
+ElecLineAvgImportAcActivePowerSensor : ElecImportAcActivePowerSensor { lineAvg }
 
-// Sensor for phase AC electric voltage
-ElecPhaseVoltSensor : ElecVoltSensor & ElecAcSensor <abstract> { phaseVolt: PhaseVolt }
+// Sensor for phase AC electric active power imported
+ElecPhaseImportAcActivePowerSensor : ElecImportAcActivePowerSensor <abstract> { phasePower: PhasePower }
 
-// Sensor for line 1 to neutral AC electric magnitude voltage
-ElecL1NMagnitudeVoltSensor : ElecMagnitudeVoltSensor & ElecPhaseVoltSensor { phaseVolt: "L1-N" }
+// Sensor for line 1 AC electric active power imported
+ElecL1ImportAcActivePowerSensor : ElecPhaseImportAcActivePowerSensor { phasePower: "L1" }
 
-// Sensor for line 2 to neutral AC electric magnitude voltage
-ElecL2NMagnitudeVoltSensor : ElecMagnitudeVoltSensor & ElecPhaseVoltSensor { phaseVolt: "L2-N" }
+// Sensor for line 2 AC electric active power imported
+ElecL2ImportAcActivePowerSensor : ElecPhaseImportAcActivePowerSensor { phasePower: "L2" }
 
-// Sensor for line 3 to neutral AC electric magnitude voltage
-ElecL3NMagnitudeVoltSensor : ElecMagnitudeVoltSensor & ElecPhaseVoltSensor { phaseVolt: "L3-N" }
+// Sensor for line 3 AC electric active power imported
+ElecL3ImportAcActivePowerSensor : ElecPhaseImportAcActivePowerSensor { phasePower: "L3" }
 
-// Sensor for line 1 to neutral AC electric angle voltage
-ElecL1NAngleVoltSensor : ElecAngleVoltSensor & ElecPhaseVoltSensor { phaseVolt: "L1-N" }
+// Sensor for phase average AC electric active power imported
+ElecPhaseAvgImportAcActivePowerSensor : ElecImportAcActivePowerSensor { phaseAvg }
 
-// Sensor for line 2 to neutral AC electric angle voltage
-ElecL2NAngleVoltSensor : ElecAngleVoltSensor & ElecPhaseVoltSensor { phaseVolt: "L2-N" }
+// Sensor for total AC electric reactive power imported
+ElecTotalImportAcReactivePowerSensor : ElecImportAcReactivePowerSensor { total }
 
-// Sensor for line 3 to neutral AC electric angle voltage
-ElecL3NAngleVoltSensor : ElecAngleVoltSensor & ElecPhaseVoltSensor { phaseVolt: "L3-N" }
+// Sensor for line AC electric reactive power imported
+ElecLineImportAcReactivePowerSensor : ElecImportAcReactivePowerSensor <abstract> { linePower: LinePower }
 
-// Sensor for line 1 to neutral AC electric THD voltage
-ElecL1NThdVoltSensor : ElecThdVoltSensor & ElecPhaseVoltSensor { phaseVolt: "L1-N" }
+// Sensor for line 1 to line 2 AC electric reactive power imported
+ElecL1L2ImportAcReactivePowerSensor : ElecLineImportAcReactivePowerSensor { linePower: "L1-L2" }
 
-// Sensor for line 2 to neutral AC electric THD voltage
-ElecL2NThdVoltSensor : ElecThdVoltSensor & ElecPhaseVoltSensor { phaseVolt: "L2-N" }
+// Sensor for line 2 to line 3 AC electric reactive power imported
+ElecL2L3ImportAcReactivePowerSensor : ElecLineImportAcReactivePowerSensor { linePower: "L2-L3" }
 
-// Sensor for line 3 to neutral AC electric THD voltage
-ElecL3NThdVoltSensor : ElecThdVoltSensor & ElecPhaseVoltSensor { phaseVolt: "L3-N" }
+// Sensor for line 3 to line 1 AC electric reactive power imported
+ElecL3L1ImportAcReactivePowerSensor : ElecLineImportAcReactivePowerSensor { linePower: "L3-L1" }
 
-// Sensor for line 1 to neutral AC electric imbalance voltage
-ElecL1NImbalanceVoltSensor : ElecImbalanceVoltSensor & ElecPhaseVoltSensor { phaseVolt: "L1-N" }
+// Sensor for line average AC electric reactive power imported
+ElecLineAvgImportAcReactivePowerSensor : ElecImportAcReactivePowerSensor { lineAvg }
 
-// Sensor for line 2 to neutral AC electric imbalance voltage
-ElecL2NImbalanceVoltSensor : ElecImbalanceVoltSensor & ElecPhaseVoltSensor { phaseVolt: "L2-N" }
+// Sensor for phase AC electric reactive power imported
+ElecPhaseImportAcReactivePowerSensor : ElecImportAcReactivePowerSensor <abstract> { phasePower: PhasePower }
 
-// Sensor for line 3 to neutral AC electric imbalance voltage
-ElecL3NImbalanceVoltSensor : ElecImbalanceVoltSensor & ElecPhaseVoltSensor { phaseVolt: "L3-N" }
+// Sensor for line 1 AC electric reactive power imported
+ElecL1ImportAcReactivePowerSensor : ElecPhaseImportAcReactivePowerSensor { phasePower: "L1" }
 
-//////////////////////////////////////////////////////////////////////////
-// Sensors for the line location of AC electric voltage (abstract)
-//////////////////////////////////////////////////////////////////////////
+// Sensor for line 2 AC electric reactive power imported
+ElecL2ImportAcReactivePowerSensor : ElecPhaseImportAcReactivePowerSensor { phasePower: "L2" }
 
-// Sensor for line AC electric voltage
-ElecLineVoltSensor : ElecVoltSensor & ElecAcSensor <abstract> { lineVolt: LineVolt }
+// Sensor for line 3 AC electric reactive power imported
+ElecL3ImportAcReactivePowerSensor : ElecPhaseImportAcReactivePowerSensor { phasePower: "L3" }
 
-// Sensor for line 1 to line 2 AC electric magnitude voltage
-ElecL1L2MagnitudeVoltSensor : ElecMagnitudeVoltSensor & ElecLineVoltSensor { lineVolt: "L1-L2" }
+// Sensor for phase average AC electric reactive power imported
+ElecPhaseAvgImportAcReactivePowerSensor : ElecImportAcReactivePowerSensor { phaseAvg }
 
-// Sensor for line 2 to line 3 AC electric magnitude voltage
-ElecL2L3MagnitudeVoltSensor : ElecMagnitudeVoltSensor & ElecLineVoltSensor { lineVolt: "L2-L3" }
+// Sensor for total AC electric apparent power imported
+ElecTotalImportAcApparentPowerSensor : ElecImportAcApparentPowerSensor { total }
 
-// Sensor for line 3 to line 1 AC electric magnitude voltage
-ElecL3L1MagnitudeVoltSensor : ElecMagnitudeVoltSensor & ElecLineVoltSensor { lineVolt: "L3-L1" }
+// Sensor for line AC electric apparent power imported
+ElecLineImportAcApparentPowerSensor : ElecImportAcApparentPowerSensor <abstract> { linePower: LinePower }
 
-// Sensor for line 1 to line 2 AC electric angle voltage
-ElecL1L2AngleVoltSensor : ElecAngleVoltSensor & ElecLineVoltSensor { lineVolt: "L1-L2" }
+// Sensor for line 1 to line 2 AC electric apparent power imported
+ElecL1L2ImportAcApparentPowerSensor : ElecLineImportAcApparentPowerSensor { linePower: "L1-L2" }
 
-// Sensor for line 2 to line 3 AC electric angle voltage
-ElecL2L3AngleVoltSensor : ElecAngleVoltSensor & ElecLineVoltSensor { lineVolt: "L2-L3" }
+// Sensor for line 2 to line 3 AC electric apparent power imported
+ElecL2L3ImportAcApparentPowerSensor : ElecLineImportAcApparentPowerSensor { linePower: "L2-L3" }
 
-// Sensor for line 3 to line 1 AC electric angle voltage
-ElecL3L1AngleVoltSensor : ElecAngleVoltSensor & ElecLineVoltSensor { lineVolt: "L3-L1" }
+// Sensor for line 3 to line 1 AC electric apparent power imported
+ElecL3L1ImportAcApparentPowerSensor : ElecLineImportAcApparentPowerSensor { linePower: "L3-L1" }
 
-// Sensor for line 1 to line 2 AC electric THD voltage
-ElecL1L2ThdVoltSensor : ElecThdVoltSensor & ElecLineVoltSensor { lineVolt: "L1-L2" }
+// Sensor for line average AC electric apparent power imported
+ElecLineAvgImportAcApparentPowerSensor : ElecImportAcApparentPowerSensor { lineAvg }
 
-// Sensor for line 2 to line 3 AC electric THD voltage
-ElecL2L3ThdVoltSensor : ElecThdVoltSensor & ElecLineVoltSensor { lineVolt: "L2-L3" }
+// Sensor for phase AC electric apparent power imported
+ElecPhaseImportAcApparentPowerSensor : ElecImportAcApparentPowerSensor <abstract> { phasePower: PhasePower }
 
-// Sensor for line 3 to line 1 AC electric THD voltage
-ElecL3L1ThdVoltSensor : ElecThdVoltSensor & ElecLineVoltSensor { lineVolt: "L3-L1" }
+// Sensor for line 1 AC electric apparent power imported
+ElecL1ImportAcApparentPowerSensor : ElecPhaseImportAcApparentPowerSensor { phasePower: "L1" }
 
-// Sensor for line 1 to line 2 AC electric imbalance voltage
-ElecL1L2ImbalanceVoltSensor : ElecImbalanceVoltSensor & ElecLineVoltSensor { lineVolt: "L1-L2" }
+// Sensor for line 2 AC electric apparent power imported
+ElecL2ImportAcApparentPowerSensor : ElecPhaseImportAcApparentPowerSensor { phasePower: "L2" }
 
-// Sensor for line 2 to line 3 AC electric imbalance voltage
-ElecL2L3ImbalanceVoltSensor : ElecImbalanceVoltSensor & ElecLineVoltSensor { lineVolt: "L2-L3" }
+// Sensor for line 3 AC electric apparent power imported
+ElecL3ImportAcApparentPowerSensor : ElecPhaseImportAcApparentPowerSensor { phasePower: "L3" }
 
-// Sensor for line 3 to line 1 AC electric imbalance voltage
-ElecL3L1ImbalanceVoltSensor : ElecImbalanceVoltSensor & ElecLineVoltSensor { lineVolt: "L3-L1" }
+// Sensor for phase average AC electric apparent power imported
+ElecPhaseAvgImportAcApparentPowerSensor : ElecImportAcApparentPowerSensor { phaseAvg }
 
-//////////////////////////////////////////////////////////////////////////
-// Sensors for the aggregate location of AC electric voltage (leaves)
-//////////////////////////////////////////////////////////////////////////
+// Sensor for true power factor of total AC electric power imported
+ElecTotalImportAcTruePfSensor : ElecImportAcTruePfSensor { total }
 
-// Sensor for line average AC electric magnitude voltage
-ElecLineAvgMagnitudeVoltSensor : ElecMagnitudeVoltSensor { lineAvg }
+// Sensor for true power factor of line AC electric power imported
+ElecLineImportAcTruePfSensor : ElecImportAcTruePfSensor <abstract> { linePf: LinePf }
 
-// Sensor for phase average AC electric magnitude voltage
-ElecPhaseAvgMagnitudeVoltSensor : ElecMagnitudeVoltSensor { phaseAvg }
+// Sensor for true power factor of line 1 to line 2 AC electric power imported
+ElecL1L2ImportAcTruePfSensor : ElecLineImportAcTruePfSensor { linePf: "L1-L2" }
 
-// Sensor for line average AC electric angle voltage
-ElecLineAvgAngleVoltSensor : ElecAngleVoltSensor { lineAvg }
+// Sensor for true power factor of line 2 to line 3 AC electric power imported
+ElecL2L3ImportAcTruePfSensor : ElecLineImportAcTruePfSensor { linePf: "L2-L3" }
 
-// Sensor for phase average AC electric angle voltage
-ElecPhaseAvgAngleVoltSensor : ElecAngleVoltSensor { phaseAvg }
+// Sensor for true power factor of line 3 to line 1 AC electric power imported
+ElecL3L1ImportAcTruePfSensor : ElecLineImportAcTruePfSensor { linePf: "L3-L1" }
 
-// Sensor for line average AC electric THD voltage
-ElecLineAvgThdVoltSensor : ElecThdVoltSensor { lineAvg }
+// Sensor for true power factor of line average AC electric power imported
+ElecLineAvgImportAcTruePfSensor : ElecImportAcTruePfSensor { lineAvg }
 
-// Sensor for phase average AC electric THD voltage
-ElecPhaseAvgThdVoltSensor : ElecThdVoltSensor { phaseAvg }
+// Sensor for true power factor of phase AC electric power imported
+ElecPhaseImportAcTruePfSensor : ElecImportAcTruePfSensor <abstract> { phasePf: PhasePf }
 
-// Sensor for line average AC electric imbalance voltage
-ElecLineAvgImbalanceVoltSensor : ElecImbalanceVoltSensor { lineAvg }
+// Sensor for true power factor of line 1 AC electric power imported
+ElecL1ImportAcTruePfSensor : ElecPhaseImportAcTruePfSensor { phasePf: "L1" }
 
-// Sensor for phase average AC electric imbalance voltage
-ElecPhaseAvgImbalanceVoltSensor : ElecImbalanceVoltSensor { phaseAvg }
+// Sensor for true power factor of line 2 AC electric power imported
+ElecL2ImportAcTruePfSensor : ElecPhaseImportAcTruePfSensor { phasePf: "L2" }
 
-//////////////////////////////////////////////////////////////////////////
-// Sensors for AC demand subtypes (abstract)
-//////////////////////////////////////////////////////////////////////////
+// Sensor for true power factor of line 3 AC electric power imported
+ElecL3ImportAcTruePfSensor : ElecPhaseImportAcTruePfSensor { phasePf: "L3" }
 
-// Sensor for AC active demand
-ElecActiveDemandSensor : ElecDemandSensor & ElecAcSensor <abstract> { active }
+// Sensor for true power factor of phase average AC electric power imported
+ElecPhaseAvgImportAcTruePfSensor : ElecImportAcTruePfSensor { phaseAvg }
 
-// Sensor for AC reactive demand
-ElecReactiveDemandSensor : ElecDemandSensor & ElecAcSensor <abstract> { reactive }
+// Sensor for displacement power factor of total AC electric power imported
+ElecTotalImportAcDisplacementPfSensor : ElecImportAcDisplacementPfSensor { total }
 
-// Sensor for AC apparent demand
-ElecApparentDemandSensor : ElecDemandSensor & ElecAcSensor <abstract> { apparent }
+// Sensor for displacement power factor of line AC electric power imported
+ElecLineImportAcDisplacementPfSensor : ElecImportAcDisplacementPfSensor <abstract> { linePf: LinePf }
 
-//////////////////////////////////////////////////////////////////////////
-// Sensors for the aggregate location of AC electric demand (abstract)
-//////////////////////////////////////////////////////////////////////////
+// Sensor for displacement power factor of line 1 to line 2 AC electric power imported
+ElecL1L2ImportAcDisplacementPfSensor : ElecLineImportAcDisplacementPfSensor { linePf: "L1-L2" }
 
-// Sensor for total AC electric active demand
-ElecTotalActiveDemandSensor : ElecActiveDemandSensor <abstract> { total }
+// Sensor for displacement power factor of line 2 to line 3 AC electric power imported
+ElecL2L3ImportAcDisplacementPfSensor : ElecLineImportAcDisplacementPfSensor { linePf: "L2-L3" }
 
-// Sensor for total AC electric reactive demand
-ElecTotalReactiveDemandSensor : ElecReactiveDemandSensor <abstract> { total }
+// Sensor for displacement power factor of line 3 to line 1 AC electric power imported
+ElecL3L1ImportAcDisplacementPfSensor : ElecLineImportAcDisplacementPfSensor { linePf: "L3-L1" }
 
-// Sensor for total AC electric apparent demand
-ElecTotalApparentDemandSensor : ElecApparentDemandSensor <abstract> { total }
+// Sensor for displacement power factor of line average AC electric power imported
+ElecLineAvgImportAcDisplacementPfSensor : ElecImportAcDisplacementPfSensor { lineAvg }
 
-//////////////////////////////////////////////////////////////////////////
-// Sensors for the direction of AC electric demand (leaves)
-//////////////////////////////////////////////////////////////////////////
+// Sensor for displacement power factor of phase AC electric power imported
+ElecPhaseImportAcDisplacementPfSensor : ElecImportAcDisplacementPfSensor <abstract> { phasePf: PhasePf }
 
-// Sensor for total import of AC electric active demand
-ElecImportTotalActiveDemandSensor : ElecTotalActiveDemandSensor { import }
+// Sensor for displacement power factor of line 1 AC electric power imported
+ElecL1ImportAcDisplacementPfSensor : ElecPhaseImportAcDisplacementPfSensor { phasePf: "L1" }
 
-// Sensor for total export of AC electric active demand
-ElecExportTotalActiveDemandSensor : ElecTotalActiveDemandSensor { export }
+// Sensor for displacement power factor of line 2 AC electric power imported
+ElecL2ImportAcDisplacementPfSensor : ElecPhaseImportAcDisplacementPfSensor { phasePf: "L2" }
 
-// Sensor for total net of AC electric active demand
-ElecNetTotalActiveDemandSensor : ElecTotalActiveDemandSensor { net }
+// Sensor for displacement power factor of line 3 AC electric power imported
+ElecL3ImportAcDisplacementPfSensor : ElecPhaseImportAcDisplacementPfSensor { phasePf: "L3" }
 
-// Sensor for total import of AC electric reactive demand
-ElecImportTotalReactiveDemandSensor : ElecTotalReactiveDemandSensor { import }
+// Sensor for displacement power factor of phase average AC electric power imported
+ElecPhaseAvgImportAcDisplacementPfSensor : ElecImportAcDisplacementPfSensor { phaseAvg }
 
-// Sensor for total export of AC electric reactive demand
-ElecExportTotalReactiveDemandSensor : ElecTotalReactiveDemandSensor { export }
+// Sensor for distortion power factor of total AC electric power imported
+ElecTotalImportAcDistortionPfSensor : ElecImportAcDistortionPfSensor { total }
 
-// Sensor for total net of AC electric reactive demand
-ElecNetTotalReactiveDemandSensor : ElecTotalReactiveDemandSensor { net }
+// Sensor for distortion power factor of line AC electric power imported
+ElecLineImportAcDistortionPfSensor : ElecImportAcDistortionPfSensor <abstract> { linePf: LinePf }
 
-// Sensor for total import of AC electric apparent demand
-ElecImportTotalApparentDemandSensor : ElecTotalApparentDemandSensor { import }
+// Sensor for distortion power factor of line 1 to line 2 AC electric power imported
+ElecL1L2ImportAcDistortionPfSensor : ElecLineImportAcDistortionPfSensor { linePf: "L1-L2" }
 
-// Sensor for total export of AC electric apparent demand
-ElecExportTotalApparentDemandSensor : ElecTotalApparentDemandSensor { export }
+// Sensor for distortion power factor of line 2 to line 3 AC electric power imported
+ElecL2L3ImportAcDistortionPfSensor : ElecLineImportAcDistortionPfSensor { linePf: "L2-L3" }
 
-// Sensor for total net of AC electric apparent demand
-ElecNetTotalApparentDemandSensor : ElecTotalApparentDemandSensor { net }
+// Sensor for distortion power factor of line 3 to line 1 AC electric power imported
+ElecL3L1ImportAcDistortionPfSensor : ElecLineImportAcDistortionPfSensor { linePf: "L3-L1" }
 
-//////////////////////////////////////////////////////////////////////////
-// Sensors for the phase location of AC electric power factor (abstract)
-//////////////////////////////////////////////////////////////////////////
+// Sensor for distortion power factor of line average AC electric power imported
+ElecLineAvgImportAcDistortionPfSensor : ElecImportAcDistortionPfSensor { lineAvg }
 
-// Sensor for phase AC electric power factor
-ElecPhasePfSensor : ElecPfSensor & ElecAcSensor <abstract> { phasePf: PhasePf }
+// Sensor for distortion power factor of phase AC electric power imported
+ElecPhaseImportAcDistortionPfSensor : ElecImportAcDistortionPfSensor <abstract> { phasePf: PhasePf }
 
-// Sensor for line 1 AC electric power factor
-ElecL1PfSensor : ElecPhasePfSensor <abstract> { phasePf: "L1" }
+// Sensor for distortion power factor of line 1 AC electric power imported
+ElecL1ImportAcDistortionPfSensor : ElecPhaseImportAcDistortionPfSensor { phasePf: "L1" }
 
-// Sensor for line 2 AC electric power factor
-ElecL2PfSensor : ElecPhasePfSensor <abstract> { phasePf: "L2" }
+// Sensor for distortion power factor of line 2 AC electric power imported
+ElecL2ImportAcDistortionPfSensor : ElecPhaseImportAcDistortionPfSensor { phasePf: "L2" }
 
-// Sensor for line 3 AC electric power factor
-ElecL3PfSensor : ElecPhasePfSensor <abstract> { phasePf: "L3" }
+// Sensor for distortion power factor of line 3 AC electric power imported
+ElecL3ImportAcDistortionPfSensor : ElecPhaseImportAcDistortionPfSensor { phasePf: "L3" }
 
-//////////////////////////////////////////////////////////////////////////
-// Sensors for the line location of AC electric power factor (abstract)
-//////////////////////////////////////////////////////////////////////////
+// Sensor for distortion power factor of phase average AC electric power imported
+ElecPhaseAvgImportAcDistortionPfSensor : ElecImportAcDistortionPfSensor { phaseAvg }
 
-// Sensor for line AC electric power factor
-ElecLinePfSensor : ElecPfSensor & ElecAcSensor <abstract> { linePf: LinePf }
+// Sensor for total AC electric active demand imported
+ElecTotalImportAcActiveDemandSensor : ElecImportAcActiveDemandSensor { total }
 
-// Sensor for line 1 to line 2 AC electric power factor
-ElecL1L2PfSensor : ElecLinePfSensor <abstract> { linePf: "L1-L2" }
+// Sensor for total AC electric reactive demand imported
+ElecTotalImportAcReactiveDemandSensor : ElecImportAcReactiveDemandSensor { total }
 
-// Sensor for line 2 to line 3 AC electric power factor
-ElecL2L3PfSensor : ElecLinePfSensor <abstract> { linePf: "L2-L3" }
+// Sensor for total AC electric apparent demand imported
+ElecTotalImportAcApparentDemandSensor : ElecImportAcApparentDemandSensor { total }
 
-// Sensor for line 3 to line 1 AC electric power factor
-ElecL3L1PfSensor : ElecLinePfSensor <abstract> { linePf: "L3-L1" }
+// Sensor for total AC electric active energy imported
+ElecTotalImportAcActiveEnergySensor : ElecImportAcActiveEnergySensor { total }
 
-//////////////////////////////////////////////////////////////////////////
-// Sensors for the aggregate location of AC electric power factor (abstract)
-//////////////////////////////////////////////////////////////////////////
+// Sensor for line AC electric active energy imported
+ElecLineImportAcActiveEnergySensor : ElecImportAcActiveEnergySensor <abstract> { lineEnergy: LineEnergy }
 
-// Sensor for line average AC electric power factor
-ElecLineAvgPfSensor : ElecPfSensor & ElecAcSensor <abstract> { lineAvg }
+// Sensor for line 1 to line 2 AC electric active energy imported
+ElecL1L2ImportAcActiveEnergySensor : ElecLineImportAcActiveEnergySensor { lineEnergy: "L1-L2" }
 
-// Sensor for phase average AC electric power factor
-ElecPhaseAvgPfSensor : ElecPfSensor & ElecAcSensor <abstract> { phaseAvg }
+// Sensor for line 2 to line 3 AC electric active energy imported
+ElecL2L3ImportAcActiveEnergySensor : ElecLineImportAcActiveEnergySensor { lineEnergy: "L2-L3" }
 
-// Sensor for total AC electric power factor
-ElecTotalPfSensor : ElecPfSensor & ElecAcSensor <abstract> { total }
+// Sensor for line 3 to line 1 AC electric active energy imported
+ElecL3L1ImportAcActiveEnergySensor : ElecLineImportAcActiveEnergySensor { lineEnergy: "L3-L1" }
 
-//////////////////////////////////////////////////////////////////////////
-// Sensors for the direction of AC electric power factor (leaves)
-//////////////////////////////////////////////////////////////////////////
+// Sensor for line average AC electric active energy imported
+ElecLineAvgImportAcActiveEnergySensor : ElecImportAcActiveEnergySensor { lineAvg }
 
-// Sensor for line 1 import AC electric power factor
-ElecImportL1PfSensor : ElecL1PfSensor { import }
+// Sensor for phase AC electric active energy imported
+ElecPhaseImportAcActiveEnergySensor : ElecImportAcActiveEnergySensor <abstract> { phaseEnergy: PhaseEnergy }
 
-// Sensor for line 1 export AC electric power factor
-ElecExportL1PfSensor : ElecL1PfSensor { export }
+// Sensor for line 1 AC electric active energy imported
+ElecL1ImportAcActiveEnergySensor : ElecPhaseImportAcActiveEnergySensor { phaseEnergy: "L1" }
 
-// Sensor for line 1 net AC electric power factor
-ElecNetL1PfSensor : ElecL1PfSensor { net }
+// Sensor for line 2 AC electric active energy imported
+ElecL2ImportAcActiveEnergySensor : ElecPhaseImportAcActiveEnergySensor { phaseEnergy: "L2" }
 
-// Sensor for line 2 import AC electric power factor
-ElecImportL2PfSensor : ElecL2PfSensor { import }
+// Sensor for line 3 AC electric active energy imported
+ElecL3ImportAcActiveEnergySensor : ElecPhaseImportAcActiveEnergySensor { phaseEnergy: "L3" }
 
-// Sensor for line 2 export AC electric power factor
-ElecExportL2PfSensor : ElecL2PfSensor { export }
+// Sensor for phase average AC electric active energy imported
+ElecPhaseAvgImportAcActiveEnergySensor : ElecImportAcActiveEnergySensor { phaseAvg }
 
-// Sensor for line 2 net AC electric power factor
-ElecNetL2PfSensor : ElecL2PfSensor { net }
+// Sensor for total AC electric reactive energy imported
+ElecTotalImportAcReactiveEnergySensor : ElecImportAcReactiveEnergySensor { total }
 
-// Sensor for line 3 import AC electric power factor
-ElecImportL3PfSensor : ElecL3PfSensor { import }
+// Sensor for line AC electric reactive energy imported
+ElecLineImportAcReactiveEnergySensor : ElecImportAcReactiveEnergySensor <abstract> { lineEnergy: LineEnergy }
 
-// Sensor for line 3 export AC electric power factor
-ElecExportL3PfSensor : ElecL3PfSensor { export }
+// Sensor for line 1 to line 2 AC electric reactive energy imported
+ElecL1L2ImportAcReactiveEnergySensor : ElecLineImportAcReactiveEnergySensor { lineEnergy: "L1-L2" }
 
-// Sensor for line 3 net AC electric power factor
-ElecNetL3PfSensor : ElecL3PfSensor { net }
+// Sensor for line 2 to line 3 AC electric reactive energy imported
+ElecL2L3ImportAcReactiveEnergySensor : ElecLineImportAcReactiveEnergySensor { lineEnergy: "L2-L3" }
 
-// Sensor for line 1 to line 2 import AC electric power factor
-ElecImportL1L2PfSensor : ElecL1L2PfSensor { import }
+// Sensor for line 3 to line 1 AC electric reactive energy imported
+ElecL3L1ImportAcReactiveEnergySensor : ElecLineImportAcReactiveEnergySensor { lineEnergy: "L3-L1" }
 
-// Sensor for line 1 to line 2 export AC electric power factor
-ElecExportL1L2PfSensor : ElecL1L2PfSensor { export }
+// Sensor for line average AC electric reactive energy imported
+ElecLineAvgImportAcReactiveEnergySensor : ElecImportAcReactiveEnergySensor { lineAvg }
 
-// Sensor for line 1 to line 2 net AC electric power factor
-ElecNetL1L2PfSensor : ElecL1L2PfSensor { net }
+// Sensor for phase AC electric reactive energy imported
+ElecPhaseImportAcReactiveEnergySensor : ElecImportAcReactiveEnergySensor <abstract> { phaseEnergy: PhaseEnergy }
 
-// Sensor for line 2 to line 3 import AC electric power factor
-ElecImportL2L3PfSensor : ElecL2L3PfSensor { import }
+// Sensor for line 1 AC electric reactive energy imported
+ElecL1ImportAcReactiveEnergySensor : ElecPhaseImportAcReactiveEnergySensor { phaseEnergy: "L1" }
 
-// Sensor for line 2 to line 3 export AC electric power factor
-ElecExportL2L3PfSensor : ElecL2L3PfSensor { export }
+// Sensor for line 2 AC electric reactive energy imported
+ElecL2ImportAcReactiveEnergySensor : ElecPhaseImportAcReactiveEnergySensor { phaseEnergy: "L2" }
 
-// Sensor for line 2 to line 3 net AC electric power factor
-ElecNetL2L3PfSensor : ElecL2L3PfSensor { net }
+// Sensor for line 3 AC electric reactive energy imported
+ElecL3ImportAcReactiveEnergySensor : ElecPhaseImportAcReactiveEnergySensor { phaseEnergy: "L3" }
 
-// Sensor for line 3 to line 1 import AC electric power factor
-ElecImportL3L1PfSensor : ElecL3L1PfSensor { import }
+// Sensor for phase average AC electric reactive energy imported
+ElecPhaseAvgImportAcReactiveEnergySensor : ElecImportAcReactiveEnergySensor { phaseAvg }
 
-// Sensor for line 3 to line 1 export AC electric power factor
-ElecExportL3L1PfSensor : ElecL3L1PfSensor { export }
+// Sensor for total AC electric apparent energy imported
+ElecTotalImportAcApparentEnergySensor : ElecImportAcApparentEnergySensor { total }
 
-// Sensor for line 3 to line 1 net AC electric power factor
-ElecNetL3L1PfSensor : ElecL3L1PfSensor { net }
+// Sensor for line AC electric apparent energy imported
+ElecLineImportAcApparentEnergySensor : ElecImportAcApparentEnergySensor <abstract> { lineEnergy: LineEnergy }
 
-// Sensor for line average import AC electric power factor
-ElecImportLineAvgPfSensor : ElecLineAvgPfSensor { import }
+// Sensor for line 1 to line 2 AC electric apparent energy imported
+ElecL1L2ImportAcApparentEnergySensor : ElecLineImportAcApparentEnergySensor { lineEnergy: "L1-L2" }
 
-// Sensor for line average export AC electric power factor
-ElecExportLineAvgPfSensor : ElecLineAvgPfSensor { export }
+// Sensor for line 2 to line 3 AC electric apparent energy imported
+ElecL2L3ImportAcApparentEnergySensor : ElecLineImportAcApparentEnergySensor { lineEnergy: "L2-L3" }
 
-// Sensor for line average net AC electric power factor
-ElecNetLineAvgPfSensor : ElecLineAvgPfSensor { net }
+// Sensor for line 3 to line 1 AC electric apparent energy imported
+ElecL3L1ImportAcApparentEnergySensor : ElecLineImportAcApparentEnergySensor { lineEnergy: "L3-L1" }
 
-// Sensor for phase average import AC electric power factor
-ElecImportPhaseAvgPfSensor : ElecPhaseAvgPfSensor { import }
+// Sensor for line average AC electric apparent energy imported
+ElecLineAvgImportAcApparentEnergySensor : ElecImportAcApparentEnergySensor { lineAvg }
 
-// Sensor for phase average export AC electric power factor
-ElecExportPhaseAvgPfSensor : ElecPhaseAvgPfSensor { export }
+// Sensor for phase AC electric apparent energy imported
+ElecPhaseImportAcApparentEnergySensor : ElecImportAcApparentEnergySensor <abstract> { phaseEnergy: PhaseEnergy }
 
-// Sensor for phase average net AC electric power factor
-ElecNetPhaseAvgPfSensor : ElecPhaseAvgPfSensor { net }
+// Sensor for line 1 AC electric apparent energy imported
+ElecL1ImportAcApparentEnergySensor : ElecPhaseImportAcApparentEnergySensor { phaseEnergy: "L1" }
 
-// Sensor for total import AC electric power factor
-ElecImportTotalPfSensor : ElecTotalPfSensor { import }
+// Sensor for line 2 AC electric apparent energy imported
+ElecL2ImportAcApparentEnergySensor : ElecPhaseImportAcApparentEnergySensor { phaseEnergy: "L2" }
 
-// Sensor for total export AC electric power factor
-ElecExportTotalPfSensor : ElecTotalPfSensor { export }
+// Sensor for line 3 AC electric apparent energy imported
+ElecL3ImportAcApparentEnergySensor : ElecPhaseImportAcApparentEnergySensor { phaseEnergy: "L3" }
 
-// Sensor for total net AC electric power factor
-ElecNetTotalPfSensor : ElecTotalPfSensor { net }
+// Sensor for phase average AC electric apparent energy imported
+ElecPhaseAvgImportAcApparentEnergySensor : ElecImportAcApparentEnergySensor { phaseAvg }
 
