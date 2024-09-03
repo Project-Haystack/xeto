@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 11-Jul-2024
+// Auto-generated 03-Sep-2024
 //
 
 // Top-level dicts with a unique identifier.
@@ -168,6 +168,16 @@ Circuit: Equip {
 // Heat exchanger used to heat or cool air.  Coils are sub-components
 // of HVAC equipment such as `airHandlingEquip`.
 Coil: HeatExchanger <abstract> {
+}
+
+// See `docHaystack::Synthetics` chapter.
+ComputedPoint: SyntheticPoint <abstract> {
+  computed
+}
+
+// See `docHaystack::Synthetics` chapter.
+ComputedModel: SyntheticModel {
+  computedModel
 }
 
 // General purpose computer.
@@ -555,6 +565,28 @@ Meter: Equip {
   submeterOf: Ref?
 }
 
+// See `docHaystack::Synthetics` chapter.
+MlPoint: SyntheticPoint <abstract> {
+  ml
+}
+
+// See `docHaystack::Synthetics` chapter.
+MlModel: SyntheticModel {
+  mlModel
+  mlIdentificationPeriod: Span?
+  mlInputVarRefs:         List?
+  mlModelMetrics:         Dict?
+  mlModelParameters:      Dict?
+  mlOutputVarRef:         Ref?
+}
+
+// Machine learning variable representing both model inputs and outputs.
+MlVar: Entity {
+  mlVar
+  mlVarFilter: Str?
+  mlVarPoint:  Ref?
+}
+
 // Cellular phone providing telecommunication over radio links.
 MobilePhone: Phone {
   mobile
@@ -706,6 +738,18 @@ ServerComputer: Computer {
   server
 }
 
+// See `docHaystack::Synthetics` chapter.
+SimPoint: SyntheticPoint <abstract> {
+  sim
+  pointRef:    Ref?
+  simScenario: SimScenario?
+}
+
+// See `docHaystack::Synthetics` chapter.
+SimModel: SyntheticModel {
+  simModel
+}
+
 // Site is a geographic location of the built environment.
 // Typically site maps to one building with its own unique
 // street address.  See `docHaystack::Sites` chapter.
@@ -748,6 +792,17 @@ SteamSystem: WaterSystem {
 // basements, lower levels, or cellars.
 SubterraneanFloor: Floor {
   subterranean
+}
+
+// See `docHaystack::Synthetics` chapter.
+SyntheticPoint: Point <abstract> {
+  synthetic
+  syntheticModelRef: Ref?
+}
+
+// See `docHaystack::Synthetics` chapter.
+SyntheticModel: Entity {
+  syntheticModel
 }
 
 // Grouping of related equipment dedicated to a single application.
