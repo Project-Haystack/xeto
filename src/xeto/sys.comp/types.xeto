@@ -8,9 +8,17 @@
 
 // Component or function block
 Comp: Dict {
-  compName: Str?            // Component name in parent
   parentRef: Ref?<of:Comp>  // Component tree parent
+  compName: Str?            // Component name in parent
+  compLayout: CompLayout?   // Layout in a visual coordinate system
   links: Links?             // List of links to this component
+}
+
+// Component layout in a logical grid coordinate system
+CompLayout: Dict {
+  x: Int                    // Logical x coordinate
+  y: Int                    // Logical y coordinate
+  w: Int                    // Width in logical coordinate system
 }
 
 // Component link is a dataflow between two slots
