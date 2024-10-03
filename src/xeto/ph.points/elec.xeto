@@ -245,15 +245,6 @@ ElecImportDcEnergySensor : ElecDcEnergySensor { import }
 // Sensor for magnitude of AC electric current imported
 ElecImportAcMagnitudeCurrentSensor : ElecAcMagnitudeCurrentSensor <abstract> { import }
 
-// Sensor for angle of AC electric current imported
-ElecImportAcAngleCurrentSensor : ElecAcAngleCurrentSensor <abstract> { import }
-
-// Sensor for imbalance of AC electric current imported
-ElecImportAcImbalanceCurrentSensor : ElecAcImbalanceCurrentSensor <abstract> { import }
-
-// Sensor for total harmonic distortion of AC electric current imported
-ElecImportAcThdCurrentSensor : ElecAcThdCurrentSensor <abstract> { import }
-
 // Sensor for AC electric active power imported
 ElecImportAcActivePowerSensor : ElecAcActivePowerSensor <abstract> { import }
 
@@ -262,15 +253,6 @@ ElecImportAcReactivePowerSensor : ElecAcReactivePowerSensor <abstract> { import 
 
 // Sensor for AC electric apparent power imported
 ElecImportAcApparentPowerSensor : ElecAcApparentPowerSensor <abstract> { import }
-
-// Sensor for true power factor of AC electric power imported
-ElecImportAcTruePfSensor : ElecAcTruePfSensor <abstract> { import }
-
-// Sensor for displacement power factor of AC electric power imported
-ElecImportAcDisplacementPfSensor : ElecAcDisplacementPfSensor <abstract> { import }
-
-// Sensor for distortion power factor of AC electric power imported
-ElecImportAcDistortionPfSensor : ElecAcDistortionPfSensor <abstract> { import }
 
 // Sensor for AC electric active demand imported
 ElecImportAcActiveDemandSensor : ElecAcActiveDemandSensor <abstract> { import }
@@ -450,113 +432,113 @@ ElecNeutralImportAcMagnitudeCurrentSensor : ElecImportAcMagnitudeCurrentSensor {
 // Sensor for ground magnitude of AC electric current imported
 ElecGroundImportAcMagnitudeCurrentSensor : ElecImportAcMagnitudeCurrentSensor { ground }
 
-// Sensor for line angle of AC electric current imported
-ElecLineImportAcAngleCurrentSensor : ElecImportAcAngleCurrentSensor <abstract> { lineCurrent: LineCurrent }
+// Sensor for line angle of AC electric current
+ElecLineAcAngleCurrentSensor : ElecAcAngleCurrentSensor <abstract> { lineCurrent: LineCurrent }
 
-// Sensor for line 1 angle of AC electric current imported
-ElecL1ImportAcAngleCurrentSensor : ElecLineImportAcAngleCurrentSensor { lineCurrent: "L1" }
+// Sensor for line 1 angle of AC electric current
+ElecL1AcAngleCurrentSensor : ElecLineAcAngleCurrentSensor { lineCurrent: "L1" }
 
-// Sensor for line 2 angle of AC electric current imported
-ElecL2ImportAcAngleCurrentSensor : ElecLineImportAcAngleCurrentSensor { lineCurrent: "L2" }
+// Sensor for line 2 angle of AC electric current
+ElecL2AcAngleCurrentSensor : ElecLineAcAngleCurrentSensor { lineCurrent: "L2" }
 
-// Sensor for line 3 angle of AC electric current imported
-ElecL3ImportAcAngleCurrentSensor : ElecLineImportAcAngleCurrentSensor { lineCurrent: "L3" }
+// Sensor for line 3 angle of AC electric current
+ElecL3AcAngleCurrentSensor : ElecLineAcAngleCurrentSensor { lineCurrent: "L3" }
 
-// Sensor for line average angle of AC electric current imported
-ElecLineAvgImportAcAngleCurrentSensor : ElecImportAcAngleCurrentSensor { lineAvg }
+// Sensor for line average angle of AC electric current
+ElecLineAvgAcAngleCurrentSensor : ElecAcAngleCurrentSensor { lineAvg }
 
-// Sensor for phase angle of AC electric current imported
-ElecPhaseImportAcAngleCurrentSensor : ElecImportAcAngleCurrentSensor <abstract> { phaseCurrent: PhaseCurrent }
+// Sensor for phase angle of AC electric current
+ElecPhaseAcAngleCurrentSensor : ElecAcAngleCurrentSensor <abstract> { phaseCurrent: PhaseCurrent }
 
-// Sensor for line 1 to line 2 angle of AC electric current imported
-ElecL1L2ImportAcAngleCurrentSensor : ElecPhaseImportAcAngleCurrentSensor { phaseCurrent: "L1-L2" }
+// Sensor for line 1 to line 2 angle of AC electric current
+ElecL1L2AcAngleCurrentSensor : ElecPhaseAcAngleCurrentSensor { phaseCurrent: "L1-L2" }
 
-// Sensor for line 2 to line 3 angle of AC electric current imported
-ElecL2L3ImportAcAngleCurrentSensor : ElecPhaseImportAcAngleCurrentSensor { phaseCurrent: "L2-L3" }
+// Sensor for line 2 to line 3 angle of AC electric current
+ElecL2L3AcAngleCurrentSensor : ElecPhaseAcAngleCurrentSensor { phaseCurrent: "L2-L3" }
 
-// Sensor for line 3 to line 1 angle of AC electric current imported
-ElecL3L1ImportAcAngleCurrentSensor : ElecPhaseImportAcAngleCurrentSensor { phaseCurrent: "L3-L1" }
+// Sensor for line 3 to line 1 angle of AC electric current
+ElecL3L1AcAngleCurrentSensor : ElecPhaseAcAngleCurrentSensor { phaseCurrent: "L3-L1" }
 
-// Sensor for phase average angle of AC electric current imported
-ElecPhaseAvgImportAcAngleCurrentSensor : ElecImportAcAngleCurrentSensor { phaseAvg }
+// Sensor for phase average angle of AC electric current
+ElecPhaseAvgAcAngleCurrentSensor : ElecAcAngleCurrentSensor { phaseAvg }
 
-// Sensor for neutral angle of AC electric current imported
-ElecNeutralImportAcAngleCurrentSensor : ElecImportAcAngleCurrentSensor { neutral }
+// Sensor for neutral angle of AC electric current
+ElecNeutralAcAngleCurrentSensor : ElecAcAngleCurrentSensor { neutral }
 
-// Sensor for ground angle of AC electric current imported
-ElecGroundImportAcAngleCurrentSensor : ElecImportAcAngleCurrentSensor { ground }
+// Sensor for ground angle of AC electric current
+ElecGroundAcAngleCurrentSensor : ElecAcAngleCurrentSensor { ground }
 
-// Sensor for line imbalance of AC electric current imported
-ElecLineImportAcImbalanceCurrentSensor : ElecImportAcImbalanceCurrentSensor <abstract> { lineCurrent: LineCurrent }
+// Sensor for line imbalance of AC electric current
+ElecLineAcImbalanceCurrentSensor : ElecAcImbalanceCurrentSensor <abstract> { lineCurrent: LineCurrent }
 
-// Sensor for line 1 imbalance of AC electric current imported
-ElecL1ImportAcImbalanceCurrentSensor : ElecLineImportAcImbalanceCurrentSensor { lineCurrent: "L1" }
+// Sensor for line 1 imbalance of AC electric current
+ElecL1AcImbalanceCurrentSensor : ElecLineAcImbalanceCurrentSensor { lineCurrent: "L1" }
 
-// Sensor for line 2 imbalance of AC electric current imported
-ElecL2ImportAcImbalanceCurrentSensor : ElecLineImportAcImbalanceCurrentSensor { lineCurrent: "L2" }
+// Sensor for line 2 imbalance of AC electric current
+ElecL2AcImbalanceCurrentSensor : ElecLineAcImbalanceCurrentSensor { lineCurrent: "L2" }
 
-// Sensor for line 3 imbalance of AC electric current imported
-ElecL3ImportAcImbalanceCurrentSensor : ElecLineImportAcImbalanceCurrentSensor { lineCurrent: "L3" }
+// Sensor for line 3 imbalance of AC electric current
+ElecL3AcImbalanceCurrentSensor : ElecLineAcImbalanceCurrentSensor { lineCurrent: "L3" }
 
-// Sensor for line average imbalance of AC electric current imported
-ElecLineAvgImportAcImbalanceCurrentSensor : ElecImportAcImbalanceCurrentSensor { lineAvg }
+// Sensor for line average imbalance of AC electric current
+ElecLineAvgAcImbalanceCurrentSensor : ElecAcImbalanceCurrentSensor { lineAvg }
 
-// Sensor for phase imbalance of AC electric current imported
-ElecPhaseImportAcImbalanceCurrentSensor : ElecImportAcImbalanceCurrentSensor <abstract> { phaseCurrent: PhaseCurrent }
+// Sensor for phase imbalance of AC electric current
+ElecPhaseAcImbalanceCurrentSensor : ElecAcImbalanceCurrentSensor <abstract> { phaseCurrent: PhaseCurrent }
 
-// Sensor for line 1 to line 2 imbalance of AC electric current imported
-ElecL1L2ImportAcImbalanceCurrentSensor : ElecPhaseImportAcImbalanceCurrentSensor { phaseCurrent: "L1-L2" }
+// Sensor for line 1 to line 2 imbalance of AC electric current
+ElecL1L2AcImbalanceCurrentSensor : ElecPhaseAcImbalanceCurrentSensor { phaseCurrent: "L1-L2" }
 
-// Sensor for line 2 to line 3 imbalance of AC electric current imported
-ElecL2L3ImportAcImbalanceCurrentSensor : ElecPhaseImportAcImbalanceCurrentSensor { phaseCurrent: "L2-L3" }
+// Sensor for line 2 to line 3 imbalance of AC electric current
+ElecL2L3AcImbalanceCurrentSensor : ElecPhaseAcImbalanceCurrentSensor { phaseCurrent: "L2-L3" }
 
-// Sensor for line 3 to line 1 imbalance of AC electric current imported
-ElecL3L1ImportAcImbalanceCurrentSensor : ElecPhaseImportAcImbalanceCurrentSensor { phaseCurrent: "L3-L1" }
+// Sensor for line 3 to line 1 imbalance of AC electric current
+ElecL3L1AcImbalanceCurrentSensor : ElecPhaseAcImbalanceCurrentSensor { phaseCurrent: "L3-L1" }
 
-// Sensor for phase average imbalance of AC electric current imported
-ElecPhaseAvgImportAcImbalanceCurrentSensor : ElecImportAcImbalanceCurrentSensor { phaseAvg }
+// Sensor for phase average imbalance of AC electric current
+ElecPhaseAvgAcImbalanceCurrentSensor : ElecAcImbalanceCurrentSensor { phaseAvg }
 
-// Sensor for neutral imbalance of AC electric current imported
-ElecNeutralImportAcImbalanceCurrentSensor : ElecImportAcImbalanceCurrentSensor { neutral }
+// Sensor for neutral imbalance of AC electric current
+ElecNeutralAcImbalanceCurrentSensor : ElecAcImbalanceCurrentSensor { neutral }
 
-// Sensor for ground imbalance of AC electric current imported
-ElecGroundImportAcImbalanceCurrentSensor : ElecImportAcImbalanceCurrentSensor { ground }
+// Sensor for ground imbalance of AC electric current
+ElecGroundAcImbalanceCurrentSensor : ElecAcImbalanceCurrentSensor { ground }
 
-// Sensor for line total harmonic distortion of AC electric current imported
-ElecLineImportAcThdCurrentSensor : ElecImportAcThdCurrentSensor <abstract> { lineCurrent: LineCurrent }
+// Sensor for line total harmonic distortion of AC electric current
+ElecLineAcThdCurrentSensor : ElecAcThdCurrentSensor <abstract> { lineCurrent: LineCurrent }
 
-// Sensor for line 1 total harmonic distortion of AC electric current imported
-ElecL1ImportAcThdCurrentSensor : ElecLineImportAcThdCurrentSensor { lineCurrent: "L1" }
+// Sensor for line 1 total harmonic distortion of AC electric current
+ElecL1AcThdCurrentSensor : ElecLineAcThdCurrentSensor { lineCurrent: "L1" }
 
-// Sensor for line 2 total harmonic distortion of AC electric current imported
-ElecL2ImportAcThdCurrentSensor : ElecLineImportAcThdCurrentSensor { lineCurrent: "L2" }
+// Sensor for line 2 total harmonic distortion of AC electric current
+ElecL2AcThdCurrentSensor : ElecLineAcThdCurrentSensor { lineCurrent: "L2" }
 
-// Sensor for line 3 total harmonic distortion of AC electric current imported
-ElecL3ImportAcThdCurrentSensor : ElecLineImportAcThdCurrentSensor { lineCurrent: "L3" }
+// Sensor for line 3 total harmonic distortion of AC electric current
+ElecL3AcThdCurrentSensor : ElecLineAcThdCurrentSensor { lineCurrent: "L3" }
 
-// Sensor for line average total harmonic distortion of AC electric current imported
-ElecLineAvgImportAcThdCurrentSensor : ElecImportAcThdCurrentSensor { lineAvg }
+// Sensor for line average total harmonic distortion of AC electric current
+ElecLineAvgAcThdCurrentSensor : ElecAcThdCurrentSensor { lineAvg }
 
-// Sensor for phase total harmonic distortion of AC electric current imported
-ElecPhaseImportAcThdCurrentSensor : ElecImportAcThdCurrentSensor <abstract> { phaseCurrent: PhaseCurrent }
+// Sensor for phase total harmonic distortion of AC electric current
+ElecPhaseAcThdCurrentSensor : ElecAcThdCurrentSensor <abstract> { phaseCurrent: PhaseCurrent }
 
-// Sensor for line 1 to line 2 total harmonic distortion of AC electric current imported
-ElecL1L2ImportAcThdCurrentSensor : ElecPhaseImportAcThdCurrentSensor { phaseCurrent: "L1-L2" }
+// Sensor for line 1 to line 2 total harmonic distortion of AC electric current
+ElecL1L2AcThdCurrentSensor : ElecPhaseAcThdCurrentSensor { phaseCurrent: "L1-L2" }
 
-// Sensor for line 2 to line 3 total harmonic distortion of AC electric current imported
-ElecL2L3ImportAcThdCurrentSensor : ElecPhaseImportAcThdCurrentSensor { phaseCurrent: "L2-L3" }
+// Sensor for line 2 to line 3 total harmonic distortion of AC electric current
+ElecL2L3AcThdCurrentSensor : ElecPhaseAcThdCurrentSensor { phaseCurrent: "L2-L3" }
 
-// Sensor for line 3 to line 1 total harmonic distortion of AC electric current imported
-ElecL3L1ImportAcThdCurrentSensor : ElecPhaseImportAcThdCurrentSensor { phaseCurrent: "L3-L1" }
+// Sensor for line 3 to line 1 total harmonic distortion of AC electric current
+ElecL3L1AcThdCurrentSensor : ElecPhaseAcThdCurrentSensor { phaseCurrent: "L3-L1" }
 
-// Sensor for phase average total harmonic distortion of AC electric current imported
-ElecPhaseAvgImportAcThdCurrentSensor : ElecImportAcThdCurrentSensor { phaseAvg }
+// Sensor for phase average total harmonic distortion of AC electric current
+ElecPhaseAvgAcThdCurrentSensor : ElecAcThdCurrentSensor { phaseAvg }
 
-// Sensor for neutral total harmonic distortion of AC electric current imported
-ElecNeutralImportAcThdCurrentSensor : ElecImportAcThdCurrentSensor { neutral }
+// Sensor for neutral total harmonic distortion of AC electric current
+ElecNeutralAcThdCurrentSensor : ElecAcThdCurrentSensor { neutral }
 
-// Sensor for ground total harmonic distortion of AC electric current imported
-ElecGroundImportAcThdCurrentSensor : ElecImportAcThdCurrentSensor { ground }
+// Sensor for ground total harmonic distortion of AC electric current
+ElecGroundAcThdCurrentSensor : ElecAcThdCurrentSensor { ground }
 
 // Sensor for total AC electric active power imported
 ElecTotalImportAcActivePowerSensor : ElecImportAcActivePowerSensor { total }
@@ -657,104 +639,104 @@ ElecL3ImportAcApparentPowerSensor : ElecPhaseImportAcApparentPowerSensor { phase
 // Sensor for phase average AC electric apparent power imported
 ElecPhaseAvgImportAcApparentPowerSensor : ElecImportAcApparentPowerSensor { phaseAvg }
 
-// Sensor for true power factor of total AC electric power imported
-ElecTotalImportAcTruePfSensor : ElecImportAcTruePfSensor { total }
+// Sensor for true power factor of total AC electric power
+ElecTotalAcTruePfSensor : ElecAcTruePfSensor { total }
 
-// Sensor for true power factor of line AC electric power imported
-ElecLineImportAcTruePfSensor : ElecImportAcTruePfSensor <abstract> { linePf: LinePf }
+// Sensor for true power factor of line AC electric power
+ElecLineAcTruePfSensor : ElecAcTruePfSensor <abstract> { linePf: LinePf }
 
-// Sensor for true power factor of line 1 to line 2 AC electric power imported
-ElecL1L2ImportAcTruePfSensor : ElecLineImportAcTruePfSensor { linePf: "L1-L2" }
+// Sensor for true power factor of line 1 to line 2 AC electric power
+ElecL1L2AcTruePfSensor : ElecLineAcTruePfSensor { linePf: "L1-L2" }
 
-// Sensor for true power factor of line 2 to line 3 AC electric power imported
-ElecL2L3ImportAcTruePfSensor : ElecLineImportAcTruePfSensor { linePf: "L2-L3" }
+// Sensor for true power factor of line 2 to line 3 AC electric power
+ElecL2L3AcTruePfSensor : ElecLineAcTruePfSensor { linePf: "L2-L3" }
 
-// Sensor for true power factor of line 3 to line 1 AC electric power imported
-ElecL3L1ImportAcTruePfSensor : ElecLineImportAcTruePfSensor { linePf: "L3-L1" }
+// Sensor for true power factor of line 3 to line 1 AC electric power
+ElecL3L1AcTruePfSensor : ElecLineAcTruePfSensor { linePf: "L3-L1" }
 
-// Sensor for true power factor of line average AC electric power imported
-ElecLineAvgImportAcTruePfSensor : ElecImportAcTruePfSensor { lineAvg }
+// Sensor for true power factor of line average AC electric power
+ElecLineAvgAcTruePfSensor : ElecAcTruePfSensor { lineAvg }
 
-// Sensor for true power factor of phase AC electric power imported
-ElecPhaseImportAcTruePfSensor : ElecImportAcTruePfSensor <abstract> { phasePf: PhasePf }
+// Sensor for true power factor of phase AC electric power
+ElecPhaseAcTruePfSensor : ElecAcTruePfSensor <abstract> { phasePf: PhasePf }
 
-// Sensor for true power factor of line 1 AC electric power imported
-ElecL1ImportAcTruePfSensor : ElecPhaseImportAcTruePfSensor { phasePf: "L1" }
+// Sensor for true power factor of line 1 AC electric power
+ElecL1AcTruePfSensor : ElecPhaseAcTruePfSensor { phasePf: "L1" }
 
-// Sensor for true power factor of line 2 AC electric power imported
-ElecL2ImportAcTruePfSensor : ElecPhaseImportAcTruePfSensor { phasePf: "L2" }
+// Sensor for true power factor of line 2 AC electric power
+ElecL2AcTruePfSensor : ElecPhaseAcTruePfSensor { phasePf: "L2" }
 
-// Sensor for true power factor of line 3 AC electric power imported
-ElecL3ImportAcTruePfSensor : ElecPhaseImportAcTruePfSensor { phasePf: "L3" }
+// Sensor for true power factor of line 3 AC electric power
+ElecL3AcTruePfSensor : ElecPhaseAcTruePfSensor { phasePf: "L3" }
 
-// Sensor for true power factor of phase average AC electric power imported
-ElecPhaseAvgImportAcTruePfSensor : ElecImportAcTruePfSensor { phaseAvg }
+// Sensor for true power factor of phase average AC electric power
+ElecPhaseAvgAcTruePfSensor : ElecAcTruePfSensor { phaseAvg }
 
-// Sensor for displacement power factor of total AC electric power imported
-ElecTotalImportAcDisplacementPfSensor : ElecImportAcDisplacementPfSensor { total }
+// Sensor for displacement power factor of total AC electric power
+ElecTotalAcDisplacementPfSensor : ElecAcDisplacementPfSensor { total }
 
-// Sensor for displacement power factor of line AC electric power imported
-ElecLineImportAcDisplacementPfSensor : ElecImportAcDisplacementPfSensor <abstract> { linePf: LinePf }
+// Sensor for displacement power factor of line AC electric power
+ElecLineAcDisplacementPfSensor : ElecAcDisplacementPfSensor <abstract> { linePf: LinePf }
 
-// Sensor for displacement power factor of line 1 to line 2 AC electric power imported
-ElecL1L2ImportAcDisplacementPfSensor : ElecLineImportAcDisplacementPfSensor { linePf: "L1-L2" }
+// Sensor for displacement power factor of line 1 to line 2 AC electric power
+ElecL1L2AcDisplacementPfSensor : ElecLineAcDisplacementPfSensor { linePf: "L1-L2" }
 
-// Sensor for displacement power factor of line 2 to line 3 AC electric power imported
-ElecL2L3ImportAcDisplacementPfSensor : ElecLineImportAcDisplacementPfSensor { linePf: "L2-L3" }
+// Sensor for displacement power factor of line 2 to line 3 AC electric power
+ElecL2L3AcDisplacementPfSensor : ElecLineAcDisplacementPfSensor { linePf: "L2-L3" }
 
-// Sensor for displacement power factor of line 3 to line 1 AC electric power imported
-ElecL3L1ImportAcDisplacementPfSensor : ElecLineImportAcDisplacementPfSensor { linePf: "L3-L1" }
+// Sensor for displacement power factor of line 3 to line 1 AC electric power
+ElecL3L1AcDisplacementPfSensor : ElecLineAcDisplacementPfSensor { linePf: "L3-L1" }
 
-// Sensor for displacement power factor of line average AC electric power imported
-ElecLineAvgImportAcDisplacementPfSensor : ElecImportAcDisplacementPfSensor { lineAvg }
+// Sensor for displacement power factor of line average AC electric power
+ElecLineAvgAcDisplacementPfSensor : ElecAcDisplacementPfSensor { lineAvg }
 
-// Sensor for displacement power factor of phase AC electric power imported
-ElecPhaseImportAcDisplacementPfSensor : ElecImportAcDisplacementPfSensor <abstract> { phasePf: PhasePf }
+// Sensor for displacement power factor of phase AC electric power
+ElecPhaseAcDisplacementPfSensor : ElecAcDisplacementPfSensor <abstract> { phasePf: PhasePf }
 
-// Sensor for displacement power factor of line 1 AC electric power imported
-ElecL1ImportAcDisplacementPfSensor : ElecPhaseImportAcDisplacementPfSensor { phasePf: "L1" }
+// Sensor for displacement power factor of line 1 AC electric power
+ElecL1AcDisplacementPfSensor : ElecPhaseAcDisplacementPfSensor { phasePf: "L1" }
 
-// Sensor for displacement power factor of line 2 AC electric power imported
-ElecL2ImportAcDisplacementPfSensor : ElecPhaseImportAcDisplacementPfSensor { phasePf: "L2" }
+// Sensor for displacement power factor of line 2 AC electric power
+ElecL2AcDisplacementPfSensor : ElecPhaseAcDisplacementPfSensor { phasePf: "L2" }
 
-// Sensor for displacement power factor of line 3 AC electric power imported
-ElecL3ImportAcDisplacementPfSensor : ElecPhaseImportAcDisplacementPfSensor { phasePf: "L3" }
+// Sensor for displacement power factor of line 3 AC electric power
+ElecL3AcDisplacementPfSensor : ElecPhaseAcDisplacementPfSensor { phasePf: "L3" }
 
-// Sensor for displacement power factor of phase average AC electric power imported
-ElecPhaseAvgImportAcDisplacementPfSensor : ElecImportAcDisplacementPfSensor { phaseAvg }
+// Sensor for displacement power factor of phase average AC electric power
+ElecPhaseAvgAcDisplacementPfSensor : ElecAcDisplacementPfSensor { phaseAvg }
 
-// Sensor for distortion power factor of total AC electric power imported
-ElecTotalImportAcDistortionPfSensor : ElecImportAcDistortionPfSensor { total }
+// Sensor for distortion power factor of total AC electric power
+ElecTotalAcDistortionPfSensor : ElecAcDistortionPfSensor { total }
 
-// Sensor for distortion power factor of line AC electric power imported
-ElecLineImportAcDistortionPfSensor : ElecImportAcDistortionPfSensor <abstract> { linePf: LinePf }
+// Sensor for distortion power factor of line AC electric power
+ElecLineAcDistortionPfSensor : ElecAcDistortionPfSensor <abstract> { linePf: LinePf }
 
-// Sensor for distortion power factor of line 1 to line 2 AC electric power imported
-ElecL1L2ImportAcDistortionPfSensor : ElecLineImportAcDistortionPfSensor { linePf: "L1-L2" }
+// Sensor for distortion power factor of line 1 to line 2 AC electric power
+ElecL1L2AcDistortionPfSensor : ElecLineAcDistortionPfSensor { linePf: "L1-L2" }
 
-// Sensor for distortion power factor of line 2 to line 3 AC electric power imported
-ElecL2L3ImportAcDistortionPfSensor : ElecLineImportAcDistortionPfSensor { linePf: "L2-L3" }
+// Sensor for distortion power factor of line 2 to line 3 AC electric power
+ElecL2L3AcDistortionPfSensor : ElecLineAcDistortionPfSensor { linePf: "L2-L3" }
 
-// Sensor for distortion power factor of line 3 to line 1 AC electric power imported
-ElecL3L1ImportAcDistortionPfSensor : ElecLineImportAcDistortionPfSensor { linePf: "L3-L1" }
+// Sensor for distortion power factor of line 3 to line 1 AC electric power
+ElecL3L1AcDistortionPfSensor : ElecLineAcDistortionPfSensor { linePf: "L3-L1" }
 
-// Sensor for distortion power factor of line average AC electric power imported
-ElecLineAvgImportAcDistortionPfSensor : ElecImportAcDistortionPfSensor { lineAvg }
+// Sensor for distortion power factor of line average AC electric power
+ElecLineAvgAcDistortionPfSensor : ElecAcDistortionPfSensor { lineAvg }
 
-// Sensor for distortion power factor of phase AC electric power imported
-ElecPhaseImportAcDistortionPfSensor : ElecImportAcDistortionPfSensor <abstract> { phasePf: PhasePf }
+// Sensor for distortion power factor of phase AC electric power
+ElecPhaseAcDistortionPfSensor : ElecAcDistortionPfSensor <abstract> { phasePf: PhasePf }
 
-// Sensor for distortion power factor of line 1 AC electric power imported
-ElecL1ImportAcDistortionPfSensor : ElecPhaseImportAcDistortionPfSensor { phasePf: "L1" }
+// Sensor for distortion power factor of line 1 AC electric power
+ElecL1AcDistortionPfSensor : ElecPhaseAcDistortionPfSensor { phasePf: "L1" }
 
-// Sensor for distortion power factor of line 2 AC electric power imported
-ElecL2ImportAcDistortionPfSensor : ElecPhaseImportAcDistortionPfSensor { phasePf: "L2" }
+// Sensor for distortion power factor of line 2 AC electric power
+ElecL2AcDistortionPfSensor : ElecPhaseAcDistortionPfSensor { phasePf: "L2" }
 
-// Sensor for distortion power factor of line 3 AC electric power imported
-ElecL3ImportAcDistortionPfSensor : ElecPhaseImportAcDistortionPfSensor { phasePf: "L3" }
+// Sensor for distortion power factor of line 3 AC electric power
+ElecL3AcDistortionPfSensor : ElecPhaseAcDistortionPfSensor { phasePf: "L3" }
 
-// Sensor for distortion power factor of phase average AC electric power imported
-ElecPhaseAvgImportAcDistortionPfSensor : ElecImportAcDistortionPfSensor { phaseAvg }
+// Sensor for distortion power factor of phase average AC electric power
+ElecPhaseAvgAcDistortionPfSensor : ElecAcDistortionPfSensor { phaseAvg }
 
 // Sensor for total AC electric active demand imported
 ElecTotalImportAcActiveDemandSensor : ElecImportAcActiveDemandSensor { total }

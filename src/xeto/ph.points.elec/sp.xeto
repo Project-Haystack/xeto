@@ -326,15 +326,6 @@ ElecImportAcActivePowerMaxSp : ElecAcActivePowerMaxSp <abstract> { import }
 // Min setpoint for AC electric active power imported
 ElecImportAcActivePowerMinSp : ElecAcActivePowerMinSp <abstract> { import }
 
-// Effective setpoint for true power factor of AC electric power imported
-ElecImportAcTruePfEffectiveSp : ElecAcTruePfEffectiveSp <abstract> { import }
-
-// Max setpoint for true power factor of AC electric power imported
-ElecImportAcTruePfMaxSp : ElecAcTruePfMaxSp <abstract> { import }
-
-// Min setpoint for true power factor of AC electric power imported
-ElecImportAcTruePfMinSp : ElecAcTruePfMinSp <abstract> { import }
-
 // Effective setpoint for AC electric active demand imported
 ElecImportAcActiveDemandEffectiveSp : ElecAcActiveDemandEffectiveSp <abstract> { import }
 
@@ -510,86 +501,86 @@ ElecL2ImportAcActivePowerMinSp : ElecPhaseImportAcActivePowerMinSp { phasePower:
 // Min setpoint for line 3 AC electric active power imported
 ElecL3ImportAcActivePowerMinSp : ElecPhaseImportAcActivePowerMinSp { phasePower: "L3" }
 
-// Effective setpoint for true power factor of total AC electric power imported
-ElecTotalImportAcTruePfEffectiveSp : ElecImportAcTruePfEffectiveSp { total }
+// Effective setpoint for true power factor of total AC electric power
+ElecTotalAcTruePfEffectiveSp : ElecAcTruePfEffectiveSp { total }
 
-// Effective setpoint for true power factor of line AC electric power imported
-ElecLineImportAcTruePfEffectiveSp : ElecImportAcTruePfEffectiveSp <abstract> { linePf: LinePf }
+// Effective setpoint for true power factor of line AC electric power
+ElecLineAcTruePfEffectiveSp : ElecAcTruePfEffectiveSp <abstract> { linePf: LinePf }
 
-// Effective setpoint for true power factor of line 1 to line 2 AC electric power imported
-ElecL1L2ImportAcTruePfEffectiveSp : ElecLineImportAcTruePfEffectiveSp { linePf: "L1-L2" }
+// Effective setpoint for true power factor of line 1 to line 2 AC electric power
+ElecL1L2AcTruePfEffectiveSp : ElecLineAcTruePfEffectiveSp { linePf: "L1-L2" }
 
-// Effective setpoint for true power factor of line 2 to line 3 AC electric power imported
-ElecL2L3ImportAcTruePfEffectiveSp : ElecLineImportAcTruePfEffectiveSp { linePf: "L2-L3" }
+// Effective setpoint for true power factor of line 2 to line 3 AC electric power
+ElecL2L3AcTruePfEffectiveSp : ElecLineAcTruePfEffectiveSp { linePf: "L2-L3" }
 
-// Effective setpoint for true power factor of line 3 to line 1 AC electric power imported
-ElecL3L1ImportAcTruePfEffectiveSp : ElecLineImportAcTruePfEffectiveSp { linePf: "L3-L1" }
+// Effective setpoint for true power factor of line 3 to line 1 AC electric power
+ElecL3L1AcTruePfEffectiveSp : ElecLineAcTruePfEffectiveSp { linePf: "L3-L1" }
 
-// Effective setpoint for true power factor of phase AC electric power imported
-ElecPhaseImportAcTruePfEffectiveSp : ElecImportAcTruePfEffectiveSp <abstract> { phasePf: PhasePf }
+// Effective setpoint for true power factor of phase AC electric power
+ElecPhaseAcTruePfEffectiveSp : ElecAcTruePfEffectiveSp <abstract> { phasePf: PhasePf }
 
-// Effective setpoint for true power factor of line 1 AC electric power imported
-ElecL1ImportAcTruePfEffectiveSp : ElecPhaseImportAcTruePfEffectiveSp { phasePf: "L1" }
+// Effective setpoint for true power factor of line 1 AC electric power
+ElecL1AcTruePfEffectiveSp : ElecPhaseAcTruePfEffectiveSp { phasePf: "L1" }
 
-// Effective setpoint for true power factor of line 2 AC electric power imported
-ElecL2ImportAcTruePfEffectiveSp : ElecPhaseImportAcTruePfEffectiveSp { phasePf: "L2" }
+// Effective setpoint for true power factor of line 2 AC electric power
+ElecL2AcTruePfEffectiveSp : ElecPhaseAcTruePfEffectiveSp { phasePf: "L2" }
 
-// Effective setpoint for true power factor of line 3 AC electric power imported
-ElecL3ImportAcTruePfEffectiveSp : ElecPhaseImportAcTruePfEffectiveSp { phasePf: "L3" }
+// Effective setpoint for true power factor of line 3 AC electric power
+ElecL3AcTruePfEffectiveSp : ElecPhaseAcTruePfEffectiveSp { phasePf: "L3" }
 
-// Max setpoint for true power factor of total AC electric power imported
-ElecTotalImportAcTruePfMaxSp : ElecImportAcTruePfMaxSp { total }
+// Max setpoint for true power factor of total AC electric power
+ElecTotalAcTruePfMaxSp : ElecAcTruePfMaxSp { total }
 
-// Max setpoint for true power factor of line AC electric power imported
-ElecLineImportAcTruePfMaxSp : ElecImportAcTruePfMaxSp <abstract> { linePf: LinePf }
+// Max setpoint for true power factor of line AC electric power
+ElecLineAcTruePfMaxSp : ElecAcTruePfMaxSp <abstract> { linePf: LinePf }
 
-// Max setpoint for true power factor of line 1 to line 2 AC electric power imported
-ElecL1L2ImportAcTruePfMaxSp : ElecLineImportAcTruePfMaxSp { linePf: "L1-L2" }
+// Max setpoint for true power factor of line 1 to line 2 AC electric power
+ElecL1L2AcTruePfMaxSp : ElecLineAcTruePfMaxSp { linePf: "L1-L2" }
 
-// Max setpoint for true power factor of line 2 to line 3 AC electric power imported
-ElecL2L3ImportAcTruePfMaxSp : ElecLineImportAcTruePfMaxSp { linePf: "L2-L3" }
+// Max setpoint for true power factor of line 2 to line 3 AC electric power
+ElecL2L3AcTruePfMaxSp : ElecLineAcTruePfMaxSp { linePf: "L2-L3" }
 
-// Max setpoint for true power factor of line 3 to line 1 AC electric power imported
-ElecL3L1ImportAcTruePfMaxSp : ElecLineImportAcTruePfMaxSp { linePf: "L3-L1" }
+// Max setpoint for true power factor of line 3 to line 1 AC electric power
+ElecL3L1AcTruePfMaxSp : ElecLineAcTruePfMaxSp { linePf: "L3-L1" }
 
-// Max setpoint for true power factor of phase AC electric power imported
-ElecPhaseImportAcTruePfMaxSp : ElecImportAcTruePfMaxSp <abstract> { phasePf: PhasePf }
+// Max setpoint for true power factor of phase AC electric power
+ElecPhaseAcTruePfMaxSp : ElecAcTruePfMaxSp <abstract> { phasePf: PhasePf }
 
-// Max setpoint for true power factor of line 1 AC electric power imported
-ElecL1ImportAcTruePfMaxSp : ElecPhaseImportAcTruePfMaxSp { phasePf: "L1" }
+// Max setpoint for true power factor of line 1 AC electric power
+ElecL1AcTruePfMaxSp : ElecPhaseAcTruePfMaxSp { phasePf: "L1" }
 
-// Max setpoint for true power factor of line 2 AC electric power imported
-ElecL2ImportAcTruePfMaxSp : ElecPhaseImportAcTruePfMaxSp { phasePf: "L2" }
+// Max setpoint for true power factor of line 2 AC electric power
+ElecL2AcTruePfMaxSp : ElecPhaseAcTruePfMaxSp { phasePf: "L2" }
 
-// Max setpoint for true power factor of line 3 AC electric power imported
-ElecL3ImportAcTruePfMaxSp : ElecPhaseImportAcTruePfMaxSp { phasePf: "L3" }
+// Max setpoint for true power factor of line 3 AC electric power
+ElecL3AcTruePfMaxSp : ElecPhaseAcTruePfMaxSp { phasePf: "L3" }
 
-// Min setpoint for true power factor of total AC electric power imported
-ElecTotalImportAcTruePfMinSp : ElecImportAcTruePfMinSp { total }
+// Min setpoint for true power factor of total AC electric power
+ElecTotalAcTruePfMinSp : ElecAcTruePfMinSp { total }
 
-// Min setpoint for true power factor of line AC electric power imported
-ElecLineImportAcTruePfMinSp : ElecImportAcTruePfMinSp <abstract> { linePf: LinePf }
+// Min setpoint for true power factor of line AC electric power
+ElecLineAcTruePfMinSp : ElecAcTruePfMinSp <abstract> { linePf: LinePf }
 
-// Min setpoint for true power factor of line 1 to line 2 AC electric power imported
-ElecL1L2ImportAcTruePfMinSp : ElecLineImportAcTruePfMinSp { linePf: "L1-L2" }
+// Min setpoint for true power factor of line 1 to line 2 AC electric power
+ElecL1L2AcTruePfMinSp : ElecLineAcTruePfMinSp { linePf: "L1-L2" }
 
-// Min setpoint for true power factor of line 2 to line 3 AC electric power imported
-ElecL2L3ImportAcTruePfMinSp : ElecLineImportAcTruePfMinSp { linePf: "L2-L3" }
+// Min setpoint for true power factor of line 2 to line 3 AC electric power
+ElecL2L3AcTruePfMinSp : ElecLineAcTruePfMinSp { linePf: "L2-L3" }
 
-// Min setpoint for true power factor of line 3 to line 1 AC electric power imported
-ElecL3L1ImportAcTruePfMinSp : ElecLineImportAcTruePfMinSp { linePf: "L3-L1" }
+// Min setpoint for true power factor of line 3 to line 1 AC electric power
+ElecL3L1AcTruePfMinSp : ElecLineAcTruePfMinSp { linePf: "L3-L1" }
 
-// Min setpoint for true power factor of phase AC electric power imported
-ElecPhaseImportAcTruePfMinSp : ElecImportAcTruePfMinSp <abstract> { phasePf: PhasePf }
+// Min setpoint for true power factor of phase AC electric power
+ElecPhaseAcTruePfMinSp : ElecAcTruePfMinSp <abstract> { phasePf: PhasePf }
 
-// Min setpoint for true power factor of line 1 AC electric power imported
-ElecL1ImportAcTruePfMinSp : ElecPhaseImportAcTruePfMinSp { phasePf: "L1" }
+// Min setpoint for true power factor of line 1 AC electric power
+ElecL1AcTruePfMinSp : ElecPhaseAcTruePfMinSp { phasePf: "L1" }
 
-// Min setpoint for true power factor of line 2 AC electric power imported
-ElecL2ImportAcTruePfMinSp : ElecPhaseImportAcTruePfMinSp { phasePf: "L2" }
+// Min setpoint for true power factor of line 2 AC electric power
+ElecL2AcTruePfMinSp : ElecPhaseAcTruePfMinSp { phasePf: "L2" }
 
-// Min setpoint for true power factor of line 3 AC electric power imported
-ElecL3ImportAcTruePfMinSp : ElecPhaseImportAcTruePfMinSp { phasePf: "L3" }
+// Min setpoint for true power factor of line 3 AC electric power
+ElecL3AcTruePfMinSp : ElecPhaseAcTruePfMinSp { phasePf: "L3" }
 
 // Effective setpoint for total AC electric active demand imported
 ElecTotalImportAcActiveDemandEffectiveSp : ElecImportAcActiveDemandEffectiveSp { total }
