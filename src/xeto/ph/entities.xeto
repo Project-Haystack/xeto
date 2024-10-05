@@ -4,13 +4,6 @@
 // Auto-generated 03-Sep-2024
 //
 
-// Top-level dicts with a unique identifier.
-// See `docHaystack::Ontology#entities` chapter.
-Entity: Dict <abstract> {
-  dis: Str?
-  id:  Ref
-}
-
 // AC Electricity meter.
 // See `docHaystack::Meters` chapter.
 AcElecMeter: ElecMeter {

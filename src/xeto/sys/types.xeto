@@ -136,3 +136,8 @@ Func: Dict {
   returns: Obj?  // Return type of the function
 }
 
+// Top-level dicts with a unique identifier.
+Entity: Dict <abstract> {
+  id: Ref        // Unique identifier for entity in its project
+}
+
