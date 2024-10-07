@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 03-Sep-2024
+// Auto-generated 07-Oct-2024
 //
 
 // AC Electricity meter.
@@ -802,6 +802,7 @@ SyntheticModel: Entity {
 // See `docHaystack::Systems` chapter.
 System: Entity {
   system
+  siteRef:   Ref
   systemRef: Ref?
 }
 
