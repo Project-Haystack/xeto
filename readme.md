@@ -8,4 +8,7 @@ purpose enough to use with any structured data including CSV, JSON, or SQL data.
 
 This repository is used to manage the source code for the standard libraries.
 
+# Documentation
+
+You can browse the markdown documentation at [doc.xeto](src/xeto/doc.xeto/index.md)
 
