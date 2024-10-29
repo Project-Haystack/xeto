@@ -1,9 +1,9 @@
 # Overview
 
-Libs or libraries are used to package Xeto into versioned modules.  Libs 
+Libs or libraries are used to package Xeto into versioned modules.  Libs
 are deployed as zip files with the "xetolib" extension and contain the
 source for the library's specs, globals, instances, and additional resource
-files.  Libs define explicit dependencies for the specs and instances they 
+files.  Libs define explicit dependencies for the specs and instances they
 import into their namespace.
 
 # Lib Names
@@ -41,29 +41,29 @@ source tree would be organized:
 
 # Lib Name Prefixes
 
-In order to guarantee globally unique names, the following conventions are 
+In order to guarantee globally unique names, the following conventions are
 used for lib name prefixes:
 
-- Reverse DNS names are reserved for the top level domains: com, org, net, 
+- Reverse DNS names are reserved for the top level domains: com, org, net,
   gov, edu, and io
 - The prefix "cc." is reserved for community contributions
 - Top level prefixes are granted when appropriate to avoid name squatting
 
-The Project Haystack non-profit organization manages prefix registration 
+The Project Haystack non-profit organization manages prefix registration
 on the https://xeto.dev website.  Both "cc." and top level prefixes should
 be registered on the website for your organization.
 
 For example, if you own the DNS domain "acme.com", then you automatically
 own the "com.acme" lib name (as well as names that start with "com.acme.").
 This same convention is also followed by the Java community for package naming.
-Note: there is a plethora of TLDs now, we currently only standardize a 
-limited set (the most common ones).  
+Note: there is a plethora of TLDs now, we currently only standardize a
+limited set (the most common ones).
 
 If you are vendor or have a project with a name such as FooBar, then
 you can request a top level prefix for "foobar" at https://xeto.dev.  Or if
 developing a community contribution for a vendor named "Baz", you
-can request "cc.baz".  Top-level prefixes that would conflict with 
-DNS top level domains such as country codes will not be granted. 
+can request "cc.baz".  Top-level prefixes that would conflict with
+DNS top level domains such as country codes will not be granted.
 
 # Pragma
 
@@ -71,9 +71,9 @@ All libs must define their metadata file in a file named "lib.xeto".
 Lib meta includes:
   - version
   - dependencies
-  - summary documentation 
+  - summary documentation
   - organization metadata
-  
+
 Lib metadata is declared in lib.xeto via the *pragma*.  Here is an
 example template:
 
@@ -141,6 +141,5 @@ to be "x.x.x" (any version).
 The pragma 'org' tag specifies summary information for the organization
 publishing the library. Org is a dict with the following tags:
   - 'dis': display name for the organization
-  - 'uri': URL to the organization's web site 
-
+  - 'uri': URL to the organization's web site
 
