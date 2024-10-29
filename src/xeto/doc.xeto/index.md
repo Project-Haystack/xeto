@@ -5,6 +5,10 @@
 - [Globals](Globals.md): global slot definitions
 - [Instances](Instances.md): instance data
 
+# Appendix
+
+- [Grammar](Grammar.md): formal BNF grammar for Xeto
+
 
 
 
