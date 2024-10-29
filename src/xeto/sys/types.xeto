@@ -52,13 +52,13 @@ Ref: Scalar <sealed, pattern: "[a-zA-Z\\d\\._~]*"> "x"
 Version: Scalar <sealed, pattern: "\\d+(\\.\\d+)*"> "0"
 
 // ISO 8601 date as year, month, day: '2011-06-07'
-Date: Scalar <sealed, pattern: "\\d\\d\\d\\d-\\d\\d-\\d\\d"> "2000-01-01"
+Date: Scalar <sealed, pattern: "\\d{4}-\\d{2}-\\d{2}"> "2000-01-01"
 
 // ISO 8601 time as hour, minute, seconds: '09:51:27.354'
-Time: Scalar <sealed, pattern: "\\d\\d:\\d\\d:\\d\\d(\\.\\d+)*"> "00:00:00"
+Time: Scalar <sealed, pattern: "\\d{2}:\\d{2}:\\d{2}(\\.\\d+)*"> "00:00:00"
 
 // ISO 8601 timestamp followed by timezone identifier
-DateTime: Scalar <sealed, pattern: "\\d\\d\\d\\d-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d(\\.\\d+)*[Z+-][\\d:]*[ ]*[-+a-zA-Z_\\d]*"> "2000-01-01T00:00:00Z UTC"
+DateTime: Scalar <sealed, pattern: "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)*[Z+-][\\d:]*[ ]*[-+a-zA-Z_\\d]*"> "2000-01-01T00:00:00Z UTC"
 
 // Span models a time range between two DateTimes.
 // It supports the following string encoding:
