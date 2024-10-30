@@ -146,6 +146,50 @@ this is done via the 'of' meta to define the item type of the list:
 Numbers: List<of:Number>
 ```
 
+# Representation
+
+Specs are modeled as dict data just like [instance data](Instances.md).
+They following tags are defined by Xeto itself and may not be used
+as metadata tags:
+
+  - 'id': a Ref which is the spec qname
+  - 'base': a qname Ref to the type inherited from; null for `sys::Obj`
+  - 'parent': a qname Ref to the parent dict if spec is a slot
+  - 'doc': documentation from comments
+  - 'spec': always a Ref to `sys::Spec` (the spec is an instance of Spec)
+  - 'slots': the slot specs of a dict spec
+
+Note: the compiler currently reserves several other metadata tags for
+future proofing.
+
+When representing a spec as a dict or JSON object, the tags above are
+merged with the spec meta.  Example:
+
+```
+// Xeto spec example
+Person: Dict <sealed, icon:"user"> {
+  name: Str  // Full name
+}
+
+// Haystack representation
+id: @acme::Person
+spec: @sys::Spec
+base: @sys::Dict
+doc: "Xeto spec example"
+sealed
+icon: "user"
+slots: {
+  name: {
+    spec: @sys::Spec,
+    type: @sys::Str,
+    doc: "Full name"
+  }
+}
+```
+
+The [JSON](Json.md) representation of specs follows the same design patterns.
+
+
 
 
 
