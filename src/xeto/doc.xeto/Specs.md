@@ -8,7 +8,7 @@ define an atomic type encoded as a string. Common scalars include Str,
 Number, Date, Time, and DateTime. Dicts define a compound type composed
 of zero or more *slots* that are the data fields.
 
-# Spec Names
+# Names
 
 Specs are always defined within a [lib](Libs.md).  User defined spec
 names must obey the following restrictions:
@@ -33,8 +33,9 @@ globally unique.  Examples:
   ph.equips::NaturalGasMeter  // qualified name
 ```
 
-Dict slots are also specs with a qname formed from the parent spec
-qname and a dot:
+Dict slots are also specs that follow same naming restrictions but must start
+with a lower case letter.  Slot specs have a qname formed from the parent
+spec qname and a dot:
 
 ```
 LibDepend: Dict {
