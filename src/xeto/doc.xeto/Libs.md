@@ -6,7 +6,7 @@ source for the library's specs, globals, instances, and additional resource
 files.  Libs define explicit dependencies for the specs and instances they
 import into their namespace.
 
-# Lib Names
+# Names
 
 Libs have a globally unique dotted name.  Lib names must obey the following
 restrictions:
