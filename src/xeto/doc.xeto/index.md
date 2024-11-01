@@ -4,6 +4,8 @@
 - [Specs](Specs.md): specification type definitions
 - [Globals](Globals.md): global slot definitions
 - [Instances](Instances.md): instance data
+- [Enums](Enums.md): enumeration specs
+- [Choices](Choices.md): mutually exclusive marker choices
 - [Type System](TypeSystem.md): type system features
 
 # Tools
@@ -13,12 +15,4 @@
 # Appendix
 
 - [Grammar](Grammar.md): formal BNF grammar for Xeto
-
-
-
-
-
-
-
-
 
