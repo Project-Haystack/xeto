@@ -51,10 +51,22 @@ spec: @ph::ElecMeter
 Lib instances follow the given syntax:
 
 ```xeto
+// separate slot tags with newline
 @id: TypeSpec {
-  slot1
-  slot2
+  slotA: valA
+  slotB: valB
   ...
+}
+
+// or separate slot tags with comma
+@id: TypeSpec {
+  slotA: valA, slotB: valB, slot: valC
+  ...
+}
+
+// the value can be omitted if it is a marker
+@id: TypeSpec {
+  markerA, markerB
 }
 ```
 
@@ -74,9 +86,10 @@ For example to create an instance of a floor and room:
 ```
 
 Note that we can cross reference other instances inside the lib
-using relative ids.  All the non-maybe tags from the spec type
-are automatically added into the instance.  The instances in
-the example above evaluate to the following Haystack dicts:
+using relative ids (absolute qnames are also permitted).  All
+the non-maybe tags from the spec type are automatically added
+into the instance.  The instances in the example above evaluate
+to the following Haystack dicts:
 
 ```trio
 id: @acme::floor-2
@@ -93,7 +106,7 @@ room
 ```
 
 Note that the `space` and `floor`/`room` markers are implied
-from the instance's spec.
+from the instance specs `ph::Floor` and `ph::Room`.
 
 The instances above map the following JSON representation:
 
@@ -119,11 +132,9 @@ The instances above map the following JSON representation:
 # Nesting Instances
 
 Xeto allows instances to be nested into a tree of dicts.
-Nested instances can have a top-level id, or a slot name,
-or both.
+Nested instances can have a slot name, a top-level id, or both.
 
-Here is an example where the nested dicts do not have
-a top-level id:
+Here is an example where the nested dicts have only a slot name:
 
 ```xeto
 @toolbar: Toolbar {
@@ -136,14 +147,50 @@ This maps to the following Haystack dict where 'save' and 'exit'
 are just named slots that contain a nested dict:
 
 ```trio
-id:@acme::toolbar
-exit:{text:"Exit" spec:@acme::Button}
-save:{text:"Save" spec:@acme::Button}
-spec:@acme::Toolbar
+id: @acme::toolbar
+exit: {text:"Exit" spec:@acme::Button}
+save: {text:"Save" spec:@acme::Button}
+spec: @acme::Toolbar
 ```
 
-But we can also make those nested dicts first class instances:
+But we can also make those nested dicts first class instances with
+an id using this syntax by adding an id after the slot name and
+before the colon:
 
-TODO
+```xeto
+@toolbar: Toolbar {
+  save @save-button: Button { text:"Save" }
+  exit @exit-button: Button { text:"Exit" }
+}
+```
+
+```trio
+id: @acme::toolbar
+exit: {id:@acme::exit-button text:"Exit" spec:@acme::Button}
+save: {id:@acme::save-button text:"Save" spec:@acme::Button}
+spec: @acme::Toolbar
+```
+
+In many use cases if we don't care about the slot name, only
+the nested id, in which case we can omit the slot name and
+one is auto-generated for us:
+
+```xeto
+@toolbar: Toolbar {
+  @save-button: Button { text:"Save" }
+  @exit-button: Button { text:"Exit" }
+}
+```
+
+```trio
+id: @acme::toolbar
+_0: {id:@acme::save-button text:"Save" spec:@acme::Button}
+_1: {id:@acme::exit-button text:"Exit" spec:@acme::Button}
+spec: @acme::Toolbar
+````
+
+Note that in the reflection APIs the nested instances can be looked
+up directly.  However, when exporting libs that contain nested instances
+only top-level instances are included.
 
 
