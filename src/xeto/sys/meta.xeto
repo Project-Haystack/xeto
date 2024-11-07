@@ -42,14 +42,23 @@ Spec: Dict {
   // Inclusive maximum value for numbers
   maxVal: Self?
 
-  // Applied to Choices to allow multiple selections
-  multiChoice: Marker?
-
   // Restrict number or unit enum to specific unit
   unit: Unit?
 
   // Restrict number or unit enum to specific quantity
   quantity: UnitQuantity?
+
+  // Applied to Choices to allow multiple selections
+  multiChoice: Marker?
+
+  // Applied to strings to require value is non-empty when trimmed of whitespace
+  nonEmpty: Marker?
+
+  // Applied to strings, URIs, and lists to specify inclusive minimum length
+  minSize: Int?
+
+  // Applied to strings, URIs, and lists to specify inclusive maximum length
+  maxSize: Int?
 
   // Named path to traverse to execute query
   via: Str?
