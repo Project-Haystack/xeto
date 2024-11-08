@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 07-Oct-2024
+// Auto-generated 08-Nov-2024
 //
 
 // AC Electricity meter.
@@ -327,7 +327,7 @@ Equip: Entity <abstract> {
   equipRef:     Ref?
   siteRef:      Ref
   spaceRef:     Ref?
-  systemRef:    Ref?
+  systemRef:    MultiRef?
   parentEquips: Query<of:Point, via:"equipRef+">                  // Parent equips that contain this point
   childEquips:  Query<of:Point, inverse:"ph::Equip.parentEquips"> // Sub-equips contained by this equip
   points:       Query<of:Point, inverse:"ph::Point.equips">       // Points contained by this equip
@@ -661,7 +661,7 @@ Point: Entity <abstract> {
   pointSubject:  PointSubject?
   siteRef:       Ref
   spaceRef:      Ref?
-  systemRef:     Ref?
+  systemRef:     MultiRef?
   tz:            TimeZone?
   unit:          Unit?
   writable:      Marker?
@@ -803,7 +803,7 @@ SyntheticModel: Entity {
 System: Entity {
   system
   siteRef:   Ref
-  systemRef: Ref?
+  systemRef: MultiRef?
 }
 
 // Mobile device with touch screen for user input.

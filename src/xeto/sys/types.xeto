@@ -50,7 +50,7 @@ Ref: Scalar <sealed, pattern: "[a-zA-Z\\d\\._~]*"> "x"
 
 // Reference or list of references.  The 'of' meta defines target type.
 // The value may be either a single ref or a list of refs.
-MultiRef: Obj <sealed> "x"
+MultiRef: Obj <sealed>
 
 // Version string formatted as decimal digits separated by a dot
 Version: Scalar <sealed, pattern: "\\d+(\\.\\d+)*"> "0"

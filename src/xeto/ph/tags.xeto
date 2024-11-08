@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 03-Sep-2024
+// Auto-generated 08-Nov-2024
 //
 
 // Cooling process using energy from heat source such as hot water
@@ -1495,7 +1495,12 @@ subterranean: Marker
 // Device for toggling state or routing data
 switch: Marker
 
-// Synthetic point which can be Sim, Ml, and Ch.
+// Synthetic point with computed operational data. The computed data
+// if classified as:
+//   - `ml` for machine learning
+//   - `sim` for simulation
+//   - `computed` as catch all for other computations
+//
 // See `docHaystack::Synthetics` chapter.
 synthetic: Marker
 
@@ -1510,7 +1515,7 @@ syntheticModelRef: Ref <of:SyntheticModel>
 system: Marker
 
 // Reference to system
-systemRef: Ref <of:System>
+systemRef: MultiRef <of:System>
 
 // Mobile device with touch screen for user input.
 tablet: Marker
