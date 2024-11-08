@@ -10,7 +10,7 @@
 // state where false means unoccupied and true means occupied.
 OccupiedPoint : BoolPoint <abstract> {
   occupied
-  enum: Ref "ph.points::OccupiedEnum"
+  enum: Obj <val:OccupiedEnum>
 }
 
 // Unoccupied/occupied enumeration

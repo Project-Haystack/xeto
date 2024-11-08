@@ -14,13 +14,13 @@ WeatherPoint : Point & Sensor <abstract> {
 // Weather enumeration for condition such as clear, cloudy, rain, etc
 WeatherCondPoint : WeatherPoint & EnumPoint {
   weatherCond
-  enum: Ref "ph::WeatherCondEnum"
+  enum: Obj <val:WeatherCondEnum>
 }
 
 // Weather boolean point that is true between sunrise and sunset
 WeatherDaytimePoint : WeatherPoint & BoolPoint {
   daytime
-  enum: Ref "ph::WeatherDaytimeEnum"
+  enum: Obj <val:WeatherDaytimeEnum>
 }
 
 // Numeric weather observation point
@@ -39,7 +39,7 @@ WeatherWetbulbPoint : WeatherNumberPoint {
   unit: Unit<quantity:"temperature"> "°F"
 }
 
-// Apparent weather temperature considering humidity, wind 
+// Apparent weather temperature considering humidity, wind
 // chill, and heat index
 WeatherFeelsLikePoint : WeatherNumberPoint {
   feelsLike
@@ -66,7 +66,7 @@ WeatherEnthalpyPoint : WeatherNumberPoint {
 
 // Weather barometric pressure in millibar or inHg
 WeatherAtmosphericPressurePoint : WeatherNumberPoint {
-  atmospheric 
+  atmospheric
   pressure
   unit: Unit<quantity:"pressure"> "inHg"
 }
@@ -77,7 +77,7 @@ WeatherCloudagePoint : WeatherNumberPoint {
   unit: "%"
 }
 
-// Weather fallen atmospheric water vapor in mm or in 
+// Weather fallen atmospheric water vapor in mm or in
 WeatherPrecipitationPoint : WeatherNumberPoint {
   precipitation
   unit: Unit<quantity:"temperature"> "in"
@@ -85,21 +85,21 @@ WeatherPrecipitationPoint : WeatherNumberPoint {
 
 // Weather energy received from the sun in W/m²
 WeatherSolarIrradiancePoint : WeatherNumberPoint {
-  solar 
-  irradiance 
+  solar
+  irradiance
   unit: Unit<quantity:"energy"> "W/m²"
 }
 
 // Weather wind speed in km/h or mph
 WeatherWindSpeedPoint : WeatherNumberPoint {
-  wind 
-  speed 
+  wind
+  speed
   unit: Unit<quantity:"velocity"> "mph"
 }
 
 // Weather direction that wind originates in degrees
 WeatherWindDirectionPoint : WeatherNumberPoint {
-  wind 
+  wind
   direction
   unit: "deg"
 }
@@ -109,7 +109,4 @@ WeatherVisibilityPoint : WeatherNumberPoint {
   visibility
   unit: Unit<quantity:"length"> "mile"
 }
-
-
-
 

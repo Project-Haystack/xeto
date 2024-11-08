@@ -9,7 +9,7 @@
 // Point associated with the primary on/off state for equipment
 RunPoint : BoolPoint <abstract> {
   run
-  enum: Ref "ph.points::RunEnum"
+  enum: Obj <val:RunEnum>
 }
 
 // On and off enumeration
@@ -24,7 +24,7 @@ RunCmd : RunPoint & Cmd <abstract>
 // Point associated with secondary on/off state for equipment
 EnablePoint : BoolPoint <abstract> {
   enable
-  enum: Ref "ph.points::RunEnum"
+  enum: Obj <val:RunEnum>
 }
 
 // Sensor for the secondary on/off command for equipment
@@ -62,3 +62,4 @@ VfdSpeedSensor : VfdSpeedPoint & Sensor <abstract>
 
 // VFD speed command as percentage where 0% is off, 100% if full speed
 VfdSpeedCmd : VfdSpeedPoint & Cmd <abstract>
+
