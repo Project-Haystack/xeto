@@ -15,7 +15,7 @@ Spec: Dict {
   // Scalar default value
   val: Obj?
 
-  // Item type for parameterized Seq, Query, and Ref specs
+  // Item type for parameterized Seq/Query; target type for Ref/MultiRef
   of: Ref? <of:Spec>
 
   // Types used in compound types like And and Or
@@ -54,10 +54,10 @@ Spec: Dict {
   // Applied to strings to require value is non-empty when trimmed of whitespace
   nonEmpty: Marker?
 
-  // Applied to strings, URIs, and lists to specify inclusive minimum length
+  // Applied to strings and lists to specify inclusive minimum length
   minSize: Int?
 
-  // Applied to strings, URIs, and lists to specify inclusive maximum length
+  // Applied to strings and lists to specify inclusive maximum length
   maxSize: Int?
 
   // Named path to traverse to execute query

@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 03-Sep-2024
+// Auto-generated 08-Nov-2024
 //
 
 //////////////////////////////////////////////////////////////////////////
@@ -341,7 +341,12 @@ Cmd: PointFunction { cmd }
 // See `docHaystack::Points#function` chapter.
 Sensor: PointFunction { sensor }
 
-// Synthetic point which can be Sim, Ml, and Ch.
+// Synthetic point with computed operational data. The computed data
+// if classified as:
+//   - `ml` for machine learning
+//   - `sim` for simulation
+//   - `computed` as catch all for other computations
+//
 // See `docHaystack::Synthetics` chapter.
 Synthetic: PointFunction { synthetic }
 
