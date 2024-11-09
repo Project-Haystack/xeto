@@ -9,6 +9,7 @@
 // Weather observation point
 WeatherPoint : Point & Sensor <abstract> {
   weather
+  weatherStationRef: Ref
 }
 
 // Weather enumeration for condition such as clear, cloudy, rain, etc
