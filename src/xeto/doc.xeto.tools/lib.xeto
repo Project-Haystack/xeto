@@ -1,0 +1,20 @@
+//
+// Copyright (c) 2024, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   21 Nov 2024  Brian Frank  Creation
+//
+
+pragma: Lib <
+  doc: "Xeto tools documentation"
+  version: "0.1.1"
+  depends: {
+    { lib: "sys", versions: "0.1.x" }
+  }
+  org: {
+    dis: "Project Haystack"
+    uri: "https://project-haystack.org/"
+  }
+>
+

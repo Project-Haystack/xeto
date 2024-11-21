@@ -10,5 +10,7 @@ This repository is used to manage the source code for the standard libraries.
 
 # Documentation
 
-You can browse the markdown documentation at [doc.xeto](src/xeto/doc.xeto/index.md)
+You can browse the markdown documentation in GitHub repo:
+  - [Language Docs](src/xeto/doc.xeto/index.md)
+  - [Tool Docs](src/xeto/doc.xeto.tools/index.md)
 
