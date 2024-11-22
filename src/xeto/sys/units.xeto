@@ -1,17 +1,17 @@
 //
-// Copyright (c) 2011-2023, Project-Haystack
+// Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 15-Dec-2023
+// Auto-generated 22-Nov-2024
 //
 
 // Unit symbols for standardized database
 Unit: Enum {
   percent <key:"%">
+  percent_relative_humidity <key:"%RH">
   pixel <key:"px">
   decibel <key:"db">
   power_factor <key:"pf">
   ph <key:"pH">
-  percent_relative_humidity <key:"%RH">
   grams_of_water_per_kilogram_dry_air <key:"gH₂O/kgAir">
   volts_per_degree_kelvin <key:"V/K">
   degree_days_celsius <key:"°daysC">
@@ -290,6 +290,10 @@ Unit: Enum {
   kilobtu_per_square_foot <key:"kBTU/ft²", quantity:"energyByArea">
   megabtu_per_square_foot <key:"MBTU/ft²", quantity:"energyByArea">
 
+  joules_per_cubic_meter <key:"J/m³", quantity:"energyByVolume">
+  gigajoules_per_cubic_meter <key:"GJ/m³", quantity:"energyByVolume">
+  kilowatt_hours_per_cubic_meter <key:"kWh/m³", quantity:"energyByVolume">
+
   joules_per_gram <key:"J/g", quantity:"enthalpy">
   joules_per_kilogram <key:"J/kg", quantity:"enthalpy">
   joules_per_kilogram_dry_air <key:"J/kg_dry", quantity:"enthalpy">
@@ -546,6 +550,7 @@ UnitQuantity: Enum {
   apparentEnergy
   reactiveEnergy
   energyByArea
+  energyByVolume
   enthalpy
   entropy
   force
