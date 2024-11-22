@@ -105,7 +105,7 @@ Seq: Obj <abstract>
 Dict: Seq
 
 // Ordered list of zero or more values
-List: Seq
+List: Seq <sealed>
 
 // Two dimension table of columns and rows.
 Grid: Seq <of:Dict>
