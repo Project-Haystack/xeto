@@ -12,16 +12,29 @@ Follow the setup instructions from [Haxall docs](https://haxall.io/doc/docHaxall
 
 1. Install Java on your system
 2. Download and unzip the last release from [GitHub](https://github.com/haxall/haxall/releases)
-3. Run 'bin/xeto version' to verify install
+3. Run 'xeto version' to verify install
+
+   ```
+   bin/xeto version
+   ```
 
 # Install for NodeJS
 
 Install [@haxall/haxall](https://www.npmjs.com/package/@haxall/haxall) using
 npm as follows:
 
-1. Install using 'npm i -g @haxall/haxall' (if you get a permission error on Unix
+1. Install '@haxall/haxall' using npm (if you get a permission error on Unix
    then run via sudo)
+
+    ```
+    npm i -g @haxall/haxall
+    ```
+
 2. Run 'xeto version' to verify install
+
+   ```
+   xeto version
+   ```
 
 See NPM docs on package.json [bin scripts](https://docs.npmjs.com/cli/v10/configuring-npm/package-json#bin) for additional details.
 
