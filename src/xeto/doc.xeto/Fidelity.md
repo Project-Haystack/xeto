@@ -83,7 +83,7 @@ mapping scalars to JSON objects).  The following mapping is used:
   sys::Bool      boolean
   sys::Int       number
   sys::Float     number
-  sys::Number    number  (if no unit)
+  sys::Number    number (if no unit)
   sys::Number    string (if there is a unit)
   sys::Scalar    string  // all other scalars encode as string
   sys::List      array

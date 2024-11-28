@@ -10,7 +10,7 @@
 AirHumidityPoint : NumberPoint <abstract> {
   air
   humidity
-  unit: "%RH"
+  unit: Unit <fixed> "%RH"
 }
 
 // Sensor for relative humidity
@@ -48,3 +48,4 @@ ZoneAirHumiditySensor : AirHumiditySensor { zone }
 
 // Setpoint for relative humidity in the zone
 ZoneAirHumiditySp : AirHumiditySp { zone }
+

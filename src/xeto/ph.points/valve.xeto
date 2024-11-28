@@ -9,7 +9,7 @@
 // Point associated with a valve; 0% is fully closed and 100% is fully open.
 ValvePoint : NumberPoint <abstract> {
   valve
-  unit: "%"
+  unit: Unit <fixed> "%"
 }
 
 // Valve position sensor; 0% is fully closed and 100% is fully open.
@@ -37,7 +37,4 @@ HotWaterValveSensor : ValveSensor { hot, water }
 
 // Valve commad for hot water
 HotWaterValveCmd : ValveCmd { hot, water }
-
-
-
 

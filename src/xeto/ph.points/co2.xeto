@@ -11,7 +11,7 @@ Co2Point : NumberPoint <abstract> {
   air
   co2
   concentration
-  unit: "ppm"
+  unit: Unit <fixed> "ppm"
 }
 
 // Sensor for concentration of carbon dioxide (CO₂)
@@ -29,5 +29,4 @@ ZoneCo2Sensor : Co2Sensor { zone }
 
 // Setpoint for concentration of carbon dioxide (CO₂) in zone space.
 ZoneCo2Sp : Co2Sp { zone }
-
 

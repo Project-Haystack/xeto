@@ -12,7 +12,7 @@ Spec: Dict {
   // Indicates an optional type
   maybe: Marker? <noInherit>
 
-  // Scalar default value
+  // Default value for this slot
   val: Obj?
 
   // Item type for parameterized Seq/Query; target type for Ref/MultiRef
@@ -35,6 +35,9 @@ Spec: Dict {
 
   // Regex pattern for scalar string encoding
   pattern: Str?
+
+  // Annotates a slot as a fixed value that must be equal to 'val'
+  fixed: Marker?
 
   // Inclusive minimum value for numbers
   minVal: Self?
