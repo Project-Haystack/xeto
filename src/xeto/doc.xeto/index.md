@@ -8,7 +8,8 @@
 - [Choices](Choices.md): mutually exclusive marker choices
 - [Type System](TypeSystem.md): type system features
 - [Namespaces](Namespaces.md): closed set of libs that define name space
-- [Fidelity](Fidelity.md): type erasure rulesw hen mapping to other data formats
+- [Constraints](Constraints.md): constraint rules used for validation
+- [Fidelity](Fidelity.md): type erasure rules when mapping to other data formats
 
 # Tools
 
