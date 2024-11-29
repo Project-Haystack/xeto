@@ -10,7 +10,7 @@
 WaterVolumePoint : NumberPoint <abstract> {
   water
   volume
-  unit: Unit<quantity:"volume"> "gallon"
+  unit: Unit<quantity:"volume"> "gal"
 }
 
 // Sensor for volumetric consumption of water
@@ -28,3 +28,4 @@ DomesticWaterVolumeSensor : WaterVolumeSensor { domestic }
 
 // Setpoint for volumetric consumption of domestic water
 DomesticWaterVolumeSp : WaterVolumeSp { domestic }
+
