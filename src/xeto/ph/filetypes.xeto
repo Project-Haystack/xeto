@@ -1,14 +1,15 @@
 //
-// Copyright (c) 2011-2023, Project-Haystack
+// Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 11-Dec-2023
+// Auto-generated 29-Nov-2024
 //
 
 // File format type definition
 Filetype: Feature {
-  filetype       // Filetype marker
-  fileExt: Str?  // Filename extension such as "csv"
-  mime:    Str?  // Mime type formatted as "type/subtype"
+  filetype         // Filetype marker
+  fileExt:   Str?  // Filename extension such as "csv"
+  mime:      Str?  // Mime type formatted as "type/subtype"
+  wikipedia: Uri?  // Wikipedia link
 }
 
 // Comma Separated Values - see `docHaystack::Csv`
