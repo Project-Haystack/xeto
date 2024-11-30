@@ -14,7 +14,7 @@
 NaturalGasFlowPoint : NumberPoint <abstract> {
   naturalGas
   flow
-  unit: Unit<quantity:"volumetricFlow"> "cfm"
+  unit: Unit <quantity:"volumetricFlow"> "cfm"
 }
 
 // Sensor for volumetric flow of natural gas
@@ -31,7 +31,7 @@ NaturalGasFlowSp : NaturalGasFlowPoint & Sp
 NaturalGasVolumePoint : NumberPoint <abstract> {
   naturalGas
   volume
-  unit: Unit<quantity:"volume"> "Ccf"
+  unit: Unit <quantity:"volume"> "Ccf"
 }
 
 // Sensor for volumetric consumption of natural gas
@@ -48,7 +48,7 @@ NaturalGasVolumeSp : NaturalGasVolumePoint & Sp
 NaturalGasEnergyPoint : NumberPoint <abstract> {
   naturalGas
   energy
-  unit: Unit<quantity:"energy"> "Ccf_natural_gas"
+  unit: Unit <quantity:"energy"> "Ccf_natural_gas"
 }
 
 // Sensor for energy consumption of natural gas
@@ -56,3 +56,4 @@ NaturalGasEnergySensor : NaturalGasEnergyPoint & Sensor
 
 // Setpoint for energy consumption of natural gas
 NaturalGasEnergySp : NaturalGasEnergyPoint & Sp
+

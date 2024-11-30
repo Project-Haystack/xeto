@@ -10,7 +10,7 @@
 WaterFlowPoint : NumberPoint <abstract> {
   water
   flow
-  unit: Unit<quantity:"volumetricFlow"> "gal/min"
+  unit: Unit <quantity:"volumetricFlow"> "gal/min"
 }
 
 // Sensor for volumetric flow of water

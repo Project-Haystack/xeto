@@ -10,7 +10,7 @@
 AirTempPoint : NumberPoint <abstract> {
   air
   temp
-  unit: Unit<quantity:"temperature"> "°F"
+  unit: Unit <quantity:"temperature"> "°F"
 }
 
 // Sensor for drybulb air temperature
@@ -119,8 +119,4 @@ ZoneAirTempUnoccHeatingSp : ZoneAirTempHeatingSp { unocc }
 
 // Heating mode temperature setpoint for zone when in standby mode
 ZoneAirTempStandbyHeatingSp : ZoneAirTempHeatingSp { standby }
-
-
-
-
 

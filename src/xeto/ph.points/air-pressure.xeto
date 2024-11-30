@@ -10,7 +10,7 @@
 AirPressurePoint : NumberPoint <abstract> {
   air
   pressure
-  unit: Unit<quantity:"pressure"> "inH₂O"
+  unit: Unit <quantity:"pressure"> "inH₂O"
 }
 
 // Sensor for static air pressure
@@ -38,5 +38,4 @@ ReturnAirPressureSensor : AirPressureSensor { return }
 
 // Setpoint for static air pressure in return duct
 ReturnAirPressureSp : AirPressureSp { return }
-
 

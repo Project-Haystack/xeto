@@ -12,7 +12,7 @@ ElecSensor : NumberPoint & Sensor <abstract> { elec }
 // Sensor for electric voltage
 ElecVoltSensor : ElecSensor <abstract> {
   volt
-  unit: Unit<quantity:"electricPotential"> "V"
+  unit: Unit <quantity:"electricPotential"> "V"
 }
 
 // Sensor for electric current

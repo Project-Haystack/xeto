@@ -10,7 +10,7 @@
 AirFlowPoint : NumberPoint <abstract> {
   air
   flow
-  unit: Unit<quantity:"volumetricFlow"> "cfm"
+  unit: Unit <quantity:"volumetricFlow"> "cfm"
 }
 
 // Sensor for volumetric air flow
@@ -113,5 +113,4 @@ VentilationAirFlowSensor : AirFlowSensor { ventilation }
 // Setpoint for volumetric air flow in ventilation or minimum fresh air duct.
 // Used when there are separate ducts for minimum fresh air vs economizing.
 VentilationAirFlowSp : AirFlowSp { ventilation }
-
 
