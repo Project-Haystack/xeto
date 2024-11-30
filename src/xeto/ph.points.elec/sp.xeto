@@ -1,220 +1,52 @@
-//////////////////////////////////////////////////////////////////////////
-// Point kind specs
-//////////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2024, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   3 Sep 2024  Rick Jennings  Creation
+//
 
 // Setpoint for electricity
 ElecSp : NumberPoint & Sp <abstract> { elec }
 
-// Effective setpoint for electricity
-ElecEffectiveSp : ElecSp <abstract> { effective }
-
 // Max setpoint for electricity
 ElecMaxSp : ElecSp <abstract> { max }
-
-// Min setpoint for electricity
-ElecMinSp : ElecSp <abstract> { min }
-
-//////////////////////////////////////////////////////////////////////////
-// Primary quantity specs
-//////////////////////////////////////////////////////////////////////////
-
-// Effective setpoint for electric voltage
-ElecVoltEffectiveSp : ElecEffectiveSp <abstract> {
-  volt
-  unit: Unit<quantity:"electricPotential"> "V"
-}
-
-// Effective setpoint for electric current
-ElecCurrentEffectiveSp : ElecEffectiveSp <abstract> {
-  current
-  unit: Unit<quantity:"electricCurrent"> "A"
-}
-
-// Effective setpoint for electric power
-ElecPowerEffectiveSp : ElecEffectiveSp <abstract> {
-  power
-  unit: Unit<quantity:"power"> "kW"
-}
-
-// Effective setpoint for electric demand
-ElecDemandEffectiveSp : ElecEffectiveSp <abstract> {
-  demand
-  unit: Unit<quantity:"power"> "kW"
-}
-
-// Effective setpoint for electric energy
-ElecEnergyEffectiveSp : ElecEffectiveSp <abstract> {
-  energy
-  unit: Unit<quantity:"energy"> "kWh"
-}
-
-// Max setpoint for electric voltage
-ElecVoltMaxSp : ElecMaxSp <abstract> {
-  volt
-  unit: Unit<quantity:"electricPotential"> "V"
-}
 
 // Max setpoint for electric current
 ElecCurrentMaxSp : ElecMaxSp <abstract> {
   current
-  unit: Unit<quantity:"electricCurrent"> "A"
+  unit: Unit <quantity:"electricCurrent"> "A"
 }
 
 // Max setpoint for electric power
 ElecPowerMaxSp : ElecMaxSp <abstract> {
   power
-  unit: Unit<quantity:"power"> "kW"
+  unit: Unit <quantity:"power"> "kW"
 }
 
 // Max setpoint for electric demand
 ElecDemandMaxSp : ElecMaxSp <abstract> {
   demand
-  unit: Unit<quantity:"power"> "kW"
+  unit: Unit <quantity:"power"> "kW"
 }
-
-// Max setpoint for electric energy
-ElecEnergyMaxSp : ElecMaxSp <abstract> {
-  energy
-  unit: Unit<quantity:"energy"> "kWh"
-}
-
-// Min setpoint for electric voltage
-ElecVoltMinSp : ElecMinSp <abstract> {
-  volt
-  unit: Unit<quantity:"electricPotential"> "V"
-}
-
-// Min setpoint for electric current
-ElecCurrentMinSp : ElecMinSp <abstract> {
-  current
-  unit: Unit<quantity:"electricCurrent"> "A"
-}
-
-// Min setpoint for electric power
-ElecPowerMinSp : ElecMinSp <abstract> {
-  power
-  unit: Unit<quantity:"power"> "kW"
-}
-
-// Min setpoint for electric demand
-ElecDemandMinSp : ElecMinSp <abstract> {
-  demand
-  unit: Unit<quantity:"power"> "kW"
-}
-
-// Min setpoint for electric energy
-ElecEnergyMinSp : ElecMinSp <abstract> {
-  energy
-  unit: Unit<quantity:"energy"> "kWh"
-}
-
-//////////////////////////////////////////////////////////////////////////
-// DC primary quantity specs
-//////////////////////////////////////////////////////////////////////////
-
-// Effective setpoint for DC electric current
-ElecDcCurrentEffectiveSp : ElecCurrentEffectiveSp <abstract> { dc }
 
 // Max setpoint for DC electric current
 ElecDcCurrentMaxSp : ElecCurrentMaxSp <abstract> { dc }
 
-// Min setpoint for DC electric current
-ElecDcCurrentMinSp : ElecCurrentMinSp <abstract> { dc }
-
-// Effective setpoint for DC electric power
-ElecDcPowerEffectiveSp : ElecPowerEffectiveSp <abstract> { dc }
-
 // Max setpoint for DC electric power
 ElecDcPowerMaxSp : ElecPowerMaxSp <abstract> { dc }
-
-// Min setpoint for DC electric power
-ElecDcPowerMinSp : ElecPowerMinSp <abstract> { dc }
-
-// Effective setpoint for DC electric demand
-ElecDcDemandEffectiveSp : ElecDemandEffectiveSp <abstract> { dc }
 
 // Max setpoint for DC electric demand
 ElecDcDemandMaxSp : ElecDemandMaxSp <abstract> { dc }
 
-// Min setpoint for DC electric demand
-ElecDcDemandMinSp : ElecDemandMinSp <abstract> { dc }
+// Max setpoint for DC electric power imported
+ElecImportDcPowerMaxSp : ElecDcPowerMaxSp { import }
 
-// Effective setpoint for DC electric state of charge
-ElecDcStateOfChargeEffectiveSp : ElecEffectiveSp {
-  stateOfCharge
-  unit: "%"
-  dc
-}
+// Max setpoint for DC electric current imported
+ElecImportDcCurrentMaxSp : ElecDcCurrentMaxSp { import }
 
-// Max setpoint for DC electric state of charge
-ElecDcStateOfChargeMaxSp : ElecMaxSp {
-  stateOfCharge
-  unit: "%"
-  dc
-}
-
-// Min setpoint for DC electric state of charge
-ElecDcStateOfChargeMinSp : ElecMinSp {
-  stateOfCharge
-  unit: "%"
-  dc
-}
-
-//////////////////////////////////////////////////////////////////////////
-// AC primary quantity specs
-//////////////////////////////////////////////////////////////////////////
-
-// Effective setpoint for AC electric power factor
-ElecAcPfEffectiveSp : ElecEffectiveSp <abstract> {
-  pf
-  unit: "%"
-  ac
-}
-
-// Max setpoint for AC electric power factor
-ElecAcPfMaxSp : ElecMaxSp <abstract> {
-  pf
-  unit: "%"
-  ac
-}
-
-// Min setpoint for AC electric power factor
-ElecAcPfMinSp : ElecMinSp <abstract> {
-  pf
-  unit: "%"
-  ac
-}
-
-// Effective setpoint for AC electric frequency
-ElecAcFreqEffectiveSp : ElecEffectiveSp {
-  freq
-  unit: "Hz"
-  ac
-}
-
-// Max setpoint for AC electric frequency
-ElecAcFreqMaxSp : ElecMaxSp {
-  freq
-  unit: "Hz"
-  ac
-}
-
-// Min setpoint for AC electric frequency
-ElecAcFreqMinSp : ElecMinSp {
-  freq
-  unit: "Hz"
-  ac
-}
-
-//////////////////////////////////////////////////////////////////////////
-// AC subtype specs
-//////////////////////////////////////////////////////////////////////////
-
-// Effective setpoint for magnitude of AC electric current
-ElecAcMagnitudeCurrentEffectiveSp : ElecCurrentEffectiveSp <abstract> {
-  magnitude
-  ac
-}
+// Max setpoint for DC electric demand imported
+ElecImportDcDemandMaxSp : ElecDcDemandMaxSp { import }
 
 // Max setpoint for magnitude of AC electric current
 ElecAcMagnitudeCurrentMaxSp : ElecCurrentMaxSp <abstract> {
@@ -222,41 +54,8 @@ ElecAcMagnitudeCurrentMaxSp : ElecCurrentMaxSp <abstract> {
   ac
 }
 
-// Min setpoint for magnitude of AC electric current
-ElecAcMagnitudeCurrentMinSp : ElecCurrentMinSp <abstract> {
-  magnitude
-  ac
-}
-
-// Effective setpoint for AC electric active power
-ElecAcActivePowerEffectiveSp : ElecPowerEffectiveSp <abstract> {
-  active
-  ac
-}
-
 // Max setpoint for AC electric active power
 ElecAcActivePowerMaxSp : ElecPowerMaxSp <abstract> {
-  active
-  ac
-}
-
-// Min setpoint for AC electric active power
-ElecAcActivePowerMinSp : ElecPowerMinSp <abstract> {
-  active
-  ac
-}
-
-// Effective setpoint for true power factor of AC electric power
-ElecAcTruePfEffectiveSp : ElecAcPfEffectiveSp <abstract> { pfTrue }
-
-// Max setpoint for true power factor of AC electric power
-ElecAcTruePfMaxSp : ElecAcPfMaxSp <abstract> { pfTrue }
-
-// Min setpoint for true power factor of AC electric power
-ElecAcTruePfMinSp : ElecAcPfMinSp <abstract> { pfTrue }
-
-// Effective setpoint for AC electric active demand
-ElecAcActiveDemandEffectiveSp : ElecDemandEffectiveSp <abstract> {
   active
   ac
 }
@@ -267,104 +66,14 @@ ElecAcActiveDemandMaxSp : ElecDemandMaxSp <abstract> {
   ac
 }
 
-// Min setpoint for AC electric active demand
-ElecAcActiveDemandMinSp : ElecDemandMinSp <abstract> {
-  active
-  ac
-}
-
-//////////////////////////////////////////////////////////////////////////
-// DC direction specs
-//////////////////////////////////////////////////////////////////////////
-
-// Effective setpoint for DC electric current imported
-ElecImportDcCurrentEffectiveSp : ElecDcCurrentEffectiveSp { import }
-
-// Max setpoint for DC electric current imported
-ElecImportDcCurrentMaxSp : ElecDcCurrentMaxSp { import }
-
-// Min setpoint for DC electric current imported
-ElecImportDcCurrentMinSp : ElecDcCurrentMinSp { import }
-
-// Effective setpoint for DC electric power imported
-ElecImportDcPowerEffectiveSp : ElecDcPowerEffectiveSp { import }
-
-// Max setpoint for DC electric power imported
-ElecImportDcPowerMaxSp : ElecDcPowerMaxSp { import }
-
-// Min setpoint for DC electric power imported
-ElecImportDcPowerMinSp : ElecDcPowerMinSp { import }
-
-// Effective setpoint for DC electric demand imported
-ElecImportDcDemandEffectiveSp : ElecDcDemandEffectiveSp { import }
-
-// Max setpoint for DC electric demand imported
-ElecImportDcDemandMaxSp : ElecDcDemandMaxSp { import }
-
-// Min setpoint for DC electric demand imported
-ElecImportDcDemandMinSp : ElecDcDemandMinSp { import }
-
-//////////////////////////////////////////////////////////////////////////
-// AC direction specs
-//////////////////////////////////////////////////////////////////////////
-
-// Effective setpoint for magnitude of AC electric current imported
-ElecImportAcMagnitudeCurrentEffectiveSp : ElecAcMagnitudeCurrentEffectiveSp <abstract> { import }
-
 // Max setpoint for magnitude of AC electric current imported
 ElecImportAcMagnitudeCurrentMaxSp : ElecAcMagnitudeCurrentMaxSp <abstract> { import }
-
-// Min setpoint for magnitude of AC electric current imported
-ElecImportAcMagnitudeCurrentMinSp : ElecAcMagnitudeCurrentMinSp <abstract> { import }
-
-// Effective setpoint for AC electric active power imported
-ElecImportAcActivePowerEffectiveSp : ElecAcActivePowerEffectiveSp <abstract> { import }
 
 // Max setpoint for AC electric active power imported
 ElecImportAcActivePowerMaxSp : ElecAcActivePowerMaxSp <abstract> { import }
 
-// Min setpoint for AC electric active power imported
-ElecImportAcActivePowerMinSp : ElecAcActivePowerMinSp <abstract> { import }
-
-// Effective setpoint for AC electric active demand imported
-ElecImportAcActiveDemandEffectiveSp : ElecAcActiveDemandEffectiveSp <abstract> { import }
-
 // Max setpoint for AC electric active demand imported
 ElecImportAcActiveDemandMaxSp : ElecAcActiveDemandMaxSp <abstract> { import }
-
-// Min setpoint for AC electric active demand imported
-ElecImportAcActiveDemandMinSp : ElecAcActiveDemandMinSp <abstract> { import }
-
-//////////////////////////////////////////////////////////////////////////
-// AC location specs
-//////////////////////////////////////////////////////////////////////////
-
-// Effective setpoint for line magnitude of AC electric current imported
-ElecLineImportAcMagnitudeCurrentEffectiveSp : ElecImportAcMagnitudeCurrentEffectiveSp <abstract> { lineCurrent: LineCurrent }
-
-// Effective setpoint for line 1 magnitude of AC electric current imported
-ElecL1ImportAcMagnitudeCurrentEffectiveSp : ElecLineImportAcMagnitudeCurrentEffectiveSp { lineCurrent: "L1" }
-
-// Effective setpoint for line 2 magnitude of AC electric current imported
-ElecL2ImportAcMagnitudeCurrentEffectiveSp : ElecLineImportAcMagnitudeCurrentEffectiveSp { lineCurrent: "L2" }
-
-// Effective setpoint for line 3 magnitude of AC electric current imported
-ElecL3ImportAcMagnitudeCurrentEffectiveSp : ElecLineImportAcMagnitudeCurrentEffectiveSp { lineCurrent: "L3" }
-
-// Effective setpoint for phase magnitude of AC electric current imported
-ElecPhaseImportAcMagnitudeCurrentEffectiveSp : ElecImportAcMagnitudeCurrentEffectiveSp <abstract> { phaseCurrent: PhaseCurrent }
-
-// Effective setpoint for line 1 to line 2 magnitude of AC electric current imported
-ElecL1L2ImportAcMagnitudeCurrentEffectiveSp : ElecPhaseImportAcMagnitudeCurrentEffectiveSp { phaseCurrent: "L1-L2" }
-
-// Effective setpoint for line 2 to line 3 magnitude of AC electric current imported
-ElecL2L3ImportAcMagnitudeCurrentEffectiveSp : ElecPhaseImportAcMagnitudeCurrentEffectiveSp { phaseCurrent: "L2-L3" }
-
-// Effective setpoint for line 3 to line 1 magnitude of AC electric current imported
-ElecL3L1ImportAcMagnitudeCurrentEffectiveSp : ElecPhaseImportAcMagnitudeCurrentEffectiveSp { phaseCurrent: "L3-L1" }
-
-// Effective setpoint for neutral magnitude of AC electric current imported
-ElecNeutralImportAcMagnitudeCurrentEffectiveSp : ElecImportAcMagnitudeCurrentEffectiveSp { neutral }
 
 // Max setpoint for line magnitude of AC electric current imported
 ElecLineImportAcMagnitudeCurrentMaxSp : ElecImportAcMagnitudeCurrentMaxSp <abstract> { lineCurrent: LineCurrent }
@@ -390,204 +99,9 @@ ElecL2L3ImportAcMagnitudeCurrentMaxSp : ElecPhaseImportAcMagnitudeCurrentMaxSp {
 // Max setpoint for line 3 to line 1 magnitude of AC electric current imported
 ElecL3L1ImportAcMagnitudeCurrentMaxSp : ElecPhaseImportAcMagnitudeCurrentMaxSp { phaseCurrent: "L3-L1" }
 
-// Max setpoint for neutral magnitude of AC electric current imported
-ElecNeutralImportAcMagnitudeCurrentMaxSp : ElecImportAcMagnitudeCurrentMaxSp { neutral }
-
-// Min setpoint for line magnitude of AC electric current imported
-ElecLineImportAcMagnitudeCurrentMinSp : ElecImportAcMagnitudeCurrentMinSp <abstract> { lineCurrent: LineCurrent }
-
-// Min setpoint for line 1 magnitude of AC electric current imported
-ElecL1ImportAcMagnitudeCurrentMinSp : ElecLineImportAcMagnitudeCurrentMinSp { lineCurrent: "L1" }
-
-// Min setpoint for line 2 magnitude of AC electric current imported
-ElecL2ImportAcMagnitudeCurrentMinSp : ElecLineImportAcMagnitudeCurrentMinSp { lineCurrent: "L2" }
-
-// Min setpoint for line 3 magnitude of AC electric current imported
-ElecL3ImportAcMagnitudeCurrentMinSp : ElecLineImportAcMagnitudeCurrentMinSp { lineCurrent: "L3" }
-
-// Min setpoint for phase magnitude of AC electric current imported
-ElecPhaseImportAcMagnitudeCurrentMinSp : ElecImportAcMagnitudeCurrentMinSp <abstract> { phaseCurrent: PhaseCurrent }
-
-// Min setpoint for line 1 to line 2 magnitude of AC electric current imported
-ElecL1L2ImportAcMagnitudeCurrentMinSp : ElecPhaseImportAcMagnitudeCurrentMinSp { phaseCurrent: "L1-L2" }
-
-// Min setpoint for line 2 to line 3 magnitude of AC electric current imported
-ElecL2L3ImportAcMagnitudeCurrentMinSp : ElecPhaseImportAcMagnitudeCurrentMinSp { phaseCurrent: "L2-L3" }
-
-// Min setpoint for line 3 to line 1 magnitude of AC electric current imported
-ElecL3L1ImportAcMagnitudeCurrentMinSp : ElecPhaseImportAcMagnitudeCurrentMinSp { phaseCurrent: "L3-L1" }
-
-// Min setpoint for neutral magnitude of AC electric current imported
-ElecNeutralImportAcMagnitudeCurrentMinSp : ElecImportAcMagnitudeCurrentMinSp { neutral }
-
-// Effective setpoint for total AC electric active power imported
-ElecTotalImportAcActivePowerEffectiveSp : ElecImportAcActivePowerEffectiveSp { total }
-
-// Effective setpoint for line AC electric active power imported
-ElecLineImportAcActivePowerEffectiveSp : ElecImportAcActivePowerEffectiveSp <abstract> { linePower: LinePower }
-
-// Effective setpoint for line 1 to line 2 AC electric active power imported
-ElecL1L2ImportAcActivePowerEffectiveSp : ElecLineImportAcActivePowerEffectiveSp { linePower: "L1-L2" }
-
-// Effective setpoint for line 2 to line 3 AC electric active power imported
-ElecL2L3ImportAcActivePowerEffectiveSp : ElecLineImportAcActivePowerEffectiveSp { linePower: "L2-L3" }
-
-// Effective setpoint for line 3 to line 1 AC electric active power imported
-ElecL3L1ImportAcActivePowerEffectiveSp : ElecLineImportAcActivePowerEffectiveSp { linePower: "L3-L1" }
-
-// Effective setpoint for phase AC electric active power imported
-ElecPhaseImportAcActivePowerEffectiveSp : ElecImportAcActivePowerEffectiveSp <abstract> { phasePower: PhasePower }
-
-// Effective setpoint for line 1 AC electric active power imported
-ElecL1ImportAcActivePowerEffectiveSp : ElecPhaseImportAcActivePowerEffectiveSp { phasePower: "L1" }
-
-// Effective setpoint for line 2 AC electric active power imported
-ElecL2ImportAcActivePowerEffectiveSp : ElecPhaseImportAcActivePowerEffectiveSp { phasePower: "L2" }
-
-// Effective setpoint for line 3 AC electric active power imported
-ElecL3ImportAcActivePowerEffectiveSp : ElecPhaseImportAcActivePowerEffectiveSp { phasePower: "L3" }
-
 // Max setpoint for total AC electric active power imported
 ElecTotalImportAcActivePowerMaxSp : ElecImportAcActivePowerMaxSp { total }
 
-// Max setpoint for line AC electric active power imported
-ElecLineImportAcActivePowerMaxSp : ElecImportAcActivePowerMaxSp <abstract> { linePower: LinePower }
-
-// Max setpoint for line 1 to line 2 AC electric active power imported
-ElecL1L2ImportAcActivePowerMaxSp : ElecLineImportAcActivePowerMaxSp { linePower: "L1-L2" }
-
-// Max setpoint for line 2 to line 3 AC electric active power imported
-ElecL2L3ImportAcActivePowerMaxSp : ElecLineImportAcActivePowerMaxSp { linePower: "L2-L3" }
-
-// Max setpoint for line 3 to line 1 AC electric active power imported
-ElecL3L1ImportAcActivePowerMaxSp : ElecLineImportAcActivePowerMaxSp { linePower: "L3-L1" }
-
-// Max setpoint for phase AC electric active power imported
-ElecPhaseImportAcActivePowerMaxSp : ElecImportAcActivePowerMaxSp <abstract> { phasePower: PhasePower }
-
-// Max setpoint for line 1 AC electric active power imported
-ElecL1ImportAcActivePowerMaxSp : ElecPhaseImportAcActivePowerMaxSp { phasePower: "L1" }
-
-// Max setpoint for line 2 AC electric active power imported
-ElecL2ImportAcActivePowerMaxSp : ElecPhaseImportAcActivePowerMaxSp { phasePower: "L2" }
-
-// Max setpoint for line 3 AC electric active power imported
-ElecL3ImportAcActivePowerMaxSp : ElecPhaseImportAcActivePowerMaxSp { phasePower: "L3" }
-
-// Min setpoint for total AC electric active power imported
-ElecTotalImportAcActivePowerMinSp : ElecImportAcActivePowerMinSp { total }
-
-// Min setpoint for line AC electric active power imported
-ElecLineImportAcActivePowerMinSp : ElecImportAcActivePowerMinSp <abstract> { linePower: LinePower }
-
-// Min setpoint for line 1 to line 2 AC electric active power imported
-ElecL1L2ImportAcActivePowerMinSp : ElecLineImportAcActivePowerMinSp { linePower: "L1-L2" }
-
-// Min setpoint for line 2 to line 3 AC electric active power imported
-ElecL2L3ImportAcActivePowerMinSp : ElecLineImportAcActivePowerMinSp { linePower: "L2-L3" }
-
-// Min setpoint for line 3 to line 1 AC electric active power imported
-ElecL3L1ImportAcActivePowerMinSp : ElecLineImportAcActivePowerMinSp { linePower: "L3-L1" }
-
-// Min setpoint for phase AC electric active power imported
-ElecPhaseImportAcActivePowerMinSp : ElecImportAcActivePowerMinSp <abstract> { phasePower: PhasePower }
-
-// Min setpoint for line 1 AC electric active power imported
-ElecL1ImportAcActivePowerMinSp : ElecPhaseImportAcActivePowerMinSp { phasePower: "L1" }
-
-// Min setpoint for line 2 AC electric active power imported
-ElecL2ImportAcActivePowerMinSp : ElecPhaseImportAcActivePowerMinSp { phasePower: "L2" }
-
-// Min setpoint for line 3 AC electric active power imported
-ElecL3ImportAcActivePowerMinSp : ElecPhaseImportAcActivePowerMinSp { phasePower: "L3" }
-
-// Effective setpoint for true power factor of total AC electric power
-ElecTotalAcTruePfEffectiveSp : ElecAcTruePfEffectiveSp { total }
-
-// Effective setpoint for true power factor of line AC electric power
-ElecLineAcTruePfEffectiveSp : ElecAcTruePfEffectiveSp <abstract> { linePf: LinePf }
-
-// Effective setpoint for true power factor of line 1 to line 2 AC electric power
-ElecL1L2AcTruePfEffectiveSp : ElecLineAcTruePfEffectiveSp { linePf: "L1-L2" }
-
-// Effective setpoint for true power factor of line 2 to line 3 AC electric power
-ElecL2L3AcTruePfEffectiveSp : ElecLineAcTruePfEffectiveSp { linePf: "L2-L3" }
-
-// Effective setpoint for true power factor of line 3 to line 1 AC electric power
-ElecL3L1AcTruePfEffectiveSp : ElecLineAcTruePfEffectiveSp { linePf: "L3-L1" }
-
-// Effective setpoint for true power factor of phase AC electric power
-ElecPhaseAcTruePfEffectiveSp : ElecAcTruePfEffectiveSp <abstract> { phasePf: PhasePf }
-
-// Effective setpoint for true power factor of line 1 AC electric power
-ElecL1AcTruePfEffectiveSp : ElecPhaseAcTruePfEffectiveSp { phasePf: "L1" }
-
-// Effective setpoint for true power factor of line 2 AC electric power
-ElecL2AcTruePfEffectiveSp : ElecPhaseAcTruePfEffectiveSp { phasePf: "L2" }
-
-// Effective setpoint for true power factor of line 3 AC electric power
-ElecL3AcTruePfEffectiveSp : ElecPhaseAcTruePfEffectiveSp { phasePf: "L3" }
-
-// Max setpoint for true power factor of total AC electric power
-ElecTotalAcTruePfMaxSp : ElecAcTruePfMaxSp { total }
-
-// Max setpoint for true power factor of line AC electric power
-ElecLineAcTruePfMaxSp : ElecAcTruePfMaxSp <abstract> { linePf: LinePf }
-
-// Max setpoint for true power factor of line 1 to line 2 AC electric power
-ElecL1L2AcTruePfMaxSp : ElecLineAcTruePfMaxSp { linePf: "L1-L2" }
-
-// Max setpoint for true power factor of line 2 to line 3 AC electric power
-ElecL2L3AcTruePfMaxSp : ElecLineAcTruePfMaxSp { linePf: "L2-L3" }
-
-// Max setpoint for true power factor of line 3 to line 1 AC electric power
-ElecL3L1AcTruePfMaxSp : ElecLineAcTruePfMaxSp { linePf: "L3-L1" }
-
-// Max setpoint for true power factor of phase AC electric power
-ElecPhaseAcTruePfMaxSp : ElecAcTruePfMaxSp <abstract> { phasePf: PhasePf }
-
-// Max setpoint for true power factor of line 1 AC electric power
-ElecL1AcTruePfMaxSp : ElecPhaseAcTruePfMaxSp { phasePf: "L1" }
-
-// Max setpoint for true power factor of line 2 AC electric power
-ElecL2AcTruePfMaxSp : ElecPhaseAcTruePfMaxSp { phasePf: "L2" }
-
-// Max setpoint for true power factor of line 3 AC electric power
-ElecL3AcTruePfMaxSp : ElecPhaseAcTruePfMaxSp { phasePf: "L3" }
-
-// Min setpoint for true power factor of total AC electric power
-ElecTotalAcTruePfMinSp : ElecAcTruePfMinSp { total }
-
-// Min setpoint for true power factor of line AC electric power
-ElecLineAcTruePfMinSp : ElecAcTruePfMinSp <abstract> { linePf: LinePf }
-
-// Min setpoint for true power factor of line 1 to line 2 AC electric power
-ElecL1L2AcTruePfMinSp : ElecLineAcTruePfMinSp { linePf: "L1-L2" }
-
-// Min setpoint for true power factor of line 2 to line 3 AC electric power
-ElecL2L3AcTruePfMinSp : ElecLineAcTruePfMinSp { linePf: "L2-L3" }
-
-// Min setpoint for true power factor of line 3 to line 1 AC electric power
-ElecL3L1AcTruePfMinSp : ElecLineAcTruePfMinSp { linePf: "L3-L1" }
-
-// Min setpoint for true power factor of phase AC electric power
-ElecPhaseAcTruePfMinSp : ElecAcTruePfMinSp <abstract> { phasePf: PhasePf }
-
-// Min setpoint for true power factor of line 1 AC electric power
-ElecL1AcTruePfMinSp : ElecPhaseAcTruePfMinSp { phasePf: "L1" }
-
-// Min setpoint for true power factor of line 2 AC electric power
-ElecL2AcTruePfMinSp : ElecPhaseAcTruePfMinSp { phasePf: "L2" }
-
-// Min setpoint for true power factor of line 3 AC electric power
-ElecL3AcTruePfMinSp : ElecPhaseAcTruePfMinSp { phasePf: "L3" }
-
-// Effective setpoint for total AC electric active demand imported
-ElecTotalImportAcActiveDemandEffectiveSp : ElecImportAcActiveDemandEffectiveSp { total }
-
 // Max setpoint for total AC electric active demand imported
 ElecTotalImportAcActiveDemandMaxSp : ElecImportAcActiveDemandMaxSp { total }
-
-// Min setpoint for total AC electric active demand imported
-ElecTotalImportAcActiveDemandMinSp : ElecImportAcActiveDemandMinSp { total }
 
