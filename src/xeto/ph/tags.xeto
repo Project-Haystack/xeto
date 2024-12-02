@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 25-Nov-2024
+// Auto-generated 02-Dec-2024
 //
 
 // Cooling process using energy from heat source such as hot water
@@ -1125,8 +1125,10 @@ parallel: Marker
 // Auxiliary heating points associated with a `vav`
 perimeterHeat: Marker
 
-// Electrical power factor; unitless number between 0.0 and 1.0 which is ratio
-// of active to apparent power in an AC power system.
+// Electric power factor; which is the ratio of active power to apparent
+// power in an AC electric power system.  Measured with numbers in the range
+// of -1.0 to 1.0 or 0.0 to 1.0 with a special unit called 'pf', which is
+// effectively unitless and used for data visualization.
 pf: Marker
 
 // Displacement power factor, which excludes effects of harmonic

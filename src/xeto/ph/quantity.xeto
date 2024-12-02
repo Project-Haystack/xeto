@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 11-Jul-2024
+// Auto-generated 02-Dec-2024
 //
 
 // Measurable property of a substance or phenomenon
@@ -58,10 +58,10 @@ TvocConcentration: AirQuality { tvoc }
 // AC current phase angle
 CurrentAngle: Quantity { current, angle }
 
-// Current phase imbalance in a multiphase AC system
+// AC current imbalance
 CurrentImbalance: Quantity { current, imbalance }
 
-// Total harmonic current distortion
+// Total harmonic distortion (THD) of current
 CurrentThd: Quantity { current, thd }
 
 // Time between sunrise and sunset
@@ -174,8 +174,10 @@ LuminousFlux: Quantity { luminous, flux }
 // Also see [ies.org]`https://www.ies.org/definitions/luminous-intensity/`
 LuminousIntensity: Quantity { luminous, intensity }
 
-// Electrical power factor; unitless number between 0.0 and 1.0 which is ratio
-// of active to apparent power in an AC power system.
+// Electric power factor; which is the ratio of active power to apparent
+// power in an AC electric power system.  Measured with numbers in the range
+// of -1.0 to 1.0 or 0.0 to 1.0 with a special unit called 'pf', which is
+// effectively unitless and used for data visualization.
 Pf: Quantity { pf }
 
 // Energy consumed per unit time
@@ -235,8 +237,11 @@ Visibility: Quantity { visibility }
 // AC voltage phase angle
 VoltAngle: Quantity { volt, angle }
 
-// AC voltage phase imbalance
+// AC voltage imbalance
 VoltImbalance: Quantity { volt, imbalance }
+
+// Total harmonic distortion (THD) of voltage
+VoltThd: Quantity { volt, thd }
 
 // Three dimensional space occupied by a substance
 Volume: Quantity { volume }
