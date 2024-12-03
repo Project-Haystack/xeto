@@ -1,10 +1,11 @@
 # Overview
 
-Globals are slot spec definitions that globally apply to all dict specs.
-They provide a way to force the use of a consistent slot field type
-across all specs.  They enforce a [covariant](TypeSystem.md#covariance)
+Globals are slot spec definitions that globally apply to all dict specs
+and instances.  They provide a way to force the use of a consistent slot
+field type across all specs.  They enforce a [covariant](TypeSystem.md#covariance)
 override in all specs of the parent lib and all libs that depend on
-the parent lib.
+the parent lib. Additionally all instance data is restricted by the global
+slots.
 
 # Names
 
@@ -43,6 +44,19 @@ InvalidDict: Dict {
 }
 ```
 
+Globals also restrict instance data:
+
+```xeto
+// OK because slot matches global slot restrictions
+@instance-1: { height: Number "12m" }
+
+// Error: Global slot type is 'sys::Number', value type is 'sys::Date'
+@instance-2: { height: Date "2024-12-03" }
+
+// Error: Number must be 'length' unit; '°C' has quantity of 'temperature'
+@instance-3: { height: Number 12°C }
+```
+
 # Inheritance
 
 When a dict spec declares a slot that matches a global spec, then it
@@ -52,7 +66,7 @@ slot will inherit all the global's metadata.  In the example above, both
 'SomeDict.height' and 'AnotherDict.height' will inherit the 'quantity'
 and 'minVal' metadata tag from the global spec.
 
-# Project Haystack
+# Project Haystack Tags
 
 Historically the Project Haystack ontology has required consistent use
 of all tags across all entity types. The `ph` library uses globals to
