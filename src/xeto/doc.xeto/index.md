@@ -7,6 +7,7 @@
 - [Enums](Enums.md): enumeration specs
 - [Choices](Choices.md): mutually exclusive marker choices
 - [Type System](TypeSystem.md): type system features
+- [Inheritance](Inheritance.md): composition through inheritance
 - [Namespaces](Namespaces.md): closed set of libs that define name space
 - [Constraints](Constraints.md): constraint rules used for validation
 - [Fidelity](Fidelity.md): type erasure rules when mapping to other data formats
