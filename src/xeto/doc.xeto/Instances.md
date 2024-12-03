@@ -22,8 +22,8 @@ for lib instances.
 
 The scope of uniqueness for lib instances is global due to the
 fact that lib names are [globally unique](Libs.md#names).  For
-non-lib instances the scope of uniqueness is only guaranteed
-with the instance's dataset.
+non-lib instances the id must be at least be unique within the
+containing dataset.
 
 # Spec
 
@@ -137,20 +137,41 @@ Nested instances can have a slot name, a top-level id, or both.
 Here is an example where the nested dicts have only a slot name:
 
 ```xeto
+Toolbar: Dict
+Button: Dict
+
 @toolbar: Toolbar {
   save: Button { text:"Save" }
   exit: Button { text:"Exit" }
 }
 ```
 
-This maps to the following Haystack dict where 'save' and 'exit'
-are just named slots that contain a nested dict:
+This maps to the following Haystack and JSON representations
+where 'save' and 'exit' are just named slots that contain a
+nested dict:
 
 ```trio
+// Trio
 id: @acme::toolbar
-exit: {text:"Exit" spec:@acme::Button}
-save: {text:"Save" spec:@acme::Button}
 spec: @acme::Toolbar
+exit: {spec:@acme::Button, text:"Exit" }
+save: {spec:@acme::Button, text:"Save"}
+```
+
+```json
+// JSON
+"toolbar": {
+    "id": "acme::toolbar"
+    "spec": "acme::Toolbar",
+    "save": {
+      "spec": "acme::Button"
+      "text": "Save",
+    },
+    "exit": {
+      "spec": "acme::Button"
+      "text": "Exit",
+    },
+  }
 ```
 
 But we can also make those nested dicts first class instances with
@@ -158,6 +179,7 @@ an id using this syntax by adding an id after the slot name and
 before the colon:
 
 ```xeto
+// Xeto
 @toolbar: Toolbar {
   save @save-button: Button { text:"Save" }
   exit @exit-button: Button { text:"Exit" }
@@ -165,10 +187,29 @@ before the colon:
 ```
 
 ```trio
+// Haystack
 id: @acme::toolbar
-exit: {id:@acme::exit-button text:"Exit" spec:@acme::Button}
-save: {id:@acme::save-button text:"Save" spec:@acme::Button}
+exit: {id:@acme::exit-button spec:@acme::Button text:"Exit"}
+save: {id:@acme::save-button spec:@acme::Button text:"Save"}
 spec: @acme::Toolbar
+```
+
+```json
+// JSON
+"toolbar": {
+    "id": "acme::toolbar"
+    "spec": "acme::Toolbar",
+    "save": {
+      "id": "acme::save-button",
+      "spec": "acme::Button"
+      "text": "Save",
+    },
+    "exit": {
+      "id": "acme::exit-button",
+      "spec": "acme::Button"
+      "text": "Exit",
+    },
+  }
 ```
 
 In many use cases if we don't care about the slot name, only
@@ -176,6 +217,7 @@ the nested id, in which case we can omit the slot name and
 one is auto-generated for us:
 
 ```xeto
+// Xeto
 @toolbar: Toolbar {
   @save-button: Button { text:"Save" }
   @exit-button: Button { text:"Exit" }
@@ -183,14 +225,33 @@ one is auto-generated for us:
 ```
 
 ```trio
+// Haystack
 id: @acme::toolbar
-_0: {id:@acme::save-button text:"Save" spec:@acme::Button}
-_1: {id:@acme::exit-button text:"Exit" spec:@acme::Button}
+_0: {id:@acme::save-button spec:@acme::Button text:"Save"}
+_1: {id:@acme::exit-button spec:@acme::Button text:"Exit"}
 spec: @acme::Toolbar
 ````
 
+```json
+// JSON
+"toolbar": {
+    "id": "acme::toolbar"
+    "spec": "acme::Toolbar",
+    "_0": {
+      "id": "acme::save-button",
+      "spec": "acme::Button"
+      "text": "Save",
+    },
+    "_1": {
+      "id": "acme::exit-button",
+      "spec": "acme::Button"
+      "text": "Exit",
+    },
+  }
+```
+
 Note that in the reflection APIs the nested instances can be looked
 up directly.  However, when exporting libs that contain nested instances
-only top-level instances are included.
+only top-level instances are included (with their nested instances).
 
 
