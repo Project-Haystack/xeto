@@ -13,7 +13,7 @@ single current value that is one or the other.
 Choices leverage spec inheritance to build out a taxonomy of the
 choices.  The root of the taxonomy extends `sys::Choice`.  Choice
 specs can define only marker type slots.  For example to build a
-exclusive set of marker to model color:
+exclusive set of markers to model color:
 
 ```xeto
 Color: Choice

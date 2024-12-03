@@ -8,7 +8,7 @@ Three levels of fidelity are defined:
 
 - **Full Fidelity**: all types are completely modeled with no loss of fidelity
 - **Haystack Fidelity**: only the core Haystack types are used and
-  all scalars encode as simple strings
+  all non-native scalars encode as simple strings
 - **JSON Fidelity**: most scalars are encoded as just strings
 
 # Full Fidelity
@@ -40,15 +40,15 @@ specs as follows:
 
 ```
   Xeto              Haystack
-  --------          -----
+  -----------       -----
   sys::Marker       Marker
   sys::NA           NA
   sys::None         Remove
   sys::Bool         Bool
   sys::Number       Number
-  sys::Int          Number
-  sys::Float        Number
-  sys::Duration     Number
+  sys::Int          Number  (no unit)
+  sys::Float        Number  (no unit)
+  sys::Duration     Number  (time unit)
   sys::Str          Str
   sys::Ref          Ref
   sys::Uri          Uri
@@ -84,10 +84,10 @@ mapping scalars to JSON objects).  The following mapping is used:
   sys::Int       number
   sys::Float     number
   sys::Number    number (if no unit)
-  sys::Number    string (if there is a unit)
-  sys::Scalar    string  // all other scalars encode as string
+  sys::Number    string (if there is a unit or NaN/-INF/INF)
+  sys::Scalar    string (all other scalars encode as string)
   sys::List      array
   sys::Dict      object
   ```
 
-All dicts should include a 'spec' tag with the type qname.
+All dicts should include a 'spec' property with the type qname.

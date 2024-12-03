@@ -87,7 +87,7 @@ If the name contains a "::" double colon then it is assumed to be a qname
 double colon is assumed to be a simple name.
 
 To resolve a qname:
-  - resolve the qname lib part to a lib declared by the namespace
+  - resolve the qname lib part to a lib from the namespace dependencies
   - resolve the qname simple name part to a spec/instance within that lib
 
 To resolve a simple name:
