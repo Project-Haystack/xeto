@@ -11,10 +11,6 @@
 - [Constraints](Constraints.md): constraint rules used for validation
 - [Fidelity](Fidelity.md): type erasure rules when mapping to other data formats
 
-# Tools
-
-- [JSON](Json.md): JSON representation of Xeto data
-
 # Appendix
 
 - [Grammar](Grammar.md): formal BNF grammar for Xeto

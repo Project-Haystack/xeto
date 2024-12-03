@@ -91,7 +91,8 @@ MyScalar: Scalar <val:"default">
 // syntax sugar for same
 MyScalar: Scalar "default"
 ```
-A regular expression for their encoding using the 'pattern' meta:
+Scalars may define a regular expression for their encoding
+using the 'pattern' meta:
 
 ```xeto
 Date: Scalar <sealed, pattern:"\\d{4}-\\d{2}-\\d{2}"> "2000-01-01"
@@ -139,11 +140,41 @@ Point: Dict {
 
 # Lists
 
-Specs may also be used to define a custom list type.  Typically
-this is done via the 'of' meta to define the item type of the list:
+The `sys::List` type is used to define an ordered list of values.
+The list item type may be parameterized by the 'of' meta:
 
 ```xeto
-Numbers: List<of:Number>
+Foo: {
+  numbers: List<of:Number>  // List that contains only Numbers
+}
+```
+
+In Xeto instance data that contains lists uses curly braces (we do
+not use '[]' like JSON):
+
+```xeto
+// explicitly typed list with individual items typed
+@foo-1: Foo {
+  numbers: List<of:Number> { Number 2, Number 3, Number 4}
+}
+
+// items are implicitly typed as Number from the 'of'
+@foo-2: Foo {
+  numbers: List<of:Number> { 2, 3, 4}
+}
+
+// typed list if inferred from Foo.numbers slot definition
+@foo-3: Foo {
+  numbers: { 2, 3, 4}
+}
+```
+
+The `sys::List` type is sealed, you cannot derive new types
+from it via inheritance:
+
+```xeto
+// This will not compile
+MyNumbersList: List<of:Number>
 ```
 
 # Representation
@@ -153,11 +184,14 @@ They following tags are defined by Xeto itself and may not be used
 as metadata tags:
 
   - 'id': a Ref which is the spec qname
-  - 'base': a qname Ref to the type inherited from; null for `sys::Obj`
+  - 'base': a qname Ref to the type inherited from; null for `sys::Obj`;
+  - 'type': a qname Ref to slot type
   - 'parent': a qname Ref to the parent dict if spec is a slot
   - 'doc': documentation from comments
   - 'spec': always a Ref to `sys::Spec` (the spec is an instance of Spec)
   - 'slots': the slot specs of a dict spec
+
+Type specs use 'base' and slot specs use 'type'.
 
 Note: the compiler currently reserves several other metadata tags for
 future proofing.
@@ -165,13 +199,16 @@ future proofing.
 When representing a spec as a dict or JSON object, the tags above are
 merged with the spec meta.  Example:
 
-```
+```xeto
 // Xeto spec example
 Person: Dict <sealed, icon:"user"> {
   name: Str  // Full name
 }
+```
 
-// Haystack representation
+Haystack representation of the example spec:
+
+```
 id: @acme::Person
 spec: @sys::Spec
 base: @sys::Dict
@@ -180,6 +217,7 @@ sealed
 icon: "user"
 slots: {
   name: {
+    id: @acme::Person.name
     spec: @sys::Spec,
     type: @sys::Str,
     doc: "Full name"
@@ -187,7 +225,28 @@ slots: {
 }
 ```
 
-The [JSON](Json.md) representation of specs follows the same design patterns.
+JSON representation of the example spec:
+
+```json
+"Person": {
+  "id": "acme::Person",
+  "spec": "sys::Spec",
+  "base": "sys::Dict",
+  "sealed": "✓",
+  "icon": "user",
+  "slots": {
+    "name": {
+      "id": "acme::Person.name",
+      "spec": "sys::Spec",
+      "type": "sys::Str",
+      "doc": "Full name"
+    }
+  }
+}
+```
+
+Note that when mapping specs to Haystack or JSON there is a level
+of type erasure as discussed in [Fidelity](Fidelity.md).
 
 
 

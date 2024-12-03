@@ -77,7 +77,7 @@ Lib meta includes:
 Lib metadata is declared in lib.xeto via the *pragma*.  Here is an
 example template:
 
-```
+```xeto
 pragma: Lib <
   doc: "Summary of the lib goes here"
   version: "2.0.6"
