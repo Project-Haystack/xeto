@@ -7,66 +7,83 @@
 //
 
 // Spec models a value specification
-Spec: Dict {
+Spec: Dict
 
-  // Indicates an optional type
-  maybe: Marker? <noInherit>
+// Abstract types cannot be implemented directly by instance data
+abstract: Marker <meta, noInherit>
 
-  // Default value for this slot
-  val: Obj?
+// Library dependencies
+depends: List<of:LibDepend>
 
-  // Item type for parameterized Seq/Query; target type for Ref/MultiRef
-  of: Ref? <of:Spec>
+// Documentation description
+doc: Str <meta>
 
-  // Types used in compound types like And and Or
-  ofs: List? <of:Ref<of:Spec>>
+// Annotates a slot as a fixed value that must be equal to 'val'
+fixed: Marker <meta>
 
-  // Documentation description
-  doc: Str
+// Inverse query to run against parent
+inverse: Str <meta>
 
-  // Abstract types cannot be implemented directly by instance data
-  abstract: Marker? <noInherit>
+// String key; used in enums to define normalized string identifier
+key: Str <meta>
 
-  // Sealed types cannot be extended outside of their own lib
-  sealed: Marker? <noInherit>
+// Applied to strings and lists to specify inclusive maximum length
+maxSize: Int <meta>
 
-  // Marks spec as undocumented and not officially supported
-  nodoc: Marker?
+// Inclusive maximum value for numbers
+maxVal: Self <meta>
 
-  // Regex pattern for scalar string encoding
-  pattern: Str?
+// Indicates an optional type
+maybe: Marker <meta, noInherit>
 
-  // Annotates a slot as a fixed value that must be equal to 'val'
-  fixed: Marker?
+// Marks a global slot as a meta data tag
+meta: Marker <meta>
 
-  // Inclusive minimum value for numbers
-  minVal: Self?
+// Applied to strings and lists to specify inclusive minimum length
+minSize: Int <meta>
 
-  // Inclusive maximum value for numbers
-  maxVal: Self?
+// Inclusive minimum value for numbers
+minVal: Self <meta>
 
-  // Restrict number or unit enum to specific unit
-  unit: Unit?
+// Applied to Choices to allow multiple selections
+multiChoice: Marker <meta>
 
-  // Restrict number or unit enum to specific quantity
-  quantity: UnitQuantity?
+// Marks spec as undocumented and not officially supported
+nodoc: Marker <meta>
 
-  // Applied to Choices to allow multiple selections
-  multiChoice: Marker?
+// Indicates a meta tag that is not inherited into subtypes
+noInherit: Marker <meta>
 
-  // Applied to strings to require value is non-empty when trimmed of whitespace
-  nonEmpty: Marker?
+// Applied to strings to require value is non-empty when trimmed of whitespace
+nonEmpty: Marker <meta>
 
-  // Applied to strings and lists to specify inclusive minimum length
-  minSize: Int?
+// Item type for parameterized Seq/Query; target type for Ref/MultiRef
+of: Ref <meta, of:Spec>
 
-  // Applied to strings and lists to specify inclusive maximum length
-  maxSize: Int?
+// Types used in compound types like And and Or
+ofs: List <meta, of:Ref<of:Spec>>
 
-  // Named path to traverse to execute query
-  via: Str?
+// Library organization information
+org: LibOrg <meta>
 
-  // Inverse query to run against parent
-  inverse: Str?
-}
+// Regex pattern for scalar string encoding
+pattern: Str <meta>
+
+// Restrict number or unit enum to specific quantity
+quantity: UnitQuantity <meta>
+
+// Sealed types cannot be extended outside of their own lib
+sealed: Marker <meta, noInherit>
+
+// Restrict number or unit enum to specific unit
+unit: Unit <meta>
+
+// Default value for this slot
+val: Obj <meta>
+
+// Version number
+version: Version <meta>
+
+// Named path to traverse to execute query
+via: Str <meta>
 
