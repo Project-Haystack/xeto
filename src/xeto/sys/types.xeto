@@ -145,3 +145,6 @@ Entity: Dict <abstract> {
   id: Ref        // Unique identifier for entity in its project
 }
 
+// Spec models a value specification
+Spec: Dict
+

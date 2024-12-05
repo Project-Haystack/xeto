@@ -6,11 +6,11 @@
 //   18 Jul 2022  Brian Frank  Creation
 //
 
-// Spec models a value specification
-Spec: Dict
-
 // Abstract types cannot be implemented directly by instance data
 abstract: Marker <meta, noInherit>
+
+// Indicates an asynchronous operation or function call
+async: Marker <meta>
 
 // Library dependencies
 depends: List<meta, of:LibDepend>
@@ -48,6 +48,9 @@ minVal: Self <meta>
 // Applied to Choices to allow multiple selections
 multiChoice: Marker <meta>
 
+// Indicates a constructor function
+new: Marker <meta>
+
 // Marks spec as undocumented and not officially supported
 nodoc: Marker <meta>
 
@@ -72,8 +75,14 @@ pattern: Str <meta>
 // Restrict number or unit enum to specific quantity
 quantity: UnitQuantity <meta>
 
+// Indicates a readonly value that may not be mutated
+readonly: Marker <meta>
+
 // Sealed types cannot be extended outside of their own lib
 sealed: Marker <meta, noInherit>
+
+// Indicates a spec level slot versus an instance level slot
+static: Marker <meta>
 
 // Restrict number or unit enum to specific unit
 unit: Unit <meta>

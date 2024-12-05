@@ -7,17 +7,7 @@
 //
 
 // Library module meta data
-Lib: Dict {
-
-  // Current version of the library
-  version: Version
-
-  // Library dependency
-  depends: List <of:LibDepend>
-
-  // Organization meta data for the library
-  org: LibOrg
-}
+Lib: Dict
 
 // Library dependency
 LibDepend: Dict <sealed> {
