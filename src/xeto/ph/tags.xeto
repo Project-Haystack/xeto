@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 02-Dec-2024
+// Auto-generated 05-Dec-2024
 //
 
 // Cooling process using energy from heat source such as hot water
@@ -342,11 +342,6 @@ delta: Marker
 
 // Rate required for a process.
 demand: Marker
-
-// List of this library's dependencies.  The dependent libs define the
-// [lib namespace]`docHaystack::Namespaces#lib`. Also see
-// [Normalization]`docHaystack::Normalization#resolve`.
-depends: List <of:Ref>
 
 // Obsoleted
 deprecated: Marker
