@@ -20,7 +20,7 @@ Lib: Dict {
 }
 
 // Library dependency
-LibDepend: Dict {
+LibDepend: Dict <sealed> {
   lib: Str                      // Library qualified dotted name
   versions: LibDependVersions   // Version constraints for dependency
 }
@@ -38,7 +38,7 @@ LibDepend: Dict {
 //   1.5.x            // match any patch version within 1.5
 //   3.x.x            // match any version with 3 as major version
 //   1.5.20 - 1.x.x   // greater than 1.5.20 and has 1 in major ver
-LibDependVersions: Scalar
+LibDependVersions: Scalar <sealed>
 
 // Organization meta data
 LibOrg: Dict {

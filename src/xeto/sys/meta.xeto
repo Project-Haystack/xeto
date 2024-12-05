@@ -13,7 +13,7 @@ Spec: Dict
 abstract: Marker <meta, noInherit>
 
 // Library dependencies
-depends: List<of:LibDepend>
+depends: List<meta, of:LibDepend>
 
 // Documentation description
 doc: Str <meta>
