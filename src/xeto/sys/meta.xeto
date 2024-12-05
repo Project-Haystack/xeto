@@ -84,6 +84,12 @@ sealed: Marker <meta, noInherit>
 // Indicates a spec level slot versus an instance level slot
 static: Marker <meta>
 
+// Mark data as summary level for display in summarized tables and other views
+summary: Marker <meta>
+
+// Indicates data which should be persisted
+transient: Unit <meta>
+
 // Restrict number or unit enum to specific unit
 unit: Unit <meta>
 
