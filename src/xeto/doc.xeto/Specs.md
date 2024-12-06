@@ -145,25 +145,25 @@ The list item type may be parameterized by the 'of' meta:
 
 ```xeto
 Foo: {
-  numbers: List<of:Number>  // List that contains only Numbers
+  numbers: List <of:Number>  // List that contains only Numbers
 }
 ```
 
-In Xeto instance data that contains lists uses curly braces (we do
+In Xeto instance data that contains a list uses curly braces (we do
 not use '[]' like JSON):
 
 ```xeto
 // explicitly typed list with individual items typed
 @foo-1: Foo {
-  numbers: List<of:Number> { Number 2, Number 3, Number 4}
+  numbers: List <of:Number> { Number 2, Number 3, Number 4}
 }
 
 // items are implicitly typed as Number from the 'of'
 @foo-2: Foo {
-  numbers: List<of:Number> { 2, 3, 4}
+  numbers: List <of:Number> { 2, 3, 4}
 }
 
-// typed list if inferred from Foo.numbers slot definition
+// typed list is inferred from Foo.numbers slot definition
 @foo-3: Foo {
   numbers: { 2, 3, 4}
 }
@@ -174,7 +174,7 @@ from it via inheritance:
 
 ```xeto
 // This will not compile
-MyNumbersList: List<of:Number>
+MyNumbersList: List <of:Number>
 ```
 
 # Representation
@@ -247,9 +247,4 @@ JSON representation of the example spec:
 
 Note that when mapping specs to Haystack or JSON there is a level
 of type erasure as discussed in [Fidelity](Fidelity.md).
-
-
-
-
-
 

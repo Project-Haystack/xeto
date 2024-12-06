@@ -34,7 +34,7 @@ maxSize: Int <meta>
 maxVal: Self <meta>
 
 // Indicates an optional type
-maybe: Marker <meta, noInherit>
+maybe: Marker <meta>
 
 // Marks a global slot as a meta data tag
 meta: Marker <meta>
