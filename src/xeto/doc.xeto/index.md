@@ -3,6 +3,7 @@
 - [Libs](Libs.md): library modules
 - [Specs](Specs.md): specification type definitions
 - [Globals](Globals.md): global slot definitions
+- [Meta](Meta.md): lib and spec meta definitions
 - [Instances](Instances.md): instance data
 - [Enums](Enums.md): enumeration specs
 - [Choices](Choices.md): mutually exclusive marker choices

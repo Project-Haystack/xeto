@@ -14,7 +14,28 @@ Globals follow same rules at [slot names](Specs.md#names):
   - Must start with an ASCII lower case letter
   - Convention is to use camel case
 
-# Example
+Additionally, it is invalid to declare a global spec that is already
+defined in one of the dependency libs.
+
+# Syntax
+
+Global specs follow the same syntax rules are [slot specs](Specs.md#slots):
+
+```xeto
+globalTag: Type <meta1, meta2> "default"
+```
+
+Here are concrete examples from the 'ph' lib:
+
+```xeto
+// Area of a shape or floor space
+area: Number <quantity:"area">
+
+// Equipment used to store electric energy
+battery: Marker
+```
+
+# Examples
 
 Here is an example of a global spec:
 

@@ -102,13 +102,7 @@ Date: Scalar <sealed, pattern:"\\d{4}-\\d{2}-\\d{2}"> "2000-01-01"
 
 Dicts or dictionaries are specs that define a compound type.  Dicts
 are equivalent to JSON object types.  Dicts are composed of *slots*.
-Slots are named fields with an explicit value type.  We call the
-containing spec of a slot the *parent*.  Slots are themselves specs
-with a qname formatted as:
-
-```
-{parent qname}.{slot name}
-```
+Slots are named fields with an explicit value type.
 
 Lets consider the example from above:
 
@@ -136,6 +130,19 @@ Point: Dict {
   x: Int "-99"
   y: Int "-99"
 }
+```
+
+# Slots
+
+Slot specs are specs nested inside a dict spec to define a field
+value in instance data.  They follow all the same rules a other specs,
+but must start with a lower case ASCII letter.
+
+We call the containing spec of a slot the *parent*.  Slots have
+a qname formatted as:
+
+```
+{parent qname}.{slot name}
 ```
 
 # Lists
