@@ -5,7 +5,7 @@ built-in features leverage meta to annotate specs.  For example, the `sealed`
 meta is used by the compiler to indicate that a spec cannot be subtyped.
 Both lib and spec meta is a normal dict, but uses special rules for
 static  typing.  Meta tags are formally defined using a specialized
-[global spec](Globals.md).  These *meta specs* define a single tag that may be
+[global spec](Globals.md).  These *meta spec*s define a single tag that may be
 used in meta dicts.  It is required that all meta tags are defined by a
 meta spec in the library's [namespace](Namespaces.md#lib-namespaces).
 
@@ -32,7 +32,7 @@ define by 'sys' or in any other dependent lib.
 
 # Syntax
 
-Meta specs follow the same syntax rules are [global specs](Globals.md#syntax)
+Meta specs follow the same syntax rules as [global specs](Globals.md#syntax)
 except they include the `meta` metadata tag:
 
 ```xeto
