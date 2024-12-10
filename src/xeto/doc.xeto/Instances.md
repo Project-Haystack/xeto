@@ -1,6 +1,6 @@
 # Overview
 
-Instances are the objects the represent the data modeled
+Instances are the objects that represent the data modeled
 by specs. Instances are always dicts (dictionaries) or
 JSON objects.  Instances may be defined within a [lib](Libs.md)
 or outside of a lib.
