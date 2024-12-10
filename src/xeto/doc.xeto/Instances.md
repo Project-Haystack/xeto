@@ -22,7 +22,7 @@ for lib instances.
 
 The scope of uniqueness for lib instances is global due to the
 fact that lib names are [globally unique](Libs.md#names).  For
-non-lib instances the id must be at least be unique within the
+non-lib instances the id must at least be unique within the
 containing dataset.
 
 # Spec
