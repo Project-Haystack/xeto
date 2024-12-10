@@ -4,9 +4,9 @@ Specs or specifications are type definitions.  Specs define the shape
 of data using principles of an object oriented type system.  Specs
 use inheritance for composition and may define arbitrary metadata.
 There are two fundamental types of specs: *scalars* and *dicts*. 
-  - [**Scalars**]`https://github.com/Project-Haystack/xeto/blob/master/src/xeto/doc.xeto/Specs.md#scalars` define an atomic type encoded as a string. Common scalars include Str,
+  - [**Scalars**](https://github.com/Project-Haystack/xeto/blob/master/src/xeto/doc.xeto/Specs.md#scalars) define an atomic type encoded as a string. Common scalars include Str,
 Number, Date, Time, and DateTime.
-  - [**Dicts**]`https://github.com/Project-Haystack/xeto/blob/master/src/xeto/doc.xeto/Specs.md#dicts` define a compound type composed of zero or more *slots* that are the data fields.
+  - [**Dicts**](https://github.com/Project-Haystack/xeto/blob/master/src/xeto/doc.xeto/Specs.md#dicts) define a compound type composed of zero or more *slots* that are the data fields.
 
 # Names
 
