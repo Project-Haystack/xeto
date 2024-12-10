@@ -3,10 +3,10 @@
 Specs or specifications are type definitions.  Specs define the shape
 of data using principles of an object oriented type system.  Specs
 use inheritance for composition and may define arbitrary metadata.
-There are two fundamental types of specs: *scalars* and *dicts*. Scalars
-define an atomic type encoded as a string. Common scalars include Str,
-Number, Date, Time, and DateTime. Dicts define a compound type composed
-of zero or more *slots* that are the data fields.
+There are two fundamental types of specs: *scalars* and *dicts*. 
+  - **Scalars** define an atomic type encoded as a string. Common scalars include Str,
+Number, Date, Time, and DateTime.
+  - **Dicts** define a compound type composed of zero or more *slots* that are the data fields.
 
 # Names
 
