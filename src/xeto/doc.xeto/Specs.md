@@ -135,7 +135,7 @@ Point: Dict {
 # Slots
 
 Slot specs are specs nested inside a dict spec to define a field
-value in instance data.  They follow all the same rules a other specs,
+value in instance data.  They follow all the same rules as other specs,
 but must start with a lower case ASCII letter.
 
 We call the containing spec of a slot the *parent*.  Slots have
