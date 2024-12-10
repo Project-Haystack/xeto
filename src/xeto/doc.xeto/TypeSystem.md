@@ -3,7 +3,7 @@
 Slot specs may be annotated with the 'maybe' marker to make
 them a *maybe type* or *option type*.  Maybe types mean that the
 value may be omitted in instance data.  Maybe types are used
-extensively, so we give then a special syntax - you can use
+extensively, so we give them a special syntax - you can use
 a question mark after the type name:
 
 ```xeto
@@ -18,7 +18,7 @@ When validating instance data, maybe slots can be omitted.  However, if
 defined they must meet the slot spec's type and constraint requirements.
 
 Xeto's covariance rules allow a maybe slot to be overridden as a non-maybe
-type, but not vise versa.  For example the following is legal because
+type, but not vice versa.  For example the following is legal because
 we are narrowing the value space in the subtype:
 
 ```xeto
@@ -35,8 +35,8 @@ It is used with the following types:
   - `sys::MultiRef`: parameterize the referent type
   - `sys::Query`: parameterize what the query returns
 
-When validating covariance the 'of' type maybe narrowed, but it may not
-be not widened.  For example the following is legal because we are narrowing
+When validating covariance the 'of' type may be narrowed, but it may not
+be widened.  For example the following is legal because we are narrowing
 the list's 'of' type  to be more constrained and honoring the supertype's
 contract:
 
@@ -96,7 +96,7 @@ Bar: Foo {
 }
 ```
 
-However, this example is not covariant between the subtype is widening the
+However, this example is not covariant because the subtype is widening the
 value space of the 'a' slot resulting in compile time error:
 
 ```xeto
