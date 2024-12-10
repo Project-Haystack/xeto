@@ -75,7 +75,7 @@ the subtypes adhere to the type contract of their supertype.
 
 Covariance requires the following sets of conditions:
 - Slot type must be a subtype of the overridden slot
-- `maybe` be can removed, but not added from base spec
+- `maybe` can be removed, but not added from base spec
 - `of` meta must be a subtype of the base 'of' type
 - `minVal` meta must be equal to or greater than base value
 - `maxVal` meta must be equal to or less than base value
