@@ -187,7 +187,7 @@ MyNumbersList: List <of:Number>
 # Representation
 
 Specs are modeled as dict data just like [instance data](Instances.md).
-They following tags are defined by Xeto itself and may not be used
+The following tags are defined by Xeto itself and may not be used
 as metadata tags:
 
   - 'id': a Ref which is the spec qname
