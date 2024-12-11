@@ -81,7 +81,7 @@ WeatherCloudagePoint : WeatherNumberPoint {
 // Weather fallen atmospheric water vapor in mm or in
 WeatherPrecipitationPoint : WeatherNumberPoint {
   precipitation
-  unit: Unit <quantity:"temperature"> "in"
+  unit: Unit <quantity:"length"> "in"
 }
 
 // Weather energy received from the sun in W/m²
