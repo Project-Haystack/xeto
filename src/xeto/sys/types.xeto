@@ -145,6 +145,9 @@ Entity: Dict <abstract> {
   id: Ref        // Unique identifier for entity in its project
 }
 
+// Entity that represents a file containing textual or binary data
+File: Entity
+
 // Spec models a value specification
 Spec: Dict
 
