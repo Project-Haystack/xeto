@@ -38,7 +38,7 @@ air: Marker
 airCooling: Marker
 
 // Air flows from the referent to this entity
-airRef: Ref
+airRef: MultiRef
 
 // Notification of a condition which requires attention
 alarm: Marker
@@ -104,7 +104,7 @@ biomassHeating: Marker
 blowdown: Marker
 
 // Blowdown water flows from the referent to this entity
-blowdownWaterRef: Ref
+blowdownWaterRef: MultiRef
 
 // Short range wireless communication protocol
 bluetooth: Marker
@@ -158,7 +158,7 @@ chilledBeamZone: Marker
 chilledWaterCooling: Marker
 
 // Chilled water flows from the referent to this entity
-chilledWaterRef: Ref
+chilledWaterRef: MultiRef
 
 // Equipment to remove heat from a liquid.  Chillers typically use a vapor
 // compression or an absorption refrigeration cycle.
@@ -230,7 +230,7 @@ concentration: Marker
 condensate: Marker
 
 // Condensate flows from the referent to this entity
-condensateRef: Ref
+condensateRef: MultiRef
 
 // Device or related to process of condensation
 condenser: Marker
@@ -245,7 +245,7 @@ condenserCooling: Marker
 condenserOpenLoop: Marker
 
 // Condenser water flows from the referent to this entity
-condenserWaterRef: Ref
+condenserWaterRef: MultiRef
 
 // Related to cleaning, heating, cooling, humidifying, dehumidifying,
 // ventilating or circulating  air. 
@@ -404,7 +404,7 @@ docTaxonomy: Marker
 domestic: Marker
 
 // Domestic water flows from the referent to this entity
-domesticWaterRef: Ref
+domesticWaterRef: MultiRef
 
 // Two ducts: combination of hotDeck, coldDeck, or neutralDeck
 dualDuct: Marker
@@ -458,7 +458,7 @@ elecLineToLine: ElecLineToLine
 elecLineToNeutral: ElecLineToNeutral
 
 // Electricity flows from the referent to this entity
-elecRef: Ref
+elecRef: MultiRef
 
 // Enclosure used to move people between floors.
 elevator: Marker
@@ -631,7 +631,7 @@ fuelOil: Marker
 fuelOilHeating: Marker
 
 // Fuel oil flows from the referent to this entity
-fuelOilRef: Ref
+fuelOilRef: MultiRef
 
 // Ventilation equipment to limit exposure to hazardous fumes.
 fumeHood: Marker
@@ -640,7 +640,7 @@ fumeHood: Marker
 gasoline: Marker
 
 // Gasoline flows from the referent to this entity
-gasolineRef: Ref
+gasolineRef: MultiRef
 
 // Free form street address.  Best practice is to follow local
 // norms for a postal address.  Typically this string includes
@@ -752,7 +752,7 @@ hotDeck: Marker
 hotWaterHeating: Marker
 
 // Hot water flows from the referent to this entity
-hotWaterRef: Ref
+hotWaterRef: MultiRef
 
 // Hypertext Transfer Protocol which is foundation of the web
 http: Marker
@@ -905,7 +905,7 @@ magnitude: Marker
 makeup: Marker
 
 // Makeup water flows from the referent to this entity
-makeupWaterRef: Ref
+makeupWaterRef: MultiRef
 
 // Makeup Air Unit: A DOAS that provides make-up air for a separate, dedicated
 // exhaust system. That is, this equip does not contain an exhaust air section.
@@ -1021,7 +1021,7 @@ naturalGas: Marker
 naturalGasHeating: Marker
 
 // Natural gas flows from the referent to this entity
-naturalGasRef: Ref
+naturalGasRef: MultiRef
 
 // Difference between import and export
 net: Marker
@@ -1343,7 +1343,7 @@ reciprocalOf: Symbol
 refrig: Marker
 
 // Refrigerant flows from the referent to this entity
-refrigRef: Ref
+refrigRef: MultiRef
 
 // Command point for reheating process
 reheat: Marker
@@ -1491,7 +1491,7 @@ steam: Marker
 steamHeating: Marker
 
 // Steam flows from the referent to this entity
-steamRef: Ref
+steamRef: MultiRef
 
 // Submeters measure usage of a sub-system or equipment within a site
 submeter: Marker
