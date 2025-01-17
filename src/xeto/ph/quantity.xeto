@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 02-Dec-2024
+// Auto-generated 17-Jan-2025
 //
 
 // Measurable property of a substance or phenomenon
@@ -10,10 +10,12 @@ Quantity: Choice { quantity }
 // Rate of air movement as distance over time
 AirVelocity: Quantity { air, velocity }
 
-// Integral of `apparent-power` over time
+// Apparent energy in an AC eletrical power system. Integral of
+// `apparent-power` over time.
 ApparentEnergy: Quantity { apparent, energy }
 
-// Apparent power is perceived magnitude of power due to the combination of active and reactive power
+// Apparent power; the perceived magnitude of electric power transfer in an
+// AC electric system due to the combination of active and reactive power.
 ApparentPower: Quantity { apparent, power }
 
 // Percentage of sky obscured by clouds. This is also known as cloudiness, or cloud amount.
@@ -58,10 +60,10 @@ TvocConcentration: AirQuality { tvoc }
 // AC current phase angle
 CurrentAngle: Quantity { current, angle }
 
-// AC current imbalance
+// AC current phase imbalance. Also referred to as current unbalance.
 CurrentImbalance: Quantity { current, imbalance }
 
-// Total harmonic distortion (THD) of current
+// Total harmonic distortion (THD) of AC current
 CurrentThd: Quantity { current, thd }
 
 // Time between sunrise and sunset
@@ -79,13 +81,13 @@ WindDirection: Direction { wind }
 // Electrical current
 ElecCurrent: Quantity { elec, current }
 
-// Magnitude of electrical current
+// Root-mean-square (RMS) magnitude of AC electrical current
 CurrentMagnitude: ElecCurrent { current, magnitude }
 
 // Electrical voltage, potential difference
 ElecVolt: Quantity { elec, volt }
 
-// Magnitude of electrical voltage
+// Root-mean-square (RMS) magnitude of AC electrical voltage
 VoltMagnitude: ElecVolt { volt, magnitude }
 
 // Amount of a substance discharged into the air
@@ -115,10 +117,11 @@ Sf6Emission: Emission { sf6 }
 // Measure of ability to do work
 Energy: Quantity { energy }
 
-// Electrical energy consumed
+// Electrical energy; integral of electric power
 ElecEnergy: Energy { elec }
 
-// Integral of `active-power` over time
+// Active energy in an AC eletrical power system. Integral of
+// `active-power` over time.
 ActiveEnergy: ElecEnergy { active }
 
 // Total heat content of a system. It is defined as internal energy of the system plus the product of pressure and volume.
@@ -133,7 +136,7 @@ Flow: Quantity { flow }
 // Occurrences per unit time
 Freq: Quantity { freq }
 
-// Frequency of alternating current
+// Frequency of an alternating current waveform
 AcFreq: Freq { ac }
 
 // Percent relative humidity; measure of moisture in the air
@@ -175,21 +178,24 @@ LuminousFlux: Quantity { luminous, flux }
 LuminousIntensity: Quantity { luminous, intensity }
 
 // Electric power factor; which is the ratio of active power to apparent
-// power in an AC electric power system.  Measured with numbers in the range
-// of -1.0 to 1.0 or 0.0 to 1.0 with a special unit called 'pf', which is
-// effectively unitless and used for data visualization.
+// power in an AC electric power system.  Measured with values in the range
+// of -1.0 to 1.0 or 0.0 to 1.0 without a unit.  When the range of -1.0 to
+// 1.0 is applied, a negative value for power factor indicates the
+// electrical current leads the electrical voltage and a positive value
+// indicates the electrical current lags the electrical voltage.
 Pf: Quantity { pf }
 
 // Energy consumed per unit time
 Power: Quantity { power }
 
-// Electrical energy consumed per unit time
+// Rate of electrical energy transfer; energy transfer per unit time
 ElecPower: Power { elec }
 
-// Active power or real power; energy transfer that contributes useful work
+// Active power or real power; represents energy transfer that contributes
+// useful work.
 ActivePower: ElecPower { active }
 
-// Active power averaged over a rolling interval.  For utility meters
+// Active power averaged over a regular interval.  For utility meters
 // the demand interval is based on the billing period.
 ElecDemand: ActivePower { elec, demand }
 
@@ -202,10 +208,12 @@ Pressure: Quantity { pressure }
 // Barometric pressure exerted by the weight of the atmosphere
 AtmosphericPressure: Pressure { atmospheric }
 
-// Integral of `reactive-power` over time
+// Reactive energy in an AC eletrical power system. Integral of
+// `reactive-power` over time.
 ReactiveEnergy: Quantity { reactive, energy }
 
-// Reactive power or imaginary power; energy transfer that contributes useful work
+// Reactive power or imaginary power; represents energy that recirculates
+// within an AC power system but does not contribute useful work.
 ReactivePower: Quantity { reactive, power }
 
 // Distance per unit time
@@ -237,10 +245,10 @@ Visibility: Quantity { visibility }
 // AC voltage phase angle
 VoltAngle: Quantity { volt, angle }
 
-// AC voltage imbalance
+// AC voltage phase imbalance. Also referred to as voltage unbalance.
 VoltImbalance: Quantity { volt, imbalance }
 
-// Total harmonic distortion (THD) of voltage
+// Total harmonic distortion (THD) of AC voltage
 VoltThd: Quantity { volt, thd }
 
 // Three dimensional space occupied by a substance

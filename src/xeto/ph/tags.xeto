@@ -1,13 +1,13 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 05-Dec-2024
+// Auto-generated 17-Jan-2025
 //
 
 // Cooling process using energy from heat source such as hot water
 absorption: Marker
 
-// Relating to alternating current electricity
+// Relating to alternating current (AC) electricity
 ac: Marker
 
 // Accumulate the tag's value during [inheritance]`docHaystack::Normalization#inherit`
@@ -321,7 +321,7 @@ dataCenter: Marker
 // Time between sunrise and sunset
 daytime: Marker
 
-// Relating to direct current electricity
+// Relating to direct current (DC) electricity
 dc: Marker
 
 // The range in a process where no changes to output are made.
@@ -445,16 +445,16 @@ elec: Marker
 // Heating by the conversion of electrical energy
 elecHeating: Marker
 
-// Single-phase line measurement of an electric quantity in an AC electric
-// power system.
+// Single-phase line measurement of an electric quantity in a multi-phase
+// AC electric power system.
 elecLine: ElecLine
 
-// Single-phase electric quantity measured line-to-line in an AC electric
-// power system.
+// Single-phase electric quantity measured line-to-line in a multi-phase AC
+// electric power system.
 elecLineToLine: ElecLineToLine
 
-// Single-phase electric quantity measured line-to-neutral in an AC
-// electric power system.
+// Single-phase electric quantity measured line-to-neutral in a multi-phase
+// AC electric power system.
 elecLineToNeutral: ElecLineToNeutral
 
 // Electricity flows from the referent to this entity
@@ -846,19 +846,20 @@ lighting: Marker
 // electric power system.
 //
 // When applied to a point entity that has the `elec` and `volt` tags,
-// indicates the average of all measurements defined in `lineVolt`.
+// indicates the average of all available `lineVolt` measurements.
 //
 // When applied to a point entity that has the `elec` and `current` tags,
-// indicates the average of all measurements defined in `lineCurrent`.
+// indicates the average of all available `lineCurrent` measurements.
 //
 // When applied to a point entity that has the `elec` and `power` tags,
-// indicates the average of all measurements defined in `linePower`.
+// indicates the average of all available `linePower` measurements.
 //
 // When applied to a point entity that has the `elec` and `pf` tags,
-// indicates the average of all measurements defined in `linePf`.
+// indicates the average of all available `linePf` measurements.
 //
 // When applied to a point entity that has the `elec` and `energy` tags,
-// indicates the average of all measurements defined in `lineEnergy`.
+// indicates the average of all available `lineEnergy` measurements.
+//
 lineAvg: Marker
 
 // Single-phase line current measured in an AC electric power system.
@@ -1035,9 +1036,9 @@ networkRef: Ref <of:Network>
 // Related to data communication networks
 networking: Marker
 
-// Used to indicate electrical current being measured on an electrical
-// neutral conductor when applied to a point entity that has the `elec` and
-// `current` tags.
+// when applied to a point entity that has the `elec` and `current` tags,
+// indicates electrical current being measured on an electrical neutral
+// conductor.
 neutral: Marker
 
 // Duct carries air which by-passes both heating and cooling coils
@@ -1121,16 +1122,20 @@ parallel: Marker
 perimeterHeat: Marker
 
 // Electric power factor; which is the ratio of active power to apparent
-// power in an AC electric power system.  Measured with numbers in the range
-// of -1.0 to 1.0 or 0.0 to 1.0 with a special unit called 'pf', which is
-// effectively unitless and used for data visualization.
+// power in an AC electric power system.  Measured with values in the range
+// of -1.0 to 1.0 or 0.0 to 1.0 without a unit.  When the range of -1.0 to
+// 1.0 is applied, a negative value for power factor indicates the
+// electrical current leads the electrical voltage and a positive value
+// indicates the electrical current lags the electrical voltage.
 pf: Marker
 
-// Displacement power factor, which excludes effects of harmonic
-// distortion.
+// Displacement power factor, which accounts for the phase angle between
+// voltage and current but excludes effects of nonlinear waveforms (
+// harmonic distortion).
 pfDisplacement: Marker
 
-// Distortion power factor
+// Distortion power factor, which measures the component of power factor
+// attributable to harmonic distortion in voltage and current waveforms.
 pfDistortion: Marker
 
 // True power factor, which includes effects of harmonic distortion.
@@ -1142,8 +1147,8 @@ pfTrue: Marker
 // Perfluorocarbons
 pfc: Marker
 
-// Phase measurement in a three-phase electrical system.  Phase is
-// deprecated in favor of more explicit tags:
+// Phase measurement in a three-phase electrical system. This tag is
+// deprecated in favor of more precise tags:
 // - `lineVolt`
 // - `phaseVolt`
 // - `lineCurrent`
@@ -1164,19 +1169,19 @@ phase: Phase
 // electric power system.
 //
 // When applied to a point entity that has the `elec` and `volt` tags,
-// indicates the average of all measurements defined in `phaseVolt`.
+// indicates the average of all available `phaseVolt` measurements.
 //
 // When applied to a point entity that has the `elec` and `current` tags,
-// indicates the average of all measurements defined in `phaseCurrent`.
+// indicates the average of all available `phaseCurrent` measurements.
 //
 // When applied to a point entity that has the `elec` and `power` tags,
-// indicates the average of all measurements defined in `phasePower`.
+// indicates the average of all available `phasePower` measurements.
 //
 // When applied to a point entity that has the `elec` and `pf` tags,
-// indicates the average of all measurements defined in `phasePf`.
+// indicates the average of all available `phasePf` measurements.
 //
 // When applied to a point entity that has the `elec` and `energy` tags,
-// indicates the average of all measurements defined in `phaseEnergy`.
+// indicates the average of all available `phaseEnergy` measurements.
 phaseAvg: Marker
 
 // Single-phase current measured line-to-line in an AC electric power
@@ -1192,7 +1197,8 @@ phaseEnergy: PhaseEnergy
 phasePf: PhasePf
 
 // Single-phase power measured line-to-neutral in an AC electric power
-// system.  May also be referred to as a phase power measurement.
+// system.  May also be referred to as a phase power measurement.  Neutral
+// might not be referenced, but implied.
 phasePower: PhasePower
 
 // Single-phase voltage measured line-to-neutral in an AC electric power
@@ -1415,8 +1421,8 @@ simOptimum: Marker
 // One single duct
 singleDuct: Marker
 
-// Single-phase AC electrical power. Power is provided by a
-// single AC voltage source.
+// Single-phase AC electricity. Power is provided by a
+// single AC voltage source with a 2-wire connection.
 singlePhase: Marker
 
 // Site is a geographic location of the built environment.
@@ -1458,6 +1464,13 @@ spaceRef: Ref <of:Space>
 
 // Distance per unit time
 speed: Marker
+
+// Split-phase AC electricity. Power is provided by a
+// single AC voltage source with a 3-wire connection, consisting of two hot
+// wires (phases), separated from each other by a 180-degree phase angle,
+// and one neutral wire.  Despite having two labeled phases, split-phase AC
+// electricity is not a true two-phase system.
+splitPhase: Marker
 
 // Stage number of staged equipment operation such as coil or pump.
 // The first stage is 1, second stage 2, etc.
@@ -1536,8 +1549,10 @@ thermal: Marker
 // may provide an interface for setpoint control.
 thermostat: Marker
 
-// Three-phase AC electrical power. Power is provided by three AC voltage
+// Three-phase AC electricity. Power is provided by three AC voltage
 // sources, each separated from the others by a 120-degree phase angle.
+// May have a 4-wire connection with a neutral (Wye) or a 3-wire connection
+// without a neutral (Delta).
 threePhase: Marker
 
 // Complete or absolute
@@ -1553,6 +1568,12 @@ tripleDuct: Marker
 
 // Total volatile organic compound (TVOC).
 tvoc: Marker
+
+// Two-phase AC electricity. Power is provided by two AC voltage sources,
+// separated from each other by a 90-degree phase angle. Two-phase systems
+// are extremely rare in modern buildings; they have been replaced by
+// modern `threePhase` systems.
+twoPhase: Marker
 
 // Timezone identifier from standard [timezone database]`docHaystack::TimeZones`
 tz: TimeZone

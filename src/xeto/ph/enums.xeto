@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 11-Jul-2024
+// Auto-generated 17-Jan-2025
 //
 
 // Status of point's current value reading.  The `curVal` is only available
@@ -22,24 +22,24 @@ CurStatus: Enum {
   remoteUnknown   // point in remote system is unknown
 }
 
-// Single-phase line measurement of an electric quantity in an AC electric
-// power system.
+// Single-phase line measurement of an electric quantity in a multi-phase
+// AC electric power system.
 ElecLine: Enum {
   pL1 <key:"L1">  // line 1 measurement
   pL2 <key:"L2">  // line 2 measurement
   pL3 <key:"L3">  // line 3 measurement
 }
 
-// Single-phase electric quantity measured line-to-line in an AC electric
-// power system.
+// Single-phase electric quantity measured line-to-line in a multi-phase AC
+// electric power system.
 ElecLineToLine: Enum {
   pL1L2 <key:"L1-L2">  // line 1 to line 2 measurement
   pL2L3 <key:"L2-L3">  // line 2 to line 3 measurement
   pL3L1 <key:"L3-L1">  // line 3 to line 1 measurement
 }
 
-// Single-phase electric quantity measured line-to-neutral in an AC
-// electric power system.
+// Single-phase electric quantity measured line-to-neutral in a multi-phase
+// AC electric power system.
 ElecLineToNeutral: Enum {
   pL1N <key:"L1-N">  // line 1 to neutral measurement
   pL2N <key:"L2-N">  // line 2 to neutral measurement
@@ -544,8 +544,8 @@ LineVolt: Enum {
   pL3L1 <key:"L3-L1">  // line 3 to line 1 measurement
 }
 
-// Phase measurement in a three-phase electrical system.  Phase is
-// deprecated in favor of more explicit tags:
+// Phase measurement in a three-phase electrical system. This tag is
+// deprecated in favor of more precise tags:
 // - `lineVolt`
 // - `phaseVolt`
 // - `lineCurrent`
@@ -595,7 +595,8 @@ PhasePf: Enum {
 }
 
 // Single-phase power measured line-to-neutral in an AC electric power
-// system.  May also be referred to as a phase power measurement.
+// system.  May also be referred to as a phase power measurement.  Neutral
+// might not be referenced, but implied.
 PhasePower: Enum {
   pL1 <key:"L1">  // line 1 measurement
   pL2 <key:"L2">  // line 2 measurement
