@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 09-Nov-2024
+// Auto-generated 24-Jan-2025
 //
 
 // AC Electricity meter.
@@ -634,7 +634,7 @@ Phone: Device {
 // Conduit used to convey a fluid
 Pipe: Conduit {
   pipe
-  pipeFluid:   PipeFluid?
+  pipeFluid:   Fluid?
   pipeSection: PipeSection?
   plantLoop:   PlantLoop?
 }
@@ -657,8 +657,8 @@ Point: Entity <abstract> {
   maxVal:        Number?
   minVal:        Number?
   pointFunction: PointFunction?
-  pointQuantity: PointQuantity?
-  pointSubject:  PointSubject?
+  pointQuantity: Quantity?
+  pointSubject:  Phenomenon?
   siteRef:       Ref?
   spaceRef:      Ref?
   systemRef:     MultiRef?
@@ -672,7 +672,7 @@ Point: Entity <abstract> {
 // See `docHaystack::Motors` chapter.
 PumpMotor: Motor {
   pump
-  pipeFluid:   PipeFluid?
+  pipeFluid:   Fluid?
   pipeSection: PipeSection?
 }
 
@@ -814,7 +814,7 @@ Tablet: Device {
 // Tank used to store a substance for temporary holding
 Tank: Equip {
   tank
-  tankSubstance: TankSubstance?
+  tankSubstance: Substance?
 }
 
 // Senses and controls temperature of space in HVAC system.  Thermostats
@@ -837,7 +837,7 @@ Ups: Equip {
 // Actuator to regulate the flow of fluid.
 ValveActuator: Actuator {
   valve
-  pipeFluid:   PipeFluid?
+  pipeFluid:   Fluid?
   pipeSection: PipeSection?
 }
 
