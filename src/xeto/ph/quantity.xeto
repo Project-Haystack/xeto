@@ -1,11 +1,11 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 17-Jan-2025
+// Auto-generated 24-Jan-2025
 //
 
 // Measurable property of a substance or phenomenon
-Quantity: Choice { quantity }
+Quantity: Choice
 
 // Rate of air movement as distance over time
 AirVelocity: Quantity { air, velocity }

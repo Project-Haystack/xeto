@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 17-Jan-2025
+// Auto-generated 24-Jan-2025
 //
 
 // Cooling process using energy from heat source such as hot water
@@ -1303,9 +1303,6 @@ purge: Marker
 
 // Quantity measured against standard metric
 quality: Marker
-
-// Measurable property of a substance or phenomenon
-quantity: Marker
 
 // Enclosure or chassis used to mount computer and networking gear.
 // Devices are mounted to rails of a standard width, typically 19 or 23

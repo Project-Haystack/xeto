@@ -129,6 +129,7 @@ Examples for version constraints:
 1.2.3         // version 1.2.3 exact
 1.2.x         // any version that starts with "1.2."
 3.x.x         // any version that starts with "3."
+x.x.x         // any version - wildcard match
 1.0.0-2.0.0   // range from 1.0.0 to 2.0.0 inclusive
 1.2.0-1.3.x   // range from 1.2.0 to 1.3.* inclusive
 ```
