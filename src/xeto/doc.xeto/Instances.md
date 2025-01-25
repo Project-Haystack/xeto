@@ -1,13 +1,13 @@
 # Overview
 
-Instances are the objects the represent the data modeled
+Instances are the objects that represent the data modeled
 by specs. Instances are always dicts (dictionaries) or
 JSON objects.  Instances may be defined within a [lib](Libs.md)
 or outside of a lib.
 
 # Id
 All instances must define an 'id' tag that is the unique identifier
-for the data entity.  The 'id' tag must always a Ref value.  Instances
+for the data entity.  The 'id' tag must always be a Ref value.  Instances
 which are defined within a lib will have a id formed from the qname:
 
 ```xeto
@@ -22,7 +22,7 @@ for lib instances.
 
 The scope of uniqueness for lib instances is global due to the
 fact that lib names are [globally unique](Libs.md#names).  For
-non-lib instances the id must be at least be unique within the
+non-lib instances the id must at least be unique within the
 containing dataset.
 
 # Spec
