@@ -37,3 +37,28 @@ DimensionHeightAttr : LengthAttr { height }
 // Weight of the asset
 WeightAttr : MassAttr { weight }
 
+// Max rating of the asset
+MaxAttr : NumberAttr { max }
+
+// Min rating of the asset
+MinAttr : NumberAttr { min }
+
+// Nominal rating of the asset
+NominalAttr : NumberAttr { nominal }
+
+// Max voltage rating of the asset
+VoltMaxAttr : MaxAttr { volt }
+
+// Max DC voltage rating of the asset
+DcVoltMaxAttr : VoltMaxAttr { dc }
+
+// Max AC voltage rating of the asset
+AcVoltMaxAttr : VoltMaxAttr { ac }
+
+// Max line-to-line AC voltage rating of the asset
+LineAcVoltMaxAttr : AcVoltMaxAttr { lineVolt }
+
+// Max line-to-neutral AC voltage rating of the asset
+PhaseAcVoltMaxAttr : AcVoltMaxAttr { phaseVolt }
+
+// TODO: define nominal tag and confirm lineVolt and phaseVolt
