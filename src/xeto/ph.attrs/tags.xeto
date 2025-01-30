@@ -21,7 +21,7 @@ manufacturer: Marker
 // For example, modelSeries is "iPhone 12", but modelNumber is "MGF43LL/A".
 // The modelSeries tends to be a marketing name and not an exact identifier.
 // Always use modelNumber for the actual model identifier.
-modeSeries: Marker
+modelSeries: Marker
 
 // Manufacturer assigned alphanumeric identifier for a specific product configuration.
 // For example, modelSeries is "iPhone 12", but modelNumber is "MGF43LL/A".
