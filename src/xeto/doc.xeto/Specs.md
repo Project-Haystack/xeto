@@ -3,10 +3,10 @@
 Specs or specifications are type definitions.  Specs define the shape
 of data using principles of an object oriented type system.  Specs
 use inheritance for composition and may define arbitrary metadata.
-There are two fundamental types of specs: *scalars* and *dicts*. Scalars
-define an atomic type encoded as a string. Common scalars include Str,
-Number, Date, Time, and DateTime. Dicts define a compound type composed
-of zero or more *slots* that are the data fields.
+There are two fundamental types of specs: *scalars* and *dicts*. 
+  - [**Scalars**](https://github.com/Project-Haystack/xeto/blob/master/src/xeto/doc.xeto/Specs.md#scalars) define an atomic type encoded as a string. Common scalars include Str,
+Number, Date, Time, and DateTime.
+  - [**Dicts**](https://github.com/Project-Haystack/xeto/blob/master/src/xeto/doc.xeto/Specs.md#dicts) define a compound type composed of zero or more *slots* that are the data fields.
 
 # Names
 
@@ -135,7 +135,7 @@ Point: Dict {
 # Slots
 
 Slot specs are specs nested inside a dict spec to define a field
-value in instance data.  They follow all the same rules a other specs,
+value in instance data.  They follow all the same rules as other specs,
 but must start with a lower case ASCII letter.
 
 We call the containing spec of a slot the *parent*.  Slots have
@@ -187,7 +187,7 @@ MyNumbersList: List <of:Number>
 # Representation
 
 Specs are modeled as dict data just like [instance data](Instances.md).
-They following tags are defined by Xeto itself and may not be used
+The following tags are defined by Xeto itself and may not be used
 as metadata tags:
 
   - 'id': a Ref which is the spec qname
