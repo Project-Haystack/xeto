@@ -213,6 +213,18 @@ ElecExportAcMagnitudeCurrentSensor : ElecAcMagnitudeCurrentSensor <abstract> { e
 // Sensor for net magnitude of AC electric current
 ElecNetAcMagnitudeCurrentSensor : ElecAcMagnitudeCurrentSensor <abstract> { net }
 
+// Sensor for displacement power factor (IEC) of AC electric power
+ElecAcIecDisplacementPfSensor : ElecAcDisplacementPfSensor <abstract> { pfIec }
+
+// Sensor for displacement power factor (IEEE) of AC electric power
+ElecAcIeeeDisplacementPfSensor : ElecAcDisplacementPfSensor <abstract> { pfIeee }
+
+// Sensor for distortion power factor (IEC) of AC electric power
+ElecAcIecDistortionPfSensor : ElecAcDistortionPfSensor <abstract> { pfIec }
+
+// Sensor for distortion power factor (IEEE) of AC electric power
+ElecAcIeeeDistortionPfSensor : ElecAcDistortionPfSensor <abstract> { pfIeee }
+
 // Sensor for line magnitude of AC electric voltage
 ElecLineAcMagnitudeVoltSensor : ElecAcMagnitudeVoltSensor <abstract> { lineVolt: LineVolt }
 
@@ -846,101 +858,197 @@ ElecPhaseAvgExportAcApparentPowerSensor : ElecExportAcApparentPowerSensor { phas
 // Sensor for phase average net AC electric apparent power
 ElecPhaseAvgNetAcApparentPowerSensor : ElecNetAcApparentPowerSensor { phaseAvg }
 
-// Sensor for true power factor of line AC electric power
-ElecLineAcTruePfSensor : ElecAcTruePfSensor <abstract> { linePf: LinePf }
+// Sensor for true power factor (IEC) of line AC electric power
+ElecLineAcIecTruePfSensor : ElecAcIecTruePfSensor <abstract> { linePf: LinePf }
 
-// Sensor for true power factor of line 1 to line 2 AC electric power
-ElecL1L2AcTruePfSensor : ElecLineAcTruePfSensor { linePf: "L1-L2" }
+// Sensor for true power factor (IEEE) of line AC electric power
+ElecLineAcIeeeTruePfSensor : ElecAcIeeeTruePfSensor <abstract> { linePf: LinePf }
 
-// Sensor for true power factor of line 2 to line 3 AC electric power
-ElecL2L3AcTruePfSensor : ElecLineAcTruePfSensor { linePf: "L2-L3" }
+// Sensor for true power factor (IEC) of line 1 to line 2 AC electric power
+ElecL1L2AcIecTruePfSensor : ElecLineAcIecTruePfSensor { linePf: "L1-L2" }
 
-// Sensor for true power factor of line 3 to line 1 AC electric power
-ElecL3L1AcTruePfSensor : ElecLineAcTruePfSensor { linePf: "L3-L1" }
+// Sensor for true power factor (IEEE) of line 1 to line 2 AC electric power
+ElecL1L2AcIeeeTruePfSensor : ElecLineAcIeeeTruePfSensor { linePf: "L1-L2" }
 
-// Sensor for true power factor of line average AC electric power
-ElecLineAvgAcTruePfSensor : ElecAcTruePfSensor { lineAvg }
+// Sensor for true power factor (IEC) of line 2 to line 3 AC electric power
+ElecL2L3AcIecTruePfSensor : ElecLineAcIecTruePfSensor { linePf: "L2-L3" }
 
-// Sensor for true power factor of phase AC electric power
-ElecPhaseAcTruePfSensor : ElecAcTruePfSensor <abstract> { phasePf: PhasePf }
+// Sensor for true power factor (IEEE) of line 2 to line 3 AC electric power
+ElecL2L3AcIeeeTruePfSensor : ElecLineAcIeeeTruePfSensor { linePf: "L2-L3" }
 
-// Sensor for true power factor of line 1 AC electric power
-ElecL1AcTruePfSensor : ElecPhaseAcTruePfSensor { phasePf: "L1" }
+// Sensor for true power factor (IEC) of line 3 to line 1 AC electric power
+ElecL3L1AcIecTruePfSensor : ElecLineAcIecTruePfSensor { linePf: "L3-L1" }
 
-// Sensor for true power factor of line 2 AC electric power
-ElecL2AcTruePfSensor : ElecPhaseAcTruePfSensor { phasePf: "L2" }
+// Sensor for true power factor (IEEE) of line 3 to line 1 AC electric power
+ElecL3L1AcIeeeTruePfSensor : ElecLineAcIeeeTruePfSensor { linePf: "L3-L1" }
 
-// Sensor for true power factor of line 3 AC electric power
-ElecL3AcTruePfSensor : ElecPhaseAcTruePfSensor { phasePf: "L3" }
+// Sensor for true power factor (IEC) of line average AC electric power
+ElecLineAvgAcIecTruePfSensor : ElecAcIecTruePfSensor { lineAvg }
 
-// Sensor for true power factor of phase average AC electric power
-ElecPhaseAvgAcTruePfSensor : ElecAcTruePfSensor { phaseAvg }
+// Sensor for true power factor (IEEE) of line average AC electric power
+ElecLineAvgAcIeeeTruePfSensor : ElecAcIeeeTruePfSensor { lineAvg }
 
-// Sensor for displacement power factor of total AC electric power
-ElecTotalAcDisplacementPfSensor : ElecAcDisplacementPfSensor { total }
+// Sensor for true power factor (IEC) of phase AC electric power
+ElecPhaseAcIecTruePfSensor : ElecAcIecTruePfSensor <abstract> { phasePf: PhasePf }
 
-// Sensor for displacement power factor of line AC electric power
-ElecLineAcDisplacementPfSensor : ElecAcDisplacementPfSensor <abstract> { linePf: LinePf }
+// Sensor for true power factor (IEEE) of phase AC electric power
+ElecPhaseAcIeeeTruePfSensor : ElecAcIeeeTruePfSensor <abstract> { phasePf: PhasePf }
 
-// Sensor for displacement power factor of line 1 to line 2 AC electric power
-ElecL1L2AcDisplacementPfSensor : ElecLineAcDisplacementPfSensor { linePf: "L1-L2" }
+// Sensor for true power factor (IEC) of line 1 AC electric power
+ElecL1AcIecTruePfSensor : ElecPhaseAcIecTruePfSensor { phasePf: "L1" }
 
-// Sensor for displacement power factor of line 2 to line 3 AC electric power
-ElecL2L3AcDisplacementPfSensor : ElecLineAcDisplacementPfSensor { linePf: "L2-L3" }
+// Sensor for true power factor (IEEE) of line 1 AC electric power
+ElecL1AcIeeeTruePfSensor : ElecPhaseAcIeeeTruePfSensor { phasePf: "L1" }
 
-// Sensor for displacement power factor of line 3 to line 1 AC electric power
-ElecL3L1AcDisplacementPfSensor : ElecLineAcDisplacementPfSensor { linePf: "L3-L1" }
+// Sensor for true power factor (IEC) of line 2 AC electric power
+ElecL2AcIecTruePfSensor : ElecPhaseAcIecTruePfSensor { phasePf: "L2" }
 
-// Sensor for displacement power factor of line average AC electric power
-ElecLineAvgAcDisplacementPfSensor : ElecAcDisplacementPfSensor { lineAvg }
+// Sensor for true power factor (IEEE) of line 2 AC electric power
+ElecL2AcIeeeTruePfSensor : ElecPhaseAcIeeeTruePfSensor { phasePf: "L2" }
 
-// Sensor for displacement power factor of phase AC electric power
-ElecPhaseAcDisplacementPfSensor : ElecAcDisplacementPfSensor <abstract> { phasePf: PhasePf }
+// Sensor for true power factor (IEC) of line 3 AC electric power
+ElecL3AcIecTruePfSensor : ElecPhaseAcIecTruePfSensor { phasePf: "L3" }
 
-// Sensor for displacement power factor of line 1 AC electric power
-ElecL1AcDisplacementPfSensor : ElecPhaseAcDisplacementPfSensor { phasePf: "L1" }
+// Sensor for true power factor (IEEE) of line 3 AC electric power
+ElecL3AcIeeeTruePfSensor : ElecPhaseAcIeeeTruePfSensor { phasePf: "L3" }
 
-// Sensor for displacement power factor of line 2 AC electric power
-ElecL2AcDisplacementPfSensor : ElecPhaseAcDisplacementPfSensor { phasePf: "L2" }
+// Sensor for true power factor (IEC) of phase average AC electric power
+ElecPhaseAvgAcIecTruePfSensor : ElecAcIecTruePfSensor { phaseAvg }
 
-// Sensor for displacement power factor of line 3 AC electric power
-ElecL3AcDisplacementPfSensor : ElecPhaseAcDisplacementPfSensor { phasePf: "L3" }
+// Sensor for true power factor (IEEE) of phase average AC electric power
+ElecPhaseAvgAcIeeeTruePfSensor : ElecAcIeeeTruePfSensor { phaseAvg }
 
-// Sensor for displacement power factor of phase average AC electric power
-ElecPhaseAvgAcDisplacementPfSensor : ElecAcDisplacementPfSensor { phaseAvg }
+// Sensor for displacement power factor (IEC) of total AC electric power
+ElecTotalAcIecDisplacementPfSensor : ElecAcIecDisplacementPfSensor { total }
 
-// Sensor for distortion power factor of total AC electric power
-ElecTotalAcDistortionPfSensor : ElecAcDistortionPfSensor { total }
+// Sensor for displacement power factor (IEEE) of total AC electric power
+ElecTotalAcIeeeDisplacementPfSensor : ElecAcIeeeDisplacementPfSensor { total }
 
-// Sensor for distortion power factor of line AC electric power
-ElecLineAcDistortionPfSensor : ElecAcDistortionPfSensor <abstract> { linePf: LinePf }
+// Sensor for displacement power factor (IEC) of line AC electric power
+ElecLineAcIecDisplacementPfSensor : ElecAcIecDisplacementPfSensor <abstract> { linePf: LinePf }
 
-// Sensor for distortion power factor of line 1 to line 2 AC electric power
-ElecL1L2AcDistortionPfSensor : ElecLineAcDistortionPfSensor { linePf: "L1-L2" }
+// Sensor for displacement power factor (IEEE) of line AC electric power
+ElecLineAcIeeeDisplacementPfSensor : ElecAcIeeeDisplacementPfSensor <abstract> { linePf: LinePf }
 
-// Sensor for distortion power factor of line 2 to line 3 AC electric power
-ElecL2L3AcDistortionPfSensor : ElecLineAcDistortionPfSensor { linePf: "L2-L3" }
+// Sensor for displacement power factor (IEC) of line 1 to line 2 AC electric power
+ElecL1L2AcIecDisplacementPfSensor : ElecLineAcIecDisplacementPfSensor { linePf: "L1-L2" }
 
-// Sensor for distortion power factor of line 3 to line 1 AC electric power
-ElecL3L1AcDistortionPfSensor : ElecLineAcDistortionPfSensor { linePf: "L3-L1" }
+// Sensor for displacement power factor (IEEE) of line 1 to line 2 AC electric power
+ElecL1L2AcIeeeDisplacementPfSensor : ElecLineAcIeeeDisplacementPfSensor { linePf: "L1-L2" }
 
-// Sensor for distortion power factor of line average AC electric power
-ElecLineAvgAcDistortionPfSensor : ElecAcDistortionPfSensor { lineAvg }
+// Sensor for displacement power factor (IEC) of line 2 to line 3 AC electric power
+ElecL2L3AcIecDisplacementPfSensor : ElecLineAcIecDisplacementPfSensor { linePf: "L2-L3" }
 
-// Sensor for distortion power factor of phase AC electric power
-ElecPhaseAcDistortionPfSensor : ElecAcDistortionPfSensor <abstract> { phasePf: PhasePf }
+// Sensor for displacement power factor (IEEE) of line 2 to line 3 AC electric power
+ElecL2L3AcIeeeDisplacementPfSensor : ElecLineAcIeeeDisplacementPfSensor { linePf: "L2-L3" }
 
-// Sensor for distortion power factor of line 1 AC electric power
-ElecL1AcDistortionPfSensor : ElecPhaseAcDistortionPfSensor { phasePf: "L1" }
+// Sensor for displacement power factor (IEC) of line 3 to line 1 AC electric power
+ElecL3L1AcIecDisplacementPfSensor : ElecLineAcIecDisplacementPfSensor { linePf: "L3-L1" }
 
-// Sensor for distortion power factor of line 2 AC electric power
-ElecL2AcDistortionPfSensor : ElecPhaseAcDistortionPfSensor { phasePf: "L2" }
+// Sensor for displacement power factor (IEEE) of line 3 to line 1 AC electric power
+ElecL3L1AcIeeeDisplacementPfSensor : ElecLineAcIeeeDisplacementPfSensor { linePf: "L3-L1" }
 
-// Sensor for distortion power factor of line 3 AC electric power
-ElecL3AcDistortionPfSensor : ElecPhaseAcDistortionPfSensor { phasePf: "L3" }
+// Sensor for displacement power factor (IEC) of line average AC electric power
+ElecLineAvgAcIecDisplacementPfSensor : ElecAcIecDisplacementPfSensor { lineAvg }
 
-// Sensor for distortion power factor of phase average AC electric power
-ElecPhaseAvgAcDistortionPfSensor : ElecAcDistortionPfSensor { phaseAvg }
+// Sensor for displacement power factor (IEEE) of line average AC electric power
+ElecLineAvgAcIeeeDisplacementPfSensor : ElecAcIeeeDisplacementPfSensor { lineAvg }
+
+// Sensor for displacement power factor (IEC) of phase AC electric power
+ElecPhaseAcIecDisplacementPfSensor : ElecAcIecDisplacementPfSensor <abstract> { phasePf: PhasePf }
+
+// Sensor for displacement power factor (IEEE) of phase AC electric power
+ElecPhaseAcIeeeDisplacementPfSensor : ElecAcIeeeDisplacementPfSensor <abstract> { phasePf: PhasePf }
+
+// Sensor for displacement power factor (IEC) of line 1 AC electric power
+ElecL1AcIecDisplacementPfSensor : ElecPhaseAcIecDisplacementPfSensor { phasePf: "L1" }
+
+// Sensor for displacement power factor (IEEE) of line 1 AC electric power
+ElecL1AcIeeeDisplacementPfSensor : ElecPhaseAcIeeeDisplacementPfSensor { phasePf: "L1" }
+
+// Sensor for displacement power factor (IEC) of line 2 AC electric power
+ElecL2AcIecDisplacementPfSensor : ElecPhaseAcIecDisplacementPfSensor { phasePf: "L2" }
+
+// Sensor for displacement power factor (IEEE) of line 2 AC electric power
+ElecL2AcIeeeDisplacementPfSensor : ElecPhaseAcIeeeDisplacementPfSensor { phasePf: "L2" }
+
+// Sensor for displacement power factor (IEC) of line 3 AC electric power
+ElecL3AcIecDisplacementPfSensor : ElecPhaseAcIecDisplacementPfSensor { phasePf: "L3" }
+
+// Sensor for displacement power factor (IEEE) of line 3 AC electric power
+ElecL3AcIeeeDisplacementPfSensor : ElecPhaseAcIeeeDisplacementPfSensor { phasePf: "L3" }
+
+// Sensor for displacement power factor (IEC) of phase average AC electric power
+ElecPhaseAvgAcIecDisplacementPfSensor : ElecAcIecDisplacementPfSensor { phaseAvg }
+
+// Sensor for displacement power factor (IEEE) of phase average AC electric power
+ElecPhaseAvgAcIeeeDisplacementPfSensor : ElecAcIeeeDisplacementPfSensor { phaseAvg }
+
+// Sensor for distortion power factor (IEC) of total AC electric power
+ElecTotalAcIecDistortionPfSensor : ElecAcIecDistortionPfSensor { total }
+
+// Sensor for distortion power factor (IEEE) of total AC electric power
+ElecTotalAcIeeeDistortionPfSensor : ElecAcIeeeDistortionPfSensor { total }
+
+// Sensor for distortion power factor (IEC) of line AC electric power
+ElecLineAcIecDistortionPfSensor : ElecAcIecDistortionPfSensor <abstract> { linePf: LinePf }
+
+// Sensor for distortion power factor (IEEE) of line AC electric power
+ElecLineAcIeeeDistortionPfSensor : ElecAcIeeeDistortionPfSensor <abstract> { linePf: LinePf }
+
+// Sensor for distortion power factor (IEC) of line 1 to line 2 AC electric power
+ElecL1L2AcIecDistortionPfSensor : ElecLineAcIecDistortionPfSensor { linePf: "L1-L2" }
+
+// Sensor for distortion power factor (IEEE) of line 1 to line 2 AC electric power
+ElecL1L2AcIeeeDistortionPfSensor : ElecLineAcIeeeDistortionPfSensor { linePf: "L1-L2" }
+
+// Sensor for distortion power factor (IEC) of line 2 to line 3 AC electric power
+ElecL2L3AcIecDistortionPfSensor : ElecLineAcIecDistortionPfSensor { linePf: "L2-L3" }
+
+// Sensor for distortion power factor (IEEE) of line 2 to line 3 AC electric power
+ElecL2L3AcIeeeDistortionPfSensor : ElecLineAcIeeeDistortionPfSensor { linePf: "L2-L3" }
+
+// Sensor for distortion power factor (IEC) of line 3 to line 1 AC electric power
+ElecL3L1AcIecDistortionPfSensor : ElecLineAcIecDistortionPfSensor { linePf: "L3-L1" }
+
+// Sensor for distortion power factor (IEEE) of line 3 to line 1 AC electric power
+ElecL3L1AcIeeeDistortionPfSensor : ElecLineAcIeeeDistortionPfSensor { linePf: "L3-L1" }
+
+// Sensor for distortion power factor (IEC) of line average AC electric power
+ElecLineAvgAcIecDistortionPfSensor : ElecAcIecDistortionPfSensor { lineAvg }
+
+// Sensor for distortion power factor (IEEE) of line average AC electric power
+ElecLineAvgAcIeeeDistortionPfSensor : ElecAcIeeeDistortionPfSensor { lineAvg }
+
+// Sensor for distortion power factor (IEC) of phase AC electric power
+ElecPhaseAcIecDistortionPfSensor : ElecAcIecDistortionPfSensor <abstract> { phasePf: PhasePf }
+
+// Sensor for distortion power factor (IEEE) of phase AC electric power
+ElecPhaseAcIeeeDistortionPfSensor : ElecAcIeeeDistortionPfSensor <abstract> { phasePf: PhasePf }
+
+// Sensor for distortion power factor (IEC) of line 1 AC electric power
+ElecL1AcIecDistortionPfSensor : ElecPhaseAcIecDistortionPfSensor { phasePf: "L1" }
+
+// Sensor for distortion power factor (IEEE) of line 1 AC electric power
+ElecL1AcIeeeDistortionPfSensor : ElecPhaseAcIeeeDistortionPfSensor { phasePf: "L1" }
+
+// Sensor for distortion power factor (IEC) of line 2 AC electric power
+ElecL2AcIecDistortionPfSensor : ElecPhaseAcIecDistortionPfSensor { phasePf: "L2" }
+
+// Sensor for distortion power factor (IEEE) of line 2 AC electric power
+ElecL2AcIeeeDistortionPfSensor : ElecPhaseAcIeeeDistortionPfSensor { phasePf: "L2" }
+
+// Sensor for distortion power factor (IEC) of line 3 AC electric power
+ElecL3AcIecDistortionPfSensor : ElecPhaseAcIecDistortionPfSensor { phasePf: "L3" }
+
+// Sensor for distortion power factor (IEEE) of line 3 AC electric power
+ElecL3AcIeeeDistortionPfSensor : ElecPhaseAcIeeeDistortionPfSensor { phasePf: "L3" }
+
+// Sensor for distortion power factor (IEC) of phase average AC electric power
+ElecPhaseAvgAcIecDistortionPfSensor : ElecAcIecDistortionPfSensor { phaseAvg }
+
+// Sensor for distortion power factor (IEEE) of phase average AC electric power
+ElecPhaseAvgAcIeeeDistortionPfSensor : ElecAcIeeeDistortionPfSensor { phaseAvg }
 
 // Sensor for line AC electric active energy imported
 ElecLineImportAcActiveEnergySensor : ElecImportAcActiveEnergySensor <abstract> { lineEnergy: LineEnergy }

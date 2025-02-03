@@ -129,8 +129,17 @@ ElecExportAcApparentDemandSensor : ElecAcApparentDemandSensor <abstract> { expor
 // Sensor for net AC electric apparent demand
 ElecNetAcApparentDemandSensor : ElecAcApparentDemandSensor <abstract> { net }
 
-// Sensor for true power factor of total AC electric power
-ElecTotalAcTruePfSensor : ElecAcTruePfSensor { total }
+// Sensor for true power factor (IEC) of AC electric power
+ElecAcIecTruePfSensor : ElecAcTruePfSensor <abstract> { pfIec }
+
+// Sensor for true power factor (IEEE) of AC electric power
+ElecAcIeeeTruePfSensor : ElecAcTruePfSensor <abstract> { pfIeee }
+
+// Sensor for true power factor (IEC) of total AC electric power
+ElecTotalAcIecTruePfSensor : ElecAcIecTruePfSensor { total }
+
+// Sensor for true power factor (IEEE) of total AC electric power
+ElecTotalAcIeeeTruePfSensor : ElecAcIeeeTruePfSensor { total }
 
 // Sensor for total AC electric active energy imported
 ElecTotalImportAcActiveEnergySensor : ElecImportAcActiveEnergySensor { total }
