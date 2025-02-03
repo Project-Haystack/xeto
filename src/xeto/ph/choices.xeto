@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2024, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 24-Jan-2025
+// Auto-generated 03-Feb-2025
 //
 
 //////////////////////////////////////////////////////////////////////////
@@ -258,6 +258,26 @@ PfDisplacement: PfScope { pfDisplacement }
 // Distortion power factor, which measures the component of power factor
 // attributable to harmonic distortion in voltage and current waveforms.
 PfDistortion: PfScope { pfDistortion }
+
+//////////////////////////////////////////////////////////////////////////
+// PfStandard
+//////////////////////////////////////////////////////////////////////////
+
+// Standard for interpreting power factor's positive or negative sign
+PfStandard: Choice
+
+// Power factor according to the IEC convention defines a positive or
+// negative sign based on the direction of active power flow.  Power factor
+// is positive when active power flows into a load.  Power factor is negative
+// when active power flows out of a load.
+PfIec: PfStandard { pfIec }
+
+// Power factor according to the IEEE convention defines a positive or
+// negative sign based on whether the load is capacitive or inductive.  Power
+// factor is positive when the load is capacitive, or when voltage lags behind
+// current.  Power factor is negative when the load is inductive, or when
+// current lags behind voltage.
+PfIeee: PfStandard { pfIeee }
 
 //////////////////////////////////////////////////////////////////////////
 // PhaseCount
