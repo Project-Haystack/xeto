@@ -148,3 +148,6 @@ File: Entity
 // Spec models a value specification
 Spec: Dict
 
+// Inferface is a collection of functions (TODO)
+Interface: Dict
+
