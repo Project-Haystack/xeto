@@ -129,9 +129,6 @@ Filter: Scalar
 // Query defines a named data set
 Query: Dict
 
-// Inferface is a collection of functions
-Interface: Dict
-
 // Function represents the signature of a computation with
 // zero or more parameter types and one return type.  The 'returns'
 // slot specifies the return type, and all other slots specify
