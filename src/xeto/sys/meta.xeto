@@ -12,6 +12,9 @@ abstract: Marker <meta, noInherit>
 // Indicates an asynchronous operation or function call
 async: Marker <meta>
 
+// Indicates an immutable value
+const: Marker <meta>
+
 // Library dependencies
 depends: List<meta, of:LibDepend>
 
@@ -75,10 +78,11 @@ pattern: Str <meta>
 // Restrict number or unit enum to specific quantity
 quantity: UnitQuantity <meta>
 
-// Indicates a readonly value that may not be mutated
+// Indicates a readonly value that may not be written (but may mutate)
 readonly: Marker <meta>
 
-// Sealed types cannot be extended outside of their own lib
+// Sealed types cannot be extended outside of their own lib. If used
+// on a interface slot, the slot cannot be overridden in a subtype.
 sealed: Marker <meta, noInherit>
 
 // Indicates a spec level slot versus an instance level slot
@@ -101,4 +105,7 @@ version: Version <meta>
 
 // Named path to traverse to execute query
 via: Str <meta>
+
+// Used on a interface non-static slot to indicate it can be overridden subtypes
+virtual: Marker <meta>
 

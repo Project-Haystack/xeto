@@ -148,6 +148,7 @@ File: Entity
 // Spec models a value specification
 Spec: Dict
 
-// Inferface is a collection of functions (TODO)
+// Inferface is an object oriented API defined as set of named
+// field and method slots.
 Interface: Dict
 
