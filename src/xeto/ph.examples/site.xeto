@@ -1,0 +1,31 @@
+//
+// Copyright (c) 2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   6 Feb 2025  Brian Frank  Creation
+//
+
+@a: Site {
+  dis: "ExSite"
+  geoAddr: "100 W Main St, Richmond VA 23220"
+  geoStreet: "100 W Main St"
+  geoCity: "Richmond"
+  geoState: "VA"
+  geoPostalCode: "23220"
+  geoCountry: "US"
+}
+
+@a-ahu-1: Ahu {
+  dis: "AHU-1"
+  siteRef: @a
+  hotWaterHeating
+  chilledWaterCooling
+}
+
+@a-ahu-dat: DischargeAirTempSensor {
+  dis: "AHU-1 Discharge Temp Sensor"
+  siteRef: @a
+  equipRef: @a-ahu-1
+}
+
