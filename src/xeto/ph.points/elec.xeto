@@ -26,10 +26,9 @@ ElecAcPfSensor : ElecSensor <abstract> {
   pf
   unit: Unit <fixed> "pf"
   ac
+  pfScope: PfScope?
+  pfStandard: PfStandard?
 }
-
-// Sensor for true power factor of AC electric power
-ElecAcTruePfSensor : ElecAcPfSensor <abstract> { pfTrue }
 
 // Sensor for AC electric active energy
 ElecAcActiveEnergySensor : ElecEnergySensor <abstract> {
@@ -129,8 +128,8 @@ ElecExportAcApparentDemandSensor : ElecAcApparentDemandSensor <abstract> { expor
 // Sensor for net AC electric apparent demand
 ElecNetAcApparentDemandSensor : ElecAcApparentDemandSensor <abstract> { net }
 
-// Sensor for true power factor of total AC electric power
-ElecTotalAcTruePfSensor : ElecAcTruePfSensor { total }
+// Sensor for total AC electric power factor
+ElecTotalAcPfSensor : ElecAcPfSensor { total }
 
 // Sensor for total AC electric active energy imported
 ElecTotalImportAcActiveEnergySensor : ElecImportAcActiveEnergySensor { total }

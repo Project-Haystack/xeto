@@ -76,28 +76,10 @@ ElecImportAcActivePowerMaxSp : ElecAcActivePowerMaxSp <abstract> { import }
 ElecImportAcActiveDemandMaxSp : ElecAcActiveDemandMaxSp <abstract> { import }
 
 // Max setpoint for line magnitude of AC electric current imported
-ElecLineImportAcMagnitudeCurrentMaxSp : ElecImportAcMagnitudeCurrentMaxSp <abstract> { lineCurrent: LineCurrent }
-
-// Max setpoint for line 1 magnitude of AC electric current imported
-ElecL1ImportAcMagnitudeCurrentMaxSp : ElecLineImportAcMagnitudeCurrentMaxSp { lineCurrent: "L1" }
-
-// Max setpoint for line 2 magnitude of AC electric current imported
-ElecL2ImportAcMagnitudeCurrentMaxSp : ElecLineImportAcMagnitudeCurrentMaxSp { lineCurrent: "L2" }
-
-// Max setpoint for line 3 magnitude of AC electric current imported
-ElecL3ImportAcMagnitudeCurrentMaxSp : ElecLineImportAcMagnitudeCurrentMaxSp { lineCurrent: "L3" }
+ElecLineImportAcMagnitudeCurrentMaxSp : ElecImportAcMagnitudeCurrentMaxSp { lineCurrent: LineCurrent }
 
 // Max setpoint for phase magnitude of AC electric current imported
-ElecPhaseImportAcMagnitudeCurrentMaxSp : ElecImportAcMagnitudeCurrentMaxSp <abstract> { phaseCurrent: PhaseCurrent }
-
-// Max setpoint for line 1 to line 2 magnitude of AC electric current imported
-ElecL1L2ImportAcMagnitudeCurrentMaxSp : ElecPhaseImportAcMagnitudeCurrentMaxSp { phaseCurrent: "L1-L2" }
-
-// Max setpoint for line 2 to line 3 magnitude of AC electric current imported
-ElecL2L3ImportAcMagnitudeCurrentMaxSp : ElecPhaseImportAcMagnitudeCurrentMaxSp { phaseCurrent: "L2-L3" }
-
-// Max setpoint for line 3 to line 1 magnitude of AC electric current imported
-ElecL3L1ImportAcMagnitudeCurrentMaxSp : ElecPhaseImportAcMagnitudeCurrentMaxSp { phaseCurrent: "L3-L1" }
+ElecPhaseImportAcMagnitudeCurrentMaxSp : ElecImportAcMagnitudeCurrentMaxSp { phaseCurrent: PhaseCurrent }
 
 // Max setpoint for total AC electric active power imported
 ElecTotalImportAcActivePowerMaxSp : ElecImportAcActivePowerMaxSp { total }
