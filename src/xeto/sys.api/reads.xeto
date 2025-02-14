@@ -1,0 +1,28 @@
+//
+// Copyright (c) 2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   14 Feb 2025  Brian Frank  Creation
+//
+
+// Return an database record by its id
+readById: Api {
+  id: Ref                   // Database id to read
+  returns: Entity?          // Database record or null if not found
+}
+
+// Return a list of database records by their id
+readByIds: Api {
+  ids: List<of:Ref>          // List of database ids to read
+  returns: List<of:Entity?>  // Database records in order of ids
+}
+
+// Return a list of database records that match a filter query.
+// If limit is reached, include limit warning in envelope.
+readByFilter: Api {
+  filter: Filter            // Filter query to read
+  limit: Int?               // Max number of entities to read
+  returns: List<of:Entity>  // Database records matched
+}
+

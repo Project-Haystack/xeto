@@ -1,0 +1,20 @@
+//
+// Copyright (c) 2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   14 Feb 2025 Brian Frank  Creation
+//
+
+pragma: Lib <
+  doc: "System library for network APIs"
+  version: "0.1.1"
+  depends: {
+    { lib: "sys", versions: "0.1.x" }
+  }
+  org: {
+    dis: "Project Haystack"
+    uri: "https://project-haystack.org/"
+  }
+>
+

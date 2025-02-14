@@ -1,0 +1,46 @@
+//
+// Copyright (c) 2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   14 Feb 2025  Brian Frank  Creation
+//
+
+//////////////////////////////////////////////////////////////////////////
+// Ping
+//////////////////////////////////////////////////////////////////////////
+
+// Health check for a server
+ping: Api {
+  returns: PingRes  // Ping response
+}
+
+// Ping response
+PingRes: Dict {
+  time: DateTime    // Current timestamp of the server's clock
+}
+
+//////////////////////////////////////////////////////////////////////////
+// About
+//////////////////////////////////////////////////////////////////////////
+
+// Return summary information about the server
+about: Api {
+  returns: AboutRes     // About response
+}
+
+// About response
+AboutRes: Dict {
+  // API information
+  api: Dict {
+    version: Version    // System API version supported
+  }
+  // Server information
+  server: Dict {
+    name: Str           // Name of the server or project database
+    time: DateTime      // Current timestamp of the server's clock
+    tz: TimeZone        // Default timezone of the server
+    boot: DateTime?     // Timestamp the server was booted
+  }
+}
+

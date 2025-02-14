@@ -1,0 +1,39 @@
+//
+// Copyright (c) 2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   14 Feb 2025  Brian Frank  Creation
+//
+
+// Network API endpoint
+Api: Func
+
+// Envelope to package API response of data, meta, and error
+ApiEnvelope: Dict {
+  status: ApiStatus   // Result status - ok or error
+  meta: Dict?         // Result meta data if status ok
+  data: Obj?          // Result data if status ok
+  warn: ApiWarn?      // Warning infomation if status is ok
+  error: ApiError?    // Error information if status is error
+}
+
+// API request status
+ApiStatus: Enum {
+  ok                  // Success - result in 'data' field
+  error               // Failure - details in 'error' field
+}
+
+// Additional information when API returns ok, but with a warning message
+ApiWarn: Dict {
+  message: Str        // Reason message to display to user
+  limit: Int?         // Integer if incomplete due to threshold limit
+  timeout: Duration?  // Duration if incomplete due to timeout
+}
+
+// Additional information when an API request returns error status
+ApiError: Dict {
+  message: Str        // Reason message to display to user
+  trace: Str?         // Stack trace for debugging if available
+}
+
