@@ -27,3 +27,8 @@ Link: Dict {
 // The values for each slot name may be a Link or a list of Link.
 Links: Dict <of:Link | List<of:Link>>
 
+// Variable component to inject input and output variables
+Var: Comp {
+  val: Obj?   // Current value of the variable
+}
+
