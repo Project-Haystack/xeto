@@ -1,0 +1,15 @@
+//
+// Copyright (c) 2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   5 Feb 2025 James Gessel Creation
+//
+
+// ProtocolAddr is a dict that contains all information necessary for a point 
+// to communicate via a given protocol. It must always contain a 
+// primary address, which is assumed to be where a point accesses its 
+// current value. Subtypes may add additional addresses for trend, etc. 
+ProtocolAddr: Dict <abstract> {
+  addr: Str 
+}
