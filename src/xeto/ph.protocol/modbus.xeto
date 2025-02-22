@@ -26,7 +26,7 @@ ModbusAddr: ProtocolAddr {
   scale: Number <defVal:"1">                  // Scaling factor for raw values
   offset: Number?                             // Optional offset applied after scaling
   byteOrder: ModbusByteOrder?                 // Defines byte ordering for multi-register values
-
+}
 
 // ModbusAccess specifies read/write access for a modbus point
 ModbusAccess: Enum {
