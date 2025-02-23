@@ -1,0 +1,60 @@
+//
+// Copyright (c) 2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   5 Feb 2025 James Gessel Creation
+//
+
+// ModbusAddr contains all info required to connect to a modbus point 
+// Only supports decimal format (no hex or modicon) 
+// Fields:
+// - **addr**: Modbus address (0=Coil, 1=Input, 3=Holding Reg, 4=Input Reg). Must follow '0xxxx'-'4xxxx' pattern.
+// - **encoding**: Data format for interpretation.
+// - **bitIndex**: (0-15) Optional bit position within a register.
+// - **access**: '"r"' (default) or '"rw"' (Read/Write).
+// - **scale**: Multiplier for raw values (default 1).
+// - **offset**: Optional offset value applied after scaling.
+// - **byteOrder**: Optional, defines endianness for multi-register values.
+//
+// Example: '{ "addr": "40001", "encoding": "UINT16", "scale": 10, "access": "rw" }'
+ModbusAddr: ProtocolAddr {
+  addr:  Str <pattern:"(0|1|3|4)(\d{4})">     // Must follow standard Modbus addressing rules (0xxxx-4xxxx)
+  encoding: ModbusEncoding                    // Specifies data representation format
+  bitIndex: Int? <minVal:0, maxVal:15>        // Optional bit index within a register
+  access: ModbusAccess <defVal:"r">           // Read or Read/Write access
+  scale: Number <defVal:"1">                  // Scaling factor for raw values
+  offset: Number?                             // Optional offset applied after scaling
+  byteOrder: ModbusByteOrder?                 // Defines byte ordering for multi-register values
+}
+
+// ModbusAccess specifies read/write access for a modbus point
+ModbusAccess: Enum {
+  r  // Read Only
+  rw // Read/Write
+  w  // Write Only
+}
+
+// ModbusEncoding specifies the data type and encoding for a modbus point
+ModbusEncoding: Enum {
+  bit // Bool
+  u1  // Unsigned  8-bit Int
+  u2  // Unsigned 16-bit Int
+  u4  // Unsigned 32-bit Int
+  s1  // Signed  8-bit Int
+  s2  // Signed 16-bit Int
+  s4  // Signed 32-bit Int
+  s8  // Signed 64-bit Int
+  f4  // 32-bit Float
+  f8  // 64-bit Float
+}
+
+// Specifies byte and word order for a modbus point
+ModbusByteOrder: Enum {
+  be  // Big endian or network byte order
+  le  // Little endian both byte and word order
+  leb // Little endian byte order
+  lew // Little endian word order
+}
+
+
