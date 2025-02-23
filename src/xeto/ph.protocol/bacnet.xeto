@@ -6,11 +6,38 @@
 //   5 Feb 2025 James Gessel Creation
 //
 
-// BacnetAddr contains all info required to connect to a bacnet point. 
-// This type is used to specify cur/write addresses like AO4 (analog output 4) 
-// or BI1 (binary input 1). Optionally, trend allows for an explicit trend log 
-// address (e.g., TL1) if historical data as applicable. 
+// BacnetAddr contains all addressing info to communicate with a BACnet
+// point.  The 'addr' field is used to specify the primary object to
+// read present value and issue writes.  Optionally the 'trend' field
+// can be used to specify the trend log object for historical data.
+//
+// Address fields are formatted as XXXNNN where XXX is an objec type
+// code in the table below and NNN is the object identifer number
+// in the device.
+//
+//   | Object Name            | Code | Object Type
+//   |------------------------|------|------------
+//   | ACCUMULATOR            | ACC  | 23
+//   | ANALOG_INPUT           | AI   | 0
+//   | ANALOG_OUTPUT          | AO   | 1
+//   | ANALOG_VALUE           | AV   | 2
+//   | BINARY_INPUT           | BI   | 3
+//   | BINARY_OUTPUT          | BO   | 4
+//   | BINARY_VALUE           | BV   | 5
+//   | CHARACTERSTRING_VALUE  | STR  | 40
+//   | LARGE_ANALOG_VALUE     | LAV  | 46
+//   | LOAD_CONTROL           | LC   | 28
+//   | MULTI_STATE_INPUT      | MSI  | 13
+//   | MULTI_STATE_OUTPUT     | MSO  | 14
+//   | MULTI_STATE_VALUE      | MSV  | 19
+//   | POSITIVE_INTEGER_VALUE | PIV  | 48
+//   | PROGRAM_OBJECT         | PRG  | 16
+//   | PULSE_CONVERTER        | PC   | 24
+//   | SCHEDULE               | SCH  | 17
+//   | TREND_LOG              | TL   | 20
+//
 BacnetAddr: ProtocolAddr {
-  addr:  Str <pattern:"\w\w\d+"> //cur/write address (such as AO4, AI3, BO2, BI1)
-  trend: Str? <pattern:"TL\d+">  //optional trend log address (such as TL1)
+  addr:  Str <pattern:"[A-Z]+\\d+"> //cur/write address (such as AO4, AI3, BO2, BI1)
+  trend: Str? <pattern:"TL\\d+">  //optional trend log address (such as TL1)
 }
+
