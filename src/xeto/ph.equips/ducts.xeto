@@ -33,3 +33,12 @@ ReturnDuct: Duct { return }
 // Duct where fresh outside air and return air is mixed together
 MixedDuct: DuctSection { mixed }
 
+// Discharge duct for cooling
+ColdDeckDischargeDuct: DischargeDuct { coldDeck }
+
+// Discharge duct for heating
+HotDeckDischargeDuct: DischargeDuct { hotDeck }
+
+// Discharge duct which by-passes both heating and cooling coils
+NeutralDeckDischargeDuct: DischargeDuct { neutralDeck }
+
