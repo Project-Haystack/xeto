@@ -1,0 +1,35 @@
+//
+// Copyright (c) 2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   26 Feb 2025  Brian Frank  Creation
+//
+
+// Duct to access fresh outside air only for economizing, not ventilation
+EconomizerDuct: Duct { economizer }
+
+// Duct for exhausting combustion
+FlueDuct: Duct { flue }
+
+// Duct with air entering an equipment
+InletDuct: Duct { inlet }
+
+// Duct to access fresh outside air only for ventilation, not economizing
+VentilationDuct: Duct { ventilation }
+
+// Duct to access fresh outside air for both ventilation and economizer.
+OutsideDuct: Duct { outside }
+
+// Duct for air leaving an equipment
+DischargeDuct: Duct { discharge }
+
+// Duct used to expel air back outside
+ExhaustDuct: Duct { exhaust }
+
+// Duct returning air back to equipment
+ReturnDuct: Duct { return }
+
+// Duct where fresh outside air and return air is mixed together
+MixedDuct: DuctSection { mixed }
+
