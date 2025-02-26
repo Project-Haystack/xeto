@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2025, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 13-Feb-2025
+// Auto-generated 26-Feb-2025
 //
 
 //////////////////////////////////////////////////////////////////////////
@@ -11,17 +11,17 @@
 // AHU delivery method of conditioned air to the zone
 AhuZoneDelivery: Choice
 
-// AHU discharge air is split into a duct per zone
-MultiZoneAhu: AhuZoneDelivery { multiZone }
+// AHU supplies air to chilled beam terminal units
+ChilledBeamAhuZoneDelivery: AhuZoneDelivery { chilledBeamZone }
 
 // AHU supplies air directly to the zone
-DirectZoneAhu: AhuZoneDelivery { directZone }
+DirectAhuZoneDelivery: AhuZoneDelivery { directZone }
 
-// AHU supplies air to chilled beam terminal units
-ChilledBeamZoneAhu: AhuZoneDelivery { chilledBeamZone }
+// AHU discharge air is split into a duct per zone
+MultiAhuZoneDelivery: AhuZoneDelivery { multiZone }
 
 // AHU supplies air to VAV terminal units
-VavZoneAhu: AhuZoneDelivery { vavZone }
+VavAhuZoneDelivery: AhuZoneDelivery { vavZone }
 
 //////////////////////////////////////////////////////////////////////////
 // AirVolumeAdjustability
@@ -30,14 +30,14 @@ VavZoneAhu: AhuZoneDelivery { vavZone }
 // Ability of air handling equip to adjust volume of air flow
 AirVolumeAdjustability: Choice
 
+// Delivers a constant volume of air flow.  Typically this means
+// equipment with a single speed fan.
+ConstantAirVolumeAdjustability: AirVolumeAdjustability { constantAirVolume }
+
 // Delivers a variable volume of air flow.   Most variable volume systems
 // are powered by a VFD fan. However other techniques such as inlet vanes
 // may be used in older systems.
-VariableAirVolume: AirVolumeAdjustability { variableAirVolume }
-
-// Delivers a constant volume of air flow.  Typically this means
-// equipment with a single speed fan.
-ConstantAirVolume: AirVolumeAdjustability { constantAirVolume }
+VariableAirVolumeAdjustability: AirVolumeAdjustability { variableAirVolume }
 
 //////////////////////////////////////////////////////////////////////////
 // AtesDesign
@@ -46,25 +46,25 @@ ConstantAirVolume: AirVolumeAdjustability { constantAirVolume }
 // Design type of the ATES underground system.
 AtesDesign: Choice
 
-// The ATES has one or more pairs of a separate warm and cool well.
-AtesDoublet: AtesDesign { atesDoublet }
-
-// The ATES has only one physical well.  This well is deep enough
-// to penetrate two layers of groundwater.
-AtesMono: AtesDesign { atesMono }
-
-// The ATES is as a doublet, but with specific warm and cool wells linked together.
-// These linked wells do not exchange water with other wells.
-AtesDoubletPaired: AtesDesign { atesDoubletPaired }
-
 // The ATES uses closed piping to transport a water/glycol mixture
 // through the ground. The system works like a heat exchanger; there
 // is no ground water transported.
-AtesClosedLoop: AtesDesign { atesClosedLoop }
+ClosedLoopAtesDesign: AtesDesign { atesClosedLoop }
+
+// The ATES has one or more pairs of a separate warm and cool well.
+DoubletAtesDesign: AtesDesign { atesDoublet }
+
+// The ATES is as a doublet, but with specific warm and cool wells linked together.
+// These linked wells do not exchange water with other wells.
+DoubletPairedAtesDesign: AtesDesign { atesDoubletPaired }
+
+// The ATES has only one physical well.  This well is deep enough
+// to penetrate two layers of groundwater.
+MonoAtesDesign: AtesDesign { atesMono }
 
 // Similar to a doublet, but water always flows in the same direction from
 // the extraction to the infiltration well.
-AtesUnidirectional: AtesDesign { atesUnidirectional }
+UnidirectionalAtesDesign: AtesDesign { atesUnidirectional }
 
 //////////////////////////////////////////////////////////////////////////
 // ChillerMechanism
@@ -73,17 +73,17 @@ AtesUnidirectional: AtesDesign { atesUnidirectional }
 // Primary mechanism of chiller
 ChillerMechanism: Choice
 
-// Piston compressor driven by a crankshaft
-ReciprocalChiller: ChillerMechanism { reciprocal }
-
 // Cooling process using energy from heat source such as hot water
-AbsorptionChiller: ChillerMechanism { absorption }
-
-// Rotary screw compression
-RotaryScrewChiller: ChillerMechanism { rotaryScrew }
+AbsorptionChillerMechanism: ChillerMechanism { absorption }
 
 // Compression via a continuous flow of fluid through an impeller
-CentrifugalChiller: ChillerMechanism { centrifugal }
+CentrifugalChillerMechanism: ChillerMechanism { centrifugal }
+
+// Piston compressor driven by a crankshaft
+ReciprocalChillerMechanism: ChillerMechanism { reciprocal }
+
+// Rotary screw compression
+RotaryScrewChillerMechanism: ChillerMechanism { rotaryScrew }
 
 //////////////////////////////////////////////////////////////////////////
 // CondenserLoop
@@ -92,11 +92,11 @@ CentrifugalChiller: ChillerMechanism { centrifugal }
 // Open or closed loop for condenser working fluid
 CondenserLoop: Choice
 
-// Uses working fluid itself for evaporation into the atmosphere
-CondenserOpenLoop: CondenserLoop { condenserOpenLoop }
-
 // Working fluid is kept separate from fluid used for heat transfer into the atmosphere
-CondenserClosedLoop: CondenserLoop { condenserClosedLoop }
+ClosedCondenserLoop: CondenserLoop { condenserClosedLoop }
+
+// Uses working fluid itself for evaporation into the atmosphere
+OpenCondenserLoop: CondenserLoop { condenserOpenLoop }
 
 //////////////////////////////////////////////////////////////////////////
 // CoolingProcess
@@ -106,20 +106,20 @@ CondenserClosedLoop: CondenserLoop { condenserClosedLoop }
 CoolingProcess: Choice
 
 // Cooling by dissipating heat into the surrounding air
-AirCooling: CoolingProcess { airCooling }
+AirCoolingProcess: CoolingProcess { airCooling }
 
 // Cooling using transfer of heat to chilled water
-ChilledWaterCooling: CoolingProcess { chilledWaterCooling }
+ChilledWaterCoolingProcess: CoolingProcess { chilledWaterCooling }
+
+// Removal of heat through the process of water condensation
+CondenserCoolingProcess: CoolingProcess { condenserCooling }
 
 // Cooling using direct expansion of a refrigerant vapor.
 // Also see `dxHeating` and `heatPump`.
-DxCooling: CoolingProcess { dxCooling }
+DxCoolingProcess: CoolingProcess { dxCooling }
 
 // Cooling using transfer of heat to water which is not explicitly chilled
-WaterCooling: CoolingProcess { waterCooling }
-
-// Removal of heat through the process of water condensation
-CondenserCooling: CoolingProcess { condenserCooling }
+WaterCoolingProcess: CoolingProcess { waterCooling }
 
 //////////////////////////////////////////////////////////////////////////
 // DuctConfig
@@ -128,14 +128,14 @@ CondenserCooling: CoolingProcess { condenserCooling }
 // Ductwork configuration
 DuctConfig: Choice
 
-// One single duct
-SingleDuct: DuctConfig { singleDuct }
-
 // Two ducts: combination of hotDeck, coldDeck, or neutralDeck
-DualDuct: DuctConfig { dualDuct }
+DualDuctConfig: DuctConfig { dualDuct }
+
+// One single duct
+SingleDuctConfig: DuctConfig { singleDuct }
 
 // Three ducts: hotDeck, coldDeck, or neutralDeck
-TripleDuct: DuctConfig { tripleDuct }
+TripleDuctConfig: DuctConfig { tripleDuct }
 
 //////////////////////////////////////////////////////////////////////////
 // DuctDeck
@@ -146,14 +146,14 @@ TripleDuct: DuctConfig { tripleDuct }
 // deck type.
 DuctDeck: Choice
 
-// Duct carries air which by-passes both heating and cooling coils
-NeutralDeck: DuctDeck { neutralDeck }
-
 // Duct carries air for cooling
-ColdDeck: DuctDeck { coldDeck }
+ColdDuctDeck: DuctDeck { coldDeck }
 
 // Duct carries air for heating
-HotDeck: DuctDeck { hotDeck }
+HotDuctDeck: DuctDeck { hotDeck }
+
+// Duct carries air which by-passes both heating and cooling coils
+NeutralDuctDeck: DuctDeck { neutralDeck }
 
 //////////////////////////////////////////////////////////////////////////
 // DuctSection
@@ -162,32 +162,32 @@ HotDeck: DuctDeck { hotDeck }
 // Equipment section of ductwork
 DuctSection: Choice
 
-// Duct to access fresh outside air only for economizing, not ventilation
-EconomizerDuct: DuctSection { economizer }
-
-// Duct for exhausting combustion
-FlueDuct: DuctSection { flue }
-
-// Duct with air entering an equipment
-InletDuct: DuctSection { inlet }
-
-// Duct to access fresh outside air only for ventilation, not economizing
-VentilationDuct: DuctSection { ventilation }
-
-// Duct to access fresh outside air for both ventilation and economizer.
-OutsideDuct: DuctSection { outside }
-
 // Duct for air leaving an equipment
-DischargeDuct: DuctSection { discharge }
+DischargeDuctSection: DuctSection { discharge }
+
+// Duct to access fresh outside air only for economizing, not ventilation
+EconomizerDuctSection: DuctSection { economizer }
 
 // Duct used to expel air back outside
-ExhaustDuct: DuctSection { exhaust }
+ExhaustDuctSection: DuctSection { exhaust }
 
-// Duct returning air back to equipment
-ReturnDuct: DuctSection { return }
+// Duct for exhausting combustion
+FlueDuctSection: DuctSection { flue }
+
+// Duct with air entering an equipment
+InletDuctSection: DuctSection { inlet }
 
 // Duct where fresh outside air and return air is mixed together
-MixedDuct: DuctSection { mixed }
+MixedDuctSection: DuctSection { mixed }
+
+// Duct to access fresh outside air for both ventilation and economizer.
+OutsideDuctSection: DuctSection { outside }
+
+// Duct returning air back to equipment
+ReturnDuctSection: DuctSection { return }
+
+// Duct to access fresh outside air only for ventilation, not economizing
+VentilationDuctSection: DuctSection { ventilation }
 
 //////////////////////////////////////////////////////////////////////////
 // HeatingProcess
@@ -196,33 +196,33 @@ MixedDuct: DuctSection { mixed }
 // Processed used to heat a substance
 HeatingProcess: Choice
 
-// Heating using energy of steam
-SteamHeating: HeatingProcess { steamHeating }
-
-// Heating by the combustion of fuel oil
-FuelOilHeating: HeatingProcess { fuelOilHeating }
-
-// Heating by the conversion of electrical energy
-ElecHeating: HeatingProcess { elecHeating }
-
-// Heating using energy of hot water
-HotWaterHeating: HeatingProcess { hotWaterHeating }
-
-// Heating by the combustion of natural gas
-NaturalGasHeating: HeatingProcess { naturalGasHeating }
-
 // Heating by the combustion of biomass
-BiomassHeating: HeatingProcess { biomassHeating }
+BiomassHeatingProcess: HeatingProcess { biomassHeating }
 
 // Heating by the combustion of coal
-CoalHeating: HeatingProcess { coalHeating }
+CoalHeatingProcess: HeatingProcess { coalHeating }
 
 // Heating using direct expansion of a refrigerant vapor.
 // Also see `dxCooling` and `heatPump`.
-DxHeating: HeatingProcess { dxHeating }
+DxHeatingProcess: HeatingProcess { dxHeating }
+
+// Heating by the conversion of electrical energy
+ElecHeatingProcess: HeatingProcess { elecHeating }
+
+// Heating by the combustion of fuel oil
+FuelOilHeatingProcess: HeatingProcess { fuelOilHeating }
+
+// Heating using energy of hot water
+HotWaterHeatingProcess: HeatingProcess { hotWaterHeating }
+
+// Heating by the combustion of natural gas
+NaturalGasHeatingProcess: HeatingProcess { naturalGasHeating }
 
 // Heating by the combustion of propane
-PropaneHeating: HeatingProcess { propaneHeating }
+PropaneHeatingProcess: HeatingProcess { propaneHeating }
+
+// Heating using energy of steam
+SteamHeatingProcess: HeatingProcess { steamHeating }
 
 //////////////////////////////////////////////////////////////////////////
 // MeterScope
@@ -231,11 +231,11 @@ PropaneHeating: HeatingProcess { propaneHeating }
 // Classifies a meter as a main site meter or submeter
 MeterScope: Choice
 
-// Submeters measure usage of a sub-system or equipment within a site
-Submeter: MeterScope { submeter }
-
 // Main meter for the associated site
-SiteMeter: MeterScope { siteMeter }
+SiteMeterScope: MeterScope { siteMeter }
+
+// Submeters measure usage of a sub-system or equipment within a site
+SubmeterMeterScope: MeterScope { submeter }
 
 //////////////////////////////////////////////////////////////////////////
 // PfScope
@@ -244,20 +244,20 @@ SiteMeter: MeterScope { siteMeter }
 // Power factor scope
 PfScope: Choice
 
+// Displacement power factor, which accounts for the phase angle between
+// voltage and current but excludes effects of nonlinear waveforms (
+// harmonic distortion).
+DisplacementPfScope: PfScope { pfDisplacement }
+
+// Distortion power factor, which measures the component of power factor
+// attributable to harmonic distortion in voltage and current waveforms.
+DistortionPfScope: PfScope { pfDistortion }
+
 // True power factor, which includes effects of harmonic distortion.
 // Power factor is assumed to be true power factor when `pfScope` is not
 // defined.  However, it is recommended to specify a scope for power
 // factor to help avoid misinterpretation of data.
-PfTrue: PfScope { pfTrue }
-
-// Displacement power factor, which accounts for the phase angle between
-// voltage and current but excludes effects of nonlinear waveforms (
-// harmonic distortion).
-PfDisplacement: PfScope { pfDisplacement }
-
-// Distortion power factor, which measures the component of power factor
-// attributable to harmonic distortion in voltage and current waveforms.
-PfDistortion: PfScope { pfDistortion }
+TruePfScope: PfScope { pfTrue }
 
 //////////////////////////////////////////////////////////////////////////
 // PfStandard
@@ -270,14 +270,14 @@ PfStandard: Choice
 // negative sign based on the direction of active power flow.  Power factor
 // is positive when active power flows into a load.  Power factor is negative
 // when active power flows out of a load.
-PfIec: PfStandard { pfIec }
+IecPfStandard: PfStandard { pfIec }
 
 // Power factor according to the IEEE convention defines a positive or
 // negative sign based on whether the load is capacitive or inductive.  Power
 // factor is positive when the load is capacitive, or when voltage lags behind
 // current.  Power factor is negative when the load is inductive, or when
 // current lags behind voltage.
-PfIeee: PfStandard { pfIeee }
+IeeePfStandard: PfStandard { pfIeee }
 
 //////////////////////////////////////////////////////////////////////////
 // PhaseCount
@@ -288,28 +288,28 @@ PfIeee: PfStandard { pfIeee }
 // three-phase.
 PhaseCount: Choice
 
-// Three-phase AC electricity. Power is provided by three AC voltage
-// sources, each separated from the others by a 120-degree phase angle.
-// May have a 4-wire connection with a neutral (Wye) or a 3-wire connection
-// without a neutral (Delta).
-ThreePhase: PhaseCount { threePhase }
+// Single-phase AC electricity. Power is provided by a
+// single AC voltage source with a 2-wire connection.
+SinglePhaseCount: PhaseCount { singlePhase }
 
 // Split-phase AC electricity. Power is provided by a
 // single AC voltage source with a 3-wire connection, consisting of two hot
 // wires (phases), separated from each other by a 180-degree phase angle,
 // and one neutral wire.  Despite having two labeled phases, split-phase AC
 // electricity is not a true two-phase system.
-SplitPhase: PhaseCount { splitPhase }
+SplitPhaseCount: PhaseCount { splitPhase }
+
+// Three-phase AC electricity. Power is provided by three AC voltage
+// sources, each separated from the others by a 120-degree phase angle.
+// May have a 4-wire connection with a neutral (Wye) or a 3-wire connection
+// without a neutral (Delta).
+ThreePhaseCount: PhaseCount { threePhase }
 
 // Two-phase AC electricity. Power is provided by two AC voltage sources,
 // separated from each other by a 90-degree phase angle. Two-phase systems
 // are extremely rare in modern buildings; they have been replaced by
 // modern `threePhase` systems.
-TwoPhase: PhaseCount { twoPhase }
-
-// Single-phase AC electricity. Power is provided by a
-// single AC voltage source with a 2-wire connection.
-SinglePhase: PhaseCount { singlePhase }
+TwoPhaseCount: PhaseCount { twoPhase }
 
 //////////////////////////////////////////////////////////////////////////
 // PipeSection
@@ -318,20 +318,20 @@ SinglePhase: PhaseCount { singlePhase }
 // Equipment section of piping
 PipeSection: Choice
 
-// Pipe conveys fluid into an equipment
-EnteringPipe: PipeSection { entering }
+// Pipe used to bypass an equipment
+BypassPipeSection: PipeSection { bypass }
 
 // Pipe used to circulate fluid through an equipment or system
-CircPipe: PipeSection { circ }
+CircPipeSection: PipeSection { circ }
 
-// Pipe conveys fluid out of an equipment
-LeavingPipe: PipeSection { leaving }
-
-// Pipe used to bypass an equipment
-BypassPipe: PipeSection { bypass }
+// Pipe conveys fluid into an equipment
+EnteringPipeSection: PipeSection { entering }
 
 // Pipe used as central connection or manifold for other piping runs.
-HeaderPipe: PipeSection { header }
+HeaderPipeSection: PipeSection { header }
+
+// Pipe conveys fluid out of an equipment
+LeavingPipeSection: PipeSection { leaving }
 
 //////////////////////////////////////////////////////////////////////////
 // PlantLoop
@@ -340,21 +340,21 @@ HeaderPipe: PipeSection { header }
 // Plant piping loop: primary, secondary, or tertiary
 PlantLoop: Choice
 
-// Pipework which circulates within the building.
-TertiaryLoop: PlantLoop { tertiaryLoop }
-
 // Pipework which circulates closest to the energy source.  In a central
 // plant, the primary loop indicates the pipes and equipment within the
 // central plant.  In context of heat exchangers between the primary
 // and secondary loops, this tag indicates the side closest to the plant.
-PrimaryLoop: PlantLoop { primaryLoop }
+PrimaryPlantLoop: PlantLoop { primaryLoop }
 
 // Pipework which circulates closest to the building or end use. In a
 // central plant, the secondary loop indicates the pipes and equipment between
 // the central plant and the building.  In context of heat exchangers between
 // the primary and secondary loops, this tag indicates the side closest to
 // the building.
-SecondaryLoop: PlantLoop { secondaryLoop }
+SecondaryPlantLoop: PlantLoop { secondaryLoop }
+
+// Pipework which circulates within the building.
+TertiaryPlantLoop: PlantLoop { tertiaryLoop }
 
 //////////////////////////////////////////////////////////////////////////
 // PointFunction
@@ -366,11 +366,15 @@ PointFunction: Choice
 
 // Point is a command, actuator, AO/BO.
 // See `docHaystack::Points#function` chapter.
-Cmd: PointFunction { cmd }
+CmdPointFunction: PointFunction { cmd }
 
 // Point is a sensor, input, AI/BI.
 // See `docHaystack::Points#function` chapter.
-Sensor: PointFunction { sensor }
+SensorPointFunction: PointFunction { sensor }
+
+// Point is a setpoint, soft point, internal control variable, schedule.
+// See `docHaystack::Points#function` chapter.
+SpPointFunction: PointFunction { sp }
 
 // Synthetic point with computed operational data. The computed data
 // if classified as:
@@ -379,20 +383,16 @@ Sensor: PointFunction { sensor }
 //   - `computed` as catch all for other computations
 //
 // See `docHaystack::Synthetics` chapter.
-Synthetic: PointFunction { synthetic }
+SyntheticPointFunction: PointFunction { synthetic }
 
 // Computed point. See `docHaystack::Synthetics` chapter.
-ComputedSynthetic: Synthetic { computed }
-
-// Simulation point. See `docHaystack::Synthetics` chapter.
-SimSynthetic: Synthetic { sim }
+ComputedSyntheticPointFunction: SyntheticPointFunction { computed }
 
 // Machine learning point. See `docHaystack::Synthetics` chapter.
-MlSynthetic: Synthetic { ml }
+MlSyntheticPointFunction: SyntheticPointFunction { ml }
 
-// Point is a setpoint, soft point, internal control variable, schedule.
-// See `docHaystack::Points#function` chapter.
-Sp: PointFunction { sp }
+// Simulation point. See `docHaystack::Synthetics` chapter.
+SimSyntheticPointFunction: SyntheticPointFunction { sim }
 
 //////////////////////////////////////////////////////////////////////////
 // SimScenario
@@ -402,13 +402,13 @@ Sp: PointFunction { sp }
 SimScenario: Choice
 
 // See `docHaystack::Synthetics#sims` chapter.
-SimBaseline: SimScenario { simBaseline }
+BaselineSimScenario: SimScenario { simBaseline }
 
 // See `docHaystack::Synthetics#sims` chapter.
-SimOptimum: SimScenario { simOptimum }
+OperationSimScenario: SimScenario { simOperation }
 
 // See `docHaystack::Synthetics#sims` chapter.
-SimOperation: SimScenario { simOperation }
+OptimumSimScenario: SimScenario { simOptimum }
 
 //////////////////////////////////////////////////////////////////////////
 // VavAirCircuit
@@ -417,11 +417,11 @@ SimOperation: SimScenario { simOperation }
 // How does the VAV pull in air
 VavAirCircuit: Choice
 
-// VAV pulls air from the primary air flow
-SeriesVav: VavAirCircuit { series }
-
 // VAV pulls air from outside the primary air flow
-ParallelVav: VavAirCircuit { parallel }
+ParallelVavAirCircuit: VavAirCircuit { parallel }
+
+// VAV pulls air from the primary air flow
+SeriesVavAirCircuit: VavAirCircuit { series }
 
 //////////////////////////////////////////////////////////////////////////
 // VavModulation
@@ -432,9 +432,9 @@ VavModulation: Choice
 
 // VAV damper modulates to control space temp; dependent on duct pressure
 // being maintained
-PressureDependentVav: VavModulation { pressureDependent }
+PressureDependentVavModulation: VavModulation { pressureDependent }
 
 // VAV damper or a control valve that modulates to maintain desired flow
 // setpoint; independent of the duct pressure
-PressureIndependentVav: VavModulation { pressureIndependent }
+PressureIndependentVavModulation: VavModulation { pressureIndependent }
 
