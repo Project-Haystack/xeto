@@ -7,7 +7,7 @@
 //
 
 // Setpoint for electricity
-ElecSp : NumberPoint & Sp <abstract> { elec }
+ElecSp : NumberPoint & SpPoint <abstract> { elec }
 
 // Max setpoint for electricity
 ElecMaxSp : ElecSp <abstract> { max }

@@ -16,10 +16,10 @@ RunPoint : BoolPoint <abstract> {
 RunEnum: Enum { off, on }
 
 // Sensor for the primary on/off command for equipment
-RunSensor : RunPoint & Sensor <abstract>
+RunSensor : RunPoint & SensorPoint <abstract>
 
 // Primary on/off command to run a equipment such as a motor
-RunCmd : RunPoint & Cmd <abstract>
+RunCmd : RunPoint & CmdPoint <abstract>
 
 // Point associated with secondary on/off state for equipment
 EnablePoint : BoolPoint <abstract> {
@@ -28,13 +28,13 @@ EnablePoint : BoolPoint <abstract> {
 }
 
 // Sensor for the secondary on/off command for equipment
-EnableSensor : EnablePoint & Sensor <abstract>
+EnableSensor : EnablePoint & SensorPoint <abstract>
 
 // Secondary on/off command to run equipment
-EnableCmd : EnablePoint & Cmd <abstract>
+EnableCmd : EnablePoint & CmdPoint <abstract>
 
 // Boolean alarm condition
-AlarmSensor : BoolPoint & Sensor <abstract> { alarm }
+AlarmSensor : BoolPoint & SensorPoint <abstract> { alarm }
 
 // Point associated with VFD frequency measured in Hertz
 VfdFreqPoint : NumberPoint <abstract> {
@@ -44,10 +44,10 @@ VfdFreqPoint : NumberPoint <abstract> {
 }
 
 // Sensor for VFD frequency in Hertz
-VfdFreqSensor : VfdFreqPoint & Sensor <abstract>
+VfdFreqSensor : VfdFreqPoint & SensorPoint <abstract>
 
 // Command for VFD frequency in Hertz
-VfdFreqCmd : VfdFreqPoint & Cmd <abstract>
+VfdFreqCmd : VfdFreqPoint & CmdPoint <abstract>
 
 // Point associated with VFD speed.  Speed is measured as
 // percentage where 0% is off and 100% if full speed
@@ -58,8 +58,8 @@ VfdSpeedPoint : NumberPoint <abstract> {
 }
 
 // VFD speed sensor as percentage where 0% is off, 100% if full speed
-VfdSpeedSensor : VfdSpeedPoint & Sensor <abstract>
+VfdSpeedSensor : VfdSpeedPoint & SensorPoint <abstract>
 
 // VFD speed command as percentage where 0% is off, 100% if full speed
-VfdSpeedCmd : VfdSpeedPoint & Cmd <abstract>
+VfdSpeedCmd : VfdSpeedPoint & CmdPoint <abstract>
 

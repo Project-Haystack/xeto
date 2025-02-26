@@ -14,10 +14,10 @@ AirFlowPoint : NumberPoint <abstract> {
 }
 
 // Sensor for volumetric air flow
-AirFlowSensor : AirFlowPoint & Sensor <abstract>
+AirFlowSensor : AirFlowPoint & SensorPoint <abstract>
 
 // Setpoint for volumetric air flow
-AirFlowSp : AirFlowPoint & Sp <abstract>
+AirFlowSp : AirFlowPoint & SpPoint <abstract>
 
 //////////////////////////////////////////////////////////////////////////
 // Discharge

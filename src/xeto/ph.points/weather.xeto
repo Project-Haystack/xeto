@@ -7,7 +7,7 @@
 //
 
 // Weather observation point
-WeatherPoint : Point & Sensor <abstract> {
+WeatherPoint : Point & SensorPoint <abstract> {
   weather
   weatherStationRef: Ref
 }

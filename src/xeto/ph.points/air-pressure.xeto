@@ -14,10 +14,10 @@ AirPressurePoint : NumberPoint <abstract> {
 }
 
 // Sensor for static air pressure
-AirPressureSensor : AirPressurePoint & Sensor <abstract>
+AirPressureSensor : AirPressurePoint & SensorPoint <abstract>
 
 // Setpoint for static air pressure
-AirPressureSp : AirPressurePoint & Sp <abstract>
+AirPressureSp : AirPressurePoint & SpPoint <abstract>
 
 //////////////////////////////////////////////////////////////////////////
 // Discharge

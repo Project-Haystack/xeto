@@ -18,10 +18,10 @@ NaturalGasFlowPoint : NumberPoint <abstract> {
 }
 
 // Sensor for volumetric flow of natural gas
-NaturalGasFlowSensor : NaturalGasFlowPoint & Sensor
+NaturalGasFlowSensor : NaturalGasFlowPoint & SensorPoint
 
 // Setpoint for volumetric flow of natural gas
-NaturalGasFlowSp : NaturalGasFlowPoint & Sp
+NaturalGasFlowSp : NaturalGasFlowPoint & SpPoint
 
 //////////////////////////////////////////////////////////////////////////
 // Volume
@@ -35,10 +35,10 @@ NaturalGasVolumePoint : NumberPoint <abstract> {
 }
 
 // Sensor for volumetric consumption of natural gas
-NaturalGasVolumeSensor : NaturalGasVolumePoint & Sensor
+NaturalGasVolumeSensor : NaturalGasVolumePoint & SensorPoint
 
 // Setpoint for volumetric consumption of natural gas
-NaturalGasVolumeSp : NaturalGasVolumePoint & Sp
+NaturalGasVolumeSp : NaturalGasVolumePoint & SpPoint
 
 //////////////////////////////////////////////////////////////////////////
 // Volume
@@ -52,8 +52,8 @@ NaturalGasEnergyPoint : NumberPoint <abstract> {
 }
 
 // Sensor for energy consumption of natural gas
-NaturalGasEnergySensor : NaturalGasEnergyPoint & Sensor
+NaturalGasEnergySensor : NaturalGasEnergyPoint & SensorPoint
 
 // Setpoint for energy consumption of natural gas
-NaturalGasEnergySp : NaturalGasEnergyPoint & Sp
+NaturalGasEnergySp : NaturalGasEnergyPoint & SpPoint
 

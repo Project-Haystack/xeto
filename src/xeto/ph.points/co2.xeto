@@ -15,10 +15,10 @@ Co2Point : NumberPoint <abstract> {
 }
 
 // Sensor for concentration of carbon dioxide (CO₂)
-Co2Sensor : Co2Point & Sensor <abstract>
+Co2Sensor : Co2Point & SensorPoint <abstract>
 
 // Setpoint for concentration of carbon dioxide (CO₂)
-Co2Sp : Co2Point & Sp <abstract>
+Co2Sp : Co2Point & SpPoint <abstract>
 
 //////////////////////////////////////////////////////////////////////////
 // Zone

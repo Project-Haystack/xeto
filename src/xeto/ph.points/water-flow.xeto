@@ -14,10 +14,10 @@ WaterFlowPoint : NumberPoint <abstract> {
 }
 
 // Sensor for volumetric flow of water
-WaterFlowSensor : WaterFlowPoint & Sensor <abstract>
+WaterFlowSensor : WaterFlowPoint & SensorPoint <abstract>
 
 // Setpoint for volumetric flow of water
-WaterFlowSp : WaterFlowPoint & Sp <abstract>
+WaterFlowSp : WaterFlowPoint & SpPoint <abstract>
 
 //////////////////////////////////////////////////////////////////////////
 // Domestic

@@ -14,10 +14,10 @@ AirTempPoint : NumberPoint <abstract> {
 }
 
 // Sensor for drybulb air temperature
-AirTempSensor : AirTempPoint & Sensor <abstract>
+AirTempSensor : AirTempPoint & SensorPoint <abstract>
 
 // Setpoint for drybulb air temperature
-AirTempSp : AirTempPoint & Sp <abstract>
+AirTempSp : AirTempPoint & SpPoint <abstract>
 
 //////////////////////////////////////////////////////////////////////////
 // Discharge

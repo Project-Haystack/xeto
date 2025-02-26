@@ -16,6 +16,5 @@ HeatCmd : BoolPoint { heat }
 DessicantDehumidifierCmd : BoolPoint { dessicantDehumidifier }
 
 // Temperature conditioning mode for a zone in an HVAC system
-ZoneAirHvacModeSp : EnumPoint & Sp { zone, air, hvacMode }
-
+ZoneAirHvacModeSp : EnumPoint & SpPoint { zone, air, hvacMode }
 

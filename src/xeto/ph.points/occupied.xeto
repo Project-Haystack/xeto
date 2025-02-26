@@ -17,10 +17,10 @@ OccupiedPoint : BoolPoint <abstract> {
 OccupiedEnum : Enum { unoccupied, occupied }
 
 // Occupancy sensor
-OccupiedSensor : OccupiedPoint & Sensor <abstract>
+OccupiedSensor : OccupiedPoint & SensorPoint <abstract>
 
 // Occupancy setpoint
-OccupiedSp : OccupiedPoint & Sp <abstract>
+OccupiedSp : OccupiedPoint & SpPoint <abstract>
 
 //////////////////////////////////////////////////////////////////////////
 // Zone

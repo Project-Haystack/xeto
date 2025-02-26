@@ -27,5 +27,28 @@ EnumPoint : Point <abstract> {
   enum: Obj
 }
 
+//////////////////////////////////////////////////////////////////////////
+// Point Functions
+//////////////////////////////////////////////////////////////////////////
 
+// Point is a command, actuator, AO/BO.
+CmdPoint: Point <abstract> { cmd }
+
+// Point is a sensor, input, AI/BI.
+SensorPoint: Point <abstract> { sensor }
+
+// Point is a setpoint, soft point, internal control variable, schedule.
+SpPoint: Point <abstract> { sp }
+
+// Synthetic point with computed operational data
+SyntheticPoint: Point <abstract> { synthetic }
+
+// Computed poin
+ComputedSyntheticPoint: SyntheticPoint <abstract> { computed }
+
+// Machine learning point
+MlSyntheticPoint: SyntheticPoint <abstract> { ml }
+
+// Simulation point
+SimSyntheticPoint: SyntheticPoint <abstract> { sim }
 

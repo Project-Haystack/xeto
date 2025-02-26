@@ -14,10 +14,10 @@ AirHumidityPoint : NumberPoint <abstract> {
 }
 
 // Sensor for relative humidity
-AirHumiditySensor : AirHumidityPoint & Sensor <abstract>
+AirHumiditySensor : AirHumidityPoint & SensorPoint <abstract>
 
 // Setpoint for relative humidity
-AirHumiditySp : AirHumidityPoint & Sp <abstract>
+AirHumiditySp : AirHumidityPoint & SpPoint <abstract>
 
 //////////////////////////////////////////////////////////////////////////
 // Discharge

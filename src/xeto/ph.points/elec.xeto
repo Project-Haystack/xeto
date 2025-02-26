@@ -7,7 +7,7 @@
 //
 
 // Sensor for electricity
-ElecSensor : NumberPoint & Sensor <abstract> { elec }
+ElecSensor : NumberPoint & SensorPoint <abstract> { elec }
 
 // Sensor for electric demand
 ElecDemandSensor : ElecSensor <abstract> {

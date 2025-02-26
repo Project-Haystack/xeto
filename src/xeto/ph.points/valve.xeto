@@ -13,10 +13,10 @@ ValvePoint : NumberPoint <abstract> {
 }
 
 // Valve position sensor; 0% is fully closed and 100% is fully open.
-ValveSensor : ValvePoint & Sensor <abstract>
+ValveSensor : ValvePoint & SensorPoint <abstract>
 
 // Valve position command; 0% is fully closed and 100% is fully open.
-ValveCmd : ValvePoint & Cmd <abstract>
+ValveCmd : ValvePoint & CmdPoint <abstract>
 
 //////////////////////////////////////////////////////////////////////////
 // Chilled Water

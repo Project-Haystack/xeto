@@ -14,10 +14,10 @@ WaterVolumePoint : NumberPoint <abstract> {
 }
 
 // Sensor for volumetric consumption of water
-WaterVolumeSensor : WaterVolumePoint & Sensor <abstract>
+WaterVolumeSensor : WaterVolumePoint & SensorPoint <abstract>
 
 // Setpoint for volumetric consumption of water
-WaterVolumeSp : WaterVolumePoint & Sp <abstract>
+WaterVolumeSp : WaterVolumePoint & SpPoint <abstract>
 
 //////////////////////////////////////////////////////////////////////////
 // Domestic

@@ -14,10 +14,10 @@ DamperPoint : NumberPoint <abstract> {
 }
 
 // Damper position sensor; 0% is fully closed, 100% is fully open
-DamperSensor : DamperPoint & Sensor <abstract>
+DamperSensor : DamperPoint & SensorPoint <abstract>
 
 // Damper position command; 0% is fully closed, 100% is fully open
-DamperCmd : DamperPoint & Cmd <abstract>
+DamperCmd : DamperPoint & CmdPoint <abstract>
 
 //////////////////////////////////////////////////////////////////////////
 // Discharge
