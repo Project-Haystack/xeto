@@ -198,15 +198,6 @@ ElecExportAcApparentPowerSensor : ElecAcApparentPowerSensor <abstract> { export 
 // Sensor for net AC electric apparent power
 ElecNetAcApparentPowerSensor : ElecAcApparentPowerSensor <abstract> { net }
 
-// Sensor for magnitude of AC electric current imported
-ElecImportAcMagnitudeCurrentSensor : ElecAcMagnitudeCurrentSensor <abstract> { import }
-
-// Sensor for magnitude of AC electric current exported
-ElecExportAcMagnitudeCurrentSensor : ElecAcMagnitudeCurrentSensor <abstract> { export }
-
-// Sensor for net magnitude of AC electric current
-ElecNetAcMagnitudeCurrentSensor : ElecAcMagnitudeCurrentSensor <abstract> { net }
-
 // Sensor for line magnitude of AC electric voltage
 ElecLineAcMagnitudeVoltSensor : ElecAcMagnitudeVoltSensor { lineVolt: LineVolt }
 
@@ -255,59 +246,23 @@ ElecPhaseAcThdVoltSensor : ElecAcThdVoltSensor { phaseVolt: PhaseVolt }
 // Sensor for phase average total harmonic distortion of AC electric voltage
 ElecPhaseAvgAcThdVoltSensor : ElecAcThdVoltSensor { phaseAvg }
 
-// Sensor for line magnitude of AC electric current imported
-ElecLineImportAcMagnitudeCurrentSensor : ElecImportAcMagnitudeCurrentSensor { lineCurrent: LineCurrent }
+// Sensor for line magnitude of AC electric current
+ElecLineAcMagnitudeCurrentSensor : ElecAcMagnitudeCurrentSensor { lineCurrent: LineCurrent }
 
-// Sensor for line magnitude of AC electric current exported
-ElecLineExportAcMagnitudeCurrentSensor : ElecExportAcMagnitudeCurrentSensor { lineCurrent: LineCurrent }
+// Sensor for line average magnitude of AC electric current
+ElecLineAvgAcMagnitudeCurrentSensor : ElecAcMagnitudeCurrentSensor { lineAvg }
 
-// Sensor for line net magnitude of AC electric current
-ElecLineNetAcMagnitudeCurrentSensor : ElecNetAcMagnitudeCurrentSensor { lineCurrent: LineCurrent }
+// Sensor for phase magnitude of AC electric current
+ElecPhaseAcMagnitudeCurrentSensor : ElecAcMagnitudeCurrentSensor { phaseCurrent: PhaseCurrent }
 
-// Sensor for line average magnitude of AC electric current imported
-ElecLineAvgImportAcMagnitudeCurrentSensor : ElecImportAcMagnitudeCurrentSensor { lineAvg }
+// Sensor for phase average magnitude of AC electric current
+ElecPhaseAvgAcMagnitudeCurrentSensor : ElecAcMagnitudeCurrentSensor { phaseAvg }
 
-// Sensor for line average magnitude of AC electric current exported
-ElecLineAvgExportAcMagnitudeCurrentSensor : ElecExportAcMagnitudeCurrentSensor { lineAvg }
+// Sensor for neutral magnitude of AC electric current
+ElecNeutralAcMagnitudeCurrentSensor : ElecAcMagnitudeCurrentSensor { neutral }
 
-// Sensor for line average net magnitude of AC electric current
-ElecLineAvgNetAcMagnitudeCurrentSensor : ElecNetAcMagnitudeCurrentSensor { lineAvg }
-
-// Sensor for phase magnitude of AC electric current imported
-ElecPhaseImportAcMagnitudeCurrentSensor : ElecImportAcMagnitudeCurrentSensor { phaseCurrent: PhaseCurrent }
-
-// Sensor for phase magnitude of AC electric current exported
-ElecPhaseExportAcMagnitudeCurrentSensor : ElecExportAcMagnitudeCurrentSensor { phaseCurrent: PhaseCurrent }
-
-// Sensor for phase net magnitude of AC electric current
-ElecPhaseNetAcMagnitudeCurrentSensor : ElecNetAcMagnitudeCurrentSensor { phaseCurrent: PhaseCurrent }
-
-// Sensor for phase average magnitude of AC electric current imported
-ElecPhaseAvgImportAcMagnitudeCurrentSensor : ElecImportAcMagnitudeCurrentSensor { phaseAvg }
-
-// Sensor for phase average magnitude of AC electric current exported
-ElecPhaseAvgExportAcMagnitudeCurrentSensor : ElecExportAcMagnitudeCurrentSensor { phaseAvg }
-
-// Sensor for phase average net magnitude of AC electric current
-ElecPhaseAvgNetAcMagnitudeCurrentSensor : ElecNetAcMagnitudeCurrentSensor { phaseAvg }
-
-// Sensor for neutral magnitude of AC electric current imported
-ElecNeutralImportAcMagnitudeCurrentSensor : ElecImportAcMagnitudeCurrentSensor { neutral }
-
-// Sensor for neutral magnitude of AC electric current exported
-ElecNeutralExportAcMagnitudeCurrentSensor : ElecExportAcMagnitudeCurrentSensor { neutral }
-
-// Sensor for neutral net magnitude of AC electric current
-ElecNeutralNetAcMagnitudeCurrentSensor : ElecNetAcMagnitudeCurrentSensor { neutral }
-
-// Sensor for ground magnitude of AC electric current imported
-ElecGroundImportAcMagnitudeCurrentSensor : ElecImportAcMagnitudeCurrentSensor { ground }
-
-// Sensor for ground magnitude of AC electric current exported
-ElecGroundExportAcMagnitudeCurrentSensor : ElecExportAcMagnitudeCurrentSensor { ground }
-
-// Sensor for ground net magnitude of AC electric current
-ElecGroundNetAcMagnitudeCurrentSensor : ElecNetAcMagnitudeCurrentSensor { ground }
+// Sensor for ground magnitude of AC electric current
+ElecGroundAcMagnitudeCurrentSensor : ElecAcMagnitudeCurrentSensor { ground }
 
 // Sensor for line angle of AC electric current
 ElecLineAcAngleCurrentSensor : ElecAcAngleCurrentSensor { lineCurrent: LineCurrent }
