@@ -1,7 +1,7 @@
 //
-// Copyright (c) 2011-2024, Project-Haystack
+// Copyright (c) 2011-2025, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 03-Feb-2025
+// Auto-generated 06-Mar-2025
 //
 
 // Cooling process using energy from heat source such as hot water
@@ -292,18 +292,18 @@ crac: Marker
 cur: Marker
 
 // Error description when `curStatus` indicates error condition
-curErr: Str
+curErr: Str <transient>
 
 // Status of point's current value reading.  The `curVal` is only available
 // when curStatus is "ok" or "stale".  However a "stale" value should
 // be used with caution since the local system does not have a fresh value.
 // It is recommended that the `curVal` tag is removed from a point
 // when the curStatus is not "ok" nor "stale".
-curStatus: CurStatus
+curStatus: CurStatus <transient>
 
 // Current value of a point.  The current value is only available when
 // the `curStatus` is "ok" or "stale".
-curVal: Obj
+curVal: Obj <transient>
 
 // Movement of fluid or electricity
 current: Marker
@@ -730,13 +730,13 @@ hfc: Marker
 his: Marker
 
 // Error description when `hisStatus` indicates error condition
-hisErr: Str
+hisErr: Str <transient>
 
 // Indicates the way that history data is collected for a point.
 hisMode: HisMode
 
 // Status of point's history collection or synchronization
-hisStatus: HisStatus
+hisStatus: HisStatus <transient>
 
 // Indicates values which are a continuous stream of totalization. History
 // data reads and should be normalized by computing the delta.
@@ -1693,19 +1693,19 @@ wire: Marker
 writable: Marker
 
 // Error description when `writeStatus` indicates error condition
-writeErr: Str
+writeErr: Str <transient>
 
 // Current priority level for `writeVal` as number between 1 and 17.
 // The value 17 indicates the relinquish default value.
-writeLevel: Number
+writeLevel: Number <transient>
 
 // Current status of a writable point output
-writeStatus: WriteStatus
+writeStatus: WriteStatus <transient>
 
 // Current desired value to write to output.  This is the current "winning"
 // value of the priority array indicated by `writeLevel`.  If this tag
 // is missing then the winning value is null/auto.
-writeVal: Obj
+writeVal: Obj <transient>
 
 // Extended string - type name and string value encoding.
 // See [Kinds chapter]`docHaystack::Kinds#xstr`.
