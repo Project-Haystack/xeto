@@ -139,7 +139,8 @@ Func: Dict {
 
 // Top-level dicts with a unique identifier.
 Entity: Dict <abstract> {
-  id: Ref        // Unique identifier for entity in its project
+  id: Ref              // Unique identifier for entity in its project
+  spec: Ref?<of:Spec>  // Type of this entity
 }
 
 // Entity that represents a file containing textual or binary data
