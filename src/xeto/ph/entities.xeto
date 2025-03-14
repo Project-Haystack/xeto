@@ -1,7 +1,7 @@
 //
-// Copyright (c) 2011-2024, Project-Haystack
+// Copyright (c) 2011-2025, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 24-Jan-2025
+// Auto-generated 14-Mar-2025
 //
 
 // AC Electricity meter.
@@ -454,6 +454,19 @@ FumeHood: Equip {
   fumeHood
 }
 
+// Geographic place
+GeoPlace: Entity <abstract> {
+  geoAddr:       Str?
+  geoCity:       Str?
+  geoCoord:      Coord?
+  geoCountry:    GeoCountry?
+  geoCounty:     Str?
+  geoElevation:  Number?
+  geoPostalCode: Str?
+  geoState:      GeoState?
+  geoStreet:     Str?
+}
+
 // Floor at ground level.  In North America this is typically called
 // the first floor, but in Europe its often labeled as floor zero.
 // If `floorNum` is defined, then it must be set to zero.
@@ -746,7 +759,7 @@ SimModel: SyntheticModel {
 // Site is a geographic location of the built environment.
 // Typically site maps to one building with its own unique
 // street address.  See `docHaystack::Sites` chapter.
-Site: Entity {
+Site: GeoPlace {
   site
   area:              Number?
   primaryFunction:   PrimaryFunction?
@@ -928,7 +941,7 @@ WeatherPoint: Point <abstract> {
 
 // Logical weather station and its measurement points.
 // See `docHaystack::Weather#stations` chapter.
-WeatherStation: Entity {
+WeatherStation: GeoPlace {
   weatherStation
   tz: TimeZone?
 }
