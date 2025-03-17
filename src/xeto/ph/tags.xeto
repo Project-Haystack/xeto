@@ -1,7 +1,7 @@
 //
 // Copyright (c) 2011-2025, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 06-Mar-2025
+// Auto-generated 15-Mar-2025
 //
 
 // Cooling process using energy from heat source such as hot water
@@ -1712,7 +1712,7 @@ writeVal: Obj <transient>
 xstr: Obj
 
 // Original year of construction as four digit year such as 1980
-yearBuilt: Number
+yearBuilt: Int
 
 // Low power wireless communication protocol for home automation
 zigbee: Marker
