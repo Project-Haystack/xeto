@@ -97,6 +97,9 @@ transient: Unit <meta>
 // Restrict number or unit enum to specific unit
 unit: Unit <meta>
 
+// Restrict a number to have no unit
+unitless: Marker <meta>
+
 // Default value for this slot
 val: Obj <meta>
 
