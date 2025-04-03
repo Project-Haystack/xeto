@@ -17,22 +17,22 @@
 // - **offset**: Optional offset value applied after scaling.
 // - **byteOrder**: Optional, defines endianness for multi-register values.
 //
-// Example: '{ "addr": "40001", "encoding": "UINT16", "scale": 10, "access": "rw" }'
+// Example: '{ "addr": "40001", "encoding": "u2", "scale": 10, "access": "rw" }'
 ModbusAddr: ProtocolAddr {
-  addr:  Str <pattern:"[0-4](\\d{4})">        // Must follow standard Modbus addressing rules (0xxxx-4xxxx)
-  encoding: ModbusEncoding                    // Specifies data representation format
-  bitIndex: Int? <minVal:0, maxVal:15>        // Optional bit index within a register
-  access: ModbusAccess "r"                    // Read or Read/Write access
-  scale: Number "1"                           // Scaling factor for raw values
-  offset: Number?                             // Optional offset applied after scaling
-  byteOrder: ModbusByteOrder?                 // Defines byte ordering for multi-register values
+  addr:  Str <pattern:"[0-4](\\d{4})">    // Must follow standard Modbus addressing rules (0xxxx-4xxxx)
+  encoding: ModbusEncoding                // Specifies data representation format
+  bitIndex: Int? <minVal:0, maxVal:15>    // Optional bit index within a register
+  access: ModbusAccess "r"                // Read/write access
+  scale: Number "1"                       // Scaling factor for raw values
+  offset: Number?                         // Optional offset applied after scaling
+  byteOrder: ModbusByteOrder?             // Defines byte ordering for multi-register values
 }
 
 // ModbusAccess specifies read/write access for a modbus point
 ModbusAccess: Enum {
-  r  // Read Only
-  rw // Read/Write
-  w  // Write Only
+  r   // Read Only
+  rw  // Read/Write
+  w   // Write Only
 }
 
 // ModbusEncoding specifies the data type and encoding for a modbus point
