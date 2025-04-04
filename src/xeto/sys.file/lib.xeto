@@ -7,14 +7,14 @@
 //
 
 pragma: Lib <
-  doc: "Project haystack experimental resource file types"
+  doc: "System library for MIME typed file specs"
   version: "0.1.1"
   depends: {
     { lib: "sys", versions: "0.1.x" }
-    { lib: "ph",  versions: "0.1.x" }
   }
   org: {
    dis: "Project Haystack"
    uri: "https://project-haystack.org/"
   }
 >
+

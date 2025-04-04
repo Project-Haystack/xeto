@@ -1,0 +1,14 @@
+//
+// Copyright (c) 2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   4 Apr 2025  Brian Frank  Creation
+//
+
+// MIME type for a file spec
+mimeType: Str <meta>
+
+// Default file name extension to use for a file spec
+fileExt: Str <meta>
+

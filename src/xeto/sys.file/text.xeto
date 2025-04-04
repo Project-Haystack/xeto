@@ -1,0 +1,35 @@
+//
+// Copyright (c) 2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   4 Apr 2025  Brian Frank  Creation
+//
+
+// Text file
+TextFile : File <abstract>
+
+// HTML text file
+HtmlFile : TextFile <mimeType:"text/html; charset=utf-8", fileExt:"html">
+
+// JSON text file
+JsonFile : TextFile <mimeType:"application/json", fileExt:"json">
+
+// JSON-LD text file
+JsonLdFile : TextFile <mimeType:"application/ld+json", fileExt:"jsonld">
+
+// Markdown text file
+MarkdownFile : TextFile <mimeType:"text/markdown; charset=utf-8", fileExt:"md">
+
+// Plain text file
+PlainTextFile : TextFile <mimeType:"text/plain; charset=utf-8", fileExt:"txt">
+
+// Project Haystack Trio text file
+TrioFile : TextFile <mimeType:"text/trio; charset=utf-8", fileExt:"trio">
+
+// RDF turtle file
+TurtleFile : TextFile <mimeType:"text/turtle; charset=utf-8", fileExt:"ttl">
+
+// Project Haystack Zinc text file
+ZincFile : TextFile <mimeType:"text/zinc; charset=utf-8", fileExt:"zinc">
+

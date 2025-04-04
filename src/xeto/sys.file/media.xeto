@@ -1,0 +1,62 @@
+//
+// Copyright (c) 2023, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   12 May 2023  Brian Frank  Creation
+//
+
+//////////////////////////////////////////////////////////////////////////
+// Images
+//////////////////////////////////////////////////////////////////////////
+
+// Image file
+ImageFile : File <abstract>
+
+// Image file in GIF format
+GifImage : ImageFile <mimeType:"image/gif", fileExt:"gif">
+
+// Image file in JPEG format
+JpegImage : ImageFile <mimeType:"image/jpeg", fileExt:"jpeg">
+
+// Image file in PNG format
+PngFile : ImageFile <mimeType:"image/png", fileExt:"png">
+
+// Scalable vector graphics image file
+SvgFile : ImageFile <mimeType:"image/svg+xml", fileExt:"svg">
+
+// Image file in TIFF format
+TiffFile : ImageFile <mimeType:"image/tiff", fileExt:"tiff">
+
+//////////////////////////////////////////////////////////////////////////
+// Audio
+//////////////////////////////////////////////////////////////////////////
+
+// Audio media file
+AudioFile : File <abstract>
+
+// AAC audio file
+AacFile : AudioFile <mimeType:"audio/aac", fileExt:"aac">
+
+// MP3 audio file
+Mp3File : AudioFile <mimeType:"audio/mpeg", fileExt:"mp3">
+
+// Waveform audio file
+WavFile : AudioFile <mimeType:"audio/wav", fileExt:"wav">
+
+//////////////////////////////////////////////////////////////////////////
+// Video
+//////////////////////////////////////////////////////////////////////////
+
+// Video media file
+VideoFile : File <abstract>
+
+// MP4 video file
+Mp4File : AudioFile <mimeType:"video/mp4", fileExt:"mp4">
+
+// MP3 video file
+MpegFile : AudioFile <mimeType:"video/mpeg", fileExt:"mpeg">
+
+// Ogg video file
+OggFile : AudioFile <mimeType:"video/ogg", fileExt:"ogg">
+

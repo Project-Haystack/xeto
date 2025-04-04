@@ -1,0 +1,20 @@
+//
+// Copyright (c) 2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   4 Apr 2025  Brian Frank  Creation
+//
+
+// Application specific file format
+AppFile : File <abstract>
+
+// TAR archive file
+TarFile : AppFile <mimeType:"application/x-tar", fileExt:"tar">
+
+// Xeto library zip file
+XetoLibFile : AppFile <mimeType:"application/xetolib", fileExt:"xetolib">
+
+// Zip archive file
+ZipFile : AppFile <mimeType:"application/zip", fileExt:"zip">
+
