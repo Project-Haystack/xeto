@@ -6,44 +6,27 @@
 //   3 Sep 2024  Rick Jennings  Creation
 //
 
+ElecAcQuadrant: Enum {
+  q1 <key:"1">
+  q2 <key:"2">
+  q3 <key:"3">
+  q4 <key:"4">
+}
+
 // Sensor for electric voltage
 ElecVoltSensor : ElecSensor <abstract> {
   volt
-  unit: Unit <quantity:"electricPotential"> "V"
 }
 
 // Sensor for electric current
 ElecCurrentSensor : ElecSensor <abstract> {
   current
-  unit: Unit <quantity:"electricCurrent"> "A"
 }
 
 // Sensor for electric power
 ElecPowerSensor : ElecSensor <abstract> {
   power
-  unit: Unit <quantity:"power"> "kW"
-}
-
-// Sensor for DC electric voltage
-ElecDcVoltSensor : ElecVoltSensor { dc }
-
-// Sensor for DC electric current
-ElecDcCurrentSensor : ElecCurrentSensor <abstract> { dc }
-
-// Sensor for DC electric power
-ElecDcPowerSensor : ElecPowerSensor <abstract> { dc }
-
-// Sensor for DC electric demand
-ElecDcDemandSensor : ElecDemandSensor <abstract> { dc }
-
-// Sensor for DC electric energy
-ElecDcEnergySensor : ElecEnergySensor <abstract> { dc }
-
-// Sensor for DC electric state of charge
-ElecDcStateOfChargeSensor : ElecSensor {
-  stateOfCharge
-  unit: Unit <fixed> "%"
-  dc
+  elecDirection: ElecDirection
 }
 
 // Sensor for AC electric frequency
@@ -53,523 +36,471 @@ ElecAcFreqSensor : ElecSensor {
   ac
 }
 
-// Sensor for DC electric power imported
-ElecImportDcPowerSensor : ElecDcPowerSensor { import }
-
-// Sensor for DC electric power exported
-ElecExportDcPowerSensor : ElecDcPowerSensor { export }
-
-// Sensor for net DC electric power
-ElecNetDcPowerSensor : ElecDcPowerSensor { net }
-
-// Sensor for DC electric current imported
-ElecImportDcCurrentSensor : ElecDcCurrentSensor { import }
-
-// Sensor for DC electric current exported
-ElecExportDcCurrentSensor : ElecDcCurrentSensor { export }
-
-// Sensor for net DC electric current
-ElecNetDcCurrentSensor : ElecDcCurrentSensor { net }
-
-// Sensor for DC electric demand imported
-ElecImportDcDemandSensor : ElecDcDemandSensor { import }
-
-// Sensor for DC electric demand exported
-ElecExportDcDemandSensor : ElecDcDemandSensor { export }
-
-// Sensor for net DC electric demand
-ElecNetDcDemandSensor : ElecDcDemandSensor { net }
-
-// Sensor for DC electric energy imported
-ElecImportDcEnergySensor : ElecDcEnergySensor { import }
-
-// Sensor for DC electric energy exported
-ElecExportDcEnergySensor : ElecDcEnergySensor { export }
-
-// Sensor for net DC electric energy
-ElecNetDcEnergySensor : ElecDcEnergySensor { net }
+// Sensor for AC electric voltage (base)
+ElecAcVoltSensorX : ElecVoltSensor <abstract> {
+  ac
+  elecAcSpectralContent: ElecAcSpectralContent?
+  elecAcHarmonicOrder: Int? <minVal: 2>
+}
 
 // Sensor for magnitude of AC electric voltage
-ElecAcMagnitudeVoltSensor : ElecVoltSensor <abstract> {
+ElecAcMagnitudeVoltSensor : ElecAcVoltSensorX <abstract> {
   magnitude
-  ac
+  elecAcWaveformMagnitude: ElecAcWaveformMagnitude
+  unit: Unit <quantity:"electricPotential"> "V"
 }
+
+// Sensor for RMS of AC electric voltage
+ElecAcVoltSensor : ElecAcMagnitudeVoltSensor <abstract> { rootMeanSquare }
 
 // Sensor for angle of AC electric voltage
-ElecAcAngleVoltSensor : ElecSensor <abstract> {
-  volt
+ElecAcAngleVoltSensor : ElecAcVoltSensorX <abstract> {
   angle
   unit: "deg"
-  ac
 }
 
-// Sensor for imbalance of AC electric voltage
-ElecAcImbalanceVoltSensor : ElecSensor <abstract> {
-  volt
-  imbalance
+// Sensor for statistic of AC electric voltage
+ElecAcStatVoltSensor : ElecAcVoltSensorX <abstract> {
+  elecAcWaveformStat: ElecAcWaveformStat
   unit: Unit <fixed> "%"
-  ac
 }
 
-// Sensor for total harmonic distortion of AC electric voltage
-ElecAcThdVoltSensor : ElecSensor <abstract> {
-  volt
-  thd
-  unit: Unit <fixed> "%"
+// Sensor for AC electric current (base)
+ElecAcCurrentSensorX : ElecCurrentSensor <abstract> {
   ac
+  elecAcSpectralContent: ElecAcSpectralContent?
+  elecAcHarmonicOrder: Int? <minVal: 2>
 }
 
 // Sensor for magnitude of AC electric current
-ElecAcMagnitudeCurrentSensor : ElecCurrentSensor <abstract> {
+ElecAcMagnitudeCurrentSensor : ElecAcCurrentSensorX <abstract> {
   magnitude
-  ac
+  unit: Unit <quantity:"electricCurrent"> "A"
+  elecAcWaveformMagnitude: ElecAcWaveformMagnitude?
 }
+
+// Sensor for RMS of AC electric current
+ElecAcCurrentSensor : ElecAcMagnitudeCurrentSensor <abstract> { rootMeanSquare }
 
 // Sensor for angle of AC electric current
-ElecAcAngleCurrentSensor : ElecSensor <abstract> {
-  current
+ElecAcAngleCurrentSensor : ElecAcCurrentSensorX <abstract> {
   angle
   unit: "deg"
-  ac
 }
 
-// Sensor for imbalance of AC electric current
-ElecAcImbalanceCurrentSensor : ElecSensor <abstract> {
-  current
-  imbalance
+// Sensor for statistic of AC electric current
+ElecAcStatCurrentSensor : ElecAcCurrentSensorX <abstract> {
+  elecAcWaveformStat: ElecAcWaveformStat
   unit: Unit <fixed> "%"
-  ac
 }
 
-// Sensor for total harmonic distortion of AC electric current
-ElecAcThdCurrentSensor : ElecSensor <abstract> {
+// Sensor for AC electric current demand
+ElecAcCurrentDemandSensor : ElecDemandSensor <abstract> {
+  ac
   current
-  thd
-  unit: Unit <fixed> "%"
-  ac
 }
 
-// Sensor for AC electric active power
-ElecAcActivePowerSensor : ElecPowerSensor <abstract> {
+// Sensor for average magnitude of AC electric power
+ElecAcAvgMagnitudePowerSensor : ElecPowerSensor <abstract> {
+  ac
+  avg
+  magnitude
+  elecAcPowerSubtype: ElecAcPowerSubtype
+}
+
+// Sensor for average magnitude of AC electric active power
+ElecAcActivePowerSensor : ElecAcAvgMagnitudePowerSensor <abstract> {
   active
-  ac
+  unit: Unit <quantity:"power"> "kW"
 }
 
-// Sensor for AC electric reactive power
-ElecAcReactivePowerSensor : ElecSensor <abstract> {
-  power
+// Sensor for average magnitude of AC electric reactive power
+ElecAcReactivePowerSensor : ElecAcAvgMagnitudePowerSensor <abstract> {
   reactive
   unit: Unit <quantity:"reactivePower"> "kVAR"
-  ac
 }
 
-// Sensor for AC electric apparent power
-ElecAcApparentPowerSensor : ElecSensor <abstract> {
-  power
+// Sensor for average magnitude of AC electric apparent power
+ElecAcApparentPowerSensor : ElecAcAvgMagnitudePowerSensor <abstract> {
   apparent
   unit: Unit <quantity:"apparentPower"> "kVA"
-  ac
 }
 
-// Sensor for AC electric active power imported
-ElecImportAcActivePowerSensor : ElecAcActivePowerSensor <abstract> { import }
+// Sensor for import of average magnitude of AC electric active power
+ElecAcImportActivePowerSensor : ElecAcActivePowerSensor <abstract> { import }
 
-// Sensor for AC electric active power exported
-ElecExportAcActivePowerSensor : ElecAcActivePowerSensor <abstract> { export }
+// Sensor for export of average magnitude of AC electric active power
+ElecAcExportActivePowerSensor : ElecAcActivePowerSensor <abstract> { export }
 
-// Sensor for net AC electric active power
-ElecNetAcActivePowerSensor : ElecAcActivePowerSensor <abstract> { net }
+// Sensor for net of average magnitude of AC electric active power
+ElecAcNetActivePowerSensor : ElecAcActivePowerSensor <abstract> { net }
 
-// Sensor for AC electric reactive power imported
-ElecImportAcReactivePowerSensor : ElecAcReactivePowerSensor <abstract> { import }
+// Sensor for import of average magnitude of AC electric reactive power
+ElecAcImportReactivePowerSensor : ElecAcReactivePowerSensor <abstract> { import }
 
-// Sensor for AC electric reactive power exported
-ElecExportAcReactivePowerSensor : ElecAcReactivePowerSensor <abstract> { export }
+// Sensor for export of average magnitude of AC electric reactive power
+ElecAcExportReactivePowerSensor : ElecAcReactivePowerSensor <abstract> { export }
 
-// Sensor for net AC electric reactive power
-ElecNetAcReactivePowerSensor : ElecAcReactivePowerSensor <abstract> { net }
+// Sensor for net of average magnitude of AC electric reactive power
+ElecAcNetReactivePowerSensor : ElecAcReactivePowerSensor <abstract> { net }
 
-// Sensor for AC electric apparent power imported
-ElecImportAcApparentPowerSensor : ElecAcApparentPowerSensor <abstract> { import }
+// Sensor for import of average magnitude of AC electric apparent power
+ElecAcImportApparentPowerSensor : ElecAcApparentPowerSensor <abstract> { import }
 
-// Sensor for AC electric apparent power exported
-ElecExportAcApparentPowerSensor : ElecAcApparentPowerSensor <abstract> { export }
+// Sensor for export of average magnitude of AC electric apparent power
+ElecAcExportApparentPowerSensor : ElecAcApparentPowerSensor <abstract> { export }
 
-// Sensor for net AC electric apparent power
-ElecNetAcApparentPowerSensor : ElecAcApparentPowerSensor <abstract> { net }
+// Sensor for net of average magnitude of AC electric apparent power
+ElecAcNetApparentPowerSensor : ElecAcApparentPowerSensor <abstract> { net }
 
-// Sensor for line magnitude of AC electric voltage
-ElecLineAcMagnitudeVoltSensor : ElecAcMagnitudeVoltSensor { lineVolt: LineVolt }
+// Sensor for net of AC electric current demand
+ElecAcNetCurrentDemandSensor : ElecAcCurrentDemandSensor <abstract> { net }
 
-// Sensor for line average magnitude of AC electric voltage
-ElecLineAvgAcMagnitudeVoltSensor : ElecAcMagnitudeVoltSensor { lineAvg }
+// Sensor for line RMS of AC electric voltage
+ElecAcLineVoltSensor : ElecAcVoltSensor { lineVolt: LineVolt }
 
-// Sensor for phase magnitude of AC electric voltage
-ElecPhaseAcMagnitudeVoltSensor : ElecAcMagnitudeVoltSensor { phaseVolt: PhaseVolt }
+// Sensor for line average RMS of AC electric voltage
+ElecAcLineAvgVoltSensor : ElecAcVoltSensor { lineAvg }
 
-// Sensor for phase average magnitude of AC electric voltage
-ElecPhaseAvgAcMagnitudeVoltSensor : ElecAcMagnitudeVoltSensor { phaseAvg }
+// Sensor for phase RMS of AC electric voltage
+ElecAcPhaseVoltSensor : ElecAcVoltSensor { phaseVolt: PhaseVolt }
+
+// Sensor for phase average RMS of AC electric voltage
+ElecAcPhaseAvgVoltSensor : ElecAcVoltSensor { phaseAvg }
 
 // Sensor for line angle of AC electric voltage
-ElecLineAcAngleVoltSensor : ElecAcAngleVoltSensor { lineVolt: LineVolt }
+ElecAcLineAngleVoltSensor : ElecAcAngleVoltSensor { lineVolt: LineVolt }
 
 // Sensor for line average angle of AC electric voltage
-ElecLineAvgAcAngleVoltSensor : ElecAcAngleVoltSensor { lineAvg }
+ElecAcLineAvgAngleVoltSensor : ElecAcAngleVoltSensor { lineAvg }
 
 // Sensor for phase angle of AC electric voltage
-ElecPhaseAcAngleVoltSensor : ElecAcAngleVoltSensor { phaseVolt: PhaseVolt }
+ElecAcPhaseAngleVoltSensor : ElecAcAngleVoltSensor { phaseVolt: PhaseVolt }
 
 // Sensor for phase average angle of AC electric voltage
-ElecPhaseAvgAcAngleVoltSensor : ElecAcAngleVoltSensor { phaseAvg }
+ElecAcPhaseAvgAngleVoltSensor : ElecAcAngleVoltSensor { phaseAvg }
 
-// Sensor for line imbalance of AC electric voltage
-ElecLineAcImbalanceVoltSensor : ElecAcImbalanceVoltSensor { lineVolt: LineVolt }
+// Sensor for line statistic of AC electric voltage
+ElecAcLineStatVoltSensor : ElecAcStatVoltSensor { lineVolt: LineVolt }
 
-// Sensor for line average imbalance of AC electric voltage
-ElecLineAvgAcImbalanceVoltSensor : ElecAcImbalanceVoltSensor { lineAvg }
+// Sensor for line average statistic of AC electric voltage
+ElecAcLineAvgStatVoltSensor : ElecAcStatVoltSensor { lineAvg }
 
-// Sensor for phase imbalance of AC electric voltage
-ElecPhaseAcImbalanceVoltSensor : ElecAcImbalanceVoltSensor { phaseVolt: PhaseVolt }
+// Sensor for phase statistic of AC electric voltage
+ElecAcPhaseStatVoltSensor : ElecAcStatVoltSensor { phaseVolt: PhaseVolt }
 
-// Sensor for phase average imbalance of AC electric voltage
-ElecPhaseAvgAcImbalanceVoltSensor : ElecAcImbalanceVoltSensor { phaseAvg }
+// Sensor for phase average statistic of AC electric voltage
+ElecAcPhaseAvgStatVoltSensor : ElecAcStatVoltSensor { phaseAvg }
 
-// Sensor for line total harmonic distortion of AC electric voltage
-ElecLineAcThdVoltSensor : ElecAcThdVoltSensor { lineVolt: LineVolt }
+// Sensor for line RMS of AC electric current
+ElecAcLineCurrentSensor : ElecAcCurrentSensor { lineCurrent: LineCurrent }
 
-// Sensor for line average total harmonic distortion of AC electric voltage
-ElecLineAvgAcThdVoltSensor : ElecAcThdVoltSensor { lineAvg }
+// Sensor for line average RMS of AC electric current
+ElecAcLineAvgCurrentSensor : ElecAcCurrentSensor { lineAvg }
 
-// Sensor for phase total harmonic distortion of AC electric voltage
-ElecPhaseAcThdVoltSensor : ElecAcThdVoltSensor { phaseVolt: PhaseVolt }
+// Sensor for phase RMS of AC electric current
+ElecAcPhaseCurrentSensor : ElecAcCurrentSensor { phaseCurrent: PhaseCurrent }
 
-// Sensor for phase average total harmonic distortion of AC electric voltage
-ElecPhaseAvgAcThdVoltSensor : ElecAcThdVoltSensor { phaseAvg }
+// Sensor for phase average RMS of AC electric current
+ElecAcPhaseAvgCurrentSensor : ElecAcCurrentSensor { phaseAvg }
 
-// Sensor for line magnitude of AC electric current
-ElecLineAcMagnitudeCurrentSensor : ElecAcMagnitudeCurrentSensor { lineCurrent: LineCurrent }
+// Sensor for neutral RMS of AC electric current
+ElecAcNeutralCurrentSensor : ElecAcCurrentSensor { neutral }
 
-// Sensor for line average magnitude of AC electric current
-ElecLineAvgAcMagnitudeCurrentSensor : ElecAcMagnitudeCurrentSensor { lineAvg }
-
-// Sensor for phase magnitude of AC electric current
-ElecPhaseAcMagnitudeCurrentSensor : ElecAcMagnitudeCurrentSensor { phaseCurrent: PhaseCurrent }
-
-// Sensor for phase average magnitude of AC electric current
-ElecPhaseAvgAcMagnitudeCurrentSensor : ElecAcMagnitudeCurrentSensor { phaseAvg }
-
-// Sensor for neutral magnitude of AC electric current
-ElecNeutralAcMagnitudeCurrentSensor : ElecAcMagnitudeCurrentSensor { neutral }
-
-// Sensor for ground magnitude of AC electric current
-ElecGroundAcMagnitudeCurrentSensor : ElecAcMagnitudeCurrentSensor { ground }
+// Sensor for ground RMS of AC electric current
+ElecAcGroundCurrentSensor : ElecAcCurrentSensor { ground }
 
 // Sensor for line angle of AC electric current
-ElecLineAcAngleCurrentSensor : ElecAcAngleCurrentSensor { lineCurrent: LineCurrent }
+ElecAcLineAngleCurrentSensor : ElecAcAngleCurrentSensor { lineCurrent: LineCurrent }
 
 // Sensor for line average angle of AC electric current
-ElecLineAvgAcAngleCurrentSensor : ElecAcAngleCurrentSensor { lineAvg }
+ElecAcLineAvgAngleCurrentSensor : ElecAcAngleCurrentSensor { lineAvg }
 
 // Sensor for phase angle of AC electric current
-ElecPhaseAcAngleCurrentSensor : ElecAcAngleCurrentSensor { phaseCurrent: PhaseCurrent }
+ElecAcPhaseAngleCurrentSensor : ElecAcAngleCurrentSensor { phaseCurrent: PhaseCurrent }
 
 // Sensor for phase average angle of AC electric current
-ElecPhaseAvgAcAngleCurrentSensor : ElecAcAngleCurrentSensor { phaseAvg }
+ElecAcPhaseAvgAngleCurrentSensor : ElecAcAngleCurrentSensor { phaseAvg }
 
 // Sensor for neutral angle of AC electric current
-ElecNeutralAcAngleCurrentSensor : ElecAcAngleCurrentSensor { neutral }
+ElecAcNeutralAngleCurrentSensor : ElecAcAngleCurrentSensor { neutral }
 
 // Sensor for ground angle of AC electric current
-ElecGroundAcAngleCurrentSensor : ElecAcAngleCurrentSensor { ground }
+ElecAcGroundAngleCurrentSensor : ElecAcAngleCurrentSensor { ground }
 
-// Sensor for line imbalance of AC electric current
-ElecLineAcImbalanceCurrentSensor : ElecAcImbalanceCurrentSensor { lineCurrent: LineCurrent }
+// Sensor for line statistic of AC electric current
+ElecAcLineStatCurrentSensor : ElecAcStatCurrentSensor { lineCurrent: LineCurrent }
 
-// Sensor for line average imbalance of AC electric current
-ElecLineAvgAcImbalanceCurrentSensor : ElecAcImbalanceCurrentSensor { lineAvg }
+// Sensor for line average statistic of AC electric current
+ElecAcLineAvgStatCurrentSensor : ElecAcStatCurrentSensor { lineAvg }
 
-// Sensor for phase imbalance of AC electric current
-ElecPhaseAcImbalanceCurrentSensor : ElecAcImbalanceCurrentSensor { phaseCurrent: PhaseCurrent }
+// Sensor for phase statistic of AC electric current
+ElecAcPhaseStatCurrentSensor : ElecAcStatCurrentSensor { phaseCurrent: PhaseCurrent }
 
-// Sensor for phase average imbalance of AC electric current
-ElecPhaseAvgAcImbalanceCurrentSensor : ElecAcImbalanceCurrentSensor { phaseAvg }
+// Sensor for phase average statistic of AC electric current
+ElecAcPhaseAvgStatCurrentSensor : ElecAcStatCurrentSensor { phaseAvg }
 
-// Sensor for neutral imbalance of AC electric current
-ElecNeutralAcImbalanceCurrentSensor : ElecAcImbalanceCurrentSensor { neutral }
+// Sensor for neutral statistic of AC electric current
+ElecAcNeutralStatCurrentSensor : ElecAcStatCurrentSensor { neutral }
 
-// Sensor for ground imbalance of AC electric current
-ElecGroundAcImbalanceCurrentSensor : ElecAcImbalanceCurrentSensor { ground }
+// Sensor for ground statistic of AC electric current
+ElecAcGroundStatCurrentSensor : ElecAcStatCurrentSensor { ground }
 
-// Sensor for line total harmonic distortion of AC electric current
-ElecLineAcThdCurrentSensor : ElecAcThdCurrentSensor { lineCurrent: LineCurrent }
+// Sensor for line net of AC electric current demand
+ElecAcLineNetCurrentDemandSensor : ElecAcNetCurrentDemandSensor { lineCurrent: LineCurrent }
 
-// Sensor for line average total harmonic distortion of AC electric current
-ElecLineAvgAcThdCurrentSensor : ElecAcThdCurrentSensor { lineAvg }
+// Sensor for total import of average magnitude of AC electric active power
+ElecAcTotalImportActivePowerSensor : ElecAcImportActivePowerSensor { total }
 
-// Sensor for phase total harmonic distortion of AC electric current
-ElecPhaseAcThdCurrentSensor : ElecAcThdCurrentSensor { phaseCurrent: PhaseCurrent }
+// Sensor for total export of average magnitude of AC electric active power
+ElecAcTotalExportActivePowerSensor : ElecAcExportActivePowerSensor { total }
 
-// Sensor for phase average total harmonic distortion of AC electric current
-ElecPhaseAvgAcThdCurrentSensor : ElecAcThdCurrentSensor { phaseAvg }
+// Sensor for total net of average magnitude of AC electric active power
+ElecAcTotalNetActivePowerSensor : ElecAcNetActivePowerSensor { total }
 
-// Sensor for neutral total harmonic distortion of AC electric current
-ElecNeutralAcThdCurrentSensor : ElecAcThdCurrentSensor { neutral }
+// Sensor for line import of average magnitude of AC electric active power
+ElecAcLineImportActivePowerSensor : ElecAcImportActivePowerSensor { linePower: LinePower }
 
-// Sensor for ground total harmonic distortion of AC electric current
-ElecGroundAcThdCurrentSensor : ElecAcThdCurrentSensor { ground }
+// Sensor for line export of average magnitude of AC electric active power
+ElecAcLineExportActivePowerSensor : ElecAcExportActivePowerSensor { linePower: LinePower }
 
-// Sensor for total AC electric active power imported
-ElecTotalImportAcActivePowerSensor : ElecImportAcActivePowerSensor { total }
+// Sensor for line net of average magnitude of AC electric active power
+ElecAcLineNetActivePowerSensor : ElecAcNetActivePowerSensor { linePower: LinePower }
 
-// Sensor for total AC electric active power exported
-ElecTotalExportAcActivePowerSensor : ElecExportAcActivePowerSensor { total }
+// Sensor for line average import of average magnitude of AC electric active power
+ElecAcLineAvgImportActivePowerSensor : ElecAcImportActivePowerSensor { lineAvg }
 
-// Sensor for total net AC electric active power
-ElecTotalNetAcActivePowerSensor : ElecNetAcActivePowerSensor { total }
+// Sensor for line average export of average magnitude of AC electric active power
+ElecAcLineAvgExportActivePowerSensor : ElecAcExportActivePowerSensor { lineAvg }
 
-// Sensor for line AC electric active power imported
-ElecLineImportAcActivePowerSensor : ElecImportAcActivePowerSensor { linePower: LinePower }
+// Sensor for line average net of average magnitude of AC electric active power
+ElecAcLineAvgNetActivePowerSensor : ElecAcNetActivePowerSensor { lineAvg }
 
-// Sensor for line AC electric active power exported
-ElecLineExportAcActivePowerSensor : ElecExportAcActivePowerSensor { linePower: LinePower }
+// Sensor for phase import of average magnitude of AC electric active power
+ElecAcPhaseImportActivePowerSensor : ElecAcImportActivePowerSensor { phasePower: PhasePower }
 
-// Sensor for line net AC electric active power
-ElecLineNetAcActivePowerSensor : ElecNetAcActivePowerSensor { linePower: LinePower }
+// Sensor for phase export of average magnitude of AC electric active power
+ElecAcPhaseExportActivePowerSensor : ElecAcExportActivePowerSensor { phasePower: PhasePower }
 
-// Sensor for line average AC electric active power imported
-ElecLineAvgImportAcActivePowerSensor : ElecImportAcActivePowerSensor { lineAvg }
+// Sensor for phase net of average magnitude of AC electric active power
+ElecAcPhaseNetActivePowerSensor : ElecAcNetActivePowerSensor { phasePower: PhasePower }
 
-// Sensor for line average AC electric active power exported
-ElecLineAvgExportAcActivePowerSensor : ElecExportAcActivePowerSensor { lineAvg }
+// Sensor for phase average import of average magnitude of AC electric active power
+ElecAcPhaseAvgImportActivePowerSensor : ElecAcImportActivePowerSensor { phaseAvg }
 
-// Sensor for line average net AC electric active power
-ElecLineAvgNetAcActivePowerSensor : ElecNetAcActivePowerSensor { lineAvg }
+// Sensor for phase average export of average magnitude of AC electric active power
+ElecAcPhaseAvgExportActivePowerSensor : ElecAcExportActivePowerSensor { phaseAvg }
 
-// Sensor for phase AC electric active power imported
-ElecPhaseImportAcActivePowerSensor : ElecImportAcActivePowerSensor { phasePower: PhasePower }
+// Sensor for phase average net of average magnitude of AC electric active power
+ElecAcPhaseAvgNetActivePowerSensor : ElecAcNetActivePowerSensor { phaseAvg }
 
-// Sensor for phase AC electric active power exported
-ElecPhaseExportAcActivePowerSensor : ElecExportAcActivePowerSensor { phasePower: PhasePower }
+// Sensor for total import of average magnitude of AC electric reactive power
+ElecAcTotalImportReactivePowerSensor : ElecAcImportReactivePowerSensor { total }
 
-// Sensor for phase net AC electric active power
-ElecPhaseNetAcActivePowerSensor : ElecNetAcActivePowerSensor { phasePower: PhasePower }
+// Sensor for total export of average magnitude of AC electric reactive power
+ElecAcTotalExportReactivePowerSensor : ElecAcExportReactivePowerSensor { total }
 
-// Sensor for phase average AC electric active power imported
-ElecPhaseAvgImportAcActivePowerSensor : ElecImportAcActivePowerSensor { phaseAvg }
+// Sensor for total net of average magnitude of AC electric reactive power
+ElecAcTotalNetReactivePowerSensor : ElecAcNetReactivePowerSensor { total }
 
-// Sensor for phase average AC electric active power exported
-ElecPhaseAvgExportAcActivePowerSensor : ElecExportAcActivePowerSensor { phaseAvg }
+// Sensor for line import of average magnitude of AC electric reactive power
+ElecAcLineImportReactivePowerSensor : ElecAcImportReactivePowerSensor { linePower: LinePower }
 
-// Sensor for phase average net AC electric active power
-ElecPhaseAvgNetAcActivePowerSensor : ElecNetAcActivePowerSensor { phaseAvg }
+// Sensor for line export of average magnitude of AC electric reactive power
+ElecAcLineExportReactivePowerSensor : ElecAcExportReactivePowerSensor { linePower: LinePower }
 
-// Sensor for total AC electric reactive power imported
-ElecTotalImportAcReactivePowerSensor : ElecImportAcReactivePowerSensor { total }
+// Sensor for line net of average magnitude of AC electric reactive power
+ElecAcLineNetReactivePowerSensor : ElecAcNetReactivePowerSensor { linePower: LinePower }
 
-// Sensor for total AC electric reactive power exported
-ElecTotalExportAcReactivePowerSensor : ElecExportAcReactivePowerSensor { total }
+// Sensor for line average import of average magnitude of AC electric reactive power
+ElecAcLineAvgImportReactivePowerSensor : ElecAcImportReactivePowerSensor { lineAvg }
 
-// Sensor for total net AC electric reactive power
-ElecTotalNetAcReactivePowerSensor : ElecNetAcReactivePowerSensor { total }
+// Sensor for line average export of average magnitude of AC electric reactive power
+ElecAcLineAvgExportReactivePowerSensor : ElecAcExportReactivePowerSensor { lineAvg }
 
-// Sensor for line AC electric reactive power imported
-ElecLineImportAcReactivePowerSensor : ElecImportAcReactivePowerSensor { linePower: LinePower }
+// Sensor for line average net of average magnitude of AC electric reactive power
+ElecAcLineAvgNetReactivePowerSensor : ElecAcNetReactivePowerSensor { lineAvg }
 
-// Sensor for line AC electric reactive power exported
-ElecLineExportAcReactivePowerSensor : ElecExportAcReactivePowerSensor { linePower: LinePower }
+// Sensor for phase import of average magnitude of AC electric reactive power
+ElecAcPhaseImportReactivePowerSensor : ElecAcImportReactivePowerSensor { phasePower: PhasePower }
 
-// Sensor for line net AC electric reactive power
-ElecLineNetAcReactivePowerSensor : ElecNetAcReactivePowerSensor { linePower: LinePower }
+// Sensor for phase export of average magnitude of AC electric reactive power
+ElecAcPhaseExportReactivePowerSensor : ElecAcExportReactivePowerSensor { phasePower: PhasePower }
 
-// Sensor for line average AC electric reactive power imported
-ElecLineAvgImportAcReactivePowerSensor : ElecImportAcReactivePowerSensor { lineAvg }
+// Sensor for phase net of average magnitude of AC electric reactive power
+ElecAcPhaseNetReactivePowerSensor : ElecAcNetReactivePowerSensor { phasePower: PhasePower }
 
-// Sensor for line average AC electric reactive power exported
-ElecLineAvgExportAcReactivePowerSensor : ElecExportAcReactivePowerSensor { lineAvg }
+// Sensor for phase average import of average magnitude of AC electric reactive power
+ElecAcPhaseAvgImportReactivePowerSensor : ElecAcImportReactivePowerSensor { phaseAvg }
 
-// Sensor for line average net AC electric reactive power
-ElecLineAvgNetAcReactivePowerSensor : ElecNetAcReactivePowerSensor { lineAvg }
+// Sensor for phase average export of average magnitude of AC electric reactive power
+ElecAcPhaseAvgExportReactivePowerSensor : ElecAcExportReactivePowerSensor { phaseAvg }
 
-// Sensor for phase AC electric reactive power imported
-ElecPhaseImportAcReactivePowerSensor : ElecImportAcReactivePowerSensor { phasePower: PhasePower }
+// Sensor for phase average net of average magnitude of AC electric reactive power
+ElecAcPhaseAvgNetReactivePowerSensor : ElecAcNetReactivePowerSensor { phaseAvg }
 
-// Sensor for phase AC electric reactive power exported
-ElecPhaseExportAcReactivePowerSensor : ElecExportAcReactivePowerSensor { phasePower: PhasePower }
+// Sensor for total import of average magnitude of AC electric apparent power
+ElecAcTotalImportApparentPowerSensor : ElecAcImportApparentPowerSensor { total }
 
-// Sensor for phase net AC electric reactive power
-ElecPhaseNetAcReactivePowerSensor : ElecNetAcReactivePowerSensor { phasePower: PhasePower }
+// Sensor for total export of average magnitude of AC electric apparent power
+ElecAcTotalExportApparentPowerSensor : ElecAcExportApparentPowerSensor { total }
 
-// Sensor for phase average AC electric reactive power imported
-ElecPhaseAvgImportAcReactivePowerSensor : ElecImportAcReactivePowerSensor { phaseAvg }
+// Sensor for total net of average magnitude of AC electric apparent power
+ElecAcTotalNetApparentPowerSensor : ElecAcNetApparentPowerSensor { total }
 
-// Sensor for phase average AC electric reactive power exported
-ElecPhaseAvgExportAcReactivePowerSensor : ElecExportAcReactivePowerSensor { phaseAvg }
+// Sensor for line import of average magnitude of AC electric apparent power
+ElecAcLineImportApparentPowerSensor : ElecAcImportApparentPowerSensor { linePower: LinePower }
 
-// Sensor for phase average net AC electric reactive power
-ElecPhaseAvgNetAcReactivePowerSensor : ElecNetAcReactivePowerSensor { phaseAvg }
+// Sensor for line export of average magnitude of AC electric apparent power
+ElecAcLineExportApparentPowerSensor : ElecAcExportApparentPowerSensor { linePower: LinePower }
 
-// Sensor for total AC electric apparent power imported
-ElecTotalImportAcApparentPowerSensor : ElecImportAcApparentPowerSensor { total }
+// Sensor for line net of average magnitude of AC electric apparent power
+ElecAcLineNetApparentPowerSensor : ElecAcNetApparentPowerSensor { linePower: LinePower }
 
-// Sensor for total AC electric apparent power exported
-ElecTotalExportAcApparentPowerSensor : ElecExportAcApparentPowerSensor { total }
+// Sensor for line average import of average magnitude of AC electric apparent power
+ElecAcLineAvgImportApparentPowerSensor : ElecAcImportApparentPowerSensor { lineAvg }
 
-// Sensor for total net AC electric apparent power
-ElecTotalNetAcApparentPowerSensor : ElecNetAcApparentPowerSensor { total }
+// Sensor for line average export of average magnitude of AC electric apparent power
+ElecAcLineAvgExportApparentPowerSensor : ElecAcExportApparentPowerSensor { lineAvg }
 
-// Sensor for line AC electric apparent power imported
-ElecLineImportAcApparentPowerSensor : ElecImportAcApparentPowerSensor { linePower: LinePower }
+// Sensor for line average net of average magnitude of AC electric apparent power
+ElecAcLineAvgNetApparentPowerSensor : ElecAcNetApparentPowerSensor { lineAvg }
 
-// Sensor for line AC electric apparent power exported
-ElecLineExportAcApparentPowerSensor : ElecExportAcApparentPowerSensor { linePower: LinePower }
+// Sensor for phase import of average magnitude of AC electric apparent power
+ElecAcPhaseImportApparentPowerSensor : ElecAcImportApparentPowerSensor { phasePower: PhasePower }
 
-// Sensor for line net AC electric apparent power
-ElecLineNetAcApparentPowerSensor : ElecNetAcApparentPowerSensor { linePower: LinePower }
+// Sensor for phase export of average magnitude of AC electric apparent power
+ElecAcPhaseExportApparentPowerSensor : ElecAcExportApparentPowerSensor { phasePower: PhasePower }
 
-// Sensor for line average AC electric apparent power imported
-ElecLineAvgImportAcApparentPowerSensor : ElecImportAcApparentPowerSensor { lineAvg }
+// Sensor for phase net of average magnitude of AC electric apparent power
+ElecAcPhaseNetApparentPowerSensor : ElecAcNetApparentPowerSensor { phasePower: PhasePower }
 
-// Sensor for line average AC electric apparent power exported
-ElecLineAvgExportAcApparentPowerSensor : ElecExportAcApparentPowerSensor { lineAvg }
+// Sensor for phase average import of average magnitude of AC electric apparent power
+ElecAcPhaseAvgImportApparentPowerSensor : ElecAcImportApparentPowerSensor { phaseAvg }
 
-// Sensor for line average net AC electric apparent power
-ElecLineAvgNetAcApparentPowerSensor : ElecNetAcApparentPowerSensor { lineAvg }
+// Sensor for phase average export of average magnitude of AC electric apparent power
+ElecAcPhaseAvgExportApparentPowerSensor : ElecAcExportApparentPowerSensor { phaseAvg }
 
-// Sensor for phase AC electric apparent power imported
-ElecPhaseImportAcApparentPowerSensor : ElecImportAcApparentPowerSensor { phasePower: PhasePower }
-
-// Sensor for phase AC electric apparent power exported
-ElecPhaseExportAcApparentPowerSensor : ElecExportAcApparentPowerSensor { phasePower: PhasePower }
-
-// Sensor for phase net AC electric apparent power
-ElecPhaseNetAcApparentPowerSensor : ElecNetAcApparentPowerSensor { phasePower: PhasePower }
-
-// Sensor for phase average AC electric apparent power imported
-ElecPhaseAvgImportAcApparentPowerSensor : ElecImportAcApparentPowerSensor { phaseAvg }
-
-// Sensor for phase average AC electric apparent power exported
-ElecPhaseAvgExportAcApparentPowerSensor : ElecExportAcApparentPowerSensor { phaseAvg }
-
-// Sensor for phase average net AC electric apparent power
-ElecPhaseAvgNetAcApparentPowerSensor : ElecNetAcApparentPowerSensor { phaseAvg }
+// Sensor for phase average net of average magnitude of AC electric apparent power
+ElecAcPhaseAvgNetApparentPowerSensor : ElecAcNetApparentPowerSensor { phaseAvg }
 
 // Sensor for line AC electric power factor
-ElecLineAcPfSensor : ElecAcPfSensor { linePf: LinePf }
+ElecAcLinePfSensor : ElecAcPfSensor { linePf: LinePf }
 
 // Sensor for line average AC electric power factor
-ElecLineAvgAcPfSensor : ElecAcPfSensor { lineAvg }
+ElecAcLineAvgPfSensor : ElecAcPfSensor { lineAvg }
 
 // Sensor for phase AC electric power factor
-ElecPhaseAcPfSensor : ElecAcPfSensor { phasePf: PhasePf }
+ElecAcPhasePfSensor : ElecAcPfSensor { phasePf: PhasePf }
 
 // Sensor for phase average AC electric power factor
-ElecPhaseAvgAcPfSensor : ElecAcPfSensor { phaseAvg }
+ElecAcPhaseAvgPfSensor : ElecAcPfSensor { phaseAvg }
 
-// Sensor for line AC electric active energy imported
-ElecLineImportAcActiveEnergySensor : ElecImportAcActiveEnergySensor { lineEnergy: LineEnergy }
+// Sensor for line import of AC electric active energy
+ElecAcLineImportActiveEnergySensor : ElecAcImportActiveEnergySensor { lineEnergy: LineEnergy }
 
-// Sensor for line AC electric active energy exported
-ElecLineExportAcActiveEnergySensor : ElecExportAcActiveEnergySensor { lineEnergy: LineEnergy }
+// Sensor for line export of AC electric active energy
+ElecAcLineExportActiveEnergySensor : ElecAcExportActiveEnergySensor { lineEnergy: LineEnergy }
 
-// Sensor for line net AC electric active energy
-ElecLineNetAcActiveEnergySensor : ElecNetAcActiveEnergySensor { lineEnergy: LineEnergy }
+// Sensor for line net of AC electric active energy
+ElecAcLineNetActiveEnergySensor : ElecAcNetActiveEnergySensor { lineEnergy: LineEnergy }
 
-// Sensor for line average AC electric active energy imported
-ElecLineAvgImportAcActiveEnergySensor : ElecImportAcActiveEnergySensor { lineAvg }
+// Sensor for line average import of AC electric active energy
+ElecAcLineAvgImportActiveEnergySensor : ElecAcImportActiveEnergySensor { lineAvg }
 
-// Sensor for line average AC electric active energy exported
-ElecLineAvgExportAcActiveEnergySensor : ElecExportAcActiveEnergySensor { lineAvg }
+// Sensor for line average export of AC electric active energy
+ElecAcLineAvgExportActiveEnergySensor : ElecAcExportActiveEnergySensor { lineAvg }
 
-// Sensor for line average net AC electric active energy
-ElecLineAvgNetAcActiveEnergySensor : ElecNetAcActiveEnergySensor { lineAvg }
+// Sensor for line average net of AC electric active energy
+ElecAcLineAvgNetActiveEnergySensor : ElecAcNetActiveEnergySensor { lineAvg }
 
-// Sensor for phase AC electric active energy imported
-ElecPhaseImportAcActiveEnergySensor : ElecImportAcActiveEnergySensor { phaseEnergy: PhaseEnergy }
+// Sensor for phase import of AC electric active energy
+ElecAcPhaseImportActiveEnergySensor : ElecAcImportActiveEnergySensor { phaseEnergy: PhaseEnergy }
 
-// Sensor for phase AC electric active energy exported
-ElecPhaseExportAcActiveEnergySensor : ElecExportAcActiveEnergySensor { phaseEnergy: PhaseEnergy }
+// Sensor for phase export of AC electric active energy
+ElecAcPhaseExportActiveEnergySensor : ElecAcExportActiveEnergySensor { phaseEnergy: PhaseEnergy }
 
-// Sensor for phase net AC electric active energy
-ElecPhaseNetAcActiveEnergySensor : ElecNetAcActiveEnergySensor { phaseEnergy: PhaseEnergy }
+// Sensor for phase net of AC electric active energy
+ElecAcPhaseNetActiveEnergySensor : ElecAcNetActiveEnergySensor { phaseEnergy: PhaseEnergy }
 
-// Sensor for phase average AC electric active energy imported
-ElecPhaseAvgImportAcActiveEnergySensor : ElecImportAcActiveEnergySensor { phaseAvg }
+// Sensor for phase average import of AC electric active energy
+ElecAcPhaseAvgImportActiveEnergySensor : ElecAcImportActiveEnergySensor { phaseAvg }
 
-// Sensor for phase average AC electric active energy exported
-ElecPhaseAvgExportAcActiveEnergySensor : ElecExportAcActiveEnergySensor { phaseAvg }
+// Sensor for phase average export of AC electric active energy
+ElecAcPhaseAvgExportActiveEnergySensor : ElecAcExportActiveEnergySensor { phaseAvg }
 
-// Sensor for phase average net AC electric active energy
-ElecPhaseAvgNetAcActiveEnergySensor : ElecNetAcActiveEnergySensor { phaseAvg }
+// Sensor for phase average net of AC electric active energy
+ElecAcPhaseAvgNetActiveEnergySensor : ElecAcNetActiveEnergySensor { phaseAvg }
 
-// Sensor for line AC electric reactive energy imported
-ElecLineImportAcReactiveEnergySensor : ElecImportAcReactiveEnergySensor { lineEnergy: LineEnergy }
+// Sensor for line import of AC electric reactive energy
+ElecAcLineImportReactiveEnergySensor : ElecAcImportReactiveEnergySensor { lineEnergy: LineEnergy }
 
-// Sensor for line AC electric reactive energy exported
-ElecLineExportAcReactiveEnergySensor : ElecExportAcReactiveEnergySensor { lineEnergy: LineEnergy }
+// Sensor for line export of AC electric reactive energy
+ElecAcLineExportReactiveEnergySensor : ElecAcExportReactiveEnergySensor { lineEnergy: LineEnergy }
 
-// Sensor for line net AC electric reactive energy
-ElecLineNetAcReactiveEnergySensor : ElecNetAcReactiveEnergySensor { lineEnergy: LineEnergy }
+// Sensor for line net of AC electric reactive energy
+ElecAcLineNetReactiveEnergySensor : ElecAcNetReactiveEnergySensor { lineEnergy: LineEnergy }
 
-// Sensor for line average AC electric reactive energy imported
-ElecLineAvgImportAcReactiveEnergySensor : ElecImportAcReactiveEnergySensor { lineAvg }
+// Sensor for line average import of AC electric reactive energy
+ElecAcLineAvgImportReactiveEnergySensor : ElecAcImportReactiveEnergySensor { lineAvg }
 
-// Sensor for line average AC electric reactive energy exported
-ElecLineAvgExportAcReactiveEnergySensor : ElecExportAcReactiveEnergySensor { lineAvg }
+// Sensor for line average export of AC electric reactive energy
+ElecAcLineAvgExportReactiveEnergySensor : ElecAcExportReactiveEnergySensor { lineAvg }
 
-// Sensor for line average net AC electric reactive energy
-ElecLineAvgNetAcReactiveEnergySensor : ElecNetAcReactiveEnergySensor { lineAvg }
+// Sensor for line average net of AC electric reactive energy
+ElecAcLineAvgNetReactiveEnergySensor : ElecAcNetReactiveEnergySensor { lineAvg }
 
-// Sensor for phase AC electric reactive energy imported
-ElecPhaseImportAcReactiveEnergySensor : ElecImportAcReactiveEnergySensor { phaseEnergy: PhaseEnergy }
+// Sensor for phase import of AC electric reactive energy
+ElecAcPhaseImportReactiveEnergySensor : ElecAcImportReactiveEnergySensor { phaseEnergy: PhaseEnergy }
 
-// Sensor for phase AC electric reactive energy exported
-ElecPhaseExportAcReactiveEnergySensor : ElecExportAcReactiveEnergySensor { phaseEnergy: PhaseEnergy }
+// Sensor for phase export of AC electric reactive energy
+ElecAcPhaseExportReactiveEnergySensor : ElecAcExportReactiveEnergySensor { phaseEnergy: PhaseEnergy }
 
-// Sensor for phase net AC electric reactive energy
-ElecPhaseNetAcReactiveEnergySensor : ElecNetAcReactiveEnergySensor { phaseEnergy: PhaseEnergy }
+// Sensor for phase net of AC electric reactive energy
+ElecAcPhaseNetReactiveEnergySensor : ElecAcNetReactiveEnergySensor { phaseEnergy: PhaseEnergy }
 
-// Sensor for phase average AC electric reactive energy imported
-ElecPhaseAvgImportAcReactiveEnergySensor : ElecImportAcReactiveEnergySensor { phaseAvg }
+// Sensor for phase average import of AC electric reactive energy
+ElecAcPhaseAvgImportReactiveEnergySensor : ElecAcImportReactiveEnergySensor { phaseAvg }
 
-// Sensor for phase average AC electric reactive energy exported
-ElecPhaseAvgExportAcReactiveEnergySensor : ElecExportAcReactiveEnergySensor { phaseAvg }
+// Sensor for phase average export of AC electric reactive energy
+ElecAcPhaseAvgExportReactiveEnergySensor : ElecAcExportReactiveEnergySensor { phaseAvg }
 
-// Sensor for phase average net AC electric reactive energy
-ElecPhaseAvgNetAcReactiveEnergySensor : ElecNetAcReactiveEnergySensor { phaseAvg }
+// Sensor for phase average net of AC electric reactive energy
+ElecAcPhaseAvgNetReactiveEnergySensor : ElecAcNetReactiveEnergySensor { phaseAvg }
 
-// Sensor for line AC electric apparent energy imported
-ElecLineImportAcApparentEnergySensor : ElecImportAcApparentEnergySensor { lineEnergy: LineEnergy }
+// Sensor for line import of AC electric apparent energy
+ElecAcLineImportApparentEnergySensor : ElecAcImportApparentEnergySensor { lineEnergy: LineEnergy }
 
-// Sensor for line AC electric apparent energy exported
-ElecLineExportAcApparentEnergySensor : ElecExportAcApparentEnergySensor { lineEnergy: LineEnergy }
+// Sensor for line export of AC electric apparent energy
+ElecAcLineExportApparentEnergySensor : ElecAcExportApparentEnergySensor { lineEnergy: LineEnergy }
 
-// Sensor for line net AC electric apparent energy
-ElecLineNetAcApparentEnergySensor : ElecNetAcApparentEnergySensor { lineEnergy: LineEnergy }
+// Sensor for line net of AC electric apparent energy
+ElecAcLineNetApparentEnergySensor : ElecAcNetApparentEnergySensor { lineEnergy: LineEnergy }
 
-// Sensor for line average AC electric apparent energy imported
-ElecLineAvgImportAcApparentEnergySensor : ElecImportAcApparentEnergySensor { lineAvg }
+// Sensor for line average import of AC electric apparent energy
+ElecAcLineAvgImportApparentEnergySensor : ElecAcImportApparentEnergySensor { lineAvg }
 
-// Sensor for line average AC electric apparent energy exported
-ElecLineAvgExportAcApparentEnergySensor : ElecExportAcApparentEnergySensor { lineAvg }
+// Sensor for line average export of AC electric apparent energy
+ElecAcLineAvgExportApparentEnergySensor : ElecAcExportApparentEnergySensor { lineAvg }
 
-// Sensor for line average net AC electric apparent energy
-ElecLineAvgNetAcApparentEnergySensor : ElecNetAcApparentEnergySensor { lineAvg }
+// Sensor for line average net of AC electric apparent energy
+ElecAcLineAvgNetApparentEnergySensor : ElecAcNetApparentEnergySensor { lineAvg }
 
-// Sensor for phase AC electric apparent energy imported
-ElecPhaseImportAcApparentEnergySensor : ElecImportAcApparentEnergySensor { phaseEnergy: PhaseEnergy }
+// Sensor for phase import of AC electric apparent energy
+ElecAcPhaseImportApparentEnergySensor : ElecAcImportApparentEnergySensor { phaseEnergy: PhaseEnergy }
 
-// Sensor for phase AC electric apparent energy exported
-ElecPhaseExportAcApparentEnergySensor : ElecExportAcApparentEnergySensor { phaseEnergy: PhaseEnergy }
+// Sensor for phase export of AC electric apparent energy
+ElecAcPhaseExportApparentEnergySensor : ElecAcExportApparentEnergySensor { phaseEnergy: PhaseEnergy }
 
-// Sensor for phase net AC electric apparent energy
-ElecPhaseNetAcApparentEnergySensor : ElecNetAcApparentEnergySensor { phaseEnergy: PhaseEnergy }
+// Sensor for phase net of AC electric apparent energy
+ElecAcPhaseNetApparentEnergySensor : ElecAcNetApparentEnergySensor { phaseEnergy: PhaseEnergy }
 
-// Sensor for phase average AC electric apparent energy imported
-ElecPhaseAvgImportAcApparentEnergySensor : ElecImportAcApparentEnergySensor { phaseAvg }
+// Sensor for phase average import of AC electric apparent energy
+ElecAcPhaseAvgImportApparentEnergySensor : ElecAcImportApparentEnergySensor { phaseAvg }
 
-// Sensor for phase average AC electric apparent energy exported
-ElecPhaseAvgExportAcApparentEnergySensor : ElecExportAcApparentEnergySensor { phaseAvg }
+// Sensor for phase average export of AC electric apparent energy
+ElecAcPhaseAvgExportApparentEnergySensor : ElecAcExportApparentEnergySensor { phaseAvg }
 
-// Sensor for phase average net AC electric apparent energy
-ElecPhaseAvgNetAcApparentEnergySensor : ElecNetAcApparentEnergySensor { phaseAvg }
+// Sensor for phase average net of AC electric apparent energy
+ElecAcPhaseAvgNetApparentEnergySensor : ElecAcNetApparentEnergySensor { phaseAvg }
 
