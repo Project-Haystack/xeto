@@ -1,0 +1,62 @@
+//
+// Copyright (c) 2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   8 Apr 2025  Rick Jennings  Creation
+//
+
+// Sensor for DC electric voltage
+ElecDcVoltSensor : ElecVoltSensor { dc }
+
+// Sensor for DC electric current
+ElecDcCurrentSensor : ElecCurrentSensor <abstract> {
+  dc
+  unit: Unit <quantity:"electricCurrent"> "A"
+}
+
+// Sensor for DC electric power
+ElecDcPowerSensor : ElecPowerSensor <abstract> {
+  dc
+  unit: Unit <quantity:"power"> "kW"
+}
+
+// Sensor for DC electric energy
+ElecDcEnergySensor : ElecEnergySensor <abstract> {
+  dc
+  unit: Unit <quantity:"energy"> "kWh"
+}
+
+// Sensor for DC electric state of charge
+ElecDcStateOfChargeSensor : ElecSensor {
+  dc
+  stateOfCharge
+  unit: Unit <fixed> "%"
+}
+
+// Sensor for import of DC electric power
+ElecDcImportPowerSensor : ElecDcPowerSensor { import }
+
+// Sensor for export of DC electric power
+ElecDcExportPowerSensor : ElecDcPowerSensor { export }
+
+// Sensor for net of DC electric power
+ElecDcNetPowerSensor : ElecDcPowerSensor { net }
+
+// Sensor for import of DC electric current
+ElecDcImportCurrentSensor : ElecDcCurrentSensor { import }
+
+// Sensor for export of DC electric current
+ElecDcExportCurrentSensor : ElecDcCurrentSensor { export }
+
+// Sensor for net of DC electric current
+ElecDcNetCurrentSensor : ElecDcCurrentSensor { net }
+
+// Sensor for import of DC electric energy
+ElecDcImportEnergySensor : ElecDcEnergySensor { import }
+
+// Sensor for export of DC electric energy
+ElecDcExportEnergySensor : ElecDcEnergySensor { export }
+
+// Sensor for net of DC electric energy
+ElecDcNetEnergySensor : ElecDcEnergySensor { net }
