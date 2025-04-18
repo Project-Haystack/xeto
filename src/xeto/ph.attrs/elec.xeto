@@ -15,8 +15,14 @@ ElecAcCurrentAttr : ElecCurrentAttr <abstract> { ac }
 // AC current rating of the asset
 ElecAcRatedCurrentAttr : ElecAcCurrentAttr <abstract> { rated }
 
-// Continuous AC current capacity rating of the asset (for circuit breakers)
-ElecAcRatedContinuousCapacityCurrent : ElecAcRatedCurrentAttr { currentContinuousCapacity }
+// Continuous AC current capacity rating of the asset (80% or 100% - for circuit breakers)
+ElecAcRatedContinuousCapacityCurrentAttr : ElecAcRatedCurrentAttr { currentContinuousCapacity }
+
+// Continuous AC current rating of the asset (for circuit breakers)
+ElecAcRatedContinuousCurrentAttr : ElecAcRatedCurrentAttr <abstract> { currentContinuous }
+
+// Max continuous AC current rating of the asset (for circuit breakers)
+ElecAcRatedMaxContinuousCurrentAttr : ElecAcRatedContinuousCurrentAttr { max }
 
 // AC current input rating of the asset
 ElecAcRatedInputCurrentAttr : ElecAcRatedCurrentAttr <abstract> { input }
