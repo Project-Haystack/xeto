@@ -37,3 +37,17 @@ DimensionHeightAttr : LengthAttr { height }
 // Weight of the asset
 WeightAttr : MassAttr { weight }
 
+// Temperature attribute for the asset
+TempAttr : NumberAttr <abstract> { temp }
+
+// Temperature rating of the asset
+TempRatedAttr : TempAttr <abstract> { rated }
+
+// Operating temperature rating of the asset
+TempRatedOperatingAttr : TempRatedAttr <abstract> { tempOperating }
+
+// Minimum operating temperature of the asset
+TempRatedMinOperatingAttr : TempRatedOperatingAttr { min }
+
+// Maximum operating temperature of the asset
+TempRatedMaxOperatingAttr : TempRatedOperatingAttr { max }
