@@ -9,10 +9,14 @@
 pragma: Lib <
   doc: "System library of built-in types"
   version: "0.1.1"
+  license: "AFL-3.0"
   org: {
     dis: "Project Haystack"
     uri: "https://project-haystack.org/"
   }
+  vcs: {
+    type: "git"
+    uri:  "https://github.com/Project-Haystack/xeto.git"
+  }
 >
-
 

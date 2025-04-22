@@ -30,9 +30,15 @@ LibDepend: Dict <sealed> {
 //   1.5.20 - 1.x.x   // greater than 1.5.20 and has 1 in major ver
 LibDependVersions: Scalar <sealed>
 
-// Organization meta data
+// Organization library metadata
 LibOrg: Dict {
   dis: Str     // Display name for the organization
   uri: Uri     // URI for organization website
+}
+
+// Version control library metadata
+LibVcs: Dict {
+  type: Str    // Type of VCS such as "git" or "mercurial"
+  uri: Uri     // URI for repository to be used directly by a VCS program (not the HTML page)
 }
 

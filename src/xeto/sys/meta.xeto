@@ -30,6 +30,9 @@ inverse: Str <meta>
 // String key; used in enums to define normalized string identifier
 key: Str <meta>
 
+// License [SPDX name](https://spdx.org/licenses/) or "commerical"
+license: Str <meta>
+
 // Applied to strings and lists to specify inclusive maximum length
 maxSize: Int <meta>
 
@@ -102,6 +105,9 @@ unitless: Marker <meta>
 
 // Default value for this slot
 val: Obj <meta>
+
+// Library version control system metadata
+vcs: LibVcs <meta>
 
 // Version number
 version: Version <meta>

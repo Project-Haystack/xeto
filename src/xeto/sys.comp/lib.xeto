@@ -12,6 +12,7 @@ pragma: Lib <
   depends: {
     { lib: "sys", versions: "0.1.x" }
   }
+  license: "AFL-3.0"
   org: {
     dis: "Project Haystack"
     uri: "https://project-haystack.org/"
