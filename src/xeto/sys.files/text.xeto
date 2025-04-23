@@ -9,6 +9,9 @@
 // Text file
 TextFile : File <abstract>
 
+// Comma separated values text field
+CsvFile : TextFile <mimeType:"text/csv", fileExt:"csv">
+
 // HTML text file
 HtmlFile : TextFile <mimeType:"text/html; charset=utf-8", fileExt:"html">
 
@@ -32,4 +35,10 @@ TurtleFile : TextFile <mimeType:"text/turtle; charset=utf-8", fileExt:"ttl">
 
 // Project Haystack Zinc text file
 ZincFile : TextFile <mimeType:"text/zinc; charset=utf-8", fileExt:"zinc">
+
+// Extensible markup language text file
+XmlFile : TextFile <mimeType:"text/xml", fileExt:"xml">
+
+// YAML Ain't Markup Language text file
+YamlFile : TextFile <mimeType:"text/yaml", fileExt:"yaml">
 

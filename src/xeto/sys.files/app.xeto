@@ -9,6 +9,18 @@
 // Application specific file format
 AppFile : File <abstract>
 
+// Microsoft Word file in docx format
+MicorosftWordFile : AppFile <mimeType:"application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileExt:"docx">
+
+// Microsoft Excel file in xlsx format
+MicorosftExcelFile : AppFile <mimeType:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileExt:"xlsx">
+
+// Microsoft PowerPoint file in pptx format
+MicorosftPowerPointFile : AppFile <mimeType:"application/vnd.openxmlformats-officedocument.presentationml.presentation", fileExt:"pptx">
+
+// Portable Document Format file
+PdfFile : AppFile <mimeType:"application/pdf", fileExt:"pdf">
+
 // TAR archive file
 TarFile : AppFile <mimeType:"application/x-tar", fileExt:"tar">
 
