@@ -72,7 +72,7 @@ DateTime: Scalar <sealed, pattern: "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\
 //   - absolute date time span: 'YYYY-MM-DDThh:mm:ss.FFF zzzz,YYYY-MM-DDThh:mm:ss.FFF zzzz'
 // In the case of two DateTime, the timezones must match.  In the other
 // cases the timezone to use is context sensitive based on the application.
-Span: Scalar
+Span: Scalar <sealed>
 
 // Relative span to current date
 SpanMode: Enum {
@@ -121,13 +121,13 @@ And: Obj
 // Blob of raw binary data in base64url encoding as specified by
 // RFC 4648.  This encoding does not use padding and uses minus "-"
 // and underbar "_" as the 62nd and 63 char respectively.
-Buf: Scalar
+Buf: Scalar <sealed>
 
 // Filter query string
-Filter: Scalar
+Filter: Scalar <sealed>
 
 // Query defines a named data set
-Query: Dict
+Query: Dict <sealed>
 
 // Function represents the signature of a computation with
 // zero or more parameter types and one return type.  The 'returns'
