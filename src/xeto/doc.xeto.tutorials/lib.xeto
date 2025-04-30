@@ -1,13 +1,13 @@
 //
-// Copyright (c) 2024, Project-Haystack
+// Copyright (c) 2025, Project-Haystack
 // Licensed under the Academic Free License version 3.0
 //
 // History:
-//   18 Jul 2024  Brian Frank  Creation
+//   29 Apr 2025  Brian Frank  Creation
 //
 
 pragma: Lib <
-  doc: "System library for component oriented programming"
+  doc: "Xeto tutorials and training videos"
   version: "0.1.1"
   depends: {
     { lib: "sys", versions: "0.1.x" }
