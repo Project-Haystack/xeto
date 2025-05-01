@@ -48,7 +48,7 @@ special handling for the "video:" URI scheme.  The following sources
 are supported:
 
 1. **YouTube** The format for the YouTube URL is 'video://youtu.be/<id>?si=<si>' or
-'video://youtube.com/<id>?si=<si>'.  The 'id' and 'si' can be found by going
+'video://youtube/<id>?si=<si>'.  The 'id' and 'si' can be found by going
 to the YouTube video, clicking the 'Share' button, and inspecting the link text.
 
 2. **Loom** The format for a Loom URL is 'video://loom/<id>?sid=<sid>'.  The 'id
