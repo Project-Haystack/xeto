@@ -10,6 +10,7 @@ pragma: Lib <
   depends: {
     { lib: "sys", versions: "0.1.x" }
   }
+  categories: {"ph"}
   license: "AFL-3.0"
   org: {
    dis: "Project Haystack"

@@ -9,6 +9,7 @@
 pragma: Lib <
   doc: "System library of built-in types"
   version: "0.1.1"
+  categories: {"sys"}
   license: "AFL-3.0"
   org: {
     dis: "Project Haystack"

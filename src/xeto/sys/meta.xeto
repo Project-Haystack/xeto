@@ -94,6 +94,9 @@ static: Marker <meta>
 // Mark data as summary level for display in summarized tables and other views
 summary: Marker <meta>
 
+// Free form category tags
+categories: List <meta, of:Str>
+
 // Indicates data which should be persisted
 transient: Unit <meta>
 
