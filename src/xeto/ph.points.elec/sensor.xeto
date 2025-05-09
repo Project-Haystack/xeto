@@ -59,9 +59,9 @@ ElecAcAngleVoltSensor : ElecAcVoltSensorX <abstract> {
   unit: "deg"
 }
 
-// Sensor for statistic of AC electric voltage
-ElecAcStatVoltSensor : ElecAcVoltSensorX <abstract> {
-  elecAcWaveformStat: ElecAcWaveformStat
+// Sensor for metric of AC electric voltage
+ElecAcMetricVoltSensor : ElecAcVoltSensorX <abstract> {
+  elecAcWaveformMetric: ElecAcWaveformMetric
   unit: Unit <fixed> "%"
 }
 
@@ -88,9 +88,9 @@ ElecAcAngleCurrentSensor : ElecAcCurrentSensorX <abstract> {
   unit: "deg"
 }
 
-// Sensor for statistic of AC electric current
-ElecAcStatCurrentSensor : ElecAcCurrentSensorX <abstract> {
-  elecAcWaveformStat: ElecAcWaveformStat
+// Sensor for metric of AC electric current
+ElecAcMetricCurrentSensor : ElecAcCurrentSensorX <abstract> {
+  elecAcWaveformMetric: ElecAcWaveformMetric
   unit: Unit <fixed> "%"
 }
 
@@ -180,17 +180,17 @@ ElecAcPhaseAngleVoltSensor : ElecAcAngleVoltSensor { phaseVolt: PhaseVolt }
 // Sensor for phase average angle of AC electric voltage
 ElecAcPhaseAvgAngleVoltSensor : ElecAcAngleVoltSensor { phaseAvg }
 
-// Sensor for line statistic of AC electric voltage
-ElecAcLineStatVoltSensor : ElecAcStatVoltSensor { lineVolt: LineVolt }
+// Sensor for line metric of AC electric voltage
+ElecAcLineMetricVoltSensor : ElecAcMetricVoltSensor { lineVolt: LineVolt }
 
-// Sensor for line average statistic of AC electric voltage
-ElecAcLineAvgStatVoltSensor : ElecAcStatVoltSensor { lineAvg }
+// Sensor for line average metric of AC electric voltage
+ElecAcLineAvgMetricVoltSensor : ElecAcMetricVoltSensor { lineAvg }
 
-// Sensor for phase statistic of AC electric voltage
-ElecAcPhaseStatVoltSensor : ElecAcStatVoltSensor { phaseVolt: PhaseVolt }
+// Sensor for phase metric of AC electric voltage
+ElecAcPhaseMetricVoltSensor : ElecAcMetricVoltSensor { phaseVolt: PhaseVolt }
 
-// Sensor for phase average statistic of AC electric voltage
-ElecAcPhaseAvgStatVoltSensor : ElecAcStatVoltSensor { phaseAvg }
+// Sensor for phase average metric of AC electric voltage
+ElecAcPhaseAvgMetricVoltSensor : ElecAcMetricVoltSensor { phaseAvg }
 
 // Sensor for line RMS of AC electric current
 ElecAcLineCurrentSensor : ElecAcCurrentSensor { lineCurrent: LineCurrent }
@@ -228,23 +228,23 @@ ElecAcNeutralAngleCurrentSensor : ElecAcAngleCurrentSensor { neutral }
 // Sensor for ground angle of AC electric current
 ElecAcGroundAngleCurrentSensor : ElecAcAngleCurrentSensor { ground }
 
-// Sensor for line statistic of AC electric current
-ElecAcLineStatCurrentSensor : ElecAcStatCurrentSensor { lineCurrent: LineCurrent }
+// Sensor for line metric of AC electric current
+ElecAcLineMetricCurrentSensor : ElecAcMetricCurrentSensor { lineCurrent: LineCurrent }
 
-// Sensor for line average statistic of AC electric current
-ElecAcLineAvgStatCurrentSensor : ElecAcStatCurrentSensor { lineAvg }
+// Sensor for line average metric of AC electric current
+ElecAcLineAvgMetricCurrentSensor : ElecAcMetricCurrentSensor { lineAvg }
 
-// Sensor for phase statistic of AC electric current
-ElecAcPhaseStatCurrentSensor : ElecAcStatCurrentSensor { phaseCurrent: PhaseCurrent }
+// Sensor for phase metric of AC electric current
+ElecAcPhaseMetricCurrentSensor : ElecAcMetricCurrentSensor { phaseCurrent: PhaseCurrent }
 
-// Sensor for phase average statistic of AC electric current
-ElecAcPhaseAvgStatCurrentSensor : ElecAcStatCurrentSensor { phaseAvg }
+// Sensor for phase average metric of AC electric current
+ElecAcPhaseAvgMetricCurrentSensor : ElecAcMetricCurrentSensor { phaseAvg }
 
-// Sensor for neutral statistic of AC electric current
-ElecAcNeutralStatCurrentSensor : ElecAcStatCurrentSensor { neutral }
+// Sensor for neutral metric of AC electric current
+ElecAcNeutralMetricCurrentSensor : ElecAcMetricCurrentSensor { neutral }
 
-// Sensor for ground statistic of AC electric current
-ElecAcGroundStatCurrentSensor : ElecAcStatCurrentSensor { ground }
+// Sensor for ground metric of AC electric current
+ElecAcGroundMetricCurrentSensor : ElecAcMetricCurrentSensor { ground }
 
 // Sensor for line net of AC electric current demand
 ElecAcLineNetCurrentDemandSensor : ElecAcNetCurrentDemandSensor { lineCurrent: LineCurrent }
