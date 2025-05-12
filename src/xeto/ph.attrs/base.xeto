@@ -8,33 +8,38 @@
 
 // Attribute is a single datum of static information on an entity.
 // Attributes often represent nameplate data or design/rated data.
-Attr: Entity {
+Attr: Entity <abstract> {
   attr           // Required marker tag for all attributes
   val: Obj       // Value of the attribute
 }
 
 // Attribute with a string value type
-StrAttr: Attr {
+StrAttr: Attr <abstract> {
   val: Str       // String value of the attribute
 }
 
 // Attribute with a date value type
-DateAttr: Attr {
+DateAttr: Attr <abstract> {
   val: Date      // Date value of the attribute
 }
 
 // Attribute with a number value type
-NumberAttr: Attr {
+NumberAttr: Attr <abstract> {
   val: Number    // Number value of the attribute
 }
 
 // Attribute with a number value with length unit
-LengthAttr: Attr {
+LengthAttr: NumberAttr <abstract> {
   val: Number <quantity:"length">
 }
 
 // Attribute with a number value with mass (weight) unit
-MassAttr: Attr {
+MassAttr: NumberAttr <abstract> {
   val: Number <quantity:"mass">
 }
 
+// Attribute with a number value with temperature unit
+TempAttr : NumberAttr <abstract> {
+  temp
+  val: Number <quantity:"temperature">
+}

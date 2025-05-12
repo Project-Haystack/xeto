@@ -1,0 +1,16 @@
+//
+// Copyright (c) 2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   12 May 2025 Rick Jennings  Creation
+//
+
+// Rated operating temperature of the asset
+RatedOperatingTempAttr : TempAttr <abstract> { rated, operating }
+
+// Minimum rated operating temperature of the asset
+MinRatedOperatingTempAttr : RatedOperatingTempAttr { min }
+
+// Maximum rated operating temperature of the asset
+MaxRatedOperatingTempAttr : RatedOperatingTempAttr { max }
