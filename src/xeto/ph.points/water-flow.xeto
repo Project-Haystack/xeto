@@ -4,6 +4,7 @@
 //
 // History:
 //   21 Mar 2024  Brian Frank  Creation
+//   5 Jan 2025  Extension  Creation - Chilled and Hot Water Flow points from community documentation
 //
 
 // Point associated with rate of volumetric flow of water
@@ -29,3 +30,22 @@ DomesticWaterFlowSensor : WaterFlowSensor { domestic }
 // Setpoint for volumetric flow of domestic water
 DomesticWaterFlowSp : WaterFlowSp { domestic }
 
+//////////////////////////////////////////////////////////////////////////
+// Chilled Water
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for volumetric flow of chilled water
+ChilledWaterFlowSensor : WaterFlowSensor { chilled }
+
+// Setpoint for volumetric flow of chilled water
+ChilledWaterFlowSp : WaterFlowSp { chilled }
+
+//////////////////////////////////////////////////////////////////////////
+// Hot Water
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for volumetric flow of hot water
+HotWaterFlowSensor : WaterFlowSensor { hot }
+
+// Setpoint for volumetric flow of hot water
+HotWaterFlowSp : WaterFlowSp { hot }
