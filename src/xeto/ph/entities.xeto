@@ -3,6 +3,9 @@
 // Licensed under the Academic Free License version 3.0
 // Auto-generated 15-Mar-2025
 //
+//  History:
+//    2025-06-14 Adam Garnhart - Bug Fixes for Equip queries
+//
 
 // AC Electricity meter.
 // See `docHaystack::Meters` chapter.
@@ -328,9 +331,9 @@ Equip: Entity <abstract> {
   siteRef:      Ref
   spaceRef:     Ref?
   systemRef:    MultiRef?
-  parentEquips: Query<of:Point, via:"equipRef+">                  // Parent equips that contain this point
-  childEquips:  Query<of:Point, inverse:"ph::Equip.parentEquips"> // Sub-equips contained by this equip
-  points:       Query<of:Point, inverse:"ph::Point.equips">       // Points contained by this equip
+  parentEquips: Query<of:Equip, via:"equipRef+">                  // Parent Equips that contain this Equip
+  childEquips:  Query<of:Equip, inverse:"ph::Equip.parentEquips"> // Child Equips contained by this Equip
+  points:       Query<of:Point, inverse:"ph::Point.equips">       // Child Points contained by this Equip
 }
 
 // Moving staircase used to move people between floors.
@@ -678,7 +681,7 @@ Point: Entity <abstract> {
   tz:            TimeZone?
   unit:          Unit?
   writable:      Marker?
-  equips:        Query<of:Equip, via:"equipRef+">  // Parent equips that contain this point
+  equips:        Query<of:Equip, via:"equipRef+">  // Parent Equips that contain this Point
 }
 
 // Motor used with a pump to move fluid.
