@@ -154,3 +154,6 @@ Spec: Dict
 // field and method slots.
 Interface: Dict
 
+// BuildVar is string macro from "build.props" injected at build time
+BuildVar: Scalar
+
