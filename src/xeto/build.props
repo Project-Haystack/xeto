@@ -1,0 +1,11 @@
+//
+// Xeto build variables
+//
+ph.version=5.0.0
+ph.depend=5.0.0
+ph.license=AFL-3.0
+ph.org.dis=Project Haystack
+ph.org.uri=https://project-haystack.org/
+ph.vcs.type=git
+ph.vcs.uri=https://github.com/Project-Haystack/xeto.git
+

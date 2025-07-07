@@ -8,19 +8,19 @@
 
 pragma: Lib <
   doc: "System library for component oriented programming"
-  version: "0.1.1"
+  version: BuildVar "ph.version"
   depends: {
-    { lib: "sys", versions: "0.1.x" }
+    { lib: "sys", versions: BuildVar "ph.depend" }
   }
   categories: {"sys"}
-  license: "AFL-3.0"
+  license: BuildVar "ph.license"
   org: {
-    dis: "Project Haystack"
-    uri: "https://project-haystack.org/"
+    dis: BuildVar "ph.org.dis"
+    uri: BuildVar "ph.org.uri"
   }
   vcs: {
-    type: "git"
-    uri:  "https://github.com/Project-Haystack/xeto.git"
+    type: BuildVar "ph.vcs.type"
+    uri:  BuildVar "ph.vcs.uri"
   }
 >
 
