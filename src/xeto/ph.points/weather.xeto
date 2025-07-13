@@ -47,7 +47,7 @@ WeatherFeelsLikePoint : WeatherNumberPoint {
   unit: Unit <quantity:"temperature"> "°F"
 }
 
-// Weather dew point temperature at whicih water vapor will form dew
+// Weather dew point temperature at which water vapor will form dew
 WeatherDewPointPoint : WeatherNumberPoint {
   dewPoint
   unit: Unit <quantity:"temperature"> "°F"
