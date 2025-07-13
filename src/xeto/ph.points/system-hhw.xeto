@@ -1,1 +1,59 @@
+//
+// Copyright (c) 2024, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   2025-07-13 - Adam Garnhart - Creation
+//
+
+//////////////////////////////////////////////////////////////////////////
+// HHW System Sensors
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for volumetric flow of hot water in a system
+HotWaterFlowSensor : WaterFlowSensor { hot }
+
+// Sensor for volumetric flow of hot water bypassing a system
+HotWaterBypassFlowSensor : HotWaterFlowSensor { bypass }
+
+// Sensor for Hot Water Temp Leaving a component of a system
+HotWaterLeavingTempSensor : WaterTempSensor { hot, leaving }
+
+// Sensor for Hot Water Temp Entering a component of a system
+HotWaterEnteringTempSensor : WaterTempSensor { hot, entering }
+
+// Sensor for Hot Water Temp Supplying a system
+HotWaterSupplyTempSensor : HotWaterLeavingTempSensor
+
+// Sensor for Hot Water Temp Returning from a system
+HotWaterReturnTempSensor : HotWaterEnteringTempSensor
+
+// Sensor for Hot Water Delta Pressure in a system
+HotWaterDeltaPressureSensor : WaterPressureSensor { hot, water, delta}
+
+
+//////////////////////////////////////////////////////////////////////////
+// HHW System Setpoints
+//////////////////////////////////////////////////////////////////////////
+
+// Setpoint for Hot Water Temp leaving a component of a system
+HotWaterLeavingTempSp : WaterTempSp { hot, leaving }
+
+// Setpoint for Hot Water Temp Supplying a system
+HotWaterSupplyTempSp : HotWaterLeavingTempSp
+
+// Setpoint for Hot Water Delta Pressure in a system
+HotWaterDeltaPressureSp : WaterPressureSp { hot, water, delta}
+
+// Setpoint for volumetric flow of hot water in a system
+HotWaterFlowSp : WaterFlowSp { hot }
+
+// Setpoint for Hot Water Minimum Flow in a system
+HotWaterMinFlowSp : HotWaterFlowSp { min }
+
+
+//////////////////////////////////////////////////////////////////////////
+// HHW System Commands
+//////////////////////////////////////////////////////////////////////////
+
 
