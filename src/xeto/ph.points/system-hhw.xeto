@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2024, Project-Haystack
+// Copyright (c) 2025, Project-Haystack
 // Licensed under the Academic Free License version 3.0
 //
 // History:
@@ -29,7 +29,7 @@ HotWaterSupplyTempSensor : HotWaterLeavingTempSensor
 HotWaterReturnTempSensor : HotWaterEnteringTempSensor
 
 // Sensor for Hot Water Delta Pressure in a system
-HotWaterDeltaPressureSensor : WaterPressureSensor { hot, delta}
+HotWaterDeltaPressureSensor : WaterPressureSensor { hot, delta }
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -43,7 +43,7 @@ HotWaterLeavingTempSp : WaterTempSp { hot, leaving }
 HotWaterSupplyTempSp : HotWaterLeavingTempSp
 
 // Setpoint for Hot Water Delta Pressure in a system
-HotWaterDeltaPressureSp : WaterPressureSp { hot, delta}
+HotWaterDeltaPressureSp : WaterPressureSp { hot, delta }
 
 // Setpoint for Hot Water Flow in a system
 HotWaterFlowSp : WaterFlowSp { hot }
@@ -51,9 +51,59 @@ HotWaterFlowSp : WaterFlowSp { hot }
 // Setpoint for Hot Water Minimum Flow in a system
 HotWaterMinFlowSp : HotWaterFlowSp { min }
 
+// Enables a Hot Water System when OAT is less than this setpoint
+HotWaterSystemEnableSp : AirTempSp { outside }
+
 
 //////////////////////////////////////////////////////////////////////////
 // HHW System Commands
 //////////////////////////////////////////////////////////////////////////
 
+// Enable Command for entire Hot Water System
+HotWaterSystemEnableCmd : EnableCmd { hot, water }
+
+
+//////////////////////////////////////////////////////////////////////////
+// Boilers - HHW Generators (Gas & Elec)
+//////////////////////////////////////////////////////////////////////////
+
+// Enable Command for a speicific boiler unit
+BoilerEnableCommand : EnableCmd
+
+// Start/Stop Run Command for a specific boiler unit
+BoilerRunCmd : RunCmd
+
+// Start/Stop Run Status/Sensor for a specific boiler unit
+BoilerRunSensor : RunSensor
+
+// Boiler Fire Rate Cmd for a specific boiler unit
+BoilerFireRateCmd : CmdPoint & NumberPoint { unit: "%" }
+
+
+//////////////////////////////////////////////////////////////////////////
+// Boilers - Steam (Gas & Elec)
+//////////////////////////////////////////////////////////////////////////
+
+// TODO
+
+//////////////////////////////////////////////////////////////////////////
+// HHW System - Pumps
+//////////////////////////////////////////////////////////////////////////
+
+// TODO
+// Primary Pumps
+// Secondary Pumps
+
+//////////////////////////////////////////////////////////////////////////
+// HHW System Valves
+//////////////////////////////////////////////////////////////////////////
+
+// Hot Water flow Bypass Valve Position Command (Variable Primary loops)
+HotWaterBypassValveCmd : HotWaterValveCmd { bypass }
+
+// Hot Water flow Bypass Valve Position Sensor/Feedback (Variable Primary loops)
+HotWaterBypassValveSensor : HotWaterValveSensor { bypass }
+
+//TODO
+// Isolation Valves
 
