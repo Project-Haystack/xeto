@@ -10,9 +10,6 @@
 // HHW System Sensors
 //////////////////////////////////////////////////////////////////////////
 
-// Sensor for Hot Water Temp Leaving a component of a system
-HotWaterTempSensor : WaterTempSensor { hot }
-
 // Sensor for volumetric flow of hot water in a system
 HotWaterFlowSensor : WaterFlowSensor { hot }
 
@@ -20,10 +17,10 @@ HotWaterFlowSensor : WaterFlowSensor { hot }
 HotWaterBypassFlowSensor : HotWaterFlowSensor { bypass }
 
 // Sensor for Hot Water Temp Leaving a component of a system
-HotWaterLeavingTempSensor : HotWaterTempSensor { leaving }
+HotWaterLeavingTempSensor : WaterTempSensor { hot, leaving }
 
 // Sensor for Hot Water Temp Entering a component of a system
-HotWaterEnteringTempSensor : HotWaterTempSensor { entering }
+HotWaterEnteringTempSensor : WaterTempSensor { hot, entering }
 
 // Sensor for Hot Water Temp Supplying a system
 HotWaterSupplyTempSensor : HotWaterLeavingTempSensor
@@ -32,7 +29,7 @@ HotWaterSupplyTempSensor : HotWaterLeavingTempSensor
 HotWaterReturnTempSensor : HotWaterEnteringTempSensor
 
 // Sensor for Hot Water Delta Pressure in a system
-HotWaterDeltaPressureSensor : WaterPressureSensor { hot, water, delta}
+HotWaterDeltaPressureSensor : WaterPressureSensor { hot, delta}
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -46,9 +43,9 @@ HotWaterLeavingTempSp : WaterTempSp { hot, leaving }
 HotWaterSupplyTempSp : HotWaterLeavingTempSp
 
 // Setpoint for Hot Water Delta Pressure in a system
-HotWaterDeltaPressureSp : WaterPressureSp { hot, water, delta}
+HotWaterDeltaPressureSp : WaterPressureSp { hot, delta}
 
-// Setpoint for volumetric flow of hot water in a system
+// Setpoint for Hot Water Flow in a system
 HotWaterFlowSp : WaterFlowSp { hot }
 
 // Setpoint for Hot Water Minimum Flow in a system
