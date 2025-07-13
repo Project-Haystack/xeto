@@ -10,6 +10,9 @@
 // HHW System Sensors
 //////////////////////////////////////////////////////////////////////////
 
+// Sensor for Hot Water Temp Leaving a component of a system
+HotWaterTempSensor : WaterTempSensor { hot }
+
 // Sensor for volumetric flow of hot water in a system
 HotWaterFlowSensor : WaterFlowSensor { hot }
 
@@ -17,10 +20,10 @@ HotWaterFlowSensor : WaterFlowSensor { hot }
 HotWaterBypassFlowSensor : HotWaterFlowSensor { bypass }
 
 // Sensor for Hot Water Temp Leaving a component of a system
-HotWaterLeavingTempSensor : WaterTempSensor { hot, leaving }
+HotWaterLeavingTempSensor : HotWaterTempSensor { leaving }
 
 // Sensor for Hot Water Temp Entering a component of a system
-HotWaterEnteringTempSensor : WaterTempSensor { hot, entering }
+HotWaterEnteringTempSensor : HotWaterTempSensor { entering }
 
 // Sensor for Hot Water Temp Supplying a system
 HotWaterSupplyTempSensor : HotWaterLeavingTempSensor
