@@ -1,0 +1,16 @@
+//////////////////////////////////////////////////////////////////////////
+// Water System Point Abstracts
+//////////////////////////////////////////////////////////////////////////
+
+// Point associated with temperature of water
+WaterTempPoint : NumberPoint <abstract> {
+  water
+  temp
+  unit: Unit <quantity:"temperature"> "°F"
+}
+
+// Sensor for temperature of water
+WaterTempSensor : WaterTempPoint & SensorPoint <abstract>
+
+// Setpoint for temperature of water
+WaterTempSp : WaterTempPoint & SpPoint <abstract>
