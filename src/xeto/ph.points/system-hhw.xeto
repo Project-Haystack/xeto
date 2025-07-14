@@ -68,7 +68,7 @@ HotWaterSystemEnableCmd : EnableCmd { hot, water }
 //////////////////////////////////////////////////////////////////////////
 
 // Enable Command for a speicific boiler unit
-BoilerEnableCommand : EnableCmd
+BoilerEnableCmd : EnableCmd
 
 // Start/Stop Run Command for a specific boiler unit
 BoilerRunCmd : RunCmd
