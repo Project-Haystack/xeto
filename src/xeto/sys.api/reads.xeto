@@ -6,6 +6,7 @@
 //   14 Feb 2025  Brian Frank  Creation
 //
 
+/* TODO
 // Return an database record by its id
 readById: Api {
   id: Ref                   // Database id to read
@@ -25,4 +26,5 @@ readByFilter: Api {
   limit: Int?               // Max number of entities to read
   returns: List<of:Entity>  // Database records matched
 }
+*/
 
