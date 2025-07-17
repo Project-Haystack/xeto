@@ -1,16 +1,93 @@
-//////////////////////////////////////////////////////////////////////////
-// Water System Point Abstracts
-//////////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   2025-07-17 Adam Garnhart Creation
+//
 
-// Point associated with temperature of water
-WaterTempPoint : NumberPoint <abstract> {
+///////////////////////////////////////////////////////////////////////////
+// Abstracts
+///////////////////////////////////////////////////////////////////////////
+
+// Point associated with water temperature
+WaterTempPoint : NumberPoint <abstract> { 
   water
   temp
-  unit: Unit <quantity:"temperature"> "°F"
+  unit: Unit <quantity:"temperature"> "°F" 
 }
 
-// Sensor for temperature of water
+// Sensor for water temperature
 WaterTempSensor : WaterTempPoint & SensorPoint <abstract>
 
-// Setpoint for temperature of water
+// Setpoint for water temperature
 WaterTempSp : WaterTempPoint & SpPoint <abstract>
+
+
+//////////////////////////////////////////////////////////////////////////
+// Hot Water Temps
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for Hot Water Temperature Entering a component of a system
+HotWaterEnteringTempSensor : WaterTempSensor { hot, entering }
+
+// Sensor for Hot Water Temperature Leaving a component of a system
+HotWaterLeavingTempSensor : WaterTempSensor { hot, leaving }
+
+// Setpoint for Hot Water Temperature Leaving a component of a system
+HotWaterLeavingTempSp : WaterTempSp { hot, leaving }
+
+// Sensor for Hot Water Temperature Returning from a system
+HotWaterReturnTempSensor : HotWaterEnteringTempSensor
+
+// Sensor for Hot Water Temperature Supplied to a system
+HotWaterSupplyTempSensor : HotWaterLeavingTempSensor
+
+// Setpoint for Hot Water Temperature Supplied to a system
+HotWaterSupplyTempSp : HotWaterLeavingTempSp
+
+
+//////////////////////////////////////////////////////////////////////////
+// Chilled Water Temps
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for Chilled Water Temperature Entering a component of a system
+ChilledWaterEnteringTempSensor : WaterTempSensor { chilled, entering }
+
+// Sensor for Chilled Water Temperature Leaving a component of a system
+ChilledWaterLeavingTempSensor : WaterTempSensor { chilled, leaving }
+
+// Setpoint for Chilled Water Temperature Leaving a component of a system
+ChilledWaterLeavingTempSp : WaterTempSp { chilled, leaving }
+
+// Sensor for Chilled Water Temperature Returning from a system
+ChilledWaterReturnTempSensor : ChilledWaterEnteringTempSensor
+
+// Sensor for Chilled Water Temperature Supplied to a system
+ChilledWaterSupplyTempSensor : ChilledWaterLeavingTempSensor
+
+// Setpoint for Chilled Water Temperature Supplied to a system
+ChilledWaterSupplyTempSp : ChilledWaterLeavingTempSp
+
+
+//////////////////////////////////////////////////////////////////////////
+// Condenser Water Temps
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for Condenser Water Temperature Entering a component of a system
+CondenserWaterEnteringTempSensor : WaterTempSensor { condenser, entering }
+
+// Sensor for Condenser Water Temperature Leaving a component of a system
+CondenserWaterLeavingTempSensor : WaterTempSensor { condenser, leaving }
+
+// Setpoint for Condenser Water Temperature Leaving a component of a system
+CondenserWaterLeavingTempSp : WaterTempSp { condenser, leaving }
+
+// Sensor for Condenser Water Temperature Returning from a system
+CondenserWaterReturnTempSensor : CondenserWaterEnteringTempSensor
+
+// Sensor for Condenser Water Temperature Supplied to a system
+CondenserWaterSupplyTempSensor : CondenserWaterLeavingTempSensor
+
+// Setpoint for Condenser Water Temperature Supplied to a system
+CondenserWaterSupplyTempSp : CondenserWaterLeavingTempSp
