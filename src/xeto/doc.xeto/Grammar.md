@@ -9,18 +9,15 @@ The formal BNF grammar for Xeto:
 <namedSpec>    :=  <name> ":" <spec> <nl>
 <namedData>    :=  <ref> ":" <dict> <nl>
 
-<spec>         :=  [<type> [<meta>]] <specBody> [<heredocs>] // must have at one
+<spec>         :=  [<type> [<meta>]] <specBody> // must have at one
 <specBody>     :=  <specSlots> | <specVal>
 <specVal>      :=  <scalar>
 <specSlots>    :=  "{" [<specSlot> <endOfObj>]* "}"
-<specSlot>     :=  [<leadingDoc>] ( <markerOnly> | <namedSpec> | <spec> ) [<trailingDoc>]
+<specSlot>     :=  [<leadingDoc>] ( <markerOnly> | <namedSpec> | <spec> | <embeddedMeta>) [<trailingDoc>]
 <markerOnly>   :=  <markerName> [<meta>]
 <endOfObj>     :=  ( [","] <nl> ) | ","
 <meta>         :=  "<" <dictTags> ">"
-<heredocs>     :=  (<heredocStart> <heredocLines>)+ <heredocEnd>
-<heredocStart> :=  <nl> "---" <name> <nl>
-<heredocEnd>   :=  <nl> "---" <nl>
-<heredocLines> :=  // lines with same indentation as heredoc start
+<embeddedMeta> :=  "<" (<dictMarkerTag> | <dictMarkerTag>) ">"
 
 <data>            :=  <dict> | <dataScalar> | <ref> | <spec>
 <dataType>        :=  <typeSimple>    // may want to allow List<of>
@@ -28,13 +25,12 @@ The formal BNF grammar for Xeto:
 <dict>            :=  [<dataType>] "{" <dictTags> "}"
 <dictTags>        :=  [<dictTag> <endOfObj>]*
 <dictTag>         :=  <dictMarkerTag> | <dictNamedTag> | <dictUnnamedTag> |
-                      <dictIdTag> | <dictNamedIdTag> | <dictHeredocTags>
+                      <dictIdTag> | <dictNamedIdTag>
 <dictMarkerTag>   :=  <name>
 <dictNamedTag>    :=  <name> ":" <data>
 <dictUnnamedTag>  :=  <data>
 <dictIdTag>       :=  <ref> ":" <dict>
 <dictNamedIdTag>  :=  <name> <ref> ":" <dict>
-<dictHeredocTags> :=  <heredocs>
 
 <type>         :=  <typeMaybe> | <typeAnd> | <typeOr> | <typeSimple>
 <typeMaybe>    :=  <typeSimple> "?"
@@ -68,6 +64,7 @@ The formal BNF grammar for Xeto:
 Scalar values may take one of the following formats:
   - single double-quoted string such as "hi"
   - triple double-quoted strings such as """my name is "Brian", hi!"""
+  - heredocs bracketed with "---"
   - numbers with embedded units/symbols such as 123% or 2023-03-04
   - refs that start with "@" (see above)
 
@@ -81,6 +78,10 @@ Triple quoted strings follow these indentation normalization rules:
   - If opening triple quote line is empty, then next line is the first line
   - Indentation is based on left-most line/closing quote
   - Any leading spaces are trimmed based on inferred indentation
+
+Heredocs use three or more "-" and are closed with an equal number of dashes.
+The work just like triple quoted strings regarding indentation normalization
+rules. But heredocs ignore backslash escape sequences.
 
 Number literals must start with an ASCII digit or "-" followed by an ASCII digit.
 Any of the following characters are matched to tokenize the number literal:
@@ -108,3 +109,4 @@ Legend for BNF Grammar:
   x+      one or more times
   x|x     or
 ```
+
