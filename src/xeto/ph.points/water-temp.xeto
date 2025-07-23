@@ -37,15 +37,6 @@ HotWaterLeavingTempSensor : WaterTempSensor { hot, leaving }
 // Setpoint for Hot Water Temperature Leaving a component of a system
 HotWaterLeavingTempSp : WaterTempSp { hot, leaving }
 
-// Sensor for Hot Water Temperature Returning from a system
-HotWaterReturnTempSensor : HotWaterEnteringTempSensor
-
-// Sensor for Hot Water Temperature Supplied to a system
-HotWaterSupplyTempSensor : HotWaterLeavingTempSensor
-
-// Setpoint for Hot Water Temperature Supplied to a system
-HotWaterSupplyTempSp : HotWaterLeavingTempSp
-
 
 //////////////////////////////////////////////////////////////////////////
 // Chilled Water Temps
@@ -59,15 +50,6 @@ ChilledWaterLeavingTempSensor : WaterTempSensor { chilled, leaving }
 
 // Setpoint for Chilled Water Temperature Leaving a component of a system
 ChilledWaterLeavingTempSp : WaterTempSp { chilled, leaving }
-
-// Sensor for Chilled Water Temperature Returning from a system
-ChilledWaterReturnTempSensor : ChilledWaterEnteringTempSensor
-
-// Sensor for Chilled Water Temperature Supplied to a system
-ChilledWaterSupplyTempSensor : ChilledWaterLeavingTempSensor
-
-// Setpoint for Chilled Water Temperature Supplied to a system
-ChilledWaterSupplyTempSp : ChilledWaterLeavingTempSp
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -83,11 +65,3 @@ CondenserWaterLeavingTempSensor : WaterTempSensor { condenser, leaving }
 // Setpoint for Condenser Water Temperature Leaving a component of a system
 CondenserWaterLeavingTempSp : WaterTempSp { condenser, leaving }
 
-// Sensor for Condenser Water Temperature Returning from a system
-CondenserWaterReturnTempSensor : CondenserWaterEnteringTempSensor
-
-// Sensor for Condenser Water Temperature Supplied to a system
-CondenserWaterSupplyTempSensor : CondenserWaterLeavingTempSensor
-
-// Setpoint for Condenser Water Temperature Supplied to a system
-CondenserWaterSupplyTempSp : CondenserWaterLeavingTempSp
