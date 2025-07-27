@@ -92,6 +92,15 @@ SpanMode: Enum {
   pastYear     // Past 365 days including today
 }
 
+// Specification flavor enumeration
+SpecFlavor: Enum {
+  type     // Top level type
+  global   // Top level global slot spec
+  func     // Top level function spec
+  meta     // Top level meta spec
+  slot     // Slot spec under a parent
+}
+
 // Closed enumerated set of string values
 Enum: Scalar
 
@@ -156,4 +165,3 @@ Interface: Dict
 
 // BuildVar is string macro from "build.props" injected at build time
 BuildVar: Scalar
-
