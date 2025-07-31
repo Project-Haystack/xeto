@@ -25,6 +25,7 @@ PingRes: Dict {
 //////////////////////////////////////////////////////////////////////////
 
 // Return summary information about the server
+/*
 about: Api {
   returns: AboutRes     // About response
 }
@@ -43,4 +44,5 @@ AboutRes: Dict {
     boot: DateTime?     // Timestamp the server was booted
   }
 }
+*/
 
