@@ -1,0 +1,52 @@
+//
+// Copyright (c) 2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   5 Jan 2025 Creation - Water pressure points from community documentation
+//
+
+// Point associated with water pressure
+WaterPressurePoint : NumberPoint <abstract> {
+  water
+  pressure
+  unit: Unit <quantity:"pressure"> "psi"
+}
+
+// Sensor for water pressure
+WaterPressureSensor : WaterPressurePoint & SensorPoint <abstract>
+
+// Setpoint for water pressure
+WaterPressureSp : WaterPressurePoint & SpPoint <abstract>
+
+//////////////////////////////////////////////////////////////////////////
+// Chilled Water Pressure
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for chilled water leaving pressure
+ChilledWaterLeavingPressureSensor : WaterPressureSensor { chilled, leaving }
+
+// Sensor for chilled water entering pressure
+ChilledWaterEnteringPressureSensor : WaterPressureSensor { chilled, entering }
+
+// Setpoint for chilled water leaving pressure
+ChilledWaterLeavingPressureSp : WaterPressureSp { chilled, leaving }
+
+// Setpoint for chilled water entering pressure
+ChilledWaterEnteringPressureSp : WaterPressureSp { chilled, entering }
+
+//////////////////////////////////////////////////////////////////////////
+// Hot Water Pressure
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for hot water leaving pressure
+HotWaterLeavingPressureSensor : WaterPressureSensor { hot, leaving }
+
+// Sensor for hot water entering pressure
+HotWaterEnteringPressureSensor : WaterPressureSensor { hot, entering }
+
+// Setpoint for hot water leaving pressure
+HotWaterLeavingPressureSp : WaterPressureSp { hot, leaving }
+
+// Setpoint for hot water entering pressure
+HotWaterEnteringPressureSp : WaterPressureSp { hot, entering }
