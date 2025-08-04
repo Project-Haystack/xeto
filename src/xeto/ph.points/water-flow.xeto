@@ -29,3 +29,22 @@ DomesticWaterFlowSensor : WaterFlowSensor { domestic }
 // Setpoint for volumetric flow of domestic water
 DomesticWaterFlowSp : WaterFlowSp { domestic }
 
+//////////////////////////////////////////////////////////////////////////
+// Chilled Water
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for volumetric flow of chilled water
+ChilledWaterFlowSensor : WaterFlowSensor { chilled }
+
+// Setpoint for volumetric flow of chilled water
+ChilledWaterFlowSp : WaterFlowSp { chilled }
+
+//////////////////////////////////////////////////////////////////////////
+// Hot Water
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for volumetric flow of hot water
+HotWaterFlowSensor : WaterFlowSensor { hot }
+
+// Setpoint for volumetric flow of hot water
+HotWaterFlowSp : WaterFlowSp { hot }
