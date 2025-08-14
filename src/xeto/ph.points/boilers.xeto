@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////////
 
 // Enables a Hot Water System when OAT is less than this setpoint
-HotWaterSystemEnableSp : AirTempSp { outside }
+SystemEnableOutsideAirTempSp : AirTempSp { outside, enable }
 
 // Enable Command for entire Hot Water System
 HotWaterSystemEnableCmd : EnableCmd { hot, water }
