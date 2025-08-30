@@ -1,0 +1,11 @@
+//
+// Copyright (c) 2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   30 Aug 2025  Brian Frank  Creation
+//
+
+// Component tree as Xeto source string
+compTree: Str <meta>
+
