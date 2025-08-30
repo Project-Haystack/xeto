@@ -3,7 +3,7 @@
 // Licensed under the Academic Free License version 3.0
 //
 // History:
-//   2025-07-17 Adam Garnhart Creation
+//   3 Nov 2025  Adam Garnhart  Creation
 //
 
 ///////////////////////////////////////////////////////////////////////////
@@ -11,10 +11,10 @@
 ///////////////////////////////////////////////////////////////////////////
 
 // Point associated with water temperature
-WaterTempPoint : NumberPoint <abstract> { 
+WaterTempPoint : NumberPoint <abstract> {
   water
   temp
-  unit: Unit <quantity:"temperature"> "°F" 
+  unit: Unit <quantity:"temperature"> "°F"
 }
 
 // Sensor for water temperature

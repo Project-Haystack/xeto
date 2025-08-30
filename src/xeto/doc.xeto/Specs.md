@@ -13,7 +13,7 @@ There are two fundamental types of specs: *scalars* and *dicts*.
 
 Specs are always defined within a [lib](Libs.md).  User defined spec
 names must obey the following restrictions:
-  - Must contain only ASCII lower case letters, digits, or underbar
+  - Must contain only ASCII case letters, digits, or underbar
   - Must start with an ASCII upper case letter
   - Convention is to use camel case
 
