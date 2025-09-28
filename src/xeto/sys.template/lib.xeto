@@ -1,0 +1,26 @@
+//
+// Copyright (c) 2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   28 Sep 2025  Brian Frank  Creation
+//
+
+pragma: Lib <
+  doc: "System library for creating template transform functions"
+  version: BuildVar "ph.version"
+  depends: {
+    { lib: "sys", versions: BuildVar "ph.depend" }
+  }
+  categories: {"sys"}
+  license: BuildVar "ph.license"
+  org: {
+    dis: BuildVar "ph.org.dis"
+    uri: BuildVar "ph.org.uri"
+  }
+  vcs: {
+    type: BuildVar "ph.vcs.type"
+    uri:  BuildVar "ph.vcs.uri"
+  }
+>
+

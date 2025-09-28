@@ -1,0 +1,39 @@
+//
+// Copyright (c) 2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   28 Sep 2025  Brian Frank  Creation
+//
+
+// Used to bind to a parameter variable path
+var: BindPath <meta>
+
+// Bind path is used to access an input varaible via a dotted path format
+BindPath: Scalar <sealed>
+
+// Templates are a transformation function that uses their input
+// parameters to generate instance data
+Template: Func
+
+// Bind a variable via the 'var' meta tag
+Bind: Dict <sealed>
+
+// Bind a variable via the 'var' meta tag
+Foreach: Dict <sealed>
+
+// If block based on a boolean variable via the 'var' meta tag
+If: Dict <sealed>
+
+// Else block paired with If block
+Else: Dict <sealed>
+
+// Switch based on a conditional varaible via the 'var' meta tag
+Switch: Dict <sealed>
+
+// Switch case block keyed by the 'val' meta tag
+Case: Dict <sealed>
+
+// Switch default block
+Default: Dict <sealed>
+
