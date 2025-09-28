@@ -9,6 +9,9 @@
 // Used to bind to a parameter variable path
 var: BindPath <meta>
 
+// Used to specify a value literal for matching case labels
+match: Obj <meta>
+
 // Bind path is used to access an input varaible via a dotted path format
 BindPath: Scalar <sealed>
 
@@ -31,7 +34,7 @@ Else: Dict <sealed>
 // Switch based on a conditional varaible via the 'var' meta tag
 Switch: Dict <sealed>
 
-// Switch case block keyed by the 'val' meta tag
+// Switch case block keyed by the 'match' meta tag
 Case: Dict <sealed>
 
 // Switch default block
