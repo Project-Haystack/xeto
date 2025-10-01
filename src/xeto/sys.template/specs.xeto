@@ -37,6 +37,3 @@ Switch: Dict <sealed>
 // Switch case block keyed by the 'match' meta tag
 Case: Dict <sealed>
 
-// Switch default block
-Default: Dict <sealed>
-
