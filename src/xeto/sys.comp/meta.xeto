@@ -9,3 +9,6 @@
 // Component tree as Xeto source string
 compTree: Str <meta>
 
+// Binds a slot to a component id within the compTree
+compId: Ref <meta>
+
