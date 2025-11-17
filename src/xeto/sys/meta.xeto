@@ -129,3 +129,6 @@ via: Str <meta>
 // Used on a interface non-static slot to indicate it can be overridden subtypes
 virtual: Marker <meta>
 
+// Indicates a wildcard slot that defines a shape for all types that might override
+wildcard: Marker <meta>
+
