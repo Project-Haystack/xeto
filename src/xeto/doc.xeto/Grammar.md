@@ -4,10 +4,11 @@ The formal BNF grammar for Xeto:
 
 
 ```
-<libFile>      :=  [<namedSpec> | <namedData>]*
-<dataFile>     :=  <data> | <namedData>*  // single scalar/dict or list of named dicts
-<namedSpec>    :=  <name> ":" <spec> <nl>
-<namedData>    :=  <ref> ":" <dict> <nl>
+<libFile>      :=  [<typeDef> | <mixinDef> | <instance>]*
+<dataFile>     :=  <data> | <instance>*  // single scalar/dict or list of named dicts
+<typeDef>      :=  <name> ":" <spec> <nl>
+<mixinDef>     :=  "+" <type> ":" [<meta>] [<specSlots>] <nl> // must have at least one
+<instance>     :=  <ref> ":" <dict> <nl>
 
 <spec>         :=  [<type> [<meta>]] <specBody> // must have at one
 <specBody>     :=  <specSlots> | <specVal>
