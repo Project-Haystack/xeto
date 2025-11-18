@@ -24,6 +24,9 @@ doc: Str <meta>
 // Annotates a slot as a fixed value that must be equal to 'val'
 fixed: Marker <meta>
 
+// Indicates a global slot that defines a shape for all types that might override
+global: Marker <meta>
+
 // Inverse query to run against parent
 inverse: Str <meta>
 
@@ -50,6 +53,9 @@ minSize: Int <meta>
 
 // Inclusive minimum value for numbers
 minVal: Self <meta>
+
+// Indicates a mixin that adds meta/slots to an existing type
+mixin: Marker <meta>
 
 // Applied to Choices to allow multiple selections
 multiChoice: Marker <meta>
@@ -128,7 +134,4 @@ via: Str <meta>
 
 // Used on a interface non-static slot to indicate it can be overridden subtypes
 virtual: Marker <meta>
-
-// Indicates a wildcard slot that defines a shape for all types that might override
-wildcard: Marker <meta>
 
