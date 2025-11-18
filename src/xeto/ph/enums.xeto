@@ -22,30 +22,6 @@ CurStatus: Enum {
   remoteUnknown   // point in remote system is unknown
 }
 
-// Single-phase line measurement of an electric quantity in a multi-phase
-// AC electric power system.
-ElecLine: Enum {
-  pL1 <key:"L1">  // line 1 measurement
-  pL2 <key:"L2">  // line 2 measurement
-  pL3 <key:"L3">  // line 3 measurement
-}
-
-// Single-phase electric quantity measured line-to-line in a multi-phase AC
-// electric power system.
-ElecLineToLine: Enum {
-  pL1L2 <key:"L1-L2">  // line 1 to line 2 measurement
-  pL2L3 <key:"L2-L3">  // line 2 to line 3 measurement
-  pL3L1 <key:"L3-L1">  // line 3 to line 1 measurement
-}
-
-// Single-phase electric quantity measured line-to-neutral in a multi-phase
-// AC electric power system.
-ElecLineToNeutral: Enum {
-  pL1N <key:"L1-N">  // line 1 to neutral measurement
-  pL2N <key:"L2-N">  // line 2 to neutral measurement
-  pL3N <key:"L3-N">  // line 3 to neutral measurement
-}
-
 // Physical type of `evse-cable`.
 EvseCableType: Enum {
   ccs1      // CCS1 charging cable
@@ -505,110 +481,14 @@ Kind: Enum {
   grid <key:"Grid">          // two dimensional tabular data collection
 }
 
-// Single-phase line current measured in an AC electric power system.
-LineCurrent: Enum {
-  pL1 <key:"L1">  // line 1 measurement
-  pL2 <key:"L2">  // line 2 measurement
-  pL3 <key:"L3">  // line 3 measurement
-}
-
-// Single-phase energy measured line-to-line in an AC electric power
-// system.
-LineEnergy: Enum {
-  pL1L2 <key:"L1-L2">  // line 1 to line 2 measurement
-  pL2L3 <key:"L2-L3">  // line 2 to line 3 measurement
-  pL3L1 <key:"L3-L1">  // line 3 to line 1 measurement
-}
-
-// Single-phase power factor measured line-to-line in an AC electric power
-// system.
-LinePf: Enum {
-  pL1L2 <key:"L1-L2">  // line 1 to line 2 measurement
-  pL2L3 <key:"L2-L3">  // line 2 to line 3 measurement
-  pL3L1 <key:"L3-L1">  // line 3 to line 1 measurement
-}
-
-// Single-phase power measured line-to-line in an AC electric power system.
-// May also be referred to as a line power measurement.
-LinePower: Enum {
-  pL1L2 <key:"L1-L2">  // line 1 to line 2 measurement
-  pL2L3 <key:"L2-L3">  // line 2 to line 3 measurement
-  pL3L1 <key:"L3-L1">  // line 3 to line 1 measurement
-}
-
-// Single-phase voltage measured line-to-line in an AC electric power
-// system.  May also be referred to as a line voltage measurement.
-LineVolt: Enum {
-  pL1L2 <key:"L1-L2">  // line 1 to line 2 measurement
-  pL2L3 <key:"L2-L3">  // line 2 to line 3 measurement
-  pL3L1 <key:"L3-L1">  // line 3 to line 1 measurement
-}
-
-// Phase measurement in a three-phase electrical system. This tag is
-// deprecated in favor of more precise tags:
-// - `lineVolt`
-// - `phaseVolt`
-// - `lineCurrent`
-// - `phaseCurrent`
-// - `linePower`
-// - `phasePower`
-// - `linePf`
-// - `phasePf`
-// - `lineEnergy`
-// - `phaseEnergy`
-// - `lineAvg`
-// - `phaseAvg`
-// - `neutral`
-// - `ground`
+// Single-phase measurement of an electric quantity in a multi-phase AC electric power system.
 Phase: Enum {
-  a <key:"A">    // line-to-neutral measurement
-  b <key:"B">    // line-to-neutral measurement
-  c <key:"C">    // line-to-neutral measurement
-  ab <key:"AB">  // line-to-line measurement
-  bc <key:"BC">  // line-to-line measurement
-  ca <key:"CA">  // line-to-line measurement
-  n <key:"N">    // neutral current
-}
-
-// Single-phase current measured line-to-line in an AC electric power
-// system.  May also be referred to as a phase current measurement.
-PhaseCurrent: Enum {
-  pL1L2 <key:"L1-L2">  // line 1 to line 2 measurement
-  pL2L3 <key:"L2-L3">  // line 2 to line 3 measurement
-  pL3L1 <key:"L3-L1">  // line 3 to line 1 measurement
-}
-
-// Single-phase energy measured line-to-neutral in an AC electric power
-// system.  Neutral might not be referenced, but implied.
-PhaseEnergy: Enum {
-  pL1 <key:"L1">  // line 1 measurement
-  pL2 <key:"L2">  // line 2 measurement
-  pL3 <key:"L3">  // line 3 measurement
-}
-
-// Single-phase power factor measured line-to-neutral in an AC electric
-// power system.  Neutral might not be referenced, but implied.
-PhasePf: Enum {
-  pL1 <key:"L1">  // line 1 measurement
-  pL2 <key:"L2">  // line 2 measurement
-  pL3 <key:"L3">  // line 3 measurement
-}
-
-// Single-phase power measured line-to-neutral in an AC electric power
-// system.  May also be referred to as a phase power measurement.  Neutral
-// might not be referenced, but implied.
-PhasePower: Enum {
-  pL1 <key:"L1">  // line 1 measurement
-  pL2 <key:"L2">  // line 2 measurement
-  pL3 <key:"L3">  // line 3 measurement
-}
-
-// Single-phase voltage measured line-to-neutral in an AC electric power
-// system.  May also be referred to as a phase voltage measurement.
-PhaseVolt: Enum {
-  pL1N <key:"L1-N">  // line 1 to neutral measurement
-  pL2N <key:"L2-N">  // line 2 to neutral measurement
-  pL3N <key:"L3-N">  // line 3 to neutral measurement
+  l1 <key:"L1">
+  l2 <key:"L2">
+  l3 <key:"L3">
+  l1L2 <key:"L1-L2">
+  l2L3 <key:"L2-L3">
+  l3L1 <key:"L3-L1">
 }
 
 // Primary function of building as US Energy Star key
