@@ -294,6 +294,9 @@ cur: Marker
 // Error description when `curStatus` indicates error condition
 curErr: Str <transient>
 
+// Average electrical current over a defined interval
+currentDemand: Marker
+
 // Status of point's current value reading.  The `curVal` is only available
 // when curStatus is "ok" or "stale".  However a "stale" value should
 // be used with caution since the local system does not have a fresh value.
@@ -340,7 +343,7 @@ defx: Symbol
 // Differential of fluid between entering and leaving sensors.
 delta: Marker
 
-// Rate required for a process.
+// Rate required for a process or average electrical power over a defined interval.
 demand: Marker
 
 // Obsoleted
@@ -445,17 +448,11 @@ elec: Marker
 // Heating by the conversion of electrical energy
 elecHeating: Marker
 
-// Single-phase line measurement of an electric quantity in a multi-phase
-// AC electric power system.
-elecLine: ElecLine
+// Average of L1, L2, L3 measurements
+elecLAvg: Marker
 
-// Single-phase electric quantity measured line-to-line in a multi-phase AC
-// electric power system.
-elecLineToLine: ElecLineToLine
-
-// Single-phase electric quantity measured line-to-neutral in a multi-phase
-// AC electric power system.
-elecLineToNeutral: ElecLineToNeutral
+// Average of L1-L2, L2-L3, L3-L1 measurements
+elecLLAvg: Marker
 
 // Electricity flows from the referent to this entity
 elecRef: MultiRef
@@ -842,45 +839,6 @@ light: Marker
 // Systems associated with illumination in the built environment
 lighting: Marker
 
-// Line average of single-phase electrical quantity measurements in an AC
-// electric power system.
-//
-// When applied to a point entity that has the `elec` and `volt` tags,
-// indicates the average of all available `lineVolt` measurements.
-//
-// When applied to a point entity that has the `elec` and `current` tags,
-// indicates the average of all available `lineCurrent` measurements.
-//
-// When applied to a point entity that has the `elec` and `power` tags,
-// indicates the average of all available `linePower` measurements.
-//
-// When applied to a point entity that has the `elec` and `pf` tags,
-// indicates the average of all available `linePf` measurements.
-//
-// When applied to a point entity that has the `elec` and `energy` tags,
-// indicates the average of all available `lineEnergy` measurements.
-//
-lineAvg: Marker
-
-// Single-phase line current measured in an AC electric power system.
-lineCurrent: LineCurrent
-
-// Single-phase energy measured line-to-line in an AC electric power
-// system.
-lineEnergy: LineEnergy
-
-// Single-phase power factor measured line-to-line in an AC electric power
-// system.
-linePf: LinePf
-
-// Single-phase power measured line-to-line in an AC electric power system.
-// May also be referred to as a line power measurement.
-linePower: LinePower
-
-// Single-phase voltage measured line-to-line in an AC electric power
-// system.  May also be referred to as a line voltage measurement.
-lineVolt: LineVolt
-
 // Chiller point to command or measure the chiller's load as a percentage
 // from "0%" to "100%". When paired with cmd this models the chiller's
 // load limit. When paired with sensor this models the chiller's current
@@ -1160,63 +1118,8 @@ pfTrue: Marker
 // Perfluorocarbons
 pfc: Marker
 
-// Phase measurement in a three-phase electrical system. This tag is
-// deprecated in favor of more precise tags:
-// - `lineVolt`
-// - `phaseVolt`
-// - `lineCurrent`
-// - `phaseCurrent`
-// - `linePower`
-// - `phasePower`
-// - `linePf`
-// - `phasePf`
-// - `lineEnergy`
-// - `phaseEnergy`
-// - `lineAvg`
-// - `phaseAvg`
-// - `neutral`
-// - `ground`
+// Single-phase measurement of an electric quantity in a multi-phase AC electric power system.
 phase: Phase
-
-// Phase average of single-phase electrical quantity measurements in an AC
-// electric power system.
-//
-// When applied to a point entity that has the `elec` and `volt` tags,
-// indicates the average of all available `phaseVolt` measurements.
-//
-// When applied to a point entity that has the `elec` and `current` tags,
-// indicates the average of all available `phaseCurrent` measurements.
-//
-// When applied to a point entity that has the `elec` and `power` tags,
-// indicates the average of all available `phasePower` measurements.
-//
-// When applied to a point entity that has the `elec` and `pf` tags,
-// indicates the average of all available `phasePf` measurements.
-//
-// When applied to a point entity that has the `elec` and `energy` tags,
-// indicates the average of all available `phaseEnergy` measurements.
-phaseAvg: Marker
-
-// Single-phase current measured line-to-line in an AC electric power
-// system.  May also be referred to as a phase current measurement.
-phaseCurrent: PhaseCurrent
-
-// Single-phase energy measured line-to-neutral in an AC electric power
-// system.  Neutral might not be referenced, but implied.
-phaseEnergy: PhaseEnergy
-
-// Single-phase power factor measured line-to-neutral in an AC electric
-// power system.  Neutral might not be referenced, but implied.
-phasePf: PhasePf
-
-// Single-phase power measured line-to-neutral in an AC electric power
-// system.  May also be referred to as a phase power measurement.  Neutral
-// might not be referenced, but implied.
-phasePower: PhasePower
-
-// Single-phase voltage measured line-to-neutral in an AC electric power
-// system.  May also be referred to as a phase voltage measurement.
-phaseVolt: PhaseVolt
 
 // Telephone used for voice telecommunication.
 phone: Marker
