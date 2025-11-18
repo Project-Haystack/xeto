@@ -21,12 +21,12 @@ ElecAcRmsWaveformMagnitude: ElecAcWaveformMagnitude { rootMeanSquare }
 ElecAcPeakWaveformMagnitude: ElecAcWaveformMagnitude { peak }
 ElecAcPeakToPeakWaveformMagnitude: ElecAcWaveformMagnitude { peakToPeak }
 
-ElecAcWaveformMetric: Choice
-ElecAcThffWaveformMetric: ElecAcWaveformMetric { telephoneHarmonicFormFactor }
-ElecAcIhdWaveformMetric: ElecAcWaveformMetric { individualHarmonicDistortion }
-ElecAcThdWaveformMetric: ElecAcWaveformMetric { totalHarmonicDistortion }
-ElecAcOddThdWaveformMetric: ElecAcWaveformMetric { oddTotalHarmonicDistortion }
-ElecAcEvenThdWaveformMetric: ElecAcWaveformMetric { evenTotalHarmonicDistortion }
-ElecAcKFactorWaveformMetric: ElecAcWaveformMetric { kFactor }
-ElecAcCrestFactorWaveformMetric: ElecAcWaveformMetric { crestFactor }
-ElecAcImbalanceWaveformMetric: ElecAcWaveformMetric { imbalance }
+ElecAcQualityMetric: Choice
+ElecAcThffQualityMetric: ElecAcQualityMetric { telephoneHarmonicFormFactor }
+ElecAcIhdQualityMetric: ElecAcQualityMetric { individualHarmonicDistortion }
+ElecAcThdQualityMetric: ElecAcQualityMetric { totalHarmonicDistortion }
+ElecAcOddThdQualityMetric: ElecAcQualityMetric { oddTotalHarmonicDistortion }
+ElecAcEvenThdQualityMetric: ElecAcQualityMetric { evenTotalHarmonicDistortion }
+ElecAcKFactorQualityMetric: ElecAcQualityMetric { kFactor }
+ElecAcCrestFactorQualityMetric: ElecAcQualityMetric { crestFactor }
+ElecAcImbalanceQualityMetric: ElecAcQualityMetric { imbalance }
