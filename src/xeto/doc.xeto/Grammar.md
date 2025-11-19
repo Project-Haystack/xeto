@@ -11,14 +11,17 @@ The formal BNF grammar for Xeto:
 <instance>     :=  <ref> ":" <dict> <nl>
 
 <spec>         :=  [<type> [<meta>]] <specBody> // must have at one
+<meta>         :=  "<" <dictTags> ">"
 <specBody>     :=  <specSlots> | <specVal>
 <specVal>      :=  <scalar>
 <specSlots>    :=  "{" [<specSlot> <endOfObj>]* "}"
-<specSlot>     :=  [<leadingDoc>] ( <markerOnly> | <namedSpec> | <spec> | <inlineMeta>) [<trailingDoc>]
-<markerOnly>   :=  <markerName> [<meta>]
-<endOfObj>     :=  ( [","] <nl> ) | ","
-<meta>         :=  "<" <dictTags> ">"
+<specSlot>     :=  [<leadingDoc>] ( <markerSlot> | <namedSlot> | <unnamedSlot> | <inlineMeta>) [<trailingDoc>]
+<markerSlot>   :=  [<globalPrefix>] <markerName> [<meta>]
+<namedSlot>    :=  [<globalPrefix>] <name> ":" <spec>
+<unnamedSlot>  :=  <spec>
 <inlineMeta>   :=  "<" (<dictMarkerTag> | <dictMarkerTag>) ">"
+<globalPrefix> :=  "*"
+<endOfObj>     :=  ( [","] <nl> ) | ","
 
 <data>            :=  <dict> | <dataScalar> | <ref> | <spec>
 <dataType>        :=  <typeSimple>    // may want to allow List<of>
