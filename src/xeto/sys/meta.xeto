@@ -25,7 +25,7 @@ doc: Str <meta>
 fixed: Marker <meta>
 
 // Indicates a global slot that defines a shape for all types that might override
-global: Marker <meta>
+global: Marker <meta, noInherit>
 
 // Inverse query to run against parent
 inverse: Str <meta>
