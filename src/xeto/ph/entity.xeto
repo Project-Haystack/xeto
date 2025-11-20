@@ -11,1636 +11,1636 @@
 // in the Haystack ontology.  It defines every tag as a global slot
 // to ensure consistent usage of terminology.
 PhEntity: Entity <abstract> {
+
+  // Cooling process using energy from heat source such as hot water
+  *absorption: Marker
+
+  // Relating to alternating current (AC) electricity
+  *ac: Marker
+
+  // Accumulate the tag's value during [inheritance]`docHaystack::Normalization#inherit`
+  // and [defx]`docHaystack::Normalization#defx`.  Tags marked as accumulate
+  // are aggregated together during normalization and deduplicated.  This
+  // marker must only be used on tags which expect a list value.
+  *accumulate: Marker
+
+  // Working, operative, effective
+  *active: Marker
+
+  // Equipment to move or control a mechanism.  Actuators may be manually
+  // operated or automated via a control system to convert an energy source
+  // into mechanical energy.  Typically the energy source is electricity,
+  // hydraulics, or pneumatics.
+  *actuator: Marker
+
+  // Air Handling Unit: An enclosure with a fan that delivers air to a space
+  // via ductwork and performs one or more of the functions of cleaning,
+  // heating, cooling, humidifying, dehumidifying, ventilating or circulating
+  // the air.  See `docHaystack::AHUs` chapter.
+  *ahu: Marker
+
+  // The mixture of gases which surrounds the earth
+  *air: Marker
+
+  // Cooling by dissipating heat into the surrounding air
+  *airCooling: Marker
+
+  // Air flows from the referent to this entity
+  *airRef: MultiRef
+
+  // Notification of a condition which requires attention
+  *alarm: Marker
+
+  // Measurement of the relative difference in direction between two vectors or phasors
+  *angle: Marker
+
+  // Perceived quantity
+  *apparent: Marker
+
+  // Area of a shape or floor space
+  *area: Number <quantity:"area">
+
+  // Aquifer Thermal Energy Storage system.
+  // See `docHaystack::ATES` chapter.
+  *ates: Marker
+
+  // The ATES uses closed piping to transport a water/glycol mixture
+  // through the ground. The system works like a heat exchanger; there
+  // is no ground water transported.
+  *atesClosedLoop: Marker
+
+  // The ATES has one or more pairs of a separate warm and cool well.
+  *atesDoublet: Marker
+
+  // The ATES is as a doublet, but with specific warm and cool wells linked together.
+  // These linked wells do not exchange water with other wells.
+  *atesDoubletPaired: Marker
+
+  // The ATES has only one physical well.  This well is deep enough
+  // to penetrate two layers of groundwater.
+  *atesMono: Marker
+
+  // Similar to a doublet, but water always flows in the same direction from
+  // the extraction to the infiltration well.
+  *atesUnidirectional: Marker
+
+  // Related to the atmosphere of the earth
+  *atmospheric: Marker
+
+  // Average; central or typical value; median
+  *avg: Marker
+
+  // ASHRAE building automation and control protocol
+  *bacnet: Marker
+
+  // Relating atmospheric pressure
+  *barometric: Marker
+
+  // Base URI for normalizing relative URIs
+  *baseUri: Uri
+
+  // Equipment used to store electric energy
+  *battery: Marker
+
+  // Plant or animal material used as fuel to produce electricity or heat
+  *biomass: Marker
+
+  // Heating by the combustion of biomass
+  *biomassHeating: Marker
+
+  // Removal from container or pipe
+  *blowdown: Marker
+
+  // Blowdown water flows from the referent to this entity
+  *blowdownWaterRef: MultiRef
+
+  // Short range wireless communication protocol
+  *bluetooth: Marker
+
+  // Equipment to generate hot water or steam for heating
+  *boiler: Marker
+
+  // Branch selector used for heat recovery in a VRF system.  These are
+  // control devices directing the liquid refrigerant or gas refrigerant
+  // to zones requiring cooling or heating. See `docHaystack::VRF#branchSelector`
+  // chapter.
+  *branchSelector: Marker
+
+  // Pipe used to bypass an equipment
+  *bypass: Marker
+
+  // An assembly of one or more insulated conductors.
+  *cable: Marker
+
+  // Constant air volume terminal unit.  CAV systems use a constant
+  // air flow rate with a variable air temperature.
+  *cav: Marker
+
+  // Compression via a continuous flow of fluid through an impeller
+  *centrifugal: Marker
+
+  // Formaldehyde (CH₂O)
+  *ch2o: Marker
+
+  // Methane (CH₄)
+  *ch4: Marker
+
+  // List of prototypes contained by this entity.
+  // See [Protos chapter]`docHaystack::Protos` for more details.
+  *children: List <of:Dict>
+
+  // List of aspects to flatten into children prototypes.
+  // See [Protos chapter]`docHaystack::Protos` for more details.
+  *childrenFlatten: List <of:Symbol>
+
+  // Substance is cooled using cooling process
+  *chilled: Marker
+
+  // Conditions a space using a heat exchanger integrated into the ceiling
+  *chilledBeam: Marker
+
+  // AHU supplies air to chilled beam terminal units
+  *chilledBeamZone: Marker
+
+  // Cooling using transfer of heat to chilled water
+  *chilledWaterCooling: Marker
+
+  // Chilled water flows from the referent to this entity
+  *chilledWaterRef: MultiRef
+
+  // Equipment to remove heat from a liquid.  Chillers typically use a vapor
+  // compression or an absorption refrigeration cycle.
+  *chiller: Marker
+
+  // Choice specifies an exclusive marker selection.
+  // See [Choices]`docHaystack::Choices` chapter.
+  *choice: Marker
+
+  // Pipe used to circulate fluid through an equipment or system
+  *circ: Marker
+
+  // Electrical circuit and its associated components such as breakers.
+  // See `docHaystack::ElecPanels#circuits` chapter.
+  *circuit: Marker
+
+  // Percentage of sky obscured by clouds. This is also known as cloudiness, or cloud amount.
+  *cloudage: Marker
+
+  // Point is a command, actuator, AO/BO.
+  // See `docHaystack::Points#function` chapter.
+  *cmd: Marker
+
+  // Carbon monoxide (CO)
+  *co: Marker
+
+  // Carbon dioxide (CO₂)
+  *co2: Marker
+
+  // Carbon dioxide equivalent
+  *co2e: Marker
+
+  // Combustible sedimentary rock
+  *coal: Marker
+
+  // Heating by the combustion of coal
+  *coalHeating: Marker
+
+  // Constrained Application Protocol
+  *coap: Marker
+
+  // Having low degree of heat
+  *cold: Marker
+
+  // Duct carries air for cooling
+  *coldDeck: Marker
+
+  // Device for mechanically increasing the pressure of a gas or refrigerant
+  // vapor by reducing its volume.
+  *compressor: Marker
+
+  // Computed point. See `docHaystack::Synthetics` chapter.
+  *computed: Marker
+
+  // Indicates a relationship that is computed from its reciprocal.
+  // Computed defs cannot be used as tags themselves.
+  *computedFromReciprocal: Marker
+
+  // See `docHaystack::Synthetics` chapter.
+  *computedModel: Marker
+
+  // General purpose computer.
+  *computer: Marker
+
+  // Abundance of substance in the total volume of a mixture.
+  *concentration: Marker
+
+  // Liquid phase produced by the condensation of steam or other gas
+  *condensate: Marker
+
+  // Condensate flows from the referent to this entity
+  *condensateRef: MultiRef
+
+  // Device or related to process of condensation
+  *condenser: Marker
+
+  // Working fluid is kept separate from fluid used for heat transfer into the atmosphere
+  *condenserClosedLoop: Marker
+
+  // Removal of heat through the process of water condensation
+  *condenserCooling: Marker
+
+  // Uses working fluid itself for evaporation into the atmosphere
+  *condenserOpenLoop: Marker
+
+  // Condenser water flows from the referent to this entity
+  *condenserWaterRef: MultiRef
+
+  // Related to cleaning, heating, cooling, humidifying, dehumidifying,
+  // ventilating or circulating  air. 
+  *conditioning: Marker
+
+  // Delivers a constant volume of air flow.  Typically this means
+  // equipment with a single speed fan.
+  *constantAirVolume: Marker
+
+  // Microprocessor based device used in a control system.  Controllers
+  // interact with the physical world through direct I/O to sensors and
+  // actuators or via network [protocols]`protocol`.
+  *controller: Marker
+
+  // Associated with the control system for an industrial process
+  *controls: Marker
+
+  // Associted with low temperature or cooling processes.  When used on a point,
+  // this tag is associated with the control of cooling.  When paired with a
+  // substance, this tag indicates the substance is relatively cool in comparison
+  // to another substance, without being actively cooled by e.g. a chiller.
+  *cool: Marker
+
+  // Cooling mode or process
+  *cooling: Marker
+
+  // Measurement of a chiller ability to remove heat measured
+  *coolingCapacity: Number
+
+  // Coil used to cool air.
+  *coolingCoil: Marker
+
+  // Equipment without heating
+  *coolingOnly: Marker
+
+  // Equipment to transfer waste heat into the atmosphere
+  *coolingTower: Marker
+
+  // Computer Room Air Conditioner: An FCU designed to condition a computer
+  // room.  See `docHaystack::AHUs` and `docHaystack::DataCenters` chapters.
+  *crac: Marker
+
+  // Supports current value
+  *cur: Marker
+
+  // Error description when `curStatus` indicates error condition
+  *curErr: Str <transient>
+
+  // Average electrical current over a defined interval
+  *currentDemand: Marker
+
+  // Status of point's current value reading.  The `curVal` is only available
+  // when curStatus is "ok" or "stale".  However a "stale" value should
+  // be used with caution since the local system does not have a fresh value.
+  // It is recommended that the `curVal` tag is removed from a point
+  // when the curStatus is not "ok" nor "stale".
+  *curStatus: CurStatus <transient>
+
+  // Current value of a point.  The current value is only available when
+  // the `curStatus` is "ok" or "stale".
+  *curVal: Obj <transient>
+
+  // Movement of fluid or electricity
+  *current: Marker
+
+  // Digital Addressable Lighting Interface protocol for lighting
+  *dali: Marker
+
+  // Damper equipment or control point.
+  *damper: Marker
+
+  // Space used to house computer and networking gear.
+  // See `docHaystack::DataCenters` chapter.
+  *dataCenter: Marker
+
+  // Time between sunrise and sunset
+  *daytime: Marker
+
+  // Relating to direct current (DC) electricity
+  *dc: Marker
+
+  // The range in a process where no changes to output are made.
+  // May also indicate the difference between a base setpoint and effective
+  // setpoint.
+  *deadband: Marker
+
+  // Create a new definition bound to the given symbol.
+  // See [Defs chapter]`docHaystack::Defs`.
+  *def: Symbol
+
+  // Extends the given definition with additional meta tags.
+  // See [Normalization]`docHaystack::Normalization#defx`.
+  *defx: Symbol
+
+  // Differential of fluid between entering and leaving sensors.
+  *delta: Marker
+
+  // Rate required for a process or average electrical power over a defined interval.
+  *demand: Marker
+
+  // Obsoleted
+  *deprecated: Marker
+
+  // Data related to intended design and operating conditions.  This
+  // includes sizing and other data specified by design engineers and
+  // engineered drawings.  Also see `rated`.
+  *design: Marker
+
+  // Decreases humidity from air using a substance which absorbs moisture.
+  *dessicantDehumidifier: Marker
+
+  // Microprocessor based hardware device.  This is the general term for
+  // all computers, mobile phones, controllers, and I/O modules.
+  // See `docHaystack::Devices#networks` chapter.
+  *device: Marker
+
+  // Device which controls a monitors this entity
+  *deviceRef: Ref <of:Device>
+
+  // Dew point temperature at which water vapor will form dew
+  *dewPoint: Marker
+
+  // Liquid fuel specifically designed for use in diesel engines
+  *diesel: Marker
+
+  // AHU supplies air directly to the zone
+  *directZone: Marker
+
+  // Compass direction measured in degrees: North: 0° = 360°, East: 90°, South: 180°, West: 270°
+  *direction: Marker
+
+  // Display name for an entity.
+  // See `docHaystack::Ontology#entities` chapter.
+  *dis: Str
+
+  // Duct for air leaving an equipment
+  *discharge: Marker
+
+  // Equipment that releases a specific amount of a substance.
+  *dispenser: Marker
+
+  // Three way valve which inputs one pipe and diverts between two output pipes.
+  *diverting: Marker
+
+  // Dedicated Outside Air System: An AHU that brings in 100% outside air and
+  // no recirculated air in order to provide ventilation to spaces.
+  // See `docHaystack::AHUs` chapter.
+  *doas: Marker
+
+  // Generate a section in the docs for this association.
+  *docAssociations: Marker
+
+  // Generate a taxonomy tree for this term in the documentationindex.
+  // When applied to a def, then it will will be listed in the docs
+  // under the [taxonomies]`docHaystack::Docs#taxonomies` section.
+  *docTaxonomy: Marker
+
+  // For human use
+  *domestic: Marker
+
+  // Domestic water flows from the referent to this entity
+  *domesticWaterRef: MultiRef
+
+  // Two ducts: combination of hotDeck, coldDeck, or neutralDeck
+  *dualDuct: Marker
+
+  // Conduit used to convey air for HVAC
+  *duct: Marker
+
+  // Config point on a `vav` for duct area measured in ft² or m²
+  *ductArea: Marker
+
+  // Number with a unit of time
+  *duration: Number
+
+  // Cooling using direct expansion of a refrigerant vapor.
+  // Also see `dxHeating` and `heatPump`.
+  *dxCooling: Marker
+
+  // Heating using direct expansion of a refrigerant vapor.
+  // Also see `dxCooling` and `heatPump`.
+  *dxHeating: Marker
+
+  // Duct to access fresh outside air only for economizing, not ventilation
+  *economizer: Marker
+
+  // Energy reduction mode which augments heating/cooling with outside air.
+  *economizing: Marker
+
+  // Current control setpoint in effect taking into account other factors
+  *effective: Marker
+
+  // Efficiency point of a chiller measured in "COP" or "kW/ton".
+  *efficiency: Marker
+
+  // Associated with electricity or with electrical force, power, or energy.
+  // This is often opposed to `mech` mechanical energy.
+  *elec: Marker
+
+  // Heating by the conversion of electrical energy
+  *elecHeating: Marker
+
+  // Average of L1, L2, L3 measurements
+  *elecLAvg: Marker
+
+  // Average of L1-L2, L2-L3, L3-L1 measurements
+  *elecLLAvg: Marker
+
+  // Electricity flows from the referent to this entity
+  *elecRef: MultiRef
+
+  // Enclosure used to move people between floors.
+  *elevator: Marker
+
+  // Amount of a substance discharged into the air
+  *emission: Marker
+
+  // Secondary on/off `point` of an `equip` especially used with a `vfd`.
+  // Enable is used with Bool points where true indicates on and false
+  // indicates off.  Equip with an enable should always also define a `run`
+  // point which indicates the primary on/off state of the equipment.
+  *enable: Marker
+
+  // Measure of ability to do work
+  *energy: Marker
+
+  // Pipe conveys fluid into an equipment
+  *entering: Marker
+
+  // Total heat content of a system. It is defined as internal energy of the system plus the product of pressure and volume.
+  *enthalpy: Marker
+
+  // Defines an eumeration of string key names.  The range may also be applied
+  // to format a Bool ordered as "false,true".  The value of this tag may be
+  // formatted in one of five ways:
+  //  - dict of dicts keyed by name and Dict values for meta such as 'doc' tag
+  //  - comma separated names on one line
+  //  - names separated by a "\n" newline character
+  //  - markdown unordered list formatted as a series of "- name: description\n"
+  //  - ref to a Xeto 'sys::Enum' spec
+  //
+  // Enum names *should* follow valid tag naming rules (start with lowercase
+  // ASCII letter and contain only ASCII letters and numbers).  However in
+  // cases where mapping directly to external enumerations enum names can
+  // contain arbitrary characters such as space.
+  *enum: Obj
+
+  // Equipment asset.
+  // See `docHaystack::Equips` chapter.
+  *equip: Marker
+
+  // Reference to equip which contains this entity
+  *equipRef: Ref <of:Equip>
+
+  // Moving staircase used to move people between floors.
+  *escalator: Marker
+
+  // Mechanism used to convert a refrigerant from its liquid to gaseous state.
+  *evaporator: Marker
+
+  // Electric Vehicle Supply Equipment.  See `docHaystack::EVSE` chapter.
+  *evse: Marker
+
+  // Physical type of `evse-cable`.
+  *evseCableType: EvseCableType
+
+  // Describes an event during which an `evse-port` can deliver power to an EV.
+  // The EVSE may need to authorize a user to initiate an `evseSession`.
+  //
+  // At minimum has the following data:
+  //  - ts:  when the event was logged by the system of record
+  //  - started:  when the event started
+  //  - stopped:  when the event stopped
+  //  - tx:  transaction ID for the event
+  //  - targetRef:  reference to the `evse-port`
+  //  - energyDelivered:  energy delivered during the `evseSession`
+  //  - event:  marker tag
+  //  - meterStart:  meter register's value at the beginning of the `evseSession`
+  //
+  // In the future additional data might be included, such as the means of
+  // EV charging session authorization.
+  *evseSession: Marker
+
+  // Status of one or more `evse-port` reported by an EVSE.
+  //
+  // When applied to an `evse-port`, indicates the status of an EVSE port.
+  //
+  // When applied to an `evse-dispenser` or `evse-powerConverter`, indicates
+  // the status of one or more `evse-port` within an EVSE manufacturer's
+  // package.  In this case only the enum values available, unavailable,
+  // and fault apply.
+  *evseStatus: EvseStatus
+
+  // Duct used to expel air back outside
+  *exhaust: Marker
+
+  // Supplied out of a system
+  *export: Marker
+
+  // Taking a substance out of another substance
+  *extraction: Marker
+
+  // Point of an ahu indicating air flow is by-passing the heating/cooling
+  // coils. If a boolean point, then true indicates the unit is in by-pass
+  // mode and false indicates by-pass is disabled. If the point is an analog
+  // point then 100% indicates full by-pass mode and 0% indicates by-pass is
+  // completely disabled.
+  *faceBypass: Marker
+
+  // Fan equipment or control point
+  *fan: Marker
+
+  // Device with a fan
+  *fanPowered: Marker
+
+  // Fan Coil Unit: A unitary, factory-made enclosure with a fan and coil
+  // that recirculates air in a space and performs one or more of the
+  // functions of cleaning, heating, cooling, humidifying, dehumidifying,
+  // or ventilating the air. Unit heaters are examples of FCUs.
+  // See `docHaystack::AHUs` chapter.
+  *fcu: Marker
+
+  // Feature namespace of definitions formatted as 'feature:name'
+  *feature: Obj
+
+  // Apparent temperature perceived when considering humidity, wind chill, and heat index
+  *feelsLike: Marker
+
+  // Filename extension such as "csv"
+  *fileExt: Str
+
+  // File format type definition
+  *filetype: Obj
+
+  // Related to an air or fluid filter.
+  *filter: Marker
+
+  // Haystack filter string.  See `docHaystack::Filters`
+  *filterStr: Str
+
+  // Storey of a building.  See `docHaystack::Spaces#floors` chapter.
+  *floor: Marker
+
+  // Unitless integer indicating the floor's distance from ground level.  The
+  // ground floor is always defined as zero.  Additional floors above ground are
+  // numbered 1, 2, 3, etc.  Subterranean floors are numbered -1, -2, -3, etc.
+  // This convention is consistent with how most European buildings number
+  // floors.  In North America its common to label the ground floor
+  // as the first floor; however Haystack requires the ground level to be
+  // assigned a floorNum of 0.
+  *floorNum: Number
+
+  // Measure of volumetric flow of fluid
+  *flow: Marker
+
+  // System to change direction of substance flow
+  *flowInverter: Marker
+
+  // Duct for exhausting combustion
+  *flue: Marker
+
+  // Measurement through a given surface
+  *flux: Marker
+
+  // A boolean point of an ahu indicating a freezing condition.  This
+  // might require a control sequence to protect the equipment. If true
+  // then a freeze condition is detected, or false if not.
+  *freezeStat: Marker
+
+  // Occurrences per unit time
+  *freq: Marker
+
+  // File Transfer Protocol
+  *ftp: Marker
+
+  // Petroleum based oil burned for energy
+  *fuelOil: Marker
+
+  // Heating by the combustion of fuel oil
+  *fuelOilHeating: Marker
+
+  // Fuel oil flows from the referent to this entity
+  *fuelOilRef: MultiRef
+
+  // Ventilation equipment to limit exposure to hazardous fumes.
+  *fumeHood: Marker
+
+  // Petroleum derived liquid used as a fuel source
+  *gasoline: Marker
+
+  // Gasoline flows from the referent to this entity
+  *gasolineRef: MultiRef
+
+  // Free form street address.  Best practice is to follow local
+  // norms for a postal address.  Typically this string includes
+  // the `geoStreet`, `geoCity`, `geoState` (in US), and `geoPostalCode`:
+  //
+  // Examples:
+  //   "1600 Pennsylvania Avenue NW, Washington, DC 20500"
+  //
+  //   "10 Downing St, Westminster, London SW1A 2AA, United Kingdom"
+  //
+  //   "Champ de Mars, 5 Avenue Anatole France, 75007 Paris, France"
+  *geoAddr: Str
+
+  // Geographic city or locality name
+  *geoCity: Str
+
+  // Geographic coordinate as 'C(latitude,longitude)'
+  *geoCoord: Coord
+
+  // Geographic country as [ISO 3166-1]`http://en.wikipedia.org/wiki/ISO_3166-1`
+  // two letter code
+  *geoCountry: GeoCountry
+
+  // Geographic subdivision of US state
+  *geoCounty: Str
+
+  // Elevation above sea-level of the location
+  *geoElevation: Number
+
+  // Geographic place
+  *geoPlace: Marker
+
+  // Geographic postal code; for US this is a five digit zip code
+  *geoPostalCode: Str
+
+  // State or province name; for US this is two letter state code. May be
+  // used in other countries to model administrative area between the geoCity
+  // and geoCountry level.
+  *geoState: GeoState
+
+  // Geographic street address and name
+  *geoStreet: Str
+
+  // Related to the surface of the earth.  Used to indicate electrical
+  // current being measured on an electrical ground conductor when applied to
+  // a point entity that has the `elec` and `current` tags.
+  *ground: Marker
+
+  // Haystack HTTP protocol for exchanging tagged data
+  *haystack: Marker
+
+  // Pipe used as central connection or manifold for other piping runs.
+  *header: Marker
+
+  // Associated with a heating process.  When used on a point,
+  // this tag is associated with the control of heating.
+  *heat: Marker
+
+  // Equipment to transfer heat between two working fluids.
+  *heatExchanger: Marker
+
+  // Equipment that employs a vapor compression cycle with a reversing
+  // valve to provide heating or cooling. For vapor compression heating
+  // without a reversing valve, such as for a heat pump water heater,
+  // see `dxHeating` which should be used.
+  *heatPump: Marker
+
+  // Transfer of heat from one substance to another to reduce energy consumption.
+  *heatRecovery: Marker
+
+  // Boolean point indicating command state of AHU's heat wheel.
+  *heatWheel: Marker
+
+  // Heating mode or process
+  *heating: Marker
+
+  // Coil used to heat air.
+  *heatingCoil: Marker
+
+  // Equipment without cooling
+  *heatingOnly: Marker
+
+  // Hydrofluorocarbons
+  *hfc: Marker
+
+  // Supports historization of data
+  *his: Marker
+
+  // Last historized timestamped sample
+  *hisEnd: DateTime <transient>
+
+  // Error description when `hisStatus` indicates error condition
+  *hisErr: Str <transient>
+
+  // Indicates the way that history data is collected for a point.
+  *hisMode: HisMode
+
+  // Number of historical timestamped samples historized by point
+  *hisSize: Number <transient>
+
+  // First historized timestamped sample
+  *hisStart: DateTime <transient>
+
+  // Status of point's history collection or synchronization
+  *hisStatus: HisStatus <transient>
+
+  // Indicates values which are a continuous stream of totalization. History
+  // data reads and should be normalized by computing the delta.
+  *hisTotalized: Marker
+
+  // Having high degree of heat
+  *hot: Marker
+
+  // Duct carries air for heating
+  *hotDeck: Marker
+
+  // Heating using energy of hot water
+  *hotWaterHeating: Marker
+
+  // Hot water flows from the referent to this entity
+  *hotWaterRef: MultiRef
+
+  // Hypertext Transfer Protocol which is foundation of the web
+  *http: Marker
+
+  // Adding moisture to air
+  *humidifier: Marker
+
+  // Percent relative humidity; measure of moisture in the air
+  *humidity: Marker
+
+  // Heating, ventilation, and air conditioning
+  *hvac: Marker
+
+  // Operational mode for HVAC equipment
+  *hvacMode: Marker
+
+  // Water in its solid form
+  *ice: Marker
+
+  // Defines the unique identifier of an entity in system using a `ref` value
+  // type. The scope of an entity is undefined, but must be unique with a
+  // given system or project. This identifier may be used by other entities
+  // for cross-referencing.  See `docHaystack::Ontology#entities` chapter.
+  *id: Ref
+
+  // Luminous flux hitting the inside of the sphere at a specific point.
+  //
+  // Also see [ies.org]`https://www.ies.org/definitions/illuminance/`
+  *illuminance: Marker
+
+  // Internet Message Access Protocol for retrieving email
+  *imap: Marker
+
+  // Lacking balance
+  *imbalance: Marker
+
+  // Received into a system
+  *import: Marker
+
+  // Operates inside the conditioned space
+  *indoorUnit: Marker
+
+  // Permeation of a substance into another substance
+  *infiltration: Marker
+
+  // Duct with air entering an equipment
+  *inlet: Marker
+
+  // Entity inputs a substance which flows from another entity
+  *input: Marker
+
+  // Unitless integer number
+  *int: Number
+
+  // Measure of an electromagnetic field
+  *intensity: Marker
+
+  // Energy received at a surface by area
+  *irradiance: Marker
+
+  // Actuator used to isolate an equipment from a pipe or ductwork system
+  *isolation: Marker
+
+  // Kind name used to identity a value data type
+  *kind: Kind
+
+  // KNX protocol commonly used for lighting systems
+  *knx: Marker
+
+  // Portable laptop computer.
+  *laptop: Marker
+
+  // Pipe conveys fluid out of an equipment
+  *leaving: Marker
+
+  // Range from 0% to 100%.  When paired with a fluid this implies a fill
+  // level where 0% is empty and 100% is full.
+  *level: Marker
+
+  // Library module of symbolic definitions.
+  // See `docHaystack::Namespaces#libs` chapter.
+  *lib: Obj
+
+  // Electromagnetic radiation in the visible spectrum
+  *light: Marker
+
+  // Systems associated with illumination in the built environment
+  *lighting: Marker
+
+  // Chiller point to command or measure the chiller's load as a percentage
+  // from "0%" to "100%". When paired with cmd this models the chiller's
+  // load limit. When paired with sensor this models the chiller's current
+  // load factor.
+  *load: Marker
+
+  // Light fixture using electricity to provide illumination
+  *luminaire: Marker
+
+  // Energy of light in a given direction.
+  //
+  // Also see [ies.org]`https://www.ies.org/definitions/luminance/`
+  *luminance: Marker
+
+  // Relating to light as perceived by the eye
+  *luminous: Marker
+
+  // Size or extent
+  *magnitude: Marker
+
+  // Restore something missed or lost
+  *makeup: Marker
+
+  // Makeup water flows from the referent to this entity
+  *makeupWaterRef: MultiRef
+
+  // Makeup Air Unit: A DOAS that provides make-up air for a separate, dedicated
+  // exhaust system. That is, this equip does not contain an exhaust air section.
+  // See `docHaystack::AHUs` chapter.
+  *mau: Marker
+
+  // Maximum
+  *max: Marker
+
+  // Inclusive maximum for a numeric value.
+  *maxVal: Number
+
+  // Associated with a machine or its mechanical force, torque, power, or energy.
+  // This is often opposed to `elec` electrical energy.
+  *mech: Marker
+
+  // Equipment to meter a substance or phenomenon.
+  // See `docHaystack::Meters` chapter.
+  *meter: Marker
+
+  // Mime type formatted as type/subtype
+  *mime: Str
+
+  // Minimum
+  *min: Marker
+
+  // Inclusive minimum for a numeric value.
+  *minVal: Number
+
+  // Duct where fresh outside air and return air is mixed together
+  *mixed: Marker
+
+  // Three way valve which inputs two pipes and outputs a mixture
+  // between the two to a single output pipe.
+  *mixing: Marker
+
+  // Machine learning point. See `docHaystack::Synthetics` chapter.
+  *ml: Marker
+
+  // Training period description, known as the identification period
+  // or baseline, utilized during the model training process.
+  *mlIdentificationPeriod: Span
+
+  // List of independent variables, also known as model inputs or features,
+  // associated with a machine learning model.
+  *mlInputVarRefs: List <of:Ref<of:MlVar>>
+
+  // See `docHaystack::Synthetics` chapter.
+  *mlModel: Marker
+
+  // Goodness-of-fit metrics provided in the form of a simple dictionary.
+  // For example: {r2:0.7889, cvrmse:58}.
+  *mlModelMetrics: Dict
+
+  // Result of model identification, which may appear as a list of
+  // model parameters for simpler models or as a reference to a stored model,
+  // in the form of a file uri. The structure of the dict is user-specific.
+  *mlModelParameters: Dict
+
+  // Dependent variable, also known as the model output or target,
+  // associated, with a machine learning model.
+  // Represents the predicted outcome generated by the model.
+  *mlOutputVarRef: Ref <of:MlVar>
+
+  // Machine learning variable representing both model inputs and outputs.
+  *mlVar: Marker
+
+  // Filter used for querying points by tags, providing more flexibility
+  // than mlVarPoint, although it is not mandatory.
+  *mlVarFilter: Str
+
+  // Reference to a point associated with a machine learning variable,
+  // known as a machine learning variable point.
+  *mlVarPoint: Ref <of:Point>
+
+  // Reference to a machine learning variable.
+  *mlVarRef: Ref <of:MlVar>
+
+  // Relating to mobile phones, hand-held computers, and similar technology
+  *mobile: Marker
+
+  // Register based communication protocol used with industrial devices.
+  *modbus: Marker
+
+  // Equipment that converts electrical energy into mechanical energy.
+  // See `docHaystack::Motors` chapter.
+  *motor: Marker
+
+  // Conveyor to move people across a horizontal or inclined plane.
+  *movingWalkway: Marker
+
+  // Message Queuing Telemetry Transport publish/subscribe protocol
+  *mqtt: Marker
+
+  // AHU discharge air is split into a duct per zone
+  *multiZone: Marker
+
+  // Nitrous oxide (N₂O)
+  *n2o: Marker
+
+  // Not available used to indicate invalid or missing data.
+  // See [Kinds chapter]`docHaystack::Kinds#na`.
+  *na: Obj
+
+  // Fossil fuel energy source consisting largely of methane and other hydrocarbons.
+  //
+  // The energy content of natural gas varies by region within a range determined
+  // on impurities in the gas.  You can find a table of these conversions
+  // [here]`https://en.wikipedia.org/wiki/Heat_of_combustion#Higher_heating_values_of_natural_gases_from_various_sources`
+  *naturalGas: Marker
+
+  // Heating by the combustion of natural gas
+  *naturalGasHeating: Marker
+
+  // Natural gas flows from the referent to this entity
+  *naturalGasRef: MultiRef
+
+  // Difference between import and export
+  *net: Marker
+
+  // Logical communications network between two or more devices.
+  // See `docHaystack::Devices#networks` chapter.
+  *network: Marker
+
+  // Associates a device which communicates on specific a network.
+  *networkRef: Ref <of:Network>
+
+  // Related to data communication networks
+  *networking: Marker
+
+  // when applied to a point entity that has the `elec` and `current` tags,
+  // indicates electrical current being measured on an electrical neutral
+  // conductor.
+  *neutral: Marker
+
+  // Duct carries air which by-passes both heating and cooling coils
+  *neutralDeck: Marker
+
+  // Nitrogen trifluoride (NF₃)
+  *nf3: Marker
+
+  // Ammonia (NH₃)
+  *nh3: Marker
+
+  // Nitrogen dioxide (NO₂)
+  *no2: Marker
+
+  // Marks a function or operation as having no side effects.  The function
+  // may or may not be *pure* in that calling it multiple times with the
+  // same arguments always evaluates to the same result.
+  *noSideEffects: Marker
+
+  // Undocumented and not officially supported
+  *nodoc: Marker
+
+  // Do not include source code in documentation
+  *nosrc: Marker
+
+  // Oxygen (O₂) - the common dioxygen allotrope in the air
+  *o2: Marker
+
+  // Ozone (O₃)
+  *o3: Marker
+
+  // XML based Open Building Information eXchange protocol.
+  *obix: Marker
+
+  // Occupied mode of a space.
+  // See `docHaystack::Zones#occupancy` chapter.
+  *occ: Marker
+
+  // Number of occupants in a space.
+  // See `docHaystack::Zones#occupancy` chapter.
+  *occupancy: Marker
+
+  // People who use the built environment.
+  // See `docHaystack::Zones#occupancy` chapter.
+  *occupants: Marker
+
+  // Setpoint or sensor indicating occupancy of a space.
+  // See `docHaystack::Zones#occupancy` chapter.
+  *occupied: Marker
+
+  // Expected value type of a collection, reference, or choice
+  *of: Symbol
+
+  // Operation for HTTP API.
+  // See `docHaystack::Ops` chapter.
+  *op: Obj
+
+  // Apply to str enum tags where the enumeration range is open ended.
+  // User interfaces should support data entry for arbitrary strings, but
+  // also provide a dropdown for the predefined enumeration.
+  *openEnum: Marker
+
+  // operates outside the conditioned space
+  *outdoorUnit: Marker
+
+  // Entity outputs a substance with flows to other entities
+  *output: Marker
+
+  // Duct to access fresh outside air for both ventilation and economizer.
+  *outside: Marker
+
+  // Enclosure for electrical and control equipment.  Panels may be
+  // used to isolate electrical connections and provide environmental
+  // protection.
+  *panel: Marker
+
+  // Circuit with multiple paths of flow
+  *parallel: Marker
+
+  // Auxiliary heating points associated with a `vav`
+  *perimeterHeat: Marker
+
+  // Electric power factor; which is the ratio of active power to apparent
+  // power in an AC electric power system.  Measured with values in the range
+  // of -1.0 to 1.0 or 0.0 to 1.0 without a unit.  When the range of -1.0 to
+  // 1.0 is applied, a negative value for power factor indicates the
+  // electrical current leads the electrical voltage and a positive value
+  // indicates the electrical current lags the electrical voltage.
+  *pf: Marker
+
+  // Displacement power factor, which accounts for the phase angle between
+  // voltage and current but excludes effects of nonlinear waveforms (
+  // harmonic distortion).
+  *pfDisplacement: Marker
+
+  // Distortion power factor, which measures the component of power factor
+  // attributable to harmonic distortion in voltage and current waveforms.
+  *pfDistortion: Marker
+
+  // Power factor according to the IEC convention defines a positive or
+  // negative sign based on the direction of active power flow.  Power factor
+  // is positive when active power flows into a load.  Power factor is negative
+  // when active power flows out of a load.
+  *pfIec: Marker
+
+  // Power factor according to the IEEE convention defines a positive or
+  // negative sign based on whether the load is capacitive or inductive.  Power
+  // factor is positive when the load is capacitive, or when voltage lags behind
+  // current.  Power factor is negative when the load is inductive, or when
+  // current lags behind voltage.
+  *pfIeee: Marker
+
+  // True power factor, which includes effects of harmonic distortion.
+  // Power factor is assumed to be true power factor when `pfScope` is not
+  // defined.  However, it is recommended to specify a scope for power
+  // factor to help avoid misinterpretation of data.
+  *pfTrue: Marker
+
+  // Perfluorocarbons
+  *pfc: Marker
+
+  // Single-phase measurement of an electric quantity in a multi-phase AC electric power system.
+  *phase: Phase
+
+  // Telephone used for voice telecommunication.
+  *phone: Marker
+
+  // Conduit used to convey a fluid
+  *pipe: Marker
+
+  // Central plant used to generate a substance for a process.
+  // See `docHaystack::Plants`.
+  *plant: Marker
+
+  // Particulate matter 0.1; atmospheric pollutant of fine particles with an aerodynamic diameter of 0.1 micrometers or less
+  *pm01: Marker
+
+  // Particulate matter 10; atmospheric pollutant of fine particles with an aerodynamic diameter of 10 micrometers or less
+  *pm10: Marker
+
+  // Particulate matter 2.5; atmospheric pollutant of fine particles with an aerodynamic diameter of 2.5 micrometers or less
+  *pm25: Marker
+
+  // Data point such as a sensor or actuator.
+  // See `docHaystack::Points` chapter.
+  *point: Marker
+
+  // See `docHaystack::Synthetics#structure` chapter.
+  *pointRef: Ref <of:Point>
+
+  // Post Office Protocol version 3 for retrieving email
+  *pop3: Marker
+
+  // A gateway or opening used to transfer a substance.
+  *port: Marker
+
+  // Energy consumed per unit time
+  *power: Marker
+
+  // Converts one electrical waveform to another using power electronic
+  // circuitry.  Involves the use of one or more power modules.
+  //
+  // May convert:
+  //  - `ac` to `dc`
+  //  - `ac` to `ac`
+  //  - `dc` to `dc`
+  //  - `dc` to `ac`
+  //
+  // Note:  An AC/AC power converter performs the same task as a power
+  // transformer but using power electronics.  Similarly, a DC/DC power
+  // converter transforms an input DC voltage to an output DC voltage at
+  // another level.
+  *powerConverter: Marker
+
+  // Amount of atmospheric water vapor fallen including rain, sleet, snow, and hail
+  *precipitation: Marker
+
+  // Defines a preferred unit to be used with a quantity
+  *prefUnit: List <of:Str>
+
+  // Measure of force applied
+  *pressure: Marker
+
+  // VAV damper modulates to control space temp; dependent on duct pressure
+  // being maintained
+  *pressureDependent: Marker
+
+  // VAV damper or a control valve that modulates to maintain desired flow
+  // setpoint; independent of the duct pressure
+  *pressureIndependent: Marker
+
+  // Primary function of building as US Energy Star key
+  *primaryFunction: PrimaryFunction
+
+  // Pipework which circulates closest to the energy source.  In a central
+  // plant, the primary loop indicates the pipes and equipment within the
+  // central plant.  In context of heat exchangers between the primary
+  // and secondary loops, this tag indicates the side closest to the plant.
+  *primaryLoop: Marker
+
+  // Industrial or HVAC process
+  *process: Marker
+
+  // By-product of natural gas processing and petroleum refining (C₃H₈)
+  *propane: Marker
+
+  // Heating by the combustion of propane
+  *propaneHeating: Marker
+
+  // Communication protocol used for devices on a network.
+  *protocol: Marker
+
+  // Pump equipment or control point
+  *pump: Marker
+
+  // Associated with a cleaning process to remove contaminants.
+  // Most commonly it indicates purging water or air by using a filter or by
+  // letting out a certain amount of the substance at a high flow rate.
+  *purge: Marker
+
+  // Quantity measured against standard metric
+  *quality: Marker
+
+  // Enclosure or chassis used to mount computer and networking gear.
+  // Devices are mounted to rails of a standard width, typically 19 or 23
+  // inches.  Height is measured in *rack units* where one 1U is 1.75 inches.
+  // A full rack has a height of 42U.
+  // See `docHaystack::DataCenters#racks` chapter.
+  *rack: Marker
+
+  // Heats a space using pipes or cables embedded beneath floor.
+  *radiantFloor: Marker
+
+  // Heats a space using exposed pipes or coils.  Hot water and steam
+  // radiators are often cast iron and installed directly in the space
+  // or along the baseboard.  Electric radiators are typically installed
+  // on the baseboard.
+  *radiator: Marker
+
+  // Data specified by a manufacturer or rating organization.  Typically this
+  // information is from the equipment data plate or cut sheet.  Also see `design`.
+  *rated: Marker
+
+  // Relating to reactance
+  *reactive: Marker
+
+  // Piston compressor driven by a crankshaft
+  *reciprocal: Marker
+
+  // Specifies the inverse of an association or relationships.
+  // See [Associations]`docHaystack::Associations#reciprocalOf` and
+  // [Relationships]`docHaystack::Relationships#reciprocalOf` chapter.
+  *reciprocalOf: Symbol
+
+  // Fluid used in refrigeration and heat exchange.  Refrigerants typically
+  // alternate between liquid and gas state.
+  *refrig: Marker
+
+  // Refrigerant flows from the referent to this entity
+  *refrigRef: MultiRef
+
+  // Command point for reheating process
+  *reheat: Marker
+
+  // Duct returning air back to equipment
+  *return: Marker
+
+  // Envelope covering the top of a building
+  *roof: Marker
+
+  // Enclosed room of a building
+  *room: Marker
+
+  // Rotary screw compression
+  *rotaryScrew: Marker
+
+  // Device used to route data packets
+  *router: Marker
+
+  // Roof Top Unit: A unitary AHU that is weatherized for outdoor use.
+  // See `docHaystack::AHUs` chapter.
+  *rtu: Marker
+
+  // Primary on/off `point` of an `equip` especially used with a `vfd`.
+  // Run is used with Bool points where true indicates on and false indicates
+  // off. When paired with `cmd` this is the commanded state of the equipment.
+  // When paired with `sensor` this is the actual status of the equip.  If
+  // the equipment also defines an `enable` point then both must be commanded
+  // on in order to run the equipment.
+  *run: Marker
+
+  // Scalar is an atomic value kind
+  *scalar: Obj
+
+  // Pipework which circulates closest to the building or end use. In a
+  // central plant, the secondary loop indicates the pipes and equipment between
+  // the central plant and the building.  In context of heat exchangers between
+  // the primary and secondary loops, this tag indicates the side closest to
+  // the building.
+  *secondaryLoop: Marker
+
+  // Point is a sensor, input, AI/BI.
+  // See `docHaystack::Points#function` chapter.
+  *sensor: Marker
+
+  // Circuit with single path of flow
+  *series: Marker
+
+  // Hardware or software which provides services for other programs or devices.
+  *server: Marker
+
+  // Ratio of the maximum continuous output capacity at which a machine or
+  // system may operate without damage to the machine or system’s nominal
+  // output capacity.
+  *serviceFactor: Marker
+
+  // Sulphur hexafluoride (SF₆)
+  *sf6: Marker
+
+  // Simulation point. See `docHaystack::Synthetics` chapter.
+  *sim: Marker
+
+  // See `docHaystack::Synthetics#sims` chapter.
+  *simBaseline: Marker
+
+  // See `docHaystack::Synthetics` chapter.
+  *simModel: Marker
+
+  // See `docHaystack::Synthetics#sims` chapter.
+  *simOperation: Marker
+
+  // See `docHaystack::Synthetics#sims` chapter.
+  *simOptimum: Marker
+
+  // One single duct
+  *singleDuct: Marker
+
+  // Single-phase AC electricity. Power is provided by a
+  // single AC voltage source with a 2-wire connection.
+  *singlePhase: Marker
+
+  // Site is a geographic location of the built environment.
+  // Typically site maps to one building with its own unique
+  // street address.  See `docHaystack::Sites` chapter.
+  *site: Marker
+
+  // Main meter for the associated site
+  *siteMeter: Marker
+
+  // Reference to site which contains the entity
+  *siteRef: Ref <of:Site>
+
+  // Simple Mail Transfer Protocol for sending email
+  *smtp: Marker
+
+  // Simple Network Management Protocol for managing IP devices
+  *snmp: Marker
+
+  // Relating to energy from the sun
+  *solar: Marker
+
+  // Substance with definite shape and volume
+  *solid: Marker
+
+  // Sedona Framework UDP based communication protocol
+  *sox: Marker
+
+  // Point is a setpoint, soft point, internal control variable, schedule.
+  // See `docHaystack::Points#function` chapter.
+  *sp: Marker
+
+  // Space is a three-dimensional volume in the built environment.
+  // See `docHaystack::Spaces` chapter.
+  *space: Marker
+
+  // Reference to space which contains this entity
+  *spaceRef: Ref <of:Space>
+
+  // Distance per unit time
+  *speed: Marker
+
+  // Split-phase AC electricity. Power is provided by a
+  // single AC voltage source with a 3-wire connection, consisting of two hot
+  // wires (phases), separated from each other by a 180-degree phase angle,
+  // and one neutral wire.  Despite having two labeled phases, split-phase AC
+  // electricity is not a true two-phase system.
+  *splitPhase: Marker
+
+  // Stage number of staged equipment operation such as coil or pump.
+  // The first stage is 1, second stage 2, etc.
+  *stage: Number
+
+  // Readiness mode of a space
+  *standby: Marker
+
+  // State of charge (SoC) of an electric `battery`.  Uses a percentage in
+  // the range of 0% to 100%, where no charge is indicated as 0% and full
+  // charge is indicated as 100%.
+  *stateOfCharge: Marker
+
+  // Water in its gas form
+  *steam: Marker
+
+  // Heating using energy of steam
+  *steamHeating: Marker
+
+  // Steam flows from the referent to this entity
+  *steamRef: MultiRef
+
+  // Submeters measure usage of a sub-system or equipment within a site
+  *submeter: Marker
+
+  // Reference to parent meter which is immediately upstream of this meter
+  *submeterOf: Ref <of:Meter>
+
+  // Below the surface of the earth
+  *subterranean: Marker
+
+  // Device for toggling state or routing data
+  *switch: Marker
+
+  // Synthetic point with computed operational data. The computed data
+  // if classified as:
+  //   - `ml` for machine learning
+  //   - `sim` for simulation
+  //   - `computed` as catch all for other computations
+  //
+  // See `docHaystack::Synthetics` chapter.
+  *synthetic: Marker
+
+  // See `docHaystack::Synthetics` chapter.
+  *syntheticModel: Marker
+
+  // See `docHaystack::Synthetics` chapter.
+  *syntheticModelRef: Ref <of:SyntheticModel>
+
+  // Grouping of related equipment dedicated to a single application.
+  // See `docHaystack::Systems` chapter.
+  *system: Marker
+
+  // Reference to system
+  *systemRef: MultiRef <of:System>
+
+  // Mobile device with touch screen for user input.
+  *tablet: Marker
+
+  // Tank used to store a substance for temporary holding
+  *tank: Marker
+
+  // Temperature - measure of hot and cold
+  *temp: Marker
+
+  // Pipework which circulates within the building.
+  *tertiaryLoop: Marker
+
+  // Total harmonic distortion
+  *thd: Marker
+
+  // Related to energy of heat
+  *thermal: Marker
+
+  // Senses and controls temperature of space in HVAC system.  Thermostats
+  // may provide an interface for setpoint control.
+  *thermostat: Marker
+
+  // Three-phase AC electricity. Power is provided by three AC voltage
+  // sources, each separated from the others by a 120-degree phase angle.
+  // May have a 4-wire connection with a neutral (Wye) or a 3-wire connection
+  // without a neutral (Delta).
+  *threePhase: Marker
+
+  // Complete or absolute
+  *total: Marker
+
+  // This marker is applied to a `relationship` to indicate it is transitive.
+  // Transitivity requires that if the relationship applies to A,B and B,C
+  // then it also applies to A,C.
+  *transitive: Marker
+
+  // Three ducts: hotDeck, coldDeck, or neutralDeck
+  *tripleDuct: Marker
+
+  // Total volatile organic compound (TVOC).
+  *tvoc: Marker
+
+  // Two-phase AC electricity. Power is provided by two AC voltage sources,
+  // separated from each other by a 90-degree phase angle. Two-phase systems
+  // are extremely rare in modern buildings; they have been replaced by
+  // modern `threePhase` systems.
+  *twoPhase: Marker
+
+  // Timezone identifier from standard [timezone database]`docHaystack::TimeZones`
+  *tz: TimeZone
+
+  // Unit identifier from standard unit database
+  *unit: Unit
+
+  // Unit Ventilator: An FCU that has direct access to outside air to provide
+  // the space with ventilation.  See `docHaystack::AHUs` chapter.
+  *unitVent: Marker
+
+  // Unoccupied mode of a space.
+  // See `docHaystack::Zones#occupancy` chapter.
+  *unocc: Marker
+
+  // Uninterruptible power supply
+  *ups: Marker
+
+  // Data value type
+  *val: Obj
+
+  // Valve equipment or control point
+  *valve: Marker
+
+  // Delivers a variable volume of air flow.   Most variable volume systems
+  // are powered by a VFD fan. However other techniques such as inlet vanes
+  // may be used in older systems.
+  *variableAirVolume: Marker
+
+  // Variable air volume terminal unit.  VAV systems use a constant air
+  // temperature with a variable air flow rate.  See `docHaystack::VAVs` chapter.
+  *vav: Marker
+
+  // AHU supplies air to VAV terminal units
+  *vavZone: Marker
+
+  // Speed in a given direction
+  *velocity: Marker
+
+  // Duct to access fresh outside air only for ventilation, not economizing
+  *ventilation: Marker
+
+  // Version string formatted as decimal integers separated by a dot
+  *version: Version
+
+  // Variable-frequency drive.
+  // See `docHaystack::Motors` chapter.
+  *vfd: Marker
+
+  // Distance at which light can be clearly discerned
+  *visibility: Marker
+
+  // Electrical potential difference or electromotive force.
+  *volt: Marker
+
+  // Three dimensional space occupied by a substance
+  *volume: Marker
+
+  // Variable refigerant flow.  See `docHaystack::VRF` chapter.
+  *vrf: Marker
+
+  // Relatively warm in comparison to another substance, without being
+  // actively heated. The substance can be used as a source of energy for
+  // a heating process, for example a warm water well in an `ates` system.
+  *warm: Marker
+
+  // Water in its liquid form
+  *water: Marker
+
+  // Cooling using transfer of heat to water which is not explicitly chilled
+  *waterCooling: Marker
+
+  // Associated with atmospheric air or phenomenon.
+  // See `docHaystack::Weather` chapter.
+  *weather: Marker
+
+  // Enumeration of weather conditions
+  *weatherCond: Marker
+
+  // Logical weather station and its measurement points.
+  // See `docHaystack::Weather#stations` chapter.
+  *weatherStation: Marker
+
+  // Reference to weather station for to use this entity
+  *weatherStationRef: Ref <of:WeatherStation>
+
+  // A well is a source of groundwater and potentially thermal energy.  When
+  // used within an [ATES]`docHaystack::ATES` system, the well facilitates thermal
+  // energy exchange with the ground warm and cool water sources. In this case, a
+  // well can be either a closed system that transports water through pipes in the
+  // ground, or an open system that pumps up and returns ground water.
+  *well: Marker
+
+  // Wet bulb air temperature.  Temperature which the air would have if cooled to saturation by the evaporation of water into it.
+  *wetBulb: Marker
+
+  // Hyperlink to the subject's page on Wikipedia
+  *wikipedia: Uri
+
+  // Flow of air on surface of the Earth
+  *wind: Marker
+
+  // Cabling used to convey electricity or data
+  *wire: Marker
+
+  // Supports writing data
+  *writable: Marker
+
+  // Error description when `writeStatus` indicates error condition
+  *writeErr: Str <transient>
+
+  // Current priority level for `writeVal` as number between 1 and 17.
+  // The value 17 indicates the relinquish default value.
+  *writeLevel: Number <transient>
+
+  // Current status of a writable point output
+  *writeStatus: WriteStatus <transient>
+
+  // Current desired value to write to output.  This is the current "winning"
+  // value of the priority array indicated by `writeLevel`.  If this tag
+  // is missing then the winning value is null/auto.
+  *writeVal: Obj <transient>
+
+  // Extended string - type name and string value encoding.
+  // See [Kinds chapter]`docHaystack::Kinds#xstr`.
+  *xstr: Obj
+
+  // Original year of construction as four digit year such as 1980
+  *yearBuilt: Int
+
+  // Low power wireless communication protocol for home automation
+  *zigbee: Marker
+
+  // Related to spaces from a system perspective
+  *zone: Marker
+
+  // Low power wireless communication protocol for home automation
+  *zwave: Marker
 }
-
-// Cooling process using energy from heat source such as hot water
-absorption: Marker
-
-// Relating to alternating current (AC) electricity
-ac: Marker
-
-// Accumulate the tag's value during [inheritance]`docHaystack::Normalization#inherit`
-// and [defx]`docHaystack::Normalization#defx`.  Tags marked as accumulate
-// are aggregated together during normalization and deduplicated.  This
-// marker must only be used on tags which expect a list value.
-accumulate: Marker
-
-// Working, operative, effective
-active: Marker
-
-// Equipment to move or control a mechanism.  Actuators may be manually
-// operated or automated via a control system to convert an energy source
-// into mechanical energy.  Typically the energy source is electricity,
-// hydraulics, or pneumatics.
-actuator: Marker
-
-// Air Handling Unit: An enclosure with a fan that delivers air to a space
-// via ductwork and performs one or more of the functions of cleaning,
-// heating, cooling, humidifying, dehumidifying, ventilating or circulating
-// the air.  See `docHaystack::AHUs` chapter.
-ahu: Marker
-
-// The mixture of gases which surrounds the earth
-air: Marker
-
-// Cooling by dissipating heat into the surrounding air
-airCooling: Marker
-
-// Air flows from the referent to this entity
-airRef: MultiRef
-
-// Notification of a condition which requires attention
-alarm: Marker
-
-// Measurement of the relative difference in direction between two vectors or phasors
-angle: Marker
-
-// Perceived quantity
-apparent: Marker
-
-// Area of a shape or floor space
-area: Number <quantity:"area">
-
-// Aquifer Thermal Energy Storage system.
-// See `docHaystack::ATES` chapter.
-ates: Marker
-
-// The ATES uses closed piping to transport a water/glycol mixture
-// through the ground. The system works like a heat exchanger; there
-// is no ground water transported.
-atesClosedLoop: Marker
-
-// The ATES has one or more pairs of a separate warm and cool well.
-atesDoublet: Marker
-
-// The ATES is as a doublet, but with specific warm and cool wells linked together.
-// These linked wells do not exchange water with other wells.
-atesDoubletPaired: Marker
-
-// The ATES has only one physical well.  This well is deep enough
-// to penetrate two layers of groundwater.
-atesMono: Marker
-
-// Similar to a doublet, but water always flows in the same direction from
-// the extraction to the infiltration well.
-atesUnidirectional: Marker
-
-// Related to the atmosphere of the earth
-atmospheric: Marker
-
-// Average; central or typical value; median
-avg: Marker
-
-// ASHRAE building automation and control protocol
-bacnet: Marker
-
-// Relating atmospheric pressure
-barometric: Marker
-
-// Base URI for normalizing relative URIs
-baseUri: Uri
-
-// Equipment used to store electric energy
-battery: Marker
-
-// Plant or animal material used as fuel to produce electricity or heat
-biomass: Marker
-
-// Heating by the combustion of biomass
-biomassHeating: Marker
-
-// Removal from container or pipe
-blowdown: Marker
-
-// Blowdown water flows from the referent to this entity
-blowdownWaterRef: MultiRef
-
-// Short range wireless communication protocol
-bluetooth: Marker
-
-// Equipment to generate hot water or steam for heating
-boiler: Marker
-
-// Branch selector used for heat recovery in a VRF system.  These are
-// control devices directing the liquid refrigerant or gas refrigerant
-// to zones requiring cooling or heating. See `docHaystack::VRF#branchSelector`
-// chapter.
-branchSelector: Marker
-
-// Pipe used to bypass an equipment
-bypass: Marker
-
-// An assembly of one or more insulated conductors.
-cable: Marker
-
-// Constant air volume terminal unit.  CAV systems use a constant
-// air flow rate with a variable air temperature.
-cav: Marker
-
-// Compression via a continuous flow of fluid through an impeller
-centrifugal: Marker
-
-// Formaldehyde (CH₂O)
-ch2o: Marker
-
-// Methane (CH₄)
-ch4: Marker
-
-// List of prototypes contained by this entity.
-// See [Protos chapter]`docHaystack::Protos` for more details.
-children: List <of:Dict>
-
-// List of aspects to flatten into children prototypes.
-// See [Protos chapter]`docHaystack::Protos` for more details.
-childrenFlatten: List <of:Symbol>
-
-// Substance is cooled using cooling process
-chilled: Marker
-
-// Conditions a space using a heat exchanger integrated into the ceiling
-chilledBeam: Marker
-
-// AHU supplies air to chilled beam terminal units
-chilledBeamZone: Marker
-
-// Cooling using transfer of heat to chilled water
-chilledWaterCooling: Marker
-
-// Chilled water flows from the referent to this entity
-chilledWaterRef: MultiRef
-
-// Equipment to remove heat from a liquid.  Chillers typically use a vapor
-// compression or an absorption refrigeration cycle.
-chiller: Marker
-
-// Choice specifies an exclusive marker selection.
-// See [Choices]`docHaystack::Choices` chapter.
-choice: Marker
-
-// Pipe used to circulate fluid through an equipment or system
-circ: Marker
-
-// Electrical circuit and its associated components such as breakers.
-// See `docHaystack::ElecPanels#circuits` chapter.
-circuit: Marker
-
-// Percentage of sky obscured by clouds. This is also known as cloudiness, or cloud amount.
-cloudage: Marker
-
-// Point is a command, actuator, AO/BO.
-// See `docHaystack::Points#function` chapter.
-cmd: Marker
-
-// Carbon monoxide (CO)
-co: Marker
-
-// Carbon dioxide (CO₂)
-co2: Marker
-
-// Carbon dioxide equivalent
-co2e: Marker
-
-// Combustible sedimentary rock
-coal: Marker
-
-// Heating by the combustion of coal
-coalHeating: Marker
-
-// Constrained Application Protocol
-coap: Marker
-
-// Having low degree of heat
-cold: Marker
-
-// Duct carries air for cooling
-coldDeck: Marker
-
-// Device for mechanically increasing the pressure of a gas or refrigerant
-// vapor by reducing its volume.
-compressor: Marker
-
-// Computed point. See `docHaystack::Synthetics` chapter.
-computed: Marker
-
-// Indicates a relationship that is computed from its reciprocal.
-// Computed defs cannot be used as tags themselves.
-computedFromReciprocal: Marker
-
-// See `docHaystack::Synthetics` chapter.
-computedModel: Marker
-
-// General purpose computer.
-computer: Marker
-
-// Abundance of substance in the total volume of a mixture.
-concentration: Marker
-
-// Liquid phase produced by the condensation of steam or other gas
-condensate: Marker
-
-// Condensate flows from the referent to this entity
-condensateRef: MultiRef
-
-// Device or related to process of condensation
-condenser: Marker
-
-// Working fluid is kept separate from fluid used for heat transfer into the atmosphere
-condenserClosedLoop: Marker
-
-// Removal of heat through the process of water condensation
-condenserCooling: Marker
-
-// Uses working fluid itself for evaporation into the atmosphere
-condenserOpenLoop: Marker
-
-// Condenser water flows from the referent to this entity
-condenserWaterRef: MultiRef
-
-// Related to cleaning, heating, cooling, humidifying, dehumidifying,
-// ventilating or circulating  air. 
-conditioning: Marker
-
-// Delivers a constant volume of air flow.  Typically this means
-// equipment with a single speed fan.
-constantAirVolume: Marker
-
-// Microprocessor based device used in a control system.  Controllers
-// interact with the physical world through direct I/O to sensors and
-// actuators or via network [protocols]`protocol`.
-controller: Marker
-
-// Associated with the control system for an industrial process
-controls: Marker
-
-// Associted with low temperature or cooling processes.  When used on a point,
-// this tag is associated with the control of cooling.  When paired with a
-// substance, this tag indicates the substance is relatively cool in comparison
-// to another substance, without being actively cooled by e.g. a chiller.
-cool: Marker
-
-// Cooling mode or process
-cooling: Marker
-
-// Measurement of a chiller ability to remove heat measured
-coolingCapacity: Number
-
-// Coil used to cool air.
-coolingCoil: Marker
-
-// Equipment without heating
-coolingOnly: Marker
-
-// Equipment to transfer waste heat into the atmosphere
-coolingTower: Marker
-
-// Computer Room Air Conditioner: An FCU designed to condition a computer
-// room.  See `docHaystack::AHUs` and `docHaystack::DataCenters` chapters.
-crac: Marker
-
-// Supports current value
-cur: Marker
-
-// Error description when `curStatus` indicates error condition
-curErr: Str <transient>
-
-// Average electrical current over a defined interval
-currentDemand: Marker
-
-// Status of point's current value reading.  The `curVal` is only available
-// when curStatus is "ok" or "stale".  However a "stale" value should
-// be used with caution since the local system does not have a fresh value.
-// It is recommended that the `curVal` tag is removed from a point
-// when the curStatus is not "ok" nor "stale".
-curStatus: CurStatus <transient>
-
-// Current value of a point.  The current value is only available when
-// the `curStatus` is "ok" or "stale".
-curVal: Obj <transient>
-
-// Movement of fluid or electricity
-current: Marker
-
-// Digital Addressable Lighting Interface protocol for lighting
-dali: Marker
-
-// Damper equipment or control point.
-damper: Marker
-
-// Space used to house computer and networking gear.
-// See `docHaystack::DataCenters` chapter.
-dataCenter: Marker
-
-// Time between sunrise and sunset
-daytime: Marker
-
-// Relating to direct current (DC) electricity
-dc: Marker
-
-// The range in a process where no changes to output are made.
-// May also indicate the difference between a base setpoint and effective
-// setpoint.
-deadband: Marker
-
-// Create a new definition bound to the given symbol.
-// See [Defs chapter]`docHaystack::Defs`.
-def: Symbol
-
-// Extends the given definition with additional meta tags.
-// See [Normalization]`docHaystack::Normalization#defx`.
-defx: Symbol
-
-// Differential of fluid between entering and leaving sensors.
-delta: Marker
-
-// Rate required for a process or average electrical power over a defined interval.
-demand: Marker
-
-// Obsoleted
-deprecated: Marker
-
-// Data related to intended design and operating conditions.  This
-// includes sizing and other data specified by design engineers and
-// engineered drawings.  Also see `rated`.
-design: Marker
-
-// Decreases humidity from air using a substance which absorbs moisture.
-dessicantDehumidifier: Marker
-
-// Microprocessor based hardware device.  This is the general term for
-// all computers, mobile phones, controllers, and I/O modules.
-// See `docHaystack::Devices#networks` chapter.
-device: Marker
-
-// Device which controls a monitors this entity
-deviceRef: Ref <of:Device>
-
-// Dew point temperature at which water vapor will form dew
-dewPoint: Marker
-
-// Liquid fuel specifically designed for use in diesel engines
-diesel: Marker
-
-// AHU supplies air directly to the zone
-directZone: Marker
-
-// Compass direction measured in degrees: North: 0° = 360°, East: 90°, South: 180°, West: 270°
-direction: Marker
-
-// Display name for an entity.
-// See `docHaystack::Ontology#entities` chapter.
-dis: Str
-
-// Duct for air leaving an equipment
-discharge: Marker
-
-// Equipment that releases a specific amount of a substance.
-dispenser: Marker
-
-// Three way valve which inputs one pipe and diverts between two output pipes.
-diverting: Marker
-
-// Dedicated Outside Air System: An AHU that brings in 100% outside air and
-// no recirculated air in order to provide ventilation to spaces.
-// See `docHaystack::AHUs` chapter.
-doas: Marker
-
-// Generate a section in the docs for this association.
-docAssociations: Marker
-
-// Generate a taxonomy tree for this term in the documentationindex.
-// When applied to a def, then it will will be listed in the docs
-// under the [taxonomies]`docHaystack::Docs#taxonomies` section.
-docTaxonomy: Marker
-
-// For human use
-domestic: Marker
-
-// Domestic water flows from the referent to this entity
-domesticWaterRef: MultiRef
-
-// Two ducts: combination of hotDeck, coldDeck, or neutralDeck
-dualDuct: Marker
-
-// Conduit used to convey air for HVAC
-duct: Marker
-
-// Config point on a `vav` for duct area measured in ft² or m²
-ductArea: Marker
-
-// Number with a unit of time
-duration: Number
-
-// Cooling using direct expansion of a refrigerant vapor.
-// Also see `dxHeating` and `heatPump`.
-dxCooling: Marker
-
-// Heating using direct expansion of a refrigerant vapor.
-// Also see `dxCooling` and `heatPump`.
-dxHeating: Marker
-
-// Duct to access fresh outside air only for economizing, not ventilation
-economizer: Marker
-
-// Energy reduction mode which augments heating/cooling with outside air.
-economizing: Marker
-
-// Current control setpoint in effect taking into account other factors
-effective: Marker
-
-// Efficiency point of a chiller measured in "COP" or "kW/ton".
-efficiency: Marker
-
-// Associated with electricity or with electrical force, power, or energy.
-// This is often opposed to `mech` mechanical energy.
-elec: Marker
-
-// Heating by the conversion of electrical energy
-elecHeating: Marker
-
-// Average of L1, L2, L3 measurements
-elecLAvg: Marker
-
-// Average of L1-L2, L2-L3, L3-L1 measurements
-elecLLAvg: Marker
-
-// Electricity flows from the referent to this entity
-elecRef: MultiRef
-
-// Enclosure used to move people between floors.
-elevator: Marker
-
-// Amount of a substance discharged into the air
-emission: Marker
-
-// Secondary on/off `point` of an `equip` especially used with a `vfd`.
-// Enable is used with Bool points where true indicates on and false
-// indicates off.  Equip with an enable should always also define a `run`
-// point which indicates the primary on/off state of the equipment.
-enable: Marker
-
-// Measure of ability to do work
-energy: Marker
-
-// Pipe conveys fluid into an equipment
-entering: Marker
-
-// Total heat content of a system. It is defined as internal energy of the system plus the product of pressure and volume.
-enthalpy: Marker
-
-// Defines an eumeration of string key names.  The range may also be applied
-// to format a Bool ordered as "false,true".  The value of this tag may be
-// formatted in one of five ways:
-//  - dict of dicts keyed by name and Dict values for meta such as 'doc' tag
-//  - comma separated names on one line
-//  - names separated by a "\n" newline character
-//  - markdown unordered list formatted as a series of "- name: description\n"
-//  - ref to a Xeto 'sys::Enum' spec
-//
-// Enum names *should* follow valid tag naming rules (start with lowercase
-// ASCII letter and contain only ASCII letters and numbers).  However in
-// cases where mapping directly to external enumerations enum names can
-// contain arbitrary characters such as space.
-enum: Obj
-
-// Equipment asset.
-// See `docHaystack::Equips` chapter.
-equip: Marker
-
-// Reference to equip which contains this entity
-equipRef: Ref <of:Equip>
-
-// Moving staircase used to move people between floors.
-escalator: Marker
-
-// Mechanism used to convert a refrigerant from its liquid to gaseous state.
-evaporator: Marker
-
-// Electric Vehicle Supply Equipment.  See `docHaystack::EVSE` chapter.
-evse: Marker
-
-// Physical type of `evse-cable`.
-evseCableType: EvseCableType
-
-// Describes an event during which an `evse-port` can deliver power to an EV.
-// The EVSE may need to authorize a user to initiate an `evseSession`.
-//
-// At minimum has the following data:
-//  - ts:  when the event was logged by the system of record
-//  - started:  when the event started
-//  - stopped:  when the event stopped
-//  - tx:  transaction ID for the event
-//  - targetRef:  reference to the `evse-port`
-//  - energyDelivered:  energy delivered during the `evseSession`
-//  - event:  marker tag
-//  - meterStart:  meter register's value at the beginning of the `evseSession`
-//
-// In the future additional data might be included, such as the means of
-// EV charging session authorization.
-evseSession: Marker
-
-// Status of one or more `evse-port` reported by an EVSE.
-//
-// When applied to an `evse-port`, indicates the status of an EVSE port.
-//
-// When applied to an `evse-dispenser` or `evse-powerConverter`, indicates
-// the status of one or more `evse-port` within an EVSE manufacturer's
-// package.  In this case only the enum values available, unavailable,
-// and fault apply.
-evseStatus: EvseStatus
-
-// Duct used to expel air back outside
-exhaust: Marker
-
-// Supplied out of a system
-export: Marker
-
-// Taking a substance out of another substance
-extraction: Marker
-
-// Point of an ahu indicating air flow is by-passing the heating/cooling
-// coils. If a boolean point, then true indicates the unit is in by-pass
-// mode and false indicates by-pass is disabled. If the point is an analog
-// point then 100% indicates full by-pass mode and 0% indicates by-pass is
-// completely disabled.
-faceBypass: Marker
-
-// Fan equipment or control point
-fan: Marker
-
-// Device with a fan
-fanPowered: Marker
-
-// Fan Coil Unit: A unitary, factory-made enclosure with a fan and coil
-// that recirculates air in a space and performs one or more of the
-// functions of cleaning, heating, cooling, humidifying, dehumidifying,
-// or ventilating the air. Unit heaters are examples of FCUs.
-// See `docHaystack::AHUs` chapter.
-fcu: Marker
-
-// Feature namespace of definitions formatted as 'feature:name'
-feature: Obj
-
-// Apparent temperature perceived when considering humidity, wind chill, and heat index
-feelsLike: Marker
-
-// Filename extension such as "csv"
-fileExt: Str
-
-// File format type definition
-filetype: Obj
-
-// Related to an air or fluid filter.
-filter: Marker
-
-// Haystack filter string.  See `docHaystack::Filters`
-filterStr: Str
-
-// Storey of a building.  See `docHaystack::Spaces#floors` chapter.
-floor: Marker
-
-// Unitless integer indicating the floor's distance from ground level.  The
-// ground floor is always defined as zero.  Additional floors above ground are
-// numbered 1, 2, 3, etc.  Subterranean floors are numbered -1, -2, -3, etc.
-// This convention is consistent with how most European buildings number
-// floors.  In North America its common to label the ground floor
-// as the first floor; however Haystack requires the ground level to be
-// assigned a floorNum of 0.
-floorNum: Number
-
-// Measure of volumetric flow of fluid
-flow: Marker
-
-// System to change direction of substance flow
-flowInverter: Marker
-
-// Duct for exhausting combustion
-flue: Marker
-
-// Measurement through a given surface
-flux: Marker
-
-// A boolean point of an ahu indicating a freezing condition.  This
-// might require a control sequence to protect the equipment. If true
-// then a freeze condition is detected, or false if not.
-freezeStat: Marker
-
-// Occurrences per unit time
-freq: Marker
-
-// File Transfer Protocol
-ftp: Marker
-
-// Petroleum based oil burned for energy
-fuelOil: Marker
-
-// Heating by the combustion of fuel oil
-fuelOilHeating: Marker
-
-// Fuel oil flows from the referent to this entity
-fuelOilRef: MultiRef
-
-// Ventilation equipment to limit exposure to hazardous fumes.
-fumeHood: Marker
-
-// Petroleum derived liquid used as a fuel source
-gasoline: Marker
-
-// Gasoline flows from the referent to this entity
-gasolineRef: MultiRef
-
-// Free form street address.  Best practice is to follow local
-// norms for a postal address.  Typically this string includes
-// the `geoStreet`, `geoCity`, `geoState` (in US), and `geoPostalCode`:
-//
-// Examples:
-//   "1600 Pennsylvania Avenue NW, Washington, DC 20500"
-//
-//   "10 Downing St, Westminster, London SW1A 2AA, United Kingdom"
-//
-//   "Champ de Mars, 5 Avenue Anatole France, 75007 Paris, France"
-geoAddr: Str
-
-// Geographic city or locality name
-geoCity: Str
-
-// Geographic coordinate as 'C(latitude,longitude)'
-geoCoord: Coord
-
-// Geographic country as [ISO 3166-1]`http://en.wikipedia.org/wiki/ISO_3166-1`
-// two letter code
-geoCountry: GeoCountry
-
-// Geographic subdivision of US state
-geoCounty: Str
-
-// Elevation above sea-level of the location
-geoElevation: Number
-
-// Geographic place
-geoPlace: Marker
-
-// Geographic postal code; for US this is a five digit zip code
-geoPostalCode: Str
-
-// State or province name; for US this is two letter state code. May be
-// used in other countries to model administrative area between the geoCity
-// and geoCountry level.
-geoState: GeoState
-
-// Geographic street address and name
-geoStreet: Str
-
-// Related to the surface of the earth.  Used to indicate electrical
-// current being measured on an electrical ground conductor when applied to
-// a point entity that has the `elec` and `current` tags.
-ground: Marker
-
-// Haystack HTTP protocol for exchanging tagged data
-haystack: Marker
-
-// Pipe used as central connection or manifold for other piping runs.
-header: Marker
-
-// Associated with a heating process.  When used on a point,
-// this tag is associated with the control of heating.
-heat: Marker
-
-// Equipment to transfer heat between two working fluids.
-heatExchanger: Marker
-
-// Equipment that employs a vapor compression cycle with a reversing
-// valve to provide heating or cooling. For vapor compression heating
-// without a reversing valve, such as for a heat pump water heater,
-// see `dxHeating` which should be used.
-heatPump: Marker
-
-// Transfer of heat from one substance to another to reduce energy consumption.
-heatRecovery: Marker
-
-// Boolean point indicating command state of AHU's heat wheel.
-heatWheel: Marker
-
-// Heating mode or process
-heating: Marker
-
-// Coil used to heat air.
-heatingCoil: Marker
-
-// Equipment without cooling
-heatingOnly: Marker
-
-// Hydrofluorocarbons
-hfc: Marker
-
-// Supports historization of data
-his: Marker
-
-// Last historized timestamped sample
-hisEnd: DateTime <transient>
-
-// Error description when `hisStatus` indicates error condition
-hisErr: Str <transient>
-
-// Indicates the way that history data is collected for a point.
-hisMode: HisMode
-
-// Number of historical timestamped samples historized by point
-hisSize: Number <transient>
-
-// First historized timestamped sample
-hisStart: DateTime <transient>
-
-// Status of point's history collection or synchronization
-hisStatus: HisStatus <transient>
-
-// Indicates values which are a continuous stream of totalization. History
-// data reads and should be normalized by computing the delta.
-hisTotalized: Marker
-
-// Having high degree of heat
-hot: Marker
-
-// Duct carries air for heating
-hotDeck: Marker
-
-// Heating using energy of hot water
-hotWaterHeating: Marker
-
-// Hot water flows from the referent to this entity
-hotWaterRef: MultiRef
-
-// Hypertext Transfer Protocol which is foundation of the web
-http: Marker
-
-// Adding moisture to air
-humidifier: Marker
-
-// Percent relative humidity; measure of moisture in the air
-humidity: Marker
-
-// Heating, ventilation, and air conditioning
-hvac: Marker
-
-// Operational mode for HVAC equipment
-hvacMode: Marker
-
-// Water in its solid form
-ice: Marker
-
-// Defines the unique identifier of an entity in system using a `ref` value
-// type. The scope of an entity is undefined, but must be unique with a
-// given system or project. This identifier may be used by other entities
-// for cross-referencing.  See `docHaystack::Ontology#entities` chapter.
-id: Ref
-
-// Luminous flux hitting the inside of the sphere at a specific point.
-//
-// Also see [ies.org]`https://www.ies.org/definitions/illuminance/`
-illuminance: Marker
-
-// Internet Message Access Protocol for retrieving email
-imap: Marker
-
-// Lacking balance
-imbalance: Marker
-
-// Received into a system
-import: Marker
-
-// Operates inside the conditioned space
-indoorUnit: Marker
-
-// Permeation of a substance into another substance
-infiltration: Marker
-
-// Duct with air entering an equipment
-inlet: Marker
-
-// Entity inputs a substance which flows from another entity
-input: Marker
-
-// Unitless integer number
-int: Number
-
-// Measure of an electromagnetic field
-intensity: Marker
-
-// Energy received at a surface by area
-irradiance: Marker
-
-// Actuator used to isolate an equipment from a pipe or ductwork system
-isolation: Marker
-
-// Kind name used to identity a value data type
-kind: Kind
-
-// KNX protocol commonly used for lighting systems
-knx: Marker
-
-// Portable laptop computer.
-laptop: Marker
-
-// Pipe conveys fluid out of an equipment
-leaving: Marker
-
-// Range from 0% to 100%.  When paired with a fluid this implies a fill
-// level where 0% is empty and 100% is full.
-level: Marker
-
-// Library module of symbolic definitions.
-// See `docHaystack::Namespaces#libs` chapter.
-lib: Obj
-
-// Electromagnetic radiation in the visible spectrum
-light: Marker
-
-// Systems associated with illumination in the built environment
-lighting: Marker
-
-// Chiller point to command or measure the chiller's load as a percentage
-// from "0%" to "100%". When paired with cmd this models the chiller's
-// load limit. When paired with sensor this models the chiller's current
-// load factor.
-load: Marker
-
-// Light fixture using electricity to provide illumination
-luminaire: Marker
-
-// Energy of light in a given direction.
-//
-// Also see [ies.org]`https://www.ies.org/definitions/luminance/`
-luminance: Marker
-
-// Relating to light as perceived by the eye
-luminous: Marker
-
-// Size or extent
-magnitude: Marker
-
-// Restore something missed or lost
-makeup: Marker
-
-// Makeup water flows from the referent to this entity
-makeupWaterRef: MultiRef
-
-// Makeup Air Unit: A DOAS that provides make-up air for a separate, dedicated
-// exhaust system. That is, this equip does not contain an exhaust air section.
-// See `docHaystack::AHUs` chapter.
-mau: Marker
-
-// Maximum
-max: Marker
-
-// Inclusive maximum for a numeric value.
-maxVal: Number
-
-// Associated with a machine or its mechanical force, torque, power, or energy.
-// This is often opposed to `elec` electrical energy.
-mech: Marker
-
-// Equipment to meter a substance or phenomenon.
-// See `docHaystack::Meters` chapter.
-meter: Marker
-
-// Mime type formatted as type/subtype
-mime: Str
-
-// Minimum
-min: Marker
-
-// Inclusive minimum for a numeric value.
-minVal: Number
-
-// Duct where fresh outside air and return air is mixed together
-mixed: Marker
-
-// Three way valve which inputs two pipes and outputs a mixture
-// between the two to a single output pipe.
-mixing: Marker
-
-// Machine learning point. See `docHaystack::Synthetics` chapter.
-ml: Marker
-
-// Training period description, known as the identification period
-// or baseline, utilized during the model training process.
-mlIdentificationPeriod: Span
-
-// List of independent variables, also known as model inputs or features,
-// associated with a machine learning model.
-mlInputVarRefs: List <of:Ref<of:MlVar>>
-
-// See `docHaystack::Synthetics` chapter.
-mlModel: Marker
-
-// Goodness-of-fit metrics provided in the form of a simple dictionary.
-// For example: {r2:0.7889, cvrmse:58}.
-mlModelMetrics: Dict
-
-// Result of model identification, which may appear as a list of
-// model parameters for simpler models or as a reference to a stored model,
-// in the form of a file uri. The structure of the dict is user-specific.
-mlModelParameters: Dict
-
-// Dependent variable, also known as the model output or target,
-// associated, with a machine learning model.
-// Represents the predicted outcome generated by the model.
-mlOutputVarRef: Ref <of:MlVar>
-
-// Machine learning variable representing both model inputs and outputs.
-mlVar: Marker
-
-// Filter used for querying points by tags, providing more flexibility
-// than mlVarPoint, although it is not mandatory.
-mlVarFilter: Str
-
-// Reference to a point associated with a machine learning variable,
-// known as a machine learning variable point.
-mlVarPoint: Ref <of:Point>
-
-// Reference to a machine learning variable.
-mlVarRef: Ref <of:MlVar>
-
-// Relating to mobile phones, hand-held computers, and similar technology
-mobile: Marker
-
-// Register based communication protocol used with industrial devices.
-modbus: Marker
-
-// Equipment that converts electrical energy into mechanical energy.
-// See `docHaystack::Motors` chapter.
-motor: Marker
-
-// Conveyor to move people across a horizontal or inclined plane.
-movingWalkway: Marker
-
-// Message Queuing Telemetry Transport publish/subscribe protocol
-mqtt: Marker
-
-// AHU discharge air is split into a duct per zone
-multiZone: Marker
-
-// Nitrous oxide (N₂O)
-n2o: Marker
-
-// Not available used to indicate invalid or missing data.
-// See [Kinds chapter]`docHaystack::Kinds#na`.
-na: Obj
-
-// Fossil fuel energy source consisting largely of methane and other hydrocarbons.
-//
-// The energy content of natural gas varies by region within a range determined
-// on impurities in the gas.  You can find a table of these conversions
-// [here]`https://en.wikipedia.org/wiki/Heat_of_combustion#Higher_heating_values_of_natural_gases_from_various_sources`
-naturalGas: Marker
-
-// Heating by the combustion of natural gas
-naturalGasHeating: Marker
-
-// Natural gas flows from the referent to this entity
-naturalGasRef: MultiRef
-
-// Difference between import and export
-net: Marker
-
-// Logical communications network between two or more devices.
-// See `docHaystack::Devices#networks` chapter.
-network: Marker
-
-// Associates a device which communicates on specific a network.
-networkRef: Ref <of:Network>
-
-// Related to data communication networks
-networking: Marker
-
-// when applied to a point entity that has the `elec` and `current` tags,
-// indicates electrical current being measured on an electrical neutral
-// conductor.
-neutral: Marker
-
-// Duct carries air which by-passes both heating and cooling coils
-neutralDeck: Marker
-
-// Nitrogen trifluoride (NF₃)
-nf3: Marker
-
-// Ammonia (NH₃)
-nh3: Marker
-
-// Nitrogen dioxide (NO₂)
-no2: Marker
-
-// Marks a function or operation as having no side effects.  The function
-// may or may not be *pure* in that calling it multiple times with the
-// same arguments always evaluates to the same result.
-noSideEffects: Marker
-
-// Undocumented and not officially supported
-nodoc: Marker
-
-// Do not include source code in documentation
-nosrc: Marker
-
-// Oxygen (O₂) - the common dioxygen allotrope in the air
-o2: Marker
-
-// Ozone (O₃)
-o3: Marker
-
-// XML based Open Building Information eXchange protocol.
-obix: Marker
-
-// Occupied mode of a space.
-// See `docHaystack::Zones#occupancy` chapter.
-occ: Marker
-
-// Number of occupants in a space.
-// See `docHaystack::Zones#occupancy` chapter.
-occupancy: Marker
-
-// People who use the built environment.
-// See `docHaystack::Zones#occupancy` chapter.
-occupants: Marker
-
-// Setpoint or sensor indicating occupancy of a space.
-// See `docHaystack::Zones#occupancy` chapter.
-occupied: Marker
-
-// Expected value type of a collection, reference, or choice
-of: Symbol
-
-// Operation for HTTP API.
-// See `docHaystack::Ops` chapter.
-op: Obj
-
-// Apply to str enum tags where the enumeration range is open ended.
-// User interfaces should support data entry for arbitrary strings, but
-// also provide a dropdown for the predefined enumeration.
-openEnum: Marker
-
-// operates outside the conditioned space
-outdoorUnit: Marker
-
-// Entity outputs a substance with flows to other entities
-output: Marker
-
-// Duct to access fresh outside air for both ventilation and economizer.
-outside: Marker
-
-// Enclosure for electrical and control equipment.  Panels may be
-// used to isolate electrical connections and provide environmental
-// protection.
-panel: Marker
-
-// Circuit with multiple paths of flow
-parallel: Marker
-
-// Auxiliary heating points associated with a `vav`
-perimeterHeat: Marker
-
-// Electric power factor; which is the ratio of active power to apparent
-// power in an AC electric power system.  Measured with values in the range
-// of -1.0 to 1.0 or 0.0 to 1.0 without a unit.  When the range of -1.0 to
-// 1.0 is applied, a negative value for power factor indicates the
-// electrical current leads the electrical voltage and a positive value
-// indicates the electrical current lags the electrical voltage.
-pf: Marker
-
-// Displacement power factor, which accounts for the phase angle between
-// voltage and current but excludes effects of nonlinear waveforms (
-// harmonic distortion).
-pfDisplacement: Marker
-
-// Distortion power factor, which measures the component of power factor
-// attributable to harmonic distortion in voltage and current waveforms.
-pfDistortion: Marker
-
-// Power factor according to the IEC convention defines a positive or
-// negative sign based on the direction of active power flow.  Power factor
-// is positive when active power flows into a load.  Power factor is negative
-// when active power flows out of a load.
-pfIec: Marker
-
-// Power factor according to the IEEE convention defines a positive or
-// negative sign based on whether the load is capacitive or inductive.  Power
-// factor is positive when the load is capacitive, or when voltage lags behind
-// current.  Power factor is negative when the load is inductive, or when
-// current lags behind voltage.
-pfIeee: Marker
-
-// True power factor, which includes effects of harmonic distortion.
-// Power factor is assumed to be true power factor when `pfScope` is not
-// defined.  However, it is recommended to specify a scope for power
-// factor to help avoid misinterpretation of data.
-pfTrue: Marker
-
-// Perfluorocarbons
-pfc: Marker
-
-// Single-phase measurement of an electric quantity in a multi-phase AC electric power system.
-phase: Phase
-
-// Telephone used for voice telecommunication.
-phone: Marker
-
-// Conduit used to convey a fluid
-pipe: Marker
-
-// Central plant used to generate a substance for a process.
-// See `docHaystack::Plants`.
-plant: Marker
-
-// Particulate matter 0.1; atmospheric pollutant of fine particles with an aerodynamic diameter of 0.1 micrometers or less
-pm01: Marker
-
-// Particulate matter 10; atmospheric pollutant of fine particles with an aerodynamic diameter of 10 micrometers or less
-pm10: Marker
-
-// Particulate matter 2.5; atmospheric pollutant of fine particles with an aerodynamic diameter of 2.5 micrometers or less
-pm25: Marker
-
-// Data point such as a sensor or actuator.
-// See `docHaystack::Points` chapter.
-point: Marker
-
-// See `docHaystack::Synthetics#structure` chapter.
-pointRef: Ref <of:Point>
-
-// Post Office Protocol version 3 for retrieving email
-pop3: Marker
-
-// A gateway or opening used to transfer a substance.
-port: Marker
-
-// Energy consumed per unit time
-power: Marker
-
-// Converts one electrical waveform to another using power electronic
-// circuitry.  Involves the use of one or more power modules.
-//
-// May convert:
-//  - `ac` to `dc`
-//  - `ac` to `ac`
-//  - `dc` to `dc`
-//  - `dc` to `ac`
-//
-// Note:  An AC/AC power converter performs the same task as a power
-// transformer but using power electronics.  Similarly, a DC/DC power
-// converter transforms an input DC voltage to an output DC voltage at
-// another level.
-powerConverter: Marker
-
-// Amount of atmospheric water vapor fallen including rain, sleet, snow, and hail
-precipitation: Marker
-
-// Defines a preferred unit to be used with a quantity
-prefUnit: List <of:Str>
-
-// Measure of force applied
-pressure: Marker
-
-// VAV damper modulates to control space temp; dependent on duct pressure
-// being maintained
-pressureDependent: Marker
-
-// VAV damper or a control valve that modulates to maintain desired flow
-// setpoint; independent of the duct pressure
-pressureIndependent: Marker
-
-// Primary function of building as US Energy Star key
-primaryFunction: PrimaryFunction
-
-// Pipework which circulates closest to the energy source.  In a central
-// plant, the primary loop indicates the pipes and equipment within the
-// central plant.  In context of heat exchangers between the primary
-// and secondary loops, this tag indicates the side closest to the plant.
-primaryLoop: Marker
-
-// Industrial or HVAC process
-process: Marker
-
-// By-product of natural gas processing and petroleum refining (C₃H₈)
-propane: Marker
-
-// Heating by the combustion of propane
-propaneHeating: Marker
-
-// Communication protocol used for devices on a network.
-protocol: Marker
-
-// Pump equipment or control point
-pump: Marker
-
-// Associated with a cleaning process to remove contaminants.
-// Most commonly it indicates purging water or air by using a filter or by
-// letting out a certain amount of the substance at a high flow rate.
-purge: Marker
-
-// Quantity measured against standard metric
-quality: Marker
-
-// Enclosure or chassis used to mount computer and networking gear.
-// Devices are mounted to rails of a standard width, typically 19 or 23
-// inches.  Height is measured in *rack units* where one 1U is 1.75 inches.
-// A full rack has a height of 42U.
-// See `docHaystack::DataCenters#racks` chapter.
-rack: Marker
-
-// Heats a space using pipes or cables embedded beneath floor.
-radiantFloor: Marker
-
-// Heats a space using exposed pipes or coils.  Hot water and steam
-// radiators are often cast iron and installed directly in the space
-// or along the baseboard.  Electric radiators are typically installed
-// on the baseboard.
-radiator: Marker
-
-// Data specified by a manufacturer or rating organization.  Typically this
-// information is from the equipment data plate or cut sheet.  Also see `design`.
-rated: Marker
-
-// Relating to reactance
-reactive: Marker
-
-// Piston compressor driven by a crankshaft
-reciprocal: Marker
-
-// Specifies the inverse of an association or relationships.
-// See [Associations]`docHaystack::Associations#reciprocalOf` and
-// [Relationships]`docHaystack::Relationships#reciprocalOf` chapter.
-reciprocalOf: Symbol
-
-// Fluid used in refrigeration and heat exchange.  Refrigerants typically
-// alternate between liquid and gas state.
-refrig: Marker
-
-// Refrigerant flows from the referent to this entity
-refrigRef: MultiRef
-
-// Command point for reheating process
-reheat: Marker
-
-// Duct returning air back to equipment
-return: Marker
-
-// Envelope covering the top of a building
-roof: Marker
-
-// Enclosed room of a building
-room: Marker
-
-// Rotary screw compression
-rotaryScrew: Marker
-
-// Device used to route data packets
-router: Marker
-
-// Roof Top Unit: A unitary AHU that is weatherized for outdoor use.
-// See `docHaystack::AHUs` chapter.
-rtu: Marker
-
-// Primary on/off `point` of an `equip` especially used with a `vfd`.
-// Run is used with Bool points where true indicates on and false indicates
-// off. When paired with `cmd` this is the commanded state of the equipment.
-// When paired with `sensor` this is the actual status of the equip.  If
-// the equipment also defines an `enable` point then both must be commanded
-// on in order to run the equipment.
-run: Marker
-
-// Scalar is an atomic value kind
-scalar: Obj
-
-// Pipework which circulates closest to the building or end use. In a
-// central plant, the secondary loop indicates the pipes and equipment between
-// the central plant and the building.  In context of heat exchangers between
-// the primary and secondary loops, this tag indicates the side closest to
-// the building.
-secondaryLoop: Marker
-
-// Point is a sensor, input, AI/BI.
-// See `docHaystack::Points#function` chapter.
-sensor: Marker
-
-// Circuit with single path of flow
-series: Marker
-
-// Hardware or software which provides services for other programs or devices.
-server: Marker
-
-// Ratio of the maximum continuous output capacity at which a machine or
-// system may operate without damage to the machine or system’s nominal
-// output capacity.
-serviceFactor: Marker
-
-// Sulphur hexafluoride (SF₆)
-sf6: Marker
-
-// Simulation point. See `docHaystack::Synthetics` chapter.
-sim: Marker
-
-// See `docHaystack::Synthetics#sims` chapter.
-simBaseline: Marker
-
-// See `docHaystack::Synthetics` chapter.
-simModel: Marker
-
-// See `docHaystack::Synthetics#sims` chapter.
-simOperation: Marker
-
-// See `docHaystack::Synthetics#sims` chapter.
-simOptimum: Marker
-
-// One single duct
-singleDuct: Marker
-
-// Single-phase AC electricity. Power is provided by a
-// single AC voltage source with a 2-wire connection.
-singlePhase: Marker
-
-// Site is a geographic location of the built environment.
-// Typically site maps to one building with its own unique
-// street address.  See `docHaystack::Sites` chapter.
-site: Marker
-
-// Main meter for the associated site
-siteMeter: Marker
-
-// Reference to site which contains the entity
-siteRef: Ref <of:Site>
-
-// Simple Mail Transfer Protocol for sending email
-smtp: Marker
-
-// Simple Network Management Protocol for managing IP devices
-snmp: Marker
-
-// Relating to energy from the sun
-solar: Marker
-
-// Substance with definite shape and volume
-solid: Marker
-
-// Sedona Framework UDP based communication protocol
-sox: Marker
-
-// Point is a setpoint, soft point, internal control variable, schedule.
-// See `docHaystack::Points#function` chapter.
-sp: Marker
-
-// Space is a three-dimensional volume in the built environment.
-// See `docHaystack::Spaces` chapter.
-space: Marker
-
-// Reference to space which contains this entity
-spaceRef: Ref <of:Space>
-
-// Distance per unit time
-speed: Marker
-
-// Split-phase AC electricity. Power is provided by a
-// single AC voltage source with a 3-wire connection, consisting of two hot
-// wires (phases), separated from each other by a 180-degree phase angle,
-// and one neutral wire.  Despite having two labeled phases, split-phase AC
-// electricity is not a true two-phase system.
-splitPhase: Marker
-
-// Stage number of staged equipment operation such as coil or pump.
-// The first stage is 1, second stage 2, etc.
-stage: Number
-
-// Readiness mode of a space
-standby: Marker
-
-// State of charge (SoC) of an electric `battery`.  Uses a percentage in
-// the range of 0% to 100%, where no charge is indicated as 0% and full
-// charge is indicated as 100%.
-stateOfCharge: Marker
-
-// Water in its gas form
-steam: Marker
-
-// Heating using energy of steam
-steamHeating: Marker
-
-// Steam flows from the referent to this entity
-steamRef: MultiRef
-
-// Submeters measure usage of a sub-system or equipment within a site
-submeter: Marker
-
-// Reference to parent meter which is immediately upstream of this meter
-submeterOf: Ref <of:Meter>
-
-// Below the surface of the earth
-subterranean: Marker
-
-// Device for toggling state or routing data
-switch: Marker
-
-// Synthetic point with computed operational data. The computed data
-// if classified as:
-//   - `ml` for machine learning
-//   - `sim` for simulation
-//   - `computed` as catch all for other computations
-//
-// See `docHaystack::Synthetics` chapter.
-synthetic: Marker
-
-// See `docHaystack::Synthetics` chapter.
-syntheticModel: Marker
-
-// See `docHaystack::Synthetics` chapter.
-syntheticModelRef: Ref <of:SyntheticModel>
-
-// Grouping of related equipment dedicated to a single application.
-// See `docHaystack::Systems` chapter.
-system: Marker
-
-// Reference to system
-systemRef: MultiRef <of:System>
-
-// Mobile device with touch screen for user input.
-tablet: Marker
-
-// Tank used to store a substance for temporary holding
-tank: Marker
-
-// Temperature - measure of hot and cold
-temp: Marker
-
-// Pipework which circulates within the building.
-tertiaryLoop: Marker
-
-// Total harmonic distortion
-thd: Marker
-
-// Related to energy of heat
-thermal: Marker
-
-// Senses and controls temperature of space in HVAC system.  Thermostats
-// may provide an interface for setpoint control.
-thermostat: Marker
-
-// Three-phase AC electricity. Power is provided by three AC voltage
-// sources, each separated from the others by a 120-degree phase angle.
-// May have a 4-wire connection with a neutral (Wye) or a 3-wire connection
-// without a neutral (Delta).
-threePhase: Marker
-
-// Complete or absolute
-total: Marker
-
-// This marker is applied to a `relationship` to indicate it is transitive.
-// Transitivity requires that if the relationship applies to A,B and B,C
-// then it also applies to A,C.
-transitive: Marker
-
-// Three ducts: hotDeck, coldDeck, or neutralDeck
-tripleDuct: Marker
-
-// Total volatile organic compound (TVOC).
-tvoc: Marker
-
-// Two-phase AC electricity. Power is provided by two AC voltage sources,
-// separated from each other by a 90-degree phase angle. Two-phase systems
-// are extremely rare in modern buildings; they have been replaced by
-// modern `threePhase` systems.
-twoPhase: Marker
-
-// Timezone identifier from standard [timezone database]`docHaystack::TimeZones`
-tz: TimeZone
-
-// Unit identifier from standard unit database
-unit: Unit
-
-// Unit Ventilator: An FCU that has direct access to outside air to provide
-// the space with ventilation.  See `docHaystack::AHUs` chapter.
-unitVent: Marker
-
-// Unoccupied mode of a space.
-// See `docHaystack::Zones#occupancy` chapter.
-unocc: Marker
-
-// Uninterruptible power supply
-ups: Marker
-
-// Data value type
-val: Obj
-
-// Valve equipment or control point
-valve: Marker
-
-// Delivers a variable volume of air flow.   Most variable volume systems
-// are powered by a VFD fan. However other techniques such as inlet vanes
-// may be used in older systems.
-variableAirVolume: Marker
-
-// Variable air volume terminal unit.  VAV systems use a constant air
-// temperature with a variable air flow rate.  See `docHaystack::VAVs` chapter.
-vav: Marker
-
-// AHU supplies air to VAV terminal units
-vavZone: Marker
-
-// Speed in a given direction
-velocity: Marker
-
-// Duct to access fresh outside air only for ventilation, not economizing
-ventilation: Marker
-
-// Version string formatted as decimal integers separated by a dot
-version: Version
-
-// Variable-frequency drive.
-// See `docHaystack::Motors` chapter.
-vfd: Marker
-
-// Distance at which light can be clearly discerned
-visibility: Marker
-
-// Electrical potential difference or electromotive force.
-volt: Marker
-
-// Three dimensional space occupied by a substance
-volume: Marker
-
-// Variable refigerant flow.  See `docHaystack::VRF` chapter.
-vrf: Marker
-
-// Relatively warm in comparison to another substance, without being
-// actively heated. The substance can be used as a source of energy for
-// a heating process, for example a warm water well in an `ates` system.
-warm: Marker
-
-// Water in its liquid form
-water: Marker
-
-// Cooling using transfer of heat to water which is not explicitly chilled
-waterCooling: Marker
-
-// Associated with atmospheric air or phenomenon.
-// See `docHaystack::Weather` chapter.
-weather: Marker
-
-// Enumeration of weather conditions
-weatherCond: Marker
-
-// Logical weather station and its measurement points.
-// See `docHaystack::Weather#stations` chapter.
-weatherStation: Marker
-
-// Reference to weather station for to use this entity
-weatherStationRef: Ref <of:WeatherStation>
-
-// A well is a source of groundwater and potentially thermal energy.  When
-// used within an [ATES]`docHaystack::ATES` system, the well facilitates thermal
-// energy exchange with the ground warm and cool water sources. In this case, a
-// well can be either a closed system that transports water through pipes in the
-// ground, or an open system that pumps up and returns ground water.
-well: Marker
-
-// Wet bulb air temperature.  Temperature which the air would have if cooled to saturation by the evaporation of water into it.
-wetBulb: Marker
-
-// Hyperlink to the subject's page on Wikipedia
-wikipedia: Uri
-
-// Flow of air on surface of the Earth
-wind: Marker
-
-// Cabling used to convey electricity or data
-wire: Marker
-
-// Supports writing data
-writable: Marker
-
-// Error description when `writeStatus` indicates error condition
-writeErr: Str <transient>
-
-// Current priority level for `writeVal` as number between 1 and 17.
-// The value 17 indicates the relinquish default value.
-writeLevel: Number <transient>
-
-// Current status of a writable point output
-writeStatus: WriteStatus <transient>
-
-// Current desired value to write to output.  This is the current "winning"
-// value of the priority array indicated by `writeLevel`.  If this tag
-// is missing then the winning value is null/auto.
-writeVal: Obj <transient>
-
-// Extended string - type name and string value encoding.
-// See [Kinds chapter]`docHaystack::Kinds#xstr`.
-xstr: Obj
-
-// Original year of construction as four digit year such as 1980
-yearBuilt: Int
-
-// Low power wireless communication protocol for home automation
-zigbee: Marker
-
-// Related to spaces from a system perspective
-zone: Marker
-
-// Low power wireless communication protocol for home automation
-zwave: Marker
 
