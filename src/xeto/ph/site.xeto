@@ -19,3 +19,16 @@ Site: GeoPlace {
   yearBuilt:         Int?
 }
 
+// Geographic place
+GeoPlace: Entity <abstract> {
+  geoAddr:       Str?
+  geoCity:       Str?
+  geoCoord:      Coord?
+  geoCountry:    GeoCountry?
+  geoCounty:     Str?
+  geoElevation:  Number?
+  geoPostalCode: Str?
+  geoState:      GeoState?
+  geoStreet:     Str?
+}
+

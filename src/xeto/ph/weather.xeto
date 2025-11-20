@@ -1,0 +1,23 @@
+//
+// Copyright (c) 2011-2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   15 Mar 2025  Auto-generate
+//   20 Nov 2025  Brian Frank    Re-orangize using PhEntity
+//
+
+// Logical weather station and its measurement points.
+// See `docHaystack::Weather#stations` chapter.
+WeatherStation: GeoPlace {
+  weatherStation
+  tz: TimeZone?
+}
+
+// Weather station observation point.
+// See `docHaystack::Weather#points` chapter.
+WeatherPoint: Point <abstract> {
+  weather
+  weatherStationRef: Ref?
+}
+
