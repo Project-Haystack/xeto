@@ -241,12 +241,6 @@ DamperActuator: Actuator {
   ductSection: DuctSection?
 }
 
-// Space used to house computer and networking gear.
-// See `docHaystack::DataCenters` chapter.
-DataCenter: Space {
-  dataCenter
-}
-
 // DC Electricity meter.
 // See `docHaystack::Meters` chapter.
 DcElecMeter: ElecMeter {
@@ -435,12 +429,6 @@ Fcu: AirHandlingEquip {
   fcu
 }
 
-// Storey of a building.  See `docHaystack::Spaces#floors` chapter.
-Floor: Space {
-  floor
-  floorNum: Number?
-}
-
 // Meter to measure flow rate and total volume of fluid.
 // See `docHaystack::Meters` chapter.
 FlowMeter: Meter {
@@ -532,12 +520,6 @@ HumidifierEquip: Equip {
   humidifier
 }
 
-// Zone related to conditioning of a space's air temperature and quality.
-// See `docHaystack::Spaces#zones` and `docHaystack::Zones#hvac` chapters.
-HvacZoneSpace: ZoneSpace {
-  hvac
-}
-
 // Portable laptop computer.
 Laptop: Computer {
   laptop
@@ -545,12 +527,6 @@ Laptop: Computer {
 
 // System designed to provide lighting.
 LightingSystem: ElecSystem {
-  lighting
-}
-
-// Zone related to lighting system.
-// See `docHaystack::Spaces#zones` and `docHaystack::Zones#lighting` chapters.
-LightingZoneSpace: ZoneSpace {
   lighting
 }
 
@@ -731,11 +707,6 @@ RoofFloor: Floor {
   roof
 }
 
-// Enclosed room of a building
-Room: Space {
-  room
-}
-
 // Roof Top Unit: A unitary AHU that is weatherized for outdoor use.
 // See `docHaystack::AHUs` chapter.
 Rtu: Ahu {
@@ -757,15 +728,6 @@ SimPoint: SyntheticPoint <abstract> {
 // See `docHaystack::Synthetics` chapter.
 SimModel: SyntheticModel {
   simModel
-}
-
-// Space is a three-dimensional volume in the built environment.
-// See `docHaystack::Spaces` chapter.
-Space: Entity <abstract> {
-  space
-  area:     Number?
-  siteRef:  Ref
-  spaceRef: Ref?
 }
 
 // Boiler which outputs steam
@@ -982,11 +944,5 @@ WritablePoint: Point <abstract> {
   writeLevel:  Number?
   writeStatus: WriteStatus?
   writeVal:    Obj?
-}
-
-// Space associated with a specific system.
-// See `docHaystack::Spaces#zones` and `docHaystack::Zones` chapters.
-ZoneSpace: Space {
-  zone
 }
 

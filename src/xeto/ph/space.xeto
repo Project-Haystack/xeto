@@ -1,0 +1,53 @@
+//
+// Copyright (c) 2011-2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   15 Mar 2025  Auto-generate
+//   20 Nov 2025  Brian Frank    Re-orangize using PhEntity
+//
+
+// Space is a three-dimensional volume in the built environment.
+// See `docHaystack::Spaces` chapter.
+Space: Entity <abstract> {
+  space
+  area:     Number?
+  siteRef:  Ref
+  spaceRef: Ref?
+}
+
+// Space used to house computer and networking gear.
+// See `docHaystack::DataCenters` chapter.
+DataCenter: Space {
+  dataCenter
+}
+
+// Storey of a building.  See `docHaystack::Spaces#floors` chapter.
+Floor: Space {
+  floor
+  floorNum: Number?
+}
+
+// Zone related to conditioning of a space's air temperature and quality.
+// See `docHaystack::Spaces#zones` and `docHaystack::Zones#hvac` chapters.
+HvacZoneSpace: ZoneSpace {
+  hvac
+}
+
+// Zone related to lighting system.
+// See `docHaystack::Spaces#zones` and `docHaystack::Zones#lighting` chapters.
+LightingZoneSpace: ZoneSpace {
+  lighting
+}
+
+// Enclosed room of a building
+Room: Space {
+  room
+}
+
+// Space associated with a specific system.
+// See `docHaystack::Spaces#zones` and `docHaystack::Zones` chapters.
+ZoneSpace: Space {
+  zone
+}
+
