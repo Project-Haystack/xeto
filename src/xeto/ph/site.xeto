@@ -1,0 +1,21 @@
+//
+// Copyright (c) 2011-2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   15 Mar 2025  Auto-generate
+//   20 Nov 2025  Brian Frank    Re-orangize using PhEntity
+//
+
+// Site is a geographic location of the built environment.
+// Typically site maps to one building with its own unique
+// street address.  See `docHaystack::Sites` chapter.
+Site: GeoPlace {
+  site
+  area:              Number?
+  primaryFunction:   PrimaryFunction?
+  tz:                TimeZone?
+  weatherStationRef: Ref?
+  yearBuilt:         Int?
+}
+
