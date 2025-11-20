@@ -21,7 +21,7 @@
 //
 // In the future additional data might be included, such as the means of
 // EV charging session authorization.
-EvseSession: Entity {
+EvseSession: PhEntity {
   evseSession
 }
 

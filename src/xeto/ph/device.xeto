@@ -10,13 +10,13 @@
 // Microprocessor based hardware device.  This is the general term for
 // all computers, mobile phones, controllers, and I/O modules.
 // See `docHaystack::Devices#networks` chapter.
-Device: Entity {
+Device: PhEntity {
   device
 }
 
 // Logical communications network between two or more devices.
 // See `docHaystack::Devices#networks` chapter.
-Network: Entity {
+Network: PhEntity {
   network
 }
 

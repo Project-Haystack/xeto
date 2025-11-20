@@ -7,6 +7,12 @@
 //   20 Nov 2025  Brian Frank    Rework using new globals design
 //
 
+// Project Haystack entity.  This is base class for all entities
+// in the Haystack ontology.  It defines every tag as a global slot
+// to ensure consistent usage of terminology.
+PhEntity: Entity <abstract> {
+}
+
 // Cooling process using energy from heat source such as hot water
 absorption: Marker
 

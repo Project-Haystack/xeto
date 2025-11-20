@@ -9,7 +9,7 @@
 
 // Space is a three-dimensional volume in the built environment.
 // See `docHaystack::Spaces` chapter.
-Space: Entity <abstract> {
+Space: PhEntity <abstract> {
   space
   area:     Number?
   siteRef:  Ref

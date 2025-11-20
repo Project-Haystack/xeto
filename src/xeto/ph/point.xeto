@@ -9,7 +9,7 @@
 
 // Data point such as a sensor or actuator.
 // See `docHaystack::Points` chapter.
-Point: Entity <abstract> {
+Point: PhEntity <abstract> {
   point
   cur:           Marker?
   enum:          Obj?
@@ -112,7 +112,7 @@ SyntheticPoint: Point <abstract> {
 }
 
 // See `docHaystack::Synthetics` chapter.
-SyntheticModel: Entity {
+SyntheticModel: PhEntity {
   syntheticModel
 }
 
@@ -142,7 +142,7 @@ MlModel: SyntheticModel {
 }
 
 // Machine learning variable representing both model inputs and outputs.
-MlVar: Entity {
+MlVar: PhEntity {
   mlVar
   mlVarFilter: Str?
   mlVarPoint:  Ref?

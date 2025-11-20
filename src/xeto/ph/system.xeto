@@ -9,7 +9,7 @@
 
 // Grouping of related equipment dedicated to a single application.
 // See `docHaystack::Systems` chapter.
-System: Entity {
+System: PhEntity {
   system
   siteRef:   Ref
   systemRef: MultiRef?

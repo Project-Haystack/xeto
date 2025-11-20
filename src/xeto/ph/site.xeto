@@ -20,7 +20,7 @@ Site: GeoPlace {
 }
 
 // Geographic place
-GeoPlace: Entity <abstract> {
+GeoPlace: PhEntity <abstract> {
   geoAddr:       Str?
   geoCity:       Str?
   geoCoord:      Coord?

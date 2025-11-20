@@ -9,7 +9,7 @@
 
 // Equipment asset.
 // See `docHaystack::Equips` chapter.
-Equip: Entity <abstract> {
+Equip: PhEntity <abstract> {
   equip
   equipRef:     Ref?
   siteRef:      Ref
