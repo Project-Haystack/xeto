@@ -1,7 +1,10 @@
 //
 // Copyright (c) 2011-2025, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 15-Mar-2025
+//
+// History:
+//   15 Mar 2025  Auto-generate
+//   20 Nov 2025  Brian Frank    Rework using new globals design
 //
 
 // Cooling process using energy from heat source such as hot water
