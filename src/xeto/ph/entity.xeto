@@ -729,11 +729,20 @@ hfc: Marker
 // Supports historization of data
 his: Marker
 
+// Last historized timestamped sample
+hisEnd: DateTime <transient>
+
 // Error description when `hisStatus` indicates error condition
 hisErr: Str <transient>
 
 // Indicates the way that history data is collected for a point.
 hisMode: HisMode
+
+// Number of historical timestamped samples historized by point
+hisSize: Number <transient>
+
+// First historized timestamped sample
+hisStart: DateTime <transient>
 
 // Status of point's history collection or synchronization
 hisStatus: HisStatus <transient>
