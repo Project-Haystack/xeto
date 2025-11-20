@@ -28,6 +28,13 @@ Floor: Space {
   floorNum: Number?
 }
 
+// Floor at ground level.  In North America this is typically called
+// the first floor, but in Europe its often labeled as floor zero.
+// If `floorNum` is defined, then it must be set to zero.
+GroundFloor: Floor {
+  ground
+}
+
 // Zone related to conditioning of a space's air temperature and quality.
 // See `docHaystack::Spaces#zones` and `docHaystack::Zones#hvac` chapters.
 HvacZoneSpace: ZoneSpace {
@@ -40,9 +47,21 @@ LightingZoneSpace: ZoneSpace {
   lighting
 }
 
+// The roof floor is the topmost level of a building.  It is often
+// where HVAC equipment is located such as rooftop AHUs.
+RoofFloor: Floor {
+  roof
+}
+
 // Enclosed room of a building
 Room: Space {
   room
+}
+
+// Floor below ground level.  Subterranean floors are also known as
+// basements, lower levels, or cellars.
+SubterraneanFloor: Floor {
+  subterranean
 }
 
 // Space associated with a specific system.

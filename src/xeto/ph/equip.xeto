@@ -148,26 +148,8 @@ Circuit: Equip {
 Coil: HeatExchanger <abstract> {
 }
 
-// See `docHaystack::Synthetics` chapter.
-ComputedModel: SyntheticModel {
-  computedModel
-}
-
-// General purpose computer.
-Computer: Device {
-  computer
-}
-
 // Duct, pipe, or cable to convey a substance or phenomenon
 Conduit: Equip <abstract> {
-}
-
-// Microprocessor based device used in a control system.  Controllers
-// interact with the physical world through direct I/O to sensors and
-// actuators or via network [protocols]`protocol`.
-Controller: Device {
-  controller
-  equipRef: Ref?
 }
 
 // Panel housing controllers and networking gear
@@ -212,13 +194,6 @@ DcElecMeter: ElecMeter {
 // port using a max power setpoint.
 DcEvsePort: EvsePort {
   dc
-}
-
-// Microprocessor based hardware device.  This is the general term for
-// all computers, mobile phones, controllers, and I/O modules.
-// See `docHaystack::Devices#networks` chapter.
-Device: Entity {
-  device
 }
 
 // Dedicated Outside Air System: An AHU that brings in 100% outside air and
@@ -341,13 +316,6 @@ FumeHood: Equip {
   fumeHood
 }
 
-// Floor at ground level.  In North America this is typically called
-// the first floor, but in Europe its often labeled as floor zero.
-// If `floorNum` is defined, then it must be set to zero.
-GroundFloor: Floor {
-  ground
-}
-
 // Equipment to transfer heat between two working fluids.
 HeatExchanger: Equip {
   heatExchanger
@@ -377,11 +345,6 @@ HumidifierEquip: Equip {
   humidifier
 }
 
-// Portable laptop computer.
-Laptop: Computer {
-  laptop
-}
-
 // Light fixture using electricity to provide illumination
 Luminaire: Equip {
   luminaire
@@ -402,11 +365,6 @@ Meter: Equip {
   submeterOf: Ref?
 }
 
-// Cellular phone providing telecommunication over radio links.
-MobilePhone: Phone {
-  mobile
-}
-
 // Equipment that converts electrical energy into mechanical energy.
 // See `docHaystack::Motors` chapter.
 Motor: Equip {
@@ -420,37 +378,11 @@ MovingWalkway: VerticalTransport {
   movingWalkway
 }
 
-// Logical communications network between two or more devices.
-// See `docHaystack::Devices#networks` chapter.
-Network: Entity {
-  network
-}
-
-// Microprocessor device used to establish networks.
-NetworkingDevice: Device {
-  networking
-}
-
-// Networking device used to route data between different networks.
-NetworkingRouter: NetworkingDevice {
-  router
-}
-
-// Networking device used to connect devices on the same network.
-NetworkingSwitch: NetworkingDevice {
-  switch
-}
-
 // Enclosure for electrical and control equipment.  Panels may be
 // used to isolate electrical connections and provide environmental
 // protection.
 Panel: Equip {
   panel
-}
-
-// Telephone used for voice telecommunication.
-Phone: Device {
-  phone
 }
 
 // Conduit used to convey a fluid
@@ -503,21 +435,10 @@ Radiator: RadiantEquip {
   heatingProcess: HeatingProcess?
 }
 
-// The roof floor is the topmost level of a building.  It is often
-// where HVAC equipment is located such as rooftop AHUs.
-RoofFloor: Floor {
-  roof
-}
-
 // Roof Top Unit: A unitary AHU that is weatherized for outdoor use.
 // See `docHaystack::AHUs` chapter.
 Rtu: Ahu {
   rtu
-}
-
-// General purpose computer used as a server.  Typically servers are rack mounted.
-ServerComputer: Computer {
-  server
 }
 
 // Boiler which outputs steam
@@ -529,17 +450,6 @@ SteamBoiler: Boiler {
 // See `docHaystack::Plants`.
 SteamPlant: Plant {
   steam
-}
-
-// Floor below ground level.  Subterranean floors are also known as
-// basements, lower levels, or cellars.
-SubterraneanFloor: Floor {
-  subterranean
-}
-
-// Mobile device with touch screen for user input.
-Tablet: Device {
-  tablet
 }
 
 // Tank used to store a substance for temporary holding

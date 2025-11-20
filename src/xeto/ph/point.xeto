@@ -122,6 +122,11 @@ ComputedPoint: SyntheticPoint <abstract> {
 }
 
 // See `docHaystack::Synthetics` chapter.
+ComputedModel: SyntheticModel {
+  computedModel
+}
+
+// See `docHaystack::Synthetics` chapter.
 MlPoint: SyntheticPoint <abstract> {
   ml
 }

@@ -1,0 +1,75 @@
+//
+// Copyright (c) 2011-2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   15 Mar 2025  Auto-generate
+//   20 Nov 2025  Brian Frank    Re-orangize using PhEntity
+//
+
+// Microprocessor based hardware device.  This is the general term for
+// all computers, mobile phones, controllers, and I/O modules.
+// See `docHaystack::Devices#networks` chapter.
+Device: Entity {
+  device
+}
+
+// Logical communications network between two or more devices.
+// See `docHaystack::Devices#networks` chapter.
+Network: Entity {
+  network
+}
+
+// General purpose computer.
+Computer: Device {
+  computer
+}
+
+// Microprocessor based device used in a control system.  Controllers
+// interact with the physical world through direct I/O to sensors and
+// actuators or via network [protocols]`protocol`.
+Controller: Device {
+  controller
+  equipRef: Ref?
+}
+
+// Cellular phone providing telecommunication over radio links.
+MobilePhone: Phone {
+  mobile
+}
+
+// Microprocessor device used to establish networks.
+NetworkingDevice: Device {
+  networking
+}
+
+// Networking device used to route data between different networks.
+NetworkingRouter: NetworkingDevice {
+  router
+}
+
+// Networking device used to connect devices on the same network.
+NetworkingSwitch: NetworkingDevice {
+  switch
+}
+
+// Portable laptop computer.
+Laptop: Computer {
+  laptop
+}
+
+// Telephone used for voice telecommunication.
+Phone: Device {
+  phone
+}
+
+// General purpose computer used as a server.  Typically servers are rack mounted.
+ServerComputer: Computer {
+  server
+}
+
+// Mobile device with touch screen for user input.
+Tablet: Device {
+  tablet
+}
+
