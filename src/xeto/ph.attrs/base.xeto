@@ -6,13 +6,6 @@
 //   27 Mar 2024 Brian Frank  Creation
 //
 
-// Attribute is a single datum of static information on an entity.
-// Attributes often represent nameplate data or design/rated data.
-Attr: Entity <abstract> {
-  attr           // Required marker tag for all attributes
-  val: Obj       // Value of the attribute
-}
-
 // Attribute with a string value type
 StrAttr: Attr <abstract> {
   val: Str       // String value of the attribute
@@ -43,3 +36,4 @@ TempAttr : NumberAttr <abstract> {
   temp
   val: Number <quantity:"temperature">
 }
+

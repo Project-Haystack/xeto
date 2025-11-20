@@ -1,0 +1,16 @@
+//
+// Copyright (c) 2024-2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   27 Mar 2024  Brian Frank  Creation
+//   20 Nov 2025  Brian Frank  Re-orangize using PhEntity
+//
+
+// Attribute is a single datum of static information on an entity.
+// Attributes often represent nameplate data or design/rated data.
+Attr: PhEntity <abstract> {
+  attr           // Required marker tag for all attributes
+  val: Obj       // Value of the attribute
+}
+
