@@ -1,0 +1,153 @@
+//
+// Copyright (c) 2011-2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   15 Mar 2025  Auto-generate
+//   20 Nov 2025  Brian Frank    Re-orangize using PhEntity
+//
+
+// Grouping of related equipment dedicated to a single application.
+// See `docHaystack::Systems` chapter.
+System: Entity {
+  system
+  siteRef:   Ref
+  systemRef: MultiRef?
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Air Systems
+//////////////////////////////////////////////////////////////////////////
+
+// System for moving air to maintain indoor thermal comfort and/or air quality.
+AirSystem: System {
+  air
+}
+
+// System for air treatment to control its temperature, humidity, cleanliness,
+// and distribution to meet the requirements of a conditioned space.
+AirConditioningSystem: AirSystem {
+  conditioning
+}
+
+// System consisting of one or more fans that remove air from the building.
+// Exhaust systems allow outdoor air to enter by ventilation inlets or normal
+// leakage paths sthrough the building envelope.
+AirExhaustSystem: AirSystem {
+  exhaust
+}
+
+// System that supplies or removes air by natural or mechanical means to or
+// from any space in order to provide outdoor air to the space. Such air may or
+// may not have been conditioned.
+AirVentilationSystem: AirSystem {
+  ventilation
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Water Systems
+//////////////////////////////////////////////////////////////////////////
+
+// System that supplies or collects potable or non-potable water in any state.
+WaterSystem: System {
+  water
+}
+
+// System that circulates water in its liquid state below ambient temperature
+// for cooling a space or process.
+ChilledWaterSystem: WaterSystem {
+  chilled
+}
+
+// System that circulates water in its liquid state for rejecting heat
+// from a space or process.
+CondenserWaterSystem: WaterSystem {
+  condenser
+}
+
+// System that circulates potable cold water in its liquid state for purposes
+// other than space cooling and process requirements.
+DomesticColdWaterSystem: DomesticWaterSystem {
+  cold
+}
+
+// System that circulates potable hot water in its liquid state for purposes
+// other than space heating and process requirements.
+DomesticHotWaterSystem: DomesticWaterSystem {
+  hot
+}
+
+// System that circulates potable water in its liquid state for purposes
+// other than space conditioning and process requirements.
+DomesticWaterSystem: WaterSystem {
+  domestic
+}
+
+// System that circulates water in its liquid state for heating
+// a space or process.
+HotWaterSystem: WaterSystem {
+  hot
+}
+
+// System that circulates water in its vapor state for heating
+// a space or process.
+SteamSystem: WaterSystem {
+  steam
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Elec Systems
+//////////////////////////////////////////////////////////////////////////
+
+// System that generates, converts, distributes, and/or stores electricity.
+ElecSystem: System {
+  elec
+}
+
+// A system that supplies electricity to EVSE assembly equipment and its
+// auxiliary loads.
+EvseSystem: ElecSystem {
+  evse
+}
+
+// System designed to provide lighting.
+LightingSystem: ElecSystem {
+  lighting
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Refrig Systems
+//////////////////////////////////////////////////////////////////////////
+
+// Refrigerant distribution to fulfill all or parts of a refrigeration cycle.
+RefrigSystem: System {
+  refrig
+}
+
+// Variable refigerant flow system.  The system contains the indoor
+// units, outdoor units, and branch selectors.  See `docHaystack::VRF#types`
+// chapter.
+VrfSystem: RefrigSystem {
+  vrf
+}
+
+// Cooling only VRF system can only cool; heating is not available.
+// See `docHaystack::VRF#types` chapter.
+VrfCoolingOnlySystem: VrfSystem {
+  coolingOnly
+}
+
+// Heat pump VRF system can either heat, or cool, but not at the same time.
+// See `docHaystack::VRF#types` chapter.
+VrfHeatPumpSystem: VrfSystem {
+  heatPump
+}
+
+// Heat recovery VRF system can operate cooling and heating by each indoor unit
+// independently, at the same time. Heat recovery VRF systems have branch selectors
+// to control how much, and which (hot gas or subcooled liquid) refrigerant
+// goes to each indoor unit.  See `docHaystack::VRF#types` chapter.
+VrfHeatRecoverySystem: VrfSystem {
+  heatRecovery
+}
+
