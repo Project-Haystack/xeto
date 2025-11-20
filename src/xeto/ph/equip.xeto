@@ -1,11 +1,24 @@
 //
 // Copyright (c) 2011-2025, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 15-Mar-2025
 //
-//  History:
-//    2025-06-14 Adam Garnhart - Bug Fixes for Equip queries
+// History:
+//   15 Mar 2025  Auto-generate
+//   20 Nov 2025  Brian Frank    Re-orangize using PhEntity
 //
+
+// Equipment asset.
+// See `docHaystack::Equips` chapter.
+Equip: Entity <abstract> {
+  equip
+  equipRef:     Ref?
+  siteRef:      Ref
+  spaceRef:     Ref?
+  systemRef:    MultiRef?
+  parentEquips: Query<of:Equip, via:"equipRef+">                  // Parent Equips that contain this Equip
+  childEquips:  Query<of:Equip, inverse:"ph::Equip.parentEquips"> // Child Equips contained by this Equip
+  points:       Query<of:Point, inverse:"ph::Point.equips">       // Child Points contained by this Equip
+}
 
 // AC Electricity meter.
 // See `docHaystack::Meters` chapter.
@@ -236,19 +249,6 @@ ElecPanel: Panel {
 // Enclosure used to move people between floors.
 Elevator: VerticalTransport {
   elevator
-}
-
-// Equipment asset.
-// See `docHaystack::Equips` chapter.
-Equip: Entity <abstract> {
-  equip
-  equipRef:     Ref?
-  siteRef:      Ref
-  spaceRef:     Ref?
-  systemRef:    MultiRef?
-  parentEquips: Query<of:Equip, via:"equipRef+">                  // Parent Equips that contain this Equip
-  childEquips:  Query<of:Equip, inverse:"ph::Equip.parentEquips"> // Child Equips contained by this Equip
-  points:       Query<of:Point, inverse:"ph::Point.equips">       // Child Points contained by this Equip
 }
 
 // Moving staircase used to move people between floors.
