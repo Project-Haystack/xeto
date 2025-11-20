@@ -22,6 +22,14 @@ CurStatus: Enum {
   remoteUnknown   // point in remote system is unknown
 }
 
+// Quadrant used to describe the flow of AC electric power
+ElecAcQuadrant: Enum {
+  q1 <key:"1">
+  q2 <key:"2">
+  q3 <key:"3">
+  q4 <key:"4">
+}
+
 // Physical type of `evse-cable`.
 EvseCableType: Enum {
   ccs1      // CCS1 charging cable

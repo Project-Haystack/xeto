@@ -6,17 +6,6 @@
 //   3 Sep 2024  Rick Jennings  Creation
 //
 
-// Quadrant used to describe the flow of AC electric power
-ElecAcQuadrant: Enum {
-  q1 <key:"1">
-  q2 <key:"2">
-  q3 <key:"3">
-  q4 <key:"4">
-}
-
-// Quadrant used to describe the flow of AC electric power
-elecQuadrant: ElecAcQuadrant
-
 // Sensor for electric voltage
 ElecVoltSensor : ElecSensor <abstract> { volt }
 
@@ -299,3 +288,4 @@ ElecAcPhaseExportApparentEnergySensor : ElecAcExportApparentEnergySensor { phase
 
 // Sensor for phase net of AC electric apparent energy
 ElecAcPhaseNetApparentEnergySensor : ElecAcNetApparentEnergySensor { phase: Phase }
+

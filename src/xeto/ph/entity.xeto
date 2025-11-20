@@ -84,6 +84,10 @@ PhEntity: Entity <abstract> {
   // the extraction to the infiltration well.
   *atesUnidirectional: Marker
 
+  // Attribute is a single datum of static information on an entity.
+  // Attributes often represent nameplate data or design/rated data.
+  *attr: Marker
+
   // Related to the atmosphere of the earth
   *atmospheric: Marker
 
@@ -462,6 +466,9 @@ PhEntity: Entity <abstract> {
   // Average of L1-L2, L2-L3, L3-L1 measurements
   *elecLLAvg: Marker
 
+  // Quadrant used to describe the flow of AC electric power
+  *elecQuadrant: ElecAcQuadrant
+
   // Electricity flows from the referent to this entity
   *elecRef: MultiRef
 
@@ -728,6 +735,9 @@ PhEntity: Entity <abstract> {
   // Equipment without cooling
   *heatingOnly: Marker
 
+  // Dimensional height of the asset
+  *height: Marker
+
   // Hydrofluorocarbons
   *hfc: Marker
 
@@ -786,12 +796,6 @@ PhEntity: Entity <abstract> {
   // Water in its solid form
   *ice: Marker
 
-  // Defines the unique identifier of an entity in system using a `ref` value
-  // type. The scope of an entity is undefined, but must be unique with a
-  // given system or project. This identifier may be used by other entities
-  // for cross-referencing.  See `docHaystack::Ontology#entities` chapter.
-  *id: Ref
-
   // Luminous flux hitting the inside of the sphere at a specific point.
   //
   // Also see [ies.org]`https://www.ies.org/definitions/illuminance/`
@@ -842,6 +846,9 @@ PhEntity: Entity <abstract> {
   // Pipe conveys fluid out of an equipment
   *leaving: Marker
 
+  // Dimensional length of the asset
+  *length: Marker
+
   // Range from 0% to 100%.  When paired with a fluid this implies a fill
   // level where 0% is empty and 100% is full.
   *level: Marker
@@ -881,6 +888,12 @@ PhEntity: Entity <abstract> {
 
   // Makeup water flows from the referent to this entity
   *makeupWaterRef: MultiRef
+
+  // Company name that produced the asset.
+  *manufacturer: Marker
+
+  // Date the asset was produced by the manufacturer.
+  *manufactureDate: Marker
 
   // Makeup Air Unit: A DOAS that provides make-up air for a separate, dedicated
   // exhaust system. That is, this equip does not contain an exhaust air section.
@@ -964,6 +977,16 @@ PhEntity: Entity <abstract> {
 
   // Register based communication protocol used with industrial devices.
   *modbus: Marker
+
+  // Manufacturer assigned identifier for a general product line.
+  // For example, modelSeries is "iPhone 12", but modelNumber is "MGF43LL/A".
+  // The modelSeries tends to be a marketing name and not an exact identifier.
+  // Always use modelNumber for the actual model identifier.
+  *modelSeries: Marker
+
+  // Manufacturer assigned alphanumeric identifier for a specific product configuration.
+  // For example, modelSeries is "iPhone 12", but modelNumber is "MGF43LL/A".
+  *modelNumber: Marker
 
   // Equipment that converts electrical energy into mechanical energy.
   // See `docHaystack::Motors` chapter.
@@ -1319,6 +1342,9 @@ PhEntity: Entity <abstract> {
   // See `docHaystack::Points#function` chapter.
   *sensor: Marker
 
+  // Manufacturer assigned unique, alphanumeric identifier for a specific asset.
+  *serialNumber: Marker
+
   // Circuit with single path of flow
   *series: Marker
 
@@ -1590,6 +1616,9 @@ PhEntity: Entity <abstract> {
   // Reference to weather station for to use this entity
   *weatherStationRef: Ref <of:WeatherStation>
 
+  // Weight of the asset
+  *weight: Marker
+
   // A well is a source of groundwater and potentially thermal energy.  When
   // used within an [ATES]`docHaystack::ATES` system, the well facilitates thermal
   // energy exchange with the ground warm and cool water sources. In this case, a
@@ -1599,6 +1628,9 @@ PhEntity: Entity <abstract> {
 
   // Wet bulb air temperature.  Temperature which the air would have if cooled to saturation by the evaporation of water into it.
   *wetBulb: Marker
+
+  // Dimensional width of the asset
+  *width: Marker
 
   // Hyperlink to the subject's page on Wikipedia
   *wikipedia: Uri
