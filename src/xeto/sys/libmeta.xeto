@@ -8,6 +8,10 @@
 
 // Library module meta data
 Lib: Dict <sealed> {
+
+  // Free form category tags
+  categories: List? <of:Str>
+
   // Library dependencies
   depends: List <of:LibDepend>
 

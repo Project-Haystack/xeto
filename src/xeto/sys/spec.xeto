@@ -79,7 +79,7 @@ Spec: Dict <sealed> {
   of: Ref? <of:Spec>
 
   // Types used in compound types like And and Or
-  ofs: List <Ref<of:Spec>>
+  ofs: List? <Ref<of:Spec>>
 
   // Regex pattern for scalar string encoding
   pattern: Str?
@@ -99,9 +99,6 @@ Spec: Dict <sealed> {
 
   // Mark data as summary level for display in summarized tables and other views
   summary: Marker?
-
-  // Free form category tags
-  categories: List? <of:Str>
 
   // Indicates data which should not be persisted
   transient: Marker?
