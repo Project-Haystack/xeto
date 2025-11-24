@@ -7,7 +7,22 @@
 //
 
 // Library module meta data
-Lib: Dict
+Lib: Dict <sealed> {
+  // Library dependencies
+  depends: List <of:LibDepend>
+
+  // License [SPDX name](https://spdx.org/licenses/) or "commerical"
+  license: Str?
+
+  // Library organization information
+  org: LibOrg?
+
+  // Library version control system metadata
+  vcs: LibVcs?
+
+  // Version number
+  version: Version
+}
 
 // Library dependency
 LibDepend: Dict <sealed> {

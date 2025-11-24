@@ -6,9 +6,11 @@
 //   4 Apr 2025  Brian Frank  Creation
 //
 
-// MIME type for a file spec
-mimeType: Str <meta>
++Spec {
+  // MIME type for a file spec
+  mimeType: Str?
 
-// Default file name extension to use for a file spec
-fileExt: Str <meta>
+  // Default file name extension to use for a file spec
+  fileExt: Str?
+}
 

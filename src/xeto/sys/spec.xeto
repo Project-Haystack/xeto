@@ -8,134 +8,117 @@
 //
 
 // Spec models a type specification and the metadata slots.
-Spec: Dict
+Spec: Dict <sealed> {
 
-// Abstract types cannot be implemented directly by instance data
-abstract: Marker <meta, noInherit>
+  // Abstract types cannot be implemented directly by instance data
+  abstract: Marker? <noInherit>
 
-// Indicates an asynchronous operation or function call
-async: Marker <meta>
+  // Indicates an asynchronous operation or function call
+  async: Marker?
 
-// Indicates an immutable value
-const: Marker <meta>
+  // Indicates an immutable value
+  const: Marker?
 
-// Library dependencies
-depends: List<meta, of:LibDepend>
+  // Documentation description
+  doc: Str <meta>
 
-// Documentation description
-doc: Str <meta>
+  // Annotates a slot as a fixed value that must be equal to 'val'
+  fixed: Marker?
 
-// Annotates a slot as a fixed value that must be equal to 'val'
-fixed: Marker <meta>
+  // Indicates a global slot that defines a shape for all types that might override
+  global: Marker? <noInherit>
 
-// Indicates a global slot that defines a shape for all types that might override
-global: Marker <meta, noInherit>
+  // Inverse query to run against parent
+  inverse: Str?
 
-// Inverse query to run against parent
-inverse: Str <meta>
+  // String key; used in enums to define normalized string identifier
+  key: Str?
 
-// String key; used in enums to define normalized string identifier
-key: Str <meta>
+  // Applied to strings and lists to specify inclusive maximum length
+  maxSize: Int?
 
-// License [SPDX name](https://spdx.org/licenses/) or "commerical"
-license: Str <meta>
+  // Inclusive maximum value for numbers
+  maxVal: Self?
 
-// Applied to strings and lists to specify inclusive maximum length
-maxSize: Int <meta>
+  // Indicates an optional type
+  maybe: Marker?
 
-// Inclusive maximum value for numbers
-maxVal: Self <meta>
+  // Applied to strings and lists to specify inclusive minimum length
+  minSize: Int?
 
-// Indicates an optional type
-maybe: Marker <meta>
+  // Inclusive minimum value for numbers
+  minVal: Self?
 
-// Marks a global slot as a meta data tag
-meta: Marker <meta>
+  // Indicates a mixin that adds meta/slots to an existing type
+  mixin: Marker?
 
-// Applied to strings and lists to specify inclusive minimum length
-minSize: Int <meta>
+  // Applied to Choices to allow multiple selections
+  multiChoice: Marker?
 
-// Inclusive minimum value for numbers
-minVal: Self <meta>
+  // Indicates a constructor function
+  new: Marker?
 
-// Indicates a mixin that adds meta/slots to an existing type
-mixin: Marker <meta>
+  // Marks spec as undocumented and not officially supported
+  nodoc: Marker?
 
-// Applied to Choices to allow multiple selections
-multiChoice: Marker <meta>
+  // Do not include source code in documentation
+  nosrc: Marker?
 
-// Indicates a constructor function
-new: Marker <meta>
+  // Marks a function or operation as having no side effects. The function may
+  // or may not be pure in that calling it multiple times with the same arguments
+  // always evaluates to the same result.
+  noSideEffects: Marker?
 
-// Marks spec as undocumented and not officially supported
-nodoc: Marker <meta>
+  // Indicates a meta tag that is not inherited into subtypes
+  noInherit: Marker?
 
-// Do not include source code in documentation
-nosrc: Marker <meta>
+  // Applied to strings to require value is non-empty when trimmed of whitespace
+  nonEmpty: Marker?
 
-// Marks a function or operation as having no side effects. The function may
-// or may not be pure in that calling it multiple times with the same arguments
-// always evaluates to the same result.
-noSideEffects: Marker <meta>
+  // Item type for parameterized Seq/Query; target type for Ref/MultiRef
+  of: Ref? <of:Spec>
 
-// Indicates a meta tag that is not inherited into subtypes
-noInherit: Marker <meta>
+  // Types used in compound types like And and Or
+  ofs: List <Ref<of:Spec>>
 
-// Applied to strings to require value is non-empty when trimmed of whitespace
-nonEmpty: Marker <meta>
+  // Regex pattern for scalar string encoding
+  pattern: Str?
 
-// Item type for parameterized Seq/Query; target type for Ref/MultiRef
-of: Ref <meta, of:Spec>
+  // Restrict number or unit enum to specific quantity
+  quantity: UnitQuantity?
 
-// Types used in compound types like And and Or
-ofs: List <meta, of:Ref<of:Spec>>
+  // Indicates a readonly value that may not be written (but may mutate)
+  readonly: Marker?
 
-// Library organization information
-org: LibOrg <meta>
+  // Sealed types cannot be extended outside of their own lib. If used
+  // on a interface slot, the slot cannot be overridden in a subtype.
+  sealed: Marker? <noInherit>
 
-// Regex pattern for scalar string encoding
-pattern: Str <meta>
+  // Indicates a spec level slot versus an instance level slot
+  static: Marker?
 
-// Restrict number or unit enum to specific quantity
-quantity: UnitQuantity <meta>
+  // Mark data as summary level for display in summarized tables and other views
+  summary: Marker?
 
-// Indicates a readonly value that may not be written (but may mutate)
-readonly: Marker <meta>
+  // Free form category tags
+  categories: List? <of:Str>
 
-// Sealed types cannot be extended outside of their own lib. If used
-// on a interface slot, the slot cannot be overridden in a subtype.
-sealed: Marker <meta, noInherit>
+  // Indicates data which should not be persisted
+  transient: Marker?
 
-// Indicates a spec level slot versus an instance level slot
-static: Marker <meta>
+  // Restrict number or unit enum to specific unit
+  unit: Unit?
 
-// Mark data as summary level for display in summarized tables and other views
-summary: Marker <meta>
+  // Restrict a number to have no unit
+  unitless: Marker?
 
-// Free form category tags
-categories: List <meta, of:Str>
+  // Default value for this slot
+  val: Obj?
 
-// Indicates data which should be persisted
-transient: Unit <meta>
+  // Named path to traverse to execute query
+  via: Str?
 
-// Restrict number or unit enum to specific unit
-unit: Unit <meta>
-
-// Restrict a number to have no unit
-unitless: Marker <meta>
-
-// Default value for this slot
-val: Obj <meta>
-
-// Library version control system metadata
-vcs: LibVcs <meta>
-
-// Version number
-version: Version <meta>
-
-// Named path to traverse to execute query
-via: Str <meta>
-
-// Used on a interface non-static slot to indicate it can be overridden subtypes
-virtual: Marker <meta>
+  // Used on a interface non-static slot to indicate it can be overridden subtypes
+  virtual: Marker?
+}
 

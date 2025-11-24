@@ -6,11 +6,13 @@
 //   28 Sep 2025  Brian Frank  Creation
 //
 
-// Used to bind to a parameter variable path
-var: BindPath <meta>
++Spec {
+  // Used to bind to a parameter variable path
+  var: BindPath?
 
-// Used to specify a value literal for matching case labels
-match: Obj <meta>
+  // Used to specify a value literal for matching case labels
+  match: Obj?
+}
 
 // Bind path is used to access an input varaible via a dotted path format
 BindPath: Scalar <sealed>

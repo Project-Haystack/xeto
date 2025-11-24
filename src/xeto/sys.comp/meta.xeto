@@ -6,9 +6,11 @@
 //   30 Aug 2025  Brian Frank  Creation
 //
 
-// Component tree as Xeto source string
-compTree: Str <meta>
++Spec {
+  // Component tree as Xeto source string
+  compTree: Str?
 
-// Binds a slot to a component id within the compTree
-compId: Ref <meta>
+  // Binds a slot to a component id within the compTree
+  compId: Ref?
+}
 
