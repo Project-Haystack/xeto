@@ -147,9 +147,6 @@ Entity: Dict <abstract> {
 // Common MIME types are mapped to specs by the 'lib.files' library.
 File: Entity
 
-// Spec models a value specification
-Spec: Dict
-
 // Inferface is an object oriented API defined as set of named
 // field and method slots.
 Interface: Dict
