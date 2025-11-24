@@ -79,7 +79,7 @@ Spec: Dict <sealed> {
   of: Ref? <of:Spec>
 
   // Types used in compound types like And and Or
-  ofs: List? <Ref<of:Spec>>
+  ofs: List? <of:Ref<of:Spec>>
 
   // Regex pattern for scalar string encoding
   pattern: Str?
