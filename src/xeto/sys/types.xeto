@@ -137,6 +137,9 @@ Func: Dict {
   returns: Obj?  // Return type of the function
 }
 
+// Collection of all functions in the namespace
+Funcs: Interface
+
 // Top-level dicts with a unique identifier.
 Entity: Dict <abstract> {
   id: Ref              // Unique identifier for entity in its project

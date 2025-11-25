@@ -11,6 +11,7 @@
 //////////////////////////////////////////////////////////////////////////
 
 // Health check for a server
+/*
 ping: Api {
   returns: PingRes  // Ping response
 }
@@ -19,6 +20,7 @@ ping: Api {
 PingRes: Dict {
   time: DateTime    // Current timestamp of the server's clock
 }
+*/
 
 //////////////////////////////////////////////////////////////////////////
 // About
