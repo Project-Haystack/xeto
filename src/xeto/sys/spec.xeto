@@ -20,7 +20,7 @@ Spec: Dict <sealed> {
   const: Marker?
 
   // Documentation description
-  doc: Str <meta>
+  doc: Str?
 
   // Annotates a slot as a fixed value that must be equal to 'val'
   fixed: Marker?
