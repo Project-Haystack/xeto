@@ -9,6 +9,38 @@
 // Library module meta data
 Lib: Dict <sealed> {
 
+//////////////////////////////////////////////////////////////////////////
+// Reserved
+//////////////////////////////////////////////////////////////////////////
+
+  // Identifier of the lib formatted as "lib:name"
+  id: Ref <sealed>
+
+  // Dotted name of the library
+  name: Str <sealed>
+
+  // Spec reference - always 'sys::Lib'
+  spec: Ref <of:Spec, sealed>
+
+  // Top-level type and mixin specs
+  specs: Dict <of:Spec, sealed>
+
+  // Top-level type specs
+  types: Dict <of:Spec, sealed>
+
+  // Top-level mixin specs
+  mixins: Dict <of:Spec, sealed>
+
+  // Top-level instances
+  instances: Dict <of:Dict, sealed>
+
+  // File location of the lib pragma definition
+  loc: Obj <sealed, nodoc>
+
+//////////////////////////////////////////////////////////////////////////
+// Non-Reserved
+//////////////////////////////////////////////////////////////////////////
+
   // Free form category tags
   categories: List? <of:Str>
 
@@ -30,6 +62,10 @@ Lib: Dict <sealed> {
   // Version number
   version: Version
 }
+
+//////////////////////////////////////////////////////////////////////////
+// Helper Types
+//////////////////////////////////////////////////////////////////////////
 
 // Library dependency
 LibDepend: Dict <sealed> {

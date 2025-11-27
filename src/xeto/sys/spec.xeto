@@ -10,6 +10,65 @@
 // Spec models a type specification and the metadata slots.
 Spec: Dict <sealed> {
 
+//////////////////////////////////////////////////////////////////////////
+// Reserved
+//////////////////////////////////////////////////////////////////////////
+
+  // Spec qname as ref identifier
+  id: Ref <sealed>
+
+  // Simple name of spec
+  name: Str <sealed>
+
+  // Qualified name of spec formatted as "lib::Type[.slot]"
+  qname: Str <sealed>
+
+  // Spec reference - always 'sys::Lib'
+  spec: Ref <of:Spec, sealed>
+
+  // Parent library
+  lib: Ref <of:Lib, sealed>
+
+  // Parent spec for member specs
+  parent: Ref? <of:Spec, sealed>
+
+  // Base type of inheritance or null for 'sys::Obj'
+  base: Ref? <of:Spec, sealed>
+
+  // Value type
+  type: Ref? <of:Spec, sealed>
+
+  // Map of children slot and global members
+  members: Dict <of:Spec, sealed>
+
+  // Map of children slot members
+  slots: Dict <of:Spec, sealed>
+
+  // Map of children global members
+  globals: Dict <of:Spec, sealed>
+
+  // File location of the spec definition
+  loc: Obj <sealed, nodoc>
+
+  // Reserved for future use
+  class: Obj <sealed, nodoc>
+
+  // Reserved for future use
+  is: Obj <sealed, nodoc>
+
+  // Reserved for future use
+  slot: Obj <sealed, nodoc>
+
+  // Reserved for future use
+  super: Obj <sealed, nodoc>
+
+  // Reserved for future use
+  supers: Obj <sealed, nodoc>
+
+//////////////////////////////////////////////////////////////////////////
+// Non-reserved
+//////////////////////////////////////////////////////////////////////////
+
   // Abstract types cannot be implemented directly by instance data
   abstract: Marker? <noInherit>
 
