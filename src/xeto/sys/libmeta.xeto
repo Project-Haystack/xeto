@@ -12,6 +12,9 @@ Lib: Dict <sealed> {
   // Free form category tags
   categories: List? <of:Str>
 
+  // Summary description
+  doc: Str?
+
   // Library dependencies
   depends: List <of:LibDepend>
 
