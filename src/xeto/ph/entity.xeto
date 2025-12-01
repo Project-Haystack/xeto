@@ -527,33 +527,6 @@ PhEntity: Entity <abstract> {
   // Physical type of `evse-cable`.
   *evseCableType: EvseCableType
 
-  // Describes an event during which an `evse-port` can deliver power to an EV.
-  // The EVSE may need to authorize a user to initiate an `evseSession`.
-  //
-  // At minimum has the following data:
-  //  - ts:  when the event was logged by the system of record
-  //  - started:  when the event started
-  //  - stopped:  when the event stopped
-  //  - tx:  transaction ID for the event
-  //  - targetRef:  reference to the `evse-port`
-  //  - energyDelivered:  energy delivered during the `evseSession`
-  //  - event:  marker tag
-  //  - meterStart:  meter register's value at the beginning of the `evseSession`
-  //
-  // In the future additional data might be included, such as the means of
-  // EV charging session authorization.
-  *evseSession: Marker
-
-  // Status of one or more `evse-port` reported by an EVSE.
-  //
-  // When applied to an `evse-port`, indicates the status of an EVSE port.
-  //
-  // When applied to an `evse-dispenser` or `evse-powerConverter`, indicates
-  // the status of one or more `evse-port` within an EVSE manufacturer's
-  // package.  In this case only the enum values available, unavailable,
-  // and fault apply.
-  *evseStatus: EvseStatus
-
   // Duct used to expel air back outside
   *exhaust: Marker
 
