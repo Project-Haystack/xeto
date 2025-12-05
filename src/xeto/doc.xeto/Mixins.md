@@ -3,8 +3,8 @@
 Mixins are specialized specs used to extend the definitions of existing
 specs.  A mixin is used to add meta and slots to a spec from a dependent
 library via late binding.  Within a given namespace the *extended spec* is
-the representation of the original spec and all the mixins registered by
-the namespace's libs.
+the representation of the original spec merged with all the mixins registered
+by the namespace's libs.
 
 # Syntax
 
