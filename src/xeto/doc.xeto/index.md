@@ -2,6 +2,7 @@
 
 - [Libs](Libs.md): library modules
 - [Specs](Specs.md): specification type definitions
+- [Mixins](Mixins.md): extend existing spec definitions
 - [Globals](Globals.md): global slot definitions
 - [Meta](Meta.md): lib and spec meta definitions
 - [Instances](Instances.md): instance data
