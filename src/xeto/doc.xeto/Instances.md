@@ -7,8 +7,9 @@ or outside of a lib.
 
 # Id
 All instances must define an 'id' tag that is the unique identifier
-for the data entity.  The 'id' tag must always be a Ref value.  Instances
-which are defined within a lib will have a id formed from the qname:
+for the data entity.  The 'id' tag must always be a Ref value and cannot
+start with an uppercase letter.  Instances which are defined within a
+lib will have a id formed from the qname:
 
 ```xeto
 // instance in lib acme.widgets; id is @acme.widgets::sku-123
