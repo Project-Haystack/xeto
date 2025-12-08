@@ -2,7 +2,7 @@
 
 Libs or libraries are used to package Xeto into versioned modules.  Libs
 are deployed as zip files with the "xetolib" extension and contain the
-source for the library's specs, globals, instances, and additional resource
+source for the library's specs, instances, and additional resource
 files.  Libs define explicit dependencies for the specs and instances they
 import into their namespace.
 

@@ -16,6 +16,11 @@ lib will have a id formed from the qname:
 @sku-123: Part {...}
 ```
 
+Instances defined within a lib must not start with a uppercase letter.
+This allows us to infer from a qname id whether it is a spec or
+an instance.  Also it invalid to have a lib instance with the same
+case insensitive name as a spec in the same lib.
+
 Instances outside of a lib will have an identifier that is
 project or system based.  It is illegal for a non-lib id
 to contain "::" double colons; that format is reserved

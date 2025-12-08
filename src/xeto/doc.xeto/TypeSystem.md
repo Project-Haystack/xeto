@@ -1,3 +1,15 @@
+# Overview
+
+Xeto defines a type system using concepts found in many mainstream
+programming languages.  This is a deliberate design to leverage
+well proven concepts that programmers will find familiar.  Key
+concepts:
+  - inheritance
+  - option types
+  - parameterized collection and reference types
+  - covariance
+  - union and intersection types
+
 # Maybe
 
 Slot specs may be annotated with the 'maybe' marker to make

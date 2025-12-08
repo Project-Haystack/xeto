@@ -1,7 +1,7 @@
 # Overview
 
 All xeto documentation uses a flavor of markdown we call *xetodoc*.
-Xetodoc is formally based [Commonmark](https://commonmark.org/), with
+Xetodoc is formally based on [Commonmark](https://commonmark.org/), with
 the following extensions:
   - [Doc Links](#doc-links): the backtick is used for doc hyperlinks
   - [Inline Code](#inline-code): the single quote is used for inline code
