@@ -1,7 +1,7 @@
 # Overview
 
 Choices define exclusive relationship between a set of marker tags.
-They are used as "adjectives" in an ontology to add additional constrains
+They are used as "adjectives" in an ontology to add additional constraints
 that work in conjunction with the primary inheritance hierarchy. For
 example, a sensor measures the `ph::Quantity` of a specific `ph::Phenomenon`.
 Both quantity and phenomenon are mutually exclusive.  A given sensor
@@ -24,7 +24,7 @@ Blue: Color { blue }
 
 When an entity defines the 'Color' choice it creates a validation rule
 that instances must have exactly one of the marker tags: 'red', 'blue',
-or 'blue'. Here is an example:
+or 'green'. Here is an example:
 
 ```xeto
 // color is required

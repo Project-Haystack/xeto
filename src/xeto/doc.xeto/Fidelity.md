@@ -1,8 +1,8 @@
 # Overview
 
-Xeto provides an extensible, opened ended type system.  Translating Xeto data
+Xeto provides an extensible, open ended type system.  Translating Xeto data
 to other data formats with less flexible type systems results in type erasure.
-We the use term *fidelity* to precisely describe how type erasure occurs.
+We use the term *fidelity* to precisely describe how type erasure occurs.
 
 Three levels of fidelity are defined:
 

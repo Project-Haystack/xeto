@@ -51,7 +51,7 @@ are supported:
 'video://youtube/<id>?si=<si>'.  The 'id' and 'si' can be found by going
 to the YouTube video, clicking the 'Share' button, and inspecting the link text.
 
-2. **Loom** The format for a Loom URL is 'video://loom/<id>?sid=<sid>'.  The 'id
+2. **Loom** The format for a Loom URL is 'video://loom/<id>?sid=<sid>'.  The 'id'
 and 'sid' can be found by going to the Loom video, clicking the "link" icon and
 inspecting the link text.
 

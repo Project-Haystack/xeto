@@ -62,8 +62,8 @@ Foo: {
 List specs can be annotated with the following meta to constrain
 their value space:
 
-  - 'minVal': inclusive minimum length
-  - 'maxVal': inclusive maximum length
+  - 'minSize': inclusive minimum length
+  - 'maxSize': inclusive maximum length
   - 'nonEmpty': marker tag to require at least one item
 
 ``` xeto

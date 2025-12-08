@@ -236,7 +236,7 @@ id: @acme::toolbar
 _0: {id:@acme::save-button spec:@acme::Button text:"Save"}
 _1: {id:@acme::exit-button spec:@acme::Button text:"Exit"}
 spec: @acme::Toolbar
-````
+```
 
 ```json
 // JSON
