@@ -50,7 +50,7 @@ reuse specs.
 
 Libs are named using a dotted naming convention:
   - 'sys': core type system
-  - 'sys.files': Xeto representations or MIME types
+  - 'sys.files': Xeto representations of MIME types
   - 'sys.template': templating types
   - 'ph.*': Project Haystack ontology for built environment
   - 'cc.*': community contributions
@@ -74,7 +74,7 @@ the 'User' spec from above:
 {"username":"bob", "created":"2025-12-08"}
 ```
 
-Or we could compile the spec above to a JSON schema to use with
+Or we could compile the specs above to a JSON schema to use with
 existing frameworks.
 
 All of the Xeto tooling allows you to easily export Xeto specs and
