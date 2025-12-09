@@ -3,31 +3,25 @@
 All xeto documentation uses a flavor of markdown we call *xetodoc*.
 Xetodoc is formally based on [Commonmark](https://commonmark.org/), with
 the following extensions:
-  - [Doc Links](#doc-links): the backtick is used for doc hyperlinks
-  - [Inline Code](#inline-code): the single quote is used for inline code
+  - [Shortcut Links](#shortcut-links): shortcut `[link]` syntax
   - [Tables](#tables): Github table extensions
   - [Videos](#videos): embedded video support for YouTube, Vimeo, and Loom
   - [HTML](#html): nested HTML is explicitly disallowed
 
-# Doc Links
+# Shortcut Links
 
-Standard markdown uses the backtick to denote inline code text.
-In xetodoc these are treated as hyperlinks to the reference
-documentation.  The following syntax is supported:
-
-```
-`ph.points`             Link to library index
-`ph.points::FanPoint`   Link to spec, global, or instance via qname
-```
-
-# Inline Code
-
-Since we use the backtick for code links, we also support creating inline
-code using the single quote:
+Markdown links come in several flavors, but the typical format is `[text](uri)`.
+Xetodoc allows this to be shortened to `[uri]`.  Furthermore there is is
+built in support for linking by relative or qualified names:
 
 ```
-This is a `link`, but this is 'inline text'
+[ph.points]        Link to library index
+[ph::Thermostat]   Link to spec or instance via qname
 ```
+
+Test links:
+ - [ph.points]: link to library
+ - [ph::Thermostat]: link spec via qname
 
 # Tables
 
@@ -38,7 +32,7 @@ Example:
 ```
 | foo | bar |
 | --- | --- |
-| baz | bim |
+| baz | qux |
 ```
 
 # Videos
