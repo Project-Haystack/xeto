@@ -20,7 +20,7 @@ ElecAcApparentPower: ElecAcPowerSubtype { apparent }
 // Sensor for electricity
 ElecSensor : NumberPoint & SensorPoint <abstract> { elec }
 
-// Sensor for electric power demand
+// Sensor for electric demand
 ElecDemandSensor : ElecSensor <abstract> {
   demand
   elecDirection: ElecDirection
@@ -65,26 +65,29 @@ ElecAcApparentEnergySensor : ElecAcEnergySensor <abstract> {
   unit: Unit <quantity:"apparentEnergy"> "kVAh"
 }
 
+// Sensor for AC electric demand
+ElecAcDemandSensor : ElecDemandSensor <abstract> { ac }
+
 // Sensor for AC electric power demand
-ElecAcDemandSensor : ElecDemandSensor <abstract> {
-  ac
+ElecAcPowerDemandSensor : ElecAcDemandSensor <abstract> {
+  power
   elecAcPowerSubtype: ElecAcPowerSubtype
 }
 
 // Sensor for AC electric active power demand
-ElecAcActiveDemandSensor : ElecAcDemandSensor <abstract> {
+ElecAcActiveDemandSensor : ElecAcPowerDemandSensor <abstract> {
   active
   unit: Unit <quantity:"power"> "kW"
 }
 
 // Sensor for AC electric reactive power demand
-ElecAcReactiveDemandSensor : ElecAcDemandSensor <abstract> {
+ElecAcReactiveDemandSensor : ElecAcPowerDemandSensor <abstract> {
   reactive
   unit: Unit <quantity:"reactivePower"> "kVAR"
 }
 
 // Sensor for AC electric apparent power demand
-ElecAcApparentDemandSensor : ElecAcDemandSensor <abstract> {
+ElecAcApparentDemandSensor : ElecAcPowerDemandSensor <abstract> {
   apparent
   unit: Unit <quantity:"apparentPower"> "kVA"
 }

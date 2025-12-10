@@ -306,9 +306,6 @@ PhEntity: Entity <abstract> {
   // Error description when `curStatus` indicates error condition
   *curErr: Str <transient>
 
-  // Average electrical current over a defined interval
-  *currentDemand: Marker
-
   // Status of point's current value reading.  The `curVal` is only available
   // when curStatus is "ok" or "stale".  However a "stale" value should
   // be used with caution since the local system does not have a fresh value.
@@ -355,7 +352,7 @@ PhEntity: Entity <abstract> {
   // Differential of fluid between entering and leaving sensors.
   *delta: Marker
 
-  // Rate required for a process or average electrical power over a defined interval.
+  // Rate required for a process.
   *demand: Marker
 
   // Obsoleted

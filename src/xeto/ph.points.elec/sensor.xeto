@@ -83,14 +83,11 @@ ElecAcQualityCurrentSensor : ElecAcCurrentSensorX <abstract> {
   unit: Unit <fixed> "%"
 }
 
-// Sensor for electric current demand
-ElecCurrentDemandSensor : ElecSensor <abstract> {
-  currentDemand
+// Sensor for AC electric current demand
+ElecAcCurrentDemandSensor : ElecAcDemandSensor <abstract> {
+  current
   unit: "A"
 }
-
-// Sensor for AC electric current demand
-ElecAcCurrentDemandSensor : ElecCurrentDemandSensor <abstract> { ac }
 
 // Sensor for average magnitude of AC electric power
 ElecAcAvgMagnitudePowerSensor : ElecPowerSensor <abstract> {
