@@ -37,3 +37,21 @@ TempAttr : NumberAttr <abstract> {
   val: Number <quantity:"temperature">
 }
 
+// Attribute with a number value with volumetric flow unit
+VolumetricFlowAttr : NumberAttr <abstract> {
+  flow
+  val: Number <quantity:"volumetricFlow">
+}
+
+// Attribute with a number value with power unit
+PowerAttr : NumberAttr <abstract> {
+  power
+  val: Number <quantity:"power">
+}
+
+// Attribute with a number value with energy unit
+EnergyAttr : NumberAttr <abstract> {
+  energy
+  val: Number <quantity:"energy">
+}
+
