@@ -3,20 +3,65 @@
 // Licensed under the Academic Free License version 3.0
 //
 // History:
-//   13 Dec 2025 Lincoln JenHarmernings  Creation
+//   13 Dec 2025 Lincoln Harmer  Creation
 //
 
-// Capacity of the asset
-CapacityAttr : PowerAttr <abstract> { capacity }
+//////////////////////////////////////////////////////////////////////////
+// Capacity attributes
+//////////////////////////////////////////////////////////////////////////
 
-// Rated cooling capacity of the asset
-RatedCoolingCapacityAttr : CapacityAttr { rated, cooling }
+// Rated Capacity of the asset
+RatedCapacityAttr : PowerAttr <abstract> { rated, capacity }
 
-// Design cooling capacity of the asset
-DesignCoolingCapacityAttr : CapacityAttr { design, cooling }
+// Design Capacity of the asset
+DesignCapacityAttr : PowerAttr <abstract> { design, capacity }
 
-// Rated heating capacity of the asset
-RatedHeatingCapacityAttr : CapacityAttr { rated, heating }
+// Cooling rated capacity of the asset
+CoolingRatedCapacityAttr : RatedCapacityAttr { cooling }
 
-// Design heating capacity of the asset
-DesignHeatingCapacityAttr : CapacityAttr { design, heating }
+// Cooling design capacity of the asset
+CoolingDesignCapacityAttr : DesignCapacityAttr { cooling }
+
+// Heating rated capacity of the asset
+HeatingRatedCapacityAttr : RatedCapacityAttr { heating }
+
+// Heating design capacity of the asset
+HeatingDesignCapacityAttr : DesignCapacityAttr { heating }
+
+//////////////////////////////////////////////////////////////////////////
+// Fan and pump design power attributes
+//////////////////////////////////////////////////////////////////////////
+
+// Design motor power of the asset
+DesignMotorPowerAttr : PowerAttr <abstract> { design, motor }
+
+// Design fan motor power of the asset
+FanDesignMotorPowerAttr : DesignMotorPowerAttr <abstract> { fan }
+
+// Pump design motor power of the asset
+PumpDesignMotorPowerAttr : DesignMotorPowerAttr <abstract> { pump }
+
+// Discharge fan design motor power of the asset
+DischargeFanDesignMotorPowerAttr : FanDesignMotorPowerAttr { discharge }
+
+// Return fan design motor power of the asset
+ReturnFanDesignMotorPowerAttr : FanDesignMotorPowerAttr { return }
+
+//////////////////////////////////////////////////////////////////////////
+// Fan and pump rated power attributes
+//////////////////////////////////////////////////////////////////////////
+
+// Rated motor power of the asset
+RatedMotorPowerAttr : PowerAttr <abstract> { rated, motor }
+
+// Fan rated motor power of the asset
+FanRatedMotorPowerAttr : RatedMotorPowerAttr <abstract> { fan }
+
+// Pump rated motor power of the asset
+PumpRatedMotorPowerAttr : RatedMotorPowerAttr <abstract> { pump }
+
+// Discharge fan rated motor power of the asset
+DischargeFanRatedMotorPowerAttr : FanRatedMotorPowerAttr { discharge }
+
+// Return fan rated motor power of the asset
+ReturnFanRatedMotorPowerAttr : FanRatedMotorPowerAttr { return }

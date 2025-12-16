@@ -54,3 +54,9 @@ EnergyAttr : NumberAttr <abstract> {
   val: Number <quantity:"energy">
 }
 
+// Attribute with a number value with pressure unit
+PressureAttr : NumberAttr <abstract> {
+  pressure
+  val: Number <quantity:"pressure">
+}
+

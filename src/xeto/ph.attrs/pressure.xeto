@@ -1,0 +1,33 @@
+//
+// Copyright (c) 2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   12 May 2025 Rick Jennings  Creation
+//
+
+//////////////////////////////////////////////////////////////////////////
+// Design pressure attributes
+//////////////////////////////////////////////////////////////////////////
+
+// Design pressure of the asset
+DesignPressureAttr : PressureAttr <abstract> { design }
+
+// Pump design pressure of the asset
+PumpDesignPressureAttr : DesignPressureAttr { pump }
+
+// Fan design pressure of the asset
+FanDesignPressureAttr : DesignPressureAttr { fan }
+
+// Chiller design pressure of the asset
+ChillerDesignPressureAttr : DesignPressureAttr { chiller }
+
+//////////////////////////////////////////////////////////////////////////
+// Rated pressure attributes
+//////////////////////////////////////////////////////////////////////////
+
+// Rated pressure of the asset
+RatedPressureAttr : PressureAttr <abstract> { rated }
+
+// Min chiller rated pressure of the asset
+MinChillerRatedPressureAttr : RatedPressureAttr { min, chiller }
