@@ -60,10 +60,10 @@ MaxRatedAirFlowAttr: RatedAirFlowAttr <abstract> { max }
 DischargeMaxRatedAirFlowAttr: MaxRatedAirFlowAttr { discharge }
 
 // Cooling maximum discharge rated discharge air flow of the asset
-CoolingMaxRatedDischargeAirFlowAttr: MaxRatedDischargeAirFlowAttr { cooling }
+CoolingDischargeMaxRatedAirFlowAttr: DischargeMaxRatedAirFlowAttr { cooling }
 
 // Heating maximum rated discharge air flow of the asset
-HeatingMaxRatedDischargeAirFlowAttr: MaxRatedDischargeAirFlowAttr { heating }
+HeatingDischargeMaxRatedAirFlowAttr: DischargeMaxRatedAirFlowAttr { heating }
 
 // Outdoor maximum rated air flow of the asset
 OutdoorMaxRatedAirFlowAttr: MaxRatedAirFlowAttr { outdoor }
