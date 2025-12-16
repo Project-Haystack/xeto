@@ -45,6 +45,7 @@ VolumetricFlowAttr : NumberAttr <abstract> {
 
 // Attribute with a number value with power unit
 PowerAttr : NumberAttr <abstract> {
+  power
   val: Number <quantity:"power">
 }
 
@@ -59,4 +60,3 @@ PressureAttr : NumberAttr <abstract> {
   pressure
   val: Number <quantity:"pressure">
 }
-

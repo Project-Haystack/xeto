@@ -22,6 +22,15 @@ MaxRatedOperatingTempAttr : RatedOperatingTempAttr { max }
 // Design temperature of the asset
 DesignTempAttr : TempAttr <abstract> { design }
 
+// Air design temperature of the asset
+AirDesignTempAttr: DesignTempAttr <abstract> { air }
+
+// Water entering design temperature of the asset
+WaterEnteringDesignTempAttr : EnteringDesignTempAttr <abstract>  { water }
+
+// Water leaving design temperature of the asset
+WaterLeavingDesignTempAttr : LeavingDesignTempAttr <abstract>  { water }
+
 // Leaving design temperature of the asset
 LeavingDesignTempAttr : DesignTempAttr <abstract> { leaving }
 
@@ -29,16 +38,16 @@ LeavingDesignTempAttr : DesignTempAttr <abstract> { leaving }
 EnteringDesignTempAttr : DesignTempAttr <abstract> { entering }
 
 // Hot water leaving design temperature of the asset
-HotWaterLeavingDesignTempAttr : LeavingDesignTempAttr  { hot, water }
+HotWaterLeavingDesignTempAttr : WaterLeavingDesignTempAttr  { hot }
 
 // Chilled water leaving design temperature of the asset
-ChilledWaterLeavingDesignTempAttr : LeavingDesignTempAttr  { chilled, water }
+ChilledWaterLeavingDesignTempAttr : WaterLeavingDesignTempAttr  { chilled }
 
 // Hot water entering design temperature of the asset
-HotWaterEnteringDesignTempAttr : EnteringDesignTempAttr  { hot, water }
+HotWaterEnteringDesignTempAttr : WaterEnteringDesignTempAttr  { hot }
 
 // Chilled water entering design temperature of the asset
-ChilledWaterEnteringDesignTempAttr : EnteringDesignTempAttr  { chilled, water }
+ChilledWaterEnteringDesignTempAttr : WaterEnteringDesignTempAttr  { chilled }
 
-// Design discharge air temperature of the asset
-DischargeAirDesignTempAttr: DesignTempAttr { discharge, air }
+// Discharge air design temperature of the asset
+DischargeAirDesignTempAttr: AirDesignTempAttr { discharge }
