@@ -28,16 +28,16 @@ NA: Scalar <sealed> "na"
 Str: Scalar <sealed> ""
 
 // Boolean value either true or false
-Bool: Scalar <sealed> "false"
+Bool: Scalar <sealed, pattern: "true|false"> "false"
 
 // Integer or floating point numbers annotated with an optional unit
 Number: Scalar <sealed> "0"
 
 // Unitless integer number
-Int: Number <sealed, unitless> "0"
+Int: Number <sealed, pattern: "-?(?:0|[1-9]\\d*)", unitless> "0"
 
 // Unitless floating point number
-Float: Number <sealed, unitless> "0"
+Float: Number <sealed, pattern: "-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?", unitless> "0"
 
 // Number with a unit of time
 Duration: Number <sealed, quantity:"time"> "0sec"
