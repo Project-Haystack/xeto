@@ -19,7 +19,7 @@ Scalar: Obj <abstract>
 None: Scalar <sealed> "none"
 
 // Marker labels a dict with typing information
-Marker: Scalar <sealed> "marker"
+Marker: Scalar <sealed, pattern:"✓"> "✓"
 
 // Not available indicates invalid or missing data
 NA: Scalar <sealed> "na"
