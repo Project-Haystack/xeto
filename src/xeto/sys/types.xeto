@@ -37,7 +37,7 @@ Number: Scalar <sealed> "0"
 Int: Number <sealed, pattern: "-?(?:0|[1-9]\\d*)", unitless> "0"
 
 // Unitless floating point number
-Float: Number <sealed, pattern: "-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?", unitless> "0"
+Float: Number <sealed, pattern: "(-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?|\"(?:NaN|-?INF)\")", unitless> "0"
 
 // Number with a unit of time
 Duration: Number <sealed, quantity:"time"> "0sec"
