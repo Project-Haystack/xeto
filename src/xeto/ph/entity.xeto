@@ -296,6 +296,9 @@ PhEntity: Entity <abstract> {
   // Equipment to transfer waste heat into the atmosphere
   *coolingTower: Marker
 
+  // Device that joins two components together.
+  *coupler: Marker
+
   // Computer Room Air Conditioner: An FCU designed to condition a computer
   // room.  See `docHaystack::AHUs` and `docHaystack::DataCenters` chapters.
   *crac: Marker
@@ -480,6 +483,12 @@ PhEntity: Entity <abstract> {
   // indicates off.  Equip with an enable should always also define a `run`
   // point which indicates the primary on/off state of the equipment.
   *enable: Marker
+
+  // Container or housing that surrounds and protects equipment or components.
+  // Enclosures may be cabinets, sealed boxes, weatherproof housings, or other
+  // protective structures that provide physical protection, environmental
+  // sealing, or safety isolation.
+  *enclosure: Marker
 
   // Measure of ability to do work
   *energy: Marker
