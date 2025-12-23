@@ -231,10 +231,16 @@ Escalator: VerticalTransport {
   escalator
 }
 
+// Tethered cable with connector, socket/receptacle, or wireless inductive charging pad on an EVSE.
+// Interfaces with the vehicle directly or via an EV driver supplied charging cable.
+EvseCoupler: EvseEquip <abstract> {
+  coupler
+}
+
 // The electrical cable between an `evse-port` and an EV charging inlet
 // on a vehicle. The `evseCableType` tag distinguishes the type of cable.
 // See `docHaystack::EVSE#cable` chapter.
-EvseCable: EvseEquip {
+EvseCable: EvseCoupler {
   cable
   evseCableType: EvseCableType?
 }
