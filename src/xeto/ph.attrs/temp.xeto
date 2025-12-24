@@ -14,3 +14,40 @@ MinRatedOperatingTempAttr : RatedOperatingTempAttr { min }
 
 // Maximum rated operating temperature of the asset
 MaxRatedOperatingTempAttr : RatedOperatingTempAttr { max }
+
+//////////////////////////////////////////////////////////////////////////
+// Design temp attributes
+//////////////////////////////////////////////////////////////////////////
+
+// Design temperature of the asset
+DesignTempAttr : TempAttr <abstract> { design }
+
+// Air design temperature of the asset
+AirDesignTempAttr: DesignTempAttr <abstract> { air }
+
+// Water entering design temperature of the asset
+WaterEnteringDesignTempAttr : EnteringDesignTempAttr <abstract>  { water }
+
+// Water leaving design temperature of the asset
+WaterLeavingDesignTempAttr : LeavingDesignTempAttr <abstract>  { water }
+
+// Leaving design temperature of the asset
+LeavingDesignTempAttr : DesignTempAttr <abstract> { leaving }
+
+// Entering design temperature of the asset
+EnteringDesignTempAttr : DesignTempAttr <abstract> { entering }
+
+// Hot water leaving design temperature of the asset
+HotWaterLeavingDesignTempAttr : WaterLeavingDesignTempAttr  { hot }
+
+// Chilled water leaving design temperature of the asset
+ChilledWaterLeavingDesignTempAttr : WaterLeavingDesignTempAttr  { chilled }
+
+// Hot water entering design temperature of the asset
+HotWaterEnteringDesignTempAttr : WaterEnteringDesignTempAttr  { hot }
+
+// Chilled water entering design temperature of the asset
+ChilledWaterEnteringDesignTempAttr : WaterEnteringDesignTempAttr  { chilled }
+
+// Discharge air design temperature of the asset
+DischargeAirDesignTempAttr: AirDesignTempAttr { discharge }
