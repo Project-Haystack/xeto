@@ -41,13 +41,26 @@ Xetodoc allows this to be shortened to `[uri]`.  Furthermore there is is
 built in support for linking by relative or qualified names:
 
 ```
-[ph.points]        Link to library index
-[ph::Thermostat]   Link to spec or instance via qname
-```
+--- Absolute Links ---
+[ph.points::index]           Library index
+[sys::Str]                   Spec type via qname
+[sys::Spec.doc]              Spec slot via qname
+[lib::my-instance]           Instance via qname
+[doc.xeto::Xetodoc]          Markdown chapter via qname
+[doc.xeto::Xetodoc#tables]   Markdown chapter via qname
+[now()]                      Funcs mixin name within namespace
 
-Test links:
- - [ph.points]: link to library
- - [ph::Thermostat]: link spec via qname
+--- Lib Relative Links ---
+[Str]                        Spec type name in lib or its depends
+[Lib.version]                Spec slot dotted name in lib or its depends
+[Readme]                     Markdown chapter section anchor name without .md ext
+[Readme.md]                  Markdown chapter name with .md ext
+[Readme#section]             Markdown chapter section anchor without .md ext
+[Readme.md#section]          Markdown chapter section anchor with .md ext
+
+--- Chapter Relative Links ---
+[#section]                   Section anchor within the markdown chapter
+```
 
 # Section Links
 
