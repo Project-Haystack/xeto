@@ -31,7 +31,7 @@ Str: Scalar <sealed> ""
 Bool: Scalar <sealed, pattern: "true|false"> "false"
 
 // Integer or floating point numbers annotated with an optional unit
-Number: Scalar <sealed> "0"
+Number: Scalar <sealed, pattern: "(-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?[a-zA-Z%_/$\\P{ASCII}]*|\"(?:NaN|-?INF)\")"> "0"
 
 // Unitless integer number
 Int: Number <sealed, pattern: "-?(?:0|[1-9]\\d*)", unitless> "0"
