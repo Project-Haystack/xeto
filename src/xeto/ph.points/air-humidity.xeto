@@ -33,11 +33,11 @@ DischargeAirHumiditySp : AirHumiditySp { discharge }
 // Outdoor
 //////////////////////////////////////////////////////////////////////////
 
-// Sensor for relative humidity in outdoor duct
-OutdoorAirHumiditySensor : AirHumiditySensor { outdoor }
+// Sensor for relative humidity in outside duct
+OutsideAirHumiditySensor : AirHumiditySensor { outside }
 
-// Setpoint for relative humidity in outdoor duct
-OutdoorAirHumiditySp : AirHumiditySp { outdoor }
+// Setpoint for relative humidity in outside duct
+OutsideAirHumiditySp : AirHumiditySp { outside }
 
 //////////////////////////////////////////////////////////////////////////
 // Zone
