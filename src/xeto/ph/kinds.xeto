@@ -6,15 +6,17 @@
 //   20 Jul 2022  Brian Frank  Creation
 //
 
+// Geographic coordinate in latitude/longitude in decimal degrees.
+Coord: Scalar <sealed> "C(0,0)"
+
 // Symbol to a def. Symbol values are ASCII strings limited to the
 // following chars: a-z, A-Z, 0-9, underbar, colon, dash, dot.
-Symbol: Scalar "x"
-
-// Geographic coordinate in latitude/longitude in decimal degrees.
-Coord:  Scalar "C(0,0)"
+// TODO: this is just a temp shim for backward compatibility with Haystack 4.
+Symbol: Scalar <sealed> "x"
 
 // Extended string - type name and string value encoding.
-XStr: Scalar
+// TODO: this is just a temp shim for backward compatibility with Haystack 4.
+XStr: Scalar <sealed>
 
 // Feature namespace of definitions identified as 'lib::feature:name'
 Feature: Dict <abstract>
