@@ -3,31 +3,43 @@
 // Licensed under the Academic Free License version 3.0
 //
 // History:
-//   12 May 2025 Lincoln Harmer Creation
+//   13 Dec 2025 Lincoln Harmer Creation
 //
 
 //////////////////////////////////////////////////////////////////////////
-// Design pressure attributes
+// Air pressure attributes
 //////////////////////////////////////////////////////////////////////////
 
-// Design pressure of the asset
-DesignPressureAttr : PressureAttr <abstract> { design }
+// Air pressure of the asset
+AirPressureAttr : PressureAttr <abstract> { air }
 
-// Pump design pressure of the asset
-PumpDesignPressureAttr : DesignPressureAttr { pump }
+// Air design pressure of the asset
+AirDesignPressureAttr : AirPressureAttr <abstract> { design }
 
-// Fan design pressure of the asset
-FanDesignPressureAttr : DesignPressureAttr { fan }
+// Air fan design pressure of the asset
+AirFanDesignPressureAttr : AirDesignPressureAttr { fan }
 
-// Chiller design pressure of the asset
-ChillerDesignPressureAttr : DesignPressureAttr { chiller }
+// Air rated pressure of the asset
+AirRatedPressureAttr : AirPressureAttr <abstract> { rated }
 
 //////////////////////////////////////////////////////////////////////////
-// Rated pressure attributes
+// Water pressure attributes
 //////////////////////////////////////////////////////////////////////////
 
-// Rated pressure of the asset
-RatedPressureAttr : PressureAttr <abstract> { rated }
+// Water pressure of the asset
+WaterPressureAttr : PressureAttr <abstract> { water }
 
-// Min chiller rated pressure of the asset
-MinChillerRatedPressureAttr : RatedPressureAttr { min, chiller }
+// Water design pressure of the asset
+WaterDesignPressureAttr : WaterPressureAttr <abstract> { design }
+
+// Water pump design pressure of the asset
+WaterPumpDesignPressureAttr : WaterDesignPressureAttr { pump }
+
+// Water chiller design pressure of the asset
+WaterChillerDesignPressureAttr : WaterDesignPressureAttr { chiller }
+
+// Water rated pressure of the asset
+WaterRatedPressureAttr : WaterPressureAttr <abstract> { rated }
+
+// Water chiller min rated pressure of the asset
+WaterChillerMinRatedPressureAttr : WaterRatedPressureAttr { chiller, min }

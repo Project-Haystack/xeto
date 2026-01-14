@@ -6,101 +6,105 @@
 //   13 Dec 2025 Lincoln Harmer Creation
 //
 
-//  Air flow of the asset
+//////////////////////////////////////////////////////////////////////////
+// Air flow attributes
+//////////////////////////////////////////////////////////////////////////
+
+// Air flow of the asset
 AirFlowAttr: VolumetricFlowAttr <abstract> { air }
 
 //////////////////////////////////////////////////////////////////////////
-// Design airflow attributes
+// Design air flow attributes
 //////////////////////////////////////////////////////////////////////////
 
-//  Design air flow of the asset
-DesignAirFlowAttr: AirFlowAttr <abstract> { design }
+// Air design flow of the asset
+AirDesignFlowAttr: AirFlowAttr <abstract> { design }
 
-// Maximum design air flow of the asset
-MaxDesignAirFlowAttr: DesignAirFlowAttr <abstract> { max }
+// Air max design flow of the asset
+AirMaxDesignFlowAttr: AirDesignFlowAttr <abstract> { max }
 
-// Discharge maximum design air flow of the asset
-DischargeMaxDesignAirFlowAttr: MaxDesignAirFlowAttr { discharge }
+// Air discharge max design flow of the asset
+AirDischargeMaxDesignFlowAttr: AirMaxDesignFlowAttr { discharge }
 
-// Cooling maximum design air flow of the asset
-CoolingDischargeMaxDesignAirFlowAttr: DischargeMaxDesignAirFlowAttr { cooling }
+// Air cooling discharge max design flow of the asset
+AirCoolingDischargeMaxDesignFlowAttr: AirDischargeMaxDesignFlowAttr { cooling }
 
-// Heating maximum design air flow of the asset
-HeatingDischargeMaxDesignAirFlowAttr: DischargeMaxDesignAirFlowAttr { heating }
+// Air heating discharge max design flow of the asset
+AirHeatingDischargeMaxDesignFlowAttr: AirDischargeMaxDesignFlowAttr { heating }
 
-// Outdoor maximum design air flow of the asset
-OutdoorMaxDesignAirFlowAttr: MaxDesignAirFlowAttr { outdoor }
+// Air outdoor max design flow of the asset
+AirOutdoorMaxDesignFlowAttr: AirMaxDesignFlowAttr { outdoor }
 
-// Minimum design air flow of the asset
-MinDesignAirFlowAttr: DesignAirFlowAttr <abstract> { min }
+// Air min design flow of the asset
+AirMinDesignFlowAttr: AirDesignFlowAttr <abstract> { min }
 
-// Discharge minimum design air flow of the asset
-DischargeMinDesignAirFlowAttr: MinDesignAirFlowAttr { discharge }
+// Air discharge min design flow of the asset
+AirDischargeMinDesignFlowAttr: AirMinDesignFlowAttr { discharge }
 
-// Cooling discharge minimum design air flow of the asset
-CoolingDischargeMinDesignAirFlowAttr: DischargeMinDesignAirFlowAttr { cooling }
+// Air cooling discharge min design flow of the asset
+AirCoolingDischargeMinDesignFlowAttr: AirDischargeMinDesignFlowAttr { cooling }
 
-// Heating discharge minimum design air flow of the asset
-HeatingDischargeMinDesignAirFlowAttr: DischargeMinDesignAirFlowAttr { heating }
+// Air heating discharge min design flow of the asset
+AirHeatingDischargeMinDesignFlowAttr: AirDischargeMinDesignFlowAttr { heating }
 
-// Outdoor design minimum air flow of the asset
-OutdoorMinDesignAirFlowAttr: MinDesignAirFlowAttr { outdoor }
+// Air outdoor min design flow of the asset
+AirOutdoorMinDesignFlowAttr: AirMinDesignFlowAttr { outdoor }
 
 //////////////////////////////////////////////////////////////////////////
 // Rated air flow attributes
 //////////////////////////////////////////////////////////////////////////
 
-// Rated air flow of the asset
-RatedAirFlowAttr: AirFlowAttr <abstract> { rated }
+// Air rated flow of the asset
+AirRatedFlowAttr: AirFlowAttr <abstract> { rated }
 
-// Maximum rated air flow of the asset
-MaxRatedAirFlowAttr: RatedAirFlowAttr <abstract> { max }
+// Air max rated flow of the asset
+AirMaxRatedFlowAttr: AirRatedFlowAttr <abstract> { max }
 
-// Discharge maximum rated air flow of the asset
-DischargeMaxRatedAirFlowAttr: MaxRatedAirFlowAttr { discharge }
+// Air discharge max rated flow of the asset
+AirDischargeMaxRatedFlowAttr: AirMaxRatedFlowAttr { discharge }
 
-// Cooling maximum discharge rated discharge air flow of the asset
-CoolingDischargeMaxRatedAirFlowAttr: DischargeMaxRatedAirFlowAttr { cooling }
+// Air cooling discharge max rated flow of the asset
+AirCoolingDischargeMaxRatedFlowAttr: AirDischargeMaxRatedFlowAttr { cooling }
 
-// Heating maximum rated discharge air flow of the asset
-HeatingDischargeMaxRatedAirFlowAttr: DischargeMaxRatedAirFlowAttr { heating }
+// Air heating discharge max rated flow of the asset
+AirHeatingDischargeMaxRatedFlowAttr: AirDischargeMaxRatedFlowAttr { heating }
 
-// Outdoor maximum rated air flow of the asset
-OutdoorMaxRatedAirFlowAttr: MaxRatedAirFlowAttr { outdoor }
+// Air outdoor max rated flow of the asset
+AirOutdoorMaxRatedFlowAttr: AirMaxRatedFlowAttr { outdoor }
 
-// Minimum rated air flow of the asset
-MinRatedAirFlowAttr: RatedAirFlowAttr <abstract> { min }
+// Air min rated flow of the asset
+AirMinRatedFlowAttr: AirRatedFlowAttr <abstract> { min }
 
-// Discharge minimum rated air flow of the asset
-DischargeMinRatedAirFlowAttr: MinRatedAirFlowAttr { discharge }
+// Air discharge min rated flow of the asset
+AirDischargeMinRatedFlowAttr: AirMinRatedFlowAttr { discharge }
 
 //////////////////////////////////////////////////////////////////////////
-// Water flow Attributes
+// Water flow attributes
 //////////////////////////////////////////////////////////////////////////
 
-//  Water flow of the asset
+// Water flow of the asset
 WaterFlowAttr: VolumetricFlowAttr <abstract> { water }
 
-//  Design water flow of the asset
-DesignWaterFlowAttr: WaterFlowAttr { design }
+// Water design flow of the asset
+WaterDesignFlowAttr: WaterFlowAttr <abstract> { design }
 
-//  Rated water flow of the asset
-RatedWaterFlowAttr: WaterFlowAttr { rated }
+// Water rated flow of the asset
+WaterRatedFlowAttr: WaterFlowAttr <abstract> { rated }
 
-//  Maximum design water flow of the asset
-MaxDesignWaterFlowAttr: DesignWaterFlowAttr { max }
+// Water max design flow of the asset
+WaterMaxDesignFlowAttr: WaterDesignFlowAttr <abstract> { max }
 
-//  Chilled maximum design water flow of the asset
-ChilledMaxDesignWaterFlowAttr: MaxDesignWaterFlowAttr { chilled }
+// Water chilled max design flow of the asset
+WaterChilledMaxDesignFlowAttr: WaterMaxDesignFlowAttr { chilled }
 
-//  Hot maximum design water flow of the asset
-HotMaxDesignWaterFlowAttr: MaxDesignWaterFlowAttr { hot }
+// Water hot max design flow of the asset
+WaterHotMaxDesignFlowAttr: WaterMaxDesignFlowAttr { hot }
 
-//  Minimum design water flow of the asset
-MinDesignWaterFlowAttr: DesignWaterFlowAttr { min }
+// Water min design flow of the asset
+WaterMinDesignFlowAttr: WaterDesignFlowAttr { min }
 
-//  Maximum rated water flow of the asset
-MaxRatedWaterFlowAttr: RatedWaterFlowAttr { max }
+// Water max rated flow of the asset
+WaterMaxRatedFlowAttr: WaterRatedFlowAttr { max }
 
-//  Minimum rated water flow of the asset
-MinRatedWaterFlowAttr: RatedWaterFlowAttr { min }
+// Water min rated flow of the asset
+WaterMinRatedFlowAttr: WaterRatedFlowAttr { min }
