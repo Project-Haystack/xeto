@@ -12,16 +12,14 @@ FanPoint : Point <abstract> {
   fan
 }
 
-// Sensor for primary on/off state of fan
+// Sensor for on/off state of a fan
 FanRunSensor : FanPoint & RunSensor <abstract>
 
-// Command for primary on/off state of fan
+// On/off command to run a fan
 FanRunCmd : FanPoint & RunCmd <abstract>
 
-// Sensor for secondary on/off state of fan
-FanEnableSensor : FanPoint & EnableSensor <abstract>
-
-// Command for secondary on/off state of fan
+// Command to enable or disable a fan.
+// Used as an interlock with a run command.
 FanEnableCmd : FanPoint & EnableCmd <abstract>
 
 // Sensor for speed of a fan as percentage 0% off and 100% full speed
@@ -34,16 +32,14 @@ FanSpeedCmd : FanPoint & VfdSpeedCmd <abstract>
 // Discharge
 //////////////////////////////////////////////////////////////////////////
 
-// Sensor for primary on/off state of fan in discharge duct
+// Sensor for on/off state of a fan in a discharge duct
 DischargeFanRunSensor : FanRunSensor { discharge }
 
-// Command for primary on/off state of fan in discharge duct
+// On/off command to run a fan in a discharge duct
 DischargeFanRunCmd : FanRunCmd { discharge }
 
-// Sensor for secondary on/off state of fan in discharge duct
-DischargeFanEnableSensor : FanEnableSensor { discharge }
-
-// Command for secondary on/off state of fan in discharge duct
+// Command to enable or disable a fan in a discharge duct.
+// Used as an interlock with a run command.
 DischargeFanEnableCmd : FanEnableCmd { discharge }
 
 // Sensor for fan speed as percentage in discharge duct.
@@ -58,16 +54,14 @@ DischargeFanSpeedCmd : FanSpeedCmd { discharge }
 // Return
 //////////////////////////////////////////////////////////////////////////
 
-// Sensor for primary on/off state of fan in return duct
+// Sensor for on/off state of a fan in a return duct
 ReturnFanRunSensor : FanRunSensor { return }
 
-// Command for primary on/off state of fan in return duct
+// On/off command to run a fan in a return duct
 ReturnFanRunCmd : FanRunCmd { return }
 
-// Sensor for secondary on/off state of fan in return duct
-ReturnFanEnableSensor : FanEnableSensor { return }
-
-// Command for secondary on/off state of fan in return duct
+// Command to enable or disable a fan in a return duct.
+// Used as an interlock with a run command.
 ReturnFanEnableCmd : FanEnableCmd { return }
 
 // Sensor for fan speed as percentage in return duct.
@@ -77,5 +71,4 @@ ReturnFanSpeedSensor : FanSpeedSensor { return }
 // Command for fan speed as percentage in return duct.
 // Percentage is 0% for off and 100% for full speed.
 ReturnFanSpeedCmd : FanSpeedCmd { return }
-
 
