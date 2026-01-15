@@ -18,9 +18,6 @@ FanRunSensor : FanPoint & RunSensor <abstract>
 // Command for primary on/off state of fan
 FanRunCmd : FanPoint & RunCmd <abstract>
 
-// Sensor for secondary on/off state of fan
-FanEnableSensor : FanPoint & EnableSensor <abstract>
-
 // Command for secondary on/off state of fan
 FanEnableCmd : FanPoint & EnableCmd <abstract>
 
@@ -39,9 +36,6 @@ DischargeFanRunSensor : FanRunSensor { discharge }
 
 // Command for primary on/off state of fan in discharge duct
 DischargeFanRunCmd : FanRunCmd { discharge }
-
-// Sensor for secondary on/off state of fan in discharge duct
-DischargeFanEnableSensor : FanEnableSensor { discharge }
 
 // Command for secondary on/off state of fan in discharge duct
 DischargeFanEnableCmd : FanEnableCmd { discharge }
@@ -64,9 +58,6 @@ ReturnFanRunSensor : FanRunSensor { return }
 // Command for primary on/off state of fan in return duct
 ReturnFanRunCmd : FanRunCmd { return }
 
-// Sensor for secondary on/off state of fan in return duct
-ReturnFanEnableSensor : FanEnableSensor { return }
-
 // Command for secondary on/off state of fan in return duct
 ReturnFanEnableCmd : FanEnableCmd { return }
 
@@ -77,5 +68,4 @@ ReturnFanSpeedSensor : FanSpeedSensor { return }
 // Command for fan speed as percentage in return duct.
 // Percentage is 0% for off and 100% for full speed.
 ReturnFanSpeedCmd : FanSpeedCmd { return }
-
 
