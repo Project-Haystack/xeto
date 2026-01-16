@@ -18,3 +18,30 @@ DessicantDehumidifierCmd : BoolPoint { dessicantDehumidifier }
 // Temperature conditioning mode for a zone in an HVAC system
 ZoneAirHvacModeSp : EnumPoint & SpPoint { zone, air, hvacMode }
 
+// Point associated with the on/off state of equipment
+RunPoint : BoolPoint <abstract> {
+  run
+  enum: Obj <val:RunEnum>
+}
+
+// On and off enumeration
+RunEnum: Enum { off, on }
+
+// Sensor for on/off state of equipment
+RunSensor : RunPoint & SensorPoint <abstract>
+
+// On/off command to run equipment
+RunCmd : RunPoint & CmdPoint <abstract>
+
+// Point that enables or disables equipment
+EnablePoint : BoolPoint <abstract> {
+  enable
+  enum: Obj <val:RunEnum>
+}
+
+// Command to permit/prohibit equipment to run.
+// Used as an interlock with a run command.
+EnableCmd : EnablePoint & CmdPoint <abstract>
+
+// Boolean alarm condition
+AlarmSensor : BoolPoint & SensorPoint <abstract> { alarm }
