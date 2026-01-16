@@ -6,29 +6,37 @@
 //   16 Apr 2025 Rick Jennings  Creation
 //
 
+//////////////////////////////////////////////////////////////////////////
+// Current attributes
+//////////////////////////////////////////////////////////////////////////
+
 // Current attribute for the asset
 ElecCurrentAttr : NumberAttr <abstract> { elec, current }
 
 // AC current attribute for the asset
 ElecAcCurrentAttr : ElecCurrentAttr <abstract> { ac }
 
-// AC current rating of the asset
-ElecAcRatedCurrentAttr : ElecAcCurrentAttr <abstract> { rated }
+// Elec rated AC current of the asset
+ElecRatedAcCurrentAttr : ElecAcCurrentAttr <abstract> { rated }
 
-// Continuous AC current capacity rating of the asset (80% or 100% - for circuit breakers)
-ElecAcRatedContinuousCapacityCurrentAttr : ElecAcRatedCurrentAttr { currentContinuousCapacity }
+// Elec continuous capacity rated AC current of the asset (80% or 100% - for circuit breakers)
+ElecContinuousCapacityRatedAcCurrentAttr : ElecRatedAcCurrentAttr { currentContinuousCapacity }
 
-// Continuous AC current rating of the asset (for circuit breakers)
-ElecAcRatedContinuousCurrentAttr : ElecAcRatedCurrentAttr <abstract> { currentContinuous }
+// Elec continuous rated AC current of the asset (for circuit breakers)
+ElecContinuousRatedAcCurrentAttr : ElecRatedAcCurrentAttr <abstract> { currentContinuous }
 
-// Max continuous AC current rating of the asset (for circuit breakers)
-ElecAcRatedMaxContinuousCurrentAttr : ElecAcRatedContinuousCurrentAttr { max }
+// Elec max continuous rated AC current of the asset (for circuit breakers)
+ElecMaxContinuousRatedAcCurrentAttr : ElecContinuousRatedAcCurrentAttr { max }
 
-// AC current input rating of the asset
-ElecAcRatedInputCurrentAttr : ElecAcRatedCurrentAttr <abstract> { input }
+// Elec input rated AC current of the asset
+ElecInputRatedAcCurrentAttr : ElecRatedAcCurrentAttr <abstract> { input }
 
-// Maximum AC current input rating of the asset
-ElecAcRatedInputMaxCurrentAttr : ElecAcRatedInputCurrentAttr { max }
+// Elec max input rated AC current of the asset
+ElecMaxInputRatedAcCurrentAttr : ElecInputRatedAcCurrentAttr { max }
+
+//////////////////////////////////////////////////////////////////////////
+// Voltage attributes
+//////////////////////////////////////////////////////////////////////////
 
 // Voltage attribute for the asset
 ElecVoltAttr : NumberAttr <abstract> { elec, volt }
@@ -36,29 +44,29 @@ ElecVoltAttr : NumberAttr <abstract> { elec, volt }
 // AC voltage attribute for the asset
 ElecAcVoltAttr : ElecVoltAttr <abstract> { ac }
 
-// AC voltage rating of the asset
-ElecAcRatedVoltAttr : ElecAcVoltAttr <abstract> { rated }
+// Elec rated AC voltage of the asset
+ElecRatedAcVoltAttr : ElecAcVoltAttr <abstract> { rated }
 
-// AC voltage input rating of the asset
-ElecAcRatedInputVoltAttr : ElecAcRatedVoltAttr <abstract> { input }
+// Elec input rated AC voltage of the asset
+ElecInputRatedAcVoltAttr : ElecRatedAcVoltAttr <abstract> { input }
 
-// Nominal AC voltage input rating of the asset
-ElecAcRatedInputNominalVoltAttr : ElecAcRatedInputVoltAttr <abstract> { nominal }
+// Elec nominal input rated AC voltage of the asset
+ElecNominalInputRatedAcVoltAttr : ElecInputRatedAcVoltAttr <abstract> { nominal }
 
-// Nominal line-to-line AC voltage input rating of the asset
-ElecAcRatedInputLineToLineNominalVoltAttr : ElecAcRatedInputNominalVoltAttr { voltLineToLine }
+// Elec line-to-line nominal input rated AC voltage of the asset
+ElecLineToLineNominalInputRatedAcVoltAttr : ElecNominalInputRatedAcVoltAttr { voltLineToLine }
 
-// Nominal line-to-neutral AC voltage input rating of the asset
-ElecAcRatedInputLineToNeutralNominalVoltAttr : ElecAcRatedInputNominalVoltAttr { voltLineToNeutral }
+// Elec line-to-neutral nominal input rated AC voltage of the asset
+ElecLineToNeutralNominalInputRatedAcVoltAttr : ElecNominalInputRatedAcVoltAttr { voltLineToNeutral }
 
-// Minimum AC voltage input rating of the asset
-ElecAcRatedInputMinVoltAttr : ElecAcRatedInputVoltAttr <abstract> { min }
+// Elec min input rated AC voltage of the asset
+ElecMinInputRatedAcVoltAttr : ElecInputRatedAcVoltAttr <abstract> { min }
 
-// Minimum line-to-line AC voltage input rating of the asset
-ElecAcRatedInputLineToLineMinVoltAttr : ElecAcRatedInputMinVoltAttr { voltLineToLine }
+// Elec line-to-line min input rated AC voltage of the asset
+ElecLineToLineMinInputRatedAcVoltAttr : ElecMinInputRatedAcVoltAttr { voltLineToLine }
 
-// Maximum AC voltage input rating of the asset
-ElecAcRatedInputMaxVoltAttr : ElecAcRatedInputVoltAttr <abstract> { max }
+// Elec max input rated AC voltage of the asset
+ElecMaxInputRatedAcVoltAttr : ElecInputRatedAcVoltAttr <abstract> { max }
 
-// Maximum line-to-line AC voltage input rating of the asset
-ElecAcRatedInputLineToLineMaxVoltAttr : ElecAcRatedInputMaxVoltAttr { voltLineToLine }
+// Elec line-to-line max input rated AC voltage of the asset
+ElecLineToLineMaxInputRatedAcVoltAttr : ElecMaxInputRatedAcVoltAttr { voltLineToLine }

@@ -6,11 +6,67 @@
 //   12 May 2025 Rick Jennings  Creation
 //
 
-// Rated operating temperature of the asset
-RatedOperatingTempAttr : TempAttr <abstract> { rated, operating }
+//////////////////////////////////////////////////////////////////////////
+// Air temperature attributes
+//////////////////////////////////////////////////////////////////////////
 
-// Minimum rated operating temperature of the asset
-MinRatedOperatingTempAttr : RatedOperatingTempAttr { min }
+// Air temperature of the asset
+AirTempAttr : TempAttr <abstract> { air }
 
-// Maximum rated operating temperature of the asset
-MaxRatedOperatingTempAttr : RatedOperatingTempAttr { max }
+// Air operating temperature of the asset
+AirOperatingTempAttr : AirTempAttr <abstract> { operating }
+
+// Air rated operating temperature of the asset
+AirRatedOperatingTempAttr : AirOperatingTempAttr <abstract> { rated }
+
+// Air min rated operating temperature of the asset
+AirMinRatedOperatingTempAttr : AirRatedOperatingTempAttr { min }
+
+// Air max rated operating temperature of the asset
+AirMaxRatedOperatingTempAttr : AirRatedOperatingTempAttr { max }
+
+// Air design temperature of the asset
+AirDesignTempAttr : AirTempAttr <abstract> { design }
+
+// Air discharge design temperature of the asset
+AirDischargeDesignTempAttr : AirDesignTempAttr { discharge }
+
+//////////////////////////////////////////////////////////////////////////
+// Water temperature attributes
+//////////////////////////////////////////////////////////////////////////
+
+// Water temperature of the asset
+WaterTempAttr : TempAttr <abstract> { water }
+
+// Water operating temperature of the asset
+WaterOperatingTempAttr : WaterTempAttr <abstract> { operating }
+
+// Water rated operating temperature of the asset
+WaterRatedOperatingTempAttr : WaterOperatingTempAttr <abstract> { rated }
+
+// Water min rated operating temperature of the asset
+WaterMinRatedOperatingTempAttr : WaterRatedOperatingTempAttr { min }
+
+// Water max rated operating temperature of the asset
+WaterMaxRatedOperatingTempAttr : WaterRatedOperatingTempAttr { max }
+
+// Water design temperature of the asset
+WaterDesignTempAttr : WaterTempAttr <abstract> { design }
+
+// Water entering design temperature of the asset
+WaterEnteringDesignTempAttr : WaterDesignTempAttr <abstract> { entering }
+
+// Water chilled entering design temperature of the asset
+WaterChilledEnteringDesignTempAttr : WaterEnteringDesignTempAttr { chilled }
+
+// Water hot entering design temperature of the asset
+WaterHotEnteringDesignTempAttr : WaterEnteringDesignTempAttr { hot }
+
+// Water leaving design temperature of the asset
+WaterLeavingDesignTempAttr : WaterDesignTempAttr <abstract> { leaving }
+
+// Water chilled leaving design temperature of the asset
+WaterChilledLeavingDesignTempAttr : WaterLeavingDesignTempAttr { chilled }
+
+// Water hot leaving design temperature of the asset
+WaterHotLeavingDesignTempAttr : WaterLeavingDesignTempAttr { hot }
