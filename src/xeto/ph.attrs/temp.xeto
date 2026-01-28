@@ -6,11 +6,75 @@
 //   12 May 2025 Rick Jennings  Creation
 //
 
-// Rated operating temperature of the asset
-RatedOperatingTempAttr : TempAttr <abstract> { rated, operating }
+//////////////////////////////////////////////////////////////////////////
+// Air Temperature
+// Hierarchy: Air → Rated/Design → Min/Max → Operating → Direction → Temp
+//////////////////////////////////////////////////////////////////////////
 
-// Minimum rated operating temperature of the asset
-MinRatedOperatingTempAttr : RatedOperatingTempAttr { min }
+// Air temperature of the asset
+AirTempAttr : TempAttr <abstract> { air }
 
-// Maximum rated operating temperature of the asset
-MaxRatedOperatingTempAttr : RatedOperatingTempAttr { max }
+// Air rated temperature
+AirRatedTempAttr : AirTempAttr <abstract> { rated }
+
+// Air rated min temperature
+AirRatedMinTempAttr : AirRatedTempAttr <abstract> { min }
+
+// Air rated min operating temperature
+AirRatedMinOperatingTempAttr : AirRatedMinTempAttr { operating }
+
+// Air rated max temperature
+AirRatedMaxTempAttr : AirRatedTempAttr <abstract> { max }
+
+// Air rated max operating temperature
+AirRatedMaxOperatingTempAttr : AirRatedMaxTempAttr { operating }
+
+// Air design temperature
+AirDesignTempAttr : AirTempAttr <abstract> { design }
+
+// Air design discharge temperature
+AirDesignDischargeTempAttr : AirDesignTempAttr { discharge }
+
+//////////////////////////////////////////////////////////////////////////
+// Water Temperature
+// Hierarchy: Water → Rated/Design → Min/Max → Chilled/Hot → Direction → Temp
+//////////////////////////////////////////////////////////////////////////
+
+// Water temperature of the asset
+WaterTempAttr : TempAttr <abstract> { water }
+
+// Water rated temperature
+WaterRatedTempAttr : WaterTempAttr <abstract> { rated }
+
+// Water rated min temperature
+WaterRatedMinTempAttr : WaterRatedTempAttr <abstract> { min }
+
+// Water rated min operating temperature
+WaterRatedMinOperatingTempAttr : WaterRatedMinTempAttr { operating }
+
+// Water rated max temperature
+WaterRatedMaxTempAttr : WaterRatedTempAttr <abstract> { max }
+
+// Water rated max operating temperature
+WaterRatedMaxOperatingTempAttr : WaterRatedMaxTempAttr { operating }
+
+// Water design temperature
+WaterDesignTempAttr : WaterTempAttr <abstract> { design }
+
+// Water design chilled temperature
+WaterDesignChilledTempAttr : WaterDesignTempAttr <abstract> { chilled }
+
+// Water design chilled entering temperature
+WaterDesignChilledEnteringTempAttr : WaterDesignChilledTempAttr { entering }
+
+// Water design chilled leaving temperature
+WaterDesignChilledLeavingTempAttr : WaterDesignChilledTempAttr { leaving }
+
+// Water design hot temperature
+WaterDesignHotTempAttr : WaterDesignTempAttr <abstract> { hot }
+
+// Water design hot entering temperature
+WaterDesignHotEnteringTempAttr : WaterDesignHotTempAttr { entering }
+
+// Water design hot leaving temperature
+WaterDesignHotLeavingTempAttr : WaterDesignHotTempAttr { leaving }

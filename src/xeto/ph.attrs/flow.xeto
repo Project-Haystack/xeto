@@ -1,0 +1,143 @@
+//
+// Copyright (c) 2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   13 Dec 2025 Lincoln Harmer Creation
+//
+
+//////////////////////////////////////////////////////////////////////////
+// Air Flow
+// Hierarchy: Air → Rated/Design → Min/Max → Cooling/Heating → Direction → Flow
+//////////////////////////////////////////////////////////////////////////
+
+// Air flow of the asset
+AirFlowAttr: VolumetricFlowAttr <abstract> { air }
+
+// Air rated flow
+AirRatedFlowAttr: AirFlowAttr <abstract> { rated }
+
+// Air rated max flow
+AirRatedMaxFlowAttr: AirRatedFlowAttr <abstract> { max }
+
+// Air rated max cooling flow
+AirRatedMaxCoolingFlowAttr: AirRatedMaxFlowAttr <abstract> { cooling }
+
+// Air rated max cooling discharge flow
+AirRatedMaxCoolingDischargeFlowAttr: AirRatedMaxCoolingFlowAttr { discharge }
+
+// Air rated max heating flow
+AirRatedMaxHeatingFlowAttr: AirRatedMaxFlowAttr <abstract> { heating }
+
+// Air rated max heating discharge flow
+AirRatedMaxHeatingDischargeFlowAttr: AirRatedMaxHeatingFlowAttr { discharge }
+
+// Air rated max outdoor flow
+AirRatedMaxOutdoorFlowAttr: AirRatedMaxFlowAttr { outdoor }
+
+// Air rated min flow
+AirRatedMinFlowAttr: AirRatedFlowAttr <abstract> { min }
+
+// Air rated min cooling flow
+AirRatedMinCoolingFlowAttr: AirRatedMinFlowAttr <abstract> { cooling }
+
+// Air rated min cooling discharge flow
+AirRatedMinCoolingDischargeFlowAttr: AirRatedMinCoolingFlowAttr { discharge }
+
+// Air rated min heating flow
+AirRatedMinHeatingFlowAttr: AirRatedMinFlowAttr <abstract> { heating }
+
+// Air rated min heating discharge flow
+AirRatedMinHeatingDischargeFlowAttr: AirRatedMinHeatingFlowAttr { discharge }
+
+// Air rated min outdoor flow
+AirRatedMinOutdoorFlowAttr: AirRatedMinFlowAttr { outdoor }
+
+// Air design flow
+AirDesignFlowAttr: AirFlowAttr <abstract> { design }
+
+// Air design max flow
+AirDesignMaxFlowAttr: AirDesignFlowAttr <abstract> { max }
+
+// Air design max cooling flow
+AirDesignMaxCoolingFlowAttr: AirDesignMaxFlowAttr <abstract> { cooling }
+
+// Air design max cooling discharge flow
+AirDesignMaxCoolingDischargeFlowAttr: AirDesignMaxCoolingFlowAttr { discharge }
+
+// Air design max heating flow
+AirDesignMaxHeatingFlowAttr: AirDesignMaxFlowAttr <abstract> { heating }
+
+// Air design max heating discharge flow
+AirDesignMaxHeatingDischargeFlowAttr: AirDesignMaxHeatingFlowAttr { discharge }
+
+// Air design max outdoor flow
+AirDesignMaxOutdoorFlowAttr: AirDesignMaxFlowAttr { outdoor }
+
+// Air design min flow
+AirDesignMinFlowAttr: AirDesignFlowAttr <abstract> { min }
+
+// Air design min cooling flow
+AirDesignMinCoolingFlowAttr: AirDesignMinFlowAttr <abstract> { cooling }
+
+// Air design min cooling discharge flow
+AirDesignMinCoolingDischargeFlowAttr: AirDesignMinCoolingFlowAttr { discharge }
+
+// Air design min heating flow
+AirDesignMinHeatingFlowAttr: AirDesignMinFlowAttr <abstract> { heating }
+
+// Air design min heating discharge flow
+AirDesignMinHeatingDischargeFlowAttr: AirDesignMinHeatingFlowAttr { discharge }
+
+// Air design min outdoor flow
+AirDesignMinOutdoorFlowAttr: AirDesignMinFlowAttr { outdoor }
+
+//////////////////////////////////////////////////////////////////////////
+// Water Flow
+// Hierarchy: Water → Rated/Design → Min/Max → Chilled/Hot → Flow
+//////////////////////////////////////////////////////////////////////////
+
+// Water flow of the asset
+WaterFlowAttr: VolumetricFlowAttr <abstract> { water }
+
+// Water rated flow
+WaterRatedFlowAttr: WaterFlowAttr <abstract> { rated }
+
+// Water rated max flow
+WaterRatedMaxFlowAttr: WaterRatedFlowAttr <abstract> { max }
+
+// Water rated max chilled flow
+WaterRatedMaxChilledFlowAttr: WaterRatedMaxFlowAttr { chilled }
+
+// Water rated max hot flow
+WaterRatedMaxHotFlowAttr: WaterRatedMaxFlowAttr { hot }
+
+// Water rated min flow
+WaterRatedMinFlowAttr: WaterRatedFlowAttr <abstract> { min }
+
+// Water rated min chilled flow
+WaterRatedMinChilledFlowAttr: WaterRatedMinFlowAttr { chilled }
+
+// Water rated min hot flow
+WaterRatedMinHotFlowAttr: WaterRatedMinFlowAttr { hot }
+
+// Water design flow
+WaterDesignFlowAttr: WaterFlowAttr <abstract> { design }
+
+// Water design max flow
+WaterDesignMaxFlowAttr: WaterDesignFlowAttr <abstract> { max }
+
+// Water design max chilled flow
+WaterDesignMaxChilledFlowAttr: WaterDesignMaxFlowAttr { chilled }
+
+// Water design max hot flow
+WaterDesignMaxHotFlowAttr: WaterDesignMaxFlowAttr { hot }
+
+// Water design min flow
+WaterDesignMinFlowAttr: WaterDesignFlowAttr <abstract> { min }
+
+// Water design min chilled flow
+WaterDesignMinChilledFlowAttr: WaterDesignMinFlowAttr { chilled }
+
+// Water design min hot flow
+WaterDesignMinHotFlowAttr: WaterDesignMinFlowAttr { hot }
