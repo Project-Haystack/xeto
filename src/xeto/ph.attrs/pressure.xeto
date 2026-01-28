@@ -17,10 +17,13 @@ AirPressureAttr : PressureAttr <abstract> { air }
 AirDesignPressureAttr : AirPressureAttr <abstract> { design }
 
 // Air fan design pressure of the asset
-AirFanDesignPressureAttr : AirDesignPressureAttr { fan }
+AirDesignFanPressureAttr : AirDesignPressureAttr { fan }
 
 // Air rated pressure of the asset
 AirRatedPressureAttr : AirPressureAttr <abstract> { rated }
+
+// Air fan rated pressure of the asset
+AirRatedFanPressureAttr : AirRatedPressureAttr { fan }
 
 //////////////////////////////////////////////////////////////////////////
 // Water pressure attributes
@@ -33,10 +36,10 @@ WaterPressureAttr : PressureAttr <abstract> { water }
 WaterDesignPressureAttr : WaterPressureAttr <abstract> { design }
 
 // Water pump design pressure of the asset
-WaterPumpDesignPressureAttr : WaterDesignPressureAttr { pump }
+WaterDesignPumpPressureAttr : WaterDesignPressureAttr { pump }
 
 // Water chiller design pressure of the asset
-WaterChillerDesignPressureAttr : WaterDesignPressureAttr { chiller }
+WaterDesignChillerPressureAttr : WaterDesignPressureAttr { chiller }
 
 // Water rated pressure of the asset
 WaterRatedPressureAttr : WaterPressureAttr <abstract> { rated }
