@@ -44,19 +44,19 @@ AirFanMechanicalPowerAttr : AirMechanicalPowerAttr <abstract> { fan }
 AirDesignFanMechanicalPowerAttr : AirFanMechanicalPowerAttr <abstract> { design }
 
 // Air discharge design fan mechanical power
-AirDischargeDesignFanMechanicalPowerAttr : AirDesignFanMechanicalPowerAttr { discharge }
+AirDesignDischargeFanMechanicalPowerAttr : AirDesignFanMechanicalPowerAttr { discharge }
 
 // Air return design fan mechanical power
-AirReturnDesignFanMechanicalPowerAttr : AirDesignFanMechanicalPowerAttr { return }
+AirDesignReturnFanMechanicalPowerAttr : AirDesignFanMechanicalPowerAttr { return }
 
 // Air rated fan mechanical power
 AirRatedFanMechanicalPowerAttr : AirFanMechanicalPowerAttr <abstract> { rated }
 
 // Air discharge rated fan mechanical power
-AirDischargeRatedFanMechanicalPowerAttr : AirRatedFanMechanicalPowerAttr { discharge }
+AirRatedDischargeFanMechanicalPowerAttr : AirRatedFanMechanicalPowerAttr { discharge }
 
 // Air return rated fan mechanical power
-AirReturnRatedFanMechanicalPowerAttr : AirRatedFanMechanicalPowerAttr { return }
+AirRatedReturnFanMechanicalPowerAttr : AirRatedFanMechanicalPowerAttr { return }
 
 //////////////////////////////////////////////////////////////////////////
 // Water power attributes
