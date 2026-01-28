@@ -7,39 +7,56 @@
 //
 
 //////////////////////////////////////////////////////////////////////////
-// Air pressure attributes
+// Air Pressure
+// Hierarchy: Air → Rated/Design → Fan → Pressure
 //////////////////////////////////////////////////////////////////////////
 
 // Air pressure of the asset
 AirPressureAttr : PressureAttr <abstract> { air }
 
-// Air design pressure of the asset
-AirDesignPressureAttr : AirPressureAttr <abstract> { design }
-
-// Air fan design pressure of the asset
-AirFanDesignPressureAttr : AirDesignPressureAttr { fan }
-
-// Air rated pressure of the asset
+// Air rated pressure
 AirRatedPressureAttr : AirPressureAttr <abstract> { rated }
 
+// Air rated fan pressure
+AirRatedFanPressureAttr : AirRatedPressureAttr { fan }
+
+// Air design pressure
+AirDesignPressureAttr : AirPressureAttr <abstract> { design }
+
+// Air design fan pressure
+AirDesignFanPressureAttr : AirDesignPressureAttr { fan }
+
 //////////////////////////////////////////////////////////////////////////
-// Water pressure attributes
+// Water Pressure
+// Hierarchy: Water → Rated/Design → Min/Max → Pump/Chiller → Pressure
 //////////////////////////////////////////////////////////////////////////
 
 // Water pressure of the asset
 WaterPressureAttr : PressureAttr <abstract> { water }
 
-// Water design pressure of the asset
-WaterDesignPressureAttr : WaterPressureAttr <abstract> { design }
-
-// Water pump design pressure of the asset
-WaterPumpDesignPressureAttr : WaterDesignPressureAttr { pump }
-
-// Water chiller design pressure of the asset
-WaterChillerDesignPressureAttr : WaterDesignPressureAttr { chiller }
-
-// Water rated pressure of the asset
+// Water rated pressure
 WaterRatedPressureAttr : WaterPressureAttr <abstract> { rated }
 
-// Water chiller min rated pressure of the asset
-WaterChillerMinRatedPressureAttr : WaterRatedPressureAttr { chiller, min }
+// Water rated min pressure
+WaterRatedMinPressureAttr : WaterRatedPressureAttr <abstract> { min }
+
+// Water rated min pressure
+WaterRatedMaxPressureAttr : WaterRatedPressureAttr <abstract> { max }
+
+// Water rated min chiller pressure
+WaterRatedMinChillerPressureAttr : WaterRatedMinPressureAttr { chiller }
+
+// Water rated min chiller pressure
+WaterRatedMaxChillerPressureAttr : WaterRatedMaxPressureAttr { chiller }
+
+// Water rated pump pressure
+WaterRatedPumpPressureAttr : WaterRatedPressureAttr { pump }
+
+// Water design pressure
+WaterDesignPressureAttr : WaterPressureAttr <abstract> { design }
+
+// Water design pump pressure
+WaterDesignPumpPressureAttr : WaterDesignPressureAttr { pump }
+
+// Water design chiller pressure
+WaterDesignChillerPressureAttr : WaterDesignPressureAttr { chiller }

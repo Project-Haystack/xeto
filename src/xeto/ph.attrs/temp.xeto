@@ -7,66 +7,74 @@
 //
 
 //////////////////////////////////////////////////////////////////////////
-// Air temperature attributes
+// Air Temperature
+// Hierarchy: Air → Rated/Design → Min/Max → Operating → Direction → Temp
 //////////////////////////////////////////////////////////////////////////
 
 // Air temperature of the asset
 AirTempAttr : TempAttr <abstract> { air }
 
-// Air operating temperature of the asset
-AirOperatingTempAttr : AirTempAttr <abstract> { operating }
+// Air rated temperature
+AirRatedTempAttr : AirTempAttr <abstract> { rated }
 
-// Air rated operating temperature of the asset
-AirRatedOperatingTempAttr : AirOperatingTempAttr <abstract> { rated }
+// Air rated min temperature
+AirRatedMinTempAttr : AirRatedTempAttr <abstract> { min }
 
-// Air min rated operating temperature of the asset
-AirMinRatedOperatingTempAttr : AirRatedOperatingTempAttr { min }
+// Air rated min operating temperature
+AirRatedMinOperatingTempAttr : AirRatedMinTempAttr { operating }
 
-// Air max rated operating temperature of the asset
-AirMaxRatedOperatingTempAttr : AirRatedOperatingTempAttr { max }
+// Air rated max temperature
+AirRatedMaxTempAttr : AirRatedTempAttr <abstract> { max }
 
-// Air design temperature of the asset
+// Air rated max operating temperature
+AirRatedMaxOperatingTempAttr : AirRatedMaxTempAttr { operating }
+
+// Air design temperature
 AirDesignTempAttr : AirTempAttr <abstract> { design }
 
-// Air discharge design temperature of the asset
-AirDischargeDesignTempAttr : AirDesignTempAttr { discharge }
+// Air design discharge temperature
+AirDesignDischargeTempAttr : AirDesignTempAttr { discharge }
 
 //////////////////////////////////////////////////////////////////////////
-// Water temperature attributes
+// Water Temperature
+// Hierarchy: Water → Rated/Design → Min/Max → Chilled/Hot → Direction → Temp
 //////////////////////////////////////////////////////////////////////////
 
 // Water temperature of the asset
 WaterTempAttr : TempAttr <abstract> { water }
 
-// Water operating temperature of the asset
-WaterOperatingTempAttr : WaterTempAttr <abstract> { operating }
+// Water rated temperature
+WaterRatedTempAttr : WaterTempAttr <abstract> { rated }
 
-// Water rated operating temperature of the asset
-WaterRatedOperatingTempAttr : WaterOperatingTempAttr <abstract> { rated }
+// Water rated min temperature
+WaterRatedMinTempAttr : WaterRatedTempAttr <abstract> { min }
 
-// Water min rated operating temperature of the asset
-WaterMinRatedOperatingTempAttr : WaterRatedOperatingTempAttr { min }
+// Water rated min operating temperature
+WaterRatedMinOperatingTempAttr : WaterRatedMinTempAttr { operating }
 
-// Water max rated operating temperature of the asset
-WaterMaxRatedOperatingTempAttr : WaterRatedOperatingTempAttr { max }
+// Water rated max temperature
+WaterRatedMaxTempAttr : WaterRatedTempAttr <abstract> { max }
 
-// Water design temperature of the asset
+// Water rated max operating temperature
+WaterRatedMaxOperatingTempAttr : WaterRatedMaxTempAttr { operating }
+
+// Water design temperature
 WaterDesignTempAttr : WaterTempAttr <abstract> { design }
 
-// Water entering design temperature of the asset
-WaterEnteringDesignTempAttr : WaterDesignTempAttr <abstract> { entering }
+// Water design chilled temperature
+WaterDesignChilledTempAttr : WaterDesignTempAttr <abstract> { chilled }
 
-// Water chilled entering design temperature of the asset
-WaterChilledEnteringDesignTempAttr : WaterEnteringDesignTempAttr { chilled }
+// Water design chilled entering temperature
+WaterDesignChilledEnteringTempAttr : WaterDesignChilledTempAttr { entering }
 
-// Water hot entering design temperature of the asset
-WaterHotEnteringDesignTempAttr : WaterEnteringDesignTempAttr { hot }
+// Water design chilled leaving temperature
+WaterDesignChilledLeavingTempAttr : WaterDesignChilledTempAttr { leaving }
 
-// Water leaving design temperature of the asset
-WaterLeavingDesignTempAttr : WaterDesignTempAttr <abstract> { leaving }
+// Water design hot temperature
+WaterDesignHotTempAttr : WaterDesignTempAttr <abstract> { hot }
 
-// Water chilled leaving design temperature of the asset
-WaterChilledLeavingDesignTempAttr : WaterLeavingDesignTempAttr { chilled }
+// Water design hot entering temperature
+WaterDesignHotEnteringTempAttr : WaterDesignHotTempAttr { entering }
 
-// Water hot leaving design temperature of the asset
-WaterHotLeavingDesignTempAttr : WaterLeavingDesignTempAttr { hot }
+// Water design hot leaving temperature
+WaterDesignHotLeavingTempAttr : WaterDesignHotTempAttr { leaving }

@@ -7,99 +7,112 @@
 //
 
 //////////////////////////////////////////////////////////////////////////
-// Air power attributes
+// Air Thermal Power
+// Hierarchy: Air → Thermal → Rated/Design → Cooling/Heating
 //////////////////////////////////////////////////////////////////////////
-
-// Air power (capacity) of the asset
-AirPowerAttr : PowerAttr <abstract> { air }
 
 // Air thermal capacity (heat transfer to/from air)
-AirThermalPowerAttr : AirPowerAttr <abstract> { thermal, unit: "BTU/hr" }
+AirThermalPowerAttr : PowerAttr <abstract> { air, thermal, unit: "BTU/hr" }
 
-// Air cooling thermal capacity
-AirCoolingThermalPowerAttr : AirThermalPowerAttr <abstract> { cooling }
+// Air thermal rated capacity
+AirThermalRatedPowerAttr : AirThermalPowerAttr <abstract> { rated }
 
-// Air rated cooling thermal capacity
-AirRatedCoolingThermalPowerAttr : AirCoolingThermalPowerAttr { rated }
+// Air thermal rated cooling capacity
+AirThermalRatedCoolingPowerAttr : AirThermalRatedPowerAttr { cooling }
 
-// Air design cooling thermal capacity
-AirDesignCoolingThermalPowerAttr : AirCoolingThermalPowerAttr { design }
+// Air thermal rated heating capacity
+AirThermalRatedHeatingPowerAttr : AirThermalRatedPowerAttr { heating }
 
-// Air heating thermal capacity
-AirHeatingThermalPowerAttr : AirThermalPowerAttr <abstract> { heating }
+// Air thermal design capacity
+AirThermalDesignPowerAttr : AirThermalPowerAttr <abstract> { design }
 
-// Air rated heating thermal capacity
-AirRatedHeatingThermalPowerAttr : AirHeatingThermalPowerAttr { rated }
+// Air thermal design cooling capacity
+AirThermalDesignCoolingPowerAttr : AirThermalDesignPowerAttr { cooling }
 
-// Air design heating thermal capacity
-AirDesignHeatingThermalPowerAttr : AirHeatingThermalPowerAttr { design }
+// Air thermal design heating capacity
+AirThermalDesignHeatingPowerAttr : AirThermalDesignPowerAttr { heating }
+
+//////////////////////////////////////////////////////////////////////////
+// Air Mechanical Power
+// Hierarchy: Air → Mech → Rated/Design → Fan → Direction
+//////////////////////////////////////////////////////////////////////////
 
 // Air mechanical power (fan shaft power)
-AirMechanicalPowerAttr : AirPowerAttr <abstract> { mechanical }
+AirMechPowerAttr : PowerAttr <abstract> { air, mech }
 
-// Air fan mechanical power
-AirFanMechanicalPowerAttr : AirMechanicalPowerAttr <abstract> { fan }
+// Air mechanical rated power
+AirMechRatedPowerAttr : AirMechPowerAttr <abstract> { rated }
 
-// Air design fan mechanical power
-AirDesignFanMechanicalPowerAttr : AirFanMechanicalPowerAttr <abstract> { design }
+// Air mechanical rated fan power
+AirMechRatedFanPowerAttr : AirMechRatedPowerAttr <abstract> { fan }
 
-// Air discharge design fan mechanical power
-AirDischargeDesignFanMechanicalPowerAttr : AirDesignFanMechanicalPowerAttr { discharge }
+// Air mechanical rated fan discharge power
+AirMechRatedFanDischargePowerAttr : AirMechRatedFanPowerAttr { discharge }
 
-// Air return design fan mechanical power
-AirReturnDesignFanMechanicalPowerAttr : AirDesignFanMechanicalPowerAttr { return }
+// Air mechanical rated fan return power
+AirMechRatedFanReturnPowerAttr : AirMechRatedFanPowerAttr { return }
 
-// Air rated fan mechanical power
-AirRatedFanMechanicalPowerAttr : AirFanMechanicalPowerAttr <abstract> { rated }
+// Air mechanical design power
+AirMechDesignPowerAttr : AirMechPowerAttr <abstract> { design }
 
-// Air discharge rated fan mechanical power
-AirDischargeRatedFanMechanicalPowerAttr : AirRatedFanMechanicalPowerAttr { discharge }
+// Air mechanical design fan power
+AirMechDesignFanPowerAttr : AirMechDesignPowerAttr <abstract> { fan }
 
-// Air return rated fan mechanical power
-AirReturnRatedFanMechanicalPowerAttr : AirRatedFanMechanicalPowerAttr { return }
+// Air mechanical design fan discharge power
+AirMechDesignFanDischargePowerAttr : AirMechDesignFanPowerAttr { discharge }
+
+// Air mechanical design fan return power
+AirMechDesignFanReturnPowerAttr : AirMechDesignFanPowerAttr { return }
 
 //////////////////////////////////////////////////////////////////////////
-// Water power attributes
+// Water Thermal Power
+// Hierarchy: Water → Thermal → Rated/Design → Cooling/Heating
 //////////////////////////////////////////////////////////////////////////
-
-// Water power (capacity) of the asset
-WaterPowerAttr : PowerAttr <abstract> { water }
 
 // Water thermal capacity (heat transfer to/from water)
-WaterThermalPowerAttr : WaterPowerAttr <abstract> { thermal, unit: "BTU/hr" }
+WaterThermalPowerAttr : PowerAttr <abstract> { water, thermal, unit: "BTU/hr" }
 
-// Water cooling thermal capacity (chiller capacity, cooling coil)
-WaterCoolingThermalPowerAttr : WaterThermalPowerAttr <abstract> { cooling }
+// Water thermal rated capacity
+WaterThermalRatedPowerAttr : WaterThermalPowerAttr <abstract> { rated }
 
-// Water rated cooling thermal capacity
-WaterRatedCoolingThermalPowerAttr : WaterCoolingThermalPowerAttr { rated }
+// Water thermal rated cooling capacity (chiller capacity, cooling coil)
+WaterThermalRatedCoolingPowerAttr : WaterThermalRatedPowerAttr { cooling }
 
-// Water design cooling thermal capacity
-WaterDesignCoolingThermalPowerAttr : WaterCoolingThermalPowerAttr { design }
+// Water thermal rated heating capacity (boiler capacity, heating coil)
+WaterThermalRatedHeatingPowerAttr : WaterThermalRatedPowerAttr { heating }
 
-// Water heating thermal capacity (boiler capacity, heating coil)
-WaterHeatingThermalPowerAttr : WaterThermalPowerAttr <abstract> { heating }
+// Water thermal design capacity
+WaterThermalDesignPowerAttr : WaterThermalPowerAttr <abstract> { design }
 
-// Water rated heating thermal capacity
-WaterRatedHeatingThermalPowerAttr : WaterHeatingThermalPowerAttr { rated }
+// Water thermal design cooling capacity
+WaterThermalDesignCoolingPowerAttr : WaterThermalDesignPowerAttr { cooling }
 
-// Water design heating thermal capacity
-WaterDesignHeatingThermalPowerAttr : WaterHeatingThermalPowerAttr { design }
-
-// Water mechanical power (pump shaft power)
-WaterMechanicalPowerAttr : WaterPowerAttr <abstract> { mechanical }
-
-// Water pump mechanical power
-WaterPumpMechanicalPowerAttr : WaterMechanicalPowerAttr <abstract> { pump }
-
-// Water design pump mechanical power
-WaterDesignPumpMechanicalPowerAttr : WaterPumpMechanicalPowerAttr { design }
-
-// Water rated pump mechanical power
-WaterRatedPumpMechanicalPowerAttr : WaterPumpMechanicalPowerAttr { rated }
+// Water thermal design heating capacity
+WaterThermalDesignHeatingPowerAttr : WaterThermalDesignPowerAttr { heating }
 
 //////////////////////////////////////////////////////////////////////////
-// Electrical power attributes
+// Water Mechanical Power
+// Hierarchy: Water → Mech → Rated/Design → Pump
+//////////////////////////////////////////////////////////////////////////
+
+// Water mechanical power (pump shaft power)
+WaterMechPowerAttr : PowerAttr <abstract> { water, mech }
+
+// Water mechanical rated power
+WaterMechRatedPowerAttr : WaterMechPowerAttr <abstract> { rated }
+
+// Water mechanical rated pump power
+WaterMechRatedPumpPowerAttr : WaterMechRatedPowerAttr { pump }
+
+// Water mechanical design power
+WaterMechDesignPowerAttr : WaterMechPowerAttr <abstract> { design }
+
+// Water mechanical design pump power
+WaterMechDesignPumpPowerAttr : WaterMechDesignPowerAttr { pump }
+
+//////////////////////////////////////////////////////////////////////////
+// Electrical Motor Power
+// Hierarchy: Elec → Motor → Rated/Design → Fan/Pump → Input/Output
 //////////////////////////////////////////////////////////////////////////
 
 // Electrical power of the asset
@@ -108,96 +121,124 @@ ElecPowerAttr : PowerAttr <abstract> { elec }
 // Electrical motor power
 ElecMotorPowerAttr : ElecPowerAttr <abstract> { motor }
 
-// Elec fan motor power
-ElecFanMotorPowerAttr : ElecMotorPowerAttr <abstract> { fan }
+// Electrical motor rated power
+ElecMotorRatedPowerAttr : ElecMotorPowerAttr <abstract> { rated }
 
-// Elec pump motor power
-ElecPumpMotorPowerAttr : ElecMotorPowerAttr <abstract> { pump }
+// Electrical motor rated fan power
+ElecMotorRatedFanPowerAttr : ElecMotorRatedPowerAttr <abstract> { fan }
 
-// Elec design fan motor power
-ElecDesignFanMotorPowerAttr : ElecFanMotorPowerAttr <abstract> { design }
+// Electrical motor rated fan input power
+ElecMotorRatedFanInputPowerAttr : ElecMotorRatedFanPowerAttr { input }
 
-// Elec discharge design fan motor power
-ElecDischargeDesignFanMotorPowerAttr : ElecDesignFanMotorPowerAttr { discharge }
+// Electrical motor rated fan output power
+ElecMotorRatedFanOutputPowerAttr : ElecMotorRatedFanPowerAttr { output }
 
-// Elec return design fan motor power
-ElecReturnDesignFanMotorPowerAttr : ElecDesignFanMotorPowerAttr { return }
+// Electrical motor rated pump power
+ElecMotorRatedPumpPowerAttr : ElecMotorRatedPowerAttr <abstract> { pump }
 
-// Elec design pump motor power
-ElecDesignPumpMotorPowerAttr : ElecPumpMotorPowerAttr { design }
+// Electrical motor rated pump input power
+ElecMotorRatedPumpInputPowerAttr : ElecMotorRatedPumpPowerAttr { input }
 
-// Elec rated fan motor power
-ElecRatedFanMotorPowerAttr : ElecFanMotorPowerAttr <abstract> { rated }
+// Electrical motor rated pump output power
+ElecMotorRatedPumpOutputPowerAttr : ElecMotorRatedPumpPowerAttr { output }
 
-// Elec discharge rated fan motor power
-ElecDischargeRatedFanMotorPowerAttr : ElecRatedFanMotorPowerAttr { discharge }
+// Electrical motor design power
+ElecMotorDesignPowerAttr : ElecMotorPowerAttr <abstract> { design }
 
-// Elec return rated fan motor power
-ElecReturnRatedFanMotorPowerAttr : ElecRatedFanMotorPowerAttr { return }
+// Electrical motor design fan power
+ElecMotorDesignFanPowerAttr : ElecMotorDesignPowerAttr <abstract> { fan }
 
-// Elec rated pump motor power
-ElecRatedPumpMotorPowerAttr : ElecPumpMotorPowerAttr { rated }
+// Electrical motor design fan input power
+ElecMotorDesignFanInputPowerAttr : ElecMotorDesignFanPowerAttr { input }
+
+// Electrical motor design fan output power
+ElecMotorDesignFanOutputPowerAttr : ElecMotorDesignFanPowerAttr { output }
+
+// Electrical motor design pump power
+ElecMotorDesignPumpPowerAttr : ElecMotorDesignPowerAttr <abstract> { pump }
+
+// Electrical motor design pump input power
+ElecMotorDesignPumpInputPowerAttr : ElecMotorDesignPumpPowerAttr { input }
+
+// Electrical motor design pump output power
+ElecMotorDesignPumpOutputPowerAttr : ElecMotorDesignPumpPowerAttr { output }
 
 //////////////////////////////////////////////////////////////////////////
-// Natural gas power attributes
+// Natural Gas Power
+// Hierarchy: NaturalGas → Rated/Design → Input
 //////////////////////////////////////////////////////////////////////////
 
 // Natural gas power (fuel input)
 NaturalGasPowerAttr : PowerAttr <abstract> { naturalGas }
 
-// Natural gas input power
-NaturalGasInputPowerAttr : NaturalGasPowerAttr <abstract> { input }
+// Natural gas rated power
+NaturalGasRatedPowerAttr : NaturalGasPowerAttr <abstract> { rated }
 
 // Natural gas rated input power
-NaturalGasRatedInputPowerAttr : NaturalGasInputPowerAttr { rated }
+NaturalGasRatedInputPowerAttr : NaturalGasRatedPowerAttr { input }
+
+// Natural gas design power
+NaturalGasDesignPowerAttr : NaturalGasPowerAttr <abstract> { design }
 
 // Natural gas design input power
-NaturalGasDesignInputPowerAttr : NaturalGasInputPowerAttr { design }
+NaturalGasDesignInputPowerAttr : NaturalGasDesignPowerAttr { input }
 
 //////////////////////////////////////////////////////////////////////////
-// Fuel oil power attributes
+// Fuel Oil Power
+// Hierarchy: FuelOil → Rated/Design → Input
 //////////////////////////////////////////////////////////////////////////
 
 // Fuel oil power (fuel input)
 FuelOilPowerAttr : PowerAttr <abstract> { fuelOil }
 
-// Fuel oil input power
-FuelOilInputPowerAttr : FuelOilPowerAttr <abstract> { input }
+// Fuel oil rated power
+FuelOilRatedPowerAttr : FuelOilPowerAttr <abstract> { rated }
 
 // Fuel oil rated input power
-FuelOilRatedInputPowerAttr : FuelOilInputPowerAttr { rated }
+FuelOilRatedInputPowerAttr : FuelOilRatedPowerAttr { input }
+
+// Fuel oil design power
+FuelOilDesignPowerAttr : FuelOilPowerAttr <abstract> { design }
 
 // Fuel oil design input power
-FuelOilDesignInputPowerAttr : FuelOilInputPowerAttr { design }
+FuelOilDesignInputPowerAttr : FuelOilDesignPowerAttr { input }
 
 //////////////////////////////////////////////////////////////////////////
-// Propane power attributes
+// Propane Power
+// Hierarchy: Propane → Rated/Design → Input
 //////////////////////////////////////////////////////////////////////////
 
 // Propane power (fuel input)
 PropanePowerAttr : PowerAttr <abstract> { propane }
 
-// Propane input power
-PropaneInputPowerAttr : PropanePowerAttr <abstract> { input }
+// Propane rated power
+PropaneRatedPowerAttr : PropanePowerAttr <abstract> { rated }
 
 // Propane rated input power
-PropaneRatedInputPowerAttr : PropaneInputPowerAttr { rated }
+PropaneRatedInputPowerAttr : PropaneRatedPowerAttr { input }
+
+// Propane design power
+PropaneDesignPowerAttr : PropanePowerAttr <abstract> { design }
 
 // Propane design input power
-PropaneDesignInputPowerAttr : PropaneInputPowerAttr { design }
+PropaneDesignInputPowerAttr : PropaneDesignPowerAttr { input }
 
 //////////////////////////////////////////////////////////////////////////
-// Diesel power attributes
+// Diesel Power
+// Hierarchy: Diesel → Rated/Design → Input
 //////////////////////////////////////////////////////////////////////////
 
 // Diesel power (fuel input)
 DieselPowerAttr : PowerAttr <abstract> { diesel }
 
-// Diesel input power
-DieselInputPowerAttr : DieselPowerAttr <abstract> { input }
+// Diesel rated power
+DieselRatedPowerAttr : DieselPowerAttr <abstract> { rated }
 
 // Diesel rated input power
-DieselRatedInputPowerAttr : DieselInputPowerAttr { rated }
+DieselRatedInputPowerAttr : DieselRatedPowerAttr { input }
+
+// Diesel design power
+DieselDesignPowerAttr : DieselPowerAttr <abstract> { design }
 
 // Diesel design input power
-DieselDesignInputPowerAttr : DieselInputPowerAttr { design }
+DieselDesignInputPowerAttr : DieselDesignPowerAttr { input }
