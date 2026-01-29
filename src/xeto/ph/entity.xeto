@@ -1407,8 +1407,9 @@ PhEntity: Entity <abstract> {
   // electricity is not a true two-phase system.
   *splitPhase: Marker
 
-  // Stage number of staged equipment operation such as coil or pump.
-  // The first stage is 1, second stage 2, etc.
+  // Stage number of staged equipment operation, such as coil or pump.
+  // The first stage is 1, second stage 2, etc. Used on boolean points
+  // that correspond to a specific stage.
   *stage: Number
 
   // Readiness mode of a space

@@ -6,12 +6,6 @@
 //   5 Apr 2023  Brian Frank  Creation
 //
 
-// Cooling enable command
-CoolCmd : BoolPoint { cool }
-
-// Heating enable command
-HeatCmd : BoolPoint { heat }
-
 // Dessicant dehumidifier enable command
 DessicantDehumidifierCmd : BoolPoint { dessicantDehumidifier }
 
@@ -42,6 +36,14 @@ EnablePoint : BoolPoint <abstract> {
 // Command to permit/prohibit equipment to run.
 // Used as an interlock with a run command.
 EnableCmd : EnablePoint & CmdPoint <abstract>
+
+// Command to permit/prohibit cooling equipment to run.
+// Used as an interlock with a run command.
+CoolEnableCmd : EnableCmd <abstract> { cool }
+
+// Command to permit/prohibit heating equipment to run.
+// Used as an interlock with a run command.
+HeatEnableCmd : EnableCmd <abstract> { heat }
 
 // Boolean alarm condition
 AlarmSensor : BoolPoint & SensorPoint <abstract> { alarm }
