@@ -1,0 +1,34 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   28 Jan 2026  Lincoln Harmer  Creation
+//
+
+// On/off state for a stage of equipment
+StageEnum: Enum { off, on }
+
+// Point associated with a stage of equipment
+StagePoint : BoolPoint <abstract> {
+  stage: Number <minVal: 1>
+  enum: Obj <val:StageEnum>
+}
+
+// Command for a stage of equipment
+StageCmd: StagePoint & CmdPoint <abstract>
+
+// Command for a cooling stage, a discrete level of cooling capacity
+CoolStageCmd: StageCmd <abstract> { cool }
+
+// Command for a heating stage, a discrete level of heating capacity
+HeatStageCmd: StageCmd <abstract> { heat }
+
+// Sensor for a stage of equipment
+StageSensor: StagePoint & SensorPoint <abstract>
+
+// Sensor for a cooling stage, a discrete level of cooling capacity
+CoolStageSensor: StageSensor <abstract> { cool }
+
+// Sensor for a heating stage, a discrete level of heating capacity
+HeatStageSensor: StageSensor <abstract> { heat }
