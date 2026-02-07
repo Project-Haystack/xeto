@@ -1,0 +1,138 @@
+<!--
+title:      Filters
+author:     Brian Frank
+copyright:  Copyright (c) 2015, Project-Haystack
+license:    Licensed under the Academic Free License version 3.0
+-->
+
+# Overview
+Filters are a simple declarative language used to query Haystack
+data.  A filter is a predicate function that takes a dict and
+returns true/false (match/no match).  Some filter constructs
+require the use of [defs](Defs) in which case the filter must
+be evaluated in the context of a [namespace](Namespaces).
+
+# Usage
+The simplest filter is just a tag name that matches any record that
+contains that tag (regardless of its value):
+
+    site  // query any record with the "site" tag
+
+To match a tag value you can use any of the equality or comparison
+operators:
+
+    geoPostalCode == "23220"   // equal to
+    geoPostalCode != "23220"   // not equal to
+    curVal < 75                // less than
+    curVal <= 75               // less than or equal to
+    curVal > 75                // greater than
+    curVal >= 75               // greater than or equal to
+
+The scalars to compare against are encoded using [Zinc]
+encoding (with a couple of exceptions noted below).
+
+You can combine filters using `and`, `or`, or `not`:
+
+    not point                 // missing the point tag
+    site or equip             // has site or equip tag
+    equip and hvac            // has equip and hvac tag
+    equip and not ahu         // has equip tag, but not the ahu tag
+
+You can also use a Xeto spec name to match by nominal typing:
+
+    Meter
+    ph::Meter
+    ph.points::OutsideAirTempSensor
+
+# Number Comparisons
+Equality and comparison operators for Numbers require an exact unit match,
+otherwise the operator evaluates to false.  Even if the units measure
+the same quantity, no conversion should be performed.  Here are examples:
+
+    75 == 75        // true
+    75°F == 75°F    // true
+    75°F == 75      // false
+    75°F == 75°C    // false
+    1min == 60sec   // false
+
+    123 != 123      // false
+    123 != 123°F    // true
+    123°C != 123°F  // true
+    1min != 60sec   // true
+
+    5 > 4           // true
+    5 > 4°F         // false
+    5°C > 4°F       // false
+
+# Arrow Operator
+You use the `->` operator to dereference a tag that has a Ref value.  For
+example, if your `equip` rec has a `siteRef` tag that references the
+site, you can query for equip in a given city such as:
+
+    equip and siteRef->geoCity == "Chicago"
+
+The filter above will match if the following hold true:
+  - it has equip tag
+  - and it has a siteRef tag that is a Ref
+  - and what the siteRef tag points to has the geoCity tag
+  - and that the site's geoCity tag is equal to "Chicago"
+
+The arrow operator may also be used if the tag value is a nested Dict.
+
+# Ref Lists
+Haystack allows a list of refs to be used for relationships where
+a single ref might be used.  When a tag value is configured as a list
+of refs, then a filter will match if any one of the refs in the list match.
+
+Consider an example with a VAV that has an `airRef` configured as a
+list of two refs:
+
+    // records
+    id:@ahu1, dis:"AHU-1", ahu, equip
+    id:@ahu2, dis:"AHU-2", ahu, equip
+    id:@vav, airRef:[@ahu1, @ahu2], vav, equip
+
+    // all of these filters will match the VAV record
+    airRef == @ahu1
+    airRef == @ahu2
+    airRef->dis == "AHU-1"
+    airRef->dis == "AHU-2"
+
+Note that pathing through a list of refs using "->" will check
+the path on each ref iteratively.
+
+This technique should **never** be used for the fundamental
+containment tags `siteRef`, `equipRef`, or `spaceRef`.
+
+# Grammar
+The formal grammar of the filter langauge:
+
+     <filter>     :=  <condOr>
+     <condOr>     :=  <condAnd> ("or" <condAnd>)*
+     <condAnd>    :=  <term> ("and" <term>)*
+     <term>       :=  <parens> | <has> | <missing> | <cmp> | <isSpec>
+     <parens>     :=  "(" <filter> ")"
+     <has>        :=  <path>
+     <missing>    :=  "not" <path>
+     <cmp>        :=  <path> <cmpOp> <val>
+     <cmpOp>      :=  "==" | "!=" | "<" | "<=" | ">" | ">="
+     <isSpec>     :=  [<specLib> "::"] <specName>
+     <specLib>    :=  <name> ("." <name>)*
+     <specType>   :=
+     <path>       :=  <name> ("->" <name>)*
+
+     <val>        :=  <bool> | <ref> | <str> | <uri> |
+                      <number> | <date> | <time>
+     <bool>       := "true" or "false"
+     <number>     := same as Zinc (keywords not supported INF, -INF, NaN)
+     <ref>        := same as Zinc
+     <symbol>     := same as Zinc
+     <str>        := same as Zinc
+     <uri>        := same as Zinc
+     <date>       := same as Zinc
+     <time>       := same as Zinc
+     <name>       := same as Zinc <id>
+     <specName>   := <alphaHi> (<alphaLo> | <alphaHi> | <digit> | '_')*
+
+See [Zinc grammar](Zinc#grammar) for productions reused from Zinc.  Bools
+are encoded as "true" or "false" (Zinc encodes as "T" or "F").

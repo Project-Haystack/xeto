@@ -1,0 +1,160 @@
+<!--
+title:      Defs
+author:     Brian Frank
+created:    23 Mar 2019
+copyright:  Copyright (c) 2019, Project-Haystack
+-->
+
+# Overview
+Defs bind a symbolic name to a formal definition.  Defs are modeled as
+a dict with the [ph::PhEntity.def] tag.  Defs are used to define the tags we use on
+Haystack data.  And because they are dicts themselves, defs are normal
+Haystack data also.
+
+Defs are declared in [trio](Trio) files and packaged up in zip files
+as a [library](Namespaces#libs).
+
+The primary tags used to model a def include:
+  - [ph::PhEntity.def]: binds a well-known name to the definition
+  - [doc]: human description of the definition
+  - [is]: organizes the definition into a taxonomy type tree
+  - [ph::PhEntity.lib]: specifies the library module which declares the definition
+
+See [def tags](ph::PhEntity.def) for the full list of all tags which might
+be used on a definition.
+
+# Semantic Layers
+Defs allow us to build up the layers of our information model:
+  - **No Defs**: using dict as simple name/value pairs without formal defs
+  - **Vocabulary**: giving our tag names formal definitions as terms
+  - **Taxonomy**: organizing our terms into a subtype tree
+  - **Ontology**: modeling more complex relationships between definitions
+
+Lets start at the bottom: you can use the Haystack data model and file
+formats without any defs.  Even without defs, Haystack provides a nice
+framework for structuring and exchanging data.  It is like JSON but with
+a richer type system since we have first class types for dates, times,
+references, etc.
+
+The real power of Haystack is unleashed when we use the def framework to
+formally define our tag names.  As a first step we create a def for
+each of our tag names (or conjuncts for sets of tag names).  This allows
+to us to precisely define our vocabulary.  Each of those tags now can be
+reflected to its definition.
+
+We use the `is` tag in our defs to organize our meta-model into a taxonomy
+through [subtyping](Subtyping).  Subtyping allows us to relate terms as
+[hyponyms and hypernyms](https://en.wikipedia.org/wiki/Hyponymy_and_hypernymy).
+For example we define that [ph::PhEntity.water] is a subtype of [ph::Liquid].  Subtyping
+allows us to infer semantics beyond the presence of tags.
+
+Ontologies extend taxonomies to include relationships between concepts.
+In Haystack we build out this ontological information using symbolic tags
+on defs to cross-reference other defs.  We call these relationships
+[associations](Associations). For example, we can model that a steam boiler
+produces steam:
+
+    def: ^steam-boiler
+    produces: ^steam
+
+Associations enable inference when querying knowledge from Haystack data.
+
+# Def Types
+There are three types of definitions determined by the format of their
+symbol name:
+
+  - [tag](#tag-defs): definition for a tag name
+  - [conjunct](#conjuncts): definition for a set of tags such as `hot-water`
+  - [key](#feature-keys): definition for a feature specific name such as `filetype:json`
+
+Collectively we call tags and conjuncts our [terms](#terms).
+
+# Tag Defs
+Tag defs are used to formally define tag names.  They must have
+symbol names which are valid tag names:
+
+ - Must start with ASCII lower case letter (a-z)
+ - Must contain only ASCII letters, digits, or underbar (a-z, A-Z, 0-9, _)
+ - By convention use camel case (fooBarBaz)
+
+Here is an example:
+
+    def: ^equip
+    doc: "Equipment asset"
+    is: ^entity
+
+# Conjuncts
+Conjuncts are used to define a set of two or more marker tags used together
+in combination.  Conjuncts are like the compound words used in English and
+other languages.  We coin a new term from existing terms.
+
+Conjunct symbols are formatted as individual names separated by a dash.
+Each tag name used in a conjunct must itself be formally defined and must
+be a subtype of marker.
+
+Conjuncts are applied to dicts by applying each tag separately.  For
+example to apply the [ph::ElecMeter] conjunct to a dict, we would
+add the individual tags [ph::PhEntity.elec] and [ph::PhEntity.meter].
+
+The order of the names in a conjunct is significant - the symbol itself
+defines a unique identifier.  For example `hot-water` is *not* the same
+identifier as `water-hot`.  Note this is in contrast to instance
+data modeled as dicts which do not define any ordering on their tags.
+
+The general rule for ordering the tags in a conjunct is to put the most
+important term or noun at the end.  For example since `hot` is an adjective
+on the noun `water`, then we order the conjunct as `hot-water`.  The
+order often maps to how we would use the phrase or compound word in normal
+language.
+
+Conjuncts have no implied subtyping.  For example [ph::HotWater] does
+not imply that it subtypes from either [ph::PhEntity.hot] or [ph::PhEntity.water].  Subtyping must
+be explicitly specified in the def via the `is` tag.
+
+Here is an example:
+
+    def: ^hot-water
+    is: ^water
+    doc: "Hot water used for HVAC heating or supply to hot taps"
+
+# Terms
+Any def which is either a *tag* or a *conjunct* is a *term*.  Terms define
+our standardized vocabulary to model data.  It can be difficult to determine
+when a term should be a camel case tag or a conjunct.  For example should we
+use `hotWater` as a single tag or `hot-water` as a conjunct?
+
+One consideration is how instance data will be queried with tags.  By making
+a term a conjunct, we can easily query the individual tags.  For example since
+`hot-water` is a conjunct, we can query data for the `water` tag which would
+include `hot-water`, `chilled-water`, etc.  Although in Haystack 4.0 we can
+also perform these queries using the subtype tree.
+
+Another consideration is semantic conflicts.  Many of the primary entity tags
+carry very specific semantics.  For example the [ph::PhEntity.site] tag by its presence
+means the data models a geographic site.  So we cannot reuse the `site`
+tag to mean something associated with a site; which is why use the camel
+case tag [ph::PhEntity.siteMeter] to mean the main meter associated with a site.
+
+# Feature Keys
+Feature keys create named definitions which are application specific.  Feature
+key symbols are formatted as `feature:name`. Currently we define two features:
+  - [ph::PhEntity.lib]: the namespace of library modules
+  - [ph::PhEntity.filetype]: the namespace of Haystack file format types
+
+Feature keys let us share a single unified symbolic namespace for all
+definitions.  But they don't pollute our tag namespace.  For example the
+symbol [filetype:json] lets us define the JSON file format, but its wholly
+separate if we ever decide we want a `json` tag definition.
+
+Feature keys require that the feature name be formally specified as a
+subtype of [ph::PhEntity.feature].  The name of the key must be a valid [tag name](#tag-defs).
+All the names within a feature key must be unique.
+
+Feature keys are implied to subtype from their feature.  For example [lib:phIoT]
+automatically subtypes from [ph::PhEntity.lib].  It is invalid to declare an `is` tag
+on a feature key def.
+
+Feature keys are [singletons](https://en.wikipedia.org/wiki/Singleton_pattern).
+They don't have data instances.  For example, the `lib:ph` def is itself the
+only instance.
+

@@ -1,0 +1,46 @@
+<!--
+title:      Associations
+author:     Brian Frank
+created:    17 Sep 2019
+copyright:  Copyright (c) 2019, Project-Haystack
+-->
+
+# Overview
+Associations define ontological relationships between defs.  An [association]
+is a tag used on defs to cross-reference related defs via symbols.  We use
+the term *association* to denote def-to-def relationships versus instance
+data [relationships](Relationships), which utilize ref tags.
+
+Associations are def tags where the value is a list of symbols.
+Most foundational def relationships are associations including:
+  - [is]: defines supertypes used to build taxonomy tree
+  - [tagOn]: annotates a tag to be used with a given type
+
+In the following example both `is` and `tagOn` are associations which
+create a relationship between defs:
+
+    def: ^yearBuilt
+    is: ^number
+    tagOn: ^site
+
+As a convenience, association tags can use as a simple symbol value.  But, they
+are always [normalized](Normalization#normalize-tags) to a list.  Association
+tags are never used on instance data; they are strictly used only on defs.
+
+# Reciprocal Of
+The [ph::PhEntity.reciprocalOf] tag is applied to an association to define its inverse term.
+For example:
+  - [tags] is reciprocalOf of [tagOn] (and vice versa)
+  - [quantities] is reciprocalOf of [quantityOf] (and vice versa)
+
+Reciprocals are used to coin terms that are intuitive for bi-directional
+[relationship queries](Relationships#reciprocal-of).  However, to promote
+consistency, it is desirable to only declare associations in one direction.
+Typically, "child-to-parent" is the preferred direction for declaring associations.
+For example, it is more convenient to declare `tagOn` for value tags than to
+enumerate all the `tags` for a given entity type.  This design also
+provides more flexibility for late binding of associations in separate libs.
+We use the [ph::PhEntity.computedFromReciprocal] tag to capture this concept.  For example, [tags]
+is annotated with the `computedFromReciprocal` marker.  This means its `tags`
+must be not used directly as a def tag (it exists only to provide an inverse term
+for `tagOn`).

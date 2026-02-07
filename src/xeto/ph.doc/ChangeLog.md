@@ -1,0 +1,329 @@
+<!--
+title:      ChangeLog
+author:     Brian Frank
+created:    4 Apr 2011
+copyright:  Copyright (c) 2016, Project-Haystack
+license:    Licensed under the Academic Free License version 3.0
+-->
+
+**Version 4.0.0 (7 Jul 2024)**
+- Final 4.0 defs based release
+
+**Version 3.9.15 (25 Oct 2024)**
+- Rework of EVSE design from WG
+- #1109: rework elec phase modeling to use new suite of tags
+- #1056: batch hisRead and hisWrite API operations
+- #1125: add synthetics tags
+- Flush out more HTTP API examples (in both Zinc and JSON)
+- Formalize Filter specify for comparison of Numbers with units
+- Add Xeto specs to Filter syntax
+- Rename computed to computedFromReciprocal for associations
+- Rework docHaystack Meters chapter
+
+**Version 3.9.14 (22 Mar 2023)**
+- New systems design
+- New units: kg/L, mg/L, in/h, mm/h
+
+**Version 3.9.13 (29 Nov 2022)**
+- Stub out system marker tag
+- Merge in VRF branch
+- #986: New tags: phaseCount, singlePhase, threePhase
+- #1007 Updated tags: elec, heatPump, volt
+- #1008 New tags: compressor, mech, serviceFactor
+
+**Version 3.9.12 (21 Apr 2022)**
+- #935: Redesign choice to use simple subtypes and tagOn
+- #936: Redesign pointFunction, pointSubject, pipeFluid, tankSubstance as choice+of
+- #939: Remove equipFunction taxonomy
+- #968: New close op for the HTTP API
+- #957: Add rated and design tags
+
+**Version 3.9.11 (11 Sep 2021)**
+- New `op` feature and def for each operation
+- Rename `formats` to `filetypes` as defs query
+- HTTP API specification for noSideEffects
+- Span def
+- Authentication plaintext scheme
+- 776: biomass, coal, diesel, propane
+- 776: biomassHeating, coalHeating, propaneHeating
+- New Tools chapter to build from source with Haxall
+
+**Version 3.9.10 (23 Apr 2021)**
+- Rename weatherRef to weatherStationRef for consistency
+- Annotate equip which typically uses electricity as elec-input
+- Rename docSection to docAssociations
+- Change protocol to subtype from marker, not entity
+- Add nodoc, nosrc, deprecated
+- Generate children prototypes as RDF blank nodes
+- Update filters chapter for ref list handling
+- Exploded point types (attempt only)
+- Remove state and stateQuantity in favor of keeping run/enable on their own
+- Tweaks to how vfd is used, remove drive tag
+- Expand some of the sp/sensor cmd/sensor proto pairs
+- Add enthalpy tag, associated weather, duct, and zone points
+- Add protos grid files to the distribution
+- Add greenhouse gases into ontology from WG 776
+- Expand children: ducts, zones
+- Port min/max marker tags from Haystack 3
+- New alarm point; alarm sensor on motor, chiller, boiler
+- New air-velocity quantity
+- Rename vavMode to hvacMode, clarify use with dual effective setpoints
+- Other new tags: deadband, deviceRef, nh3, no2, o2, o3
+- Add heatingOnly as peer to coolingOnly, clarify usage in AHU
+- FumeHood children protos
+- Add enable cmd as plant level point
+- Add cool/heat enable cmd as ahu points
+- Revert plantPrimaryLoop/plantSecondaryLoop to primaryLoop/secondaryLoop
+- Rework VAVs to not use subtypes (more like AHUs)
+- Add ups equipment type
+- New Sites chapter
+- New Spaces chapter
+- New Equips chapter
+- New Points chapter
+- New Weather chapter
+- New Devices chapter
+- New Meters chapter
+- New AHUs chapter
+- New VAVs chapter
+- New Plants chapter
+- New Zones chapter
+- New Motors chapter
+- New ElecPanels chapter
+- New ATES chapter and tags from WG 734
+- New DataCenters chapter
+
+**Version 3.9.9 (23 Jul 2020)**
+- Enhance enum value spec to allow list of dicts
+- Add plantTertiaryLoop tag
+- Add doas tag for Dedicated Outside Air System
+- Change mau to subtype from doas
+- Add economizer, ventilation ductSectionTypes
+- 808: Rename gasHeating, oilHeating to naturalGasHeating, fuelOilHeating
+- 808: New flow relationship tags: airRef, elecRef, chilledWaterRef, etc
+- Remove processUses in favor of xxx-input subtyping
+- Rename receives/supplies to inputs/outputs
+- Rename zoneAirPoints to hvacZonePoints
+- 705: Add lightingZonePoints
+- 705: Add occupancy sensor for number of occupants
+- New Intro chapter
+- New Kinds chapter
+- New Filetypes chapter
+- Add waterCooling as subtype of coolingProcessType
+
+**Version 3.9.8 (24 Mar 2020)**
+- New Changes3to4 chapter
+- Port file type docs: Zinc, Json, Trio, Csv
+- Port docs: Grid, HttpApi (was Rest), Ops, and Auth
+- Zinc and JSON support for symbol literals
+- Zinc support for optional commas in nested dict literals
+- Trio support for nested lists
+- Rename lib includes to depends
+- Rework children to be lists of dicts instead of Zinc strings
+- Rename `filter` to `filterStr` and add `filter` marker tag
+- Add tags: co, diverting, volume
+- Add choice airVolumeAdjustability - constantAirVolume, variableAirVolume
+- Add choice plantLoop - plantPrimaryLoop, plantSecondaryLoop
+- Rename openLoop/closedLoop to condenserOpenLoop/condenserClosedLoop as choice
+- Add openEnum marker for geoState
+- 609: Add humidifier equip and points
+- 609: Add economizing ahu point
+- 609: Add dessicantDehumidifier ahu point
+- 705: Add active-energy, reactive-energy, apparent-energy
+- 741: HttpApi incomplete data
+- 749: Add pointGroup, zoneAirPoints as supertype for hvac-zone-space, thermostat
+- 778: Add elec-demand
+
+**Version 3.9.7 (3 Oct 2019)**
+- Cleanup relationship defs
+- Make containedBy, contains relationships, not associations
+- Add accumulate marker for normalization
+- Use produces instead of supplies for equip level functionality
+- Finish elec-meter points
+- Finish actuator points
+- Finish ahu points/tags: freezeStat, heatWheel, faceBypass
+- Finish vav points: reheat, ductArea, perimeterHeat, vavMode
+- Finish boiler points: circ (pipeType)
+- Finish plant points: flue (ductType), mixing
+- Finish tank points
+- Simplify cooling/heating coils taxonomy and add children points
+
+**Version 3.9.6 (25 Sep 2019)**
+- Remove pointKind and use kind to keep it back compatible
+- Replace mixinOn concept with tagOn
+- Refactor choice to subtype directly from symbol
+- Rename aspects to associations
+- New Normalization chapter
+- New Protos chapter
+- New Associations chapter
+- Zone setpoint ontology
+- Space subtypes appendix
+- Point protos appendix
+- Add panel, elec-panel, controls-panel
+- Stub simple device taxonomy
+- Stub simple dataCenter, rack tags
+- Apply tagOn to ref tags
+
+**Version 3.9.5 (12 Jun 2019)**
+- Refactor site/weatherStation to be closer to current design
+- Remove building tag
+- Add phIct library for hardware, software, and networking
+- Redesign children using dict prototype instances
+- Rework motor/actuator conjuncts for fan, pump, damper, and valve
+- Add docs on the doc sections
+- Add usage doc section
+
+**Version 3.9.4 (3 May 2019)**
+- New synthesizer design
+- Rework mixins to use mixinOn/mixins tags
+- Rework fan, damper, pump, valve to be both point and equip
+- Add motor/vfd as supertype/mixin for fan/pump
+- Add actuator as supertyper of damper/valve
+- Rename uv to unitVent and subtype from fcu
+- Add movingWalkway
+- Add coils and associated subtypes as a type of heatExchanger
+- Flush out pointFunction, pointSubject, and pointQuantity
+
+**Version 3.9.3 (26 Apr 2019)**
+- Remove generics
+- Remove compose symbols (replaced with tagOn, containedBy)
+- Add defx support
+- Rename Spaces to Namespaces
+- Simplify process taxonomy
+- Add ac-elec-meter, dc-elec-meter subtypes
+- Add fan, damper, pump, valve
+- Rename meterSphere to meterScope
+- Flush out submeterOf relationship
+- Add ground-floor, roof-floor, subterranean-floor, and floorNum
+- Add equipFunction aspects
+- Add airTerminalUnit and cav equip types
+- Add airHandlingEquip, mau, rtu, fcu, uv, heatPump, fumeHood
+- Add radiantEquip, radiator, radiantFloor, chilledBeam
+- Add thermostat
+- Add quantities: illuminance, luminance, luminous-flux, luminous-intensity
+- Add luminaire
+- Add verticalTransport, elevator, escalator
+
+**Version 3.9.2 (28 Mar 2019)**
+- Public review of new Haystack 4.0 docs and defs
+
+**Version 3.0.2 (16-Jan-2017)**
+- Elec model enhancments
+- Updated tags: apparent, current, pf, phase, power, volt,
+- New tags: ac, active, angle, avg, export, dc, imbalance, import,
+  mag, net, reactive, total, thd
+
+**Version 3.0.1 (13-Jul-2016)**
+- Add new Associate members to about
+- New tags: circ, diverting, flue, gasHeat, header, level, mixing, oil, tank
+- Add file manager to website
+- Roll encoding version to "3.0" for Zinc and JSON
+- Add Trio chapter
+- Renamed chillerPlant to chilledWaterPlant
+- Renamed boilerPlant to hotWaterPlant/steamPlant
+- Change pump to work as equop or point (like fan)
+- New Tanks chapter
+- Beef up curStatus enumeration
+- 258: JSON new encoding
+- 341: heating plants
+- 350: new `mau` tag
+- 360: new XStr data type
+- 361: nested collection types
+- 362: new NA data type
+- 383: new HTTP authentication protocol
+- 396: remove discharge/entering tag from VAVs
+- 418: new weather points
+
+**Version 2.0.7 (2-Jun-2015)**
+- Publish source to BitBucket
+- New Builds and ChangeLog chapters
+- New Builds section on Downloads page
+
+**Version 2.0.6 (14-May-2015)**
+- Add Zones chapter
+- Add Unitary Equip chapter
+- Enhanced VAV tags
+- Add AHU section on cooling/heating methods
+- Remove `curDis`
+- Add links for C++, Dart, and Node.JS projects
+- New tags: chilledWaterCool, co, coolOnly, ductArea, dxCool, elecHeat,
+  elecReheat, fanPowered, fcu, heatPump, hotWaterHeat, hotWaterReheat,
+  max, min, occ, parallel, pressureDependent, pressureIndependent, reheat,
+  reheating, series, singleDuct, standby, steamHeat, unocc, uv, vavMode
+
+**Version 2.0.5 (13-Aug-2014)**
+- #193 New meter tag design
+- #193 New VFD chapter
+- #193 Additional points for chillers
+- #50 JSON serialization tweaks
+- #146: change tags in formats op
+- #181: minVal and maxVal
+- French localization provided by Christian Tremblay
+- Rework doc engine to use new new fandoc APIs
+- File downloads
+
+**Version 2.0.4 (13-Jan-2014)**
+- Fix wetBulb
+- Add search redirect to google
+
+**Version 2.0.3 (27-Nov-2013)**
+- Update diagrams to use @ ref syntax
+- #30: Experimental device networking model
+- #35: Rename condensed to condenser
+- #35: Add `primaryLoop` and `secondaryLoop`
+- #80: ElecPanels
+- #85: AHU enhancements
+- #119: Add `wetBulb`, clarify `air` as dry-blub
+- #134: new units PUE, DCIE
+
+**Version 2.0.2 (15-Jul-2013)**
+- Energy Star tags #104
+- Fix password reset bug
+- Add zh.props
+
+**Version 2.0.1 (1-Apr-2013)**
+- Allow tilde char to Refs
+- Add ops: nav, pointWrite, invokeAction
+- Beef up rules for ids and ordering of watchSub/watchPoll
+- #50 Add Json chapter
+- #52 Add Str/enum points
+- #64 Add cur, writable, his point tags
+- #63 Add hisInterpoalte, hisTotalized
+- #66 Add Coord tag value type, replace geoLat/geoLon with geoCoord
+- #76 Add geoCounty
+
+**Version 2.0.0 (1-Oct-2012)**
+- New @ Ref syntax
+- Add Grid, Filters, Zinc, Csv, Rest, Ops chapters
+- New units: kBTU/ft², MBTU/ft², kBTU/h/ft², W/cfm, kW/kcfm, kW/gal/min, knot
+- Fix chiller diagram to use "leaving"
+- Add meter diagram to Energy chapter
+- New path environment design/repo
+- #48 VAV entering
+- #49 add AHU bypass damper cmd
+
+**Version 1.0.4 (2-Dec-2011)**
+- #7: Rename elecKw/elecKwh to kw and kwh
+- #7: New elecMeter points for current, volt, freq, pf, 3-phase
+- #25: Rename in/out to sensor/cmd
+- #33: Require equipRef on points, optional on equip
+- Rework equip point listing for reflection
+- Added W/ft² to unit database
+- Formalize kind tag, use Number vs Num
+- Add equip-point downloads
+- Add tag linking in forum posts
+- Chiller plants
+
+**Version 1.0.3 (7-Sep-2011)**
+- Rework to use multiple finer grained tags
+
+**Version 1.0.2 (14-Jun-2011)**
+- Add new tag types: bool, uri, date, time, datetime
+- #4: added MMBTU and kcfm units
+- #9: Added returnCO2, zoneCO2, zoneHumidity, outsideFlowSp
+- #9: Added zoneTempHeatSp, zoneTempCoolSp, heatWheel
+- #9: Added outsideTemp, outsideTempRef, outsideHumidity, outsideHumidityRef
+- #10: Added faceBypass, freezeState, fanDiffPressure
+- #10: Updated filterDiffPresssure
+
+**Version 1.0.1 (4-Apr-2011)**
+- Initial version

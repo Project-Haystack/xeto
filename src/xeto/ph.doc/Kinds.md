@@ -1,0 +1,355 @@
+<!--
+title:      Kinds
+author:     Brian Frank
+created:    17 Jul 2020
+copyright:  Copyright (c) 2020, Project-Haystack
+-->
+
+# Overview
+Haystack defines a fixed set of data types we call *kinds*.
+
+There are three special singleton types:
+  - [Marker](#marker): label for a "type" or "is-a" relationship
+  - [NA](#na): singleton value that represents not available, missing, or invalid data
+  - [Remove](#remove): singleton value that represents a removal operation
+
+There are eleven scalar atomic types:
+  - [Bool](#bool): boolean "true" or "false"
+  - [Number](#number): floating point number annotated with an optional unit of measurement
+  - [Str](#str): string of Unicode characters
+  - [Uri](#uri): Universal Resource Identifier
+  - [Ref](#ref): reference  used to identify an entity instance
+  - [Symbol](#symbol): name constant used to identify a def
+  - [Date](#date): an ISO 8601 date as year, month, day: 2011-06-07.
+  - [Time](#time): an ISO 8601 time as hour, minute, seconds: 09:51:27.354.
+  - [DateTime](#datetime): an ISO 8601 timestamp followed by timezone name
+  - [Coord](#coord): geographic coordinate in latitude/longitude
+  - [XStr](#xstr): extended typed string
+
+And there are three collection types:
+  - [List](#list): linear sequence of zero or more items
+  - [Dict](#dict): hashmap of name/value pairs
+  - [Grid](#grid): two dimension table
+
+Each of these kinds is discussed in further detail below.
+
+# Names
+Names used for dict tags and grid columns are restricted to the
+following characters:
+
+  - Must start with ASCII lower case letter (a-z)
+  - Must contain only ASCII letters, digits, or underbar (a-z, A-Z, 0-9, _)
+
+By convention we use camel case (fooBarBaz) for generating names.  Restricting
+names ensures they may be safely and easily used as identifiers in programming
+languages and databases.
+
+# Marker
+Marker is a singleton used to create "label" tags.  Markers are used to
+express typing information.  For example the [ph::PhEntity.equip] tag is used on any
+dict that represents an equipment asset.
+
+Encodings:
+    M                     // Zinc cell
+    name without colon    // Zinc meta, nested dict, Trio
+    { "_kind": "marker" } // JSON
+
+# NA
+NA is a singleton for not available.  It fills a similar role as the `NA`
+constant in the R language as a place holding for missing or invalid data
+values.  In Haystack it is most often used in historized data to indicate
+that a timestamp sample is in error.
+
+Encodings:
+    NA                // Zinc, Trio
+    { "_kind": "na" } // JSON
+
+# Remove
+Remove is a singleton used in dicts to indicate removal of a tag.  It is
+reserved for future HTTP ops that perform entity updates.
+
+Encodings:
+    R                     // Zinc, Trio
+    { "_kind": "remove" } // JSON
+
+# Bool
+Bool is the truth data type with the two values `true` and `false`.
+
+Encodings:
+    T or F           // Zinc, Trio
+    true or false    // JSON boolean
+
+# Number
+Number is an integer or floating point value with an optional unit of
+measurement.  Implementations should represent a number as a 64-bit IEEE 754
+floating point and provide 52 bits of lossless integer representation.
+
+All Haystack Numbers may include an optional unit of measurement.  This
+unit must be a symbol defined in the standard [unit database](Units).
+
+Encodings:
+
+    // Unitless in Zinc, Trio, JSON are just simple numbers
+    45             // unitless integer
+    -23.45         // unitless floating point
+    5.4e-7         // unitless exponent format
+
+    // Zinc, Trio append unit using a literal syntax
+    45°F           // integer with unit
+    -23.45m²       // floating point with unit
+    10_000         // underbar is allowed as a separator
+    5.4E+8kW       // exponent format with unit
+
+    // JSON uses an object for numbers with a unit
+    { "_kind": "number", "val": 45, "unit": "°F" }
+    { "_kind": "number", "val": -23.45, "unit": "m²" }
+    { "_kind": "number", "val": 5.4E+8, "unit": "kW" }
+
+The three special Number values:
+
+    // Zinc, Trio use a literal syntax
+    NaN
+    INF
+    -INF
+
+    // JSON uses object syntax
+    { "_kind": "number", "val": "NaN" }
+    { "_kind": "number", "val": "INF" }
+    { "_kind": "number", "val": "-INF" }
+
+It is invalid for NaN to include a unit.  A unit may be included with
+INF and -INF, however it is discouraged.
+
+# Str
+Str is a sequence of zero or more Unicode characters.  Implementations must
+fully support at least the Basic Multilingual Plane (plane 0), which covers
+all the 16-bit code points.  All text formats must be encoded using UTF-8
+unless explicitly specified otherwise (such as via a charset parameter in
+an HTTP Content-Type).
+
+Strings are encoded using double quotes and C style backslash escapes:
+    "haystack"         // Zinc, Trio, JSON
+    "Line 1\nLine 2"   // Zinc, Trio, JSON with backslash escape newline
+
+Note that Zinc and Trio require the "$" character to be backslash escaped.
+
+Strings are also used for enumerated types.  Enumerations define their
+range via the [ph::PhEntity.enum] type.
+
+# Uri
+Uri is the data type used to represent Universal Resource Identifiers according
+to [RFC 3986](http://tools.ietf.org/html/rfc3986).
+
+Encodings:
+    // Zinc, Trio use back tick quotes
+    `http://project-haystack.org/`
+
+    // JSON
+    { "_kind": "uri", "val": "http://project-haystack.org/" }
+
+# Ref
+Refs are the data type for instance data identifiers.  All entities are
+identified via the [sys::Entity.id] tag and a unique ref data value.  Relationships
+cross-reference the entity with ref tags.  And, operations such as the `read`
+or `hisRead` ops will identify the entity with its ref id.
+
+Refs must adhere to the following limited set of ASCII characters:
+  - ASCII lower case letter a-z
+  - ASCII upper case letter A-Z
+  - ASCII digit 0-9
+  - Underbar "_"
+  - Colon ":"
+  - Dash "-"
+  - Period "."
+  - Tilde "~"
+
+Haystack does not prescribe any specific format for refs.  Client software
+must treat refs as opaque identifiers.  It is suggested that implementations
+generate their refs as UUIDs to discourage their use as anything other than an
+opaque id; the `dis` tag should be used for human display names.
+
+The scope of uniqueness for a ref is based on the contextual dataset.  If
+working with a flat file of Haystack data, then the ids are guaranteed unique
+only within that data set (such as RDF blank nodes).  When working with the
+HTTP API, then refs must be unique within the endpoint.  It must never be assumed
+that refs are globally unique.
+
+Refs are encoded using "@" as a prefix and may optionally include
+the display name of the entity with a quoted string literal:
+
+    @foo-bar                  // Zinc, Trio
+    @foo-bar "Display Name"   // Zinc, Trio with display name
+
+    // JSON
+    { "_kind": "ref", "val": "foo-bar" }
+
+    // JSON with display name
+    { "_kind": "ref", "val": "foo-bar", "dis": "Display Name" }
+
+# Symbol
+Symbols are the data type for [def](Defs) identifiers.
+
+Symbols follow the same naming conventions as [refs](#ref) - only ASCII letters,
+digits, underbar, colon, dash, period, or tilde.  Although only a subset of these
+punctuation characters are used today.  Dashes are used for [conjunct symbols](Defs#conjuncts)
+and the colon is used for [feature key symbols](Defs#feature-keys).
+
+Symbols are encoded using "^" as a prefix:
+
+    ^elec-meter  // Zinc, Trio
+
+    // JSON
+    { "_kind": "symbol", "val": "elec-meter" }
+
+# Date
+Date is an ISO 8601 calendar date.  It is encoded as YYYY-MM-DD:
+
+    2020-07-17   // Zinc, Trio
+
+    // JSON
+    { "_kind": "date", "val": "2020-07-17" }
+
+# Time
+Time is an ISO 8601 time of day.  It is encoded as hh:mm:ss.sss:
+
+    14:30:00    // Zinc, Trio for 2:30pm
+
+    // JSON
+    { "_kind": "time", "val": "14:30:00" }
+
+# DateTime
+DateTime is an ISO 8601 timestamp paired with a timezone name.  Haystack
+requires all timestamps to include a timezone.  Timezone names are standardized
+in the [timezone database](TimeZones) (city name from zoneinfo database).
+Implementations should support DateTime precision at least down to the millisecond.
+
+The encoding of DateTime is the ISO 8601 representation followed by a space
+and the timezone name:
+
+    2020-07-17T16:55:42.977-04:00 New_York  // Zinc, Trio
+    2020-07-17T23:30:00Z                    // May omit UTC timezone if offset is Z
+
+    // JSON
+    {  "_kind": "dateTime", "val": "2020-07-17T16:55:42.977-04:00", "tz": "New_York" }
+
+# Coord
+Coord is a specialized data type to represent a geographic coordinate as
+a latitude and longitude.  Haystack uses a special atomic type for coordinates
+to optimize historization of geolocation for transportation applications (versus
+a collection data type such as dict).
+
+Latitude and longitude are represented in [decimal degrees](https://en.wikipedia.org/wiki/Decimal_degrees).
+Implementations should support precision down to the micro-degree (6 decimal
+places) which provides accuracy to ~100mm and can be packed into a 64-bit
+integer.
+
+Coord is encoded using positive/negative latitude, longitude in decimal degrees:
+    C(37.5458266,-77.4491888)   // Trio, Zinc
+
+    // JSON
+    { "_kind": "coord", "lat": 37.548266, "lng": -77.4491888 }
+
+# XStr
+XStr is a tuple of a "type name" and string encoded value.  The type name
+must follow [tag naming](#names) rules except it must start with an ASCII
+upper case letter (A-Z).  XStrs provide a mechanism for vendors to round trip
+specific string encoded atomic values.  The type name is not currently
+standardized by Project Haystack.  However it should be assumed that future
+versions of this specification may standardize a set of XStr type names.
+
+Encodings:
+    Type("value")   // Zinc, Trio
+    Color("red")    // Zinc, Trio
+
+    // JSON
+    { "_kind": "xstr", "type": "Color","val": "red" }
+
+# List
+List is a collection data type.  Lists are ordered sequences and may contain
+any other valid Haystack data types.
+
+Lists are encoded using square brackets exactly like JSON arrays:
+    [1, "two", 3]    // Zinc, Trio, JSON
+    []               // empty list
+
+# Dict
+Dict (or dictionary) is the primary collection data type in Haystack.  Dicts
+are an unordered collection of name/value pairs that we call *tags*.  The
+name keys of a dict are restricted to ASCII letters, digits and underbar
+as discussed in the [names section](#names).  The values may be be any other valid
+Haystack data type.
+
+Dicts are encoded using curly braces similiar to JSON objects:
+    {x:123, y:456}       // Zinc, Trio (commas optional, trailing comma allowed)
+    {"x":123, "y":456}   // JSON object
+
+# Grid
+Grid is a two dimensional tabular data type.  Grids are essentially a list
+of dicts.  However, grids may include grid level and column level meta data
+that is modeled as a dict.  Grids are the fundamental unit of data exchange
+over the [HTTP API](HttpApi).
+
+Grids are commonly used to encode a list of dicts into a single table.
+Consider three dicts that model buildings:
+
+    id: @site-a
+    dis: "Site A"
+    site
+    area: 45000ft²
+
+    id: @site-b
+    dis: "Site B"
+    site
+
+    id: @site-c
+    dis: "Site C"
+    site
+    area: 62000ft²
+    phone: "(804) 555-1234"
+
+Our three entities all have an `id`, `dis`, and `site` tags.  In addition, two
+have the `area` tag, and one has a `phone` tag.  To combine these three entities
+into a grid we end up with five columns and three rows:
+
+    id       dis       site  area      phone
+    -------  -------   ----  --------  ------
+    @site-a  "Site A"  ✓     45000ft²
+    @site-b  "Site B"  ✓
+    @site-c  "Site C"  ✓     62000ft²  "(804) 555-1234"
+
+Note the columns are union of all tags shared by the entities.  Because not every
+entity shares the same columns, we have sparse or null cells.  We could further
+add grid level or column level meta.
+
+The data above is encoded into Zinc as follows:
+
+    ver:"3.0"
+    id,       dis,       site,  area,      phone
+    @site-a,  "Site A",  M,     45000ft²,  N
+    @site-b,  "Site B",  M,     N,         N
+    @site-c,  "Site C",  M,     62000ft²,  "(804) 555-1234"
+
+See [Zinc] and [Json] chapters for the details for grid encoding.
+
+# Defs
+All the data types are formally defined by name with a [def](Defs):
+  - [sys::Marker]
+  - [ph::PhEntity.na]
+  - [remove()]
+  - [sys::Bool]
+  - [sys::Number]
+  - [sys::Str]
+  - [sys::Uri]
+  - [sys::Ref]
+  - [ph::Symbol]
+  - [sys::Date]
+  - [sys::Time]
+  - [sys::DateTime]
+  - [ph::Coord]
+  - [ph::PhEntity.xstr]
+  - [sys::List]
+  - [sys::Dict]
+  - [sys::Grid]
+
+[Subtyping] is used to narrow the core kinds into tag definitions.  For
+example all ref tags will subtype from [sys::Ref].

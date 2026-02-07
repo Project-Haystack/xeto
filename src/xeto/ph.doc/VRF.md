@@ -1,0 +1,73 @@
+<!--
+title:      VRF
+author:     WG 916
+created:    21 Nov 2022
+copyright:  Copyright (c) 2022, Project-Haystack
+-->
+
+# Overview
+A Variable refrigerant flow, or VRF system, is an HVAC system where
+refrigerant is the only coolant material.  VRF uses refrigerant as the
+cooling and heating catalyst. This refrigerant is conditioned by one or
+more outdoor units and is circulated within the building to indoor units.
+
+# Types of VRF systems
+There are three basic types of VRF systems:
+
+  - [ph::VrfCoolingOnlySystem]: Cooling only VRF systems can only cool;
+    heating is not available
+
+  - [ph::VrfHeatPumpSystem]: Heat pump VRF system can reverse the direction of
+    the refrigerant flow to provide heating or cooling to the indoor space.
+    All indoor units connected to a heat pump system can use individual control
+    and set points, but they operate in the same mode of either heating or cooling
+    at any given time.
+
+  - [ph::VrfHeatRecoverySystem]: Heat recovery units are heat pump systems that
+    can provide simultaneous heating and cooling. All indoor units connected
+    to a heat recovery system not only can use individual control and set
+    points, but they can also individually operate in heating or cooling mode
+    at any given time.
+
+# VRF Equipment
+VRF system consists of the following equipment:
+
+  - [Outdoor Units](#outdoor-units): Outdoor unit has one or more compressors.
+    As each indoor unit sends a demand to the outdoor unit, outdoor unit
+    delivers the amount of refrigerant needed to meet the individual requirements
+    of each indoor unit.
+
+  - [Refrigerant Plant](#refrigerant-plant): Multiple outdoor units can be connected,
+    and the refrigerant plant covers all the connected outdoor units.
+
+  - [Branch Selectors](#branch-selector) : Branch selectors are used for heat
+    recovery VRF system as control devices directing the liquid refrigerant or
+    gas refrigerant to zones requiring cooling or heating
+
+  - [Indoor Units](#indoor-units):  Indoor units operate to satisfy a heating or
+    cooling load in a zone based on a zone thermostat temperature set point
+
+# Outdoor Units
+Outdoor units are modeled with the [ph::VrfOutdoorUnit] tags. They can be water or
+air cooled. An outdoor unit contains a compressor, circuit board and a heat
+exchange coil. In case of air cooled units they also have a propeller fan.
+These units are typically situated outside the condtitioned space, and pump
+refrigerant to and from its companion indoor units.
+
+# Indoor Units
+Indoor units are modeled with the [ph::VrfIndoorUnit] tags.  Indoor units are
+located inside the conditioned space and provide conditioned air to the spacs.
+This unit generallycontains a heat exchange coil, filters, remote signal
+receiver, and fan.
+
+# Branch Selector
+Branch selectors are modeled with the [ph::PhEntity.branchSelector] tag.  Branch selectors
+are used for heat recovery VRF system as control devices directing the liquid
+refrigerant or gas refrigerant to zones requiring cooling or heating.
+
+# Refrigerant Plant
+Refrigerant plants are modeled with the [ph::VrfRefrigPlant] tags.  They
+model a group of outdoor units as a single black box.  If one VRF system
+has multiple outdoor units, refrigerant plants work as heat-source side
+for the entire VRF systems, combining multiple outdoor units. These plants
+are composed of outdoor units as sub-equipment.

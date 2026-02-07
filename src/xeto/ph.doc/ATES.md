@@ -1,0 +1,49 @@
+<!--
+title:      ATES
+author:     WG 734
+created:    19 Apr 2021
+copyright:  Copyright (c) 2021, Project-Haystack
+-->
+
+# Overview
+The [ph::PhEntity.ates] tag is used to model an aquifer thermal energy storage system.  ATES
+systems are designed to use underground water to store thermal energy and deliver
+heating and cooling to a building in a very energy efficient way, often in
+combination with a heat pump. The ATES consists of all parts of the system
+that interact directly with the underground water up to and including the
+heat exchanger that transfers energy into the building hot water plant.
+
+An ATES always has one or more well equips. Wells facilitate the
+thermal energy exchange with the ground warm and cold water sources. A
+well can be either a closed system that transports water through
+pipes in the ground, or it can be an open system that pumps up and returns
+ground water.
+
+In most cases, there is also a [ph::PhEntity.flowInverter] equip to change direction
+of the flow between the different well equips.
+
+There are always one or more [heatExchangers](ph::PhEntity.heatExchanger) to transfer
+energy from the ATES into the hot and/or cold water plant of the building.
+In some cases there are multiple buildings connected to a single ATES
+system with one or more heat exchangers per building.
+
+# ATES
+An ATES must be tagged using the [ph::PhEntity.ates] and  [ph::PhEntity.equip] marker tags.  In
+addition, it must define one of the [ph::AtesDesign] choices.
+
+# Wells
+Wells should always be marked as [ph::PhEntity.well] and [ph::PhEntity.equip].  They are modeled
+as the children of an ates equip.
+
+In an ATES, each well should tagged with exactly one of the following
+markers:
+
+  - [ph::PhEntity.warm]: well stores heating energy
+  - [ph::PhEntity.cool]: well stores cooling energy
+  - [ph::PhEntity.infiltration]: water is pumped into ground water layer
+  - [ph::PhEntity.extraction]: ground water is pumped out
+
+Extraction and infiltration are used in the process of extracting water
+from a ground water source, typically taking it through piping and a heat
+exchanger using a pump, and infiltrating the same water back into the ground
+at another location or another depth (another ground water layer).

@@ -1,0 +1,533 @@
+<!--
+title:      Ops
+author:     Brian Frank
+created:    1 Oct 2012
+copyright:  Copyright (c) 2015, Project-Haystack
+license:    Licensed under the Academic Free License version 3.0
+-->
+
+# Overview
+This chapter defines the standardized operations of the Haystack HTTP API.
+Each operation specifies the format and options of the
+request grid and response grid.
+
+# About
+The [about](op:about) op queries basic information about the server.
+
+**Request**: empty grid
+
+**Response**: single row grid with following columns:
+  - `haystackVersion`: Str version `ph` library
+  - `tz`: Str of server's default [timezone](ph.doc::TimeZones)
+  - `serverName`: Str name of the server or project database
+  - `serverTime`: current DateTime of server's clock
+  - `serverBootTime`: DateTime when server was booted up
+  - `productName`: Str name of the server software product
+  - `productUri`: Uri of the product's web site
+  - `productVersion`: Str version of the server software product
+  - `vendorName`: Str name of product's company
+  - `vendorUri`: Uri of the vendor's web site
+  - `moduleName`: module that implements Haystack server protocol if
+    its a plug-in to the product
+  - `moduleVersion`: Str version of moduleName
+
+Example:
+
+    // request
+    GET /haystack/about
+    Accept: text/trio
+
+    // response in Trio
+    haystackVersion:"4.0"
+    tz: "New_York"
+    serverName: "Test Server"
+    serverTime: 2021-05-31T07:50:17-04:00 New_York
+    serverBootTime: 2021-05-28T06:50:47-04:00 New_York
+    productName: "Acme Haystack Server"
+    productUri: `http://acme.com/haystack-server`
+    productVersion: "1.0.30"
+    vendorName: "Acme"
+    vendorUri: `http://acme.com/`
+
+Example response as grid:
+
+    ver:"3.0"
+    haystackVersion,tz,serverName,serverTime,serverBootTime,productName,productUri,productVersion,vendorName,vendorUri
+    "4.0","New_York","Test Server",2021-05-31T07:50:17-04:00 New_York,2021-05-28T06:50:47-04:00 New_York,"Acme Haystack Server",`http://acme.com/haystack-server`,"1.0.30","Acme",`http://acme.com/`
+
+# Close
+The [close](op:close) op closes the current authentication session.  Sessions
+are established by the [auth handshake](Auth) and identified by the bearer
+token.  Calling this op should close the session on the server and invalidate
+the bearer token.
+
+**Request**: empty grid
+
+** Response**: empty grid
+
+Example close request using Zinc:
+
+    POST /haystack/close HTTP/1.1
+    Authorization: bearer authToken=xyz
+    Content-Length: 17
+    Content-Type: text/zinc; charset=utf-8
+
+    ver:"3.0"
+    empty
+
+Example close request using JSON:
+
+    POST /haystack/close HTTP/1.1
+    Authorization: bearer authToken=xyz
+    Content-Length: 81
+    Content-Type: application/json
+
+    {
+    "_kind": "grid",
+    "meta": {"ver":"3.0"},
+    "cols": [{"name":"empty"}],
+    "rows":[]
+    }
+
+# Defs
+The [defs](op:defs) op queries [def dicts](Defs) from the current [namespace](Namespaces).
+
+**Request (all defs)**: empty grid
+
+**Request (by filter)**: filter or limit which defs are queried
+ - `filter`: Str encoding of filter
+ - `limit`: optional Number that specifies maximum number of defs to return in response
+
+** Response**: a grid with the dict representation of each def
+
+Example request:
+
+    ver:"3.0"
+    filter
+    "def==^point"
+
+Example response:
+
+    ver:"3.0"
+    def,lib,is,mandatory,docTaxonomy,doc
+    ^point,^lib:phIoT,[^entity],M,M,"Data point such as a sensor or actuator.\nSee `docHaystack::Points` chapter."
+
+
+# Libs
+The [libs](op:libs) op queries [ph::PhEntity.lib] defs from current namspace.  It follows
+the same convention as the [defs](#defs) op except only `lib` defs are queried.
+
+# Ops
+The [ops](op:ops) op queries [ph::PhEntity.op] defs from current namspace.  It follows
+the same convention as the [defs](#defs) op except only `op` defs are queried.
+
+# Filetypes
+The [filetypes](op:filetypes) op queries [ph::PhEntity.filetype] defs from current namspace.  It follows
+the same convention as the [defs](#defs) op except only `filetype` defs are queried.
+
+# Read
+The [read](op:read) op is used to read a set of entity records either by their
+unique identifier or using a filter.
+
+**Request (by filter)**: a grid with a single row and following columns:
+  - `filter`: required Str encoding of [filter](Filters)
+  - `limit`: optional Number that specifies maximum number of entities
+    to return in response
+
+**Request (by id)**: a grid of one or more rows and one column:
+  - `id`: a Ref identifier
+
+**Response**: grid with a row for each entity read.  If the request is a filter
+read and no matches were found, this will be an empty grid with no rows.
+If a read by id, then each row corresponds to the request grid
+and its respective row ordering.  If an id from the request was not found,
+the response includes a row of all null cells.
+
+Example of filter read request:
+
+    ver:"3.0"
+    filter,limit
+    "point and siteRef==@siteA",1000
+
+Example of read by id with three identifiers:
+
+    ver:"3.0"
+    id
+    @vav101.zoneTemp
+    @vav102.zoneTemp
+    @vav103.zoneTemp
+
+Example of a read response where an id is not found:
+
+    ver:"3.0"
+    id,dis,curVal
+    @vav101.zoneTemp, "VAV-101 ZoneTemp",74.2°F
+    N,N,N
+    @vav103.zoneTemp, "VAV-103 ZoneTemp",73.8°F
+
+Note: a read operation on points returns the last known values for
+[ph::PhEntity.curVal] and [ph::PhEntity.curStatus].  It does not force cur value refresh from downstream
+data sources.  For those cases you must use the [watchSub](#watchsub)
+operation.
+
+# Nav
+The [nav](op:nav) op is used navigate a project for learning and discovery.
+This operation allows servers to expose the database in a human-friendly
+tree (or graph) that can be explored.
+
+**Request**:  a grid with a single row and a `navId` column.  If the
+grid is empty or navId is null, then the request is for the navigation
+root.
+
+**Response**: a grid of navigation children for the navId specified by
+the request.  There is always a `navId` column that indicates the opaque
+identifier used to navigate to the next level of that row.  If the navId
+of a row is null, then the row is a leaf item with no children.
+
+Navigation rows don't necessarily always correspond to records in the
+database.  However, if the navigation row has an `id` column, then it
+is safe to assume the row maps to a record in the database.  Clients
+should treat the navId as an opaque identifier.
+
+# WatchSub
+The [watchSub](op:watchSub) operation is used to create new [watches](HttpApi#watches)
+or add entities to an existing watch.
+
+If the entities subscribed are themselves proxies for external data
+sources, then this operation should perform a downstream data refresh.
+For example, if a Haystack gateway is used to proxy BACnet points, then
+a watch subscription to the Haystack points might initiate a poll
+or COV subscription to the downstream BACnet points.  It is an
+implementation detail whether the data refresh occurs synchronously
+or asynchronously.  Clients should expect that the latest data might not
+be available until a subsequent watchPoll operation.
+
+**Request**: a row for each entity to subscribe to with an `id`
+column of Ref values.  In addition, the following
+grid metadata is specified:
+  - `watchDis`: debug/display string required when creating a new watch
+  - `watchId`: Str watch identifier, which is required to add entities
+to existing watch.  If omitted, the server must open a new watch.
+  - `lease`: optional Number with duration unit for desired lease
+period (server is free it ignore)
+
+**Response**: rows correspond to the current entity state of the
+requested identifiers using same rules as [read op](#read): each
+response row corresponds to the request grid and its respective row
+ordering.  If an id from the request was not found, the response
+includes a row of all null cells.  Grid metadata is:
+  - `watchId`: required Str identifier of the watch
+  - `lease`: required Number with duration unit for server assigned
+lease period
+
+If the reponse is an [error grid](HttpApi#error-grid), then the client must
+assume the watch is no longer valid, and open a new watch.
+
+It is possible that clients may use an id for the subscription that is
+not the server's canonical id (for example if multiple aliases might
+be used to reference an entity).  The canonical id is the one returned by
+the server in the watchSub response.  Servers must use this same id during
+watchPoll operations.  Clients must not assume that the id used by the
+watchSub request is the same id used by the watchSub response and watchPoll
+responses.  However, the order of rows in watchSub request/response is
+guaranteed to allow clients to perform a mapping.
+
+Example request to create a new watch:
+
+    ver:"3.0" watchDis:"MyApp" lease:1min
+    id
+    @2b80f96a-9dcc2202
+    @2b80f96a-7b16eb30
+
+Example response:
+
+    ver:"3.0" watchId:"w-2bfe7e77-8a7c55ab" lease:1min
+    id,cur,curStatus,curVal,equipRef,kind,point,unit
+    @2b80f96a-9dcc2202 "RTU-1 ReturnTemp",M,"ok",68.2°F,@2b80f96a-ee1d1270 "RTU-1","Number",M,"°F"
+    @2b80f96a-7b16eb30 "RTU-1 ZoneTemp",M,"ok",74.1°F,@2b80f96a-ee1d1270 "RTU-1","Number",M,"°F"
+
+Example request to add a record to existing watch:
+
+    ver:"3.0" watchId:"w-2bfe7e77-8a7c55ab"
+    id
+    @2b80f96a-9dcc3345
+
+# WatchUnsub
+The [watchUnsub](op:watchUnsub) operation is used to close a [watch](HttpApi#watches)
+entirely or remove entities from a watch.
+
+**Request**: a row with the `id` column and Ref values for each
+entity to unsubscribe (if the watch is not be closed).  Grid metadata:
+  - `watchId`: Str watch identifier
+  - `close`: Marker tag to close the entire watch
+
+**Response**: empty grid
+
+If the reponse is an [error grid](HttpApi#error-grid), then the client must
+assume the watch is no longer valid, and open a new watch.
+
+Example request to unwatch one record:
+
+    ver:"3.0" watchId:"w-2bfe7e77-8a7c55ab"
+    id
+    @2b80f96a-9dcc2202
+
+Example request to close a watch:
+
+    ver:"3.0" watchId:"w-2bfe7e77-8a7c55ab" close
+    id
+
+Example response:
+
+    ver:"3.0"
+    empty
+
+# WatchPoll
+The [watchPoll](op:watchPoll) operation is used to poll a [watch](HttpApi#watches)
+for changes to the subscribed entity records.
+
+**Request**: grid metadata:
+  - `watchId`: required Str identifier of the watch
+  - `refresh`: Marker tag to request full refresh
+
+**Reponse**: grid where each row correspondes to a watched entity.  The `id`
+tag of each row identifies the changed entity and correlates to the `id` returned
+by watchSub response. Clients must assume no explicit ordering of the rows.
+If the poll was for changes only, only the changed entities since last poll
+are returned.  If no changes have occurred, then an empty grid is returned.
+If the poll is a full refresh, then a row is returned for each entity
+in the watch (invalid identifiers are not be included).
+
+If the reponse is an [error grid](HttpApi#error-grid), then the client must
+assume the watch is no longer valid, and open a new watch.
+
+Request grid:
+
+    ver:"3.0" watchId:"w-2bfe7e77-8a7c55ab"
+    empty
+
+Response grid:
+
+    ver:"3.0" watchId:"w-2bfe7e77-8a7c55ab"
+    id,cur,curStatus,curVal,equipRef,kind,point,unit
+    @2b80f96a-9dcc2202 "RTU-1 ReturnTemp",M,"ok",68.2°F,@2b80f96a-ee1d1270 "RTU-1","Number",M,"°F"
+    @2b80f96a-7b16eb30 "RTU-1 ZoneTemp",M,"ok",74.1°F,@2b80f96a-ee1d1270 "RTU-1","Number",M,"°F"
+
+# PointWrite
+The [pointWrite](op:pointWrite) op is used to:
+  1. read the current status of a [writable point's](ph::WritablePoint) priority array
+  2. Or write to a given level
+
+To read the priority array:
+
+**Request (read)**: a grid with a single row and following columns:
+  - `id`: Ref identifier of writable point
+
+**Response**: returns a grid with current priority array state with following
+columns:
+  - `level`: number from 1 - 17 (17 is default)
+  - `levelDis`: human description of level
+  - `val`: current value at level or null
+  - `who`: who last controlled the value at this level
+
+To write a level in the priority array:
+
+**Request (write)**: a grid with a single row and following columns:
+  - `id`: Ref identifier of writable point
+  - `level`: Number from 1-17 for level to write
+  - `val`: value to write or null to auto the level
+  - `who`: optional username/application name performing the write,
+    otherwise authenticated user display name is used
+  - `duration`: Number with duration unit if setting level 8
+
+**Response**: empty grid
+
+Example request to issue a point write:
+
+    ver:"3.0"
+    id,val,level,who
+    @2b80f96a-d372482e,72°F,16,"Alice"
+
+Example response:
+
+    ver:"3.0"
+    empty
+
+# HisRead
+The [hisRead](op:hisRead) op is used to read a time-series data from one or
+more historized points.  This operation supports both a single point read
+and a batch point read.  The mode is determined by the presense of
+the `range` tag in the request grid meta.
+
+## Single HisRead
+A single point read request:
+
+**Request**: a grid with exactly one row and following columns:
+  - `id`: Ref identifier of historized point
+  - `range`: Str encoding of a date-time range
+
+**Response**: rows of the result grid represent timetamp/value pairs
+with a DateTime `ts` column and a `val` column for each scalar value.
+In addition the grid meta includes:
+  - `id`: Ref of the point we read
+  - `hisStart`: DateTime timestamp for inclusive range start in point's timezone
+  - `hisEnd`: DateTime timestamp for exclusive range end in point's timezone
+
+The range Str is formatted as one of the following options:
+ - "today"
+ - "yesterday"
+ - "{date}"
+ - "{date},{date}"
+ - "{dateTime},{dateTime}"
+ - "{dateTime}"  // anything after given timestamp
+
+Ranges are inclusive of start timestamp and exclusive of end timestamp.
+The `{date}` and `{dateTime}` options must be correctly Zinc encoded.
+Date based ranges are always inferred to be from midnight of starting
+date to midnight of the day after ending date using the timezone of the
+his point being queried.
+
+Clients should query the range using the configured timezone of the
+point.  Although if a different timezone is specified in the range,
+then servers must convert to the point's configured timezone before
+executing the query.  Results are always in the point's configured
+timezone.
+
+Example request:
+
+    ver:"3.0"
+    id,range
+    @someTemp,"2012-10-01"
+
+Example response:
+
+    ver:"3.0" id:@someTemp hisStart:2012-10-01T00:00:00-04:00 New_York hisEnd:2012-10-02T00:00:00-04:00 New_York
+    ts,val
+    2012-10-01T00:15:00-04:00 New_York,72.1°F
+    2012-10-01T00:30:00-04:00 New_York,74.2°F
+    2012-10-01T00:45:00-04:00 New_York,75.0°F
+
+## Batch HisRead
+Clients can request a batch hisRead using the following request format:
+
+**Request**: a grid with one or more rows
+  - `meta.range`: Str encoding of a date-time range in grid meta
+  - `meta.tz`: optional Str timezone name in grid meta
+  - `id`: one or more Ref identifiers of historized points
+
+**Response**: rows of the result grid represent timetamp/value pairs
+with a DateTime `ts` column and one or more value columns named "v0",
+"v1", "v2", etc.  Value column meta must include the point `id` tag.
+Value columns must be ordered according the request grid.
+The grid meta includes the queried span:
+  - `id`: Ref of the point we read
+  - `hisStart`: DateTime timestamp for inclusive range start
+  - `hisEnd`: DateTime timestamp for exclusive range end
+
+The results are joined by a shared `ts` column for each unique timestamp
+in the result set.  If a given point does not have a sample for one of
+the rows, then its cell will be null.
+
+Batch read requires that all the queried points have the same configured
+timezone.  The results are returned in this shared timezone.  Alternatively
+specify an explicit timezone name for the results in the request grid meta
+via the `tz` tag.
+
+Example request:
+
+    ver:"3.0" range:"2012-10-01"
+    id
+    @hisA
+    @hisB
+    @hisC
+
+Example response:
+
+    ver:"3.0" hisStart:2012-10-01T00:00:00-04:00 New_York hisEnd:2012-10-02T00:00:00-04:00 New_York
+    ts,                                  v0 id:@hisA,  v1 id:@hisB,  v2 id:@hisB
+    2012-10-01T00:15:00-04:00 New_York,  72.1°F,       10%,          80°F
+    2012-10-01T00:30:00-04:00 New_York,  73.0°F,       N,            N
+    2012-10-01T00:45:00-04:00 New_York,  N,            20%,          N
+
+# HisWrite
+The [hisWrite](op:hisWrite) op is used to post new time-series data to one
+or more historized points.  The points must already be configured on the
+server and assigned a unique identifier.
+
+The hisWrite operation supports both a single write and a batch write.
+The mode is determined by the presence of an `id` tag in the request grid meta.
+
+## Single HisWrite
+The following request format is used to post history data to a single point:
+
+**Request**: a grid metadata must define `id` Ref of the point.
+The rows define new timestamp/value samples to write with following columns:
+  - `ts`: DateTime timestamp of sample in point's timezone
+  - `val` value of each timestamp sample
+
+**Response**: empty grid
+
+Clients should attempt to avoid writing duplicate data.  But servers must
+gracefully handle clients posting out-of-order or duplicate history data.
+The timestamp and value kind of the posted data must match the entity's
+configured timezone and kind.  Numeric data posted must either be unitless
+or must match the entity's configured unit.  Timezone, value kind or unit
+conversion is explicitly disallowed.
+
+Example:
+
+Example request:
+
+    ver:"3.0" id:@hisId
+    ts,val
+    2012-04-21T08:30:00-04:00 New_York,72.2
+    2012-04-21T08:45:00-04:00 New_York,76.3
+
+Example response:
+
+    ver:"3.0"
+    empty
+
+## Batch HisWrite
+Clients can post a batch of history data via the `hisWrite` op using
+this request format:
+
+**Request**:
+Omit the grid meta `id` and instead add multiple value columns where
+the id is specified in the column meta:
+  - `ts`: DateTime timestamp
+  - `v{i}` value column for each point, column meta must define `id` tag
+
+**Response**: empty grid
+
+A batch hisWrite requires that all points be in the same timezone.  If
+a point does not have a sample for a given timestamp/row then specify
+null for that cell.
+
+Example request:
+
+    ver:"3.0"
+    ts,                                 v0 id:@hisA,  v1 id:@hisB
+    2012-04-21T08:30:00-04:00 New_York, 72.2,         10
+    2012-04-21T08:45:00-04:00 New_York, 76.3,         N
+    2012-04-21T09:00:00-04:00 New_York, N,            12
+
+Example response:
+
+    ver:"3.0"
+    empty
+
+# Invoke Action
+The [invokeAction](op:invokeAction) op is used to invoke a user action on a target
+record.  Actions may be used to change setpoints or initiate other
+types of configuration/control actions.  An action is modeled a
+function which takes zero or more parameters.  The arguments for the
+action's parameters are passed in the request.  It is a server local
+matter to decide what actions are available on a given target and
+how they are parameterized.
+
+**Request**: grid metadata must define `id` Ref of target rec
+and `action` Str name.  A single row defines the arguments to the
+action.
+
+**Response**: undefined

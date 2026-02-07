@@ -1,0 +1,404 @@
+<!--
+title:      Meters
+author:     Brian Frank
+created:    26 Feb 2011
+copyright:  Copyright (c) 2015, Project-Haystack
+license:    Licensed under the Academic Free License version 3.0
+-->
+
+# Overview
+The general problems addressed by the meter ontology are:
+  - modeling meters
+  - modeling submeters and their relationships
+  - modeling the flow of energy
+  - modeling equip and point loads on meters
+
+# Meters
+Meters are modeled as [ph::PhEntity.equip] entities with the [ph::PhEntity.meter] tag along with
+the phenomenon measured.  The following meter subtypes are defined:
+
+  - [ph::AcElecMeter]
+  - [ph::DcElecMeter]
+  - [ph::FlowMeter]
+
+Flow meters should always be tagged with the substance they are metering.
+Common examples include:
+
+  - [ph::PhEntity.naturalGas] [ph::PhEntity.meter]
+  - [ph::PhEntity.domestic] [ph::PhEntity.water] [ph::PhEntity.meter]
+  - [ph::PhEntity.chilled] [ph::PhEntity.water] [ph::PhEntity.meter]
+  - [ph::PhEntity.steam] [ph::PhEntity.meter]
+
+All meters must additionally define exactly one of these two tags:
+  - [ph::PhEntity.siteMeter]: marker applied to the main site level meter
+  - [ph::PhEntity.submeterOf]: Ref to parent meter
+
+# Electric Meters
+Haystack models alternating current (AC) and direct current (DC) electricity
+meters using [ph::AcElecMeter] and [ph::DcElecMeter].  There is support to model
+these meters and their points for simple use cases (e.g., just a [ph::PhEntity.demand]
+and [ph::PhEntity.energy] point) and complex use cases (e.g., three-phase AC power
+quality meters).  For a common application involving electric utility data
+see the provided [example](ph.doc::Meters#an-example-utility-application).
+
+Electricity meter points are described by combining tags from the lists
+given below.  The tags in each set are mutually exclusive.  For example,
+a point cannot have two primary quantities, or have both the [ph::PhEntity.volt] and
+[ph::PhEntity.power] tags.
+
+DC electrical measurements are described using a combination of the types
+of tags below:
+
+ 1. [ph::PhEntity.elec] marker tag
+ 2. [ph::PhEntity.dc] marker tag
+ 3. Primary quantity
+ 4. Direction (if applicable)
+
+AC electrical measurements are described using a combination of the types
+of tags below:
+
+ 1. [ph::PhEntity.elec] marker tag
+ 2. [ph::PhEntity.ac] marker tag
+ 3. Primary quantity
+ 4. Measured characteristic of the primary quantity
+ 5. Direction (if applicable)
+ 6. Location
+
+Note:  The primary quantity [ph::PhEntity.freq] does not use tags to distinguish a
+characteristic, direction, or location.
+
+## Primary Quantities for AC and DC measurements
+Both [ph::AcElecMeter] and [ph::DcElecMeter] support measurements of the
+following electrical primary quantities:
+
+  - [ph::PhEntity.power]: Rate of transfer of electric energy (energy per unit time).
+    - For `dc` measurements, defined as instantaneous voltage times
+      current, typically measured in "kW".
+    - For `ac` measurements, defined as the average of the instantaneous
+      power over one or more whole AC cycles.  May be subdivided into
+      `active` power (measured in "kW"), `reactive` power (measured in
+      "kVAR"), and `apparent` power (measured in "kVA").  Of these
+      quantities, `active-power` represents real work performed.
+  - [ph::PhEntity.demand]: Average of instantaneous electric power over a defined time
+    interval (e.g., 5, 15, or 30 minutes).  Measured in the same units that
+    are used for `power` measurements.
+  - [ph::PhEntity.energy]: Electric energy, equal to the integral of electric power with
+    respect to time.
+    - For `dc` measurements, typically measured in "kWh".
+    - For `ac` measurements, may be subdivided into [ph::PhEntity.active] energy
+    (measured in "kWh"), `reactive` energy (measured in "kVARh"), and
+    `apparent` energy (measured in "kVAh").  Of these
+      quantities, `active-energy` represents real work performed.
+  - [ph::PhEntity.volt]: Electric voltage (potential energy).  Typically measured in "V"
+    for both 'ac' and 'dc' electricity.
+    - For `dc` measurements, represents an instantaneous voltage.
+    - For `ac` measurements, represents an electrical phasor: a sinusoidal
+      voltage wave that can be described by a root-mean-square (RMS) average
+      voltage `magnitude` and a phase `angle` at a constant frequency.
+  - [ph::PhEntity.current]: Electric current (flow of electroncs).  Typically measured
+    in "A" for both 'ac' and 'dc' electricity.
+    - For `dc` measurements, represents an instantaneous current.
+    - For `ac` measurements, represents an electrical phasor: a sinusoidal
+      current wave that can be described by a root-mean-square (RMS) average
+      current `magnitude` and a phase `angle` at a constant frequency.
+
+The following primary quantities apply only to AC electrical measurements:
+
+  - [ph::PhEntity.freq]: The number of cycles per second in an AC sinusoidal waveform.
+    Measured in "Hz". In AC power systems, voltage, current, and power are
+    all synchronized at the same frequency.
+  - [ph::PhEntity.pf]: The ratio of active power to apparent power. Power factor is a
+    unitless quantity but is represented in Haystack with the special "pf"
+    unit. Power factor may have values of 0.0 to 1.0 or -1.0 to 1.0.
+    The interpretation of negative power factor depends on whether the
+    measurement follows the IEEE or IEC power factor convention.
+
+Many electric meters log interval-based data, demand or energy, using a
+monotonically increasing value in time.  The difference of these values
+between two intervals is used to determine the actual value for an
+interval.  Haystack distinguishes data logged this way using the
+[ph::PhEntity.hisTotalized] tag on the point entity.
+
+## Directions for AC and DC measurements
+Some electric meters track and report electricity imported from the
+electric grid separately from electricity exported to the electric grid.
+The tags [ph::PhEntity.import] and [ph::PhEntity.export] differentiate these quantities. More
+broadly, `export` indicates electricity flowing toward the grid (in the
+direction of the [ph::PhEntity.siteMeter]), and `import` indicates electricity flowing
+toward the load.
+
+As defined in Project Haystack, these measurements register electricity
+transfer, involving the primary quantities [ph::PhEntity.current], [ph::PhEntity.power], [ph::PhEntity.demand],
+and [ph::PhEntity.energy] only, in their associated direction and always have positive
+values.
+
+- For instantaneous measurements (i.e., `current` and `power`),
+  'import' and 'export' are mutually exclusive.  One will report a positive
+  value and the other will report zero.
+
+- For interval-based measurements (i.e., `demand` and `energy`), it is
+  possible that both 'import' and 'export' may report a positive quantity for
+  that interval, which means that some energy flowed in each direction
+  during that interval.
+
+The [ph::PhEntity.net] tag indicates the difference between `import` and `export`:
+
+    net = import - export
+
+Haystack uses the load convention for net electricity flow.
+
+- Positive net quantities indicate electricity consumed (i.e. load).
+- Negative net quantities indicate electricity produced (i.e. generation).
+
+The positive or negative sign for power factor is interpreted using IEC or IEEE
+convention specified with [ph::PhEntity.pfIec] or [ph::PhEntity.pfIeee] tags.
+
+- IEC convention defines the sign based on the direction of active power flow.
+- IEEE convention defines the sign based on whether the load is capacitive or
+  inductive.
+
+Note: Direction-related tags do not apply to `voltage` or to the `angle`,
+`imbalance`, and `thd` characteristics used to describe current.
+
+## Characteristics of AC Measurements
+AC power, demand, and energy measurements are further qualified by
+characteristics:
+  - [ph::PhEntity.active]: Describes real work being performed (energy consumed).
+  Haystack's standard unit of active power and active demand is "kW".
+  Haystack's standard unit of active energy is "kWh".
+  - [ph::PhEntity.reactive]: Describes electricity circulated within an AC electrical
+  system that does not result in real work being performed.
+  Haystack's standard unit of reactive power and reactive demand is "kVAR".
+  Haystack's standard unit of reactive energy is "kVARh".
+  - [ph::PhEntity.apparent]: Describes the overall magnitude of energy movement,
+  including both energy consumed and recirculated energy.
+  Haystack's standard unit of apparent power and apparent demand is "kVA".
+  Haystack's standard unit of apparent energy is "kVAh".
+
+AC voltage and current measurements are further qualified by the following
+characteristics:
+  - [ph::PhEntity.magnitude]: RMS magnitude
+  - [ph::PhEntity.angle]: phase angle, typically measured in "deg"
+  - [ph::PhEntity.imbalance]: imbalance, measured in "%"
+  - [ph::PhEntity.thd]: total harmonic distortion, measured in "%"
+
+If a voltage or current characteristic tag is not specified, then [ph::PhEntity.magnitude]
+is the assumed or default characteristic.
+
+Similarly AC power factor measurements are further qualified using a
+[ph::PfScope] characteristic choice:
+  - [ph::PhEntity.pfTrue]: True power factor
+  - [ph::PhEntity.pfDisplacement]: Displacement power factor
+  - [ph::PhEntity.pfDistortion]: Distortion power factor
+
+If a power factor characteristic is not specified, then [ph::PhEntity.pfTrue]
+is the assumed or default characteristic.
+
+Note:  The primary quantity `freq` does not have characteristic related tags.
+
+## Locations for AC Measurements
+Generic tags are used to describe three types of `ac` electrical measurements that do
+not involve aggregation of multiple measurements:
+
+  - [elecLine]: for electrical line measurements "L1", "L2", and "L3"
+  - [elecLineToLine]: for electrical line-to-line measurements "L1-L2", "L2-L3", and
+  "L3-L1"
+  - [elecLineToNeutral]: for electrical line-to-neutral measurements "L1-N", "L2-N",
+  and "L3-N"
+
+Non-aggregated `ac` electrical measurement locations are qualified by:
+
+  - [lineVolt]: `elecLineToLine`
+  - [phaseVolt]: `elecLineToNeutral`
+  - [lineCurrent]: `elecLine`
+  - [phaseCurrent]: `elecLineToLine`
+  - [linePower]: `elecLineToLine`
+  - [phasePower]: `elecLine`
+  - [linePf]: `elecLineToLine`
+  - [phasePf]: `elecLine`
+  - [lineEnergy]: `elecLineToLine`
+  - [phaseEnergy]: `elecLine`
+  - [ph::PhEntity.ground]: for electrical current measurement of the electrical ground
+  conductor
+  - [ph::PhEntity.neutral]: for electrical current measurement of the electrical neutral
+  conductor
+
+Aggregated three-phase or split-phase `ac` electrical measurement locations
+are qualified by:
+  - [lineAvg]: Average of line quantities.
+    - When applied to a point entity with the `current` tag, indicates the
+      average of the values for the 'current' primary quantity characteristic
+      at all available locations defined in 'elecLine'.
+    - When applied to point entities with the `volt`, `power`, `pf`, or
+      'energy' tags, indicates the average of the values for the primary
+      quantity's characteristic at all available locations defined in
+      'elecLineToLine'.
+  - [phaseAvg]: Average of phase quantities.
+    - When applied to a point entity with the `volt` tag, indicates the
+      average of the values for the 'volt' primary quantity characteristic
+      at all available locations defined in 'elecLineToNeutral'.
+    - When applied to a point entity with the `current` tag, indicates the
+      average of the values for the 'current' primary quantity characteristic
+      at all available locations defined in 'elecLineToLine'.
+    - When applied to point entities with the `power`, `pf`, or `energy` tags,
+      indicates the average of the values for the primary quantity's
+      characteristic at all available locations defined in 'elecLine'.
+  - [ph::PhEntity.total]: Applies only to point entities with `power`, `demand`, or
+    'energy' tags. Indicates the sum of the values for the primary quantity's
+    characteristic at all available locations defined in 'elecLine'.
+
+Only the available measurements are averaged or totaled. For example,
+`phaseAvg` voltage in a three-phase power system represents the average of
+the "L1-N", "L2-N", and "L3-N" phase voltage measurements, but `phaseAvg`
+voltage in a split-phase power system represents the average of only the
+"L1-N" and "L2-N"  measurements (because an "L3-N" measurement is not
+available in a split-phase sytem).
+
+Only one tag indicating the location of a measurement should be applied to
+a point entity. The `total` tag takes precedence when applicable to allow
+for common queries between three-phase and split-phase AC electrical systems.
+For example, in a split-phase `ac` electrical system the `total` tag should
+be applied to a point entity instead of `linePower` to indicate the
+L1-L2 power measurement.
+
+Note:  The primary quantity `freq` does not have location related tags.
+
+## An Example Utility Application
+Many electric utilities commonly use three AC electricity measurements for
+computing a monthly bill:
+  1. Peak active demand (kW)
+  2. Total energy consumption (kWh)
+  3. Peak apparent demand (kVA)
+
+It might be desired to monitor these data points using a granular interval
+(e.g., 5 minutes) on a `siteMeter` to better understand or help validate
+these metrics used by the electric utility for billing.  In some cases the
+electric utility might offer this interval data.  Otherwise customer owned
+electric metering may be used to obtain it.
+
+At a site with a 3-phase electric utility service, these data points would
+be modeled as follows:
+  1. For peak active demand - a point with the tags `ac`, `total`, `active`,
+  'import', and 'demand'
+  2. For total energy consumption - a point with the tags `ac`, `total`,
+  'active', 'import', and 'energy'
+  3. For peak apparent demand - a point with the tags `ac`, `total`, `apparent`,
+  'import', and 'demand'
+
+Also, all three of these data points should have a `hisMode` tag with a value
+of `consumption` applied to indicate they model interval based data.
+
+# Flow Meters and Thermal Meters
+Flow meters measure flow rate and total volume of fluids.  Thermal
+meters (sometimes called BTU meters) also use temperature sensors
+and can provide power and energy calculations.  Points for flow
+meters include:
+
+  - [ph::PhEntity.flow]: rate of volume flowing through the meter per unit time
+  - [ph::PhEntity.volume]: total volume consumption of the meter
+  - [ph::PhEntity.power]: energy consumed per unit time such as "BTU/h"
+  - [ph::PhEntity.energy]: energy consumption such as "BTU"
+
+Note that thermal meters should use the same [ph::PhEntity.power] and [ph::PhEntity.energy] tags
+as elec meters.
+
+Flow meters must always be tagged with the fluid they are metering.  For
+example a natural gas meter must be tagged with [ph::PhEntity.naturalGas].  If a meter
+measures flow/volume then add the [ph::PhEntity.flow] tag.  If the meter measures
+power/energy then add the [ph::PhEntity.thermal] tag.
+
+Examples:
+
+    // Natural gas meter
+    id: @gasMeter
+    naturalGas
+    flow
+    meter
+    equip
+
+    // Steam thermal meter
+    id: @steamMeter
+    steam
+    thermal
+    flow
+    meter
+    equip
+
+# Energy Flow to Loads
+We use the suite of `<phenomenon>Ref` tags to model the relationship of
+energy flows from the meters to their load.  Commonly used relationship
+tags include:
+
+  - [ph::PhEntity.elecRef]: model flow of electricity
+  - [ph::PhEntity.naturalGasRef]: model flow of natural gas
+  - [ph::PhEntity.chilledWaterRef]: model flow of chilled water for cooling
+  - [ph::PhEntity.hotWaterRef]: model flow of hot water for heating
+  - [ph::PhEntity.steamRef]: model flow of steam for heating
+
+These tags are placed on the loads and reference their upstream meter.
+For example, a boiler would use the [ph::PhEntity.naturalGasRef] to reference its upstream
+meter as follows:
+
+    id: @gasMeter
+    naturalGas
+    flow
+    meter
+    equip
+
+    id: @boiler
+    steam
+    boiler
+    equip
+    naturalGasRef: @gasMeter
+
+# Example Model
+Let's illustrate a more complete example using a "tree" of meters and loads:
+
+    Main Elec Meter
+     +- Luminaire (equip load)
+     +- HVAC Elec Submeter
+         +- RTU-1 (equip load)
+             +- Fan (point load)
+             +- DischargeTemp (not a load)
+         +- RTU-2 (equip load)
+             +- Fan (point load)
+             +- DischargeTemp (not a load)
+
+The entities and their tags would look like this:
+
+    id:@A, dis: "Main Elec Meter", ac, elec, meter, siteMeter, equip
+           dis: "Main Elec Meter Demand", equipRef @A, elec, power, unit:"kW", sensor, point, ...
+           dis: "Main Elec Meter Consumption", equipRef:@A, elec, energy, unit:"kWh", sensor, point, ...
+
+    id:@B, dis: "Luminaire", equip, elecRef:@A, luminaire
+
+    id:@C, dis: "HVAC Elec Submeter", ac, elec, meter, submeterOf:@A, equip
+           dis: "HVAC Elec Submeter Demand", equipRef:@C, elec, power, unit:"kW", sensor, point, ...
+           dis: "HVAC Elec Submeter Consumption", equipRef:@C, elec, energy, unit:"kWh", sensor, point, ...
+
+    id:@D, dis: "RTU-1", equip, elecRef:@C, ahu
+           dis: "RTU-1 Fan", equipRef:@D, elecRef:@C, fan, cmd, point, ...
+           dis: "RTU-1 DA Temp", equipRef:@D, discharge, air, temp, sensor, point, ...
+    id:@E, dis: "RTU-2", equip, elecRef:@C, ahu
+           dis: "RTU-2 Fan", equipRef:@E, elecRef:@C, fan, cmd, point, ...
+           dis: "RTU-2 DA Temp", equipRef:@E, discharge, air, temp, sensor, point, ...
+
+In the example above we have a top-level main electrical meter with
+the id `@A`.  Note it is tagged as [ph::AcElecMeter] to model an AC electric
+meter.  It is also tagged as [ph::PhEntity.siteMeter] to indicate its the main site-level meter.
+It has two associated points for power (kW) and energy (kWh).
+
+Next, since we don't have a lighting submeter, the lighting load references
+the main meter directly via its [ph::PhEntity.elecRef] tag.
+
+After that, we have an HVAC submeter with the id `@C`.  Note it
+is tagged as [ph::AcElecMeter] also.  But it is not a [ph::PhEntity.siteMeter]; instead it is
+associated as a submeter of the main meter using the [ph::PhEntity.submeterOf] tag.  You can
+model submeter trees of arbitrary depth (submeters of submeters).  It also has
+two points for kW and kWh.
+
+Lastly, we have three electrical equipment loads defined.  The two RTUs are associated
+with HVAC submeter via [ph::PhEntity.elecRef] which references the HVAC submeter via
+id.  We also tag one or more points under the equipment that are meaningful
+for the load.  Motors would often be tagged as loads since they draw energy, but
+sensors would typically not be considered loads.

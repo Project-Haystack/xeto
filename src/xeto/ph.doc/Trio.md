@@ -1,0 +1,103 @@
+<!--
+title:      Trio
+author:     Brian Frank
+created:    13 Jul 2016
+copyright:  Copyright (c) 2015, Project-Haystack
+license:    Licensed under the Academic Free License version 3.0
+-->
+
+# Overview
+Trio stands for "Text Record Input/Output".  Trio is a simple plain text
+format used for hand authoring Haystack data.  It is derived as a semi-subset
+of [YAML](https://en.wikipedia.org/wiki/YAML).  It is the primary format
+for authoring the tag definitions on the Project Haystack site itself.
+
+Trio is represented by the def [filetype:trio].
+
+# Format
+Trio uses a simple plain text format designed for easy editing by hand:
+
+  - entities are separated by lines beginning with "-", the lines
+    can have as many dashes as you want followed by a newline (a
+    line with just dashes)
+
+  - each entity is defined by one or more tags
+
+  - one line is used per tag formatted as "name:val"
+
+  - if no value is specified, the value is assumed to be Marker
+
+  - the value is encoded using the same grammar as Zinc
+
+  - string values may be left unquoted if they begin with a non-ASCII
+    Unicode character or contain only the "safe" chars: 'A-Z', 'a-z',
+    or underbar
+
+  - booleans may be encoded as true/false or Zinc T/F; however
+    if using nested lists/dicts then you must the Zinc T/F syntax
+
+  - if a newline follows the colon, then the value is an indented
+    multi-line string terminated by the first non-indented line
+
+  - nested data may be encoded with Zinc or Trio as a multi-line
+    string prefixed with the string value "Zinc:" or "Trio:" on
+    the tag line
+
+  - nested lists may be encoded in Zinc as a multi-line string
+    prefixed with "[" on the tag line; the multi-line string should
+    be parsed as follows: 1) skip lines starting with "//", 2) strip
+    newlines, and 3) parse a zinc '<val>' production
+
+  - can use `//` as line comment
+
+Here is a simple example:
+
+    dis: "Site 1"
+    site
+    area: 3702ft²
+    geoAddr: "100 Main St, Richmond, VA"
+    geoCoord: C(37.5458,-77.4491)
+    strTag: OK if unquoted if only safe chars
+    summary:
+      This is a string value that spans multiple
+      lines with two or more space characters
+    ---
+    name: "Site 2"
+    site
+    summary:
+      Entities are separated by one more dashes
+
+Here are examples with nested data values:
+
+    // Zinc
+    ver:"3.0"
+    type,val
+    "list",[1,2,3]
+    "dict",{dis:"Dict!" foo}
+    "grid",<<
+      ver:"2.0"
+      a,b
+      1,2
+      3,4
+      >>
+    "scalar","simple string"
+
+    // Trio
+    type:list
+    val:[1,2,3]
+    ---
+    type:dict
+    val:{ dis:"Dict!" foo}
+    ---
+    type:grid
+    val:Zinc:
+      ver:"3.0"
+      b,a
+      20,10
+
+    // nested list
+    def: ^myEquip
+    children: [
+      {fan, motor, equip},
+      {damper, actuator, equip},
+      ]

@@ -1,0 +1,244 @@
+<!--
+title:      HTTP API
+author:     Brian Frank
+created:    29 Sep 2012
+copyright:  Copyright (c) 2015, Project-Haystack
+license:    Licensed under the Academic Free License version 3.0
+-->
+
+# Overview
+The Haystack HTTP API defines a simple mechanism to exchange haystack
+tagged data over HTTP.
+
+A haystack HTTP API server implements a set of *ops* or *operations*.  An
+operation is a URI that receives a request and returns a response.
+[Standard operations](Ops) are defined to query the entity database, setup
+subscriptions, or read/write history time-series data.  Operations are pluggable
+so that vendors can enhance their API interface with their own customized,
+value-added functionality.
+
+Both requests and responses are modeled as [grids](Kinds#grid).  Grids
+are encoded using one the standard MIME types for grid serialization,
+or may be pluggable using HTTP content negotiation.
+
+# Authentication
+Compliant HTTP API implementations must implement the authentication
+protocol specified in the [Auth] chapter.
+
+# URI Namespace
+A haystack server defines a HTTP URI as its base address.  Operations
+are then mapped as path names under that address.  Example:
+
+     http://server/haystack/           // base URI
+     http://server/haystack/{op}       // operation URI pattern
+     http://server/haystack/about      // about op
+     http://server/haystack/read       // read op
+
+The base URI must be assumed to end with a trailing slash even if it
+is not always expressed that way.
+
+# Requests
+A client makes a request to a server by sending a single grid and the server
+responds with a grid.  Typically grids are encoded using [Zinc] or [Json],
+but the actual encoding used is pluggable using [content negotiation](#content-negotiation).
+
+## GET Requests
+If an op is tagged with the [ph::PhEntity.noSideEffects] marker, then it may be called
+with a HTTP GET request as long as the operation requires no arguments or a
+single row request.  The request grid is encoded in the HTTP query string
+where each query parameter is mapped to tags in a single row.  The tag value
+must be Zinc encoded, otherwise it is assumed to be of a Str type.  Using a
+GET request on an op without the [ph::PhEntity.noSideEffects] tag must return a 405
+Method Not Allowed error.
+
+Example of request with empty grid:
+
+    // GET request URI
+    /haystack/about
+
+    // POST request grid in Zinc
+    ver:"3.0"
+    empty
+
+    // POST request grid in JSON
+    {
+    "_kind": "grid",
+    "meta": {"ver":"3.0"},
+    "cols": [{"name":"empty"}],
+    "rows":[]
+    }
+
+Example of request with single Str tag:
+
+    // GET request URI
+    /haystack/read?filter=site
+
+    // POST request grid in Zinc
+    ver:"3.0"
+    filter
+    "site"
+
+    // POST reqeust grid in JSON
+    {
+    "_kind": "grid",
+    "meta": {"ver":"3.0"},
+    "cols": [{"name":"filter"}],
+    "rows":[{"filter":"site"}]
+    }
+
+Example of request with multiple tags encoded as Zinc:
+
+    // GET request URI
+    /haystack/hisRead?id=@hisId&range=yesterday
+
+    // POST request grid in Zinc
+    ver:"3.0"
+    id,range
+    @hisId,"yesterday"
+
+    // POST request grid in JSON
+    {
+    "_kind": "grid",
+    "meta": {"ver":"3.0"},
+    "cols": [{"name":"id"},{"name":"range"}],
+    "rows":[{"id":{"_kind":"ref", "val":"hisId"}, "range":"yesterday"}]
+    }
+
+## POST Requests
+If an op is not tagged [ph::PhEntity.noSideEffects] or the request grid is anything other
+than a single row of name/value pairs, then it must be be sent using HTTP POST.
+The client must encode the grid using a MIME type supported by server.  The
+client can query the supported MIME types using the [filetypes op](Ops#filetypes).
+The following is an example of posting to the [hisRead](op:hisRead) op using Zinc:
+
+    POST /haystack/hisRead HTTP/1.1
+    Content-Type: text/zinc; charset=utf-8
+    Content-Length: 39
+
+    ver:"3.0"
+    id,range
+    @outsideAirTemp,"yesterday"
+
+# Responses
+If the request grid is successfully read by the server, then it
+processes the operation and returns the HTTP status code 200 and
+serializes the response result as a MIME encoded grid.
+
+# Error Handling
+There are three type of errors that may occur when a client makes a
+request to a server:
+  - Network I/O errors
+  - HTTP errors
+  - Request errors
+
+Network errors occur when the client cannot make a successful TCP
+connection to the server.  This might include invalid host name, port
+number, or network outage.  Typically, these sorts of errors are raised
+as I/O exceptions by the client's runtime.
+
+HTTP errors occur when TCP connections can be successfully established,
+but the server cannot successfully handle the URI or request grid at
+the HTTP layer.  The following HTTP status codes must be used in
+these cases:
+  - 400: the client failed to specify a required header such "Content-Type"
+  - 403: the client is not authorized to access the op
+  - 404: the URI does not map to a valid operation URI
+  - 405: attempt to use GET with an op not tagged `noSideEffects`
+  - 406: the client "Accept" header requested an unsupported MIME type
+  - 415: the client posted the request grid using an unsupported MIME type
+  - 501: the HTTP method is other than "GET" or "POST"
+
+Request errors occur after the server has successfully read the request
+grid.  If the server cannot fulfill the request for any reason, then it
+must return HTTP response code of 200 with a [error grid](#error-grid) as
+the body.  HTTP error codes must only be used if the request grid itself
+cannot be read.  Request errors include but are not limited to:
+  - invalid request grid data columns
+  - invalid request grid data types
+  - unknown or invalid entity identifiers
+  - inconsistent data types or data values
+  - server internal errors/exceptions
+
+# Error Grid
+If an operation failed after a request grid is successfully read by a
+server, then the server returns an *error grid*.  An error grid is indicated
+by the presence of the `err` marker tag in the grid metadata.  All
+error grids must also include a `dis` tag in the grid metadata with
+a human readable descripton of the problem.  If the server runtime supports
+stack traces, this should be reported as a multi-line string via
+the `errTrace` tag in the grid metadata.
+
+Example of an error grid:
+
+    ver:"3.0" err dis:"Cannot resolve id: badId" errTrace:"UnknownRecErr: badId\n  ...."
+    empty
+
+Clients must always check for the present of the `err` grid marker tag
+to determine if the reponse is an error or a valid result.
+
+# Incomplete Data
+Sometimes a HTTP request will be successfully processed, but will return
+incomplete data.  This will often happen because of throttling based on
+timeouts or limits on the amount of data returned by one request. When this
+occurs, the response should add an `incomplete` tag to the response grid meta.
+The value of `incomplete` must be a Dict and should use the following tags:
+  - `dis`: Str message to display to the user about why data is incomplete 
+  - `limit`: Number if incomplete because of threshold limit 
+  - `timeout`: Number duration if incomplete because of timeout
+
+Example of incomplete grid:
+
+    ver:"3.0" incomplete:{dis:"Request timeout exceeded!" timeout:1min}
+    colA, colB, colC
+    "a", "b", "c"
+
+# Content Negotiation
+The default for all HTTP API operations is to return the result as a
+grid (or grids) with the MIME type "text/zinc" formatted
+using [Zinc].  You can request to receive the results in alternate
+formats by specifying the "Accept" header in your HTTP request.
+
+The following "Accept" header MIME types are standardized:
+
+  - [Zinc]: `text/zinc`, `*/*`, or unspecified
+  - [Json]: `application/json`, or `application/vnd.haystack+json;version=4`
+  - [JSON v3](Json#json-version-3): `application/vnd.haystack+json;version=3`
+  - [Trio]: `text/trio`
+  - [Csv]: `text/csv`
+  - [Turtle](Rdf): `text/turtle`
+  - [JSON-LD](Rdf): `application/ld+json`
+
+If you specify an "Accept" header for an unsupported MIME type, then
+the 406 Unacceptable error code is returned.
+
+Example for reading all site entities as CSV:
+
+    GET /haystack/read?filter=site
+    Accept: text/csv
+
+Response:
+
+    HTTP/1.1 200 OK
+    Content-Type: text/csv; charset=utf-8
+
+    dis,area,geoAddr
+    Site A,2000ft²,"1000 Main St,Richmond,VA"
+    Site B,3000ft²,"2000 Cary St,Richmond,VA"
+
+All text media type must be be encoded using UTF-8.
+
+# Watches
+Haystack adopts the watch design from oBIX to handle real-time subscriptions.
+Watches are a stateful polling mechanism designed to work efficiently over HTTP.
+
+The life cycle of a watch is as follows
+  1. The client creates a new watch using the [watchSub](Ops#watchsub) operation
+  2. The client polls for changed entities using the [watchPoll](Ops#watchpoll) operation
+  3. The client explicitly closes the watch using [watchUnsub](Ops#watchunsub) or
+     the server may automatically close the watch if the client fails to poll
+     after a *lease* period
+
+During the lifetime of a watch, the client may optionally:
+  1. add new entities to the watch using [watchSub](Ops#watchsub)
+  2. remove entities from the watch using [watchUnsub](Ops#watchunsub)
+  3. perform a poll refresh to re-read all the watched entities using [watchPoll](Ops#watchpoll)

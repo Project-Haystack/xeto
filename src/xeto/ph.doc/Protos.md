@@ -1,0 +1,112 @@
+<!--
+title:      Protos
+author:     Brian Frank
+created:    17 Sep 2019
+copyright:  Copyright (c) 2019, Project-Haystack
+-->
+
+# Overview
+Prototypes, or simply *protos*, are dict templates.  A proto is just a
+normal dict of name/value pairs along with a special tag expansion mechanism.
+
+Protos are primarily used to declare typical sub-parts of an entity
+via the [ph::PhEntity.children] tag.  For example, we use protos to answer questions such
+as "what points might be contained by a chiller?" Protos are generated
+into Project Haystack documentation.  They are also used to power menu options
+in vendor tools.
+
+# Format
+The `children` tag for an entity is a list of prototype dicts:
+
+    def: ^pipe
+    children: [
+      {valve actuator equip},
+      {flow sensor point},
+      {temp sensor point},
+      ]
+
+You can see these children protos in the docs for [ph::PhEntity.pipe].
+
+# Flattening
+Entities with children protos can specify that specific tags are *flattened*
+into their children.  For example, Haystack convention dictates that points
+within a specific pipe include tags to indicate the pipe section and
+the fluid being sensed:
+
+    // parent pipe
+    steam leaving pipe equip
+
+    // child points
+    steam leaving valve actuator equip
+    steam leaving temp sensor point
+    steam leaving flow sensor point
+
+This convention makes it easy to query points using tag combinations without
+regard to if or how parent pipes are modeled.
+
+We use the [ph::PhEntity.childrenFlatten] tag to indicate that these tags should be
+flattened into their children.  In our pipe example:
+
+    def: ^pipe
+    conveys: ^fluid
+    childrenFlatten: [^fluid, ^pipeSection]
+    children: [
+      {valve actuator equip},
+      {flow point},
+      {temp point},
+      ]
+
+Flattening occurs when we are given an instance of a parent pipe and
+want to generate the children protos.  We walk each symbol in the
+childrenFlattens list and, if the parent [implements](Reflection#reflection)
+the def, then it is flattened into each child proto.  Lets look at some
+concrete examples:
+
+First, lets look at a parent pipe that implements neither a [ph::Fluid] term
+nor a [ph::PipeSection] term:
+
+    // parent pipe
+    pipe equip
+
+    // children protos, no tags to flatten
+    valve actuator equip
+    flow point
+    temp point
+
+In the following example, the parent pipe implements the [ph::Fluid]
+subtype of [ph::HotWater]
+
+    // parent pipe
+    hot water pipe equip
+
+    // children protos include hot-water conjunct
+    hot water valve actuator equip
+    hot water flow point
+    hot water temp point
+
+In the following example, the parent pipe implements both [ph::Fluid] via
+the subtype [ph::PhEntity.naturalGas] and also [ph::PipeSection] via the subtype [ph::PhEntity.entering]:
+
+    // parent pipe
+    leaving naturalGas pipe equip
+
+    // children protos include both leaving and naturalGas
+    leaving naturalGas valve actuator equip
+    leaving naturalGas flow point
+    leaving naturalGas temp point
+
+This technique becomes a powerful tool to auto-expand tag combinations
+when used with equipment containing known children:
+
+    def: ^chiller
+    children: [
+      {chilled water leaving pipe equip},
+      {chilled water entering pipe equip},
+      {condenser water leaving pipe equip},
+      {condenser water entering pipe equip},
+      ]
+
+In the [ph::PhEntity.chiller] example above, it is not necessary to enumerate every
+possible combination of chiller point.  Rather, we declare that chillers
+have four specific pipes.  Using indirection, we can then derive the
+various points by flattening the generic [ph::PhEntity.pipe] definition.

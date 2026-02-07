@@ -1,0 +1,170 @@
+<!--
+title:      Points
+author:     Brian Frank
+created:    13 Apr 2021
+copyright:  Copyright (c) 2021, Project-Haystack
+-->
+
+# Overview
+Points are typically a digital or analog sensor or actuator (sometimes
+called *hard points*). Points can also represent a configuration value such
+as a setpoint or schedule (sometimes called *soft points*). Point entities
+are tagged with the [ph::PhEntity.point] tag.
+
+# Containment
+All points must be associated with a site via the [ph::PhEntity.siteRef] tag and a
+specific piece of equipment via the [ph::PhEntity.equipRef] tag.  Optionally points
+may define a [ph::PhEntity.spaceRef] tag if the containing space is defined.
+
+# Point Function
+All points must define exactly one of the following [ph::PointFunction]
+marker tags:
+  - [ph::PhEntity.sensor]: input, AI/BI, sensor
+  - [ph::PhEntity.cmd]: output, AO/BO, actuator, command
+  - [ph::PhEntity.sp]: setpoint, internal control variable, schedule, soft point
+  - [ph::PhEntity.synthetic]: computed data, such as machine learning or simulation
+
+# Point Kinds
+Points must be classified as analog, digital, or multi-state using the [ph::PhEntity.kind] tag:
+  - **Bool**: models digital points as false/true.  Bool points may
+    also define an `enum` tag for the text to use for the false/true states
+  - **Number**: models analog points, such as temperature or pressure.
+    These points should also include the `unit` to indicate the point's
+    unit of measurement.
+  - **Str**: models an enumerated point with a mode such as "Off, Slow, Fast".
+    Enumeration points should also define an `enum` tag.
+
+# Point Min/Max
+Analog points may define a minimum and/or maximum for the point:
+  - [ph::PhEntity.minVal]: minimum point value
+  - [ph::PhEntity.maxVal]: maximum point value
+
+When these tags are applied to a [ph::PhEntity.sensor] point, they model the range of
+values the sensor can read and report.  Values outside of these range might
+indicate a fault condition in the sensor.
+
+When these tags are applied to a [ph::PhEntity.cmd] or [ph::PhEntity.sp], they model the range
+of valid user inputs when commanding the point.
+
+# Cur Points
+The term *cur* indicates synchronization of a point's current real-time
+value.  By real-time we typically mean freshness within the order of
+a few seconds.  If a point supports a current or live real-time value
+then it should be tagged with [cur](ph::CurPoint) marker.
+
+The following tags are used to model the current value and status:
+  - [ph::PhEntity.curVal]: current value of the point as Number, Bool, or Str
+  - [ph::PhEntity.curStatus]: ok, down, fault, disabled, or unknown
+  - [ph::PhEntity.curErr]: error message if curStatus indicated error
+
+# Writable Points
+Writable points model an output or setpoint, which may be commanded.  Writable
+points are tagged with the [writable](ph::WritablePoint) marker.  They are patterned
+using the BACnet 16-level priority array with a relinquish default, which effectively
+acts as level 17. Writable points that may be commanded over the HTTP API
+via the [pointWrite](Ops#pointwrite) operation.
+
+The following levels have special behavior:
+
+ - **Level 1**: highest priority reserved for emergency overrides
+ - **Level 8**: manual override with ability to set timer to expire back to auto
+ - **Default**: implicitly acts as level 17 for relinquish default
+
+The priority array provides for contention resolution when many different
+control applications may be vying for control of a given point. Low level
+applications like scheduling typically control levels 14, 15, or 16. Then
+users can override at level 8. But a higher levels like 2 to 7 can be used
+to trump a user override (for example a demand response energy routine
+that requires higher priority).
+
+The actual value to write is resolved by starting at level 1 and working down
+to relinquish default to find the first non-null value. It is possible for
+all levels to be null, in which case the overall write output is null (which
+in turn may be auto/null to another system). Anytime a null value is written
+to a priority level, we say that level has been set to auto or released (this
+allows the next highest level to take command of the output).
+
+The following tags are used to model the writable state of a point:
+
+  - [ph::PhEntity.writeVal]: this is the current "winning" value of the priority array;
+    or if this tag is missing, then the winning value is null
+  - [ph::PhEntity.writeLevel]: number from 1 to 17 indicates the winning priority
+    array level
+  - [ph::PhEntity.writeStatus]: status of the server's ability to write the last
+    value to the output device: ok, disabled, down, fault.
+  - [ph::PhEntity.writeErr]: indicates the error message if writeStatus is an error
+    condition
+
+# Historized Points
+If a point is *historized*, this means that we have a time-series sampling of
+the point's value over time.  Historized points are sometimes called *logged*
+or *trended* points. Historized points should be tagged with the [his](ph::HisPoint)
+marker.
+
+Historized points can have their time-series data read/write over the HTTP
+API via the [hisRead](Ops#hisread) and [hisWrite](Ops#hiswrite) operations.
+
+If a point implements the [ph::PhEntity.his] tag, then it should also implement these
+tags:
+  - [ph::PhEntity.tz]: all historized points must define this tag with their timezone
+    name (must match the point's site timezone)
+  - [ph::PhEntity.hisMode]: required tag to indicate whether the point is
+    logged by interval, change-of-value, or as a consumption aggregation
+  - [ph::PhEntity.hisTotalized]: optionally defined to indicate a point is collected
+    as an ongoing accumulated value
+
+The current status of historization is modeled with:
+
+ - [ph::PhEntity.hisStatus]: ok, down, fault, disabled, pending, syncing, unknown
+ - [ph::PhEntity.hisErr]: error message if hisStatus indicated error
+
+# Examples
+Here are examples for the proper tagging of points:
+
+    // temp sensor in an air handler unit
+    id: @whitehouse.ahu3.dat
+    dis: "White House AHU-3 DischargeAirTemp"
+    discharge
+    air
+    temp
+    sensor
+    point
+    siteRef: @whitehouse
+    equipRef: @whitehouse.ahu3
+    kind: "Number"
+    unit: "°F"
+    tz: "New_York"
+
+    // fan run command with writable support
+    id: @a
+    dis: "AHU Fan Run"
+    fan
+    run
+    cmd
+    point
+    kind: "Bool"
+    enum: "off,on"
+    siteRef: @b
+    equipRef: @c
+    writable
+    writeVal: false
+    writeLevel: 16
+    writeStatus: "ok"
+
+    // zone temp setpoint with historization support
+    id: @123
+    dis: "Room 706 Temp Setpoint"
+    effective
+    zone
+    air
+    temp
+    sp
+    point
+    kind: "Number"
+    unit: "°C"
+    siteRef: @site-id
+    spaceRef: @room706
+    equipRef: @thermostat
+    tz: "London"
+    his
+    hisStatus: "ok"

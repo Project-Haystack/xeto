@@ -1,0 +1,99 @@
+<!--
+title:      Namespaces
+author:     Brian Frank
+created:    25 Mar 2019
+copyright:  Copyright (c) 2019, Project-Haystack
+-->
+
+# Overview
+All defs are declared within a *lib* or library module.  A *namespace* is a
+set of libs that define a mapping of symbols to defs.  All applications using
+Haystack are performed within the context of a namespace.  Namespaces define
+the defs in scope for reflection, querying, and symbolic linking.
+
+# Libs
+Libs, or libraries, are the fundamental unit of modularity in Project Haystack.
+Every def must be defined inside a parent lib.  The normalized representation
+of every def has a [ph::PhEntity.lib] tag with a symbolic link to its parent library.
+However, the `lib` tag itself is never declared explicitly. Rather, it is
+always implied during load time as part of [normalization](Normalization).
+
+Libs are defined as a zip file with one or more [Trio] files under the "lib/"
+directory.  There must be a file named "lib/lib.trio" which specifies exactly
+one dict for the lib's metadata.  The lib metadata should declare the
+following tags:
+
+  - [ph::PhEntity.def]: must be a feature key under the [ph::PhEntity.lib] feature
+  - [doc]: must provide a description of the library
+  - [ph::PhEntity.version]: identifies the version as series of integers separated by dot
+  - [ph::PhEntity.baseUri]: an absolute URI used to map symbols to URIs (used by [RDF](Rdf))
+  - [depends]: a list symbolic names to libs specifying dependencies
+
+Any other Trio files under "lib/" contain the lib's defs.  These files may
+be named anything you like, but must have the ".trio" file extension (all lower case).
+
+Here is an example for [lib:phIoT]:
+
+    def: ^lib:phIoT
+    doc: "Project Haystack definitions for Internet of Things"
+    version: "4.0.2"
+    baseUri: `https://project-haystack.org/def/phIoT/`
+    depends: [^lib:ph, ^lib:phScience]
+
+Lib name must be globally unique and should be chosen carefully.
+Project Haystack reserves lib names prefixed with "ph".
+
+# Project Haystack Libs
+Project Haystack currently defines four standardized libs:
+
+  - [lib:ph]: core definitions
+  - [lib:phScience]: definitions related to scientific phenomenon
+    and quantities
+  - [lib:phIoT]: definitions related to domain of Internet of Things
+    and the built environment
+  - [lib:phIct]: definitions related to Information and Communication
+    Technology
+
+Future Project Haystack lib names will be always be prefixed with "ph".
+
+# Lib Namespaces
+Libs import external names into their local namespace via the [depends]
+tag.  All libs must include `lib:ph` (with the exception of `lib:ph` itself).
+The namespace of all included defs and locally defined defs in a library
+is called the *lib namespace*.
+
+Only names found in the lib's namespace may be used for definition tag names
+or symbol values.  For example, if a def needs to subtype from the [ph::PhEntity.equip]
+tag, then its lib must declare an include on [lib:phIoT] to bring `equip`
+into the namespace.  It is invalid to use a tag name or symbol value in a
+def that is not found in the lib's namespace.
+
+# Project Namespaces
+Individual Haystack projects may pick and choose which libs are used to
+define their application specific data.  We call this def namespace
+the *project namespace*.  Project namespaces will often be a mix of standardized
+libs, vendor specific libs, and project specific libs.  It is outside the
+scope of this specification to define how libs are included or enabled
+for project namespaces.  However, all project namespaces must have a mechanism
+to formally specify/export which libs are in scope.  This is best accomplished
+through the `libs` HTTP API operation (TODO).
+
+# Symbolic Namespace
+A namespace is defined strictly by a list of libs and their corresponding children
+defs.  Thus, we can logically model a namespace as a map of symbol names to defs.
+
+Within a namespace, we use symbol names as simple unqualified names.  This
+works very much like mainstream programming languages.  For example, in
+Java, if you want to use `java.util.List` then you typically import
+the `java.util` package and then use the simple name `List` in your code.
+Likewise, if you want to use the [ph::PhEntity.equip] tag, then you include [lib:phIoT]
+into your own lib and use the tag name `equip`.  We always use simple
+names in both defs and in our Haystack data.
+
+So that begs the question: what if there is a naming conflict and two different
+libs declare the same symbol name?  Currently that is considered an error and
+those two libs cannot be used together.  As a pragmatic course of action, a
+def name should be globally unique to avoid conflicts.  With conjucts, it's fairly
+easy to coin unique symbol names when a term has different definitions.  This
+pattern is similiar to how Wikipedia uses a disambiguation term in parenthesis
+to maintain a single global namespace for articles.

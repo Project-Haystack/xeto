@@ -1,0 +1,121 @@
+<!--
+title:      Systems
+author:     Mike Melillo
+created:    30 Jan 2023
+copyright:  Copyright (c) 2023, Project-Haystack
+-->
+
+# Systems
+Systems are modeled with the [ph::PhEntity.system] marker tag. Systems the logical structure
+of buildings meant to group multiple [ph::PhEntity.equip] that serve a similar purpose.
+The members of a system do not necessarily have to be in the same physical
+[ph::PhEntity.space]. For example, a Chilled Water System may consist of equipment within
+the Chilled Water Plant, but also Air Handlers with Chilled Water Coils fed
+by that plant. Systems do not represent a physical structure unless also paired
+with an [ph::PhEntity.equip] tag (e.g., if [ph::PhEntity.system] is used in conjunction with a `plant-equip`).
+
+# Tags
+System entities should define a `siteRef` tag for their parent tag. All systems
+subtype from [ph::PhEntity.system] and are then kebab cased with other valid tags to create
+the conjunct (e.g., [ph::ChilledWaterSystem]).
+
+It is also valid for systems to define a `systemRef` tag to describe a sub-system
+or primary/secondary relationship. This relationship would imply logical containment,
+i.e., all members of a sub-system automatically belong to the referent system as well.
+
+
+# Examples
+Here are examples of a properly tagged system and member equipment:
+
+    //chilled water system for a building
+    id: @chwSys
+    dis: “Chilled Water System”
+    chilled
+    water
+    system
+    siteRef: @site
+
+
+    //condenser water system for a building
+    id: @cwSys
+    dis: “Condenser Water System”
+    condenser
+    water
+    system
+    siteRef: @site
+
+
+    //chilled water plant
+    id: @chwPlant
+    dis: “Chilled Water Plant”
+    chilled
+    water
+    plant
+    equip
+    siteRef: @site
+    systemRef: @chwSys
+
+
+    //condenser water plant
+    id: @cwPlant
+    dis: “Condenser Water Plant”
+    condenser
+    water
+    plant
+    equip
+    siteRef: @site
+    systemRef: @cwSys
+
+
+    //water cooled chiller, co-membership in both systems
+    id: @chiller
+    dis: “Chiller ##”
+    chiller
+    equip
+    siteRef: @site
+    systemRef: [@chwSys, @cwSys]
+    equipRef: @chwPlant
+    chilledWaterRef: @chwPlant
+    condenserWaterRef: @cwPlant
+
+
+    //heat exchanger, co-membership in both systems
+    id: @hx
+    dis: “Heat Exchanger ##”
+    heatExchanger
+    equip
+    siteRef: @site
+    systemRef: [@chwSys, @cwSys]
+    equipRef: @chwPlant
+    chilledWaterRef: @chwPlant
+    condenserWaterRef: @cwPlant
+
+
+    //chilled water pump
+    id: @chwp
+    dis: “Chilled Water Pump ##"
+    chilled
+    water
+    pump
+    motor
+    equip
+    siteRef: @site
+    systemRef: [@chwSys, @cwSys]
+    equipRef: @chwPlant
+    chilledWaterRef: @chwPlant
+    condenserWaterRef: @cwPlant
+
+
+    //condenser water pump
+    id: @chwp
+    dis: “Chilled Water Pump ##"
+    chilled
+    water
+    pump
+    motor
+    equip
+    siteRef: @site
+    systemRef: [@chwSys, @cwSys]
+    equipRef: @chwPlant
+    chilledWaterRef: @chwPlant
+    condenserWaterRef: @cwPlant

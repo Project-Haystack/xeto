@@ -1,0 +1,141 @@
+<!--
+title:      Introduction
+author:     Brian Frank
+created:    22 Mar 2019
+copyright:  Copyright (c) 2019, Project-Haystack
+-->
+
+# Overview
+Project Haystack is an open source suite of technologies for modeling IoT data.
+The stack of technologies includes:
+
+  - [Data Types](#data-types): a fixed set of data types for modeling information
+  - [File Types](#file-types): a set of text formats to encode and exchange those data types
+  - [HTTP API](#http-api): a protocol to exchange data over HTTP using those file types
+  - [Ontology](#ontology): a standard way to model common concepts such as buildings,
+    spaces, equipment, and sensors
+  - [Defs](#defs): a standard way to define and extend the ontology
+
+Individual aspects of the technology stack can be used on their own.  For
+example you can use the Haystack data types as an "enhanced JSON".  Or you
+could use just the terms in the ontology without the Haystack data types.
+
+# Data Types
+Haystack defines a fixed set of general purpose data types we call *kinds* to
+facilitate the interoperable exchange of data.  These data types include the
+basics like strings and numbers, as well as common types for times and dates.
+Three collection types are defined: lists, dicts (hashmaps), and grids (tables).
+
+You can think of Haystack as an extended version of JSON.  Haystack supports
+the JSON data types directly: boolean, strings, numbers, lists, and objects (dicts).
+But Haystack adds first class types for time, URIs, references, and units of
+measurement.
+
+The primary collection type is the *dict* (short for dictionary) which is a
+set of name/value pairs we call *tags*.  Dict is the Haystack term for an
+associative array, hashmap, or JSON object.  Haystack models entities like
+buildings and sensors using dicts.  The tags of the dict inform what type
+of entity is modeled and facts about that entity.
+
+Haystack includes a special data type we call *marker*.  Markers are tag names
+without a value.  Instead it is the presence of the marker name that is semantically
+meaningful.  Markers are used for typing dicts.  For example if a dict models
+a building then we use the marker tag [ph::PhEntity.site]; or if a dict models an electric
+meter than we use the combination of markers tags [ph::ElecMeter].
+
+These data types are discussed in detail in the [Kinds] chapter.
+
+# File Types
+A standard suite of text formats is defined to exchange the Haystack data types.
+These formats are self describing to ensure that all data types will round-trip
+through the encoding/decoding process without loss of typing information.
+
+The following file types are standardized:
+  - [Zinc]: a strongly typed CSV tabular data format
+  - [Json]: Haystack mapping to JSON data types
+  - [Trio]: a YAML like format used for hand written data
+  - [CSV](Csv): one-way mapping to comma separated values (typing is lost)
+  - [RDF](Rdf): two RDF export formats are defined - Turtle and JSON-LD
+
+The file types are discussed further in the [Filetypes] chapter.
+
+# HTTP API
+A simple HTTP protocol is specified by Haystack to facilitate exchanging
+data between servers and devices.  The protocol is based on a set of
+*ops* (short for operations) that provide a RPC mechanism to send a request
+and receive a response as grids encoded in one of the supported file types.
+Included in the specification is a pluggable SCRAM based [authentication](Auth)
+protocol.
+
+Some of the standard ops used for common IoT data exchanges:
+  - `read`: query entity data about buildings, rooms, or sensors
+  - `hisRead`: read historized time-series point data
+  - `hisWrite`: push historized time-series to a remote system
+  - `watchSub`: subscribe to real-time sensor data
+
+# Ontology
+Project Haystack is focused on the semantic data model for the
+[IoT](https://en.wikipedia.org/wiki/Internet_of_things) and the
+[built environment](https://en.wikipedia.org/wiki/Built_environment).
+We specify an ontology to standardize modeling of common
+concepts in this domain including:
+
+  - [site](Sites): a single building or location of equipment/sensors
+  - [space](Spaces): a floor, room, HVAC zone, lighting zone, etc
+  - [equip](Equips): a physical asset such as a meter, air handler, boiler, etc
+  - [point](Points): a sensor, setpoint, or actuator
+  - [device](Devices): microprocessor based hardware such as controllers, networking gear, etc
+  - [weather](ph::Weather): weather observations for temperature, humidity, precipitation, etc
+
+Each of these top-level concepts includes a taxonomy tree for more specific types.
+For example, the term *space* is the root of the taxonomy that includes floor,
+room, and zones.  All the concepts modeled in our ontology are formalized
+into a vocabulary of terms that map to the tags used in dicts.
+
+Let's illustrate with a simple example.  This a dict that models a building:
+
+    id: @whitehouse
+    dis: "White House"
+    site
+    area: 55000ft²
+    geoAddr: "1600 Pennsylvania Avenue NW,  Washington, DC"
+    tz: "New_York"
+    weatherStationRef: @weather.washington
+
+Each line represents a tag (name/value) pair. Each tags tells us
+something about this entity:
+  - [sys::Entity.id]: primary key for this data item (within its data set)
+  - [ph::PhEntity.dis]: human display name for the data item
+  - [ph::PhEntity.site]: marker tag that tells us this data represents a building
+  - [ph::PhEntity.area]: square footage of the building
+  - [ph::PhEntity.geoAddr]: street address of the building
+  - [ph::PhEntity.tz]: timezone to use for this building
+  - [ph::PhEntity.weatherStationRef]: relationship for which weather station to use for this building
+
+These concepts are explored further in the [Ontology] chapter and the
+individual chapters for specific systems.
+
+# Defs
+Defs (or definitions) are the mechanism by which we formally define our
+ontology.  Defs are used to define the semantics for each tag including:
+  - value type (marker, string, number, etc)
+  - the supertype (for example a more specific type of space, equip, etc)
+  - human description for the tag
+  - ontological relationships for how tags relate to one another
+
+By precisely defining every tag, we ensure that there is a common understanding
+for the semantics of a Haystack data model.  In our example above, we know that dict
+represents a building (the site tag) and that the area tag tells us the
+square footage of the building.
+
+Defs are themselves just a dict that uses a standard set of *meta tags*
+for their definition.  This means defs are also normal Haystack data.
+For example, the def for the [ph::PhEntity.floor] tag is itself a dict of the following tags:
+
+    def: ^floor
+    is: ^space
+    wikipedia: `https://en.wikipedia.org/wiki/Storey`
+    doc: "Storey of a building"
+
+Defs, and the mechanisms used to construct the ontology, are introduced in
+detail in the [Defs] chapter.

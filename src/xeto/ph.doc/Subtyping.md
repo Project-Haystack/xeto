@@ -1,0 +1,70 @@
+<!--
+title:      Subtyping
+author:     Brian Frank
+created:    25 Mar 2019
+copyright:  Copyright (c) 2019, Project-Haystack
+-->
+
+# Overview
+Defs are organized into a tree structured taxonomy via the [is] tag.
+A def is a *subtype* if it defines a subset or narrowing of a broader
+term.  For example, we say that [ph::PhEntity.water] is a subtype of [ph::Liquid] because
+it is a specific type of liquid.  The converse is that liquid is
+a *supertype* of water.
+
+In the context of natural language, a subtype is a [hyponym](https://en.wiktionary.org/wiki/hyponym)
+and a supertype is a [hypernym](https://en.wiktionary.org/wiki/hypernym).
+If you have ever played Mad Libs, then subtyping is intuitively like
+filling in the blanks.  For example if we say that a pipe conveys a *fluid*,
+then the term *fluid* encompasses specific types of fluids including water,
+steam, gasoline, or fuel oil.
+
+We can also evaluate subtyping in the context of set theory.  If we say that
+[ph::ElecMeter] is a subtype of [ph::PhEntity.meter], then we are saying the set of all
+things that are elec meters is wholly contained by the set of all meters.
+
+Subtyping is a powerful knowledge modeling tool.  However, remember that
+modeling the real world is a messy business.  It's impossible to design
+a taxonomy that fits all situations.  Consider the platypus and its difficulty
+to fit into a biological taxonomy.  Haystack attempts to define a pragmatic
+approach between simplicity and the common use cases.  But, you will likely
+find use cases that aren't a perfect fit for Haystack's ontology.
+
+# Transitivity
+Subtyping is defined to be a transitive relationship.  If `B` is a subtype
+of `A` and `C` is a subtype of `B`, then it is implied that `C` is a subtype
+of `A`.  A concrete example: [ph::PhEntity.water] is a subtype of [ph::Liquid] and [ph::Liquid]
+is a subtype of [ph::Fluid], therefore [ph::PhEntity.water] is inferred to be a subtype of [ph::Fluid].
+
+# Is Tag
+Subtyping is declared via the [is] tag on a def.  The value of the `is`
+tag is a symbol or list of symbols.  Since most defs subtype
+from a single def, we typically use just a symbol:
+
+    def: ^water
+    is: ^liquid
+
+In cases where multiple supertypes are required, use a list of symbols:
+
+    def: ^site
+    is: [^entity, ^geoPlace]
+
+All terms are required to have an 'is' tag with the exception of the *root
+terms*, which are [sys::Marker], [ph::PhEntity.val], and [ph::PhEntity.feature].  [Feature keys](Defs#feature-keys)
+have implied subtyping rules and must not declare an `is` tag.
+
+It is invalid to create cyclic subtyping relationships.  Subtyping must
+result in a strict tree structure.
+
+# Inheritance
+Defs are themselves specified as a set of tag name/value pairs.  Subtypes
+automatically inherit these tags into their own definitions.  We call
+this process *inheritance*, and it works similar to inheritance in
+traditional object-oriented languages.  The inheritance process is
+discussed in detail under [normalization](Normalization#inherit).
+
+
+
+
+
+

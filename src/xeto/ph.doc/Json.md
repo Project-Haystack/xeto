@@ -1,0 +1,419 @@
+<!--
+title:      Json
+author:     Brian Frank
+created:    13 Mar 2013
+copyright:  Copyright (c) 2015, Project-Haystack
+license:    Licensed under the Academic Free License version 3.0
+-->
+
+# Overview
+JSON stands for JavaScript Object Notation.  It is a plain text format
+commonly used for serialization of data.  It is specified in
+[RFC 4627](http://tools.ietf.org/html/rfc4627).  The JSON format is
+designed to support 100% fidelity with with the full Haystack type system.
+
+JSON is represented by the def [filetype:json].
+
+# JSON Version 4
+This section describes the Haystack 4 method for encoding Haystack
+types to JSON. This is the default encoding for JSON in Haystack 4.
+
+The following Haystack types can be mapped directly to JSON:
+
+    Haystack      JSON
+    --------      ----
+    Dict          Object
+    List          Array
+    null          null
+    Bool          Boolean
+    Str           String
+    Number        Number (see note)
+
+Note: Number maps directly to JSON Number when it is not special (`INF`, `-INF`, `NaN`) and
+when the number has no unit. Otherwise it is encoded as an object as described below.
+
+All other Haystack types map to a JSON Object. These objects are required to have
+a `_kind` key whose value is the Haystack 4 def name for the type. A dict is the only
+object where the `_kind` is optional. Therefore, all properly formatted JSON objects
+without a `_kind` are, by definition, dicts.
+
+The following sections indicate how the various Haystack types are encoded as JSON objects.
+
+A JSON Schema for this encoding can be found on
+[GitHub](https://raw.githubusercontent.com/j2inn/hayson/master/hayson-json-schema.json).
+
+## Number
+A JSON number. If the number is special or has a unit, it is encoded an object with
+the following keys:
+  - `_kind`: "number"
+  - `val`: the JSON Number, `INF`, `-INF`, or `NaN`.
+  - `unit`: (optional) the String unit
+
+```
+// unitless number
+123.45
+
+// verbose encoding of a unitless number
+{ "_kind": "number", "val": 123.45 }
+
+// with a unit
+{ "_kind": "number", "val": 123, "unit": "m" }
+
+// positive infinity
+{ "_kind": "number", "val": "INF" }
+
+// negative infinity
+{ "_kind": "number", "val": "-INF" }
+
+// Not-a-number
+{ "_kind": "number", "val": "NaN" }
+```
+
+## Marker
+A marker object is encoded with just its `_kind`.
+
+    { "_kind": "marker" }
+
+## Remove
+A remove object is encoded with just its `_kind`.
+
+    { "_kind": "remove" }
+
+## NA
+An NA (not available) object is encoded with just its `_kind`.
+
+    { "_kind": "na" }
+
+## Ref
+A Haystack Ref is encoded as an object with the following keys:
+  - `_kind`: "ref"
+  - `val`: the String id for the ref
+  - `dis`: (optional) the String display name for the ref
+
+```
+// no diplay name
+{ "_kind": "ref", "val": "abc-def"}
+
+// with a display name
+{ "_kind": "ref", "val": "abc-def", "dis": "Main Elec Meter" }
+```
+
+## Date
+A Haystack Date is encoded as an object with the following keys:
+  - `_kind`: "date"
+  - `val`: the ISO 8601 String encoding of the date
+
+    { "_kind": "date", "val": "2021-03-22" }
+
+## Time
+A Haystack Time is encoded as an object with the following keys:
+  - `_kind`: "time"
+  - `val`:  the ISO 8601 String encoding of the time
+
+    { "_kind": "time", "val": "17:19:23" }
+
+## DateTime
+A Haystack DateTime is encoded as an object with the following keys:
+  - `_kind`: "dateTime"
+  - `val`: the ISO 8601 String encoding of the date and time
+  - `tz`: (optional) the Olsen timezone database city name of the time zone. If
+    this key is missing, 'GMT' is the default.
+
+```
+// default timezone
+{ "_kind": "dateTime", "val": "2021-03-22T17:56:05.411Z"}
+
+// with a timezone
+{ "_kind": "dateTime", "val": "2021-03-22T13:57:00.381-04:00", "tz": "New_York" }
+```
+
+## Uri
+A Haystack URI is encoded as an object with the following keys:
+  - `_kind`: "uri"
+  - `val`: The URI String value
+
+    { "_kind": "uri", "val": "https://project-haystack.org" }
+
+## Coordinate
+A Haystack Coordinate is encoded as an object with the following keys:
+  - `_kind`: "coord"
+  - `lat`: the latitude in decimal degrees (Number)
+  - `lng`: the longitude in decimal degrees (Number)
+
+    { "_kind": "coord", "lat": 50.979603, "lng": 10.318789 }
+
+## XStr
+A Haystack XStr is encoded as an object with the following keys:
+  - `_kind`: "xstr"
+  - `type`: The String type name
+  - `val`: The String encoding of the type
+
+{ "_kind": "xstr", "type": "Span", "val": "today" }
+
+## Symbol
+A Haystack Symbol is encoded as an object with the following keys:
+  - `_kind`: "symbol"
+  - `val`: The String symbol name
+
+    { "_kind": "symbol", "val": "site" }
+
+## List
+A Haystack List is encoded as a JSON Array, Elements of the array can be of any
+Haystack type.
+
+```
+// empty list
+[]
+
+// A list with some values
+[ true, 123, "a string", {"site": { _kind:"marker"}, "dis":"Carnegie Hall"}]
+```
+
+## Dict
+A Haystack Dict is encoded as a JSON object. The `_kind` is optional. All other
+keys in the Dict are tag name/value pairs. If the key is not a valid Haystack tag
+name then it should be skipped (ignored).
+
+```
+// empty dict
+{}
+
+// also empty
+{ "_kind": "dict" }
+
+// a dict with some tags
+{
+  "site": { "_kind": "marker" },
+  "dis": "Kennedy Center",
+  "Ignore": "This tag should be ignored"
+}
+```
+
+## Grid
+A Haystack Grid is encoded as a JSON object with the following keys:
+  - `_kind`: "grid"
+  - `meta`: The JSON encoding of the grid metadata dict. The meta version `ver` tag should
+    *always* be included in the meta.
+  - `cols`: A List of grid columns. Each column should have the following keys:
+    - `name`: the String column name
+    - `meta`: (optional) The JSON encoding of the column metadata dict.
+  - `rows`: A List of the grid rows where each row is encoded as a dict.
+
+```
+// Zinc
+ver:"3.0" projName:"test"
+dis dis:"Equip Name",equip,siteRef,installed
+"RTU-1",M,@153c-699a "HQ",2005-06-01
+"RTU-2",M,@153c-699b "Library",1999-07-12
+
+// JSON
+{
+  "_kind": "grid",
+  "meta": { "ver": "3.0", "foo": "bar" },
+  "cols": [
+    { "name": "dis", "meta": { "dis": "Equip Name"} },
+    { "name": "equip" },
+    { "name": "siteRef" },
+    { "name": "installed" }
+  ],
+  "rows": [
+    {
+      "dis": "RTU-1",
+      "equip": { "_kind": "marker" },
+      "siteRef": { "_kind": "ref", "val": "153c-699a", "dis": "HQ"},
+      "installed": { "_kind": "date", "val": "2005-06-01" }
+    },
+    {
+      "dis": "RTU-2",
+      "equip": { "_kind": "marker" },
+      "siteRef": { "_kind": "ref", "val": "153c-699b", "dis": "Library"},
+      "installed": { "_kind": "date", "val": "1999-07-12" }
+    }
+  ]
+}
+```
+
+Here is another example with nested lists, dicts, and grids:
+```
+// Zinc
+ver:"3.0"
+type,val
+"list",[1,2,3]
+"dict",{dis:"Dict!" foo}
+"grid",<<
+  ver:"2.0"
+  a,b
+  1,2
+  3,4
+  >>
+"scalar","simple string"
+
+// JSON
+{
+  "_kind": "grid",
+  "meta": { "ver": "3.0" },
+  "cols": [
+    { "name": "type" },
+    { "name": "val" }
+  ],
+  "rows": [
+    {
+      "type": "list",
+      "val": [1, 2, 3]
+    },
+    {
+      "type": "dict",
+      "val": { "dis": "Dict!", "foo": { "_kind": "marker" } }
+    },
+    {
+      "type": "grid",
+      "val": {
+        "_kind": "grid",
+        "meta": { "ver": "3.0" },
+        "cols": [
+          { "name": "a" },
+          { "name": "b" }
+        ],
+        "rows" [
+          { "a": 1, "b": 2 },
+          { "a": 3, "b": 4 }
+        ]
+      }
+    },
+    {
+      "type": "scalar",
+      "val": "simple string"
+    }
+  ]
+}
+```
+
+# JSON Version 3
+
+The following is an alternate encoding of Haystack to JSON. This encoding was the default
+for Haystack version 3, but has been supplanted by the above (version 4) encoding. It
+is supported for backwards compatibility.
+
+The following is the mapping between Haystack (version 3) and JSON types:
+
+    Haystack      JSON
+    --------      ----
+    Grid          Object (specified below)
+    List          Array
+    Dict          Object
+    null          null
+    Bool          Boolean
+    Marker        "m:"
+    Remove        "-:"
+    NA            "z:"
+    Number        "n:<float> [unit]" "n:45.5" "n:73.2 °F" "n:-INF"
+    Ref           "r:<id> [dis]"  "r:abc-123" "r:abc-123 RTU #3"
+    Symbol        "y:<id>"  "y:hot-water", "y:lib:ph"
+    Str           "hello" "s:hello"
+    Date          "d:2014-01-03"
+    Time          "h:23:59"
+    DateTime      "t:2015-06-08T15:47:41-04:00 New_York"
+    Uri           "u:http://project-haystack.org/"
+    Coord         "c:<lat>,<lng>" "c:37.545,-77.449"
+    XStr          "x:Type:value"
+
+Notes:
+  - Number encodings use a space between the floating point value and unit for easier parsing (in Zinc there is no space)
+  - Number specials use same values as Zinc: "INF", "-INF", and "NaN"
+  - Refs strings use first space to separate id from dis portions of the string
+  - DateTime, Date, and Time use ISO 8601 formats exactly as specified by Zinc
+  - DateTime has required timezone name
+  - Strings that contain a colon **must** be encoded with "s:" prefix
+  - Strings without a colon may optionally omit the "s:" prefix
+  - Any JSON string without a colon as the second char is assumed to be a string value
+
+Here is an example:
+
+      // Haystack
+      dis: "Site-A", site, area: 5000ft², built: 1992-01-23
+
+      // JSON
+      {"dis":"Site-A", "site":"m:", "area":"n:5000 ft²", "built":"d:1992-01-23"}
+
+The Haystack and JSON models are very similar since they both support
+the same core list and object/dict types.  The difference is that Haystack
+has a richer set of scalar types such as Date, Time, Uri which are
+not supported directly by JSON; so we encode them as strings using a
+special type code prefix.
+
+## Grid Format
+In addition to the flexible type mapping defined above, we have
+a standard mapping of [grid](Kinds#grid) into JSON which is used by
+the REST API.
+
+The Grid to JSON mapping is as follows:
+  - Grid is mapped into a JSON object with three fields: meta, cols, rows
+  - The meta field is a JSON object with a required "ver" field
+  - The cols field is a JSON list of column objects
+  - Each column object defines a "name" field and the column metadata
+  - The rows field is a list of JSON objects
+  - Meta and row dicts are mapped to JSON objects
+  - Dict values are mapped using type mappings defined above
+
+Example:
+
+    // Zinc
+    ver:"3.0" projName:"test"
+    dis dis:"Equip Name",equip,siteRef,installed
+    "RTU-1",M,@153c-699a "HQ",2005-06-01
+    "RTU-2",M,@153c-699a "HQ",1999-07-12
+
+    // JSON
+    {
+      "meta": {"ver":"3.0", "projName":"test"},
+      "cols":[
+        {"name":"dis", "dis":"Equip Name"},
+        {"name":"equip"},
+        {"name":"siteRef"},
+        {"name":"installed"}
+      ],
+      "rows":[
+        {"dis":"RTU-1", "equip":"m:", "siteRef":"r:153c-699a HQ", "installed":"d:2005-06-01"},
+        {"dis":"RTU-2", "equip":"m:", "siteRef":"r:153c-699a HQ", "installed":"d:999-07-12"}
+      ]
+    }
+
+Here is another example with nested lists, dicts, and grids:
+
+    // Zinc
+    ver:"3.0"
+    type,val
+    "list",[1,2,3]
+    "dict",{dis:"Dict!" foo}
+    "grid",<<
+      ver:"2.0"
+      a,b
+      1,2
+      3,4
+      >>
+    "scalar","simple string"
+
+
+    // JSON
+    {
+      "meta": {"ver":"2.0"},
+      "cols":[
+        {"name":"type"},
+        {"name":"val"}
+      ],
+      "rows":[
+        {"type":"list", "val":["n:1", "n:2", "n:3"]},
+        {"type":"dict", "val":{"dis":"Dict!", "foo":"m:"}},
+        {"type":"grid", "val":{
+          "meta": {"ver":"2.0"},
+          "cols":[
+            {"name":"b"},
+            {"name":"a"}
+          ],
+          "rows":[
+            {"b":"n:20", "a":"n:10"}
+          ]
+        }},
+        {"type":"scalar", "val":"simple string"}
+      ]
+    }

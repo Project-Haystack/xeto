@@ -1,0 +1,106 @@
+<!--
+title:      Tools
+author:     Brian Frank
+created:    10 Sep 2021
+copyright:  Copyright (c) 2021, Project-Haystack
+-->
+
+# Overview
+This chapter provides guidance to for open source tools available for
+to work with Project Haystack data.
+
+# Build from Source
+To compile the ontology from source into HTML, Json, Turtle, etc follow
+these steps:
+
+1. Checkout source from [GitHub](#github)
+
+2. Install [Haxall](#haxall)
+
+3. Run the [defc](#defc) command line tool to compile the defs
+
+# GitHub
+All Haystack source material is managed on [GitHub](https://github.com/Project-Haystack/haystack-defs).
+
+If you have [git](https://git-scm.com/) installed on your machine, you
+can clone the Haystack repo to your local machine with this command:
+
+    git clone https://github.com/Project-Haystack/haystack-defs.git
+
+This will create a `haystack-defs/` directory under your current working
+directory.
+
+# Haxall
+[Haxall](https://haxall.io) is an open source framework which includes the
+reference implementation used to generate the documentation and downloads
+found on [https://project-haystack.org/].  It provides several features for
+working with Project-Haystack data:
+  - `defc` command line tool to compile the ontology from source
+  - `hx convert` command line to convert between the different
+    [file types]`Filetypes`
+  - Haxall daemon which provides a full runtime to load and explore
+    haystack data using a functional scripting langauge
+
+Haxall requires a Java VM to run.  So you will need Java installed on your
+machine as a prerequisite.  To install Haxall download the latest release
+from [GitHub](https://github.com/haxall/haxall/releases).  Releases are
+packaged as a zip file you can unzip to your machine.  Once installed
+you can test using the "bin/hx" Bash script or "bin/hx.bat" Window's batch file
+as follows:
+
+  > bin/hx version
+
+# Defc
+The `defc` command line tool is used to compile the ontology from source.
+It compiles the source [Trio] files one or more of the following
+output files:
+ - html: generate the HTML documentation as found on the website
+ - csv: output defs as a [CSV](Csv) file
+ - zinc: output defs as a [Zinc] file
+ - trio: output ontology as a [Trio] file
+ - json: output ontology as a [Json] file
+ - turtle: output ontology as a [RDF Turtle](Rdf) file
+
+To use defc, first install [haxall](#haxall) and verify its installed as follows
+
+    bin/defc -version
+
+Run this command to print out command line syntax and examples:
+
+    bin/defc -?
+
+If you have cloned the haystack git repo, then you can compile it as follows
+
+    // compile ontology to HTML docs
+    bin/defc haystack-defs/src
+
+    // compile ontology to JSON
+    bin/defc -output json haystack-defs/src
+
+    // compile ontology to Turtle
+    bin/defc -output turtle haystack-defs/src
+
+    // compile ontology to JSON and Turtle
+    bin/defc -output json,turtle haystack-defs/src
+
+Note that if running defc straight from a source directory, it will not
+compile docHaystack to HTML.  Compiling the full set of HTML documentation
+requires first compiling each library and docHaystack to a pod zip file.
+You can do that by ensuring that your haystack-defs directory is under your
+Haxall installation:
+
+    // cd to your haxall install directory
+    cd haxall-3.1.6
+
+    // clone haystack-defs under haxall
+    git clone https://github.com/Project-Haystack/haystack-defs.git
+
+    // build the defs as pod zip files
+    bin/fan haystack-defs/src/build.fan
+
+    // run defc with defaults and it will automatically use haystack def pod files
+    bin/defc -output html
+
+
+
+
