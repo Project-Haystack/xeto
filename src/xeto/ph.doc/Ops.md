@@ -12,7 +12,7 @@ Each operation specifies the format and options of the
 request grid and response grid.
 
 # About
-The [about](op:about) op queries basic information about the server.
+The `about` op queries basic information about the server.
 
 **Request**: empty grid
 
@@ -56,7 +56,7 @@ Example response as grid:
     "4.0","New_York","Test Server",2021-05-31T07:50:17-04:00 New_York,2021-05-28T06:50:47-04:00 New_York,"Acme Haystack Server",`http://acme.com/haystack-server`,"1.0.30","Acme",`http://acme.com/`
 
 # Close
-The [close](op:close) op closes the current authentication session.  Sessions
+The `close` op closes the current authentication session.  Sessions
 are established by the [auth handshake](Auth) and identified by the bearer
 token.  Calling this op should close the session on the server and invalidate
 the bearer token.
@@ -89,44 +89,16 @@ Example close request using JSON:
     "rows":[]
     }
 
-# Defs
-The [defs](op:defs) op queries [def dicts](Defs) from the current [namespace](Namespaces).
-
-**Request (all defs)**: empty grid
-
-**Request (by filter)**: filter or limit which defs are queried
- - `filter`: Str encoding of filter
- - `limit`: optional Number that specifies maximum number of defs to return in response
-
-** Response**: a grid with the dict representation of each def
-
-Example request:
-
-    ver:"3.0"
-    filter
-    "def==^point"
-
-Example response:
-
-    ver:"3.0"
-    def,lib,is,mandatory,docTaxonomy,doc
-    ^point,^lib:phIoT,[^entity],M,M,"Data point such as a sensor or actuator.\nSee `docHaystack::Points` chapter."
-
-
-# Libs
-The [libs](op:libs) op queries [ph::PhEntity.lib] defs from current namspace.  It follows
-the same convention as the [defs](#defs) op except only `lib` defs are queried.
-
 # Ops
-The [ops](op:ops) op queries [ph::PhEntity.op] defs from current namspace.  It follows
+The `ops` op queries [ph::PhEntity.op] defs from current namspace.  It follows
 the same convention as the [defs](#defs) op except only `op` defs are queried.
 
 # Filetypes
-The [filetypes](op:filetypes) op queries [ph::PhEntity.filetype] defs from current namspace.  It follows
+The `filetypes` op queries [ph::PhEntity.filetype] defs from current namspace.  It follows
 the same convention as the [defs](#defs) op except only `filetype` defs are queried.
 
 # Read
-The [read](op:read) op is used to read a set of entity records either by their
+The `read` op is used to read a set of entity records either by their
 unique identifier or using a filter.
 
 **Request (by filter)**: a grid with a single row and following columns:
@@ -171,7 +143,7 @@ data sources.  For those cases you must use the [watchSub](#watchsub)
 operation.
 
 # Nav
-The [nav](op:nav) op is used navigate a project for learning and discovery.
+The `nav` op is used navigate a project for learning and discovery.
 This operation allows servers to expose the database in a human-friendly
 tree (or graph) that can be explored.
 
@@ -190,7 +162,7 @@ is safe to assume the row maps to a record in the database.  Clients
 should treat the navId as an opaque identifier.
 
 # WatchSub
-The [watchSub](op:watchSub) operation is used to create new [watches](HttpApi#watches)
+The `watchSub` operation is used to create new [watches](HttpApi#watches)
 or add entities to an existing watch.
 
 If the entities subscribed are themselves proxies for external data
@@ -253,7 +225,7 @@ Example request to add a record to existing watch:
     @2b80f96a-9dcc3345
 
 # WatchUnsub
-The [watchUnsub](op:watchUnsub) operation is used to close a [watch](HttpApi#watches)
+The `watchUnsub` operation is used to close a [watch](HttpApi#watches)
 entirely or remove entities from a watch.
 
 **Request**: a row with the `id` column and Ref values for each
@@ -283,7 +255,7 @@ Example response:
     empty
 
 # WatchPoll
-The [watchPoll](op:watchPoll) operation is used to poll a [watch](HttpApi#watches)
+The `watchPoll` operation is used to poll a [watch](HttpApi#watches)
 for changes to the subscribed entity records.
 
 **Request**: grid metadata:
@@ -314,7 +286,7 @@ Response grid:
     @2b80f96a-7b16eb30 "RTU-1 ZoneTemp",M,"ok",74.1°F,@2b80f96a-ee1d1270 "RTU-1","Number",M,"°F"
 
 # PointWrite
-The [pointWrite](op:pointWrite) op is used to:
+The `pointWrite` op is used to:
   1. read the current status of a [writable point's](ph::WritablePoint) priority array
   2. Or write to a given level
 
@@ -354,7 +326,7 @@ Example response:
     empty
 
 # HisRead
-The [hisRead](op:hisRead) op is used to read a time-series data from one or
+The `hisRead` op is used to read a time-series data from one or
 more historized points.  This operation supports both a single point read
 and a batch point read.  The mode is determined by the presense of
 the `range` tag in the request grid meta.
@@ -450,7 +422,7 @@ Example response:
     2012-10-01T00:45:00-04:00 New_York,  N,            20%,          N
 
 # HisWrite
-The [hisWrite](op:hisWrite) op is used to post new time-series data to one
+The `hisWrite` op is used to post new time-series data to one
 or more historized points.  The points must already be configured on the
 server and assigned a unique identifier.
 
@@ -518,7 +490,7 @@ Example response:
     empty
 
 # Invoke Action
-The [invokeAction](op:invokeAction) op is used to invoke a user action on a target
+The `invokeAction` op is used to invoke a user action on a target
 record.  Actions may be used to change setpoints or initiate other
 types of configuration/control actions.  An action is modeled a
 function which takes zero or more parameters.  The arguments for the
@@ -531,3 +503,4 @@ and `action` Str name.  A single row defines the arguments to the
 action.
 
 **Response**: undefined
+
