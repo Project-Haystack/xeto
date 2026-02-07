@@ -18,12 +18,6 @@ PhEntity: Entity <abstract> {
   // Relating to alternating current (AC) electricity
   *ac: Marker
 
-  // Accumulate the tag's value during [inheritance](ph.doc::Normalization#inherit)
-  // and [defx](ph.doc::Normalization#defx).  Tags marked as accumulate
-  // are aggregated together during normalization and deduplicated.  This
-  // marker must only be used on tags which expect a list value.
-  *accumulate: Marker
-
   // Working, operative, effective
   *active: Marker
 
@@ -149,14 +143,6 @@ PhEntity: Entity <abstract> {
   // Methane (CH₄)
   *ch4: Marker
 
-  // List of prototypes contained by this entity.
-  // See [Protos chapter](ph.doc::Protos) for more details.
-  *children: List <of:Dict>
-
-  // List of aspects to flatten into children prototypes.
-  // See [Protos chapter](ph.doc::Protos) for more details.
-  *childrenFlatten: List <of:Symbol>
-
   // Substance is cooled using cooling process
   *chilled: Marker
 
@@ -175,10 +161,6 @@ PhEntity: Entity <abstract> {
   // Equipment to remove heat from a liquid.  Chillers typically use a vapor
   // compression or an absorption refrigeration cycle.
   *chiller: Marker
-
-  // Choice specifies an exclusive marker selection.
-  // See [Choices](ph.doc::Choices) chapter.
-  *choice: Marker
 
   // Pipe used to circulate fluid through an equipment or system
   *circ: Marker
@@ -344,14 +326,6 @@ PhEntity: Entity <abstract> {
   // setpoint.
   *deadband: Marker
 
-  // Create a new definition bound to the given symbol.
-  // See [Defs chapter](ph.doc::Defs).
-  *def: Symbol
-
-  // Extends the given definition with additional meta tags.
-  // See [Normalization](ph.doc::Normalization#defx).
-  *defx: Symbol
-
   // Differential of fluid between entering and leaving sensors.
   *delta: Marker
 
@@ -406,14 +380,6 @@ PhEntity: Entity <abstract> {
   // no recirculated air in order to provide ventilation to spaces.
   // See [ph.doc::AHUs] chapter.
   *doas: Marker
-
-  // Generate a section in the docs for this association.
-  *docAssociations: Marker
-
-  // Generate a taxonomy tree for this term in the documentationindex.
-  // When applied to a def, then it will will be listed in the docs
-  // under the [taxonomies](ph.doc::Docs#taxonomies) section.
-  *docTaxonomy: Marker
 
   // For human use
   *domestic: Marker
@@ -831,10 +797,6 @@ PhEntity: Entity <abstract> {
   // Range from 0% to 100%.  When paired with a fluid this implies a fill
   // level where 0% is empty and 100% is full.
   *level: Marker
-
-  // Library module of symbolic definitions.
-  // See [ph.doc::Namespaces#libs] chapter.
-  *lib: Obj
 
   // Electromagnetic radiation in the visible spectrum
   *light: Marker
@@ -1265,11 +1227,6 @@ PhEntity: Entity <abstract> {
   // Piston compressor driven by a crankshaft
   *reciprocal: Marker
 
-  // Specifies the inverse of an association or relationships.
-  // See [Associations](ph.doc::Associations#reciprocal-of) and
-  // [Relationships](ph.doc::Relationships#reciprocal-of) chapter.
-  *reciprocalOf: Symbol
-
   // Fluid used in refrigeration and heat exchange.  Refrigerants typically
   // alternate between liquid and gas state.
   *refrig: Marker
@@ -1493,11 +1450,6 @@ PhEntity: Entity <abstract> {
 
   // Complete or absolute
   *total: Marker
-
-  // This marker is applied to a [relationship] to indicate it is transitive.
-  // Transitivity requires that if the relationship applies to A,B and B,C
-  // then it also applies to A,C.
-  *transitive: Marker
 
   // Three ducts: hotDeck, coldDeck, or neutralDeck
   *tripleDuct: Marker
