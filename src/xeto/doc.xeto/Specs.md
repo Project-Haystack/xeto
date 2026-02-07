@@ -158,7 +158,7 @@ Foo: {
 ```
 
 In Xeto instance data that contains a list uses curly braces (we do
-not use '[]' like JSON):
+not use `[]` like JSON):
 
 ```xeto
 // explicitly typed list with individual items typed
