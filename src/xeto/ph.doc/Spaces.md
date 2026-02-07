@@ -6,10 +6,10 @@ copyright:  Copyright (c) 2021, Project-Haystack
 -->
 
 # Overview
-Spaces are modeled with the [ph::PhEntity.space] marker tag.  Spaces include the physical
-structure of buildings including [floors](ph::PhEntity.floor) and [rooms](ph::PhEntity.room).  Spaces
-also encompass logical system-oriented [zones](ph::ZoneSpace) for HVAC, lighting,
-security, smoke/fire, etc.
+Spaces are modeled with the [ph::Space] spec.  Spaces include the physical
+structure of buildings including [floors](ph::Floor) and [rooms](ph::Room).
+Spaces also encompass logical system-oriented [zones](ph::ZoneSpace) for HVAC,
+lighting, security, smoke/fire, etc.
 
 # Tags
 All spaces must define a [ph::PhEntity.siteRef] tag for their parent site.  In
@@ -71,3 +71,4 @@ Zones, and their associated points, are examined in detail in the [Zones] chapte
 # Data Centers
 Data centers are also modeled as a subtype of space.
 See the [DataCenters] chapter for details.
+

@@ -14,12 +14,12 @@ of equipment.
 There can often be a fuzzy distinction between equipment versus devices,
 especially since most point data for an equipment is manifested through a
 controller.  However when building a detailed model of a control system,
-use an [ph::PhEntity.equip] entity to represent the physical asset and use a separate [ph::PhEntity.device]
-entity to represent the controller.  In cases where the distinction is
-not clear, then combine the [ph::PhEntity.equip] and [ph::PhEntity.device] tags into one entity.
+use an [ph::Equip] entity to represent the physical asset and use a separate
+[ph::Device] entity to represent the controller.  In cases where the distinction is
+not clear, then combine the [ph::Equip] and [ph::Device] specs into one entity.
 
 # Networks
-Networks are modeled with the [ph::PhEntity.network] tag.  Devices on a network should
+Networks are modeled with the [ph::Network] spec.  Devices on a network should
 model their network relationship with the [ph::PhEntity.networkRef] tag.
 
 Devices where the main function is networking should subtype from
@@ -54,3 +54,4 @@ with two controllers:
     controller
     device
     networkRef: @my-network
+

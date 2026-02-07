@@ -8,7 +8,7 @@ copyright:  Copyright (c) 2021, Project-Haystack
 # Overview
 Haystack standardizes the modeling of weather stations and their
 associated observations.  The stations themselves are modeled using
-the [ph::PhEntity.weatherStation] marker tag.  The observations are modeled as
+the [ph::WeatherStation] spec.  The observations are modeled as
 normalized [points](Points) along with the [ph::PhEntity.weather] marker tag.
 
 # Stations
@@ -82,3 +82,4 @@ Example of a weather observation point:
     cur
     curVal: 56°F
     curStatus: "ok"
+

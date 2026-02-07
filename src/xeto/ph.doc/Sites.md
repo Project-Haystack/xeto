@@ -6,7 +6,7 @@ copyright:  Copyright (c) 2021, Project-Haystack
 -->
 
 # Overview
-A *site* entity models a single facility using the [ph::PhEntity.site] tag. A good rule of
+A *site* entity models a single facility via the [ph::Site] spec. A good rule of
 thumb is to model any building with its own street address as its own site.
 For example, a campus should be modeled with each building as a site, versus
 treating the entire campus as one site.  But not all sites are buildings; a
@@ -40,3 +40,4 @@ Here is an example of a site entity fully tricked out with geolocation tags:
     geoPostalCode: "20500"
     geoCoord: C(38.898, -77.037)
     yearBuilt: 1792
+

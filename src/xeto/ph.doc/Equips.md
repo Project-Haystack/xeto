@@ -6,7 +6,7 @@ copyright:  Copyright (c) 2021, Project-Haystack
 -->
 
 # Equips
-Equipment assets are modeled with the [ph::PhEntity.equip] marker tag.  Equipment is often
+Equipment assets are modeled with the [ph::Equip] spec.  Equipment is often
 a physical asset such as an air handler, boiler, chiller, or meter. However,
 equip can also be used to model a logical grouping such as an entire chilled
 water plant.
@@ -48,3 +48,4 @@ Here are examples for the proper tagging of equipment:
     equip
     siteRef: @site
     equipRef: @site.chillerPlant
+

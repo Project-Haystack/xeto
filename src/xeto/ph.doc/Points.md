@@ -9,7 +9,7 @@ copyright:  Copyright (c) 2021, Project-Haystack
 Points are typically a digital or analog sensor or actuator (sometimes
 called *hard points*). Points can also represent a configuration value such
 as a setpoint or schedule (sometimes called *soft points*). Point entities
-are tagged with the [ph::PhEntity.point] tag.
+are modeled with the [ph::Point] spec.
 
 # Containment
 All points must be associated with a site via the [ph::PhEntity.siteRef] tag and a
@@ -168,3 +168,4 @@ Here are examples for the proper tagging of points:
     tz: "London"
     his
     hisStatus: "ok"
+

@@ -6,17 +6,18 @@ copyright:  Copyright (c) 2023, Project-Haystack
 -->
 
 # Systems
-Systems are modeled with the [ph::PhEntity.system] marker tag. Systems the logical structure
-of buildings meant to group multiple [ph::PhEntity.equip] that serve a similar purpose.
+Systems are modeled with the [ph::System] spec. Systems the logical structure
+of buildings meant to group multiple [equips](Equips.md) that serve a similar purpose.
 The members of a system do not necessarily have to be in the same physical
-[ph::PhEntity.space]. For example, a Chilled Water System may consist of equipment within
+[ph::Space]. For example, a Chilled Water System may consist of equipment within
 the Chilled Water Plant, but also Air Handlers with Chilled Water Coils fed
 by that plant. Systems do not represent a physical structure unless also paired
-with an [ph::PhEntity.equip] tag (e.g., if [ph::PhEntity.system] is used in conjunction with a `plant-equip`).
+with an [ph::PhEntity.equip] tag (e.g., if [ph::PhEntity.system] is used in
+conjunction with a `plant-equip`).
 
 # Tags
 System entities should define a `siteRef` tag for their parent tag. All systems
-subtype from [ph::PhEntity.system] and are then kebab cased with other valid tags to create
+subtype from [ph::System] and are then kebab cased with other valid tags to create
 the conjunct (e.g., [ph::ChilledWaterSystem]).
 
 It is also valid for systems to define a `systemRef` tag to describe a sub-system
@@ -119,3 +120,4 @@ Here are examples of a properly tagged system and member equipment:
     equipRef: @chwPlant
     chilledWaterRef: @chwPlant
     condenserWaterRef: @cwPlant
+
