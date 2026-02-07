@@ -20,7 +20,7 @@ Spec: Dict <sealed> {
   // Simple name of spec
   name: Str <sealed>
 
-  // Qualified name of spec formatted as "lib::Type[.slot]"
+  // Qualified name of spec formatted as `lib::Type[.slot]`
   qname: Str <sealed>
 
   // Spec reference - always `sys::Lib`

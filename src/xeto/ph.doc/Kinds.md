@@ -50,6 +50,7 @@ express typing information.  For example the [ph::PhEntity.equip] tag is used on
 dict that represents an equipment asset.
 
 Encodings:
+
     M                     // Zinc cell
     name without colon    // Zinc meta, nested dict, Trio
     { "_kind": "marker" } // JSON
@@ -61,6 +62,7 @@ values.  In Haystack it is most often used in historized data to indicate
 that a timestamp sample is in error.
 
 Encodings:
+
     NA                // Zinc, Trio
     { "_kind": "na" } // JSON
 
@@ -69,6 +71,7 @@ Remove is a singleton used in dicts to indicate removal of a tag.  It is
 reserved for future HTTP ops that perform entity updates.
 
 Encodings:
+
     R                     // Zinc, Trio
     { "_kind": "remove" } // JSON
 
@@ -76,6 +79,7 @@ Encodings:
 Bool is the truth data type with the two values `true` and `false`.
 
 Encodings:
+
     T or F           // Zinc, Trio
     true or false    // JSON boolean
 
@@ -128,6 +132,7 @@ unless explicitly specified otherwise (such as via a charset parameter in
 an HTTP Content-Type).
 
 Strings are encoded using double quotes and C style backslash escapes:
+
     "haystack"         // Zinc, Trio, JSON
     "Line 1\nLine 2"   // Zinc, Trio, JSON with backslash escape newline
 
@@ -141,6 +146,7 @@ Uri is the data type used to represent Universal Resource Identifiers according
 to [RFC 3986](http://tools.ietf.org/html/rfc3986).
 
 Encodings:
+
     // Zinc, Trio use back tick quotes
     `http://project-haystack.org/`
 
@@ -185,21 +191,6 @@ the display name of the entity with a quoted string literal:
 
     // JSON with display name
     { "_kind": "ref", "val": "foo-bar", "dis": "Display Name" }
-
-# Symbol
-Symbols are the data type for [def](Defs) identifiers.
-
-Symbols follow the same naming conventions as [refs](#ref) - only ASCII letters,
-digits, underbar, colon, dash, period, or tilde.  Although only a subset of these
-punctuation characters are used today.  Dashes are used for [conjunct symbols](Defs#conjuncts)
-and the colon is used for [feature key symbols](Defs#feature-keys).
-
-Symbols are encoded using "^" as a prefix:
-
-    ^elec-meter  // Zinc, Trio
-
-    // JSON
-    { "_kind": "symbol", "val": "elec-meter" }
 
 # Date
 Date is an ISO 8601 calendar date.  It is encoded as YYYY-MM-DD:
@@ -258,6 +249,7 @@ standardized by Project Haystack.  However it should be assumed that future
 versions of this specification may standardize a set of XStr type names.
 
 Encodings:
+
     Type("value")   // Zinc, Trio
     Color("red")    // Zinc, Trio
 
@@ -269,6 +261,7 @@ List is a collection data type.  Lists are ordered sequences and may contain
 any other valid Haystack data types.
 
 Lists are encoded using square brackets exactly like JSON arrays:
+
     [1, "two", 3]    // Zinc, Trio, JSON
     []               // empty list
 
@@ -280,6 +273,7 @@ as discussed in the [names section](#names).  The values may be be any other val
 Haystack data type.
 
 Dicts are encoded using curly braces similiar to JSON objects:
+
     {x:123, y:456}       // Zinc, Trio (commas optional, trailing comma allowed)
     {"x":123, "y":456}   // JSON object
 
@@ -331,25 +325,3 @@ The data above is encoded into Zinc as follows:
 
 See [Zinc] and [Json] chapters for the details for grid encoding.
 
-# Defs
-All the data types are formally defined by name with a [def](Defs):
-  - [sys::Marker]
-  - [ph::PhEntity.na]
-  - [remove()]
-  - [sys::Bool]
-  - [sys::Number]
-  - [sys::Str]
-  - [sys::Uri]
-  - [sys::Ref]
-  - [ph::Symbol]
-  - [sys::Date]
-  - [sys::Time]
-  - [sys::DateTime]
-  - [ph::Coord]
-  - [ph::PhEntity.xstr]
-  - [sys::List]
-  - [sys::Dict]
-  - [sys::Grid]
-
-[Subtyping] is used to narrow the core kinds into tag definitions.  For
-example all ref tags will subtype from [sys::Ref].

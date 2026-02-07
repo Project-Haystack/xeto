@@ -33,18 +33,6 @@
 - [ATES](ATES.md): Modeling aquifer thermal energy storage
 - [DataCenters](DataCenters.md): Modeling data center spaces
 
-# Defs
-
-- [Defs](Defs.md): Definition meta-model
-- [Namespaces](Namespaces.md): Symbolic namespaces
-- [Subtyping](Subtyping.md): Definition subtyping
-- [Reflection](Reflection.md): Mapping between dicts and defs
-- [Normalization](Normalization.md): Normalized dict representation of defs
-- [Associations](Associations.md): Ontological relationships
-- [Choices](Choices.md): Exclusive marker choices
-- [Relationships](Relationships.md): Modeling relationships
-- [Protos](Protos.md): Dict prototypes
-
 # Filetype Formats
 
 - [Filetypes](Filetypes.md): Data encoding formats
@@ -52,7 +40,6 @@
 - [Json](Json.md): JSON format
 - [Trio](Trio.md): Tag record I/O format
 - [Csv](Csv.md): Comma separated valus format
-- [Rdf](Rdf.md): Resource Description Framework export
 
 # HTTP API
 
@@ -63,7 +50,7 @@
 # Appendix
 
 - [Tools](Tools.md): Tools to work with Haystack data
-- [Docs](Docs.md): Guidance on reference documentation
 - [ChangeLog](ChangeLog.md): Version history
 - [Changes3to4](Changes3to4.md): Notes for upgrading from version 3 to 4
 - [License](License.md): Academic Free License 3.0
+
