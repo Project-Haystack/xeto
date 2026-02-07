@@ -37,8 +37,7 @@ and `unocc temp sp`.
 
 # HVAC
 The [ph::HvacZoneSpace] conjunct models an HVAC zone for the conditioning
-of space comfort and air quality.  The [hvacZonePoints] def enumerates
-the common points used for HVAC control of a space.
+of space comfort and air quality.
 
 The sensor and setpoints associated with temperature control include:
 
@@ -79,8 +78,7 @@ All the points above must also be tagged with [ph::PhEntity.zone], [ph::PhEntity
 
 # Air Quality
 It is also common in an HVAC zone to also measure and control air quality.
-We model the typical air quality points using the [airQualityZonePoints]
-def which includes:
+Typical air quality points include:
 
   - [ph::Ch2oConcentration] [ph::PhEntity.sensor]: measured formaldehyde (CH₂O)
   - [ph::CoConcentration] [ph::PhEntity.sensor]: measured carbon monoxide (CO)
@@ -97,11 +95,11 @@ def which includes:
 All the points above must also be tagged with [ph::PhEntity.zone], [ph::PhEntity.air], and [ph::PhEntity.point].
 
 # Lighting
-The [ph::LightingZoneSpace] conjuct models lighting zones.  The [lightingZonePoints]
-def enumerates the typical points used for lighting measurement and control
-including:
+The [ph::LightingZoneSpace] conjuct models lighting zones.  Typical points used
+for lighting measurement and control include:
 
   - [ph::LightLevel] [ph::PhEntity.sensor]: brightness level status as percentage
   - [ph::LightLevel] [ph::PhEntity.sp]: brightness level setpoint as percentage
   - [ph::PhEntity.light] [ph::PhEntity.illuminance] [ph::PhEntity.sensor]: lux, footcandle, or phot
   - [ph::PhEntity.light] [ph::LuminousFlux] [ph::PhEntity.sensor]: luminous flux in lumens
+

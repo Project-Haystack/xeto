@@ -6,7 +6,7 @@ copyright:  Copyright (c) 2021, Project-Haystack
 -->
 
 # Overview
-The [ph::PhEntity.ates] tag is used to model an aquifer thermal energy storage system.  ATES
+The [ph::Ates] spec is used to model an aquifer thermal energy storage system.  ATES
 systems are designed to use underground water to store thermal energy and deliver
 heating and cooling to a building in a very energy efficient way, often in
 combination with a heat pump. The ATES consists of all parts of the system
@@ -47,3 +47,4 @@ Extraction and infiltration are used in the process of extracting water
 from a ground water source, typically taking it through piping and a heat
 exchanger using a pump, and infiltrating the same water back into the ground
 at another location or another depth (another ground water layer).
+

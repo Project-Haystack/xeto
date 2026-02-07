@@ -6,13 +6,13 @@ copyright:  Copyright (c) 2021, Project-Haystack
 -->
 
 # Overview
-Haystack defines the fundamentals for modeling data centers via the [ph::PhEntity.dataCenter]
-and [ph::PhEntity.rack] tags.  Data centers are considered a specialized type of [ph::PhEntity.space].
+Haystack defines the fundamentals for modeling data centers via the [ph::DataCenter]
+and [ph::Rack] specs.  Data centers are considered a specialized type of [ph::Space].
 Equipment and devices contained within the data center define their relationship
 to the data center via the [ph::PhEntity.spaceRef] tag.
 
 # Racks
-Racks are modeled as specialized [ph::PhEntity.equip] with the [ph::PhEntity.rack] marker tag.  The
+Racks are modeled as specialized [ph::Equip] with the [ph::Rack] marker tag.  The
 servers and networking gear contained by the rack declare their containment
 relationship via the [ph::PhEntity.equipRef] tag.
 
@@ -41,5 +41,4 @@ one server:
     rackRef: @rack1
     spaceRef: @dc
     siteRef: @site
-
 
