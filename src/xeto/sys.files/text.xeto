@@ -27,13 +27,13 @@ MarkdownFile : TextFile <mimeType:"text/markdown; charset=utf-8", fileExt:"md">
 // Plain text file
 PlainTextFile : TextFile <mimeType:"text/plain; charset=utf-8", fileExt:"txt">
 
-// Project Haystack Trio text file
+// Project Haystack Trio text file - see [ph.doc::Trio]
 TrioFile : TextFile <mimeType:"text/trio; charset=utf-8", fileExt:"trio">
 
 // RDF turtle file
 TurtleFile : TextFile <mimeType:"text/turtle; charset=utf-8", fileExt:"ttl">
 
-// Project Haystack Zinc text file
+// Project Haystack Zinc text file - see [ph.doc::Zinc]
 ZincFile : TextFile <mimeType:"text/zinc; charset=utf-8", fileExt:"zinc">
 
 // Extensible markup language text file

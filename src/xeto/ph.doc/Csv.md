@@ -12,7 +12,7 @@ commonly used for serialization of tabular data.  It is specified in
 [RFC 4180](http://tools.ietf.org/html/rfc4180).  CSV provides  a simple
 way to get tabular data into other applications such as Excel.
 
-CSV is represented by the def [filetype:csv].
+CSV is represented by the def [sys.files::CsvFile].
 
 # Grid Format
 Haystack defines a standard mapping of grids into CSV, which is used
@@ -44,3 +44,4 @@ Example:
     Equip Name,equip,siteRef,installed
     RTU-1,✓,@153c600e-699a1886 HQ,2005-06-01
     RTU-2,✓,@153c600e-699a1886 HQ,1999-07-12
+

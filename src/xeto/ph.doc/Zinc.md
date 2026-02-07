@@ -13,7 +13,7 @@ supports typed scalar values (such as Bool, Int, Float, Str, Date, etc)
 and arbitrary meta-data at the grid and column level.  Unlike JSON,
 Zinc results in much higher compression for tabular data.
 
-Zinc is represented by the def [filetype:zinc].
+Zinc is represented by the def [sys.files::ZincFile].
 
 # Literals
 The basic syntax of Zinc uses a custom literal syntax for each type:
@@ -231,3 +231,4 @@ DateTime scalars are encoded using both offset and the timezone name:
   - Version remains the same "3.0"
   - Symbol literals
   - Allow commas in nested dict literals
+

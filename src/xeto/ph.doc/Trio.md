@@ -12,7 +12,7 @@ format used for hand authoring Haystack data.  It is derived as a semi-subset
 of [YAML](https://en.wikipedia.org/wiki/YAML).  It is the primary format
 for authoring the tag definitions on the Project Haystack site itself.
 
-Trio is represented by the def [filetype:trio].
+Trio is represented by the def [sys.files::TrioFile].
 
 # Format
 Trio uses a simple plain text format designed for easy editing by hand:
@@ -101,3 +101,4 @@ Here are examples with nested data values:
       {fan, motor, equip},
       {damper, actuator, equip},
       ]
+

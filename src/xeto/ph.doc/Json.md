@@ -12,7 +12,7 @@ commonly used for serialization of data.  It is specified in
 [RFC 4627](http://tools.ietf.org/html/rfc4627).  The JSON format is
 designed to support 100% fidelity with with the full Haystack type system.
 
-JSON is represented by the def [filetype:json].
+JSON is represented by the def [sys.files::JsonFile].
 
 # JSON Version 4
 This section describes the Haystack 4 method for encoding Haystack
@@ -417,3 +417,4 @@ Here is another example with nested lists, dicts, and grids:
         {"type":"scalar", "val":"simple string"}
       ]
     }
+
