@@ -73,7 +73,7 @@ These tags are not ported:
 # Weather
 In Haystack 3, weather stations were modeled via the `weather` tag, and
 their points were modeled via the `weatherPoint` tag.  In Haystack 4, we
-use the [ph::PhEntity.weather] marker on the points as the [pointSubject].  And stations
+use the [ph::PhEntity.weather] marker on the points as the `pointSubject`.  And stations
 are modeled via the [ph::PhEntity.weatherStation] tag.  Likewise, the `weatherRef` tag
 is now renamed to `weatherStationRef`.
 
@@ -116,5 +116,4 @@ Symbol is added as a new scalar type in Haystack 4.  In Zinc, it is represented
 as `^name` and in JSON with the "y:" prefix.  The format version was left
 as "3.0" to minimize ecosystem disruption since symbols are only used with
 defs and unlikely to occur in normal Haystack data.
-
 

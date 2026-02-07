@@ -22,7 +22,7 @@ there are multiple supply AHUs, then the `airRef` tag should be a list
 of all the upstream AHUs.
 
 # Choices
-AHUs define a suite of [choices](Choices) that should be made on
+AHUs define a suite of [choices](doc.xeto::Choices) that should be made on
 a per instance basis.
 
 ## Heating Process
@@ -48,8 +48,8 @@ markers should be defined:
 ## vavAirCircuitType
 If the VAV is fan powered, then one of the following [ph::VavAirCircuit]
 markers should be defined:
-  - [parallel](vav-parallel)
-  - [series](vav-series)
+  - [parallel](ph::ParallelVavAirCircuit)
+  - [series](ph::SeriesVavAirCircuit)
 
 ## Ductwork
 One of the following [ph::DuctConfig] markers should be
@@ -93,3 +93,4 @@ The following are examples of fully tagged VAVs:
     hotWaterRef: @hot-water-plant
     airRef: @ahu
     siteRef: @site
+

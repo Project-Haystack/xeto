@@ -9,8 +9,8 @@ license:    Licensed under the Academic Free License version 3.0
 Filters are a simple declarative language used to query Haystack
 data.  A filter is a predicate function that takes a dict and
 returns true/false (match/no match).  Some filter constructs
-require the use of [defs](Defs) in which case the filter must
-be evaluated in the context of a [namespace](Namespaces).
+require the use of [specs](doc.xeto::Specs) in which case the filter
+must be evaluated in the context of a [namespace](doc.xeto::Namespaces).
 
 # Usage
 The simplest filter is just a tag name that matches any record that
@@ -136,3 +136,4 @@ The formal grammar of the filter langauge:
 
 See [Zinc grammar](Zinc#grammar) for productions reused from Zinc.  Bools
 are encoded as "true" or "false" (Zinc encodes as "T" or "F").
+

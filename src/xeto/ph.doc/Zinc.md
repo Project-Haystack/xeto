@@ -94,6 +94,7 @@ However, commas are *not* allowed for grid and column meta-data.
 
 # Grammar
 Grammar legend:
+
     :=      is defined as
     <x>     non-terminal
     "x"     literal

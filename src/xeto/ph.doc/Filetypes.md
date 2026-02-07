@@ -36,9 +36,8 @@ See [Json] chapter for further details.
 Trio is an acronym for Tag Record Input/Output.  Trio is derived from
 [YAML](https://en.wikipedia.org/wiki/YAML).  It uses the Zinc encodings
 for scalar types to provide full type fidelity.  Trio is targeted for use
-cases when humans need to hand code Haystack data.  For example its the format
-used for [defs](Defs).  Most examples in the documentation are formatted
-in Trio.
+cases when humans need to hand code Haystack data.  Most examples in the
+documentation are formatted in Trio.
 
 Trio is a line oriented format.  Dicts are encoded with each tag on its own
 line.  Dicts are separated by a line of "---".  There is also some syntax sugar
@@ -66,6 +65,5 @@ Project Haystack specifies a standard export to RDF triples via two different
 formats: Turtle and JSON-LD.  Both defs and instance data have a standard export
 mapping.
 
-See [Rdf] chapter for details.
-
+See [Rdf](doc.xeto::Rdf) chapter for details.
 

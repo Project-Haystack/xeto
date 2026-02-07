@@ -6,15 +6,14 @@ copyright:  Copyright (c) 2019, Project-Haystack
 -->
 
 # Overview
-Project Haystack is an open source suite of technologies for modeling IoT data.
-The stack of technologies includes:
+Project Haystack is an ontology defined in Xeto for the built environment
+and sensor systems.  It is composed:
 
   - [Data Types](#data-types): a fixed set of data types for modeling information
   - [File Types](#file-types): a set of text formats to encode and exchange those data types
   - [HTTP API](#http-api): a protocol to exchange data over HTTP using those file types
   - [Ontology](#ontology): a standard way to model common concepts such as buildings,
     spaces, equipment, and sensors
-  - [Defs](#defs): a standard way to define and extend the ontology
 
 Individual aspects of the technology stack can be used on their own.  For
 example you can use the Haystack data types as an "enhanced JSON".  Or you
@@ -55,7 +54,6 @@ The following file types are standardized:
   - [Json]: Haystack mapping to JSON data types
   - [Trio]: a YAML like format used for hand written data
   - [CSV](Csv): one-way mapping to comma separated values (typing is lost)
-  - [RDF](Rdf): two RDF export formats are defined - Turtle and JSON-LD
 
 The file types are discussed further in the [Filetypes] chapter.
 
@@ -85,7 +83,7 @@ concepts in this domain including:
   - [equip](Equips): a physical asset such as a meter, air handler, boiler, etc
   - [point](Points): a sensor, setpoint, or actuator
   - [device](Devices): microprocessor based hardware such as controllers, networking gear, etc
-  - [weather](ph::Weather): weather observations for temperature, humidity, precipitation, etc
+  - [weather](Weather): weather observations for temperature, humidity, precipitation, etc
 
 Each of these top-level concepts includes a taxonomy tree for more specific types.
 For example, the term *space* is the root of the taxonomy that includes floor,
@@ -115,27 +113,3 @@ something about this entity:
 These concepts are explored further in the [Ontology] chapter and the
 individual chapters for specific systems.
 
-# Defs
-Defs (or definitions) are the mechanism by which we formally define our
-ontology.  Defs are used to define the semantics for each tag including:
-  - value type (marker, string, number, etc)
-  - the supertype (for example a more specific type of space, equip, etc)
-  - human description for the tag
-  - ontological relationships for how tags relate to one another
-
-By precisely defining every tag, we ensure that there is a common understanding
-for the semantics of a Haystack data model.  In our example above, we know that dict
-represents a building (the site tag) and that the area tag tells us the
-square footage of the building.
-
-Defs are themselves just a dict that uses a standard set of *meta tags*
-for their definition.  This means defs are also normal Haystack data.
-For example, the def for the [ph::PhEntity.floor] tag is itself a dict of the following tags:
-
-    def: ^floor
-    is: ^space
-    wikipedia: `https://en.wikipedia.org/wiki/Storey`
-    doc: "Storey of a building"
-
-Defs, and the mechanisms used to construct the ontology, are introduced in
-detail in the [Defs] chapter.

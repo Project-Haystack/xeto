@@ -109,7 +109,7 @@ If an op is not tagged [ph::PhEntity.noSideEffects] or the request grid is anyth
 than a single row of name/value pairs, then it must be be sent using HTTP POST.
 The client must encode the grid using a MIME type supported by server.  The
 client can query the supported MIME types using the [filetypes op](Ops#filetypes).
-The following is an example of posting to the [hisRead](op:hisRead) op using Zinc:
+The following is an example of posting to the [hisRead](Ops.md#hisread) op using Zinc:
 
     POST /haystack/hisRead HTTP/1.1
     Content-Type: text/zinc; charset=utf-8
@@ -200,13 +200,13 @@ formats by specifying the "Accept" header in your HTTP request.
 
 The following "Accept" header MIME types are standardized:
 
-  - [Zinc]: `text/zinc`, `*/*`, or unspecified
-  - [Json]: `application/json`, or `application/vnd.haystack+json;version=4`
-  - [JSON v3](Json#json-version-3): `application/vnd.haystack+json;version=3`
-  - [Trio]: `text/trio`
-  - [Csv]: `text/csv`
-  - [Turtle](Rdf): `text/turtle`
-  - [JSON-LD](Rdf): `application/ld+json`
+  - [Zinc](Zinc.md): `text/zinc`, `*/*`, or unspecified
+  - [Json](Json.md): `application/json`, or `application/vnd.haystack+json;version=4`
+  - [JSON v3](Json.md#json-version-3): `application/vnd.haystack+json;version=3`
+  - [Trio](Trio.md): `text/trio`
+  - [Csv](Csv.md): `text/csv`
+  - [Turtle](doc.xeto::Rdf): `text/turtle`
+  - [JSON-LD](doc.xeto::Rdf): `application/ld+json`
 
 If you specify an "Accept" header for an unsupported MIME type, then
 the 406 Unacceptable error code is returned.
@@ -242,3 +242,4 @@ During the lifetime of a watch, the client may optionally:
   1. add new entities to the watch using [watchSub](Ops#watchsub)
   2. remove entities from the watch using [watchUnsub](Ops#watchunsub)
   3. perform a poll refresh to re-read all the watched entities using [watchPoll](Ops#watchpoll)
+

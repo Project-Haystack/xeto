@@ -19,7 +19,6 @@ There are eleven scalar atomic types:
   - [Str](#str): string of Unicode characters
   - [Uri](#uri): Universal Resource Identifier
   - [Ref](#ref): reference  used to identify an entity instance
-  - [Symbol](#symbol): name constant used to identify a def
   - [Date](#date): an ISO 8601 date as year, month, day: 2011-06-07.
   - [Time](#time): an ISO 8601 time as hour, minute, seconds: 09:51:27.354.
   - [DateTime](#datetime): an ISO 8601 timestamp followed by timezone name

@@ -49,7 +49,6 @@
 
 # Appendix
 
-- [Tools](Tools.md): Tools to work with Haystack data
 - [ChangeLog](ChangeLog.md): Version history
 - [Changes3to4](Changes3to4.md): Notes for upgrading from version 3 to 4
 - [License](License.md): Academic Free License 3.0

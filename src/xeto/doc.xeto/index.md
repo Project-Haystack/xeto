@@ -18,6 +18,7 @@
 - [Constraints](Constraints.md): constraint rules used for validation
 - [Fidelity](Fidelity.md): type erasure rules when mapping to other data formats
 - [Xetodoc](Xetodoc.md): markdown flavor
+- [Rdf](Rdf.md): RDF interoperability
 
 # Appendix
 

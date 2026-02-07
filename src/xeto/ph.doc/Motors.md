@@ -85,7 +85,7 @@ Example of a VFD fan on an AHU:
 
 Note that the fan is modeled as an sub-equip of the AHU via the [ph::PhEntity.equipRef]
 tag.  The VFD points are defined under the fan itself, however we must
-[flatten](Protos#flattening) the `discharge` and  `fan` tags into the points.
+*flatten* the `discharge` and  `fan` tags into the points.
 
 # Pumps
 Pumps may optionally be defined as either an [ph::PhEntity.equip] or a [ph::PhEntity.point].  If
@@ -94,5 +94,4 @@ However, if the pump is modeled as a simple on/off point as a component within
 a large piece of equipment such as a [ph::PhEntity.boiler], then it is modeled as just a
 [ph::PhEntity.point].  Pumps should follow the same point and equip level modeling
 conventions as [fans](#fans).
-
 

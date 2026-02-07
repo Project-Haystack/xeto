@@ -90,12 +90,10 @@ Example close request using JSON:
     }
 
 # Ops
-The `ops` op queries [ph::PhEntity.op] defs from current namspace.  It follows
-the same convention as the [defs](#defs) op except only `op` defs are queried.
+The `ops` op queries [ph::PhEntity.op] defs from current namspace.
 
 # Filetypes
-The `filetypes` op queries [ph::PhEntity.filetype] defs from current namspace.  It follows
-the same convention as the [defs](#defs) op except only `filetype` defs are queried.
+The `filetypes` op queries [ph::PhEntity.filetype] defs from current namspace.
 
 # Read
 The `read` op is used to read a set of entity records either by their

@@ -197,35 +197,33 @@ is the assumed or default characteristic.
 Note:  The primary quantity `freq` does not have characteristic related tags.
 
 ## Locations for AC Measurements
+TODO: this section is out-of-date
+
 Generic tags are used to describe three types of `ac` electrical measurements that do
 not involve aggregation of multiple measurements:
 
-  - [elecLine]: for electrical line measurements "L1", "L2", and "L3"
-  - [elecLineToLine]: for electrical line-to-line measurements "L1-L2", "L2-L3", and
-  "L3-L1"
-  - [elecLineToNeutral]: for electrical line-to-neutral measurements "L1-N", "L2-N",
-  and "L3-N"
+  - [ph::PhEntity.phase]: for electrical line measurements "L1", "L2", and "L3"
 
 Non-aggregated `ac` electrical measurement locations are qualified by:
 
-  - [lineVolt]: `elecLineToLine`
-  - [phaseVolt]: `elecLineToNeutral`
-  - [lineCurrent]: `elecLine`
-  - [phaseCurrent]: `elecLineToLine`
-  - [linePower]: `elecLineToLine`
-  - [phasePower]: `elecLine`
-  - [linePf]: `elecLineToLine`
-  - [phasePf]: `elecLine`
-  - [lineEnergy]: `elecLineToLine`
-  - [phaseEnergy]: `elecLine`
-  - [ph::PhEntity.ground]: for electrical current measurement of the electrical ground
+  - `lineVolt`: `elecLineToLine`
+  - `phaseVolt`: `elecLineToNeutral`
+  - `lineCurrent`: `elecLine`
+  - `phaseCurrent`: `elecLineToLine`
+  - `linePower`: `elecLineToLine`
+  - `phasePower`: `elecLine`
+  - `linePf`: `elecLineToLine`
+  - `phasePf`: `elecLine`
+  - `lineEnergy`: `elecLineToLine`
+  - `phaseEnergy`: `elecLine`
+  - `ph::PhEntity.ground`: for electrical current measurement of the electrical ground
   conductor
-  - [ph::PhEntity.neutral]: for electrical current measurement of the electrical neutral
+  - `ph::PhEntity.neutral`: for electrical current measurement of the electrical neutral
   conductor
 
 Aggregated three-phase or split-phase `ac` electrical measurement locations
 are qualified by:
-  - [lineAvg]: Average of line quantities.
+  - `lineAvg`: Average of line quantities.
     - When applied to a point entity with the `current` tag, indicates the
       average of the values for the 'current' primary quantity characteristic
       at all available locations defined in 'elecLine'.
@@ -233,7 +231,7 @@ are qualified by:
       'energy' tags, indicates the average of the values for the primary
       quantity's characteristic at all available locations defined in
       'elecLineToLine'.
-  - [phaseAvg]: Average of phase quantities.
+  - `phaseAvg`: Average of phase quantities.
     - When applied to a point entity with the `volt` tag, indicates the
       average of the values for the 'volt' primary quantity characteristic
       at all available locations defined in 'elecLineToNeutral'.
@@ -243,7 +241,7 @@ are qualified by:
     - When applied to point entities with the `power`, `pf`, or `energy` tags,
       indicates the average of the values for the primary quantity's
       characteristic at all available locations defined in 'elecLine'.
-  - [ph::PhEntity.total]: Applies only to point entities with `power`, `demand`, or
+  - `ph::PhEntity.total`: Applies only to point entities with `power`, `demand`, or
     'energy' tags. Indicates the sum of the values for the primary quantity's
     characteristic at all available locations defined in 'elecLine'.
 
@@ -402,3 +400,4 @@ with HVAC submeter via [ph::PhEntity.elecRef] which references the HVAC submeter
 id.  We also tag one or more points under the equipment that are meaningful
 for the load.  Motors would often be tagged as loads since they draw energy, but
 sensors would typically not be considered loads.
+

@@ -21,8 +21,8 @@ All of these equipment types follow the same fundamental modeling
 techniques and subtype from [ph::AirHandlingEquip].
 
 # Choices
-AHUs define a suite of [choices](Choices) that should be made on
-a per instance basis.
+AHUs define a suite of [choices](doc.xeto::Choices) that should be made
+on a per instance basis.
 
 ## Heating Process
 If the AHU provides heating, then it should add one of the following
