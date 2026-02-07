@@ -21,21 +21,21 @@ BindPath: Scalar <sealed>
 // parameters to generate instance data
 Template: Func
 
-// Bind a variable via the 'var' meta tag
+// Bind a variable via the `var` meta tag
 Bind: Dict <sealed>
 
-// Bind a variable via the 'var' meta tag
+// Bind a variable via the `var` meta tag
 Foreach: Dict <sealed>
 
-// If block based on a boolean variable via the 'var' meta tag
+// If block based on a boolean variable via the `var` meta tag
 If: Dict <sealed>
 
 // Else block paired with If block
 Else: Dict <sealed>
 
-// Switch based on a conditional varaible via the 'var' meta tag
+// Switch based on a conditional varaible via the `var` meta tag
 Switch: Dict <sealed>
 
-// Switch case block keyed by the 'match' meta tag
+// Switch case block keyed by the `match` meta tag
 Case: Dict <sealed>
 

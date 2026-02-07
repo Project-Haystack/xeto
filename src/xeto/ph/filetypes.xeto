@@ -12,7 +12,7 @@ Filetype: Feature {
   wikipedia: Uri?  // Wikipedia link
 }
 
-// Comma Separated Values - see `docHaystack::Csv`
+// Comma Separated Values - see [ph.doc::Csv]
 @filetype:csv : Filetype {
   dis: "CSV"
   fileExt: "csv"
@@ -20,7 +20,7 @@ Filetype: Feature {
   wikipedia: "https://wikipedia.org/wiki/Comma-separated_values"
 }
 
-// Haystack JavaScript Object Notation format - see `docHaystack::Json`
+// Haystack JavaScript Object Notation format - see [ph.doc::Json]
 @filetype:json : Filetype {
   dis: "JSON"
   fileExt: "json"
@@ -28,7 +28,7 @@ Filetype: Feature {
   wikipedia: "https://wikipedia.org/wiki/JSON"
 }
 
-// JavaScript Object Notation for Linked Data - see `docHaystack::Rdf`
+// JavaScript Object Notation for Linked Data - see [ph.doc::Rdf]
 @filetype:jsonld : Filetype {
   dis: "JSON-LD"
   fileExt: "jsonld"
@@ -36,14 +36,14 @@ Filetype: Feature {
   wikipedia: "https://wikipedia.org/wiki/JSON-LD"
 }
 
-// Haystack Tag Record Input Output - see `docHaystack::Trio`
+// Haystack Tag Record Input Output - see [ph.doc::Trio]
 @filetype:trio : Filetype {
   dis: "Trio"
   fileExt: "trio"
   mime: "text/trio"
 }
 
-// RDF Turtle - see `docHaystack::Rdf`
+// RDF Turtle - see [ph.doc::Rdf]
 @filetype:turtle : Filetype {
   dis: "Turtle"
   fileExt: "ttl"
@@ -51,7 +51,7 @@ Filetype: Feature {
   wikipedia: "https://wikipedia.org/wiki/Turtle_(syntax)"
 }
 
-// Haystack typed CSV format - see `docHaystack::Zinc`
+// Haystack typed CSV format - see [ph.doc::Zinc]
 @filetype:zinc : Filetype {
   dis: "Zinc"
   fileExt: "zinc"

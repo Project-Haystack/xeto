@@ -19,7 +19,7 @@ Lib: Dict <sealed> {
   // Dotted name of the library
   name: Str <sealed>
 
-  // Spec reference - always 'sys::Lib'
+  // Spec reference - always `sys::Lib`
   spec: Ref <of:Spec, sealed>
 
   // Top-level type and mixin specs
@@ -76,16 +76,16 @@ LibDepend: Dict <sealed> {
 // Version constraints for a library dependency.
 //
 // The format is:
-//   <versions>  :=  <wildcard> | <range>
-//   <wildcard>  :=  <seg> "." <seg> "." <seg>
-//   <range>     :=  <wildcard> "-" <wildcard>
-//   <seg>       :=  <digits> | "x"
+//     <versions>  :=  <wildcard> | <range>
+//     <wildcard>  :=  <seg> "." <seg> "." <seg>
+//     <range>     :=  <wildcard> "-" <wildcard>
+//     <seg>       :=  <digits> | "x"
 //
 // Examples:
-//   1.5.20           // match only 1.5.20
-//   1.5.x            // match any patch version within 1.5
-//   3.x.x            // match any version with 3 as major version
-//   1.5.20 - 1.x.x   // greater than 1.5.20 and has 1 in major ver
+//     1.5.20           // match only 1.5.20
+//     1.5.x            // match any patch version within 1.5
+//     3.x.x            // match any version with 3 as major version
+//     1.5.20 - 1.x.x   // greater than 1.5.20 and has 1 in major ver
 LibDependVersions: Scalar <sealed>
 
 // Organization library metadata

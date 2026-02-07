@@ -23,7 +23,7 @@ Spec: Dict <sealed> {
   // Qualified name of spec formatted as "lib::Type[.slot]"
   qname: Str <sealed>
 
-  // Spec reference - always 'sys::Lib'
+  // Spec reference - always `sys::Lib`
   spec: Ref <of:Spec, sealed>
 
   // Parent library
@@ -32,7 +32,7 @@ Spec: Dict <sealed> {
   // Parent spec for member specs
   parent: Ref? <of:Spec, sealed>
 
-  // Base type of inheritance or null for 'sys::Obj'
+  // Base type of inheritance or null for `sys::Obj`
   base: Ref? <of:Spec, sealed>
 
   // Value type
@@ -81,7 +81,7 @@ Spec: Dict <sealed> {
   // Documentation description
   doc: Str?
 
-  // Annotates a slot as a fixed value that must be equal to 'val'
+  // Annotates a slot as a fixed value that must be equal to `val`
   fixed: Marker?
 
   // Indicates a global slot that defines a shape for all types that might override

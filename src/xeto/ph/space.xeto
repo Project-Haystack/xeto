@@ -8,7 +8,7 @@
 //
 
 // Space is a three-dimensional volume in the built environment.
-// See `docHaystack::Spaces` chapter.
+// See [ph.doc::Spaces] chapter.
 Space: PhEntity <abstract> {
   space
   area:     Number?
@@ -17,12 +17,12 @@ Space: PhEntity <abstract> {
 }
 
 // Space used to house computer and networking gear.
-// See `docHaystack::DataCenters` chapter.
+// See [ph.doc::DataCenters] chapter.
 DataCenter: Space {
   dataCenter
 }
 
-// Storey of a building.  See `docHaystack::Spaces#floors` chapter.
+// Storey of a building.  See [ph.doc::Spaces#floors] chapter.
 Floor: Space {
   floor
   floorNum: Number?
@@ -30,19 +30,19 @@ Floor: Space {
 
 // Floor at ground level.  In North America this is typically called
 // the first floor, but in Europe its often labeled as floor zero.
-// If `floorNum` is defined, then it must be set to zero.
+// If [ph::PhEntity.floorNum] is defined, then it must be set to zero.
 GroundFloor: Floor {
   ground
 }
 
 // Zone related to conditioning of a space's air temperature and quality.
-// See `docHaystack::Spaces#zones` and `docHaystack::Zones#hvac` chapters.
+// See [ph.doc::Spaces#zones] and [ph.doc::Zones#hvac] chapters.
 HvacZoneSpace: ZoneSpace {
   hvac
 }
 
 // Zone related to lighting system.
-// See `docHaystack::Spaces#zones` and `docHaystack::Zones#lighting` chapters.
+// See [ph.doc::Spaces#zones] and [ph.doc::Zones#lighting] chapters.
 LightingZoneSpace: ZoneSpace {
   lighting
 }
@@ -65,7 +65,7 @@ SubterraneanFloor: Floor {
 }
 
 // Space associated with a specific system.
-// See `docHaystack::Spaces#zones` and `docHaystack::Zones` chapters.
+// See [ph.doc::Spaces#zones] and [ph.doc::Zones] chapters.
 ZoneSpace: Space {
   zone
 }

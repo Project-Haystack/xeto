@@ -11,7 +11,7 @@ Quantity: Choice
 AirVelocity: Quantity { air, velocity }
 
 // Apparent energy in an AC eletrical power system. Integral of
-// `apparent-power` over time.
+// [ph::ApparentPower] over time.
 ApparentEnergy: Quantity { apparent, energy }
 
 // Apparent power; the perceived magnitude of electric power transfer in an
@@ -121,7 +121,7 @@ Energy: Quantity { energy }
 ElecEnergy: Energy { elec }
 
 // Active energy in an AC eletrical power system. Integral of
-// `active-power` over time.
+// [ph::ActivePower] over time.
 ActiveEnergy: ElecEnergy { active }
 
 // Total heat content of a system. It is defined as internal energy of the system plus the product of pressure and volume.
@@ -144,7 +144,7 @@ Humidity: Quantity { humidity }
 
 // Luminous flux hitting the inside of the sphere at a specific point.
 //
-// Also see [ies.org]`https://www.ies.org/definitions/illuminance/`
+// Also see [ies.org](https://www.ies.org/definitions/illuminance/)
 Illuminance: Quantity { illuminance }
 
 // Energy received at a surface by area
@@ -164,17 +164,17 @@ LightLevel: Level { light }
 
 // Energy of light in a given direction.
 //
-// Also see [ies.org]`https://www.ies.org/definitions/luminance/`
+// Also see [ies.org](https://www.ies.org/definitions/luminance/)
 Luminance: Quantity { luminance }
 
 // Total perceived light in all directions.
 //
-// Also see [ies.org]`https://www.ies.org/definitions/luminous-flux/`
+// Also see [ies.org](https://www.ies.org/definitions/luminous-flux/)
 LuminousFlux: Quantity { luminous, flux }
 
 // Perceived light in a particular direction per unit solid angle.
 //
-// Also see [ies.org]`https://www.ies.org/definitions/luminous-intensity/`
+// Also see [ies.org](https://www.ies.org/definitions/luminous-intensity/)
 LuminousIntensity: Quantity { luminous, intensity }
 
 // Electric power factor; which is the ratio of active power to apparent
@@ -209,7 +209,7 @@ Pressure: Quantity { pressure }
 AtmosphericPressure: Pressure { atmospheric }
 
 // Reactive energy in an AC eletrical power system. Integral of
-// `reactive-power` over time.
+// [ph::ReactivePower] over time.
 ReactiveEnergy: Quantity { reactive, energy }
 
 // Reactive power or imaginary power; represents energy that recirculates
@@ -222,7 +222,7 @@ Speed: Quantity { speed }
 // Wind flow speed
 WindSpeed: Speed { wind }
 
-// State of charge (SoC) of an electric `battery`.  Uses a percentage in
+// State of charge (SoC) of an electric [ph::PhEntity.battery].  Uses a percentage in
 // the range of 0% to 100%, where no charge is indicated as 0% and full
 // charge is indicated as 100%.
 StateOfCharge: Quantity { stateOfCharge }

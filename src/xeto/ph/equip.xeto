@@ -8,7 +8,7 @@
 //
 
 // Equipment asset.
-// See `docHaystack::Equips` chapter.
+// See [ph.doc::Equips] chapter.
 Equip: PhEntity <abstract> {
   equip
   equipRef:     Ref?
@@ -21,14 +21,14 @@ Equip: PhEntity <abstract> {
 }
 
 // AC Electricity meter.
-// See `docHaystack::Meters` chapter.
+// See [ph.doc::Meters] chapter.
 AcElecMeter: ElecMeter {
   ac
   phaseCount: PhaseCount?
 }
 
-// An AC EVSE port delivers `ac` electricity to a single EV charging inlet
-// at a time.  See `docHaystack::EVSE#port` chapter.
+// An AC EVSE port delivers [ph::PhEntity.ac] electricity to a single EV charging inlet
+// at a time.  See [ph.doc::EVSE#evse-port] chapter.
 //
 // Typically a max current or max power setpoint should reference an AC
 // EVSE port, but not both.  Usually it is preferred to control an AC EVSE
@@ -36,7 +36,7 @@ AcElecMeter: ElecMeter {
 //
 // It is recommended to include electrical location related tags on
 // electrical points that reference an AC EVSE port.  See
-// `docHaystack::Meters#elecMeters` chapter for more details.
+// [ph.doc::Meters#electric-meters] chapter for more details.
 AcEvsePort: EvsePort {
   ac
 }
@@ -52,14 +52,14 @@ Actuator: Equip {
 // Air Handling Unit: An enclosure with a fan that delivers air to a space
 // via ductwork and performs one or more of the functions of cleaning,
 // heating, cooling, humidifying, dehumidifying, ventilating or circulating
-// the air.  See `docHaystack::AHUs` chapter.
+// the air.  See [ph.doc::AHUs] chapter.
 Ahu: AirHandlingEquip {
   ahu
 }
 
 // HVAC equipment that conditions and delivers air via one or more fans.
 // Conditioning of air includes heating, cooling, humidification,
-// dehumidification, and ventilation. See `docHaystack::AHUs` chapter.
+// dehumidification, and ventilation. See [ph.doc::AHUs] chapter.
 AirHandlingEquip: Equip <abstract> {
   ahuZoneDelivery:        AhuZoneDelivery?
   airVolumeAdjustability: AirVolumeAdjustability?
@@ -70,7 +70,7 @@ AirHandlingEquip: Equip <abstract> {
 }
 
 // Equipment in air distribution systems which terminate at the space.
-// Terminal units receive air from `airHandlingEquip` which have the
+// Terminal units receive air from [ph::AirHandlingEquip] which have the
 // primarily responsibility to condition air.  Terminal units are primarily
 // responsible for delivery of air to the space and tempering the temperature.
 AirTerminalUnit: Equip <abstract> {
@@ -78,7 +78,7 @@ AirTerminalUnit: Equip <abstract> {
 }
 
 // Aquifer Thermal Energy Storage system.
-// See `docHaystack::ATES` chapter.
+// See [ph.doc::ATES] chapter.
 Ates: Equip {
   ates
   atesDesign: AtesDesign?
@@ -97,7 +97,7 @@ Boiler: Equip {
 
 // Branch selector used for heat recovery in a VRF system.  These are
 // control devices directing the liquid refrigerant or gas refrigerant
-// to zones requiring cooling or heating. See `docHaystack::VRF#branchSelector`
+// to zones requiring cooling or heating. See [ph.doc::VRF#branch-selector]
 // chapter.
 BranchSelector: VrfEquip {
   branchSelector
@@ -115,7 +115,7 @@ Cav: AirTerminalUnit {
 }
 
 // Plant used to generate chilled water for cooling.
-// See `docHaystack::Plants`.
+// See [ph.doc::Plants].
 ChilledWaterPlant: Plant {
   chilled
   water
@@ -138,13 +138,13 @@ Chiller: Equip {
 }
 
 // Electrical circuit and its associated components such as breakers.
-// See `docHaystack::ElecPanels#circuits` chapter.
+// See [ph.doc::ElecPanels#circuit] chapter.
 Circuit: Equip {
   circuit
 }
 
 // Heat exchanger used to heat or cool air.  Coils are sub-components
-// of HVAC equipment such as `airHandlingEquip`.
+// of HVAC equipment such as [ph::AirHandlingEquip].
 Coil: HeatExchanger <abstract> {
 }
 
@@ -169,7 +169,7 @@ CoolingTower: Equip {
 }
 
 // Computer Room Air Conditioner: An FCU designed to condition a computer
-// room.  See `docHaystack::AHUs` and `docHaystack::DataCenters` chapters.
+// room.  See [ph.doc::AHUs] and [ph.doc::DataCenters] chapters.
 Crac: Fcu {
   crac
 }
@@ -181,13 +181,13 @@ DamperActuator: Actuator {
 }
 
 // DC Electricity meter.
-// See `docHaystack::Meters` chapter.
+// See [ph.doc::Meters] chapter.
 DcElecMeter: ElecMeter {
   dc
 }
 
-// A DC EVSE port delivers `dc` electricity to a single EV charging inlet
-// at a time.  See `docHaystack::EVSE#port` chapter.
+// A DC EVSE port delivers [ph::PhEntity.dc] electricity to a single EV charging inlet
+// at a time.  See [ph.doc::EVSE#evse-port] chapter.
 //
 // Typically a max current or max power setpoint should reference a DC
 // EVSE port, but not both.  Usually it is preferred to control a DC EVSE
@@ -198,7 +198,7 @@ DcEvsePort: EvsePort {
 
 // Dedicated Outside Air System: An AHU that brings in 100% outside air and
 // no recirculated air in order to provide ventilation to spaces.
-// See `docHaystack::AHUs` chapter.
+// See [ph.doc::AHUs] chapter.
 Doas: Ahu {
   doas
 }
@@ -216,7 +216,7 @@ ElecMeter: Meter {
 }
 
 // Physical housing for electrical circuits, fuses, and breakers.
-// See `docHaystack::ElecPanels#panels` chapter.
+// See [ph.doc::ElecPanels#elec-panel] chapter.
 ElecPanel: Panel {
   elec
 }
@@ -237,61 +237,61 @@ EvseCoupler: EvseEquip <abstract> {
   coupler
 }
 
-// The electrical cable between an `evse-port` and an EV charging inlet
-// on a vehicle. The `evseCableType` tag distinguishes the type of cable.
-// See `docHaystack::EVSE#cable` chapter.
+// The electrical cable between an [ph::EvsePort] and an EV charging inlet
+// on a vehicle. The [ph::PhEntity.evseCableType] tag distinguishes the type of cable.
+// See [ph.doc::EVSE#evse-cable] chapter.
 EvseCable: EvseCoupler {
   cable
   evseCableType: EvseCableType?
 }
 
 // Equipment that dispenses electricity to an EV.  It consists of a
-// physical EVSE enclosure and its contents to which an `evse-cable`
-// attaches.  An `evse-dispenser` can contain zero or more `evse-port`.
+// physical EVSE enclosure and its contents to which an [ph::EvseCable]
+// attaches.  An [ph::EvseDispenser] can contain zero or more [ph::EvsePort].
 //
-// Children points are used to describe or control one or more `evse-port`
+// Children points are used to describe or control one or more [ph::EvsePort]
 // within the EVSE manufacturer's package.
 //
-// See `docHaystack::EVSE#dispenser` chapter.
+// See [ph.doc::EVSE#evse-dispenser] chapter.
 EvseDispenser: EvseEquip {
   dispenser
 }
 
 // Equipment that supports the delivery of electricity to charging inlets
-// located on EVs.  See `docHaystack::EVSE` chapter.
+// located on EVs.  See [ph.doc::EVSE] chapter.
 EvseEquip: Equip {
   evse
 }
 
 // An EVSE port delivers electricity to a single EV charging inlet at a
 // time.  Comprised of a software-controlled electrical contactor or
-// circuit breaker.  Typically contained within an `evse-dispenser`, but
-// may be contained within an `evse-powerConverter`.  More than one
-// `evse-cable` may be connected to a single `evse-port`, however, only one
+// circuit breaker.  Typically contained within an [ph::EvseDispenser], but
+// may be contained within an [ph::EvsePowerConverter].  More than one
+// [ph::EvseCable] may be connected to a single [ph::EvsePort], however, only one
 // may be energized at any given time.
 //
-// Note:  In the future we might add an entity that describes `evse-port`
+// Note:  In the future we might add an entity that describes [ph::EvsePort]
 // contained in an AC distribution panel.  This scenario is not common.
 //
-// See `docHaystack::EVSE#port` chapter.
+// See [ph.doc::EVSE#evse-port] chapter.
 EvsePort: EvseEquip {
   port
 }
 
-// A power converter that has a `dc` electrical output applied to a
-// `dc-evse-port`.  May be contained within an `evse-dispenser` or in a
+// A power converter that has a [ph::PhEntity.dc] electrical output applied to a
+// [ph::DcEvsePort].  May be contained within an [ph::EvseDispenser] or in a
 // separate dedicated equipment enclosure.
 //
-// Children points are used to describe or control one or more `evse-port`
+// Children points are used to describe or control one or more [ph::EvsePort]
 // within the EVSE manufacturer's package.
 //
-// See `docHaystack::EVSE#powerConverter` chapter.
+// See [ph.doc::EVSE#evse-power-converter] chapter.
 EvsePowerConverter: EvseEquip {
   powerConverter
 }
 
 // Motor used with a fan to create air flow.
-// See `docHaystack::Motors` chapter.
+// See [ph.doc::Motors] chapter.
 FanMotor: Motor {
   fan
   ductSection: DuctSection?
@@ -301,13 +301,13 @@ FanMotor: Motor {
 // that recirculates air in a space and performs one or more of the
 // functions of cleaning, heating, cooling, humidifying, dehumidifying,
 // or ventilating the air. Unit heaters are examples of FCUs.
-// See `docHaystack::AHUs` chapter.
+// See [ph.doc::AHUs] chapter.
 Fcu: AirHandlingEquip {
   fcu
 }
 
 // Meter to measure flow rate and total volume of fluid.
-// See `docHaystack::Meters` chapter.
+// See [ph.doc::Meters] chapter.
 FlowMeter: Meter {
   flow
 }
@@ -340,7 +340,7 @@ HotWaterBoiler: Boiler {
 }
 
 // Plant used to generate hot water for heating.
-// See `docHaystack::Plants`.
+// See [ph.doc::Plants].
 HotWaterPlant: Plant {
   hot
   water
@@ -358,13 +358,13 @@ Luminaire: Equip {
 
 // Makeup Air Unit: A DOAS that provides make-up air for a separate, dedicated
 // exhaust system. That is, this equip does not contain an exhaust air section.
-// See `docHaystack::AHUs` chapter.
+// See [ph.doc::AHUs] chapter.
 Mau: Doas {
   mau
 }
 
 // Equipment to meter a substance or phenomenon.
-// See `docHaystack::Meters` chapter.
+// See [ph.doc::Meters] chapter.
 Meter: Equip {
   meter
   meterScope: MeterScope?
@@ -372,7 +372,7 @@ Meter: Equip {
 }
 
 // Equipment that converts electrical energy into mechanical energy.
-// See `docHaystack::Motors` chapter.
+// See [ph.doc::Motors] chapter.
 Motor: Equip {
   motor
   phaseCount: PhaseCount?
@@ -400,13 +400,13 @@ Pipe: Conduit {
 }
 
 // Central plant used to generate a substance for a process.
-// See `docHaystack::Plants`.
+// See [ph.doc::Plants].
 Plant: Equip {
   plant
 }
 
 // Motor used with a pump to move fluid.
-// See `docHaystack::Motors` chapter.
+// See [ph.doc::Motors] chapter.
 PumpMotor: Motor {
   pump
   pipeFluid:   Fluid?
@@ -417,7 +417,7 @@ PumpMotor: Motor {
 // Devices are mounted to rails of a standard width, typically 19 or 23
 // inches.  Height is measured in *rack units* where one 1U is 1.75 inches.
 // A full rack has a height of 42U.
-// See `docHaystack::DataCenters#racks` chapter.
+// See [ph.doc::DataCenters#racks] chapter.
 Rack: Equip {
   rack
 }
@@ -442,7 +442,7 @@ Radiator: RadiantEquip {
 }
 
 // Roof Top Unit: A unitary AHU that is weatherized for outdoor use.
-// See `docHaystack::AHUs` chapter.
+// See [ph.doc::AHUs] chapter.
 Rtu: Ahu {
   rtu
 }
@@ -453,7 +453,7 @@ SteamBoiler: Boiler {
 }
 
 // Plant used to generate steam for heating.
-// See `docHaystack::Plants`.
+// See [ph.doc::Plants].
 SteamPlant: Plant {
   steam
 }
@@ -471,7 +471,7 @@ Thermostat: Equip {
 }
 
 // Unit Ventilator: An FCU that has direct access to outside air to provide
-// the space with ventilation.  See `docHaystack::AHUs` chapter.
+// the space with ventilation.  See [ph.doc::AHUs] chapter.
 UnitVent: Fcu {
   unitVent
 }
@@ -489,7 +489,7 @@ ValveActuator: Actuator {
 }
 
 // Variable air volume terminal unit.  VAV systems use a constant air
-// temperature with a variable air flow rate.  See `docHaystack::VAVs` chapter.
+// temperature with a variable air flow rate.  See [ph.doc::VAVs] chapter.
 Vav: AirTerminalUnit {
   vav
   heatingProcess: HeatingProcess?
@@ -501,13 +501,13 @@ Vav: AirTerminalUnit {
 VerticalTransport: Equip <abstract> {
 }
 
-// Equipment used in VRF systems.  See `docHaystack::VRF#equip` chapter.
+// Equipment used in VRF systems.  See [ph.doc::VRF#vrf-equipment] chapter.
 VrfEquip: Equip {
   vrf
 }
 
 // Indoor unit in a VRF system.  Indoor units operate to satisfy a heating
-// or cooling load. See `docHaystack::VRF#indoorUnits` chapter.
+// or cooling load. See [ph.doc::VRF#indoor-units] chapter.
 VrfIndoorUnit: VrfEquip {
   indoorUnit
 }
@@ -523,19 +523,19 @@ VrfIndoorUnitFcu: VrfIndoorUnit {
 // Outdoor unit with one or more compressors in a VRF system. As each indoor
 // unit sends a demand to the outdoor unit, outdoor unit delivers the amount
 // of refrigerant needed to meet the individual requirements of each indoor
-// unit.  See `docHaystack::VRF#outdoorUnits` chapter.
+// unit.  See [ph.doc::VRF#outdoor-units] chapter.
 VrfOutdoorUnit: VrfEquip {
   outdoorUnit
 }
 
-// Group of outdoor units in a VRF system.  See `docHaystack::VRF#refrigPlant`.
+// Group of outdoor units in a VRF system.  See [ph.doc::VRF#refrigerant-plant].
 VrfRefrigPlant: Plant {
   vrf
   refrig
 }
 
 // A well is a source of groundwater and potentially thermal energy.  When
-// used within an [ATES]`docHaystack::ATES` system, the well facilitates thermal
+// used within an [ATES](ph.doc::ATES) system, the well facilitates thermal
 // energy exchange with the ground warm and cool water sources. In this case, a
 // well can be either a closed system that transports water through pipes in the
 // ground, or an open system that pumps up and returns ground water.

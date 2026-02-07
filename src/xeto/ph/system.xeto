@@ -8,7 +8,7 @@
 //
 
 // Grouping of related equipment dedicated to a single application.
-// See `docHaystack::Systems` chapter.
+// See [ph.doc::Systems] chapter.
 System: PhEntity {
   system
   siteRef:   Ref
@@ -125,20 +125,20 @@ RefrigSystem: System {
 }
 
 // Variable refigerant flow system.  The system contains the indoor
-// units, outdoor units, and branch selectors.  See `docHaystack::VRF#types`
+// units, outdoor units, and branch selectors.  See [ph.doc::VRF#types-of-vrf-systems]
 // chapter.
 VrfSystem: RefrigSystem {
   vrf
 }
 
 // Cooling only VRF system can only cool; heating is not available.
-// See `docHaystack::VRF#types` chapter.
+// See [ph.doc::VRF#types-of-vrf-systems] chapter.
 VrfCoolingOnlySystem: VrfSystem {
   coolingOnly
 }
 
 // Heat pump VRF system can either heat, or cool, but not at the same time.
-// See `docHaystack::VRF#types` chapter.
+// See [ph.doc::VRF#types-of-vrf-systems] chapter.
 VrfHeatPumpSystem: VrfSystem {
   heatPump
 }
@@ -146,7 +146,7 @@ VrfHeatPumpSystem: VrfSystem {
 // Heat recovery VRF system can operate cooling and heating by each indoor unit
 // independently, at the same time. Heat recovery VRF systems have branch selectors
 // to control how much, and which (hot gas or subcooled liquid) refrigerant
-// goes to each indoor unit.  See `docHaystack::VRF#types` chapter.
+// goes to each indoor unit.  See [ph.doc::VRF#types-of-vrf-systems] chapter.
 VrfHeatRecoverySystem: VrfSystem {
   heatRecovery
 }

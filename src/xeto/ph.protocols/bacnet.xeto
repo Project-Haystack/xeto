@@ -7,37 +7,37 @@
 //
 
 // BacnetAddr contains all addressing info to communicate with a BACnet
-// point.  The 'addr' field is used to specify the primary object to
-// read present value and issue writes.  Optionally the 'trend' field
+// point.  The `addr` field is used to specify the primary object to
+// read present value and issue writes.  Optionally the `trend` field
 // can be used to specify the trend log object for historical data.
 //
 // Address fields are formatted as XXXNNN where XXX is an objec type
 // code in the table below and NNN is the object identifer number
 // in the device.
 //
-//   | Object Name            | Code | Object Type
-//   |------------------------|------|------------
-//   | ACCUMULATOR            | ACC  | 23
-//   | ANALOG_INPUT           | AI   | 0
-//   | ANALOG_OUTPUT          | AO   | 1
-//   | ANALOG_VALUE           | AV   | 2
-//   | BINARY_INPUT           | BI   | 3
-//   | BINARY_OUTPUT          | BO   | 4
-//   | BINARY_VALUE           | BV   | 5
-//   | CHARACTERSTRING_VALUE  | STR  | 40
-//   | LARGE_ANALOG_VALUE     | LAV  | 46
-//   | LOAD_CONTROL           | LC   | 28
-//   | MULTI_STATE_INPUT      | MSI  | 13
-//   | MULTI_STATE_OUTPUT     | MSO  | 14
-//   | MULTI_STATE_VALUE      | MSV  | 19
-//   | POSITIVE_INTEGER_VALUE | PIV  | 48
-//   | PROGRAM_OBJECT         | PRG  | 16
-//   | PULSE_CONVERTER        | PC   | 24
-//   | SCHEDULE               | SCH  | 17
-//   | TREND_LOG              | TL   | 20
+// | Object Name            | Code | Object Type
+// |------------------------|------|------------
+// | ACCUMULATOR            | ACC  | 23
+// | ANALOG_INPUT           | AI   | 0
+// | ANALOG_OUTPUT          | AO   | 1
+// | ANALOG_VALUE           | AV   | 2
+// | BINARY_INPUT           | BI   | 3
+// | BINARY_OUTPUT          | BO   | 4
+// | BINARY_VALUE           | BV   | 5
+// | CHARACTERSTRING_VALUE  | STR  | 40
+// | LARGE_ANALOG_VALUE     | LAV  | 46
+// | LOAD_CONTROL           | LC   | 28
+// | MULTI_STATE_INPUT      | MSI  | 13
+// | MULTI_STATE_OUTPUT     | MSO  | 14
+// | MULTI_STATE_VALUE      | MSV  | 19
+// | POSITIVE_INTEGER_VALUE | PIV  | 48
+// | PROGRAM_OBJECT         | PRG  | 16
+// | PULSE_CONVERTER        | PC   | 24
+// | SCHEDULE               | SCH  | 17
+// | TREND_LOG              | TL   | 20
 //
 BacnetAddr: ProtocolAddr {
-  addr:  Str <pattern:"[A-Z]+\\d+"> //cur/write address (such as AO4, AI3, BO2, BI1)
-  trend: Str? <pattern:"TL\\d+">  //optional trend log address (such as TL1)
+  addr:  Str <pattern:"[A-Z]+\\d+">  // cur/write address (such as AO4, AI3, BO2, BI1)
+  trend: Str? <pattern:"TL\\d+">     // optional trend log address (such as TL1)
 }
 

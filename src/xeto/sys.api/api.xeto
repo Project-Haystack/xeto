@@ -20,8 +20,8 @@ ApiEnvelope: Dict {
 
 // API request status
 ApiStatus: Enum {
-  ok                  // Success - result in 'data' field
-  error               // Failure - details in 'error' field
+  ok                  // Success - result in `data` field
+  error               // Failure - details in `error` field
 }
 
 // Additional information when API returns ok, but with a warning message

@@ -18,8 +18,8 @@ PhEntity: Entity <abstract> {
   // Relating to alternating current (AC) electricity
   *ac: Marker
 
-  // Accumulate the tag's value during [inheritance]`docHaystack::Normalization#inherit`
-  // and [defx]`docHaystack::Normalization#defx`.  Tags marked as accumulate
+  // Accumulate the tag's value during [inheritance](ph.doc::Normalization#inherit)
+  // and [defx](ph.doc::Normalization#defx).  Tags marked as accumulate
   // are aggregated together during normalization and deduplicated.  This
   // marker must only be used on tags which expect a list value.
   *accumulate: Marker
@@ -36,7 +36,7 @@ PhEntity: Entity <abstract> {
   // Air Handling Unit: An enclosure with a fan that delivers air to a space
   // via ductwork and performs one or more of the functions of cleaning,
   // heating, cooling, humidifying, dehumidifying, ventilating or circulating
-  // the air.  See `docHaystack::AHUs` chapter.
+  // the air.  See [ph.doc::AHUs] chapter.
   *ahu: Marker
 
   // The mixture of gases which surrounds the earth
@@ -61,7 +61,7 @@ PhEntity: Entity <abstract> {
   *area: Number <quantity:"area">
 
   // Aquifer Thermal Energy Storage system.
-  // See `docHaystack::ATES` chapter.
+  // See [ph.doc::ATES] chapter.
   *ates: Marker
 
   // The ATES uses closed piping to transport a water/glycol mixture
@@ -126,7 +126,7 @@ PhEntity: Entity <abstract> {
 
   // Branch selector used for heat recovery in a VRF system.  These are
   // control devices directing the liquid refrigerant or gas refrigerant
-  // to zones requiring cooling or heating. See `docHaystack::VRF#branchSelector`
+  // to zones requiring cooling or heating. See [ph.doc::VRF#branch-selector]
   // chapter.
   *branchSelector: Marker
 
@@ -150,11 +150,11 @@ PhEntity: Entity <abstract> {
   *ch4: Marker
 
   // List of prototypes contained by this entity.
-  // See [Protos chapter]`docHaystack::Protos` for more details.
+  // See [Protos chapter](ph.doc::Protos) for more details.
   *children: List <of:Dict>
 
   // List of aspects to flatten into children prototypes.
-  // See [Protos chapter]`docHaystack::Protos` for more details.
+  // See [Protos chapter](ph.doc::Protos) for more details.
   *childrenFlatten: List <of:Symbol>
 
   // Substance is cooled using cooling process
@@ -177,21 +177,21 @@ PhEntity: Entity <abstract> {
   *chiller: Marker
 
   // Choice specifies an exclusive marker selection.
-  // See [Choices]`docHaystack::Choices` chapter.
+  // See [Choices](ph.doc::Choices) chapter.
   *choice: Marker
 
   // Pipe used to circulate fluid through an equipment or system
   *circ: Marker
 
   // Electrical circuit and its associated components such as breakers.
-  // See `docHaystack::ElecPanels#circuits` chapter.
+  // See [ph.doc::ElecPanels#circuit] chapter.
   *circuit: Marker
 
   // Percentage of sky obscured by clouds. This is also known as cloudiness, or cloud amount.
   *cloudage: Marker
 
   // Point is a command, actuator, AO/BO.
-  // See `docHaystack::Points#function` chapter.
+  // See [ph.doc::Points#point-function] chapter.
   *cmd: Marker
 
   // Carbon monoxide (CO)
@@ -222,14 +222,14 @@ PhEntity: Entity <abstract> {
   // vapor by reducing its volume.
   *compressor: Marker
 
-  // Computed point. See `docHaystack::Synthetics` chapter.
+  // Computed point. See [ph.doc::Synthetics] chapter.
   *computed: Marker
 
   // Indicates a relationship that is computed from its reciprocal.
   // Computed defs cannot be used as tags themselves.
   *computedFromReciprocal: Marker
 
-  // See `docHaystack::Synthetics` chapter.
+  // See [ph.doc::Synthetics] chapter.
   *computedModel: Marker
 
   // General purpose computer.
@@ -269,7 +269,7 @@ PhEntity: Entity <abstract> {
 
   // Microprocessor based device used in a control system.  Controllers
   // interact with the physical world through direct I/O to sensors and
-  // actuators or via network [protocols]`protocol`.
+  // actuators or via network [protocols](ph::PhEntity.protocol).
   *controller: Marker
 
   // Associated with the control system for an industrial process
@@ -300,24 +300,24 @@ PhEntity: Entity <abstract> {
   *coupler: Marker
 
   // Computer Room Air Conditioner: An FCU designed to condition a computer
-  // room.  See `docHaystack::AHUs` and `docHaystack::DataCenters` chapters.
+  // room.  See [ph.doc::AHUs] and [ph.doc::DataCenters] chapters.
   *crac: Marker
 
   // Supports current value
   *cur: Marker
 
-  // Error description when `curStatus` indicates error condition
+  // Error description when [ph::PhEntity.curStatus] indicates error condition
   *curErr: Str <transient>
 
-  // Status of point's current value reading.  The `curVal` is only available
+  // Status of point's current value reading.  The [ph::PhEntity.curVal] is only available
   // when curStatus is "ok" or "stale".  However a "stale" value should
   // be used with caution since the local system does not have a fresh value.
-  // It is recommended that the `curVal` tag is removed from a point
+  // It is recommended that the [ph::PhEntity.curVal] tag is removed from a point
   // when the curStatus is not "ok" nor "stale".
   *curStatus: CurStatus <transient>
 
   // Current value of a point.  The current value is only available when
-  // the `curStatus` is "ok" or "stale".
+  // the [ph::PhEntity.curStatus] is "ok" or "stale".
   *curVal: Obj <transient>
 
   // Movement of fluid or electricity
@@ -330,7 +330,7 @@ PhEntity: Entity <abstract> {
   *damper: Marker
 
   // Space used to house computer and networking gear.
-  // See `docHaystack::DataCenters` chapter.
+  // See [ph.doc::DataCenters] chapter.
   *dataCenter: Marker
 
   // Time between sunrise and sunset
@@ -345,11 +345,11 @@ PhEntity: Entity <abstract> {
   *deadband: Marker
 
   // Create a new definition bound to the given symbol.
-  // See [Defs chapter]`docHaystack::Defs`.
+  // See [Defs chapter](ph.doc::Defs).
   *def: Symbol
 
   // Extends the given definition with additional meta tags.
-  // See [Normalization]`docHaystack::Normalization#defx`.
+  // See [Normalization](ph.doc::Normalization#defx).
   *defx: Symbol
 
   // Differential of fluid between entering and leaving sensors.
@@ -363,7 +363,7 @@ PhEntity: Entity <abstract> {
 
   // Data related to intended design and operating conditions.  This
   // includes sizing and other data specified by design engineers and
-  // engineered drawings.  Also see `rated`.
+  // engineered drawings.  Also see [ph::PhEntity.rated].
   *design: Marker
 
   // Decreases humidity from air using a substance which absorbs moisture.
@@ -371,7 +371,7 @@ PhEntity: Entity <abstract> {
 
   // Microprocessor based hardware device.  This is the general term for
   // all computers, mobile phones, controllers, and I/O modules.
-  // See `docHaystack::Devices#networks` chapter.
+  // See [ph.doc::Devices#networks] chapter.
   *device: Marker
 
   // Device which controls a monitors this entity
@@ -390,7 +390,7 @@ PhEntity: Entity <abstract> {
   *direction: Marker
 
   // Display name for an entity.
-  // See `docHaystack::Ontology#entities` chapter.
+  // See [ph.doc::Ontology#entities] chapter.
   *dis: Str
 
   // Duct for air leaving an equipment
@@ -404,7 +404,7 @@ PhEntity: Entity <abstract> {
 
   // Dedicated Outside Air System: An AHU that brings in 100% outside air and
   // no recirculated air in order to provide ventilation to spaces.
-  // See `docHaystack::AHUs` chapter.
+  // See [ph.doc::AHUs] chapter.
   *doas: Marker
 
   // Generate a section in the docs for this association.
@@ -412,7 +412,7 @@ PhEntity: Entity <abstract> {
 
   // Generate a taxonomy tree for this term in the documentationindex.
   // When applied to a def, then it will will be listed in the docs
-  // under the [taxonomies]`docHaystack::Docs#taxonomies` section.
+  // under the [taxonomies](ph.doc::Docs#taxonomies) section.
   *docTaxonomy: Marker
 
   // For human use
@@ -427,18 +427,18 @@ PhEntity: Entity <abstract> {
   // Conduit used to convey air for HVAC
   *duct: Marker
 
-  // Config point on a `vav` for duct area measured in ft² or m²
+  // Config point on a [ph::PhEntity.vav] for duct area measured in ft² or m²
   *ductArea: Marker
 
   // Number with a unit of time
   *duration: Number
 
   // Cooling using direct expansion of a refrigerant vapor.
-  // Also see `dxHeating` and `heatPump`.
+  // Also see [ph::PhEntity.dxHeating] and [ph::PhEntity.heatPump].
   *dxCooling: Marker
 
   // Heating using direct expansion of a refrigerant vapor.
-  // Also see `dxCooling` and `heatPump`.
+  // Also see [ph::PhEntity.dxCooling] and [ph::PhEntity.heatPump].
   *dxHeating: Marker
 
   // Duct to access fresh outside air only for economizing, not ventilation
@@ -454,7 +454,7 @@ PhEntity: Entity <abstract> {
   *efficiency: Marker
 
   // Associated with electricity or with electrical force, power, or energy.
-  // This is often opposed to `mech` mechanical energy.
+  // This is often opposed to [ph::PhEntity.mech] mechanical energy.
   *elec: Marker
 
   // Heating by the conversion of electrical energy
@@ -478,9 +478,9 @@ PhEntity: Entity <abstract> {
   // Amount of a substance discharged into the air
   *emission: Marker
 
-  // Secondary on/off `point` of an `equip` especially used with a `vfd`.
+  // Secondary on/off [ph::PhEntity.point] of an [ph::PhEntity.equip] especially used with a [ph::PhEntity.vfd].
   // Enable is used with Bool points where true indicates on and false
-  // indicates off.  Equip with an enable should always also define a `run`
+  // indicates off.  Equip with an enable should always also define a [ph::PhEntity.run]
   // point which indicates the primary on/off state of the equipment.
   *enable: Marker
 
@@ -502,11 +502,11 @@ PhEntity: Entity <abstract> {
   // Defines an eumeration of string key names.  The range may also be applied
   // to format a Bool ordered as "false,true".  The value of this tag may be
   // formatted in one of five ways:
-  //  - dict of dicts keyed by name and Dict values for meta such as 'doc' tag
+  //  - dict of dicts keyed by name and Dict values for meta such as `doc` tag
   //  - comma separated names on one line
   //  - names separated by a "\n" newline character
   //  - markdown unordered list formatted as a series of "- name: description\n"
-  //  - ref to a Xeto 'sys::Enum' spec
+  //  - ref to a Xeto `sys::Enum` spec
   //
   // Enum names *should* follow valid tag naming rules (start with lowercase
   // ASCII letter and contain only ASCII letters and numbers).  However in
@@ -515,7 +515,7 @@ PhEntity: Entity <abstract> {
   *enum: Obj
 
   // Equipment asset.
-  // See `docHaystack::Equips` chapter.
+  // See [ph.doc::Equips] chapter.
   *equip: Marker
 
   // Reference to equip which contains this entity
@@ -527,10 +527,10 @@ PhEntity: Entity <abstract> {
   // Mechanism used to convert a refrigerant from its liquid to gaseous state.
   *evaporator: Marker
 
-  // Electric Vehicle Supply Equipment.  See `docHaystack::EVSE` chapter.
+  // Electric Vehicle Supply Equipment.  See [ph.doc::EVSE] chapter.
   *evse: Marker
 
-  // Physical type of `evse-cable`.
+  // Physical type of [ph::EvseCable].
   *evseCableType: EvseCableType
 
   // Duct used to expel air back outside
@@ -559,10 +559,10 @@ PhEntity: Entity <abstract> {
   // that recirculates air in a space and performs one or more of the
   // functions of cleaning, heating, cooling, humidifying, dehumidifying,
   // or ventilating the air. Unit heaters are examples of FCUs.
-  // See `docHaystack::AHUs` chapter.
+  // See [ph.doc::AHUs] chapter.
   *fcu: Marker
 
-  // Feature namespace of definitions formatted as 'feature:name'
+  // Feature namespace of definitions formatted as `feature:name`
   *feature: Obj
 
   // Apparent temperature perceived when considering humidity, wind chill, and heat index
@@ -577,10 +577,10 @@ PhEntity: Entity <abstract> {
   // Related to an air or fluid filter.
   *filter: Marker
 
-  // Haystack filter string.  See `docHaystack::Filters`
+  // Haystack filter string.  See [ph.doc::Filters]
   *filterStr: Str
 
-  // Storey of a building.  See `docHaystack::Spaces#floors` chapter.
+  // Storey of a building.  See [ph.doc::Spaces#floors] chapter.
   *floor: Marker
 
   // Unitless integer indicating the floor's distance from ground level.  The
@@ -635,23 +635,23 @@ PhEntity: Entity <abstract> {
 
   // Free form street address.  Best practice is to follow local
   // norms for a postal address.  Typically this string includes
-  // the `geoStreet`, `geoCity`, `geoState` (in US), and `geoPostalCode`:
+  // the [ph::PhEntity.geoStreet], [ph::PhEntity.geoCity], [ph::PhEntity.geoState] (in US), and [ph::PhEntity.geoPostalCode]:
   //
   // Examples:
-  //   "1600 Pennsylvania Avenue NW, Washington, DC 20500"
+  //     "1600 Pennsylvania Avenue NW, Washington, DC 20500"
   //
-  //   "10 Downing St, Westminster, London SW1A 2AA, United Kingdom"
+  //     "10 Downing St, Westminster, London SW1A 2AA, United Kingdom"
   //
-  //   "Champ de Mars, 5 Avenue Anatole France, 75007 Paris, France"
+  //     "Champ de Mars, 5 Avenue Anatole France, 75007 Paris, France"
   *geoAddr: Str
 
   // Geographic city or locality name
   *geoCity: Str
 
-  // Geographic coordinate as 'C(latitude,longitude)'
+  // Geographic coordinate as `C(latitude,longitude)`
   *geoCoord: Coord
 
-  // Geographic country as [ISO 3166-1]`http://en.wikipedia.org/wiki/ISO_3166-1`
+  // Geographic country as [ISO 3166-1](http://en.wikipedia.org/wiki/ISO_3166-1)
   // two letter code
   *geoCountry: GeoCountry
 
@@ -677,7 +677,7 @@ PhEntity: Entity <abstract> {
 
   // Related to the surface of the earth.  Used to indicate electrical
   // current being measured on an electrical ground conductor when applied to
-  // a point entity that has the `elec` and `current` tags.
+  // a point entity that has the [ph::PhEntity.elec] and [ph::PhEntity.current] tags.
   *ground: Marker
 
   // Haystack HTTP protocol for exchanging tagged data
@@ -696,7 +696,7 @@ PhEntity: Entity <abstract> {
   // Equipment that employs a vapor compression cycle with a reversing
   // valve to provide heating or cooling. For vapor compression heating
   // without a reversing valve, such as for a heat pump water heater,
-  // see `dxHeating` which should be used.
+  // see [ph::PhEntity.dxHeating] which should be used.
   *heatPump: Marker
 
   // Transfer of heat from one substance to another to reduce energy consumption.
@@ -726,7 +726,7 @@ PhEntity: Entity <abstract> {
   // Last historized timestamped sample
   *hisEnd: DateTime <transient>
 
-  // Error description when `hisStatus` indicates error condition
+  // Error description when [ph::PhEntity.hisStatus] indicates error condition
   *hisErr: Str <transient>
 
   // Indicates the way that history data is collected for a point.
@@ -777,7 +777,7 @@ PhEntity: Entity <abstract> {
 
   // Luminous flux hitting the inside of the sphere at a specific point.
   //
-  // Also see [ies.org]`https://www.ies.org/definitions/illuminance/`
+  // Also see [ies.org](https://www.ies.org/definitions/illuminance/)
   *illuminance: Marker
 
   // Internet Message Access Protocol for retrieving email
@@ -833,7 +833,7 @@ PhEntity: Entity <abstract> {
   *level: Marker
 
   // Library module of symbolic definitions.
-  // See `docHaystack::Namespaces#libs` chapter.
+  // See [ph.doc::Namespaces#libs] chapter.
   *lib: Obj
 
   // Electromagnetic radiation in the visible spectrum
@@ -853,7 +853,7 @@ PhEntity: Entity <abstract> {
 
   // Energy of light in a given direction.
   //
-  // Also see [ies.org]`https://www.ies.org/definitions/luminance/`
+  // Also see [ies.org](https://www.ies.org/definitions/luminance/)
   *luminance: Marker
 
   // Relating to light as perceived by the eye
@@ -876,7 +876,7 @@ PhEntity: Entity <abstract> {
 
   // Makeup Air Unit: A DOAS that provides make-up air for a separate, dedicated
   // exhaust system. That is, this equip does not contain an exhaust air section.
-  // See `docHaystack::AHUs` chapter.
+  // See [ph.doc::AHUs] chapter.
   *mau: Marker
 
   // Maximum
@@ -886,11 +886,11 @@ PhEntity: Entity <abstract> {
   *maxVal: Number
 
   // Associated with a machine or its mechanical force, torque, power, or energy.
-  // This is often opposed to `elec` electrical energy.
+  // This is often opposed to [ph::PhEntity.elec] electrical energy.
   *mech: Marker
 
   // Equipment to meter a substance or phenomenon.
-  // See `docHaystack::Meters` chapter.
+  // See [ph.doc::Meters] chapter.
   *meter: Marker
 
   // Mime type formatted as type/subtype
@@ -909,7 +909,7 @@ PhEntity: Entity <abstract> {
   // between the two to a single output pipe.
   *mixing: Marker
 
-  // Machine learning point. See `docHaystack::Synthetics` chapter.
+  // Machine learning point. See [ph.doc::Synthetics] chapter.
   *ml: Marker
 
   // Training period description, known as the identification period
@@ -920,7 +920,7 @@ PhEntity: Entity <abstract> {
   // associated with a machine learning model.
   *mlInputVarRefs: List <of:Ref<of:MlVar>>
 
-  // See `docHaystack::Synthetics` chapter.
+  // See [ph.doc::Synthetics] chapter.
   *mlModel: Marker
 
   // Goodness-of-fit metrics provided in the form of a simple dictionary.
@@ -968,7 +968,7 @@ PhEntity: Entity <abstract> {
   *modelNumber: Marker
 
   // Equipment that converts electrical energy into mechanical energy.
-  // See `docHaystack::Motors` chapter.
+  // See [ph.doc::Motors] chapter.
   *motor: Marker
 
   // Conveyor to move people across a horizontal or inclined plane.
@@ -984,14 +984,14 @@ PhEntity: Entity <abstract> {
   *n2o: Marker
 
   // Not available used to indicate invalid or missing data.
-  // See [Kinds chapter]`docHaystack::Kinds#na`.
+  // See [Kinds chapter](ph.doc::Kinds#na).
   *na: Obj
 
   // Fossil fuel energy source consisting largely of methane and other hydrocarbons.
   //
   // The energy content of natural gas varies by region within a range determined
   // on impurities in the gas.  You can find a table of these conversions
-  // [here]`https://en.wikipedia.org/wiki/Heat_of_combustion#Higher_heating_values_of_natural_gases_from_various_sources`
+  // [here](https://en.wikipedia.org/wiki/Heat_of_combustion#Higher_heating_values_of_natural_gases_from_various_sources)
   *naturalGas: Marker
 
   // Heating by the combustion of natural gas
@@ -1004,7 +1004,7 @@ PhEntity: Entity <abstract> {
   *net: Marker
 
   // Logical communications network between two or more devices.
-  // See `docHaystack::Devices#networks` chapter.
+  // See [ph.doc::Devices#networks] chapter.
   *network: Marker
 
   // Associates a device which communicates on specific a network.
@@ -1013,7 +1013,7 @@ PhEntity: Entity <abstract> {
   // Related to data communication networks
   *networking: Marker
 
-  // when applied to a point entity that has the `elec` and `current` tags,
+  // when applied to a point entity that has the [ph::PhEntity.elec] and [ph::PhEntity.current] tags,
   // indicates electrical current being measured on an electrical neutral
   // conductor.
   *neutral: Marker
@@ -1051,26 +1051,26 @@ PhEntity: Entity <abstract> {
   *obix: Marker
 
   // Occupied mode of a space.
-  // See `docHaystack::Zones#occupancy` chapter.
+  // See [ph.doc::Zones#occupancy] chapter.
   *occ: Marker
 
   // Number of occupants in a space.
-  // See `docHaystack::Zones#occupancy` chapter.
+  // See [ph.doc::Zones#occupancy] chapter.
   *occupancy: Marker
 
   // People who use the built environment.
-  // See `docHaystack::Zones#occupancy` chapter.
+  // See [ph.doc::Zones#occupancy] chapter.
   *occupants: Marker
 
   // Setpoint or sensor indicating occupancy of a space.
-  // See `docHaystack::Zones#occupancy` chapter.
+  // See [ph.doc::Zones#occupancy] chapter.
   *occupied: Marker
 
   // Expected value type of a collection, reference, or choice
   *of: Symbol
 
   // Operation for HTTP API.
-  // See `docHaystack::Ops` chapter.
+  // See [ph.doc::Ops] chapter.
   *op: Obj
 
   // Apply to str enum tags where the enumeration range is open ended.
@@ -1095,7 +1095,7 @@ PhEntity: Entity <abstract> {
   // Circuit with multiple paths of flow
   *parallel: Marker
 
-  // Auxiliary heating points associated with a `vav`
+  // Auxiliary heating points associated with a [ph::PhEntity.vav]
   *perimeterHeat: Marker
 
   // Electric power factor; which is the ratio of active power to apparent
@@ -1129,7 +1129,7 @@ PhEntity: Entity <abstract> {
   *pfIeee: Marker
 
   // True power factor, which includes effects of harmonic distortion.
-  // Power factor is assumed to be true power factor when `pfScope` is not
+  // Power factor is assumed to be true power factor when [ph::PfScope] is not
   // defined.  However, it is recommended to specify a scope for power
   // factor to help avoid misinterpretation of data.
   *pfTrue: Marker
@@ -1147,7 +1147,7 @@ PhEntity: Entity <abstract> {
   *pipe: Marker
 
   // Central plant used to generate a substance for a process.
-  // See `docHaystack::Plants`.
+  // See [ph.doc::Plants].
   *plant: Marker
 
   // Particulate matter 0.1; atmospheric pollutant of fine particles with an aerodynamic diameter of 0.1 micrometers or less
@@ -1160,10 +1160,10 @@ PhEntity: Entity <abstract> {
   *pm25: Marker
 
   // Data point such as a sensor or actuator.
-  // See `docHaystack::Points` chapter.
+  // See [ph.doc::Points] chapter.
   *point: Marker
 
-  // See `docHaystack::Synthetics#structure` chapter.
+  // See [ph.doc::Synthetics#structure] chapter.
   *pointRef: Ref <of:Point>
 
   // Post Office Protocol version 3 for retrieving email
@@ -1179,10 +1179,10 @@ PhEntity: Entity <abstract> {
   // circuitry.  Involves the use of one or more power modules.
   //
   // May convert:
-  //  - `ac` to `dc`
-  //  - `ac` to `ac`
-  //  - `dc` to `dc`
-  //  - `dc` to `ac`
+  //  - [ph::PhEntity.ac] to [ph::PhEntity.dc]
+  //  - [ph::PhEntity.ac] to [ph::PhEntity.ac]
+  //  - [ph::PhEntity.dc] to [ph::PhEntity.dc]
+  //  - [ph::PhEntity.dc] to [ph::PhEntity.ac]
   //
   // Note:  An AC/AC power converter performs the same task as a power
   // transformer but using power electronics.  Similarly, a DC/DC power
@@ -1243,7 +1243,7 @@ PhEntity: Entity <abstract> {
   // Devices are mounted to rails of a standard width, typically 19 or 23
   // inches.  Height is measured in *rack units* where one 1U is 1.75 inches.
   // A full rack has a height of 42U.
-  // See `docHaystack::DataCenters#racks` chapter.
+  // See [ph.doc::DataCenters#racks] chapter.
   *rack: Marker
 
   // Heats a space using pipes or cables embedded beneath floor.
@@ -1256,7 +1256,7 @@ PhEntity: Entity <abstract> {
   *radiator: Marker
 
   // Data specified by a manufacturer or rating organization.  Typically this
-  // information is from the equipment data plate or cut sheet.  Also see `design`.
+  // information is from the equipment data plate or cut sheet.  Also see [ph::PhEntity.design].
   *rated: Marker
 
   // Relating to reactance
@@ -1266,8 +1266,8 @@ PhEntity: Entity <abstract> {
   *reciprocal: Marker
 
   // Specifies the inverse of an association or relationships.
-  // See [Associations]`docHaystack::Associations#reciprocalOf` and
-  // [Relationships]`docHaystack::Relationships#reciprocalOf` chapter.
+  // See [Associations](ph.doc::Associations#reciprocal-of) and
+  // [Relationships](ph.doc::Relationships#reciprocal-of) chapter.
   *reciprocalOf: Symbol
 
   // Fluid used in refrigeration and heat exchange.  Refrigerants typically
@@ -1296,14 +1296,14 @@ PhEntity: Entity <abstract> {
   *router: Marker
 
   // Roof Top Unit: A unitary AHU that is weatherized for outdoor use.
-  // See `docHaystack::AHUs` chapter.
+  // See [ph.doc::AHUs] chapter.
   *rtu: Marker
 
-  // Primary on/off `point` of an `equip` especially used with a `vfd`.
+  // Primary on/off [ph::PhEntity.point] of an [ph::PhEntity.equip] especially used with a [ph::PhEntity.vfd].
   // Run is used with Bool points where true indicates on and false indicates
-  // off. When paired with `cmd` this is the commanded state of the equipment.
-  // When paired with `sensor` this is the actual status of the equip.  If
-  // the equipment also defines an `enable` point then both must be commanded
+  // off. When paired with [ph::PhEntity.cmd] this is the commanded state of the equipment.
+  // When paired with [ph::PhEntity.sensor] this is the actual status of the equip.  If
+  // the equipment also defines an [ph::PhEntity.enable] point then both must be commanded
   // on in order to run the equipment.
   *run: Marker
 
@@ -1318,7 +1318,7 @@ PhEntity: Entity <abstract> {
   *secondaryLoop: Marker
 
   // Point is a sensor, input, AI/BI.
-  // See `docHaystack::Points#function` chapter.
+  // See [ph.doc::Points#point-function] chapter.
   *sensor: Marker
 
   // Manufacturer assigned unique, alphanumeric identifier for a specific asset.
@@ -1338,19 +1338,19 @@ PhEntity: Entity <abstract> {
   // Sulphur hexafluoride (SF₆)
   *sf6: Marker
 
-  // Simulation point. See `docHaystack::Synthetics` chapter.
+  // Simulation point. See [ph.doc::Synthetics] chapter.
   *sim: Marker
 
-  // See `docHaystack::Synthetics#sims` chapter.
+  // See [ph.doc::Synthetics#simulation-overview] chapter.
   *simBaseline: Marker
 
-  // See `docHaystack::Synthetics` chapter.
+  // See [ph.doc::Synthetics] chapter.
   *simModel: Marker
 
-  // See `docHaystack::Synthetics#sims` chapter.
+  // See [ph.doc::Synthetics#simulation-overview] chapter.
   *simOperation: Marker
 
-  // See `docHaystack::Synthetics#sims` chapter.
+  // See [ph.doc::Synthetics#simulation-overview] chapter.
   *simOptimum: Marker
 
   // One single duct
@@ -1362,7 +1362,7 @@ PhEntity: Entity <abstract> {
 
   // Site is a geographic location of the built environment.
   // Typically site maps to one building with its own unique
-  // street address.  See `docHaystack::Sites` chapter.
+  // street address.  See [ph.doc::Sites] chapter.
   *site: Marker
 
   // Main meter for the associated site
@@ -1387,11 +1387,11 @@ PhEntity: Entity <abstract> {
   *sox: Marker
 
   // Point is a setpoint, soft point, internal control variable, schedule.
-  // See `docHaystack::Points#function` chapter.
+  // See [ph.doc::Points#point-function] chapter.
   *sp: Marker
 
   // Space is a three-dimensional volume in the built environment.
-  // See `docHaystack::Spaces` chapter.
+  // See [ph.doc::Spaces] chapter.
   *space: Marker
 
   // Reference to space which contains this entity
@@ -1415,7 +1415,7 @@ PhEntity: Entity <abstract> {
   // Readiness mode of a space
   *standby: Marker
 
-  // State of charge (SoC) of an electric `battery`.  Uses a percentage in
+  // State of charge (SoC) of an electric [ph::PhEntity.battery].  Uses a percentage in
   // the range of 0% to 100%, where no charge is indicated as 0% and full
   // charge is indicated as 100%.
   *stateOfCharge: Marker
@@ -1443,21 +1443,21 @@ PhEntity: Entity <abstract> {
 
   // Synthetic point with computed operational data. The computed data
   // if classified as:
-  //   - `ml` for machine learning
-  //   - `sim` for simulation
-  //   - `computed` as catch all for other computations
+  //   - [ph::PhEntity.ml] for machine learning
+  //   - [ph::PhEntity.sim] for simulation
+  //   - [ph::PhEntity.computed] as catch all for other computations
   //
-  // See `docHaystack::Synthetics` chapter.
+  // See [ph.doc::Synthetics] chapter.
   *synthetic: Marker
 
-  // See `docHaystack::Synthetics` chapter.
+  // See [ph.doc::Synthetics] chapter.
   *syntheticModel: Marker
 
-  // See `docHaystack::Synthetics` chapter.
+  // See [ph.doc::Synthetics] chapter.
   *syntheticModelRef: Ref <of:SyntheticModel>
 
   // Grouping of related equipment dedicated to a single application.
-  // See `docHaystack::Systems` chapter.
+  // See [ph.doc::Systems] chapter.
   *system: Marker
 
   // Reference to system
@@ -1494,7 +1494,7 @@ PhEntity: Entity <abstract> {
   // Complete or absolute
   *total: Marker
 
-  // This marker is applied to a `relationship` to indicate it is transitive.
+  // This marker is applied to a [relationship] to indicate it is transitive.
   // Transitivity requires that if the relationship applies to A,B and B,C
   // then it also applies to A,C.
   *transitive: Marker
@@ -1508,21 +1508,21 @@ PhEntity: Entity <abstract> {
   // Two-phase AC electricity. Power is provided by two AC voltage sources,
   // separated from each other by a 90-degree phase angle. Two-phase systems
   // are extremely rare in modern buildings; they have been replaced by
-  // modern `threePhase` systems.
+  // modern [ph::PhEntity.threePhase] systems.
   *twoPhase: Marker
 
-  // Timezone identifier from standard [timezone database]`docHaystack::TimeZones`
+  // Timezone identifier from standard [timezone database](ph.doc::TimeZones)
   *tz: TimeZone
 
   // Unit identifier from standard unit database
   *unit: Unit
 
   // Unit Ventilator: An FCU that has direct access to outside air to provide
-  // the space with ventilation.  See `docHaystack::AHUs` chapter.
+  // the space with ventilation.  See [ph.doc::AHUs] chapter.
   *unitVent: Marker
 
   // Unoccupied mode of a space.
-  // See `docHaystack::Zones#occupancy` chapter.
+  // See [ph.doc::Zones#occupancy] chapter.
   *unocc: Marker
 
   // Uninterruptible power supply
@@ -1540,7 +1540,7 @@ PhEntity: Entity <abstract> {
   *variableAirVolume: Marker
 
   // Variable air volume terminal unit.  VAV systems use a constant air
-  // temperature with a variable air flow rate.  See `docHaystack::VAVs` chapter.
+  // temperature with a variable air flow rate.  See [ph.doc::VAVs] chapter.
   *vav: Marker
 
   // AHU supplies air to VAV terminal units
@@ -1556,7 +1556,7 @@ PhEntity: Entity <abstract> {
   *version: Version
 
   // Variable-frequency drive.
-  // See `docHaystack::Motors` chapter.
+  // See [ph.doc::Motors] chapter.
   *vfd: Marker
 
   // Distance at which light can be clearly discerned
@@ -1568,12 +1568,12 @@ PhEntity: Entity <abstract> {
   // Three dimensional space occupied by a substance
   *volume: Marker
 
-  // Variable refigerant flow.  See `docHaystack::VRF` chapter.
+  // Variable refigerant flow.  See [ph.doc::VRF] chapter.
   *vrf: Marker
 
   // Relatively warm in comparison to another substance, without being
   // actively heated. The substance can be used as a source of energy for
-  // a heating process, for example a warm water well in an `ates` system.
+  // a heating process, for example a warm water well in an [ph::PhEntity.ates] system.
   *warm: Marker
 
   // Water in its liquid form
@@ -1583,14 +1583,14 @@ PhEntity: Entity <abstract> {
   *waterCooling: Marker
 
   // Associated with atmospheric air or phenomenon.
-  // See `docHaystack::Weather` chapter.
+  // See [ph.doc::Weather] chapter.
   *weather: Marker
 
   // Enumeration of weather conditions
   *weatherCond: Marker
 
   // Logical weather station and its measurement points.
-  // See `docHaystack::Weather#stations` chapter.
+  // See [ph.doc::Weather#stations] chapter.
   *weatherStation: Marker
 
   // Reference to weather station for to use this entity
@@ -1600,7 +1600,7 @@ PhEntity: Entity <abstract> {
   *weight: Marker
 
   // A well is a source of groundwater and potentially thermal energy.  When
-  // used within an [ATES]`docHaystack::ATES` system, the well facilitates thermal
+  // used within an [ATES](ph.doc::ATES) system, the well facilitates thermal
   // energy exchange with the ground warm and cool water sources. In this case, a
   // well can be either a closed system that transports water through pipes in the
   // ground, or an open system that pumps up and returns ground water.
@@ -1624,10 +1624,10 @@ PhEntity: Entity <abstract> {
   // Supports writing data
   *writable: Marker
 
-  // Error description when `writeStatus` indicates error condition
+  // Error description when [ph::PhEntity.writeStatus] indicates error condition
   *writeErr: Str <transient>
 
-  // Current priority level for `writeVal` as number between 1 and 17.
+  // Current priority level for [ph::PhEntity.writeVal] as number between 1 and 17.
   // The value 17 indicates the relinquish default value.
   *writeLevel: Number <transient>
 
@@ -1635,12 +1635,12 @@ PhEntity: Entity <abstract> {
   *writeStatus: WriteStatus <transient>
 
   // Current desired value to write to output.  This is the current "winning"
-  // value of the priority array indicated by `writeLevel`.  If this tag
+  // value of the priority array indicated by [ph::PhEntity.writeLevel].  If this tag
   // is missing then the winning value is null/auto.
   *writeVal: Obj <transient>
 
   // Extended string - type name and string value encoding.
-  // See [Kinds chapter]`docHaystack::Kinds#xstr`.
+  // See [Kinds chapter](ph.doc::Kinds#xstr).
   *xstr: Obj
 
   // Original year of construction as four digit year such as 1980

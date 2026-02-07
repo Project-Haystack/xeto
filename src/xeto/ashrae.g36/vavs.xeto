@@ -17,7 +17,7 @@ G36Vav : Vav <abstract> {
     ZoneAirTempEffectiveSp
     ZoneOccupiedSensor
     ZoneCo2Sensor
-    //{window, override, cmd, point}
+    // {window, override, cmd, point}
   }
 }
 

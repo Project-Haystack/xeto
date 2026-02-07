@@ -115,7 +115,7 @@ ChilledWaterCoolingProcess: CoolingProcess { chilledWaterCooling }
 CondenserCoolingProcess: CoolingProcess { condenserCooling }
 
 // Cooling using direct expansion of a refrigerant vapor.
-// Also see `dxHeating` and `heatPump`.
+// Also see [ph::PhEntity.dxHeating] and [ph::PhEntity.heatPump].
 DxCoolingProcess: CoolingProcess { dxCooling }
 
 // Cooling using transfer of heat to water which is not explicitly chilled
@@ -141,8 +141,8 @@ TripleDuctConfig: DuctConfig { tripleDuct }
 // DuctDeck
 //////////////////////////////////////////////////////////////////////////
 
-// Cold, hot, or neutral deck. Can be applied to 'ahu' equip if the AHU
-// is part of a 'dualDuct' or 'tripleDuct' system but only serves a single
+// Cold, hot, or neutral deck. Can be applied to `ahu` equip if the AHU
+// is part of a `dualDuct` or `tripleDuct` system but only serves a single
 // deck type.
 DuctDeck: Choice
 
@@ -203,7 +203,7 @@ BiomassHeatingProcess: HeatingProcess { biomassHeating }
 CoalHeatingProcess: HeatingProcess { coalHeating }
 
 // Heating using direct expansion of a refrigerant vapor.
-// Also see `dxCooling` and `heatPump`.
+// Also see [ph::PhEntity.dxCooling] and [ph::PhEntity.heatPump].
 DxHeatingProcess: HeatingProcess { dxHeating }
 
 // Heating by the conversion of electrical energy
@@ -254,7 +254,7 @@ DisplacementPfScope: PfScope { pfDisplacement }
 DistortionPfScope: PfScope { pfDistortion }
 
 // True power factor, which includes effects of harmonic distortion.
-// Power factor is assumed to be true power factor when `pfScope` is not
+// Power factor is assumed to be true power factor when [ph::PfScope] is not
 // defined.  However, it is recommended to specify a scope for power
 // factor to help avoid misinterpretation of data.
 TruePfScope: PfScope { pfTrue }
@@ -308,7 +308,7 @@ ThreePhaseCount: PhaseCount { threePhase }
 // Two-phase AC electricity. Power is provided by two AC voltage sources,
 // separated from each other by a 90-degree phase angle. Two-phase systems
 // are extremely rare in modern buildings; they have been replaced by
-// modern `threePhase` systems.
+// modern [ph::PhEntity.threePhase] systems.
 TwoPhaseCount: PhaseCount { twoPhase }
 
 //////////////////////////////////////////////////////////////////////////
@@ -361,53 +361,53 @@ TertiaryPlantLoop: PlantLoop { tertiaryLoop }
 //////////////////////////////////////////////////////////////////////////
 
 // Classifies the point as a sensor, command, or setpoint.
-// See `docHaystack::Points#function` chapter.
+// See [ph.doc::Points#point-function] chapter.
 PointFunction: Choice
 
 // Point is a command, actuator, AO/BO.
-// See `docHaystack::Points#function` chapter.
+// See [ph.doc::Points#point-function] chapter.
 CmdPointFunction: PointFunction { cmd }
 
 // Point is a sensor, input, AI/BI.
-// See `docHaystack::Points#function` chapter.
+// See [ph.doc::Points#point-function] chapter.
 SensorPointFunction: PointFunction { sensor }
 
 // Point is a setpoint, soft point, internal control variable, schedule.
-// See `docHaystack::Points#function` chapter.
+// See [ph.doc::Points#point-function] chapter.
 SpPointFunction: PointFunction { sp }
 
 // Synthetic point with computed operational data. The computed data
 // if classified as:
-//   - `ml` for machine learning
-//   - `sim` for simulation
-//   - `computed` as catch all for other computations
+//   - [ph::PhEntity.ml] for machine learning
+//   - [ph::PhEntity.sim] for simulation
+//   - [ph::PhEntity.computed] as catch all for other computations
 //
-// See `docHaystack::Synthetics` chapter.
+// See [ph.doc::Synthetics] chapter.
 SyntheticPointFunction: PointFunction { synthetic }
 
-// Computed point. See `docHaystack::Synthetics` chapter.
+// Computed point. See [ph.doc::Synthetics] chapter.
 ComputedSyntheticPointFunction: SyntheticPointFunction { computed }
 
-// Machine learning point. See `docHaystack::Synthetics` chapter.
+// Machine learning point. See [ph.doc::Synthetics] chapter.
 MlSyntheticPointFunction: SyntheticPointFunction { ml }
 
-// Simulation point. See `docHaystack::Synthetics` chapter.
+// Simulation point. See [ph.doc::Synthetics] chapter.
 SimSyntheticPointFunction: SyntheticPointFunction { sim }
 
 //////////////////////////////////////////////////////////////////////////
 // SimScenario
 //////////////////////////////////////////////////////////////////////////
 
-// See `docHaystack::Synthetics#sims` chapter.
+// See [ph.doc::Synthetics#simulation-overview] chapter.
 SimScenario: Choice
 
-// See `docHaystack::Synthetics#sims` chapter.
+// See [ph.doc::Synthetics#simulation-overview] chapter.
 BaselineSimScenario: SimScenario { simBaseline }
 
-// See `docHaystack::Synthetics#sims` chapter.
+// See [ph.doc::Synthetics#simulation-overview] chapter.
 OperationSimScenario: SimScenario { simOperation }
 
-// See `docHaystack::Synthetics#sims` chapter.
+// See [ph.doc::Synthetics#simulation-overview] chapter.
 OptimumSimScenario: SimScenario { simOptimum }
 
 //////////////////////////////////////////////////////////////////////////

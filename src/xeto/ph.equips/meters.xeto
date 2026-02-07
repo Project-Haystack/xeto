@@ -12,7 +12,7 @@ WaterMeter : FlowMeter { water }
 // Domestic water flow meter
 DomesticWaterMeter : WaterMeter { domestic }
 
-//  VAV which is fed by an AHU
+// VAV which is fed by an AHU
 NaturalGasMeter : FlowMeter { naturalGas }
 
 

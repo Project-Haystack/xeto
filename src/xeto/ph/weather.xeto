@@ -8,14 +8,14 @@
 //
 
 // Logical weather station and its measurement points.
-// See `docHaystack::Weather#stations` chapter.
+// See [ph.doc::Weather#stations] chapter.
 WeatherStation: GeoPlace {
   weatherStation
   tz: TimeZone?
 }
 
 // Weather station observation point.
-// See `docHaystack::Weather#points` chapter.
+// See [ph.doc::Weather#points] chapter.
 WeatherPoint: Point <abstract> {
   weather
   weatherStationRef: Ref?

@@ -8,7 +8,7 @@
 //
 
 // Data point such as a sensor or actuator.
-// See `docHaystack::Points` chapter.
+// See [ph.doc::Points] chapter.
 Point: PhEntity <abstract> {
   point
   cur:           Marker?
@@ -40,7 +40,7 @@ Point: PhEntity <abstract> {
 // typically driven by the I/O scan rate. For overlay systems which acquire
 // data via a protocol such as BACnet or Modbus then the current value
 // is typically refreshed using polling or subscription over a network.
-// Also see `docHaystack::Points#cur` chapter.
+// Also see [ph.doc::Points#cur-points] chapter.
 CurPoint: Point <abstract> {
   cur
   curErr:    Str?
@@ -50,7 +50,7 @@ CurPoint: Point <abstract> {
 
 // Historized point with a history log of timestamp/value pairs.  Points
 // marked as historized indicate the system can response to queries via
-// the 'hisRead' operation to return a trend log of timestamp/value pairs.
+// the `hisRead` operation to return a trend log of timestamp/value pairs.
 //
 // There are typically two mechanisms for historization:
 //   - the local system performs the historization by logging the
@@ -59,7 +59,7 @@ CurPoint: Point <abstract> {
 //     and the local system synchronizes the history data in batch on
 //     a periodic basis
 //
-// Also see `docHaystack::Points#his` chapter.
+// Also see [ph.doc::Points#historized-points] chapter.
 HisPoint: Point <abstract> {
   his
   hisErr:       Str?
@@ -92,7 +92,7 @@ HisPoint: Point <abstract> {
 // to a priority level, we say that level has been set to auto or released (this
 // allows the next highest level to take command of the output).
 //
-// Also see `docHaystack::Points#writable` chapter.
+// Also see [ph.doc::Points#writable-points] chapter.
 WritablePoint: Point <abstract> {
   writable
   writeErr:    Str?
@@ -105,33 +105,33 @@ WritablePoint: Point <abstract> {
 // Synthetic
 //////////////////////////////////////////////////////////////////////////
 
-// See `docHaystack::Synthetics` chapter.
+// See [ph.doc::Synthetics] chapter.
 SyntheticPoint: Point <abstract> {
   synthetic
   syntheticModelRef: Ref?
 }
 
-// See `docHaystack::Synthetics` chapter.
+// See [ph.doc::Synthetics] chapter.
 SyntheticModel: PhEntity {
   syntheticModel
 }
 
-// See `docHaystack::Synthetics` chapter.
+// See [ph.doc::Synthetics] chapter.
 ComputedPoint: SyntheticPoint <abstract> {
   computed
 }
 
-// See `docHaystack::Synthetics` chapter.
+// See [ph.doc::Synthetics] chapter.
 ComputedModel: SyntheticModel {
   computedModel
 }
 
-// See `docHaystack::Synthetics` chapter.
+// See [ph.doc::Synthetics] chapter.
 MlPoint: SyntheticPoint <abstract> {
   ml
 }
 
-// See `docHaystack::Synthetics` chapter.
+// See [ph.doc::Synthetics] chapter.
 MlModel: SyntheticModel {
   mlModel
   mlIdentificationPeriod: Span?
@@ -148,14 +148,14 @@ MlVar: PhEntity {
   mlVarPoint:  Ref?
 }
 
-// See `docHaystack::Synthetics` chapter.
+// See [ph.doc::Synthetics] chapter.
 SimPoint: SyntheticPoint <abstract> {
   sim
   pointRef:    Ref?
   simScenario: SimScenario?
 }
 
-// See `docHaystack::Synthetics` chapter.
+// See [ph.doc::Synthetics] chapter.
 SimModel: SyntheticModel {
   simModel
 }

@@ -8,7 +8,7 @@
 Phenomenon: Choice
 
 // Associated with electricity or with electrical force, power, or energy.
-// This is often opposed to `mech` mechanical energy.
+// This is often opposed to [ph::PhEntity.mech] mechanical energy.
 Elec: Phenomenon { elec }
 
 // Alternating current electricity
@@ -60,7 +60,7 @@ N2o: Gas { n2o }
 //
 // The energy content of natural gas varies by region within a range determined
 // on impurities in the gas.  You can find a table of these conversions
-// [here]`https://en.wikipedia.org/wiki/Heat_of_combustion#Higher_heating_values_of_natural_gases_from_various_sources`
+// [here](https://en.wikipedia.org/wiki/Heat_of_combustion#Higher_heating_values_of_natural_gases_from_various_sources)
 NaturalGas: Gas { naturalGas }
 
 // Nitrogen trifluoride (NF₃)
@@ -167,7 +167,7 @@ Pm10: Solid { pm10 }
 Pm25: Solid { pm25 }
 
 // Associated with atmospheric air or phenomenon.
-// See `docHaystack::Weather` chapter.
+// See [ph.doc::Weather] chapter.
 Weather: Phenomenon { weather }
 
 // Flow of air on surface of the Earth

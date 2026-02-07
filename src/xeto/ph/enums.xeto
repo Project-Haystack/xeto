@@ -4,16 +4,16 @@
 // Auto-generated 17-Jan-2025
 //
 
-// Status of point's current value reading.  The `curVal` is only available
+// Status of point's current value reading.  The [ph::PhEntity.curVal] is only available
 // when curStatus is "ok" or "stale".  However a "stale" value should
 // be used with caution since the local system does not have a fresh value.
-// It is recommended that the `curVal` tag is removed from a point
+// It is recommended that the [ph::PhEntity.curVal] tag is removed from a point
 // when the curStatus is not "ok" nor "stale".
 CurStatus: Enum {
   ok              // all is okay
   stale           // the point's curVal is not fresh data
-  fault           // a configuration or hardware problem - see `curErr`
-  down            // a communication or network problem - see `curErr`
+  fault           // a configuration or hardware problem - see [ph::PhEntity.curErr]
+  down            // a communication or network problem - see [ph::PhEntity.curErr]
   disabled        // manual disable of the point or connector
   unknown         // we don't know anything (usually boot state)
   remoteFault     // point in remote system is fault
@@ -30,7 +30,7 @@ ElecAcQuadrant: Enum {
   q4 <key:"4">
 }
 
-// Physical type of `evse-cable`.
+// Physical type of [ph::EvseCable].
 EvseCableType: Enum {
   ccs1      // CCS1 charging cable
   ccs2      // CCS2 charging cable
@@ -43,7 +43,7 @@ EvseCableType: Enum {
   gbt       // GB/T charging cable
 }
 
-// Geographic country as [ISO 3166-1]`http://en.wikipedia.org/wiki/ISO_3166-1`
+// Geographic country as [ISO 3166-1](http://en.wikipedia.org/wiki/ISO_3166-1)
 // two letter code
 GeoCountry: Enum {
   af <key:"AF">  // Afghanistan
@@ -382,8 +382,8 @@ HisMode: Enum {
 // Status of point's history collection or synchronization
 HisStatus: Enum {
   ok        // last sync attempt was successful
-  fault     // a configuration problem - see `hisErr`
-  down      // a communication or network problem - see `hisErr`
+  fault     // a configuration problem - see [ph::PhEntity.hisErr]
+  down      // a communication or network problem - see [ph::PhEntity.hisErr]
   disabled  // manual disable of the point or parent connector
   unknown   // we don't know anything (usually boot state)
   pending   // sync has been scheduled and is waiting to running
@@ -545,8 +545,8 @@ WeatherDaytimeEnum: Enum {
 WriteStatus: Enum {
   unbound   // writable point is not bound to any output
   ok        // last write was successful
-  down      // connectivity/networking problem - see `writeErr`
-  fault     // configuration or hardware error  - see `writeErr`
+  down      // connectivity/networking problem - see [ph::PhEntity.writeErr]
+  fault     // configuration or hardware error  - see [ph::PhEntity.writeErr]
   disabled  // manual disable of the point or connector
   unknown   // we don't know anything (typically boot state)
 }

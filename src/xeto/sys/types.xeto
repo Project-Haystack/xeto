@@ -45,20 +45,20 @@ Duration: Number <sealed, quantity:"time"> "0sec"
 // Universal resource identifier
 Uri: Scalar <sealed>  ""
 
-// Reference to another dict.  The 'of' meta defines target type
+// Reference to another dict.  The `of` meta defines target type
 Ref: Scalar <sealed, pattern: "[a-zA-Z\\d\\._~]*"> "x"
 
-// Reference or list of references.  The 'of' meta defines target type.
+// Reference or list of references.  The `of` meta defines target type.
 // The value may be either a single ref or a list of refs.
 MultiRef: Obj <sealed>
 
 // Version string formatted as decimal digits separated by a dot
 Version: Scalar <sealed, pattern: "\\d+(\\.\\d+)*"> "0"
 
-// ISO 8601 date as year, month, day: '2011-06-07'
+// ISO 8601 date as year, month, day: `2011-06-07`
 Date: Scalar <sealed, pattern: "\\d{4}-\\d{2}-\\d{2}"> "2000-01-01"
 
-// ISO 8601 time as hour, minute, seconds: '09:51:27.354'
+// ISO 8601 time as hour, minute, seconds: `09:51:27.354`
 Time: Scalar <sealed, pattern: "\\d{2}:\\d{2}:\\d{2}(\\.\\d+)*"> "00:00:00"
 
 // ISO 8601 timestamp followed by timezone identifier
@@ -66,10 +66,10 @@ DateTime: Scalar <sealed, pattern: "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\
 
 // Span models a time range between two DateTimes.
 // It supports the following string encoding:
-//   - relative 'SpanMode' name such as "yesterday"
-//   - absolute single date: 'YYYY-MM-DD'
-//   - absolute date span: 'YYYY-MM-DD,YYYY-MM-DD'
-//   - absolute date time span: 'YYYY-MM-DDThh:mm:ss.FFF zzzz,YYYY-MM-DDThh:mm:ss.FFF zzzz'
+//   - relative `SpanMode` name such as "yesterday"
+//   - absolute single date: `YYYY-MM-DD`
+//   - absolute date span: `YYYY-MM-DD,YYYY-MM-DD`
+//   - absolute date time span: `YYYY-MM-DDThh:mm:ss.FFF zzzz,YYYY-MM-DDThh:mm:ss.FFF zzzz`
 // In the case of two DateTime, the timezones must match.  In the other
 // cases the timezone to use is context sensitive based on the application.
 Span: Scalar <sealed>
@@ -130,7 +130,7 @@ Filter: Scalar <sealed>
 Query: Dict <sealed>
 
 // Function represents the signature of a computation with
-// zero or more parameter types and one return type.  The 'returns'
+// zero or more parameter types and one return type.  The `returns`
 // slot specifies the return type, and all other slots specify
 // the parameters.
 Func: Dict {
@@ -147,7 +147,7 @@ Entity: Dict <abstract> {
 }
 
 // Entity that represents a file containing textual or binary data.
-// Common MIME types are mapped to specs by the 'lib.files' library.
+// Common MIME types are mapped to specs by the `lib.files` library.
 File: Entity
 
 // Inferface is an object oriented API defined as set of named

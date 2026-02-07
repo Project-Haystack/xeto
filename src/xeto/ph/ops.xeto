@@ -4,7 +4,7 @@
 // Auto-generated 11-Dec-2023
 //
 
-// Operation for HTTP API.  See `docHaystack::Ops` chapter.
+// Operation for HTTP API.  See [ph.doc::Ops] chapter.
 Op: Feature {
   // Op marker
   op
@@ -16,85 +16,85 @@ Op: Feature {
 }
 
 // Query basic information about the server.
-// See `docHaystack::Ops#about` chapter.
+// See [ph.doc::Ops#about] chapter.
 @op:about : Op {
   noSideEffects
 }
 
 // Close the current session and cancel the auth bearer token.
-// See `docHaystack::Ops#close` chapter.
+// See [ph.doc::Ops#close] chapter.
 @op:close : Op {
 }
 
 // Query the definitions in the current namespace.
-// See `docHaystack::Ops#defs` chapter.
+// See [ph.doc::Ops#defs] chapter.
 @op:defs : Op {
   noSideEffects
 }
 
 // Query the filetype defs in the current namespace.
-// See `docHaystack::Ops#filetypes` chapter.
+// See [ph.doc::Ops#filetypes] chapter.
 @op:filetypes : Op {
   noSideEffects
 }
 
-// Read historized time series data from a `his-point`.
-// See `docHaystack::Ops#hisRead` chapter.
+// Read historized time series data from a [ph::HisPoint].
+// See [ph.doc::Ops#hisread] chapter.
 @op:hisRead : Op {
   noSideEffects
 }
 
-// Write historized time series data from a `his-point`.
-// See `docHaystack::Ops#hisWrite` chapter.
+// Write historized time series data from a [ph::HisPoint].
+// See [ph.doc::Ops#hiswrite] chapter.
 @op:hisWrite : Op {
 }
 
 // Invoke a user action on a target entity.
-// See `docHaystack::Ops#invokeAction` chapter.
+// See [ph.doc::Ops#invoke-action] chapter.
 @op:invokeAction : Op {
 }
 
 // Query the lib defs in the current namespace.
-// See `docHaystack::Ops#libs` chapter.
+// See [ph.doc::Ops#libs] chapter.
 @op:libs : Op {
   noSideEffects
 }
 
 // Query the navigation tree for discovery.
-// See `docHaystack::Ops#nav` chapter.
+// See [ph.doc::Ops#nav] chapter.
 @op:nav : Op {
   noSideEffects
 }
 
 // Query the op defs in the current namespace.
-// See `docHaystack::Ops#ops` chapter.
+// See [ph.doc::Ops#ops] chapter.
 @op:ops : Op {
   noSideEffects
 }
 
-// Read or command a `writable-point`.
-// See `docHaystack::Ops#pointWrite` chapter.
+// Read or command a [ph::WritablePoint].
+// See [ph.doc::Ops#pointwrite] chapter.
 @op:pointWrite : Op {
 }
 
 // Query the a set of entity records by id or by filter.
-// See `docHaystack::Ops#read` chapter.
+// See [ph.doc::Ops#read] chapter.
 @op:read : Op {
   noSideEffects
 }
 
 // Poll a watch subscription.
-// See `docHaystack::Ops#watchPoll` chapter.
+// See [ph.doc::Ops#watchpoll] chapter.
 @op:watchPoll : Op {
 }
 
 // Subscribe to entity data.
-// See `docHaystack::Ops#watchSub` chapter.
+// See [ph.doc::Ops#watchsub] chapter.
 @op:watchSub : Op {
 }
 
 // Unsubscribe to entity data.
-// See `docHaystack::Ops#watchUnsub` chapter.
+// See [ph.doc::Ops#watchunsub] chapter.
 @op:watchUnsub : Op {
 }
 

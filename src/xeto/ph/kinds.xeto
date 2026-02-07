@@ -18,6 +18,6 @@ Symbol: Scalar <sealed> "x"
 // TODO: this is just a temp shim for backward compatibility with Haystack 4.
 XStr: Scalar <sealed>
 
-// Feature namespace of definitions identified as 'lib::feature:name'
+// Feature namespace of definitions identified as `lib::feature:name`
 Feature: Dict <abstract>
 

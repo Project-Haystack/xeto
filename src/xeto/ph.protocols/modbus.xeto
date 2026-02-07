@@ -9,15 +9,15 @@
 // ModbusAddr contains all info required to connect to a modbus point
 // Only supports decimal format (no hex or modicon)
 // Fields:
-// - **addr**: Modbus address (0=Coil, 1=Input, 3=Holding Reg, 4=Input Reg). Must follow '0xxxx'-'4xxxx' pattern.
+// - **addr**: Modbus address (0=Coil, 1=Input, 3=Holding Reg, 4=Input Reg). Must follow `0xxxx`-'4xxxx' pattern.
 // - **encoding**: Data format for interpretation.
 // - **bitIndex**: (0-15) Optional bit position within a register.
-// - **access**: '"r"' (default) or '"rw"' (Read/Write).
+// - **access**: `"r"` (default) or `"rw"` (Read/Write).
 // - **scale**: Multiplier for raw values (default 1).
 // - **offset**: Optional offset value applied after scaling.
 // - **byteOrder**: Optional, defines endianness for multi-register values.
 //
-// Example: '{ "addr": "40001", "encoding": "u2", "scale": 10, "access": "rw" }'
+// Example: `{ "addr": "40001", "encoding": "u2", "scale": 10, "access": "rw" }`
 ModbusAddr: ProtocolAddr {
   addr:  Str <pattern:"[0-4](\\d{4})">    // Must follow standard Modbus addressing rules (0xxxx-4xxxx)
   encoding: ModbusEncoding                // Specifies data representation format
