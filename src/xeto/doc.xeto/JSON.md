@@ -4,34 +4,31 @@ Xeto supports the representation of [instances](Instances.md) and
 [specs](Specs.md) via the widely used data interchange format 
 [JSON](https://en.wikipedia.org/wiki/JSON).
 
-## Instances
-
-### Scalars
+## Scalars
 
 JSON supports a very limited type system, which requires significant type
 erasure.  We opt for a clean, simple JSON mapping where most scalars are mapped
 to a string (versus mapping scalars to JSON objects).  The following mapping is
 used:
 
-
 ```
-  Xeto           JSON
-  ----           ----
-  sys::Bool      boolean
-  sys::Int       integer
-  sys::Float     number
-  sys::Number    number (if no unit)
-  sys::Number    string (if there is a unit or NaN/-INF/INF)
-  sys::Scalar    string (all other scalars encode as string)
-  ```
+| Xeto        | JSON                                        |
+| ----        | ----                                        |
+| sys::Bool   | boolean                                     |
+| sys::Int    | number                                      |
+| sys::Float  | number                                      |
+| sys::Number | number (if no unit)                         |
+| sys::Number | string (if there is a unit or NaN/-INF/INF) |
+| sys::Scalar | string (all other scalars encode as string) |
+```
 
-### Dicts
+## Dicts
 
 Dicts are mapped as JSON objects. All dicts include a 'spec' property
 with the type qname. For example, for a Dict conforming to the Xeto spec
 `foo::Bar`:
 
-```
+```json
   {
     "a":123,
     "b":"xyz",
@@ -39,11 +36,15 @@ with the type qname. For example, for a Dict conforming to the Xeto spec
   }
 ```
 
-### Lists
+## Lists
 
-Lists are mapped as JSON arrays: `["a", "b", "c"]`. 
+Lists are mapped as JSON arrays: 
 
-### Grids
+```json
+    ["a", "b", "c"]`. 
+```
+
+## Grids
 
 Each JSON-formatted grid consists of a JSON object with the following 
 entries:
@@ -55,7 +56,7 @@ entries:
 
 For example:
 
-```
+```json
 {
   "spec":"sys::Grid",
   "meta":{
@@ -93,11 +94,9 @@ Schema](https://json-schema.org/) specification.  This allows for
 JSON-formatted Xeto instances to be validated against Xeto specs without
 resorting to Xeto-specific tools.
 
-### Example
-
 Consider the following Xeto specs:
 
-```
+```xeto
 Order : Entity {
   order
   customerName: Str
@@ -135,7 +134,7 @@ the `allOf` keyword is used to provided a reference to the parent class.
 
 Here is an example of what the example specs look like as a JSON-Schema:
 
-```
+```json
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "hx.test.xeto.schema-4.0.4",
