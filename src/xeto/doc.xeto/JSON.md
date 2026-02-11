@@ -11,7 +11,6 @@ erasure.  We opt for a clean, simple JSON mapping where most scalars are mapped
 to a string (versus mapping scalars to JSON objects).  The following mapping is
 used:
 
-```
 | Xeto        | JSON                                        |
 | ----        | ----                                        |
 | sys::Bool   | boolean                                     |
@@ -20,7 +19,6 @@ used:
 | sys::Number | number (if no unit)                         |
 | sys::Number | string (if there is a unit or NaN/-INF/INF) |
 | sys::Scalar | string (all other scalars encode as string) |
-```
 
 ## Dicts
 
