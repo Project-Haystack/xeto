@@ -41,7 +41,7 @@ with the type qname. For example, for a Dict conforming to the Xeto spec
 Lists are mapped as JSON arrays: 
 
 ```json
-    ["a", "b", "c"]`. 
+  ["a", "b", "c"]
 ```
 
 ## Grids
