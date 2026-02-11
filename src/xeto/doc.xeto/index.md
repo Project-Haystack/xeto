@@ -19,6 +19,7 @@
 - [Fidelity](Fidelity.md): type erasure rules when mapping to other data formats
 - [Xetodoc](Xetodoc.md): markdown flavor
 - [Rdf](Rdf.md): RDF interoperability
+- [JSON](JSON.md): JSON representation
 
 # Appendix
 
