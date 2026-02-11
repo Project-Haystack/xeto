@@ -1,7 +1,7 @@
 # Overview
 
 Xeto supports the representation of [instances](Instances.md) and
-[specs](Specs.md) via the widely used data interchange format 
+[specs](Specs.md) via the widely used data interchange format
 [JSON](https://en.wikipedia.org/wiki/JSON).
 
 ## Scalars
@@ -27,30 +27,30 @@ with the type qname. For example, for a Dict conforming to the Xeto spec
 `foo::Bar`:
 
 ```json
-  {
-    "a":123,
-    "b":"xyz",
-    "spec":"foo::Bar"
-  }
+{
+  "a":123,
+  "b":"xyz",
+  "spec":"foo::Bar"
+}
 ```
 
 ## Lists
 
-Lists are mapped as JSON arrays: 
+Lists are mapped as JSON arrays:
 
 ```json
-  ["a", "b", "c"]
+["a", "b", "c"]
 ```
 
 ## Grids
 
-Each JSON-formatted grid consists of a JSON object with the following 
+Each JSON-formatted grid consists of a JSON object with the following
 entries:
 
-- A `spec` entry which identifies them as a Grid, or subclass thereof.  
+- A `spec` entry which identifies them as a Grid, or subclass thereof.
 - A `meta` entry which contains the metadata for the grid itself.
 - A `cols` entry which contains the name and metadata for each column.
-- A `rows` entry which contains each row in Dict format.  
+- A `rows` entry which contains each row in Dict format.
 
 For example:
 
@@ -117,7 +117,7 @@ Product : Dict {
 }
 ```
 
-The JSON Schema representation of these specs is as follows. 
+The JSON Schema representation of these specs is as follows.
 
 - All of the definitions are stored in the `$defs` section of the schema.
 - The `$defs` section of the schema has sub-entries per xeto library.
@@ -239,3 +239,4 @@ Here is an example of what the example specs look like as a JSON-Schema:
   }
 }
 ```
+
