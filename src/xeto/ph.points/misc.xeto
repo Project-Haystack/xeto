@@ -47,3 +47,10 @@ HeatEnableCmd : EnableCmd <abstract> { heat }
 
 // Boolean alarm condition
 AlarmSensor : BoolPoint & SensorPoint <abstract> { alarm }
+
+// Point for modulating control of equipment such as
+// valves, dampers, and motors as a percentage from 0% to 100%.
+ModulatingPoint : NumberPoint <abstract> {
+  modulating
+  unit: Unit <fixed> "%"
+}
