@@ -15,8 +15,8 @@ Self: Obj <sealed>
 // Scalar is an atomic value kind
 Scalar: Obj <abstract>
 
-// None is the bottom type used to represent absense of value
-None: Scalar <sealed> "none"
+// None represents the absense of value
+None: Scalar <sealed, pattern:"∅"> "∅"
 
 // Marker labels a dict with typing information
 Marker: Scalar <sealed, pattern:"✓"> "✓"
