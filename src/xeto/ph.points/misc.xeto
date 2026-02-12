@@ -4,7 +4,7 @@
 //
 // History:
 //   5 Apr 2023  Brian Frank  Creation
-//  12 Feb 2026  Added HeatCmd/CoolCmd/RuntimeSensor - Adam Garnhart
+//  12 Feb 2026  Added HeatModulatingCmd/CoolModulatingCmd/LevelSensor/RuntimeSensor - Adam Garnhart
 //
 
 // Dessicant dehumidifier enable command
@@ -71,7 +71,7 @@ ModulatingPoint : NumberPoint <abstract> {
 // Modulating command for amount of heating, where 0% is no heating, 100% is full heating
 HeatModulatingCmd : ModulatingPoint & CmdPoint <abstract> { heat }
 
-// Modulating command for amount of cooling, where 0% is no heating, 100% is full heating
+// Modulating command for amount of cooling, where 0% is no cooling, 100% is full cooling
 CoolModulatingCmd : ModulatingPoint & CmdPoint <abstract> { cool }
 
 // Sensor for the cumulative runtime duration of equipment
