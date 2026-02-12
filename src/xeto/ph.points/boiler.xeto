@@ -1,0 +1,26 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   12 Feb 2026  Creation - Add most common boiler point specs - Adam Garnhart
+//
+ 
+// On/off command to run boiler equipment
+BoilerHeatRunCmd : HeatRunCmd { boiler }
+ 
+// Sensor for on/off state of boiler
+BoilerHeatRunSensor : HeatRunSensor { boiler }
+ 
+// Command to permit/prohibit a boiler to run.
+// Enable is used as an interlock with a Run Command.
+BoilerEnableCmd : EnableCmd { boiler }
+ 
+// Boiler heating modulating command, where 0% is no heating, 100% is full heating
+BoilerHeatModulatingCmd : HeatModulatingCmd { boiler }
+ 
+// Sensor to detect the level of water for a boiler, 0% empty to 100% full
+BoilerWaterLevelSensor : WaterLevelSensor { boiler }
+
+// Sensor for the cumulative runtime duration of a boiler
+BoilerRuntimeSensor : RuntimeSensor { boiler }

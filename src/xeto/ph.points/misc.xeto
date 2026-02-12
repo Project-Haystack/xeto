@@ -4,6 +4,7 @@
 //
 // History:
 //   5 Apr 2023  Brian Frank  Creation
+//  12 Feb 2026  Added HeatModulatingCmd/CoolModulatingCmd/LevelSensor/RuntimeSensor - Adam Garnhart
 //
 
 // Dessicant dehumidifier enable command
@@ -45,6 +46,18 @@ CoolEnableCmd : EnableCmd <abstract> { cool }
 // Used as an interlock with a run command.
 HeatEnableCmd : EnableCmd <abstract> { heat }
 
+// On/off command to run cooling equipment
+CoolRunCmd : RunCmd { cool }
+
+// On/off command to run heating equipment
+HeatRunCmd : RunCmd { heat }
+
+// Sensor for on/off state of cooling equipment
+CoolRunSensor : RunSensor { cool }
+
+// Sensor for on/off state of heating equipment
+HeatRunSensor : RunSensor { heat }
+
 // Boolean alarm condition
 AlarmSensor : BoolPoint & SensorPoint <abstract> { alarm }
 
@@ -54,3 +67,24 @@ ModulatingPoint : NumberPoint <abstract> {
   modulating
   unit: Unit <fixed> "%"
 }
+
+// Modulating command for amount of heating, where 0% is no heating, 100% is full heating
+HeatModulatingCmd : ModulatingPoint & CmdPoint <abstract> { heat }
+
+// Modulating command for amount of cooling, where 0% is no cooling, 100% is full cooling
+CoolModulatingCmd : ModulatingPoint & CmdPoint <abstract> { cool }
+
+// Sensor for the cumulative runtime duration of equipment
+RuntimeSensor : NumberPoint & SensorPoint <abstract> {
+  runtime
+  unit: Unit <quantity:"time"> "hr"
+}
+
+// Sensor to detect the level of a liquid, 0% empty to 100% full
+LevelSensor : NumberPoint & SensorPoint <abstract> { 
+  level 
+  unit: Unit <fixed> "%"
+}
+
+// Sensor to detect the level of water, 0% empty to 100% full
+WaterLevelSensor : LevelSensor { water }
