@@ -16,7 +16,7 @@ BoilerHeatRunSensor : HeatRunSensor { boiler }
 // Enable is used as an interlock with a Run Command.
 BoilerEnableCmd : EnableCmd { boiler }
  
-// Boiler command for amount of heat, where 0% is no heat, 100% is full heat
+// Boiler heating modulating command, where 0% is no heating, 100% is full heating
 BoilerHeatModulatingCmd : HeatModulatingCmd { boiler }
  
 // Sensor to detect the level of water for a boiler, 0% empty to 100% full
