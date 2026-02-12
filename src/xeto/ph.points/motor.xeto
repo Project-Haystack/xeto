@@ -1,0 +1,22 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   11 Feb 2026  Rick Jennings  Creation
+//
+
+// Point for modulating motor speed.  Speed is measured as a
+// percentage where 0% is off and 100% is full speed.
+MotorSpeedModulatingPoint : ModulatingPoint <abstract> {
+  motor
+  speed
+}
+
+// Sensor for modulating motor speed.  Speed is measured as a
+// percentage where 0% is off and 100% is full speed.
+MotorSpeedModulatingSensor : MotorSpeedModulatingPoint & SensorPoint
+
+// Command for modulating motor speed.  Speed is measured as a
+// percentage where 0% is off and 100% is full speed.
+MotorSpeedModulatingCmd : MotorSpeedModulatingPoint & CmdPoint

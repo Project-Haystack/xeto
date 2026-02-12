@@ -929,6 +929,10 @@ PhEntity: Entity <abstract> {
   // For example, modelSeries is "iPhone 12", but modelNumber is "MGF43LL/A".
   *modelNumber: Marker
 
+  // Indicates equipment or point with variable output from 0% to 100%,
+  // as opposed to binary on/off or discrete staged control.
+  *modulating: Marker
+
   // Equipment that converts electrical energy into mechanical energy.
   // See [ph.doc::Motors] chapter.
   *motor: Marker
