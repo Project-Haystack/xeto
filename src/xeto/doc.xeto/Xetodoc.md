@@ -104,7 +104,9 @@ to the YouTube video, clicking the 'Share' button, and inspecting the link text.
 and `sid` can be found by going to the Loom video, clicking the "link" icon and
 inspecting the link text.
 
-Youtube example:
+3. **Vimeo**: format is URL is `video://vimeo/<id>` or `video://vimeo/<id>?h=<hash>`
+
+Complete youtube example:
 
 ```
 ![iframe title](video://youtu.be/fr-K-MVbAa8?si=dnJTcLsVdzfUfE7T)
