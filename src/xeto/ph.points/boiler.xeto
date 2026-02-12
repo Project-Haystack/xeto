@@ -3,7 +3,7 @@
 // Licensed under the Academic Free License version 3.0
 //
 // History:
-//   12 Feb 2026  Creation - Adam Garnhart
+//   12 Feb 2026  Creation - Add most common boiler point specs - Adam Garnhart
 //
  
 // Command to Run a Boiler (ON/OFF)
@@ -17,7 +17,7 @@ BoilerHeatRunSensor : HeatRunSensor { boiler }
 BoilerEnableCmd : EnableCmd { boiler }
  
 // Boiler command for amount of heat, where 0% is no heat, 100% is full heat
-BoilerHeatCmd : HeatCmd { boiler }
+BoilerHeatModulatingCmd : HeatModulatingCmd { boiler }
  
 // Sensor to detect the level of water for a boiler, 0% empty to 100% full
 BoilerWaterLevelSensor : WaterLevelSensor { boiler }
