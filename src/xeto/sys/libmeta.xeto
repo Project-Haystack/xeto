@@ -53,6 +53,9 @@ Lib: Dict <sealed> {
   // License [SPDX name](https://spdx.org/licenses/) or "commerical"
   license: Str?
 
+  // Marks library as undocumented
+  nodoc: Marker?
+
   // Library organization information
   org: LibOrg?
 
