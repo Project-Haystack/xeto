@@ -1,0 +1,17 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   2 Mar 2026  Rick Jennings  Creation
+//
+
+// Command for electricity
+ElecCmd : NumberPoint & CmdPoint <abstract> { elec }
+
+// Command for AC electric frequency
+ElecAcFreqCmd : ElecCmd {
+  freq
+  unit: "Hz"
+  ac
+}

@@ -6,6 +6,33 @@
 //   11 Feb 2026  Rick Jennings  Creation
 //
 
+// Command to permit/prohibit a motor to run.
+// Used as an interlock with a run command.
+MotorEnableCmd : EnableCmd
+
+// Sensor for on/off state of a motor
+MotorRunSensor : RunSensor { motor }
+
+// On/off command to run a motor
+MotorRunCmd : RunCmd { motor }
+
+// Point for a motor that operates at enumerated speed levels,
+// ranging from off to slowest to highest speed.
+MotorSpeedEnumPoint: EnumPoint <abstract> {
+  motor
+  speed
+}
+
+// Sensor for enumerated motor speed level.  The enum value indicates the
+// current speed level, where the first value is off and subsequent values
+// increase from slowest to highest speed.
+MotorSpeedEnumSensor : MotorSpeedEnumPoint & SensorPoint
+
+// Command for enumerated motor speed level.  The enum value indicates the
+// current speed level, where the first value is off and subsequent values
+// increase from slowest to highest speed.
+MotorSpeedEnumCmd : MotorSpeedEnumPoint & CmdPoint
+
 // Point for modulating motor speed.  Speed is measured as a
 // percentage where 0% is off and 100% is full speed.
 MotorSpeedModulatingPoint : ModulatingPoint <abstract> {

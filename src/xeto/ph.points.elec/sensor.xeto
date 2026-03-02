@@ -37,6 +37,7 @@ ElecAcMagnitudeVoltSensor : ElecAcVoltSensorX <abstract> {
   magnitude
   elecAcWaveformMagnitude: ElecAcWaveformMagnitude
   unit: Unit <quantity:"electricPotential"> "V"
+  minVal: Number 0.0
 }
 
 // Sensor for RMS of AC electric voltage
@@ -66,6 +67,7 @@ ElecAcMagnitudeCurrentSensor : ElecAcCurrentSensorX <abstract> {
   magnitude
   unit: Unit <quantity:"electricCurrent"> "A"
   elecAcWaveformMagnitude: ElecAcWaveformMagnitude?
+  minVal: Number 0.0
 }
 
 // Sensor for RMS of AC electric current
@@ -116,19 +118,31 @@ ElecAcApparentPowerSensor : ElecAcAvgMagnitudePowerSensor <abstract> {
 }
 
 // Sensor for import of average magnitude of AC electric active power
-ElecAcImportActivePowerSensor : ElecAcActivePowerSensor { import }
+ElecAcImportActivePowerSensor : ElecAcActivePowerSensor {
+  import
+  minVal: Number 0.0
+}
 
 // Sensor for export of average magnitude of AC electric active power
-ElecAcExportActivePowerSensor : ElecAcActivePowerSensor { export }
+ElecAcExportActivePowerSensor : ElecAcActivePowerSensor {
+  export
+  minVal: Number 0.0
+}
 
 // Sensor for net of average magnitude of AC electric active power
 ElecAcNetActivePowerSensor : ElecAcActivePowerSensor { net }
 
 // Sensor for import of average magnitude of AC electric reactive power
-ElecAcImportReactivePowerSensor : ElecAcReactivePowerSensor { import }
+ElecAcImportReactivePowerSensor : ElecAcReactivePowerSensor {
+  import
+  minVal: Number 0.0
+}
 
 // Sensor for export of average magnitude of AC electric reactive power
-ElecAcExportReactivePowerSensor : ElecAcReactivePowerSensor { export }
+ElecAcExportReactivePowerSensor : ElecAcReactivePowerSensor {
+  export
+  minVal: Number 0.0
+}
 
 // Sensor for net of average magnitude of AC electric reactive power
 ElecAcNetReactivePowerSensor : ElecAcReactivePowerSensor { net }

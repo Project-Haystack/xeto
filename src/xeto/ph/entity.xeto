@@ -1061,6 +1061,9 @@ PhEntity: Entity <abstract> {
   // Circuit with multiple paths of flow
   *parallel: Marker
 
+  // Individual space in a parking area for a single vehicle
+  *parkingBay: Marker
+
   // Auxiliary heating points associated with a [ph::PhEntity.vav]
   *perimeterHeat: Marker
 
