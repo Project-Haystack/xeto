@@ -150,10 +150,15 @@ Entity: Dict <abstract> {
 // Common MIME types are mapped to specs by the `lib.files` library.
 File: Entity
 
-// Inferface is an object oriented API defined as set of named
+// Interface is an object oriented API defined as set of named
 // field and method slots.
 Interface: Dict
 
 // BuildVar is string macro from "build.props" injected at build time
 BuildVar: Scalar
 
+// Err represents an error condition.
+Err: Dict {
+  dis: Str       // Summary display string for what when wrong.
+  errTrace: Str? // Optional string for error.
+}
