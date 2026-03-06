@@ -9,8 +9,8 @@
 // Root type for all objects
 Obj: <sealed, abstract>
 
-// Self is a placeholder that always represents the parent type
-Self: Obj <sealed>
+// This is a placeholder that always represents the parent type
+This: Obj <sealed>
 
 // Scalar is an atomic value kind
 Scalar: Obj <abstract>
@@ -162,3 +162,4 @@ Err: Dict {
   dis: Str       // Summary display string for what when wrong.
   errTrace: Str? // Optional string for error.
 }
+

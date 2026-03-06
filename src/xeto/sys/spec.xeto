@@ -97,7 +97,7 @@ Spec: Dict <sealed> {
   maxSize: Int?
 
   // Inclusive maximum value for numbers
-  maxVal: Self?
+  maxVal: This?
 
   // Indicates an optional type
   maybe: Marker?
@@ -106,7 +106,7 @@ Spec: Dict <sealed> {
   minSize: Int?
 
   // Inclusive minimum value for numbers
-  minVal: Self?
+  minVal: This?
 
   // Indicates a mixin that adds meta/slots to an existing type
   mixin: Marker?
