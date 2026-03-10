@@ -103,17 +103,20 @@ HeatModulatingSensor : HeatModulatingPoint & SensorPoint
 // Command for modulating heating capacity as a percentage from 0% to 100%.
 HeatModulatingCmd : HeatModulatingPoint & CmdPoint
 
-// Sensor for cumulative runtime duration of equipment
+// Sensor for cumulative runtime duration of equipment.
+// Runtime is measured as total operating hours.
 RuntimeSensor : NumberPoint & SensorPoint <abstract> {
   runtime
   unit: Unit <quantity:"time"> "hr"
 }
 
-// Sensor for liquid level as a percentage from 0% (empty) to 100% (full)
+// Sensor for liquid level as a percentage where
+// 0% indicates empty and 100% indicates full
 LevelSensor : NumberPoint & SensorPoint <abstract> {
   level
   unit: Unit <fixed> "%"
 }
 
-// Sensor for water level as a percentage from 0% (empty) to 100% (full)
+// Sensor for water level as a percentage where
+// 0% indicates empty and 100% indicates full
 WaterLevelSensor : LevelSensor { water }

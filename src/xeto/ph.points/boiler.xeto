@@ -13,10 +13,11 @@ BoilerHeatRunCmd : HeatRunCmd { boiler }
 BoilerHeatRunSensor : HeatRunSensor { boiler }
 
 // Command to permit/prohibit a boiler to run.
-// Used as an interlock with a run command.
+// Enable is used as an interlock with a run command.
 BoilerEnableCmd : HeatEnableCmd { boiler }
 
-// Command for modulating boiler heating capacity from 0% to 100%
+// Command for modulating boiler heating capacity
+// as a percentage from 0% to 100%
 BoilerHeatModulatingCmd : HeatModulatingCmd { boiler }
 
 // Sensor for boiler water level from 0% (empty) to 100% (full)
