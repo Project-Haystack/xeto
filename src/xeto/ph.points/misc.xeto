@@ -109,11 +109,13 @@ RuntimeSensor : NumberPoint & SensorPoint {
   unit: Unit <quantity:"time"> "hr"
 }
 
-// Sensor for liquid level as a percentage from 0% (empty) to 100% (full)
+// Sensor for liquid level as a percentage where
+// 0% indicates empty and 100% indicates full
 LevelSensor : NumberPoint & SensorPoint <abstract> {
   level
-  unit: Unit <fixed> "%"
+  unit: Unit <invariant> "%"
 }
 
-// Sensor for water level as a percentage from 0% (empty) to 100% (full)
+// Sensor for water level as a percentage where
+// 0% indicates empty and 100% indicates full
 WaterLevelSensor : LevelSensor { water }
