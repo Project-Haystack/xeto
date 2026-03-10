@@ -4,6 +4,41 @@
 // Auto-generated 17-Jan-2025
 //
 
+// Control behavior of an actuator.  Determines whether the actuator
+// positions continuously (modulating), snaps between discrete states
+// (twoPosition), or is driven by raise/lower signals without position
+// feedback (floating).
+ActuatorControlAction: Enum {
+  modulating   // continuous proportional positioning (0-100%)
+  twoPosition  // discrete open/closed (binary)
+  floating     // motor driven by raise/lower signals, no position feedback
+}
+
+// Relationship between command signal direction and physical position.
+// The Haystack convention is 0% = closed and 100% = open.  The
+// actuatorDirection tells tools when the raw BAS signal is inverted.
+ActuatorDirection: Enum {
+  directActing   // 0% signal = closed, 100% signal = open
+  reverseActing  // 0% signal = open, 100% signal = closed
+}
+
+// Position an actuator assumes on loss of control signal or power.
+// Applies to both valve and damper actuators.
+ActuatorFailPosition: Enum {
+  failOpen        // actuator drives/springs to fully open
+  failClosed      // actuator drives/springs to fully closed
+  failInPlace     // actuator holds last position (no spring return)
+  failToPosition  // actuator drives to a configurable intermediate position
+}
+
+// Physical mechanism used by the actuator to produce motion.
+ActuatorMechanism: Enum {
+  electricMotor  // gear motor actuator (rotary or linear)
+  pneumatic      // compressed air diaphragm or piston
+  hydraulic      // hydraulic fluid piston
+  solenoid       // electromagnetic coil (linear, typically on/off)
+}
+
 // Status of point's current value reading.  The [ph::PhEntity.curVal] is only available
 // when curStatus is "ok" or "stale".  However a "stale" value should
 // be used with caution since the local system does not have a fresh value.
@@ -519,6 +554,40 @@ PrimaryFunction: Enum {
   wholesaleClubSupercenter <key:"Wholesale Club/Supercenter">
   worshipFacility <key:"Worship Facility">
   zoo <key:"Zoo">
+}
+
+// Valve body construction type
+ValveBodyType: Enum {
+  ball        // quarter-turn spherical closure element
+  butterfly   // quarter-turn rotating disc
+  gate        // linear multi-turn wedge or knife
+  globe       // linear rising-stem plug
+  needle      // fine-adjustment variant of globe
+  plug        // quarter-turn tapered or cylindrical plug
+}
+
+// Functional role of a valve in a piping system
+ValveFunction: Enum {
+  balancing       // proportional flow balancing
+  bypass          // diverts flow around equipment
+  check           // prevents reverse flow (non-return)
+  control         // modulating or two-position BAS control
+  diverting       // splits one inlet to two outlets
+  expansion       // thermal expansion relief
+  isolation       // on/off service isolation
+  mixing          // blends two inlets to one outlet
+  pressureIndependent  // flow-limiting with integral differential pressure control
+  pressureReducing     // downstream pressure regulation
+  relief          // overpressure safety relief
+  safety          // code-required overpressure protection (ASME rated)
+  thermostatic    // self-actuated temperature regulation
+}
+
+// Number of ports on a valve body
+ValvePorts: Enum {
+  twoWay    // single inlet, single outlet
+  threeWay  // two inlets/one outlet or one inlet/two outlets
+  fourWay   // two inlets, two outlets (rare)
 }
 
 // Enumeration of weather conditions
