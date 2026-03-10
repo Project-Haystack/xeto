@@ -1268,6 +1268,9 @@ PhEntity: Entity <abstract> {
   // on in order to run the equipment.
   *run: Marker
 
+  // Cumulative time duration which tracks how long equipment has been running
+  *runtime: Marker
+
   // Scalar is an atomic value kind
   *scalar: Obj
 
