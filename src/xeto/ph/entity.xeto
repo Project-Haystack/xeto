@@ -1268,6 +1268,11 @@ PhEntity: Entity <abstract> {
   // on in order to run the equipment.
   *run: Marker
 
+  // Cumulative time duration tracking how long an [ph::PhEntity.equip] has
+  // been running.  Paired with [ph::PhEntity.sensor] to report total operating
+  // hours.  See [ph::PhEntity.run] for the on/off state of equipment.
+  *runtime: Marker
+
   // Scalar is an atomic value kind
   *scalar: Obj
 
