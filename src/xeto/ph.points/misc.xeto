@@ -59,15 +59,15 @@ EnablePoint : BoolPoint <abstract> {
 
 // Command to permit/prohibit equipment to run.
 // Used as an interlock with a run command.
-EnableCmd : EnablePoint & CmdPoint <abstract>
+EnableCmd : EnablePoint & CmdPoint
 
 // Command to permit/prohibit cooling equipment to run.
 // Used as an interlock with a run command.
-CoolEnableCmd : EnableCmd <abstract> { cool }
+CoolEnableCmd : EnableCmd { cool }
 
 // Command to permit/prohibit heating equipment to run.
 // Used as an interlock with a run command.
-HeatEnableCmd : EnableCmd <abstract> { heat }
+HeatEnableCmd : EnableCmd { heat }
 
 // Boolean alarm condition
 AlarmSensor : BoolPoint & SensorPoint <abstract> { alarm }

@@ -32,3 +32,9 @@ ZoneOccupiedSensor : OccupiedSensor { zone }
 // Occupancy setpoint for zone space
 ZoneOccupiedSp : OccupiedSp { zone }
 
+//////////////////////////////////////////////////////////////////////////
+// Other
+//////////////////////////////////////////////////////////////////////////
+
+// Occupancy sensor for a parking bay
+ParkingBayOccupiedSensor : OccupiedSensor { parkingBay }

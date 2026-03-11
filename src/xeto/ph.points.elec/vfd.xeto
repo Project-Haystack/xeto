@@ -1,0 +1,15 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   2 Mar 2026  Rick Jennings  Creation
+//
+
+VfdOutput : PhEntity { vfd, output }
+
+// Sensor for a VFD's output AC electric frequency
+VfdOutputElecAcFreqSensor : VfdOutput & ElecAcFreqSensor
+
+// Command for a VFD's output AC electric frequency
+VfdOutputElecAcFreqCmd : VfdOutput & ElecAcFreqCmd

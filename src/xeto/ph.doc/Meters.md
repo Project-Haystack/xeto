@@ -196,6 +196,69 @@ is the assumed or default characteristic.
 
 Note:  The primary quantity `freq` does not have characteristic related tags.
 
+## Normalizing AC Electric Power Measurements
+
+Electric meter manufacturers commonly encode the direction of power flow using
+`net`, `import`, and `export` conventions on power magnitude and demand points.
+Some expose `net` points that can report positive or negative values; others
+expose only `import` and `export` points that each report unidirectional power
+flow; and still others only `import` points.  The following subsections describe
+how Haystack recommends to normalize these conventions by power subtype.
+
+Note:  This section applies to AC electric `power` point entities that have
+either the `magnitude` or `demand` tag.
+
+### Active Power
+
+Haystack recommends normalizing AC active power points as follows:
+ - The `net` tag is applied when the manufacturer exposes a point that matches
+   Haystack's `net` semantics.  If the manufacturer also exposes `import` and
+   `export` points, the `net` point should be used for normalization.
+ - When the manufacturer exposes an `import` point without a `net` point in a
+   unidirectional (load-only) application, the `net` tag is applied in place
+   of `import`, along with `minVal` set to `0.0`.
+ - For bidirectional power flow applications, when the manufacturer does not
+   expose a `net` point, both `import` and `export` points should be used to
+   derive a normalized `net` value.
+
+### Reactive Power
+
+For reactive power, direction is determined by the reactive characteristic of
+the load — inductive loads consume reactive power (import) and capacitive loads
+supply it (export) — rather than by the direction of energy flow from the grid.
+
+Haystack recommends normalizing AC reactive power points as follows:
+ - The `net` tag is applied when the manufacturer exposes a point that matches
+   Haystack's `net` semantics.  If the manufacturer also exposes `import` and
+   `export` points, the `net` point should be used for normalization.
+ - When the manufacturer does not expose a `net` point, both `import` and
+   `export` points should be used to derive a normalized `net` value.
+
+## Normalizing AC Electric Active Energy Measurements
+
+Electricity meters typically report active energy as accumulated totalized
+values, which are represented in Haystack using the `hisTotalized` tag. Import
+and export energy registers record unidirectional active energy flows (total
+energy consumed or produced) and are monotonically increasing — they never
+decrease, unless reset. Net energy registers record accumulated bidirectional
+energy flow. At a site with both load and generation, a net energy register’s
+total may increase or decrease. For a meter where generation exceeds load, the
+total net energy may even go below zero.
+
+Haystack recommends normalizing AC active energy points as follows:
+ - The `net` tag is applied when the manufacturer exposes a point that matches
+   Haystack's `net` semantics. If the manufacturer also exposes `import` and
+   `export` points, the `net` point should be used for normalization.
+ - When the manufacturer exposes an `import` point without a `net` point in a
+   unidirectional (load-only) application, the `net` tag is applied in place
+   of `import`.
+ - For bidirectional power flow applications, when the manufacturer does not
+   expose a `net` point, both `import` and `export` points should be used to
+   derive a normalized `net` value.
+
+Although totalized energy registers are most common, these recommendations
+apply for both totalized and untotalized interval energy data.
+
 ## Locations for AC Measurements
 TODO: this section is out-of-date
 
