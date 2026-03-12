@@ -56,7 +56,7 @@ WeatherDewPointPoint : WeatherNumberPoint {
 // Weather percent relative humidity
 WeatherHumidityPoint : WeatherNumberPoint {
   humidity
-  unit: Unit <fixed> "%RH"
+  unit: Unit <invariant> "%RH"
 }
 
 // Weather enthalpy is sum of heat energy in the dry air and water vapor
@@ -75,7 +75,7 @@ WeatherAtmosphericPressurePoint : WeatherNumberPoint {
 // Weather cloudiness as percentage
 WeatherCloudagePoint : WeatherNumberPoint {
   cloudage
-  unit: Unit <fixed> "%"
+  unit: Unit <invariant> "%"
 }
 
 // Weather fallen atmospheric water vapor in mm or in
@@ -102,7 +102,7 @@ WeatherWindSpeedPoint : WeatherNumberPoint {
 WeatherWindDirectionPoint : WeatherNumberPoint {
   wind
   direction
-  unit: Unit <fixed> "deg"
+  unit: Unit <invariant> "deg"
 }
 
 // Weather visibility at which light can be discerned in km or mile

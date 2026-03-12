@@ -35,7 +35,7 @@ ElecEnergySensor : ElecSensor <abstract> {
 // Sensor for AC electric power factor
 ElecAcPfSensor : ElecSensor <abstract> {
   pf
-  unit: Unit <fixed> "pf"
+  unit: Unit <invariant> "pf"
   ac
   pfScope: PfScope?
   pfStandard: PfStandard?

@@ -11,7 +11,7 @@ Co2Point : NumberPoint <abstract> {
   air
   co2
   concentration
-  unit: Unit <fixed> "ppm"
+  unit: Unit <invariant> "ppm"
 }
 
 // Sensor for concentration of carbon dioxide (CO₂)

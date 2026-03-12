@@ -8,10 +8,10 @@ for data validation.
 Number specs can be annotated with the following meta to constrain
 their value space:
 
-  - 'minVal': inclusive minimum value
-  - 'maxVal': inclusive maximum value
-  - 'unit': requires the number to have a specific unit
-  - 'quantity': requires the number to have a unit of a specific quantity
+  - `minVal`: inclusive minimum value
+  - `maxVal`: inclusive maximum value
+  - `unit`: requires the number to have a specific unit
+  - `quantity`: requires the number to have a unit of a specific quantity
 
 Examples:
 
@@ -36,10 +36,10 @@ Foo: {
 Str specs can be annotated with the following meta to constrain
 their value space:
 
-  - 'minVal': inclusive minimum length
-  - 'maxVal': inclusive maximum length
-  - 'nonEmpty': marker tag to require string to have non-whitespace characters
-  - 'pattern': regex for required string pattern (example further below)
+  - `minVal`: inclusive minimum length
+  - `maxVal`: inclusive maximum length
+  - `nonEmpty`: marker tag to require string to have non-whitespace characters
+  - `pattern`: regex for required string pattern (example further below)
 
 ``` xeto
 Foo: {
@@ -62,9 +62,9 @@ Foo: {
 List specs can be annotated with the following meta to constrain
 their value space:
 
-  - 'minSize': inclusive minimum length
-  - 'maxSize': inclusive maximum length
-  - 'nonEmpty': marker tag to require at least one item
+  - `minSize`: inclusive minimum length
+  - `maxSize`: inclusive maximum length
+  - `nonEmpty`: marker tag to require at least one item
 
 ``` xeto
 Foo: {
@@ -85,7 +85,7 @@ Foo: {
 # Scalar Constraints
 
 All scalars must support a string encoding.  The string encoding can
-be constrained at compile time using the 'pattern' tag with a regular
+be constrained at compile time using the `pattern` tag with a regular
 expression:
 
 ```xeto
@@ -98,17 +98,19 @@ SocialSecurityNumber: Scalar <pattern:"\\d{3}-\\d{2}-\\d{4}">
 @b: {ssn: SocialSecurityNumber "123435678"}
 ```
 
-# Fixed Values
+# Invariant Values
 
-A spec can define a fixed value for a slot via the 'fixed' marker.
-A fixed value requires all instances to have that exact value.
+A spec can define a fixed value for a slot via the `invariant` marker.
+This requires all instances to have that exact value as defined by
+the slot spec:
 
 ``` xeto
 Foo: {
-  // requires all instances to use the fixed value "%"
-  unit: Unit <fixed> "%"
+  // requires all instances to use the invariant value "%"
+  unit: Unit <invariant> "%"
 }
 
-// Slot 'unit': Must have fixed value '%'
+// Slot 'unit': Must have invariant value '%'
 @a: Foo {unit:"meter"}
 ```
+

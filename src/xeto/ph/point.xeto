@@ -34,7 +34,7 @@ Point: PhEntity <abstract> {
 BoolPoint : Point <abstract> {
 
   // Boolean points are required to have `"Bool"` kind
-  kind: Kind <const> "Bool"
+  kind: Kind <invariant> "Bool"
 
   // Optional text for boolean value formatted as `"falseText,trueText"`
   enum: Obj?
@@ -44,7 +44,7 @@ BoolPoint : Point <abstract> {
 EnumPoint : Point <abstract> {
 
   // Enum points are required to have `"Str"` kind
-  kind: Kind <const> "Str"
+  kind: Kind <invariant> "Str"
 
   // Required range of enumerated string keys
   enum: Obj
@@ -54,7 +54,7 @@ EnumPoint : Point <abstract> {
 NumberPoint : Point <abstract> {
 
   // Number points are required to have `"Number"` kind
-  kind: Kind <const> "Number"
+  kind: Kind <invariant> "Number"
 
   // Unit of measurement for the point
   unit: Unit

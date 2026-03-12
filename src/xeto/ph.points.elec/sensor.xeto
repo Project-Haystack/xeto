@@ -52,7 +52,7 @@ ElecAcAngleVoltSensor : ElecAcVoltSensorX {
 // Sensor for metric of AC electric voltage
 ElecAcQualityVoltSensor : ElecAcVoltSensorX {
   elecAcQualityMetric: ElecAcQualityMetric
-  unit: Unit <fixed> "%"
+  unit: Unit <invariant> "%"
 }
 
 // Sensor for AC electric current (base)
@@ -82,7 +82,7 @@ ElecAcAngleCurrentSensor : ElecAcCurrentSensorX <abstract> {
 // Sensor for metric of AC electric current
 ElecAcQualityCurrentSensor : ElecAcCurrentSensorX <abstract> {
   elecAcQualityMetric: ElecAcQualityMetric
-  unit: Unit <fixed> "%"
+  unit: Unit <invariant> "%"
 }
 
 // Sensor for AC electric current demand

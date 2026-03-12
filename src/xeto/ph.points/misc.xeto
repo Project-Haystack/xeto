@@ -76,7 +76,7 @@ AlarmSensor : BoolPoint & SensorPoint <abstract> { alarm }
 // valves, dampers, and motors as a percentage from 0% to 100%.
 ModulatingPoint : NumberPoint <abstract> {
   modulating
-  unit: Unit <fixed> "%"
+  unit: Unit <invariant> "%"
 }
 
 // Point for modulating cooling capacity as a percentage from 0% to 100%.
@@ -102,3 +102,4 @@ HeatModulatingSensor : HeatModulatingPoint & SensorPoint
 
 // Command for modulating heating capacity as a percentage from 0% to 100%.
 HeatModulatingCmd : HeatModulatingPoint & CmdPoint
+

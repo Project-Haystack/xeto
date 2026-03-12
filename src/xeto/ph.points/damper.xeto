@@ -10,7 +10,7 @@
 DamperPoint : NumberPoint <abstract> {
   air
   damper
-  unit: Unit <fixed> "%"
+  unit: Unit <invariant> "%"
 }
 
 // Damper position sensor; 0% is fully closed, 100% is fully open

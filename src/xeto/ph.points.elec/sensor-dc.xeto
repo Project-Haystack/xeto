@@ -31,7 +31,7 @@ ElecDcEnergySensor : ElecEnergySensor <abstract> {
 ElecDcStateOfChargeSensor : ElecSensor {
   dc
   stateOfCharge
-  unit: Unit <fixed> "%"
+  unit: Unit <invariant> "%"
 }
 
 // Sensor for import of DC electric power
@@ -60,3 +60,4 @@ ElecDcExportEnergySensor : ElecDcEnergySensor { export }
 
 // Sensor for net of DC electric energy
 ElecDcNetEnergySensor : ElecDcEnergySensor { net }
+

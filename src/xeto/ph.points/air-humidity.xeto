@@ -10,7 +10,7 @@
 AirHumidityPoint : NumberPoint <abstract> {
   air
   humidity
-  unit: Unit <fixed> "%RH"
+  unit: Unit <invariant> "%RH"
 }
 
 // Sensor for relative humidity
