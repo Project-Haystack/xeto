@@ -22,7 +22,6 @@ Point: PhEntity <abstract> {
   spaceRef:      Ref?
   systemRef:     MultiRef?
   tz:            TimeZone?
-  unit:          Unit?
   writable:      Marker?
   equips:        Query<of:Equip, via:"equipRef+">  // Parent Equips that contain this Point
 }
@@ -55,10 +54,10 @@ EnumPoint : Point <abstract> {
 NumberPoint : Point <abstract> {
 
   // Number points are required to have `"Number"` kind
-  kind:   Kind <const> "Number"
+  kind: Kind <const> "Number"
 
   // Unit of measurement for the point
-  unit:   Unit?
+  unit: Unit
 
   // Inclusive maximum expected or writable value for the point
   maxVal: Number?
