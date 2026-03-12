@@ -12,15 +12,12 @@
 Point: PhEntity <abstract> {
   point
   cur:           Marker?
-  enum:          Obj?
   equipRef:      Ref?
   his:           Marker?
   kind:          Kind
-  maxVal:        Number?
-  minVal:        Number?
-  pointFunction: PointFunction?
-  pointQuantity: Quantity?
-  pointSubject:  Phenomenon?
+  pointFunction: PointFunction?  // Sensor, command, setpoint/softpoint
+  pointQuantity: Quantity?       // Quantity measured or controlled
+  pointSubject:  Phenomenon?     // Substance/phenomenon measured or controlled
   siteRef:       Ref?
   spaceRef:      Ref?
   systemRef:     MultiRef?
@@ -29,6 +26,59 @@ Point: PhEntity <abstract> {
   writable:      Marker?
   equips:        Query<of:Equip, via:"equipRef+">  // Parent Equips that contain this Point
 }
+
+//////////////////////////////////////////////////////////////////////////
+// Point Kinds
+//////////////////////////////////////////////////////////////////////////
+
+// Boolean or binary/digital point with an true/false state
+BoolPoint : Point <abstract> {
+
+  // Boolean points are required to have `"Bool"` kind
+  kind: Kind <const> "Bool"
+
+  // Optional text for boolean value formatted as `"falseText,trueText"`
+  enum: Obj?
+}
+
+// Enumerated or multi-state point with string value
+EnumPoint : Point <abstract> {
+
+  // Enum points are required to have `"Str"` kind
+  kind: Kind <const> "Str"
+
+  // Required range of enumerated string keys
+  enum: Obj
+}
+
+// Numeric or analog point with floating point value
+NumberPoint : Point <abstract> {
+
+  // Number points are required to have `"Number"` kind
+  kind:   Kind <const> "Number"
+
+  // Unit of measurement for the point
+  unit:   Unit?
+
+  // Inclusive maximum expected or writable value for the point
+  maxVal: Number?
+
+  // Inclusive minimum expected or writable value for the point
+  minVal: Number?
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Point Functions
+//////////////////////////////////////////////////////////////////////////
+
+// Point is a command, actuator, AO/BO.
+CmdPoint: Point <abstract> { cmd }
+
+// Point is a sensor, input, AI/BI.
+SensorPoint: Point <abstract> { sensor }
+
+// Point is a setpoint, soft point, internal control variable, schedule.
+SpPoint: Point <abstract> { sp }
 
 //////////////////////////////////////////////////////////////////////////
 // Cur/His/Writable
