@@ -50,30 +50,15 @@ compLayout: "5, 10, 4"
 
 # CompFunc
 
-If your component model has the concept of object oriented methods, then you
-can use the [sys.comp::CompFunc] type.  Component functions should define
-exactly one parameter, this makes them suitable for wiring sensibly into
-data flow applications via links.
-
-The `CompFunc` type is designed to support component method functions that
-can be defined statically as normal function specs or dynamically in instance
-models.  Static definitions use the standard Func pattern where parameter
-and return types are defined as slots.  Instance definitions must reference
-a predefined Func type via the `funcType` tag. Or if `funcType` is omitted
-we default to a `arg:Obj? -> Obj?` function type signature:
+If your component model has the concept of object oriented methods, then
+define a [sys::Func] slot on your component type.  Component functions
+should define exactly one parameter, this makes them suitable for wiring
+sensibly into data flow applications via links:
 
 ```xeto
-// static slot definition
+// component with func slot
 MyFuncBlock: {
   doIt: Func { arg: Str, returns: Str }
-}
-
-// reusable function signature
-StrToStrFunc: Func { arg: Str, returns: Str }
-
-// dynamic instance definition
-@xyz: MyFuncBlock {
-  doIt: CompFunc { funcType: @acme::StrToStrFunc }
 }
 ```
 
@@ -104,6 +89,22 @@ Here is example:
 @b: DataConsumer {
   links: {
     in: Link { fromRef:@a, fromSlot:"out" }
+  }
+}
+```
+
+If links are predefined in a spec tree, then use the [sys.comp::Spec.link]
+meta tag.  This tag is placed on the to/input slot and specifies the output/from
+slot using using a dotted slot path.  The dotted slot path is always relative
+to the root spec:
+
+```xeto
+CompositeComp: Comp {
+  topIn: Number
+  topOut: Number <link:"sub.innerOut">
+  sub: SubComp {
+    innerIn: Number <link:"topIn">
+    innerOut: Number
   }
 }
 ```

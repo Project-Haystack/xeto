@@ -7,7 +7,8 @@
 //
 
 +Spec {
-  // Link applied to the *to* slot with dotted path to *from* slot.
+  // Link applied on the *to* slot with dotted path for *from* slot.
+  // See [documentation](doc.xeto::Comps#links)
   link: Str?
 }
 
