@@ -6,6 +6,9 @@
 //   4 Apr 2025  Brian Frank  Creation
 //
 
+// Directory of files
+FileDir : File <mimeType:"application/x-directory">
+
 // Application specific file format
 AppFile : File <abstract>
 
