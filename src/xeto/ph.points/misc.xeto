@@ -103,3 +103,8 @@ HeatModulatingSensor : HeatModulatingPoint & SensorPoint
 // Command for modulating heating capacity as a percentage from 0% to 100%.
 HeatModulatingCmd : HeatModulatingPoint & CmdPoint
 
+// Sensor for equipment runtime
+RuntimeSensor : NumberPoint & SensorPoint {
+  runtime
+  unit: Unit <quantity:"time"> "hr"
+}

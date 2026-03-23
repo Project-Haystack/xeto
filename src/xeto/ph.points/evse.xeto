@@ -1,0 +1,56 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   23 Mar 2026  Rick Jennings  Creation
+//
+
+// Operational status enumeration for an EVSE coupler
+EvseCouplerStatusEnum : Enum {
+  // Available for charging.
+  available
+  // Occupied.
+  occupied
+  // Reserved for a specific user.  Only the intended user can authorize a transaction.
+  // An unauthorized user and their parked vehicle may prohibit an authorized user from recharging.
+  reserved
+  // Charging has been prohibited by the CSMS.  May be the result of a faulty EVSE or for safety reasons.
+  unavailable
+  // Charging has been prohibited by the EVSE.  May be the result of a faulty EVSE or for safety reasons.
+  fault
+}
+
+// Sensor for an EVSE coupler's status
+EvseCouplerStatusSensor : EnumPoint & SensorPoint <abstract> {
+  evse
+  coupler
+  enum: Obj <val:EvseCouplerStatusEnum>
+}
+
+// Sensor for an EVSE cable's status
+EvseCableStatusSensor : EvseCouplerStatusSensor { cable }
+
+// Charging status enumeration for an EVSE port
+EvsePortChargingStatusEnum : Enum {
+  // Connected to an EV with the contactor closed to allow
+  // electricity flow between the EVSE port and vehicle.
+  charging
+  // Connected to an EV and not charging.
+  connected
+  // Not connected to an EV.
+  notConnected
+  // Connected to an EV but not charging, due to the vehicle
+  // not accepting power offered by the EVSE port.
+  suspendedEv
+  // Connected to an EV but not charging, due to the EVSE
+  // not offering power to the vehicle.
+  suspendedEvse
+}
+
+// Sensor for an EVSE port's charging status
+EvsePortChargingStatusSensor : EnumPoint & SensorPoint {
+  evse
+  port
+  enum: Obj <val:EvsePortChargingStatusEnum>
+}
