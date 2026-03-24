@@ -131,7 +131,7 @@ Enthalpy: Quantity { enthalpy }
 FeelsLike: Quantity { feelsLike }
 
 // Measure of volumetric flow of fluid
-Flow: Quantity { flow }
+VolumetricFlow: Quantity { flow }
 
 // Occurrences per unit time
 Freq: Quantity { freq }
