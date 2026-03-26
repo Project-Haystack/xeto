@@ -234,6 +234,19 @@ Haystack recommends normalizing AC reactive power points as follows:
  - When the manufacturer does not expose a `net` point, both `import` and
    `export` points should be used to derive a normalized `net` value.
 
+### Apparent Power
+
+Some electric meter manufacturers apply a positive or negative sign to
+apparent power to convey the direction of active power flow, even though
+apparent power is always non-negative by definition.
+
+Haystack recommends normalizing AC apparent power points as follows:
+ - The `absolute` tag is applied when the manufacturer exposes an absolute
+   apparent power point.
+ - When the manufacturer does not expose an `absolute` point, derive a
+   normalized `absolute` value by taking the absolute value of the signed
+   apparent power point.
+
 ## Normalizing AC Electric Active Energy Measurements
 
 Electricity meters typically report active energy as accumulated totalized
@@ -258,6 +271,19 @@ Haystack recommends normalizing AC active energy points as follows:
 
 Although totalized energy registers are most common, these recommendations
 apply for both totalized and untotalized interval energy data.
+
+## Normalizing AC Electric RMS Current Measurements
+
+Some electric meter manufacturers apply a positive or negative sign to AC RMS
+current to convey the direction of current flow, even though AC RMS current
+magnitude is always non-negative by definition.
+
+Haystack recommends normalizing AC RMS current points as follows:
+ - The `absolute` tag is applied when the manufacturer exposes an absolute
+   current point.
+ - When the manufacturer does not expose an `absolute` point, derive a
+   normalized `absolute` value by taking the absolute value of the signed
+   current point.
 
 ## Locations for AC Measurements
 TODO: this section is out-of-date

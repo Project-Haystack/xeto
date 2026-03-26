@@ -17,3 +17,9 @@ ElecDcImportPowerMaxSp : ElecDcPowerMaxSp { import }
 
 // Max setpoint for import of DC electric current
 ElecDcImportCurrentMaxSp : ElecDcCurrentMaxSp { import }
+
+// Max setpoint for import of DC electric power at a vehicle inlet
+VehicleInputElecDcImportPowerMaxSp : ElecDcImportPowerMaxSp {
+  vehicle
+  input
+}

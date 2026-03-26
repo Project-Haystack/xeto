@@ -12,6 +12,10 @@
 // to ensure consistent usage of terminology.
 PhEntity: Entity <abstract> {
 
+  // Unsigned magnitude of a potentially signed data value. For change
+  // measurements that may be negative, use 'delta' instead.
+  *absolute: Marker
+
   // Cooling process using energy from heat source such as hot water
   *absorption: Marker
 
@@ -99,6 +103,10 @@ PhEntity: Entity <abstract> {
 
   // Equipment used to store electric energy
   *battery: Marker
+
+  // Mechanical component that supports rotating, reducing
+  // friction between moving surfaces
+  *bearing: Marker
 
   // Plant or animal material used as fuel to produce electricity or heat
   *biomass: Marker
@@ -1256,6 +1264,9 @@ PhEntity: Entity <abstract> {
   // Rotary screw compression
   *rotaryScrew: Marker
 
+  // Rotation or spinning motion around an axis
+  *rotational: Marker
+
   // Device used to route data packets
   *router: Marker
 
@@ -1270,6 +1281,9 @@ PhEntity: Entity <abstract> {
   // the equipment also defines an [ph::PhEntity.enable] point then both must be commanded
   // on in order to run the equipment.
   *run: Marker
+
+  // Accumulated time an equipment has been in operation
+  *runtime: Marker
 
   // Scalar is an atomic value kind
   *scalar: Obj
@@ -1509,6 +1523,9 @@ PhEntity: Entity <abstract> {
   // AHU supplies air to VAV terminal units
   *vavZone: Marker
 
+  // Vehicle used to transport people or goods
+  *vehicle: Marker
+
   // Speed in a given direction
   *velocity: Marker
 
@@ -1580,6 +1597,10 @@ PhEntity: Entity <abstract> {
 
   // Flow of air on surface of the Earth
   *wind: Marker
+
+  // Coil of wire in a transformer, motor, or other electromagnetic device used to
+  // transfer electricity via electromagnetic induction
+  *winding: Marker
 
   // Cabling used to convey electricity or data
   *wire: Marker

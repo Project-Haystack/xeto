@@ -47,3 +47,39 @@ MotorSpeedModulatingSensor : MotorSpeedModulatingPoint & SensorPoint
 // Command for modulating motor speed.  Speed is measured as a
 // percentage where 0% is off and 100% is full speed.
 MotorSpeedModulatingCmd : MotorSpeedModulatingPoint & CmdPoint
+
+// Sensor for mechanical frequency
+MechFreqSensor : NumberPoint & SensorPoint <abstract> { mech, freq }
+
+// Sensor for mechanical rotational frequency
+MechRotationalFreqSensor : MechFreqSensor {
+  rotational
+  unit: "rpm"
+}
+
+// Sensor for a motor shaft's mechanical rotational frequency
+MotorMechRotationalFreqSensor : MechRotationalFreqSensor { motor }
+
+// Mechanical rotational direction enumeration, where 'forward' and 'reverse'
+// are relative to the motor's nominal rotational direction
+MechRotationalDirectionEnum: Enum { forward, reverse }
+
+// Point associated with mechanical rotational direction
+MechRotationalDirectionPoint : EnumPoint <abstract> {
+  mech
+  rotational
+  direction
+  enum: Obj <val:MechRotationalDirectionEnum>
+}
+
+// Sensor for mechanical rotational direction
+MechRotationalDirectionSensor : MechRotationalDirectionPoint & SensorPoint
+
+// Command for mechanical rotational direction
+MechRotationalDirectionCmd : MechRotationalDirectionPoint & CmdPoint
+
+// Sensor for a motor shaft's mechanical rotational direction
+MotorMechRotationalDirectionSensor : MechRotationalDirectionSensor { motor }
+
+// Command for a motor shaft's mechanical rotational direction
+MotorMechRotationalDirectionCmd : MechRotationalDirectionCmd { motor }
