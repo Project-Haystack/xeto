@@ -174,10 +174,17 @@ Crac: Fcu {
   crac
 }
 
-// Actuator to regulate the flow of air.
-DamperActuator: Actuator {
+// Equipment to regulate the flow of air in ductwork.  Dampers may be
+// manually operated or automated via an actuator.  Non-actuated dampers
+// such as manual balancing dampers, backdraft dampers, and fire dampers
+// use this spec directly.  BAS-controlled dampers use DamperActuator.
+Damper: Equip <abstract> {
   damper
   ductSection: DuctSection?
+}
+
+// Actuator to regulate the flow of air.
+DamperActuator: Actuator & Damper {
 }
 
 // DC Electricity meter.
@@ -481,11 +488,19 @@ Ups: Equip {
   ups
 }
 
-// Actuator to regulate the flow of fluid.
-ValveActuator: Actuator {
+// Equipment to regulate the flow of fluid in piping.  Valves may be
+// manually operated, self-actuated, or automated via an actuator.
+// Non-actuated valves such as manual isolation valves, check valves,
+// pressure-reducing valves, and thermostatic mixing valves use this
+// spec directly.  BAS-controlled valves use ValveActuator.
+Valve: Equip <abstract> {
   valve
   pipeFluid:   Fluid?
   pipeSection: PipeSection?
+}
+
+// Actuator to regulate the flow of fluid.
+ValveActuator: Actuator & Valve {
 }
 
 // Variable air volume terminal unit.  VAV systems use a constant air

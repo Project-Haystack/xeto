@@ -1448,6 +1448,11 @@ PhEntity: Entity <abstract> {
   // may provide an interface for setpoint control.
   *thermostat: Marker
 
+  // Self-actuated temperature regulation.  Used as a feature marker on
+  // valves (e.g. thermostatic mixing valve) and other equipment where
+  // temperature drives the control action without an external actuator.
+  *thermostatic: Marker
+
   // Three-phase AC electricity. Power is provided by three AC voltage
   // sources, each separated from the others by a 120-degree phase angle.
   // May have a 4-wire connection with a neutral (Wye) or a 3-wire connection
