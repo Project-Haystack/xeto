@@ -47,6 +47,7 @@ AcEvsePort: EvsePort {
 // hydraulics, or pneumatics.
 Actuator: Equip {
   actuator
+  actuatorDirection: ActuatorDirection?
 }
 
 // Air Handling Unit: An enclosure with a fan that delivers air to a space
