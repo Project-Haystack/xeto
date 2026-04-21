@@ -10,7 +10,7 @@ The formal BNF grammar for Xeto:
 <mixinDef>     :=  "+" <type> ":" [<meta>] [<specSlots>] <nl> // must have at least one
 <instance>     :=  <ref> ":" <dict> <nl>
 
-<spec>         :=  [<type> [<meta>]] <specBody> // must have at one
+<spec>         :=  [<type>] [<meta>] [<specBody>] // must have at one
 <meta>         :=  "<" <dictTags> ">"
 <specBody>     :=  <specSlots> | <specVal>
 <specVal>      :=  <scalar>
