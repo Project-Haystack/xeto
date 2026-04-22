@@ -25,15 +25,15 @@ ElecAcFreqSensor : ElecSensor {
   ac
 }
 
-// Sensor for AC electric voltage (base)
-ElecAcVoltSensorX : ElecVoltSensor <abstract> {
+// Sensor for AC electric voltage
+ElecAcVoltSensor : ElecVoltSensor <abstract> {
   ac
   elecAcSpectralContent: ElecAcSpectralContent?
   elecAcHarmonicOrder: Int? <minVal: 2>
 }
 
 // Sensor for magnitude of AC electric voltage
-ElecAcMagnitudeVoltSensor : ElecAcVoltSensorX <abstract> {
+ElecAcMagnitudeVoltSensor : ElecAcVoltSensor <abstract> {
   magnitude
   elecAcWaveformMagnitude: ElecAcWaveformMagnitude
   unit: Unit <quantity:"electricPotential"> "V"
@@ -41,46 +41,51 @@ ElecAcMagnitudeVoltSensor : ElecAcVoltSensorX <abstract> {
 }
 
 // Sensor for RMS of AC electric voltage
-ElecAcVoltSensor : ElecAcMagnitudeVoltSensor { rootMeanSquare }
+ElecAcRmsVoltSensor : ElecAcMagnitudeVoltSensor { rootMeanSquare }
 
 // Sensor for angle of AC electric voltage
-ElecAcAngleVoltSensor : ElecAcVoltSensorX {
+ElecAcAngleVoltSensor : ElecAcVoltSensor {
   angle
   unit: "deg"
 }
 
 // Sensor for metric of AC electric voltage
-ElecAcQualityVoltSensor : ElecAcVoltSensorX {
+ElecAcQualityVoltSensor : ElecAcVoltSensor {
   elecAcQualityMetric: ElecAcQualityMetric
   unit: Unit <invariant> "%"
 }
 
-// Sensor for AC electric current (base)
-ElecAcCurrentSensorX : ElecCurrentSensor <abstract> {
+// Sensor for AC electric current
+ElecAcCurrentSensor : ElecCurrentSensor <abstract> {
   ac
   elecAcSpectralContent: ElecAcSpectralContent?
   elecAcHarmonicOrder: Int? <minVal: 2>
 }
 
 // Sensor for magnitude of AC electric current
-ElecAcMagnitudeCurrentSensor : ElecAcCurrentSensorX <abstract> {
+ElecAcMagnitudeCurrentSensor : ElecAcCurrentSensor <abstract> {
   magnitude
   unit: Unit <quantity:"electricCurrent"> "A"
   elecAcWaveformMagnitude: ElecAcWaveformMagnitude?
+}
+
+// Sensor for RMS of AC electric current.
+ElecAcRmsCurrentSensor : ElecAcMagnitudeCurrentSensor <abstract> { rootMeanSquare }
+
+// Sensor for RMS of AC electric current. Reports magnitude only; does not
+// use a sign to indicate whether electricity is imported or exported.
+ElecAcUnsignedRmsCurrentSensor : ElecAcRmsCurrentSensor {
   minVal: Number 0.0
 }
 
-// Sensor for RMS of AC electric current
-ElecAcCurrentSensor : ElecAcMagnitudeCurrentSensor { rootMeanSquare }
-
 // Sensor for angle of AC electric current
-ElecAcAngleCurrentSensor : ElecAcCurrentSensorX <abstract> {
+ElecAcAngleCurrentSensor : ElecAcCurrentSensor <abstract> {
   angle
   unit: "deg"
 }
 
 // Sensor for metric of AC electric current
-ElecAcQualityCurrentSensor : ElecAcCurrentSensorX <abstract> {
+ElecAcQualityCurrentSensor : ElecAcCurrentSensor <abstract> {
   elecAcQualityMetric: ElecAcQualityMetric
   unit: Unit <invariant> "%"
 }
@@ -156,17 +161,23 @@ ElecAcExportApparentPowerSensor : ElecAcApparentPowerSensor { export }
 // Sensor for net of average magnitude of AC electric apparent power
 ElecAcNetApparentPowerSensor : ElecAcApparentPowerSensor { net }
 
+// Sensor for average magnitude of AC electric apparent power. Reports magnitude only;
+// does not use a sign to indicate whether electricity is imported or exported.
+ElecAcUnsignedApparentPowerSensor : ElecAcApparentPowerSensor {
+  minVal: Number 0.0
+}
+
 // Sensor for net of AC electric current demand
 ElecAcNetCurrentDemandSensor : ElecAcCurrentDemandSensor { net }
 
 // Sensor for line average RMS of AC electric voltage
-ElecAcLLAvgVoltSensor : ElecAcVoltSensor { elecLLAvg }
+ElecAcLLAvgRmsVoltSensor : ElecAcRmsVoltSensor { elecLLAvg }
 
 // Sensor for phase RMS of AC electric voltage
-ElecAcPhaseVoltSensor : ElecAcVoltSensor { phase: Phase }
+ElecAcPhaseRmsVoltSensor : ElecAcRmsVoltSensor { phase: Phase }
 
 // Sensor for phase average RMS of AC electric voltage
-ElecAcLAvgVoltSensor : ElecAcVoltSensor { elecLAvg }
+ElecAcLAvgRmsVoltSensor : ElecAcRmsVoltSensor { elecLAvg }
 
 // Sensor for phase angle of AC electric voltage
 ElecAcPhaseAngleVoltSensor : ElecAcAngleVoltSensor { phase: Phase }
@@ -180,17 +191,21 @@ ElecAcPhaseQualityVoltSensor : ElecAcQualityVoltSensor { phase: Phase }
 // Sensor for phase average metric of AC electric voltage
 ElecAcLAvgQualityVoltSensor : ElecAcQualityVoltSensor { elecLAvg }
 
-// Sensor for line average RMS of AC electric current
-ElecAcLAvgCurrentSensor : ElecAcCurrentSensor { elecLAvg }
+// Sensor for line average RMS of AC electric current. Reports magnitude only;
+// does not use a sign to indicate whether electricity is imported or exported.
+ElecAcLAvgUnsignedRmsCurrentSensor : ElecAcUnsignedRmsCurrentSensor { elecLAvg }
 
-// Sensor for phase RMS of AC electric current
-ElecAcPhaseCurrentSensor : ElecAcCurrentSensor { phase: Phase }
+// Sensor for phase RMS of AC electric current. Reports magnitude only;
+// does not use a sign to indicate whether electricity is imported or exported.
+ElecAcPhaseUnsignedRmsCurrentSensor : ElecAcUnsignedRmsCurrentSensor { phase: Phase }
 
-// Sensor for neutral RMS of AC electric current
-ElecAcNeutralCurrentSensor : ElecAcCurrentSensor { neutral }
+// Sensor for neutral RMS of AC electric current. Reports magnitude only;
+// does not use a sign to indicate whether electricity is imported or exported.
+ElecAcNeutralUnsignedRmsCurrentSensor : ElecAcUnsignedRmsCurrentSensor { neutral }
 
-// Sensor for ground RMS of AC electric current
-ElecAcGroundCurrentSensor : ElecAcCurrentSensor { ground }
+// Sensor for ground RMS of AC electric current. Reports magnitude only;
+// does not use a sign to indicate whether electricity is imported or exported.
+ElecAcGroundUnsignedRmsCurrentSensor : ElecAcUnsignedRmsCurrentSensor { ground }
 
 // Sensor for phase angle of AC electric current
 ElecAcPhaseAngleCurrentSensor : ElecAcAngleCurrentSensor { phase: Phase }
@@ -261,6 +276,10 @@ ElecAcTotalExportApparentPowerSensor : ElecAcExportApparentPowerSensor { total }
 // Sensor for total net of average magnitude of AC electric apparent power
 ElecAcTotalNetApparentPowerSensor : ElecAcNetApparentPowerSensor { total }
 
+// Sensor for total average magnitude of AC electric apparent power. Reports magnitude only;
+// does not use a sign to indicate whether electricity is imported or exported.
+ElecAcTotalUnsignedApparentPowerSensor : ElecAcUnsignedApparentPowerSensor { total }
+
 // Sensor for phase import of average magnitude of AC electric apparent power
 ElecAcPhaseImportApparentPowerSensor : ElecAcImportApparentPowerSensor { phase: Phase }
 
@@ -269,6 +288,10 @@ ElecAcPhaseExportApparentPowerSensor : ElecAcExportApparentPowerSensor { phase: 
 
 // Sensor for phase net of average magnitude of AC electric apparent power
 ElecAcPhaseNetApparentPowerSensor : ElecAcNetApparentPowerSensor { phase: Phase }
+
+// Sensor for phase average magnitude of AC electric apparent power. Reports magnitude only;
+// does not use a sign to indicate whether electricity is imported or exported.
+ElecAcPhaseUnsignedApparentPowerSensor : ElecAcUnsignedApparentPowerSensor { phase: Phase }
 
 // Sensor for phase AC electric power factor
 ElecAcPhasePfSensor : ElecAcPfSensor { phase: Phase }

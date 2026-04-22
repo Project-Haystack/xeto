@@ -12,10 +12,6 @@
 // to ensure consistent usage of terminology.
 PhEntity: Entity <abstract> {
 
-  // Unsigned magnitude of a potentially signed data value. For change
-  // measurements that may be negative, use 'delta' instead.
-  *absolute: Marker
-
   // Cooling process using energy from heat source such as hot water
   *absorption: Marker
 
