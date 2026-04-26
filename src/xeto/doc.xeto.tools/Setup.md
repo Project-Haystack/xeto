@@ -6,6 +6,8 @@ line tools for working with Xeto.  Haxall is written in the [Fantom](https://fan
 programming language which allows the Xeto tools to run with either
 NodeJS or Java.
 
+Note: the Java version is the one more heavily used at this time.
+
 # Install for Java
 
 Follow the setup instructions from [Haxall docs](https://haxall.io/doc/docHaxall/Setup):
@@ -107,8 +109,4 @@ for a library named "acme.templates":
 /work/haxall-home/src/xeto/acme.templates/
 /work/haxall-home/lib/xeto/acme.templates/
 ```
-
-
-
-
 
