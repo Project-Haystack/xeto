@@ -114,3 +114,23 @@ Legend for BNF Grammar:
   x|x     or
 ```
 
+# Props File
+The props file format is used to encode name/value pairs for simple, quick
+access when full Xeto would be overkill.  The format is line oriented
+name/value pairs separated by the `=` character.  The specific details
+for this format are:
+
+- File must be UTF-8 encoded
+- Name/value pairs formatted as logical line: `<name>=<value>`
+- Any Unicode character allowed in name or value
+- Leading and trailing whitespace trimmed from both name and value
+- Duplicate name keys within one file is an error condition
+- Lines starting with `#` are comments
+- Comment to end of line is `//` if start of line or preceeded whitespace
+- Block comment is `/* */` (may be nested)
+- Use trailing `\` to continue logical line to another actual line,
+  any leading whitespace (space or tab char) is trimmed from beginning
+  of continued line
+- Literal escape sequences supported: `\n \r \t or \uxxxx`
+- Convention is that name is lower camel case with dot separators
+

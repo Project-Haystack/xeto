@@ -144,3 +144,79 @@ publishing the library. Org is a dict with the following tags:
   - 'dis': display name for the organization
   - 'uri': URL to the organization's web site
 
+# Build Vars
+
+It is common to define many Xeto libs that all share the same metadata such
+as version, dependency constraints, or org meta.  You can define this
+metadata once and reference it using *build varaibles*.
+
+Define your build variables in a file named `src/xeto/build.props`
+in the root of your source environment.  It is formatted as a [props file](Grammar.md#props-file)
+and variable names should use your lib prefix.  Build variables are
+inherited when using [pathing](doc.xeto.tools::Setup#env-path).
+
+Here is an example file:
+
+```
+ph.version=5.0.0
+ph.depend=5.0.0
+ph.license=AFL-3.0
+ph.org.dis=Project Haystack
+ph.org.uri=https://project-haystack.org/
+```
+
+Then your `lib.xeto` you can reference these variables as placeholders
+via the [sys::BuildVar] scalar type:
+
+```xeto
+pragma: Lib <
+  doc: "Project haystack points library"
+  version: BuildVar "ph.version"
+  depends: {
+    { lib: "sys", versions: BuildVar "ph.depend" }
+    { lib: "ph",  versions: BuildVar "ph.depend" }
+  }
+  categories: {"ph"}
+  license: BuildVar "ph.license"
+  org: {
+   dis: BuildVar "ph.org.dis"
+   uri: BuildVar "ph.org.uri"
+  }
+>
+```
+
+# Xetolib
+
+Xeto libraries are distributed as zip file named as `{name}.xetolib`.
+This file is a zip of the source directory with the following extra
+files:
+
+- `meta.props`: required precompiled lib meta
+- `build.props`: optional build variables required to compile source
+
+## meta.props
+
+The `meta.props` file is required to optimize reading out critcal metadata
+in local repositories without a full compile.  It is formatted as a
+[props file](Grammar.md#props-file) with following names:
+
+  - `name`: name of the lib
+  - `version`: version of the lib
+  - `depends`: semicolon separated list of depends formatted as `{name} {versions}`
+  - `doc`: summary documentation for lib
+
+Here is an example:
+
+```
+name=ph.points
+version=5.0.1
+depends=sys 5.0.x;ph 5.0.x
+doc=Project haystack points library
+```
+
+## build.props
+
+The optional `build.props` file specifies all build variables captured from
+the source environment required to recompile the Xeto source with metadata
+as it was originally built.
+
