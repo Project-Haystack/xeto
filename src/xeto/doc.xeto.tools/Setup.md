@@ -13,7 +13,7 @@ Note: the Java version is the one more heavily used at this time.
 Follow the setup instructions from [Haxall docs](https://haxall.io/doc/docHaxall/Setup):
 
 1. Install Java on your system
-2. Download and unzip the last release from [GitHub](https://github.com/haxall/haxall/releases)
+2. Download and unzip the latest release from [GitHub](https://github.com/haxall/haxall/releases)
 3. Run 'xeto version' to verify install
 
    ```

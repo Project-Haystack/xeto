@@ -55,6 +55,32 @@ to manage the remote configuration.
 Haxall ships with a built-in remote named `xetodev` used to install libs
 from central repository hosted at [https://xeto.dev/](https://xeto.dev/).
 
+# Auth Tokens
+
+Remote repos that require an authentication token are managed by environment
+variables.  This is designed to keep secrets out of shell histories and version
+control.
+
+Auth tokens always use the environment names "XETO_REPO_{x}" where `x` is
+the programmatic repo name or repo type.  For example if you create a repo
+named "foo", then the auth token should be stored in the environment
+variable named "XETO_REPO_FOO".  You can also configure an auth token for
+a type of remote; for example all GitHub repos will look for an auth
+token named "XETO_REPO_GITHUB" if it does not first find one for a specific
+repo name.
+
+You can set these environment variables using any of the usual
+mechanisms in your OS.  Haxall also provides a special way to set them
+using your [path](Setup.md#env-path) in the "fan.props" file as follows:
+
+```
+env.XETO_REPO_GITHUB=my-pat
+```
+
+You can use the CLI commands `remote-login` and `remote-logout` to manage
+environment variables in "fan.props".  For GitHub repos you will need to
+generate a *personal access token* (see GitHub docs).
+
 # Command Line
 
 The `xeto` command line tool provides a set of subcommands for managing
@@ -65,10 +91,11 @@ and querying your local and remote repos.
 Use the `repo` command to query the local repo for the installed libs:
 
 ```
-xeto repo                  // list the latest version of all libs
-xeto repo sys -versions    // list all versions of the sys lib
-xeto repo -full            // list full details of latest version of all libs
-xeto repo -full -versions  // list the latest version of all libs
+xeto repo            // list all libs as table
+xeto repo sys        // list specific lib
+xeto repo sys ph     // list multiple libs
+xeto repo sys -full  // list full details of a specific lib
+xeto repo -full      // list full details of all libs
 ```
 
 ## remote-list
@@ -93,7 +120,7 @@ xeto remote-add acme https://acme.com/
 The name must be a valid tag name (start lower case and contain only
 ASCII letters, digits, and underbar).  By default the remote is
 configured in the work directory of your path.  Use the `-pathDir`
-to configure it a different level of your path.
+to configure it at a different level of your path.
 
 ## remote-remove
 
@@ -104,6 +131,26 @@ updated until a remote with the same URI is configured again.
 ```
 xeto remote-remove <name>
 xeto remote-remove acme
+```
+
+## remote-login
+
+Use this command to add an [auth token](#auth-tokens) to your fan.props:
+
+```
+xeto remote-login            // configure token for default repo
+xeto remote-login -r acme    // configure token for repo named 'acme'
+xeto remote-login -t github  // configure default token use for all github repos
+```
+
+## remote-logout
+
+Use this command to remove an [auth token](#auth-tokens) from your fan.props:
+
+```
+xeto remote-logout            // remove token for default repo
+xeto remote-logout -r acme    // remove token for repo named 'acme'
+xeto remote-logout -t github  // remove default token use for all github repos
 ```
 
 ## remote-ping
