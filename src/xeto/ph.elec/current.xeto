@@ -1,0 +1,146 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   18 May 2026  Rick Jennings  Creation
+//
+
+//////////////////////////////////////////////////////////////////////////
+// Sensors
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for electric current
+ElecCurrentSensor : ElecSensor <abstract> { current }
+
+//////////////////////////////////////////////////////////////////////////
+// AC Sensors
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for AC electric current
+ElecAcCurrentSensor : ElecCurrentSensor <abstract> {
+  ac
+  elecAcSpectralContent: ElecAcSpectralContent?
+  elecAcHarmonicOrder: Int? <minVal: 2>
+}
+
+// Sensor for magnitude of AC electric current
+ElecAcMagnitudeCurrentSensor : ElecAcCurrentSensor <abstract> {
+  magnitude
+  unit: Unit <quantity:"electricCurrent"> "A"
+  elecAcWaveformMagnitude: ElecAcWaveformMagnitude?
+}
+
+// Sensor for RMS of AC electric current.
+ElecAcRmsCurrentSensor : ElecAcMagnitudeCurrentSensor <abstract> { rootMeanSquare }
+
+// Sensor for RMS of AC electric current. Reports magnitude only; does not
+// use a sign to indicate whether electricity is imported or exported.
+ElecAcUnsignedRmsCurrentSensor : ElecAcRmsCurrentSensor {
+  minVal: Number 0.0
+}
+
+// Sensor for angle of AC electric current
+ElecAcAngleCurrentSensor : ElecAcCurrentSensor <abstract> {
+  angle
+  unit: "deg"
+}
+
+// Sensor for metric of AC electric current
+ElecAcQualityCurrentSensor : ElecAcCurrentSensor <abstract> {
+  elecAcQualityMetric: ElecAcQualityMetric
+  unit: Unit <invariant> "%"
+}
+
+// Sensor for line average RMS of AC electric current. Reports magnitude only;
+// does not use a sign to indicate whether electricity is imported or exported.
+ElecAcLAvgUnsignedRmsCurrentSensor : ElecAcUnsignedRmsCurrentSensor { elecLAvg }
+
+// Sensor for phase RMS of AC electric current. Reports magnitude only;
+// does not use a sign to indicate whether electricity is imported or exported.
+ElecAcPhaseUnsignedRmsCurrentSensor : ElecAcUnsignedRmsCurrentSensor { phase: Phase }
+
+// Sensor for neutral RMS of AC electric current. Reports magnitude only;
+// does not use a sign to indicate whether electricity is imported or exported.
+ElecAcNeutralUnsignedRmsCurrentSensor : ElecAcUnsignedRmsCurrentSensor { neutral }
+
+// Sensor for ground RMS of AC electric current. Reports magnitude only;
+// does not use a sign to indicate whether electricity is imported or exported.
+ElecAcGroundUnsignedRmsCurrentSensor : ElecAcUnsignedRmsCurrentSensor { ground }
+
+// Sensor for phase angle of AC electric current
+ElecAcPhaseAngleCurrentSensor : ElecAcAngleCurrentSensor { phase: Phase }
+
+// Sensor for neutral angle of AC electric current
+ElecAcNeutralAngleCurrentSensor : ElecAcAngleCurrentSensor { neutral }
+
+// Sensor for ground angle of AC electric current
+ElecAcGroundAngleCurrentSensor : ElecAcAngleCurrentSensor { ground }
+
+// Sensor for phase metric of AC electric current
+ElecAcPhaseQualityCurrentSensor : ElecAcQualityCurrentSensor { phase: Phase }
+
+// Sensor for phase average metric of AC electric current
+ElecAcLAvgQualityCurrentSensor : ElecAcQualityCurrentSensor { elecLAvg }
+
+// Sensor for neutral metric of AC electric current
+ElecAcNeutralQualityCurrentSensor : ElecAcQualityCurrentSensor { neutral }
+
+// Sensor for ground metric of AC electric current
+ElecAcGroundQualityCurrentSensor : ElecAcQualityCurrentSensor { ground }
+
+//////////////////////////////////////////////////////////////////////////
+// DC Sensors
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for DC electric current
+ElecDcCurrentSensor : ElecCurrentSensor <abstract> {
+  dc
+  unit: Unit <quantity:"electricCurrent"> "A"
+}
+
+// Sensor for import of DC electric current
+ElecDcImportCurrentSensor : ElecDcCurrentSensor { import }
+
+// Sensor for export of DC electric current
+ElecDcExportCurrentSensor : ElecDcCurrentSensor { export }
+
+// Sensor for net of DC electric current
+ElecDcNetCurrentSensor : ElecDcCurrentSensor { net }
+
+//////////////////////////////////////////////////////////////////////////
+// Setpoints
+//////////////////////////////////////////////////////////////////////////
+
+// Max setpoint for electric current
+ElecCurrentMaxSp : ElecMaxSp <abstract> {
+  current
+  unit: Unit <quantity:"electricCurrent"> "A"
+}
+
+//////////////////////////////////////////////////////////////////////////
+// AC Setpoints
+//////////////////////////////////////////////////////////////////////////
+
+// Max setpoint for RMS of AC electric current
+ElecAcCurrentMaxSp : ElecCurrentMaxSp <abstract> {
+  ac
+  magnitude
+  rootMeanSquare
+}
+
+// Max setpoint for import of RMS of AC electric current
+ElecAcImportCurrentMaxSp : ElecAcCurrentMaxSp { import }
+
+// Max setpoint for phase import of RMS of AC electric current
+ElecAcPhaseImportCurrentMaxSp : ElecAcImportCurrentMaxSp { phase: Phase }
+
+//////////////////////////////////////////////////////////////////////////
+// DC Setpoints
+//////////////////////////////////////////////////////////////////////////
+
+// Max setpoint for DC electric current
+ElecDcCurrentMaxSp : ElecCurrentMaxSp <abstract> { dc }
+
+// Max setpoint for import of DC electric current
+ElecDcImportCurrentMaxSp : ElecDcCurrentMaxSp { import }

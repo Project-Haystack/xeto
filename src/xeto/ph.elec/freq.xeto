@@ -3,11 +3,15 @@
 // Licensed under the Academic Free License version 3.0
 //
 // History:
-//   2 Mar 2026  Rick Jennings  Creation
+//   18 May 2026  Rick Jennings  Creation
 //
 
-// Command for electricity
-ElecCmd : NumberPoint & CmdPoint <abstract> { elec }
+// Sensor for AC electric frequency
+ElecAcFreqSensor : ElecSensor {
+  freq
+  unit: "Hz"
+  ac
+}
 
 // Command for AC electric frequency
 ElecAcFreqCmd : ElecCmd {

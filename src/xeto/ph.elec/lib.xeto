@@ -1,13 +1,13 @@
 //
-// Copyright (c) 2024, Project-Haystack
+// Copyright (c) 2026, Project-Haystack
 // Licensed under the Academic Free License version 3.0
 //
 // History:
-//   3 Nov 2024  Rick Jennings  Creation
+//   18 May 2026  Rick Jennings  Creation
 //
 
 pragma: Lib <
-  doc: "Project haystack advanced electrical points"
+  doc: "Project Haystack's Xeto specs for electricity"
   version: BuildVar "ph.version"
   depends: {
     { lib: "sys", versions: BuildVar "ph.depend" }

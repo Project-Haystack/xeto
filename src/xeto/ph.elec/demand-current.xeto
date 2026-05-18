@@ -1,0 +1,19 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   18 May 2026  Rick Jennings  Creation
+//
+
+// Sensor for AC electric current demand
+ElecAcCurrentDemandSensor : ElecAcDemandSensor <abstract> {
+  current
+  unit: "A"
+}
+
+// Sensor for net of AC electric current demand
+ElecAcNetCurrentDemandSensor : ElecAcCurrentDemandSensor { net }
+
+// Sensor for line net of AC electric current demand
+ElecAcPhaseNetCurrentDemandSensor : ElecAcNetCurrentDemandSensor { phase: Phase }
