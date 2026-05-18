@@ -1,0 +1,14 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   18 May 2026  Rick Jennings  Creation
+//
+
+// Sensor for DC electric state of charge
+ElecDcStateOfChargeSensor : ElecSensor {
+  dc
+  stateOfCharge
+  unit: Unit <invariant> "%"
+}

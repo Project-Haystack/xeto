@@ -1,0 +1,22 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   18 May 2026  Rick Jennings  Creation
+//
+
+// Sensor for AC electric power factor
+ElecAcPfSensor : ElecSensor <abstract> {
+  pf
+  unit: Unit <invariant> "pf"
+  ac
+  pfScope: PfScope?
+  pfStandard: PfStandard?
+}
+
+// Sensor for total AC electric power factor
+ElecAcTotalPfSensor : ElecAcPfSensor { total }
+
+// Sensor for phase AC electric power factor
+ElecAcPhasePfSensor : ElecAcPfSensor { phase: Phase }

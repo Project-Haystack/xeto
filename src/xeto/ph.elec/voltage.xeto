@@ -1,0 +1,76 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   18 May 2026  Rick Jennings  Creation
+//
+
+//////////////////////////////////////////////////////////////////////////
+// Sensors
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for electric voltage
+ElecVoltSensor : ElecSensor <abstract> { volt }
+
+//////////////////////////////////////////////////////////////////////////
+// AC Sensors
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for AC electric voltage
+ElecAcVoltSensor : ElecVoltSensor <abstract> {
+  ac
+  elecAcSpectralContent: ElecAcSpectralContent?
+  elecAcHarmonicOrder: Int? <minVal: 2>
+}
+
+// Sensor for magnitude of AC electric voltage
+ElecAcMagnitudeVoltSensor : ElecAcVoltSensor <abstract> {
+  magnitude
+  elecAcWaveformMagnitude: ElecAcWaveformMagnitude
+  unit: Unit <quantity:"electricPotential"> "V"
+  minVal: Number 0.0
+}
+
+// Sensor for RMS of AC electric voltage
+ElecAcRmsVoltSensor : ElecAcMagnitudeVoltSensor { rootMeanSquare }
+
+// Sensor for angle of AC electric voltage
+ElecAcAngleVoltSensor : ElecAcVoltSensor {
+  angle
+  unit: "deg"
+}
+
+// Sensor for metric of AC electric voltage
+ElecAcQualityVoltSensor : ElecAcVoltSensor {
+  elecAcQualityMetric: ElecAcQualityMetric
+  unit: Unit <invariant> "%"
+}
+
+// Sensor for line average RMS of AC electric voltage
+ElecAcLLAvgRmsVoltSensor : ElecAcRmsVoltSensor { elecLLAvg }
+
+// Sensor for phase RMS of AC electric voltage
+ElecAcPhaseRmsVoltSensor : ElecAcRmsVoltSensor { phase: Phase }
+
+// Sensor for phase average RMS of AC electric voltage
+ElecAcLAvgRmsVoltSensor : ElecAcRmsVoltSensor { elecLAvg }
+
+// Sensor for phase angle of AC electric voltage
+ElecAcPhaseAngleVoltSensor : ElecAcAngleVoltSensor { phase: Phase }
+
+// Sensor for line average metric of AC electric voltage
+ElecAcLLAvgQualityVoltSensor : ElecAcQualityVoltSensor { elecLLAvg }
+
+// Sensor for phase metric of AC electric voltage
+ElecAcPhaseQualityVoltSensor : ElecAcQualityVoltSensor { phase: Phase }
+
+// Sensor for phase average metric of AC electric voltage
+ElecAcLAvgQualityVoltSensor : ElecAcQualityVoltSensor { elecLAvg }
+
+//////////////////////////////////////////////////////////////////////////
+// DC Sensors
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for DC electric voltage
+ElecDcVoltSensor : ElecVoltSensor { dc }

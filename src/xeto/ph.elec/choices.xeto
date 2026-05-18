@@ -1,10 +1,21 @@
 //
-// Copyright (c) 2025, Project-Haystack
+// Copyright (c) 2026, Project-Haystack
 // Licensed under the Academic Free License version 3.0
 //
 // History:
-//   21 Mar 2025  Rick Jennings  Creation
+//   18 May 2026  Rick Jennings  Creation
 //
+
+ElecDirection: Choice
+ElecImportDirection: ElecDirection { import }
+ElecExportDirection: ElecDirection { export }
+ElecNetDirection: ElecDirection { net }
+ElecAbsoluteDirection: ElecDirection { absolute }
+
+ElecAcPowerSubtype: Choice
+ElecAcActivePower: ElecAcPowerSubtype { active }
+ElecAcReactivePower: ElecAcPowerSubtype { reactive }
+ElecAcApparentPower: ElecAcPowerSubtype { apparent }
 
 ElecDemandCalc: Choice
 ElecFixedWindowDemandCalc: ElecDemandCalc { fixedWindow }

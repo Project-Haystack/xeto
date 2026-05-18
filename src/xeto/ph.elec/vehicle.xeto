@@ -1,0 +1,13 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   18 May 2026  Rick Jennings  Creation
+//
+
+// Max setpoint for import of DC electric power at a vehicle inlet
+VehicleInputElecDcImportPowerMaxSp : ElecDcImportPowerMaxSp {
+  vehicle
+  input
+}

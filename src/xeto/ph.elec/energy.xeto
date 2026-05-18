@@ -1,0 +1,145 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   18 May 2026  Rick Jennings  Creation
+//
+
+//////////////////////////////////////////////////////////////////////////
+// Sensors
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for electric energy
+ElecEnergySensor : ElecSensor <abstract> {
+  energy
+  elecDirection: ElecDirection
+}
+
+//////////////////////////////////////////////////////////////////////////
+// AC Sensors
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for AC electric energy
+ElecAcEnergySensor : ElecEnergySensor <abstract> {
+  ac
+  elecAcPowerSubtype: ElecAcPowerSubtype
+}
+
+// Sensor for AC electric active energy
+ElecAcActiveEnergySensor : ElecAcEnergySensor <abstract> {
+  active
+  unit: Unit <quantity:"energy"> "kWh"
+}
+
+// Sensor for AC electric reactive energy
+ElecAcReactiveEnergySensor : ElecAcEnergySensor <abstract> {
+  reactive
+  unit: Unit <quantity:"reactiveEnergy"> "kVARh"
+}
+
+// Sensor for AC electric apparent energy
+ElecAcApparentEnergySensor : ElecAcEnergySensor <abstract> {
+  apparent
+  unit: Unit <quantity:"apparentEnergy"> "kVAh"
+}
+
+// Sensor for import of AC electric active energy
+ElecAcImportActiveEnergySensor : ElecAcActiveEnergySensor { import }
+
+// Sensor for export of AC electric active energy
+ElecAcExportActiveEnergySensor : ElecAcActiveEnergySensor { export }
+
+// Sensor for net of AC electric active energy
+ElecAcNetActiveEnergySensor : ElecAcActiveEnergySensor { net }
+
+// Sensor for import of AC electric reactive energy
+ElecAcImportReactiveEnergySensor : ElecAcReactiveEnergySensor { import }
+
+// Sensor for export of AC electric reactive energy
+ElecAcExportReactiveEnergySensor : ElecAcReactiveEnergySensor { export }
+
+// Sensor for net of AC electric reactive energy
+ElecAcNetReactiveEnergySensor : ElecAcReactiveEnergySensor { net }
+
+// Sensor for import of AC electric apparent energy
+ElecAcImportApparentEnergySensor : ElecAcApparentEnergySensor { import }
+
+// Sensor for export of AC electric apparent energy
+ElecAcExportApparentEnergySensor : ElecAcApparentEnergySensor { export }
+
+// Sensor for net of AC electric apparent energy
+ElecAcNetApparentEnergySensor : ElecAcApparentEnergySensor { net }
+
+// Sensor for total import of AC electric active energy
+ElecAcTotalImportActiveEnergySensor : ElecAcImportActiveEnergySensor { total }
+
+// Sensor for total export of AC electric active energy
+ElecAcTotalExportActiveEnergySensor : ElecAcExportActiveEnergySensor { total }
+
+// Sensor for total net of AC electric active energy
+ElecAcTotalNetActiveEnergySensor : ElecAcNetActiveEnergySensor { total }
+
+// Sensor for total import of AC electric reactive energy
+ElecAcTotalImportReactiveEnergySensor : ElecAcImportReactiveEnergySensor { total }
+
+// Sensor for total export of AC electric reactive energy
+ElecAcTotalExportReactiveEnergySensor : ElecAcExportReactiveEnergySensor { total }
+
+// Sensor for total net of AC electric reactive energy
+ElecAcTotalNetReactiveEnergySensor : ElecAcNetReactiveEnergySensor { total }
+
+// Sensor for total import of AC electric apparent energy
+ElecAcTotalImportApparentEnergySensor : ElecAcImportApparentEnergySensor { total }
+
+// Sensor for total export of AC electric apparent energy
+ElecAcTotalExportApparentEnergySensor : ElecAcExportApparentEnergySensor { total }
+
+// Sensor for total net of AC electric apparent energy
+ElecAcTotalNetApparentEnergySensor : ElecAcNetApparentEnergySensor { total }
+
+// Sensor for phase import of AC electric active energy
+ElecAcPhaseImportActiveEnergySensor : ElecAcImportActiveEnergySensor { phase: Phase }
+
+// Sensor for phase export of AC electric active energy
+ElecAcPhaseExportActiveEnergySensor : ElecAcExportActiveEnergySensor { phase: Phase }
+
+// Sensor for phase net of AC electric active energy
+ElecAcPhaseNetActiveEnergySensor : ElecAcNetActiveEnergySensor { phase: Phase }
+
+// Sensor for phase import of AC electric reactive energy
+ElecAcPhaseImportReactiveEnergySensor : ElecAcImportReactiveEnergySensor { phase: Phase }
+
+// Sensor for phase export of AC electric reactive energy
+ElecAcPhaseExportReactiveEnergySensor : ElecAcExportReactiveEnergySensor { phase: Phase }
+
+// Sensor for phase net of AC electric reactive energy
+ElecAcPhaseNetReactiveEnergySensor : ElecAcNetReactiveEnergySensor { phase: Phase }
+
+// Sensor for phase import of AC electric apparent energy
+ElecAcPhaseImportApparentEnergySensor : ElecAcImportApparentEnergySensor { phase: Phase }
+
+// Sensor for phase export of AC electric apparent energy
+ElecAcPhaseExportApparentEnergySensor : ElecAcExportApparentEnergySensor { phase: Phase }
+
+// Sensor for phase net of AC electric apparent energy
+ElecAcPhaseNetApparentEnergySensor : ElecAcNetApparentEnergySensor { phase: Phase }
+
+//////////////////////////////////////////////////////////////////////////
+// DC Sensors
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for DC electric energy
+ElecDcEnergySensor : ElecEnergySensor <abstract> {
+  dc
+  unit: Unit <quantity:"energy"> "kWh"
+}
+
+// Sensor for import of DC electric energy
+ElecDcImportEnergySensor : ElecDcEnergySensor { import }
+
+// Sensor for export of DC electric energy
+ElecDcExportEnergySensor : ElecDcEnergySensor { export }
+
+// Sensor for net of DC electric energy
+ElecDcNetEnergySensor : ElecDcEnergySensor { net }
