@@ -11,21 +11,21 @@
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for electric voltage
-ElecVoltSensor : ElecSensor <abstract> { volt }
+ElecVoltageSensor : ElecSensor <abstract> { voltage }
 
 //////////////////////////////////////////////////////////////////////////
 // AC Sensors
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for AC electric voltage
-ElecAcVoltSensor : ElecVoltSensor <abstract> {
+ElecAcVoltageSensor : ElecVoltageSensor <abstract> {
   ac
   elecAcSpectralContent: ElecAcSpectralContent?
   elecAcHarmonicOrder: Int? <minVal: 2>
 }
 
 // Sensor for magnitude of AC electric voltage
-ElecAcMagnitudeVoltSensor : ElecAcVoltSensor <abstract> {
+ElecAcMagnitudeVoltageSensor : ElecAcVoltageSensor <abstract> {
   magnitude
   elecAcWaveformMagnitude: ElecAcWaveformMagnitude
   unit: Unit <quantity:"electricPotential"> "V"
@@ -33,44 +33,44 @@ ElecAcMagnitudeVoltSensor : ElecAcVoltSensor <abstract> {
 }
 
 // Sensor for RMS of AC electric voltage
-ElecAcRmsVoltSensor : ElecAcMagnitudeVoltSensor { rootMeanSquare }
+ElecAcRmsVoltageSensor : ElecAcMagnitudeVoltageSensor { rootMeanSquare }
 
 // Sensor for angle of AC electric voltage
-ElecAcAngleVoltSensor : ElecAcVoltSensor {
+ElecAcAngleVoltageSensor : ElecAcVoltageSensor {
   angle
   unit: "deg"
 }
 
 // Sensor for metric of AC electric voltage
-ElecAcQualityVoltSensor : ElecAcVoltSensor {
+ElecAcQualityVoltageSensor : ElecAcVoltageSensor {
   elecAcQualityMetric: ElecAcQualityMetric
   unit: Unit <invariant> "%"
 }
 
 // Sensor for line average RMS of AC electric voltage
-ElecAcLLAvgRmsVoltSensor : ElecAcRmsVoltSensor { elecLLAvg }
+ElecAcLLAvgRmsVoltageSensor : ElecAcRmsVoltageSensor { elecLLAvg }
 
 // Sensor for phase RMS of AC electric voltage
-ElecAcPhaseRmsVoltSensor : ElecAcRmsVoltSensor { phase: Phase }
+ElecAcPhaseRmsVoltageSensor : ElecAcRmsVoltageSensor { phase: Phase }
 
 // Sensor for phase average RMS of AC electric voltage
-ElecAcLAvgRmsVoltSensor : ElecAcRmsVoltSensor { elecLAvg }
+ElecAcLAvgRmsVoltageSensor : ElecAcRmsVoltageSensor { elecLAvg }
 
 // Sensor for phase angle of AC electric voltage
-ElecAcPhaseAngleVoltSensor : ElecAcAngleVoltSensor { phase: Phase }
+ElecAcPhaseAngleVoltageSensor : ElecAcAngleVoltageSensor { phase: Phase }
 
 // Sensor for line average metric of AC electric voltage
-ElecAcLLAvgQualityVoltSensor : ElecAcQualityVoltSensor { elecLLAvg }
+ElecAcLLAvgQualityVoltageSensor : ElecAcQualityVoltageSensor { elecLLAvg }
 
 // Sensor for phase metric of AC electric voltage
-ElecAcPhaseQualityVoltSensor : ElecAcQualityVoltSensor { phase: Phase }
+ElecAcPhaseQualityVoltageSensor : ElecAcQualityVoltageSensor { phase: Phase }
 
 // Sensor for phase average metric of AC electric voltage
-ElecAcLAvgQualityVoltSensor : ElecAcQualityVoltSensor { elecLAvg }
+ElecAcLAvgQualityVoltageSensor : ElecAcQualityVoltageSensor { elecLAvg }
 
 //////////////////////////////////////////////////////////////////////////
 // DC Sensors
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for DC electric voltage
-ElecDcVoltSensor : ElecVoltSensor { dc }
+ElecDcVoltageSensor : ElecVoltageSensor { dc }
