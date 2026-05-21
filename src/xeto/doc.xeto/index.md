@@ -25,4 +25,5 @@
 # Appendix
 
 - [Grammar](Grammar.md): formal BNF grammar for Xeto
+- [ChangeLog](ChangeLog.md): changes for each version
 
