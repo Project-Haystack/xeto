@@ -1539,7 +1539,7 @@ PhEntity: Entity <abstract> {
   *visibility: Marker
 
   // Electrical potential difference or electromotive force.
-  *volt: Marker
+  *voltage: Marker
 
   // Three dimensional space occupied by a substance
   *volume: Marker
