@@ -9,6 +9,13 @@
 // Text file
 TextFile : File <abstract>
 
+//////////////////////////////////////////////////////////////////////////
+// Doc, Data
+//////////////////////////////////////////////////////////////////////////
+
+// CSS stylesheet file
+CssFile : TextFile <mimeType:"text/css", fileExt:"css">
+
 // Comma separated values text field
 CsvFile : TextFile <mimeType:"text/csv", fileExt:"csv">
 
@@ -41,4 +48,41 @@ XmlFile : TextFile <mimeType:"text/xml", fileExt:"xml">
 
 // YAML Ain't Markup Language text file
 YamlFile : TextFile <mimeType:"text/yaml", fileExt:"yaml">
+
+//////////////////////////////////////////////////////////////////////////
+// Langs
+//////////////////////////////////////////////////////////////////////////
+
+// C programming language file
+CFile : TextFile <mimeType:"text/c", fileExt:"c">
+
+// C++ programming language file
+CppFile : TextFile <mimeType:"text/c++", fileExt:"cpp">
+
+// C# programming language file
+CSharpFile : TextFile <mimeType:"text/csharp", fileExt:"cs">
+
+// Fantom programming language file
+FantomFile : TextFile <mimeType:"text/fantom", fileExt:"fan">
+
+// Go programming language file
+GoFile : TextFile <mimeType:"text/go", fileExt:"go">
+
+// Java programming language file
+JavaFile : TextFile <mimeType:"text/java", fileExt:"java">
+
+// JavaScript programming language file
+JavaScriptFile : TextFile <mimeType:"text/javascript", fileExt:"js">
+
+// Python programming language file
+PythonFile : TextFile <mimeType:"text/python", fileExt:"py">
+
+// Ruby programming language file
+RubyFile : TextFile <mimeType:"text/ruby", fileExt:"rb">
+
+// Rust programming language file
+RustFile : TextFile <mimeType:"text/rust", fileExt:"rs">
+
+// TypeScript programming language file
+TypeScriptFile : TextFile <mimeType:"text/typescript", fileExt:"ts">
 
