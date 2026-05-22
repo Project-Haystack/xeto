@@ -14,19 +14,19 @@
 ImageFile : File <abstract>
 
 // Image file in GIF format
-GifImage : ImageFile <mimeType:"image/gif", fileExt:"gif">
+GifImage : ImageFile <mimeType:"image/gif", fileExts:"gif">
 
 // Image file in JPEG format
-JpegImage : ImageFile <mimeType:"image/jpeg", fileExt:"jpeg">
+JpegImage : ImageFile <mimeType:"image/jpeg", fileExts:"jpg jpeg">
 
 // Image file in PNG format
-PngFile : ImageFile <mimeType:"image/png", fileExt:"png">
+PngFile : ImageFile <mimeType:"image/png", fileExts:"png">
 
 // Scalable vector graphics image file
-SvgFile : ImageFile <mimeType:"image/svg+xml", fileExt:"svg">
+SvgFile : ImageFile <mimeType:"image/svg+xml", fileExts:"svg">
 
 // Image file in TIFF format
-TiffFile : ImageFile <mimeType:"image/tiff", fileExt:"tiff">
+TiffFile : ImageFile <mimeType:"image/tiff", fileExts:"tiff">
 
 //////////////////////////////////////////////////////////////////////////
 // Audio
@@ -36,13 +36,13 @@ TiffFile : ImageFile <mimeType:"image/tiff", fileExt:"tiff">
 AudioFile : File <abstract>
 
 // AAC audio file
-AacFile : AudioFile <mimeType:"audio/aac", fileExt:"aac">
+AacFile : AudioFile <mimeType:"audio/aac", fileExts:"aac">
 
 // MP3 audio file
-Mp3File : AudioFile <mimeType:"audio/mpeg", fileExt:"mp3">
+Mp3File : AudioFile <mimeType:"audio/mpeg", fileExts:"mp3">
 
 // Waveform audio file
-WavFile : AudioFile <mimeType:"audio/wav", fileExt:"wav">
+WavFile : AudioFile <mimeType:"audio/wav", fileExts:"wav">
 
 //////////////////////////////////////////////////////////////////////////
 // Video
@@ -52,11 +52,11 @@ WavFile : AudioFile <mimeType:"audio/wav", fileExt:"wav">
 VideoFile : File <abstract>
 
 // MP4 video file
-Mp4File : VideoFile <mimeType:"video/mp4", fileExt:"mp4">
+Mp4File : VideoFile <mimeType:"video/mp4", fileExts:"mp4">
 
 // MP3 video file
-MpegFile : VideoFile <mimeType:"video/mpeg", fileExt:"mpeg">
+MpegFile : VideoFile <mimeType:"video/mpeg", fileExts:"mpeg">
 
 // Ogg video file
-OggFile : VideoFile <mimeType:"video/ogg", fileExt:"ogg">
+OggFile : VideoFile <mimeType:"video/ogg", fileExts:"ogg">
 

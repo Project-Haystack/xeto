@@ -14,75 +14,75 @@ TextFile : File <abstract>
 //////////////////////////////////////////////////////////////////////////
 
 // CSS stylesheet file
-CssFile : TextFile <mimeType:"text/css", fileExt:"css">
+CssFile : TextFile <mimeType:"text/css", fileExts:"css">
 
 // Comma separated values text field
-CsvFile : TextFile <mimeType:"text/csv", fileExt:"csv">
+CsvFile : TextFile <mimeType:"text/csv", fileExts:"csv">
 
 // HTML text file
-HtmlFile : TextFile <mimeType:"text/html; charset=utf-8", fileExt:"html">
+HtmlFile : TextFile <mimeType:"text/html; charset=utf-8", fileExts:"html">
 
 // JSON text file
-JsonFile : TextFile <mimeType:"application/json", fileExt:"json">
+JsonFile : TextFile <mimeType:"application/json", fileExts:"json">
 
 // JSON-LD text file
-JsonLdFile : TextFile <mimeType:"application/ld+json", fileExt:"jsonld">
+JsonLdFile : TextFile <mimeType:"application/ld+json", fileExts:"jsonld">
 
 // Markdown text file
-MarkdownFile : TextFile <mimeType:"text/markdown; charset=utf-8", fileExt:"md">
+MarkdownFile : TextFile <mimeType:"text/markdown; charset=utf-8", fileExts:"md">
 
 // Plain text file
-PlainTextFile : TextFile <mimeType:"text/plain; charset=utf-8", fileExt:"txt">
+PlainTextFile : TextFile <mimeType:"text/plain; charset=utf-8", fileExts:"txt">
 
 // Project Haystack Trio text file - see [ph.doc::Trio]
-TrioFile : TextFile <mimeType:"text/trio; charset=utf-8", fileExt:"trio">
+TrioFile : TextFile <mimeType:"text/trio; charset=utf-8", fileExts:"trio">
 
 // RDF turtle file
-TurtleFile : TextFile <mimeType:"text/turtle; charset=utf-8", fileExt:"ttl">
+TurtleFile : TextFile <mimeType:"text/turtle; charset=utf-8", fileExts:"ttl">
 
 // Project Haystack Zinc text file - see [ph.doc::Zinc]
-ZincFile : TextFile <mimeType:"text/zinc; charset=utf-8", fileExt:"zinc">
+ZincFile : TextFile <mimeType:"text/zinc; charset=utf-8", fileExts:"zinc">
 
 // Extensible markup language text file
-XmlFile : TextFile <mimeType:"text/xml", fileExt:"xml">
+XmlFile : TextFile <mimeType:"text/xml", fileExts:"xml">
 
 // YAML Ain't Markup Language text file
-YamlFile : TextFile <mimeType:"text/yaml", fileExt:"yaml">
+YamlFile : TextFile <mimeType:"text/yaml", fileExts:"yaml">
 
 //////////////////////////////////////////////////////////////////////////
 // Langs
 //////////////////////////////////////////////////////////////////////////
 
 // C programming language file
-CFile : TextFile <mimeType:"text/c", fileExt:"c">
+CFile : TextFile <mimeType:"text/c", fileExts:"c">
 
 // C++ programming language file
-CppFile : TextFile <mimeType:"text/c++", fileExt:"cpp">
+CppFile : TextFile <mimeType:"text/c++", fileExts:"cpp">
 
 // C# programming language file
-CSharpFile : TextFile <mimeType:"text/csharp", fileExt:"cs">
+CSharpFile : TextFile <mimeType:"text/csharp", fileExts:"cs">
 
 // Fantom programming language file
-FantomFile : TextFile <mimeType:"text/fantom", fileExt:"fan">
+FantomFile : TextFile <mimeType:"text/fantom", fileExts:"fan">
 
 // Go programming language file
-GoFile : TextFile <mimeType:"text/go", fileExt:"go">
+GoFile : TextFile <mimeType:"text/go", fileExts:"go">
 
 // Java programming language file
-JavaFile : TextFile <mimeType:"text/java", fileExt:"java">
+JavaFile : TextFile <mimeType:"text/java", fileExts:"java">
 
 // JavaScript programming language file
-JavaScriptFile : TextFile <mimeType:"text/javascript", fileExt:"js">
+JavaScriptFile : TextFile <mimeType:"text/javascript", fileExts:"js">
 
 // Python programming language file
-PythonFile : TextFile <mimeType:"text/python", fileExt:"py">
+PythonFile : TextFile <mimeType:"text/python", fileExts:"py">
 
 // Ruby programming language file
-RubyFile : TextFile <mimeType:"text/ruby", fileExt:"rb">
+RubyFile : TextFile <mimeType:"text/ruby", fileExts:"rb">
 
 // Rust programming language file
-RustFile : TextFile <mimeType:"text/rust", fileExt:"rs">
+RustFile : TextFile <mimeType:"text/rust", fileExts:"rs">
 
 // TypeScript programming language file
-TypeScriptFile : TextFile <mimeType:"text/typescript", fileExt:"ts">
+TypeScriptFile : TextFile <mimeType:"text/typescript", fileExts:"ts">
 

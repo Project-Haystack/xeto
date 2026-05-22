@@ -10,7 +10,8 @@
   // MIME type for a file spec
   mimeType: Str?
 
-  // Default file name extension to use for a file spec
-  fileExt: Str?
+  // Default file name extension(s) to use for a file spec. If there is
+  // more than one separate them by a space and put best extension first.
+  fileExts: Str?
 }
 

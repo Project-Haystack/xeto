@@ -13,23 +13,23 @@ FileDir : File <mimeType:"application/x-directory">
 AppFile : File <abstract>
 
 // Microsoft Word file in docx format
-MicorosftWordFile : AppFile <mimeType:"application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileExt:"docx">
+MicorosftWordFile : AppFile <mimeType:"application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileExts:"doc docx">
 
 // Microsoft Excel file in xlsx format
-MicorosftExcelFile : AppFile <mimeType:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileExt:"xlsx">
+MicorosftExcelFile : AppFile <mimeType:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileExts:"xlsx">
 
 // Microsoft PowerPoint file in pptx format
-MicorosftPowerPointFile : AppFile <mimeType:"application/vnd.openxmlformats-officedocument.presentationml.presentation", fileExt:"pptx">
+MicorosftPowerPointFile : AppFile <mimeType:"application/vnd.openxmlformats-officedocument.presentationml.presentation", fileExts:"pptx">
 
 // Portable Document Format file
-PdfFile : AppFile <mimeType:"application/pdf", fileExt:"pdf">
+PdfFile : AppFile <mimeType:"application/pdf", fileExts:"pdf">
 
 // TAR archive file
-TarFile : AppFile <mimeType:"application/x-tar", fileExt:"tar">
+TarFile : AppFile <mimeType:"application/x-tar", fileExts:"tar">
 
 // Xeto library zip file
-XetoLibFile : AppFile <mimeType:"application/xetolib", fileExt:"xetolib">
+XetoLibFile : AppFile <mimeType:"application/xetolib", fileExts:"xetolib">
 
 // Zip archive file
-ZipFile : AppFile <mimeType:"application/zip", fileExt:"zip">
+ZipFile : AppFile <mimeType:"application/zip", fileExts:"zip">
 
