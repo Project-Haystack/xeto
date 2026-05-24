@@ -83,6 +83,6 @@ RubyFile : TextFile <mimeType:"text/ruby", fileExts:"rb">
 // Rust programming language file
 RustFile : TextFile <mimeType:"text/rust", fileExts:"rs">
 
-// TypeScript programming language file
-TypeScriptFile : TextFile <mimeType:"text/typescript", fileExts:"ts">
+// Xeto programming language file
+XetoFile : TextFile <mimeType:"text/xeto", fileExts:"xeto">
 
