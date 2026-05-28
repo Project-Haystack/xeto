@@ -43,7 +43,7 @@ see the provided [example](ph.doc::Meters#an-example-utility-application).
 
 Electricity meter points are described by combining tags from the lists
 given below.  The tags in each set are mutually exclusive.  For example,
-a point cannot have two primary quantities, or have both the [ph::PhEntity.volt] and
+a point cannot have two primary quantities, or have both the [ph::PhEntity.voltage] and
 [ph::PhEntity.power] tags.
 
 DC electrical measurements are described using a combination of the types
@@ -89,7 +89,7 @@ following electrical primary quantities:
     (measured in "kWh"), `reactive` energy (measured in "kVARh"), and
     `apparent` energy (measured in "kVAh").  Of these
       quantities, `active-energy` represents real work performed.
-  - [ph::PhEntity.volt]: Electric voltage (potential energy).  Typically measured in "V"
+  - [ph::PhEntity.voltage]: Electric voltage (potential energy).  Typically measured in "V"
     for both 'ac' and 'dc' electricity.
     - For `dc` measurements, represents an instantaneous voltage.
     - For `ac` measurements, represents an electrical phasor: a sinusoidal
@@ -286,67 +286,33 @@ Haystack recommends normalizing AC RMS current points as follows:
    current point.
 
 ## Locations for AC Measurements
-TODO: this section is out-of-date
 
-Generic tags are used to describe three types of `ac` electrical measurements that do
-not involve aggregation of multiple measurements:
+AC electrical measurement locations are qualified by:
 
-  - [ph::PhEntity.phase]: for electrical line measurements "L1", "L2", and "L3"
+  - [ph::PhEntity.phase]: for electrical measurements "L1", "L2", "L3", "L1-L2", "L2-L3", and
+  "L3-L1". Line-to-neutral voltage measurements are described using "L1", "L2", and "L3".
+  - [ph::PhEntity.ground]: for electrical current measurement of the electrical ground conductor
+  - [ph::PhEntity.neutral]: for electrical current measurement of the electrical neutral conductor
 
-Non-aggregated `ac` electrical measurement locations are qualified by:
+Aggregated `ac` electrical measurements are qualified by:
 
-  - `lineVolt`: `elecLineToLine`
-  - `phaseVolt`: `elecLineToNeutral`
-  - `lineCurrent`: `elecLine`
-  - `phaseCurrent`: `elecLineToLine`
-  - `linePower`: `elecLineToLine`
-  - `phasePower`: `elecLine`
-  - `linePf`: `elecLineToLine`
-  - `phasePf`: `elecLine`
-  - `lineEnergy`: `elecLineToLine`
-  - `phaseEnergy`: `elecLine`
-  - `ph::PhEntity.ground`: for electrical current measurement of the electrical ground
-  conductor
-  - `ph::PhEntity.neutral`: for electrical current measurement of the electrical neutral
-  conductor
-
-Aggregated three-phase or split-phase `ac` electrical measurement locations
-are qualified by:
-  - `lineAvg`: Average of line quantities.
-    - When applied to a point entity with the `current` tag, indicates the
-      average of the values for the 'current' primary quantity characteristic
-      at all available locations defined in 'elecLine'.
-    - When applied to point entities with the `volt`, `power`, `pf`, or
-      'energy' tags, indicates the average of the values for the primary
-      quantity's characteristic at all available locations defined in
-      'elecLineToLine'.
-  - `phaseAvg`: Average of phase quantities.
-    - When applied to a point entity with the `volt` tag, indicates the
-      average of the values for the 'volt' primary quantity characteristic
-      at all available locations defined in 'elecLineToNeutral'.
-    - When applied to a point entity with the `current` tag, indicates the
-      average of the values for the 'current' primary quantity characteristic
-      at all available locations defined in 'elecLineToLine'.
-    - When applied to point entities with the `power`, `pf`, or `energy` tags,
-      indicates the average of the values for the primary quantity's
-      characteristic at all available locations defined in 'elecLine'.
-  - `ph::PhEntity.total`: Applies only to point entities with `power`, `demand`, or
-    'energy' tags. Indicates the sum of the values for the primary quantity's
-    characteristic at all available locations defined in 'elecLine'.
+  - [ph::PhEntity.elecLAvg]: Average of "L1", "L2", and "L3" measurements (three-phase), or "L1" and "L2" (split-phase).
+  - [ph::PhEntity.elecLLAvg]: Average of "L1-L2", "L2-L3", and "L3-L1" measurements (three-phase only).
+  - [ph::PhEntity.total]: Sum of "L1", "L2", and "L3" measurements (three-phase), or "L1" and "L2" (split-phase). Applies only to `power`, `demand`, or `energy` point entities.
 
 Only the available measurements are averaged or totaled. For example,
-`phaseAvg` voltage in a three-phase power system represents the average of
-the "L1-N", "L2-N", and "L3-N" phase voltage measurements, but `phaseAvg`
+`elecLAvg` voltage in a three-phase power system represents the average of
+the "L1", "L2", and "L3" voltage measurements, but `elecLAvg`
 voltage in a split-phase power system represents the average of only the
-"L1-N" and "L2-N"  measurements (because an "L3-N" measurement is not
-available in a split-phase sytem).
+"L1" and "L2" measurements (because an "L3" measurement is not
+available in a split-phase system).
 
 Only one tag indicating the location of a measurement should be applied to
 a point entity. The `total` tag takes precedence when applicable to allow
 for common queries between three-phase and split-phase AC electrical systems.
 For example, in a split-phase `ac` electrical system the `total` tag should
-be applied to a point entity instead of `linePower` to indicate the
-L1-L2 power measurement.
+be applied to a point entity instead of `phase` to indicate the
+"L1-L2" power measurement.
 
 Note:  The primary quantity `freq` does not have location related tags.
 

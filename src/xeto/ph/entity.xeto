@@ -430,7 +430,7 @@ PhEntity: Entity <abstract> {
   // Heating by the conversion of electrical energy
   *elecHeating: Marker
 
-  // Average of L1, L2, L3 measurements
+  // Average of L1, L2, and L3 measurements (three-phase), or L1 and L2 (split-phase)
   *elecLAvg: Marker
 
   // Average of L1-L2, L2-L3, L3-L1 measurements
