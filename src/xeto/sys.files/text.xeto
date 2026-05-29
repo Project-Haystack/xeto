@@ -7,7 +7,7 @@
 //
 
 // Text file
-TextFile : File <abstract>
+TextFile : File <abstract, mimeType:"text/plain">
 
 //////////////////////////////////////////////////////////////////////////
 // Doc, Data
