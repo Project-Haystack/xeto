@@ -6,7 +6,8 @@
 //   18 May 2026  Rick Jennings  Creation
 //
 
-// Max setpoint for import of DC electric power at a vehicle inlet
+// Max setpoint for import of DC electric power to a vehicle inlet.
+// Determined by a vehicle's battery management system.
 VehicleInputElecDcImportPowerMaxSp : ElecDcImportPowerMaxSp {
   vehicle
   input

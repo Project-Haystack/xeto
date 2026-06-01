@@ -1,0 +1,11 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   1 Jun 2026  Rick Jennings  Creation
+//
+
+// Max setpoint for import of DC electric power to one or more
+// EVSE ports. Determined by an EVSE.
+EvseElecDcImportPowerMaxSp : ElecDcImportPowerMaxSp { evse }

@@ -30,8 +30,8 @@ ElecAcQuadrant: Enum {
   q4 <key:"4">
 }
 
-// Physical type of [ph::EvseCable].
-EvseCableType: Enum {
+// Physical type of [ph::EvseConnector].
+EvseConnectorType: Enum {
   ccs1      // CCS1 charging cable
   ccs2      // CCS2 charging cable
   chademo   // CHAdeMO charging cable

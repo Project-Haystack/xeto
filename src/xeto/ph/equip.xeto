@@ -238,22 +238,16 @@ Escalator: VerticalTransport {
   escalator
 }
 
-// Tethered cable with connector, socket/receptacle, or wireless inductive charging pad on an EVSE.
-// Interfaces with the vehicle directly or via an EV driver supplied charging cable.
-EvseCoupler: EvseEquip <abstract> {
-  coupler
-}
-
-// The electrical cable between an [ph::EvsePort] and an EV charging inlet
-// on a vehicle. The [ph::PhEntity.evseCableType] tag distinguishes the type of cable.
-// See [ph.doc::EVSE#evse-cable] chapter.
-EvseCable: EvseCoupler {
-  cable
-  evseCableType: EvseCableType?
+// Plug, socket/receptacle, or wireless inductive charging pad that connects an EVSE to a vehicle inlet.
+// The [ph::PhEntity.evseConnectorType] tag distinguishes the type of connector.
+// See [ph.doc::EVSE#evse-connector] chapter.
+EvseConnector: EvseEquip <abstract> {
+  evseConnector
+  evseConnectorType: EvseConnectorType?
 }
 
 // Equipment that dispenses electricity to an EV.  It consists of a
-// physical EVSE enclosure and its contents to which an [ph::EvseCable]
+// physical EVSE enclosure and its contents to which an [ph::EvseConnector]
 // attaches.  An [ph::EvseDispenser] can contain zero or more [ph::EvsePort].
 //
 // Children points are used to describe or control one or more [ph::EvsePort]
@@ -267,6 +261,7 @@ EvseDispenser: EvseEquip {
 // Equipment that supports the delivery of electricity to charging inlets
 // located on EVs.  See [ph.doc::EVSE] chapter.
 EvseEquip: Equip {
+  elec
   evse
 }
 
@@ -274,7 +269,7 @@ EvseEquip: Equip {
 // time.  Comprised of a software-controlled electrical contactor or
 // circuit breaker.  Typically contained within an [ph::EvseDispenser], but
 // may be contained within an [ph::EvsePowerConverter].  More than one
-// [ph::EvseCable] may be connected to a single [ph::EvsePort], however, only one
+// [ph::EvseConnector] may be connected to a single [ph::EvsePort], however, only one
 // may be energized at any given time.
 //
 // Note:  In the future we might add an entity that describes [ph::EvsePort]
