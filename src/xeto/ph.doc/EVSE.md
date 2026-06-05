@@ -15,7 +15,7 @@ within the industry.
 
 There are three commonly referred to [Types of EVSE](#types-of-evse).  However,
 EVSE are modeled in Project Haystack using various combinations of
-[ph::EvsePowerConverter], [ph::EvseDispenser], [ph::EvsePort], and [ph::EvseCable].
+[ph::EvsePowerConverter], [ph::EvseDispenser], [ph::EvsePort], and [ph::EvseConnector].
 See the chapter [Modeling EVSE](#modeling-evse) for more details.
 
 # Types of EVSE
@@ -76,13 +76,13 @@ equipment enclosure.  An [ph::EvsePowerConverter] can contain zero or more
 
 ## EVSE Dispenser
 An [ph::EvseDispenser] dispenses electricity to an EV.  It consists of a
-physical EVSE enclosure and its contents to which an [ph::EvseCable] attaches.
+physical EVSE enclosure and its contents to which an [ph::EvseConnector] attaches.
 An [ph::EvseDispenser] can contain zero or more [ph::EvsePort].
 
 ## EVSE Port
 An EVSE port is modeled with the [ph::EvsePort] tags.  An [ph::EvsePort] delivers
 electricity to a single EV charging inlet at a time.  More than one
-[ph::EvseCable] may be connected to a single [ph::EvsePort], but only one may be
+[ph::EvseConnector] may be connected to a single [ph::EvsePort], but only one may be
 energized at a time.
 
 Electrical output specifications for an [ph::EvsePort] are described using
@@ -90,10 +90,10 @@ attributes.  An [ph::EvsePort] is described to deliver AC or DC power to an
 EV's charging inlet using the [ph::PhEntity.ac] or [ph::PhEntity.dc] tag, respectively.  An
 [ph::EvsePort] may only have the [ph::PhEntity.ac] or [ph::PhEntity.dc] tag, but not both.
 
-## EVSE Cable
-An EVSE cable is modeled with the [ph::EvseCable] tags.  An [ph::EvseCable] models
-the electrical cable between an [ph::EvsePort] and an EV charging inlet used
-by an EV driver.  [ph::PhEntity.evseCableType] distinguishes the type of cable.
+## EVSE Connector
+An EVSE connector is modeled with the [ph::EvseConnector] tags.  An [ph::EvseConnector] models
+the electrical connector between an [ph::EvsePort] and an EV charging inlet used
+by an EV driver.  [ph::PhEntity.evseConnectorType] distinguishes the type of connector.
 
 ## Example 1:  All-in-one Level 2 AC EVSE with One AC EVSE Port
 

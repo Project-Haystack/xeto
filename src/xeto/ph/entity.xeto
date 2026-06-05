@@ -282,9 +282,6 @@ PhEntity: Entity <abstract> {
   // Equipment to transfer waste heat into the atmosphere
   *coolingTower: Marker
 
-  // Device that joins two components together.
-  *coupler: Marker
-
   // Computer Room Air Conditioner: An FCU designed to condition a computer
   // room.  See [ph.doc::AHUs] and [ph.doc::DataCenters] chapters.
   *crac: Marker
@@ -448,6 +445,9 @@ PhEntity: Entity <abstract> {
   // Amount of a substance discharged into the air
   *emission: Marker
 
+  // Energy Management System (EMS)
+  *ems: Marker
+
   // Secondary on/off [ph::PhEntity.point] of an [ph::PhEntity.equip] especially used with a [ph::PhEntity.vfd].
   // Enable is used with Bool points where true indicates on and false
   // indicates off.  Equip with an enable should always also define a [ph::PhEntity.run]
@@ -500,8 +500,11 @@ PhEntity: Entity <abstract> {
   // Electric Vehicle Supply Equipment.  See [ph.doc::EVSE] chapter.
   *evse: Marker
 
-  // Physical type of [ph::EvseCable].
-  *evseCableType: EvseCableType
+  // Plug, socket/receptacle, or wireless inductive charging pad that connects an EVSE to a vehicle inlet.  See [ph.doc::EVSE#evse-connector] chapter.
+  *evseConnector: Marker
+
+  // Physical type of [ph::EvseConnector].
+  *evseConnectorType: EvseConnectorType
 
   // Duct used to expel air back outside
   *exhaust: Marker

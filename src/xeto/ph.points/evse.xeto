@@ -6,8 +6,8 @@
 //   23 Mar 2026  Rick Jennings  Creation
 //
 
-// Operational status enumeration for an EVSE coupler
-EvseCouplerStatusEnum : Enum {
+// Operational status enumeration for an EVSE connector
+EvseConnectorStatusEnum : Enum {
   // Available for charging.
   available
   // Occupied.
@@ -21,25 +21,21 @@ EvseCouplerStatusEnum : Enum {
   fault
 }
 
-// Sensor for an EVSE coupler's status
-EvseCouplerStatusSensor : EnumPoint & SensorPoint <abstract> {
-  evse
-  coupler
-  enum: Obj <val:EvseCouplerStatusEnum>
+// Sensor for an EVSE connector's status
+EvseConnectorStatusSensor : EnumPoint & SensorPoint <abstract> {
+  evseConnector
+  enum: Obj <val:EvseConnectorStatusEnum>
 }
-
-// Sensor for an EVSE cable's status
-EvseCableStatusSensor : EvseCouplerStatusSensor { cable }
 
 // Charging status enumeration for an EVSE port
 EvsePortChargingStatusEnum : Enum {
+  // Not connected to an EV.
+  notConnected
+  // Connected to an EV and not charging.
+  connected
   // Connected to an EV with the contactor closed to allow
   // electricity flow between the EVSE port and vehicle.
   charging
-  // Connected to an EV and not charging.
-  connected
-  // Not connected to an EV.
-  notConnected
   // Connected to an EV but not charging, due to the vehicle
   // not accepting power offered by the EVSE port.
   suspendedEv
