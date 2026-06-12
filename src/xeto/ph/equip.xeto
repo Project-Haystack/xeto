@@ -261,7 +261,6 @@ EvseDispenser: EvseEquip {
 // Equipment that supports the delivery of electricity to charging inlets
 // located on EVs.  See [ph.doc::EVSE] chapter.
 EvseEquip: Equip {
-  elec
   evse
 }
 
