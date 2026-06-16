@@ -20,28 +20,27 @@ sub-components of a larger piece of equip that we nest via
 the [ph::PhEntity.equipRef] tag.
 
 # Points
-The standardized points for motor control are:
+Standardized points for equip are extended to motors as follows:
 
-  - [ph::PhEntity.run] [ph::PhEntity.cmd]: primary on/off command
-  - [ph::PhEntity.enable] [ph::PhEntity.cmd]: secondary on/off command
-  - [ph::PhEntity.run] [ph::PhEntity.sensor]: run status sensor
-  - [ph::PhEntity.enable] [ph::PhEntity.sensor]: enable status sensor
-  - [ph::PhEntity.alarm] [ph::PhEntity.sensor]: bolean alarm condition
+  - [ph.points::MotorEnableCmd]: command that permits or prohibits a motor to operate
+  - [ph.points::MotorRunCmd]: commands a motor to run or stop running
+  - [ph.points::MotorRunSensor]: senses the on/off state of a motor
+  - [ph::PhEntity.alarm] [ph::PhEntity.sensor]: boolean alarm condition
 
-The primary on/off point of equipment is always modeled with the [ph::PhEntity.run] tag.
-Paired with [ph::PhEntity.cmd] it models the on/off command point; paired with [ph::PhEntity.sensor] it
-models the run status point.  Many VFDs also include a secondary [ph::PhEntity.enable] point
-that requires both `run` and `enable` to be commanded to true in order for the
-equipment to be on.  In all cases, `true` models the *on* state, and `false` models
-the *off* state.
+Permission from [ph.points::MotorEnableCmd] may be required for [ph.points::MotorRunCmd] to
+take effect.
 
-If the motor is driven by a variable frequency drive, then it should be tagged
-with the [ph::PhEntity.vfd] marker.  Points related to the drive speed control:
+If the motor is driven by a Variable Frequency Drive (VFD), then it should be tagged
+with the [ph::PhEntity.vfd] marker.
 
-  - [vfd speed](ph::VfdSpeed) [ph::PhEntity.cmd]: speed command as percentage where 0% is off, 100% if full speed
-  - [vfd freq](ph::VfdFreq) [ph::PhEntity.cmd]: speed command as a frequency in Hz
-  - [vfd speed](ph::VfdSpeed) [ph::PhEntity.sensor]: speed status as percentage where 0% is off, 100% if full speed
-  - [vfd freq](ph::VfdFreq) [ph::PhEntity.sensor]: speed status as frequency in Hz
+Points related to motor speed control:
+
+  - [ph.points::MotorSpeedModulatingCmd]: command for modulating motor speed
+  - [ph.elec::VfdOutputElecAcFreqCmd]: command for a VFD's output AC electric frequency
+  - [ph.points::MotorSpeedModulatingSensor]: sensor for modulating motor speed
+  - [ph.elec::VfdOutputElecAcFreqSensor]: sensor for a VFD's output AC electric frequency
+
+Modulating speed is defined as a percentage where 0% is off and 100% is full speed.
 
 Many VFDs will also provide many of the same points as an electric meter.
 Measurements such as electric demand, consumption, voltage, and current
@@ -54,20 +53,17 @@ However in many cases a simple fan in a terminal unit such as a [ph::PhEntity.va
 is more easily modeled as just a [ph::PhEntity.point].
 
 ## Fan Points
-In simple cases where the fan is just a command and/or feedback sensor,
-then it is best to model it as a [ph::PhEntity.point].
+Standardized points for motors are extended to fans as follows:
 
-If annotated as an output with the [ph::PhEntity.cmd] tag, then the point
-models the command status of the fan:
-  - false (off) or true (on)
-  - variable speed is 0% (off) to 100% (full speed)
+  - [ph.points::FanEnableCmd]: command that permits or prohibits a fan to operate
+  - [ph.points::FanRunCmd]: commands a fan to run or stop running
+  - [ph.points::FanRunSensor]: senses the on/off state of a fan
+  - [ph.points::FanSpeedModulatingCmd]: command for modulating fan speed
 
-If annotated as an input with the [ph::PhEntity.sensor] tag, then the
-point models a sensor used to verify the fan status:
-  - false indicates no air flow (off) or true indicates successful
-    airflow (fan is on)
-  - if numeric, the point is differential pressure across the fan
-    measured in "inH₂O" or "kPa"
+Modulating speed is defined as a percentage where 0% is off and 100% is full speed.
+
+Permission from [ph.points::FanEnableCmd] may be required for [ph.points::FanRunCmd] to
+take effect.
 
 ## Fan Equips
 When the fan motor is a VFD, it should be modeled as an [ph::PhEntity.equip] entity

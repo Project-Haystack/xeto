@@ -49,3 +49,9 @@ Here are examples for the proper tagging of equipment:
     siteRef: @site
     equipRef: @site.chillerPlant
 
+# Points
+The standardized points for equip are:
+
+ - [ph.points::EnableCmd]: command that permits or prohibits equip to operate
+ - [ph.points::RunCmd]: commands an equip to run or stop running
+ - [ph.points::RunSensor]: senses the on/off state of an equip
