@@ -500,9 +500,6 @@ PhEntity: Entity <abstract> {
   // Electric Vehicle Supply Equipment.  See [ph.doc::EVSE] chapter.
   *evse: Marker
 
-  // Plug, socket/receptacle, or wireless inductive charging pad that connects an EVSE to a vehicle inlet.  See [ph.doc::EVSE#evse-connector] chapter.
-  *evseConnector: Marker
-
   // Physical type of [ph::EvseConnector].
   *evseConnectorType: EvseConnectorType
 
