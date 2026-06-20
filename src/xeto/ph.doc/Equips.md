@@ -55,3 +55,28 @@ The standardized points for equip are:
  - [ph.points::EnableCmd]: command that permits or prohibits equip to operate
  - [ph.points::RunCmd]: commands an equip to run or stop running
  - [ph.points::RunSensor]: senses the on/off state of an equip
+ - [ph.points::RuntimeSensor]: senses equipment runtime
+
+For heating equip the standardized points are:
+
+ - [ph.points::HeatEnableCmd]: command that permits/prohibits heating equip to run
+ - [ph.points::HeatRunCmd]: commands heating equip on/off
+ - [ph.points::HeatRunSensor]: senses on/off state of heating equip
+ - [ph.points::HeatModulatingCmd]: commands modulating heating capacity
+ - [ph.points::HeatModulatingSensor]: senses modulating heating capacity
+
+Both [ph.points::HeatRunCmd] and [ph.points::HeatRunSensor] have an optional [ph::PhEntity.stage] tag that should be applied to points for heating equipment that operate at discrete stages.
+
+Modulating heating capacity is expressed as a percentage, ranging from 0% (no capacity) to 100% (full capacity).
+
+Similarly for cooling equip the standardized points are:
+
+ - [ph.points::CoolEnableCmd]: command that permits/prohibits cooling equip to run
+ - [ph.points::CoolRunCmd]: commands cooling equip on/off
+ - [ph.points::CoolRunSensor]: senses on/off state of cooling equip
+ - [ph.points::CoolModulatingCmd]: commands modulating cooling capacity
+ - [ph.points::CoolModulatingSensor]: senses modulating cooling capacity
+
+Both [ph.points::CoolRunCmd] and [ph.points::CoolRunSensor] have an optional [ph::PhEntity.stage] tag that should be applied to points for cooling equipment that operate at discrete stages.
+
+Modulating cooling capacity is expressed as a percentage, ranging from 0% (no capacity) to 100% (full capacity).
