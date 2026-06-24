@@ -50,6 +50,47 @@ new slots:
   orgRef: Ref <of:Org>
 }
 ```
+
+# Multi-File Mixins
+
+A mixin may be defined by more than one `+` block in the same library,
+including blocks in different source files.  The slots are merged into a
+single effective mixin.  This lets you organize a large mixin (a `Funcs`
+library, for example) across several files:
+
+```xeto
+// file-a.xeto
++Person {
+  orgRef: Ref <of:Org>
+}
+
+// file-b.xeto
++Person {
+  managerRef: Ref <of:Person>
+}
+```
+
+The result is the same as if both slots were declared in one block.
+
+Only one of the blocks may carry mixin meta; the rest must be slots-only.
+It is an error for two blocks of the same mixin to declare meta.
+
+```xeto
+// the primary block carries the mixin's meta
++Person <icon:"user"> {
+  orgRef: Ref <of:Org>
+}
+
+// additional blocks are slots-only
++Person {
+  managerRef: Ref <of:Person>
+}
+```
+
+Note this features applies *only* to mixins (the `+` form).  A normal type
+definition may not be split: declaring the same `Foo:` type in two places
+is still a duplicate error.
+
 # Extended Spec
 
 The extended spec is computed as follows:
@@ -88,5 +129,4 @@ The AST representation for a mixin looks exactly like any other
 spec with the following exceptions:
 - the mixin has the 'mixin' meta tag
 - the mixin uses the 'base' meta tag to reference the original spec
-
 
