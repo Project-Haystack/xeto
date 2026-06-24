@@ -37,7 +37,7 @@ AcElecMeter: ElecMeter {
 // It is recommended to include electrical location related tags on
 // electrical points that reference an AC EVSE port.  See
 // [ph.doc::Meters#electric-meters] chapter for more details.
-AcEvsePort: EvsePort & ElecAcEquip
+AcEvsePort: EvsePort { ac }
 
 // Equipment to move or control a mechanism.  Actuators may be manually
 // operated or automated via a control system to convert an energy source
@@ -197,7 +197,7 @@ DcElecMeter: ElecMeter {
 // Typically a max current or max power setpoint should reference a DC
 // EVSE port, but not both.  Usually it is preferred to control a DC EVSE
 // port using a max power setpoint.
-DcEvsePort: EvsePort & ElecDcEquip
+DcEvsePort: EvsePort { dc }
 
 // Dedicated Outside Air System: An AHU that brings in 100% outside air and
 // no recirculated air in order to provide ventilation to spaces.
@@ -213,27 +213,16 @@ Duct: Conduit {
   ductSection: DuctSection?
 }
 
-// Electric equipment
-ElecEquip: Equip {
+// Electricity meter
+ElecMeter: Meter {
   elec
 }
 
-// AC electric equipment
-ElecAcEquip: ElecEquip {
-  ac
-}
-
-// DC electric equipment
-ElecDcEquip: ElecEquip {
-  dc
-}
-
-// Electricity meter
-ElecMeter: Meter & ElecEquip
-
 // Physical housing for electrical circuits, fuses, and breakers.
 // See [ph.doc::ElecPanels#elec-panel] chapter.
-ElecPanel: Panel & ElecEquip
+ElecPanel: Panel {
+  elec
+}
 
 // Enclosure used to move people between floors.
 Elevator: VerticalTransport {
@@ -254,11 +243,15 @@ EvseConnector: EvseEquip <abstract> {
 
 // An [ph::EvseConnector] that delivers [ph::PhEntity.ac] electricity.
 // See [ph.doc::EVSE#evse-connector] chapter.
-AcEvseConnector: EvseConnector & ElecAcEquip
+AcEvseConnector: EvseConnector {
+  ac
+}
 
 // An [ph::EvseConnector] that delivers [ph::PhEntity.dc] electricity.
 // See [ph.doc::EVSE#evse-connector] chapter.
-DcEvseConnector: EvseConnector & ElecDcEquip
+DcEvseConnector: EvseConnector {
+  dc
+}
 
 // Equipment that dispenses electricity to an EV.  It consists of a
 // physical EVSE enclosure and its contents to which an [ph::EvseConnector]
@@ -274,7 +267,8 @@ EvseDispenser: EvseEquip {
 
 // Equipment that supports the delivery of electricity to charging inlets
 // located on EVs.  See [ph.doc::EVSE] chapter.
-EvseEquip: ElecEquip {
+EvseEquip: Equip {
+  elec
   evse
 }
 
@@ -387,14 +381,17 @@ Meter: Equip {
 
 // Equipment that converts electrical energy into mechanical energy.
 // See [ph.doc::Motors] chapter.
-Motor: ElecEquip {
+Motor: Equip {
+  elec
   motor
   phaseCount: PhaseCount?
 }
 
 // An AC motor converts AC electrical energy into mechanical energy.
 // See [ph.doc::Motors] chapter.
-AcMotor: Motor & ElecAcEquip
+AcMotor: Motor {
+  ac
+}
 
 // Conveyor to move people across a horizontal or inclined plane.
 MovingWalkway: VerticalTransport {
@@ -560,12 +557,12 @@ VrfRefrigPlant: Plant {
 
 // A Variable Speed Drive (VSD) controls the electricity applied to
 // a motor to modulate its speed.
-Vsd: ElecEquip <abstract>
+Vsd: Equip <abstract> { elec }
 
 // A Variable Frequency Drive (VFD) controls the frequency and magnitude of
 // the AC voltage applied to an AC motor to modulate its speed.
 // See [ph.doc::Motors] chapter.
-Vfd: Vsd & ElecAcEquip
+Vfd: Vsd { ac }
 
 // A well is a source of groundwater and potentially thermal energy.  When
 // used within an [ATES](ph.doc::ATES) system, the well facilitates thermal
