@@ -229,15 +229,11 @@ ElecDcEquip: ElecEquip {
 }
 
 // Electricity meter
-ElecMeter: Meter {
-  elec
-}
+ElecMeter: Meter & ElecEquip
 
 // Physical housing for electrical circuits, fuses, and breakers.
 // See [ph.doc::ElecPanels#elec-panel] chapter.
-ElecPanel: Panel {
-  elec
-}
+ElecPanel: Panel & ElecEquip
 
 // Enclosure used to move people between floors.
 Elevator: VerticalTransport {
