@@ -9,10 +9,13 @@
 // ModbusAddr contains all info required to connect to a modbus point.
 // Only supports 6-digit extended Modicon format (no hex or decimal).
 //
-// Example: `{ "addr": "400001", "encoding": "u2", "scale": "+32768 /10", "access": "rw" , "dis": "Run Cmd"}`
-
+// Example:
+//
+// ```xeto
+// { "addr": "400001", "encoding": "u2", "scale": "+32768 /10", "access": "rw" , "dis": "Run Cmd"}
+// ```
 ModbusAddr: ProtocolAddr {
-  
+
   // Must follow 6-digit extended Modicon address format. Leading digit selects the
   // type/function; the remaining 5 digits are the 1-based register number.
   // Only the following register values are allowed:
@@ -23,22 +26,22 @@ ModbusAddr: ProtocolAddr {
   // 4xxxxx  Holding Register  400001-465536
   // ```
   addr: Str <pattern: "[0134]\\d{5}">
-  
+
   // Specifies data representation format
   encoding: ModbusEncoding
-  
+
   // Optional bit index within a register
   bitIndex: Int? <minVal: 0, maxVal: 15>
-  
+
   // `"r"` (default), `"rw"` (Read/Write), or `"w"` (Write Only)
   access: ModbusAccess "r"
-  
+
   // Optional ordered op chain applied to the raw value.
   scale: ModbusScaleExpr?
-  
+
   // Optional - defines byte ordering and endianness
   byteOrder: ModbusByteOrder?
-  
+
   // Optional but preferred vendor human-readable point name
   dis: Str?
 }
@@ -65,7 +68,7 @@ ModbusEncoding: Enum {
 }
 
 // Specifies byte and word order for multi-register values
-ModbusByteOrder: Enum { 
+ModbusByteOrder: Enum {
   be  // Big-Endian (ABCD) - big endian byte and word order
   le  // Little-Endian (DCBA) - little endian byte and word order
   leb // Byte-Swap (BADC) - little endian byte order only
@@ -91,3 +94,4 @@ ModbusByteOrder: Enum {
 // <digit>  := ('0' - '9')
 // ```
 ModbusScaleExpr: Scalar
+
