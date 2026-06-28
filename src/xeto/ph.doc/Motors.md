@@ -7,11 +7,11 @@ copyright:  Copyright (c) 2014, Project-Haystack
 
 # Overview
 The [ph::PhEntity.motor] tag is paired with the [ph::PhEntity.equip] tag to model equipment that
-operates with an electric motor.  Haystack defines the following
-standardized motor subtypes:
+operates with an electric motor.  Haystack defines the following entities
+that use motors:
 
-  - [ph::FanMotor]: fans used to move air
-  - [ph::PumpMotor]: pumps used to move fluid
+  - [ph::Fan]: fans used to move air
+  - [ph::Pump]: pumps used to move fluid
 
 Often these motors are driven by a variable frequency drive, or VFD, that
 exposes many points.  If a motor uses a VFD, then it should also be tagged

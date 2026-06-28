@@ -33,7 +33,7 @@ the following types of sub-equipment:
   - [ph::PhEntity.chiller]
   - [ph::PhEntity.coolingTower]
   - [ph::PhEntity.heatExchanger]
-  - [ph::PumpMotor]
+  - [ph::Pump] + [ph::Motor]
   - [ph::ValveActuator]
 
 This diagram shows the salient equipment and fluid flows:
@@ -46,7 +46,7 @@ with the [ph::PhEntity.equip] tag.  These plants are composed of the following t
 of sub-equipment:
   - [ph::HotWaterBoiler]
   - [ph::PhEntity.heatExchanger]
-  - [ph::PumpMotor]
+  - [ph::Pump] + [ph::Motor]
   - [ph::ValveActuator]
 
 # Steam Plants
@@ -55,7 +55,7 @@ with the [ph::PhEntity.equip] tag.  These plants are composed of the following t
 of sub-equipment:
   - [ph::SteamBoiler]
   - [ph::PhEntity.heatExchanger]
-  - [ph::PumpMotor]
+  - [ph::Pump] + [ph::Motor]
   - [ph::ValveActuator]
 
 # Loops
@@ -106,3 +106,4 @@ sensor on the primary entering pipe and on the secondary leaving pipe:
     kind: "Number"
     equipRef: @hx
     siteRef: @site
+
