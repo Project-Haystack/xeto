@@ -98,17 +98,17 @@ Enum: Scalar
 // Open enumerated taxonomy of marker tags
 Choice: Dict
 
-// Sequence is base type for all collections
-Seq: Obj <abstract>
+// Collection is base type for all non-scalar types
+Collection: Obj <abstract>
 
 // Associative array of name/value pairs
-Dict: Seq
+Dict: Collection
 
 // Ordered list of zero or more values
-List: Seq <sealed>
+List: Collection <sealed>
 
 // Two dimension table of columns and rows.
-Grid: Seq <of:Dict>
+Grid: Collection <of:Dict>
 
 // Or type is a choice between one of multiple types.
 // It is a union of the set of types.

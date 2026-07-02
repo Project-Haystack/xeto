@@ -134,7 +134,7 @@ Spec: Dict <sealed> {
   // Applied to strings to require value is non-empty when trimmed of whitespace
   nonEmpty: Marker?
 
-  // Item type for parameterized Seq/Query; target type for Ref/MultiRef
+  // Item type for parameterized Collection/Query; target type for Ref/MultiRef
   of: Ref? <of:Spec>
 
   // Types used in compound types like And and Or
