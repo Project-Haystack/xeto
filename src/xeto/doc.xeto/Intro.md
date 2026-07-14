@@ -3,7 +3,7 @@
 Xeto is a data-only programming language to specify and exchange typed data.
 It uses a plain text format to create *specs* for data type definitions.
 You can think of Xeto as a typed JSON, schema language, or ontology language.
-It is designed to provide an expression syntax and type system that programmers
+It is designed to provide an expressive syntax and type system that programmers
 will find familiar to work with data formats like JSON, JSON Schema, and RDF.
 
 Xeto is built around the following key concepts:
@@ -51,7 +51,6 @@ reuse specs.
 Libs are named using a dotted naming convention:
   - 'sys': core type system
   - 'sys.files': Xeto representations of MIME types
-  - 'sys.template': templating types
   - 'ph.*': Project Haystack ontology for built environment
   - 'cc.*': community contributions
   - 'com.acme': organization that owns DNS "acme.com"
