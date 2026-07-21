@@ -19,11 +19,10 @@ are used:
 
 ```
 foreach (pathDir in path):
-  {pathDir}/src/xeto/{libNameA}/
-  {pathDir}/src/xeto/{libNameB}/
-  {pathDir}/lib/xeto/{libNameA}/{libNameA}-{version1}.xetolib
-  {pathDir}/lib/xeto/{libNameA}/{libNameA}-{version2}.xetolib
-  {pathDir}/lib/xeto/{libNameB}/{libNameB}-{version1}.xetolib
+  {pathDir}/src/xeto/{libNameA}.xetolib
+  {pathDir}/src/xeto/{libNameB}.xetolib
+  {pathDir}/lib/xeto/{libNameA}.xetolib
+  {pathDir}/lib/xeto/{libNameB}.xetolib
   ...
 ```
 
