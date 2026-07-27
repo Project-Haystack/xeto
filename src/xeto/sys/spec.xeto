@@ -140,6 +140,11 @@ Spec: Dict <sealed> {
   // Types used in compound types like And and Or
   ofs: List? <of:Ref<of:Spec>>
 
+  // Marks a function as an operation published to the generated OpenAPI
+  // schema.  All functions are callable over HTTP; this marks the ones
+  // which are part of the documented API surface.
+  op: Marker?
+
   // Regex pattern for scalar string encoding
   pattern: Str?
 
