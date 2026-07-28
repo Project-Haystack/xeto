@@ -1,0 +1,68 @@
+//
+// Copyright (c) 2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   14 Feb 2025  Brian Frank  Creation
+//   28 Jul 2026  Brian Frank  Flush out core op funcs
+//
+
++Funcs {
+
+//////////////////////////////////////////////////////////////////////////
+// Reads
+//////////////////////////////////////////////////////////////////////////
+
+  // Read an entity by `id`.  If not found raise error or
+  // return null based on checked flag.
+  //
+  // Examples:
+  //
+  //      readById(@2b00f9dc-82690ed6)
+  //      readById(@2b00f9dc-82690ed6, false)
+  readById: Func <op, noSideEffects> { id: Ref?, checked: Bool "true", returns: Dict? }
+
+  // Read a list of entities by their ids into a grid.  The rows in the
+  // result correspond by index to the ids list.  If checked is true,
+  // then every id must be found or an error is raised.  If checked
+  // is false, then an unknown entity is returned as a row with every column
+  // set to null (including the `id` tag).
+  //
+  // Examples:
+  //
+  //     readByIds([@2af6f9ce-6ddc5075, @2af6f9ce-2d56b43a])
+  //     readByIds([@2af6f9ce-6ddc5075, @2af6f9ce-2d56b43a], false)
+  readByIds: Func <op, noSideEffects> { ids: List <of:Ref>, checked: Bool "true", returns: Grid }
+
+  // Read the first entity which matches [filter](ph.doc::Filters).
+  // If no matches found raise error or return null based on checked
+  // flag.  If there are multiple matches it is indeterminate which one is
+  // returned.
+  //
+  // Examples:
+  //
+  //     read(Site)                 // read any entity which subtypes Site
+  //     read(Site and dis=="HQ")   // read site with specific dis tag
+  //     read(Room)                 // raise error if no room entities
+  //     read(Room, false)          // return null if no room entities
+  read: Func <op, noSideEffects> { filter: Filter, checked: Bool "true", returns: Dict? }
+
+  // Read all entities which match the [filter](ph.doc::Filters).
+  //
+  // Options:
+  //   - `limit`: max number of entities to return
+  //   - `sort`: sort by display name
+  //   - `search`: platform specific search pattern
+  //   - `trash`: include entities with the `trash` tag
+  //   - `gridMeta`: dict to use for the result's grid level meta
+  //
+  // Examples:
+  //
+  //     readAll(Site)                      // read all site entities
+  //     readAll(Equip and siteRef==@xyz)   // read all equip in a given site
+  //     readAll(Equip, {limit:10})         // read up to ten equips
+  //     readAll(Equip, {sort})             // read all equip sorted by dis
+  readAll: Func <op, noSideEffects> { filter: Filter, opts: Dict?, returns: Grid }
+
+}
+
