@@ -159,6 +159,13 @@ Spec: Dict <sealed> {
   // on a interface slot, the slot cannot be overridden in a subtype.
   sealed: Marker? <noInherit>
 
+  // Marks a function as having side effects that modify observable state
+  // or invoke external actions (writes, commits, notifications, etc).
+  // Agent harnesses use this marker to require confirmation before
+  // evaluation, or to raise an error in plan mode.  This marker is the
+  // dual of `noSideEffects`; unmarked functions are assumed to be safe.
+  sideEffects: Marker?
+
   // Indicates a spec level slot versus an instance level slot
   static: Marker?
 
