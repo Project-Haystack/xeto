@@ -1,0 +1,27 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   12 Feb 2026  Adam Garnhart  Creation
+//
+
+// On/off command to run a boiler
+BoilerHeatRunCmd : HeatRunCmd { boiler }
+
+// Sensor for on/off state of a boiler
+BoilerHeatRunSensor : HeatRunSensor { boiler }
+
+// Command to permit/prohibit a boiler to run.
+// Enable is used as an interlock with a run command.
+BoilerEnableCmd : HeatEnableCmd { boiler }
+
+// Command for modulating boiler heating capacity
+// as a percentage from 0% to 100%
+BoilerHeatModulatingCmd : HeatModulatingCmd { boiler }
+
+// Sensor for boiler water level from 0% (empty) to 100% (full)
+BoilerWaterLevelSensor : WaterLevelSensor { boiler }
+
+// Sensor for cumulative runtime duration of a boiler
+BoilerRuntimeSensor : RuntimeSensor { boiler }
