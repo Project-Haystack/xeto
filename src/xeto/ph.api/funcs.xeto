@@ -30,7 +30,7 @@
   // navId as an opaque identifier.
   //
   // See [ph.doc::Ops#nav].
-  navOp: Func <op, noSideEffects> { req: Grid, returns: Grid }
+  nav: Func <op, noSideEffects> { req: Grid, returns: Grid }
 
 //////////////////////////////////////////////////////////////////////////
 // Watches
@@ -70,7 +70,7 @@
   // is no longer valid and open a new one.
   //
   // See [ph.doc::Ops#watchsub].
-  watchSubOp: Func <op> { req: Grid, returns: Grid }
+  watchSub: Func <op> { req: Grid, returns: Grid }
 
   // Close a watch entirely or remove entities from it.
   //
@@ -85,7 +85,7 @@
   // is no longer valid and open a new one.
   //
   // See [ph.doc::Ops#watchunsub].
-  watchUnsubOp: Func <op> { req: Grid, returns: Grid }
+  watchUnsub: Func <op> { req: Grid, returns: Grid }
 
   // Poll a watch for changes to the subscribed entities.
   //
@@ -107,7 +107,7 @@
   // is no longer valid and open a new one.
   //
   // See [ph.doc::Ops#watchpoll].
-  watchPollOp: Func <op> { req: Grid, returns: Grid }
+  watchPoll: Func <op> { req: Grid, returns: Grid }
 
 //////////////////////////////////////////////////////////////////////////
 // Point Write
@@ -137,7 +137,7 @@
   // Write response: empty grid
   //
   // See [ph.doc::Ops#pointwrite].
-  pointWriteOp: Func <op> { req: Grid, returns: Grid }
+  pointWrite: Func <op> { req: Grid, returns: Grid }
 
 //////////////////////////////////////////////////////////////////////////
 // History
@@ -191,7 +191,7 @@
   // are always in the point's configured timezone.
   //
   // See [ph.doc::Ops#hisread].
-  hisReadOp: Func <op, noSideEffects> { req: Grid, returns: Grid }
+  hisRead: Func <op, noSideEffects> { req: Grid, returns: Grid }
 
   // Post new time-series data to one or more historized points.  The points
   // must already be configured on the server and assigned a unique
@@ -219,7 +219,7 @@
   // value kind, and unit conversion are explicitly disallowed.
   //
   // See [ph.doc::Ops#hiswrite].
-  hisWriteOp: Func <op> { req: Grid, returns: Grid }
+  hisWrite: Func <op> { req: Grid, returns: Grid }
 
 }
 
