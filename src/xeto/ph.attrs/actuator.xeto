@@ -1,0 +1,16 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   10 Mar 2026  Adam Garnhart  Creation
+//
+
+// Actuator fail position specified by engineer (failOpen, failClosed, etc.)
+ActuatorFailPositionDesignAttr : EnumAttr { design, actuator, val: ActuatorFailPosition }
+
+// Actuator control action from manufacturer (modulating, twoPosition, floating)
+ActuatorControlActionRatedAttr : EnumAttr { rated, actuator, val: ActuatorControlAction }
+
+// Actuator physical mechanism from manufacturer (electricMotor, pneumatic, etc.)
+ActuatorMechanismRatedAttr : EnumAttr { rated, actuator, val: ActuatorMechanism }
