@@ -53,7 +53,6 @@
   //   - `limit`: max number of entities to return
   //   - `sort`: sort by display name
   //   - `search`: platform specific search pattern
-  //   - `trash`: include entities with the `trash` tag
   //   - `gridMeta`: dict to use for the result's grid level meta
   //
   // Examples:

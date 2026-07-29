@@ -9,32 +9,6 @@
 +Funcs {
 
 //////////////////////////////////////////////////////////////////////////
-// Read
-//////////////////////////////////////////////////////////////////////////
-
-  // Read a set of entities either by their unique identifier or using a
-  // filter.  The mode is determined by whether the request grid has a
-  // `filter` or an `id` column.
-  //
-  // Request (by filter): a grid with a single row and following columns:
-  //   - `filter`: required Str encoding of a filter
-  //   - `limit`: optional Number for the max number of entities to return
-  //
-  // Request (by id): a grid of one or more rows with an `id` column of Ref
-  // identifiers.
-  //
-  // Response: a grid with a row for each entity read.  If the request is a
-  // filter read and no matches were found then the result is an empty grid
-  // with no rows.  If a read by id, then each row corresponds to the
-  // request grid and its respective row ordering; if an id from the request
-  // was not found, the response includes a row of all null cells.
-  //
-  // A read on points returns the last known values for `curVal` and
-  // `curStatus`.  It does not force a cur value refresh from downstream
-  // data sources; use `phWatchSub` for that.
-  phRead: Func <op, noSideEffects> { req: Grid, returns: Grid }
-
-//////////////////////////////////////////////////////////////////////////
 // Nav
 //////////////////////////////////////////////////////////////////////////
 
@@ -54,7 +28,9 @@
   // database.  However, if a navigation row has an `id` column, then it is
   // safe to assume the row maps to an entity.  Clients must treat the
   // navId as an opaque identifier.
-  phNav: Func <op, noSideEffects> { req: Grid, returns: Grid }
+  //
+  // See [ph.doc::Ops#nav].
+  navOp: Func <op, noSideEffects> { req: Grid, returns: Grid }
 
 //////////////////////////////////////////////////////////////////////////
 // Watches
@@ -92,7 +68,9 @@
   //
   // If the response is an error grid then the client must assume the watch
   // is no longer valid and open a new one.
-  phWatchSub: Func <op> { req: Grid, returns: Grid }
+  //
+  // See [ph.doc::Ops#watchsub].
+  watchSubOp: Func <op> { req: Grid, returns: Grid }
 
   // Close a watch entirely or remove entities from it.
   //
@@ -105,7 +83,9 @@
   //
   // If the response is an error grid then the client must assume the watch
   // is no longer valid and open a new one.
-  phWatchUnsub: Func <op> { req: Grid, returns: Grid }
+  //
+  // See [ph.doc::Ops#watchunsub].
+  watchUnsubOp: Func <op> { req: Grid, returns: Grid }
 
   // Poll a watch for changes to the subscribed entities.
   //
@@ -125,7 +105,9 @@
   //
   // If the response is an error grid then the client must assume the watch
   // is no longer valid and open a new one.
-  phWatchPoll: Func <op> { req: Grid, returns: Grid }
+  //
+  // See [ph.doc::Ops#watchpoll].
+  watchPollOp: Func <op> { req: Grid, returns: Grid }
 
 //////////////////////////////////////////////////////////////////////////
 // Point Write
@@ -153,7 +135,9 @@
   //   - `duration`: Number with duration unit if setting level 8
   //
   // Write response: empty grid
-  phPointWrite: Func <op> { req: Grid, returns: Grid }
+  //
+  // See [ph.doc::Ops#pointwrite].
+  pointWriteOp: Func <op> { req: Grid, returns: Grid }
 
 //////////////////////////////////////////////////////////////////////////
 // History
@@ -205,7 +189,9 @@
   // different timezone is specified in the range then servers must convert
   // to the point's configured timezone before executing the query.  Results
   // are always in the point's configured timezone.
-  phHisRead: Func <op, noSideEffects> { req: Grid, returns: Grid }
+  //
+  // See [ph.doc::Ops#hisread].
+  hisReadOp: Func <op, noSideEffects> { req: Grid, returns: Grid }
 
   // Post new time-series data to one or more historized points.  The points
   // must already be configured on the server and assigned a unique
@@ -231,6 +217,9 @@
   // the entity's configured timezone and kind.  Numeric data posted must
   // either be unitless or match the entity's configured unit; timezone,
   // value kind, and unit conversion are explicitly disallowed.
-  phHisWrite: Func <op> { req: Grid, returns: Grid }
+  //
+  // See [ph.doc::Ops#hiswrite].
+  hisWriteOp: Func <op> { req: Grid, returns: Grid }
 
 }
+
