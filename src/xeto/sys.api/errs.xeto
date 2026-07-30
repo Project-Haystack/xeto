@@ -1,0 +1,89 @@
+//
+// Copyright (c) 2025, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   14 Feb 2025  Brian Frank  Creation
+//
+
+// Standard error envelope for the Xeto HTTP API.  Every non-2xx
+// response returns an ApiErr subtype encoded as clean JSON regardless
+// of the request's Accept header.  The dict's spec tag carries the
+// concrete error subtype and is the programmatic contract for client
+// error handling; HTTP status codes are advisory and may be refined
+// over time without a breaking change.
+ApiErr: Dict {
+  // HTTP status code; advisory copy of the response status line,
+  // which remains authoritative if they ever disagree
+  status: Int
+
+  // Human readable summary of the error
+  dis: Str
+
+  // Server side stack trace; only present when the server is
+  // configured to include diagnostics
+  errTrace: Str?
+}
+
+// Xeto HTTP API version token as passed in the Xeto-Version
+// header; currently always a decimal integer
+ApiVersion: Scalar <pattern:"[0-9]+">
+
+//////////////////////////////////////////////////////////////////////////
+// ApiErr Subtypes
+//////////////////////////////////////////////////////////////////////////
+
+// Unqualified function name resolved to multiple specs
+AmbiguousFuncErr: ApiErr {
+  // Function name which resolved to multiple specs
+  funcName: Str
+
+  // Candidate qnames the caller may use to disambiguate
+  candidates: List<of:Str>
+}
+
+// Function raised an unanticipated server side error
+InternalErr: ApiErr
+
+// Request could not be parsed or arguments failed validation
+InvalidArgsErr: ApiErr
+
+// URI path could not be parsed to valid endpoint
+InvalidPathErr: ApiErr
+
+// HTTP method is not supported for the requested function
+MethodNotAllowedErr: ApiErr {
+  // Methods the caller may retry with
+  allow: List<of:Str>
+}
+
+// Request Accept header is missing is not supported by server
+NotAcceptableErr: ApiErr
+
+// Requested capability is recognized but not implemented by server
+NotImplementedErr: ApiErr
+
+// Caller is authenticated but lacks permission to call the function
+PermissionErr: ApiErr
+
+// URI function name could not be resolved in the namespace
+UnknownFuncErr: ApiErr {
+  // Function name which could not be resolved
+  funcName: Str
+}
+
+// URI project name could not be resolved to a runtime
+UnknownProjErr: ApiErr {
+  // Project name which could not be resolved
+  projName: Str
+}
+
+// Request Content-Type is missing or cannot be decoded
+UnsupportedMediaTypeErr: ApiErr
+
+// Xeto-Version header value was malformed or not supported
+UnsupportedVersionErr: ApiErr {
+  // Protocol versions the caller may retry with
+  allow: List<of:ApiVersion>
+}
+
