@@ -42,6 +42,11 @@ AmbiguousFuncErr: ApiErr {
   candidates: List<of:Str>
 }
 
+// Caller could not be authenticated; the credentials were missing,
+// malformed, or expired.  Distinct from PermissionErr, which means the
+// caller is known but is not allowed to call this function.
+AuthErr: ApiErr
+
 // Function raised an unanticipated server side error
 InternalErr: ApiErr
 
@@ -65,6 +70,26 @@ NotImplementedErr: ApiErr
 
 // Caller is authenticated but lacks permission to call the function
 PermissionErr: ApiErr
+
+// Caller exceeded a rate limit or quota.  The request was rejected
+// without being evaluated, so it is safe to retry unchanged once the
+// limit resets.
+RateLimitErr: ApiErr {
+  // How long the caller should wait before retrying; omitted when the
+  // server cannot predict when the limit resets
+  retryAfter: Duration?
+}
+
+// Function exceeded the server's evaluation time limit and was
+// cancelled; the request may succeed if narrowed in scope
+TimeoutErr: ApiErr
+
+// Entity id could not be resolved in the data store; a client error
+// rather than a server fault, since the id came from the request
+UnknownEntityErr: ApiErr {
+  // Id of the entity which could not be resolved
+  id: Str?
+}
 
 // URI function name could not be resolved in the namespace
 UnknownFuncErr: ApiErr {
