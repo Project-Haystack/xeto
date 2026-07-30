@@ -1,0 +1,74 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   30 Jul 2026  Brian Frank  Creation
+//
+
+// Xeto HTTP API version token as passed in the Xeto-Version header;
+// currently always a decimal integer.  Treated as an opaque token so
+// the format stays open to future revisions.
+ApiVersion: Scalar <pattern:"[0-9]+">
+
+// Summary information about a server as reported by [about()].
+// Servers should report every tag they have a meaningful value for
+// and vendors may add their own.
+AboutInfo: Dict {
+
+  // Name of the server or project database
+  serverName: Str
+
+  // Current time of the server's clock
+  serverTime: DateTime
+
+  // Time the server was booted
+  serverBootTime: DateTime
+
+  // Default timezone of the server
+  tz: TimeZone
+
+  // Protocol versions this server supports, so that a client can
+  // negotiate without having to provoke an UnsupportedVersionErr.
+  protocolVersions: List<of:ApiVersion>
+
+  // Name of the server software product
+  productName: Str
+
+  // Version of the server software product
+  productVersion: Str
+
+  // Uri of the product's web site
+  productUri: Uri?
+
+  // Name of the product's company
+  vendorName: Str?
+
+  // Uri of the vendor's web site
+  vendorUri: Uri?
+
+  // Username of the authenticated caller
+  whoami: Str?
+}
+
+// Summary of one operation as reported by [ops()].  This is a quick
+// listing for debugging and discovery, not a machine readable schema:
+// use the spec op to get the full definition of an op and its types.
+OpInfo: Dict {
+  // Qualified name of the op's spec.  A request may use either this or
+  // the simple name, but the qname is always unambiguous where a simple
+  // name can collide across libs.
+  qname: Str
+
+  // First sentence of the op's documentation
+  doc: Str?
+
+  // Marker if the op has no side effects and may be called with GET
+  noSideEffects: Marker?
+
+  // Human readable signature such as "(id: Ref, checked: Bool) -> Dict".
+  // The format is deliberately undefined and may change, so parse the
+  // op's spec rather than this string.
+  signature: Str
+}
+
