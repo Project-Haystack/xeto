@@ -80,6 +80,10 @@ RateLimitErr: ApiErr {
 // cancelled; the request may succeed if narrowed in scope
 TimeoutErr: ApiErr
 
+// Operation is known but cannot service the request right now, such as a
+// network route that is down.  The request may succeed if retried.
+UnavailableErr: ApiErr
+
 // Entity id could not be resolved in the data store; a client error
 // rather than a server fault, since the id came from the request
 UnknownEntityErr: ApiErr {
