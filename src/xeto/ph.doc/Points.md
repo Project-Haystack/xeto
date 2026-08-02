@@ -17,33 +17,31 @@ specific piece of equipment via the [ph::PhEntity.equipRef] tag.  Optionally poi
 may define a [ph::PhEntity.spaceRef] tag if the containing space is defined.
 
 # Point Function
-All points must define exactly one of the following [ph::PointFunction]
-marker tags:
-  - [ph::PhEntity.sensor]: input, AI/BI, sensor
-  - [ph::PhEntity.cmd]: output, AO/BO, actuator, command
-  - [ph::PhEntity.sp]: setpoint, internal control variable, schedule, soft point
-  - [ph::PhEntity.synthetic]: computed data, such as machine learning or simulation
+All points must subtype exactly one of the following specs:
+  - [ph::SensorPoint]: input, AI/BI, sensor
+  - [ph::CmdPoint]: output, AO/BO, actuator, command
+  - [ph::SpPoint]: setpoint, internal control variable, schedule, soft point
+  - [ph::SyntheticPoint]: computed data, such as machine learning or simulation
 
 # Point Kinds
 Points must be classified as analog, digital, or multi-state using the [ph::PhEntity.kind] tag:
-  - **Bool**: models digital points as false/true.  Bool points may
-    also define an `enum` tag for the text to use for the false/true states
-  - **Number**: models analog points, such as temperature or pressure.
+  - [ph::BoolPoint]: models digital points as false/true.  Bool points may
+    define an `enum` tag for the text to use for the false/true states
+  - [ph::NumberPoint]: models analog points, such as temperature or pressure.
     These points should also include the `unit` to indicate the point's
     unit of measurement.
-  - **Str**: models an enumerated point with a mode such as "Off, Slow, Fast".
-    Enumeration points should also define an `enum` tag.
+  - [ph::EnumPoint]: models an enumerated point with a mode such as "Off, Slow, Fast".
 
 # Point Min/Max
 Analog points may define a minimum and/or maximum for the point:
   - [ph::PhEntity.minVal]: minimum point value
   - [ph::PhEntity.maxVal]: maximum point value
 
-When these tags are applied to a [ph::PhEntity.sensor] point, they model the range of
+When these tags are applied to a [ph::SensorPoint] point, they model the range of
 values the sensor can read and report.  Values outside of these range might
 indicate a fault condition in the sensor.
 
-When these tags are applied to a [ph::PhEntity.cmd] or [ph::PhEntity.sp], they model the range
+When these tags are applied to a [ph::CmdPoint] or [ph::SpPoint], they model the range
 of valid user inputs when commanding the point.
 
 # Cur Points
@@ -134,6 +132,7 @@ Here are examples for the proper tagging of points:
     kind: "Number"
     unit: "°F"
     tz: "New_York"
+    spec: @ph.points::DischargeAirTempSensor
 
     // fan run command with writable support
     id: @a
@@ -150,6 +149,7 @@ Here are examples for the proper tagging of points:
     writeVal: false
     writeLevel: 16
     writeStatus: "ok"
+    spec: @ph.points::FanRunCmd
 
     // zone temp setpoint with historization support
     id: @123
@@ -168,4 +168,5 @@ Here are examples for the proper tagging of points:
     tz: "London"
     his
     hisStatus: "ok"
+    spec: @ph.points::ZoneAirTempEffectiveSp
 

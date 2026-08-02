@@ -391,14 +391,24 @@ Meter: Equip {
 
 // Equipment that converts electrical energy into mechanical energy.
 // See [ph.doc::Motors] chapter.
-Motor: ElecEquip {
+Motor: ElecEquip <abstract> {
   motor
   phaseCount: PhaseCount?
 }
 
-// An AC motor converts AC electrical energy into mechanical energy.
+// An AC motor converts AC electrical energy into mechanical
+// energy.  A motor package may include power electronics; the
+// AC designation refers to the power that drives the motor
+// itself, not the source power feeding its electronics.
 // See [ph.doc::Motors] chapter.
 AcMotor: Motor & ElecAcEquip
+
+// A DC motor converts DC electrical energy into mechanical
+// energy.  A motor package may include power electronics; the
+// DC designation refers to the power that drives the motor
+// itself, not the source power feeding its electronics.
+// See [ph.doc::Motors] chapter.
+DcMotor: Motor & ElecDcEquip
 
 // Conveyor to move people across a horizontal or inclined plane.
 MovingWalkway: VerticalTransport {

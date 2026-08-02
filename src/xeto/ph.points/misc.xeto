@@ -27,13 +27,13 @@ RunSensor : RunPoint & SensorPoint
 // Sensor for on/off state of cooling equipment
 CoolRunSensor : RunSensor {
   cool
-  stage: Int? <minVal: 1>
+  stage: Int?
 }
 
 // Sensor for on/off state of heating equipment
 HeatRunSensor : RunSensor {
   heat
-  stage: Int? <minVal: 1>
+  stage: Int?
 }
 
 // On/off command to run equipment
@@ -42,13 +42,13 @@ RunCmd : RunPoint & CmdPoint
 // On/off command to run cooling equipment
 CoolRunCmd : RunCmd {
   cool
-  stage: Int? <minVal: 1>
+  stage: Int?
 }
 
 // On/off command to run heating equipment
 HeatRunCmd : RunCmd {
   heat
-  stage: Int? <minVal: 1>
+  stage: Int?
 }
 
 // Point that enables or disables equipment
@@ -63,45 +63,58 @@ EnableCmd : EnablePoint & CmdPoint
 
 // Command to permit/prohibit cooling equipment to run.
 // Used as an interlock with a run command.
-CoolEnableCmd : EnableCmd { cool }
+CoolEnableCmd : EnableCmd {
+  cool
+  stage: Int?
+}
 
 // Command to permit/prohibit heating equipment to run.
 // Used as an interlock with a run command.
-HeatEnableCmd : EnableCmd { heat }
+HeatEnableCmd : EnableCmd {
+  heat
+  stage: Int?
+}
 
 // Boolean alarm condition
 AlarmSensor : BoolPoint & SensorPoint <abstract> { alarm }
 
-// Point for modulating control of equipment such as
-// valves, dampers, and motors as a percentage from 0% to 100%.
+// Point with variable output from 0% to 100%.
 ModulatingPoint : NumberPoint <abstract> {
   modulating
   unit: Unit <invariant> "%"
 }
 
-// Point for modulating cooling capacity as a percentage from 0% to 100%.
-CoolModulatingPoint : ModulatingPoint <abstract> {
-  cool
-  stage: Int? <minVal: 1>
-}
+// Sensor for the capacity at which equipment is operating as a
+// percentage from 0% to 100%. See [ph.doc::PointPatterns] chapter.
+ModulatingSensor : ModulatingPoint & SensorPoint <abstract>
+
+// Command for equipment to operate at a percentage of capacity from
+// 0% to 100%. See [ph.doc::PointPatterns] chapter.
+ModulatingCmd : ModulatingPoint & CmdPoint <abstract>
 
 // Sensor for modulating cooling capacity as a percentage from 0% to 100%.
-CoolModulatingSensor : CoolModulatingPoint & SensorPoint
+CoolModulatingSensor : ModulatingSensor {
+  cool
+  stage: Int?
+}
 
 // Command for modulating cooling capacity as a percentage from 0% to 100%.
-CoolModulatingCmd : CoolModulatingPoint & CmdPoint
-
-// Point for modulating heating capacity as a percentage from 0% to 100%.
-HeatModulatingPoint : ModulatingPoint <abstract> {
-  heat
-  stage: Int? <minVal: 1>
+CoolModulatingCmd : ModulatingCmd {
+  cool
+  stage: Int?
 }
 
 // Sensor for modulating heating capacity as a percentage from 0% to 100%.
-HeatModulatingSensor : HeatModulatingPoint & SensorPoint
+HeatModulatingSensor : ModulatingSensor {
+  heat
+  stage: Int?
+}
 
 // Command for modulating heating capacity as a percentage from 0% to 100%.
-HeatModulatingCmd : HeatModulatingPoint & CmdPoint
+HeatModulatingCmd : ModulatingCmd {
+  heat
+  stage: Int?
+}
 
 // Sensor for equipment runtime
 RuntimeSensor : NumberPoint & SensorPoint {
