@@ -1383,7 +1383,7 @@ PhEntity: Entity <abstract> {
 
   // Level of capacity for staged equipment.  Stages are numbered
   // sequentially as integers 1, 2, 3, etc.
-  *stage: Number
+  *stage: Int <minVal: 1>
 
   // Readiness mode of a space
   *standby: Marker

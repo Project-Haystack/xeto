@@ -16,6 +16,7 @@
 - [Spaces](Spaces.md): Space entities including floors, rooms, and zones
 - [Equips](Equips.md): Equipment entities
 - [Points](Points.md): Point entities - sensors, actuators, and setpoints
+- [PointPatterns](PointPatterns.md): Standardized specs and patterns for points
 - [Weather](Weather.md): Weather station entities
 - [Devices](Devices.md): Device entities including controllers and networks
 

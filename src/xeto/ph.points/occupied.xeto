@@ -6,8 +6,8 @@
 //   3 Nov 2022  Brian Frank  Creation
 //
 
-// Point associated with the occupied state.  This is a boolean
-// state where false means unoccupied and true means occupied.
+// Point associated with the occupied state; true when occupied,
+// false when unoccupied
 OccupiedPoint : BoolPoint <abstract> {
   occupied
   enum: Obj <val:OccupiedEnum>
@@ -16,25 +16,37 @@ OccupiedPoint : BoolPoint <abstract> {
 // Unoccupied/occupied enumeration
 OccupiedEnum : Enum { unoccupied, occupied }
 
-// Occupancy sensor
+// Sensor for the occupied state; true when occupied, false when unoccupied
 OccupiedSensor : OccupiedPoint & SensorPoint <abstract>
 
-// Occupancy setpoint
+// Setpoint for the occupied state; true when occupied, false when unoccupied
 OccupiedSp : OccupiedPoint & SpPoint <abstract>
+
+// Point associated with the number of occupants
+OccupancyPoint : NumberPoint <abstract> {
+  occupancy
+  minVal: 0
+}
+
+// Sensor for counting the number of occupants
+OccupancySensor : OccupancyPoint & SensorPoint <abstract>
 
 //////////////////////////////////////////////////////////////////////////
 // Zone
 //////////////////////////////////////////////////////////////////////////
 
-// Occupancy sensor for zone space
+// Sensor for the occupied state of a zone space; true when occupied,
+// false when unoccupied
 ZoneOccupiedSensor : OccupiedSensor { zone }
 
-// Occupancy setpoint for zone space
+// Setpoint for the occupied state of a zone space; true when occupied,
+// false when unoccupied
 ZoneOccupiedSp : OccupiedSp { zone }
 
 //////////////////////////////////////////////////////////////////////////
 // Other
 //////////////////////////////////////////////////////////////////////////
 
-// Occupancy sensor for a parking bay
+// Sensor for the occupied state of a parking bay; true when occupied,
+// false when unoccupied
 ParkingBayOccupiedSensor : OccupiedSensor { parkingBay }

@@ -12,23 +12,20 @@ to how zones are modeled as a subtype of space.
 
 # Occupancy
 Determining and controlling occupancy is one of the most critical aspects
-of building automation.  Haystack defines several occupancy related tags
-and points:
+of building automation.  Haystack defines several occupancy related point
+specs:
 
-  - [ph::PhEntity.occupied] [ph::PhEntity.sp]: setpoint true when occupied, false when unoccupied
-  - [ph::PhEntity.occupied] [ph::PhEntity.sensor]: boolean sensor true when occupied, false when unoccupied
-  - [ph::PhEntity.occupancy] [ph::PhEntity.sensor]: people counter that measures number of occupants
+  - [ph.points::OccupiedSp]: setpoint true when occupied, false when unoccupied
+  - [ph.points::OccupiedSensor]: boolean sensor true when occupied, false when unoccupied
+  - [ph.points::OccupancySensor]: people counter that measures number of occupants
   - [ph::PhEntity.occ]: marker tag is used on points for occupancy modes
   - [ph::PhEntity.unocc]: marker tag is used on points for occupancy modes
   - [ph::PhEntity.occupants]: the people who occupy a space
 
-The primary tag used for the occupied/unoccupied state is the [ph::PhEntity.occupied] tag.
 In most cases, the occupied setpoint is a schedule that determines occupancy
 based on the time of day and day of the week.  We might also use a sensor
 like a motion sensor to determine occupancy. More sophisticated sensors can
-actually count the number of people in a space; in which case, we use the [ph::PhEntity.occupancy]
-tag.  As a general rule: points with the [ph::PhEntity.occupied] tag should have
-a `Bool` kind; points with the [ph::PhEntity.occupancy] tag should have a `Number` kind.
+actually count the number of people in a space using [ph.points::OccupancySensor].
 
 The [ph::PhEntity.occ] and [ph::PhEntity.unocc] tags are used in cases when we need to distinguish
 modes.  For example, if we have two different temperature setpoints based
