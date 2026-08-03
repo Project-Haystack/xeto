@@ -1,0 +1,53 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   3 Aug 2026  Brian Frank  Creation
+//
+
+// Response from [repoPing()] to verify end-to-end connectivity
+// with the repo.  Servers may add their own tags.
+RepoPing: Dict {
+
+  // Repo display name
+  dis: Str
+}
+
+// Summary of one lib version available in a repo as reported by
+// [repoSearch()] and [repoVersions()].
+RepoLib: Dict {
+
+  // Dotted lib name
+  lib: Str
+
+  // Lib version
+  version: Version
+
+  // Summary documentation from the lib meta
+  doc: Str?
+
+  // Lib dependencies; omitted when not known such as in search results
+  depends: List? <of:LibDepend>
+
+  // Digest of the lib's xetolib zip file formatted as "sha256:"
+  // followed by the base64uri encoding of the SHA-256 hash.  Clients
+  // should verify fetched content against this digest when available.
+  digest: Str?
+}
+
+// Search results with paging metadata as reported by [repoSearch()].
+RepoSearch: Dict {
+
+  // Matching libs for this page reporting the latest version of each lib
+  libs: List <of:RepoLib>
+
+  // Total count of matching libs across all pages
+  total: Int
+
+  // Actual limit applied by the server
+  limit: Int
+
+  // Offset of this page into the total matches
+  offset: Int
+}

@@ -1,0 +1,22 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   3 Aug 2026  Brian Frank  Creation
+//
+
+// Lib name could not be resolved in the repo
+UnknownLibErr: ApiErr {
+  // Dotted lib name which could not be resolved
+  lib: Str
+}
+
+// Lib name is available in the repo, but not the requested version
+UnknownLibVersionErr: ApiErr {
+  // Dotted lib name requested
+  lib: Str
+
+  // Version which is not available
+  version: Version
+}

@@ -1,0 +1,45 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   3 Aug 2026  Brian Frank  Creation
+//
+
++Funcs {
+
+  // Ping the repo for availability and return summary metadata.
+  // See [RepoPing] for the tags a repo should report where applicable.
+  repoPing: Func <op, noSideEffects> { returns: RepoPing }
+
+  // Search the repo for libs matching the query string.  The query "*"
+  // matches all libs, otherwise a lib matches when its dotted name
+  // contains the query as a substring; servers may support additional
+  // query syntax.  The result reports the latest version of each
+  // matching lib along with paging metadata.
+  //
+  // Parameters:
+  //   - `query`: search query
+  //   - `limit`: max results to return; server may clamp
+  //   - `offset`: paging offset into the total matches
+  repoSearch: Func <op, noSideEffects> { query: Str, limit: Int?, offset: Int?, returns: RepoSearch }
+
+  // List the versions available for the given lib sorted from latest
+  // to oldest.  If the lib name is unknown return an empty list.
+  //
+  // Parameters:
+  //   - `lib`: dotted lib name
+  //   - `versions`: version constraints to filter results
+  //   - `limit`: max results to return
+  repoVersions: Func <op, noSideEffects> { lib: Str, versions: LibDependVersions?, limit: Int?, returns: List <of:RepoLib> }
+
+  // Download the xetolib zip file for the given lib name and version.
+  // If the lib is not available raise `UnknownLibErr`, or if the lib
+  // does not have the requested version raise `UnknownLibVersionErr`.
+  //
+  // Parameters:
+  //   - `lib`: dotted lib name
+  //   - `version`: exact version to fetch
+  repoFetch: Func <op, noSideEffects> { lib: Str, version: Version, returns: XetoLibFile }
+
+}
