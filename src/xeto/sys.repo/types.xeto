@@ -24,6 +24,12 @@ RepoLib: Dict {
   // Lib version
   version: Version
 
+  // Publication lifecycle status
+  pubStatus: RepoPubStatus
+
+  // Additional message associated with publication lifecycle status
+  pubStatusMsg: Str?
+
   // Summary documentation from the lib meta
   doc: Str?
 
@@ -34,6 +40,16 @@ RepoLib: Dict {
   // followed by the base64uri encoding of the SHA-256 hash.  Clients
   // should verify fetched content against this digest when available.
   digest: Str?
+}
+
+// Publication lifecycle status of a lib version as reported by the
+// repo.  This is mutable repo catalog state, not metadata of the lib
+// artifact itself.
+RepoPubStatus: Enum {
+  alpha     // Early experimental prerelease
+  beta      // Feature complete prerelease
+  stable    // Stable production release - used to determine latest and matching
+  yanked    // Withdrawn from new resolution
 }
 
 // Search results with paging metadata as reported by [repoSearch()].
@@ -51,3 +67,4 @@ RepoSearch: Dict {
   // Offset of this page into the total matches
   offset: Int
 }
+
