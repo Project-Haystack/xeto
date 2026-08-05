@@ -37,7 +37,15 @@ source tree would be organized:
     acme.assets/      // directory name determines lib name
       lib.xeto        // must have a pragma file with this name
       specs.xeto      // additional definitions
+      specs/          // may organize into subdirectories
+        more.xeto     // compiled just like a top level source file
+      res/
+        logo.svg      // resource file addressed as `/res/logo.svg`
 ```
+
+All ".xeto" files in the source directory are compiled into the lib
+regardless of how deeply they are nested.  Every other file is a resource
+file addressed by its lib relative URI.
 
 # File Names
 
