@@ -39,6 +39,35 @@ source tree would be organized:
       specs.xeto      // additional definitions
 ```
 
+# File Names
+
+Libs package source files and additional resource files such as markdown,
+images, etc.  These files are addressed by URI relative to the lib, so their
+names must map directly to a URI path section without any escaping.  File
+names must obey the following restrictions:
+  - Must contain only ASCII letters, digits, dash, underbar, or dot
+  - The tilde char is reserved for infrastructure use
+
+These restrictions apply to the names of the Xeto source files and the
+resource files, as well as any subdirectory names used to organize them.
+Files starting with a dot are considered hidden and excluded from the lib.
+
+Example of valid vs invalid file names:
+
+```
+Readme.md     // ok
+res/a.txt     // ok
+foo-bar.txt   // ok
+foo_bar.txt   // ok
+foo bar.txt   // error - spaces are not permitted
+foo~bar.txt   // error - tilde is reserved
+foo#bar.txt   // error - invalid char "#"
+café.txt      // error - only ASCII chars permitted
+```
+
+Note that markdown chapter names have the additional restriction that they
+must not collide with type or instance names; see [Xetodoc](Xetodoc.md#overview).
+
 # Lib Name Prefixes
 
 In order to guarantee globally unique names, the following conventions are
