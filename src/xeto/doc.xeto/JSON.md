@@ -87,7 +87,7 @@ The default is none.  It is lossy in any position with no type: markers, refs,
 dates and unitless numbers all decode as Str.  The auto mode is lossless.
 
 The reserved structural properties are never boxed in any mode: a dict's
-`spec`, a column's `name` and `of`, and a grid's `spec`.
+`spec`, a column's `name` and `of`, and a grid's `spec` and `of`.
 
 ## Dicts
 
@@ -165,21 +165,22 @@ For example:
 Grids may declare types for their cells in three places:
 
 - A column may declare an `of` entry beside its `name`, which gives a type to
-  that column's cells.  It sits at the column level rather than inside `meta`
-  because it is structural rather than a domain tag.
-- The grid `meta` may declare an `of` entry, which gives a default spec to
-  every row.
+  that column's cells.
+- A grid may declare an `of` entry beside its `spec`, which gives a default
+  spec to every row.
 - A row may include a `spec` property, which overrides the default row spec
   for that row.  The rows of a grid need not all be the same type.
+
+Both `of` entries sit beside the thing they describe rather than inside its
+`meta`, because they are structural rather than domain tags.  `meta` holds
+only domain tags, at both the grid and the column level.
 
 For example:
 
 ```json
 {
   "spec":"sys::Grid",
-  "meta":{
-    "of":"ph::Equip"
-  },
+  "of":"ph::Equip",
   "cols":[
     {
       "name":"ts",
@@ -205,7 +206,7 @@ For example:
 ```
 
 A grid whose `spec` names a Grid subclass takes its default row spec from that
-subclass.  The `meta` `of` entry is for grids whose row spec is not named by a
+subclass.  The grid `of` entry is for grids whose row spec is not named by a
 subclass.
 
 Encoders carry these entries but do not synthesize them.  A producer which
