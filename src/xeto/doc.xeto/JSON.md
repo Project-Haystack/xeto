@@ -32,23 +32,35 @@ a string.  In a position with no type, `"2024-11-26"` decodes as a Str, not a
 Date, and `"✓"` decodes as a Str, not a Marker.  Tag names carry no meaning
 either: `id` decodes as a Ref only where the spec declares one.
 
-The type of a value comes from the first of these which applies:
+Resolution has two halves: the type a position expects, and what the encoded
+value does with it.
 
-1. A boxed scalar, which names its own type
-2. A grid column's `of`
-3. The spec of the containing dict, which may come from its `spec` property,
-   from a grid's default row spec, or from the enclosing member's declared type
-4. Otherwise a JSON string decodes as a Str
+A position's expected type is the first of these which applies:
 
-A boxed scalar or a native JSON number or boolean takes priority over the
-surrounding context.  Such a disagreement is not an error.  A boxed Date in a
-slot declared Number decodes as a Date.
+1. For a grid cell, the column's `of`
+2. The type declared for this member by the containing dict's spec.  That spec
+   comes from the dict's own `spec` property, from a grid's default row spec,
+   or from the type the enclosing spec declares for the dict itself
+3. None, which leaves the position untyped
 
-A JSON number decodes by its lexical form: Int when it has no fraction or
-exponent, Float otherwise.  Int, Float and Number are interchangeable, so a
-number takes whichever of the three the position declares.  Against any other
-type the number keeps its lexical form.  A number in a Bool column decodes as
-an Int.
+Three JSON forms carry their own type and keep it whatever the position
+expects:
+
+| JSON         | Decodes as                                        |
+| ----         | ----                                              |
+| boxed scalar | the type named by its `spec`                      |
+| true / false | Bool                                              |
+| number       | Int with no fraction or exponent, otherwise Float |
+
+Such a disagreement is not an error.  A boxed Date in a slot declared Number
+decodes as a Date.  A number in a Bool column decodes as an Int.
+
+Numbers have one exception.  Int, Float and Number are interchangeable, so
+where the expected type is one of the three the number takes it.  Against any
+other type it keeps its lexical form.
+
+A JSON string has no type of its own.  It takes the expected type, and decodes
+as a Str where there is none.
 
 A unitless Number does not survive a position with no type.  It encodes as a
 bare JSON number and decodes as an Int or Float.  It must be boxed, or its
