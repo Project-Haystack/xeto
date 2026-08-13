@@ -169,6 +169,10 @@ Spec: Dict <sealed> {
   // Indicates a spec level slot versus an instance level slot
   static: Marker?
 
+  // Sugar marks a spec as a convenience name for its nominal anchor type
+  // plus a set of structural tag constraints - see [docs](doc.xeto::Sugar).
+  sugar: Marker?
+
   // Mark data as summary level for display in summarized tables and other views
   summary: Marker?
 

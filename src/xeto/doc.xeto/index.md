@@ -10,6 +10,7 @@
 - [Globals](Globals.md): global slot definitions
 - [Meta](Meta.md): lib and spec meta definitions
 - [Instances](Instances.md): instance data
+- [Sugar](Sugar.md): specs that combine nominal and structural typing
 - [Enums](Enums.md): enumeration specs
 - [Choices](Choices.md): mutually exclusive marker choices
 - [Type System](TypeSystem.md): type system features
