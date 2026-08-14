@@ -16,7 +16,7 @@ AppFile : File <abstract>
 MicorosftWordFile : AppFile <mimeType:"application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileExts:"doc docx">
 
 // Microsoft Excel file in xlsx format
-MicorosftExcelFile : AppFile <mimeType:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileExts:"xlsx">
+MicorosftExcelFile : AppFile <mimeType:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileExts:"xlsx xls">
 
 // Microsoft PowerPoint file in pptx format
 MicorosftPowerPointFile : AppFile <mimeType:"application/vnd.openxmlformats-officedocument.presentationml.presentation", fileExts:"pptx">

@@ -38,7 +38,7 @@
 
 - [Filetypes](Filetypes.md): Data encoding formats
 - [Zinc](Zinc.md): Zinc plain text format
-- [Json](Json.md): JSON format
+- [Hayson](Hayson.md): Haystack JSON format
 - [Trio](Trio.md): Tag record I/O format
 - [Csv](Csv.md): Comma separated valus format
 

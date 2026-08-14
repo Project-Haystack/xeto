@@ -22,11 +22,27 @@ CsvFile : TextFile <mimeType:"text/csv", fileExts:"csv">
 // HTML text file
 HtmlFile : TextFile <mimeType:"text/html; charset=utf-8", fileExts:"html">
 
-// JSON text file
+// JSON text file of unknown dialect.  Many formats are JSON but carry
+// semantics of their own; those subtype this and are used where the
+// dialect is known.  The "json" file extension resolves here, since the
+// extension alone does not say which dialect a file holds.
 JsonFile : TextFile <mimeType:"application/json", fileExts:"json">
 
 // JSON-LD text file
-JsonLdFile : TextFile <mimeType:"application/ld+json", fileExts:"jsonld">
+JsonLdFile : JsonFile <mimeType:"application/ld+json", fileExts:"jsonld">
+
+// Project Haystack JSON text file - see [ph.doc::Hayson].  Every typed
+// scalar is an object naming its own kind, so a value is self describing
+// wherever it appears.
+HaysonFile : JsonFile <mimeType:"application/vnd.haystack+json;version=4">
+
+// The Haystack 3 encoding of JSON, retained for existing clients - see
+// [ph.doc::Hayson#json-version-3]
+HaysonV3File : HaysonFile <nodoc, mimeType:"application/vnd.haystack+json;version=3">
+
+// Xeto JSON text file - see [doc.xeto::Jeto].  A value's type comes from
+// its position rather than a wrapper, so the encoding stays terse.
+JetoFile : JsonFile <mimeType:"text/jeto">
 
 // Markdown text file
 MarkdownFile : TextFile <mimeType:"text/markdown; charset=utf-8", fileExts:"md">

@@ -7,8 +7,9 @@ copyright:  Copyright (c) 2020, Project-Haystack
 
 # Overview
 Haystack defines several text formats for encoding the fixed set
-of standard [data types](Kinds).  Every file type is mapped to a
-[ph::PhEntity.filetype] definition.
+of standard [data types](Kinds).  Each format is modeled by a file spec
+such as [sys.files::ZincFile], which carries its mime type and file
+extensions.
 
 # Zinc
 Zinc is a recursive acronym for "Zinc Is Not CSV".  It is the original
@@ -21,16 +22,21 @@ also equally supported and utilized).
 
 See [Zinc] chapter for further discussion and grammar.
 
-# JSON
-The JSON format specifies a standardized method for mapping the Haystack
-data types to JSON without loss of information.  There are two methods
-for encoding Haystack types to JSON:
- - [Version 4](Json#json-version-4) - The default JSON encoding for Haystack
- - [Version 3](Json#json-version-3) - The Haystack 3 encoding for JSON. This encoding
+# Hayson
+Hayson is the JSON encoding of Haystack data.  It maps the Haystack data
+types to JSON without loss of information by tagging each typed scalar with
+a `_kind` discriminator.  There are two versions:
+ - [Version 4](Hayson#json-version-4) - The default JSON encoding for Haystack
+ - [Version 3](Hayson#json-version-3) - The Haystack 3 encoding for JSON. This encoding
  is supplanted by the version 4 encoding but still supported for backwards
  compatibility.
 
-See [Json] chapter for further details.
+See [Hayson] chapter for further details.
+
+Hayson is not the only JSON encoding in use: [Jeto](doc.xeto::Jeto) encodes
+Xeto data, resolving a value's type from its position rather than tagging
+each value with its kind.  Both are JSON, so a file extension of "json" does
+not say which one a file holds.
 
 # Trio
 Trio is an acronym for Tag Record Input/Output.  Trio is derived from

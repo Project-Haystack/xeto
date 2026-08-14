@@ -322,5 +322,5 @@ The data above is encoded into Zinc as follows:
     @site-b,  "Site B",  M,     N,         N
     @site-c,  "Site C",  M,     62000ft²,  "(804) 555-1234"
 
-See [Zinc] and [Json] chapters for the details for grid encoding.
+See [Zinc] and [Hayson] chapters for the details for grid encoding.
 

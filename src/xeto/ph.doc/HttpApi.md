@@ -39,7 +39,7 @@ is not always expressed that way.
 
 # Requests
 A client makes a request to a server by sending a single grid and the server
-responds with a grid.  Typically grids are encoded using [Zinc] or [Json],
+responds with a grid.  Typically grids are encoded using [Zinc] or [Hayson],
 but the actual encoding used is pluggable using [content negotiation](#content-negotiation).
 
 ## GET Requests
@@ -201,8 +201,8 @@ formats by specifying the "Accept" header in your HTTP request.
 The following "Accept" header MIME types are standardized:
 
   - [Zinc](Zinc.md): `text/zinc`, `*/*`, or unspecified
-  - [Json](Json.md): `application/json`, or `application/vnd.haystack+json;version=4`
-  - [JSON v3](Json.md#json-version-3): `application/vnd.haystack+json;version=3`
+  - [Hayson](Hayson.md): `application/json`, or `application/vnd.haystack+json;version=4`
+  - [Hayson v3](Hayson.md#json-version-3): `application/vnd.haystack+json;version=3`
   - [Trio](Trio.md): `text/trio`
   - [Csv](Csv.md): `text/csv`
   - [Turtle](doc.xeto::Rdf): `text/turtle`

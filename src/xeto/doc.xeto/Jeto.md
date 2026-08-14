@@ -1,13 +1,25 @@
 # Overview
 
-Xeto supports the representation of [instances](Instances.md) and
-[specs](Specs.md) via the widely used data interchange format
-[JSON](https://en.wikipedia.org/wiki/JSON).
+**Jeto** is the representation of Xeto [instances](Instances.md) in the
+widely used data interchange format [JSON](https://en.wikipedia.org/wiki/JSON).
+
+Jeto reads as ordinary JSON.  A date is the string `"2024-11-26"` and a dict is
+a plain object, so a consumer which does not know Xeto still sees data it can
+work with.  The type a value had in Xeto is recovered from where the value sits
+rather than from a wrapper around it, which is what keeps the encoding clean.
+
+Jeto is represented by the file spec [sys.files::JetoFile].
+
+Jeto is distinct from [Hayson](ph.doc::Hayson), the Haystack 4 JSON encoding, which
+tags every typed scalar with a `_kind` discriminator.  The two are different formats
+with different goals: Hayson makes every value self-describing at the cost of
+verbosity, while Jeto stays terse and resolves types from context, boxing only
+the values that need it.
 
 ## Scalars
 
 JSON supports a very limited type system, which requires significant type
-erasure.  We opt for a clean, simple JSON mapping where most scalars are mapped
+erasure.  Jeto opts for a clean, simple mapping where most scalars are mapped
 to a string (versus mapping scalars to JSON objects).  The following mapping is
 used:
 
@@ -134,8 +146,7 @@ Null elements are retained.
 
 ## Grids
 
-Each JSON-formatted grid consists of a JSON object with the following
-entries:
+Each Jeto grid consists of a JSON object with the following entries:
 
 - A `spec` entry which identifies them as a Grid, or subclass thereof.
 - A `meta` entry which contains the metadata for the grid itself.
@@ -230,7 +241,7 @@ it are boxed.
 Xeto specs are represented in JSON via the [JSON
 Schema](https://json-schema.org/) specification, using the
 [2020-12](https://json-schema.org/draft/2020-12/schema) dialect.  This allows
-for JSON-formatted Xeto instances to be validated against Xeto specs without
+for Jeto instances to be validated against Xeto specs without
 resorting to Xeto-specific tools.
 
 A generated schema types each scalar as a string, so it describes unboxed

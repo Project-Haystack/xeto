@@ -1,5 +1,5 @@
 <!--
-title:      Json
+title:      Hayson
 author:     Brian Frank
 created:    13 Mar 2013
 copyright:  Copyright (c) 2015, Project-Haystack
@@ -7,12 +7,18 @@ license:    Licensed under the Academic Free License version 3.0
 -->
 
 # Overview
-JSON stands for JavaScript Object Notation.  It is a plain text format
-commonly used for serialization of data.  It is specified in
-[RFC 4627](http://tools.ietf.org/html/rfc4627).  The JSON format is
-designed to support 100% fidelity with with the full Haystack type system.
+**Hayson** is the encoding of Haystack data in JSON, the plain text
+serialization format specified in
+[RFC 4627](http://tools.ietf.org/html/rfc4627).  It is designed to support
+100% fidelity with the full Haystack type system: every typed scalar is a
+JSON object carrying a `_kind` discriminator, so a value is self-describing
+wherever it appears.
 
-JSON is represented by the def [sys.files::JsonFile].
+Hayson is represented by the file spec [sys.files::HaysonFile].
+
+Note this is distinct from [Jeto](doc.xeto::Jeto), the JSON encoding of Xeto
+data, which resolves a value's type from its position rather than tagging
+each value with its kind.
 
 # JSON Version 4
 This section describes the Haystack 4 method for encoding Haystack

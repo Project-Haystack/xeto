@@ -51,7 +51,7 @@ through the encoding/decoding process without loss of typing information.
 
 The following file types are standardized:
   - [Zinc]: a strongly typed CSV tabular data format
-  - [Json]: Haystack mapping to JSON data types
+  - [Hayson]: Haystack mapping to JSON data types
   - [Trio]: a YAML like format used for hand written data
   - [CSV](Csv): one-way mapping to comma separated values (typing is lost)
 
