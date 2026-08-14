@@ -7,18 +7,21 @@ license:    Licensed under the Academic Free License version 3.0
 -->
 
 # Overview
-**Hayson** is the encoding of Haystack data in JSON, the plain text
-serialization format specified in
-[RFC 4627](http://tools.ietf.org/html/rfc4627).  It is designed to support
-100% fidelity with the full Haystack type system: every typed scalar is a
-JSON object carrying a `_kind` discriminator, so a value is self-describing
-wherever it appears.
+**Hayson** is self-typed JSON: each value declares its own kind.  It is the
+encoding of Haystack data in JSON, the plain text serialization format
+specified in [RFC 4627](http://tools.ietf.org/html/rfc4627).
+
+Declaring the kind on each value is what gives 100% fidelity with the full
+Haystack type system: every typed scalar is a JSON object carrying a `_kind`
+discriminator, so a value is self-describing wherever it appears and needs no
+schema to read back.
 
 Hayson is represented by the file spec [sys.files::HaysonFile].
 
-Note this is distinct from [Jeto](doc.xeto::Jeto), the JSON encoding of Xeto
-data, which resolves a value's type from its position rather than tagging
-each value with its kind.
+Note this is distinct from [Jeto](doc.xeto::Jeto), which is xeto-typed JSON:
+there the spec supplies the types, so the values don't have to declare them.
+Hayson only supports the original fixed scalar types, while Jeto supports
+the full Xeto type system.
 
 # JSON Version 4
 This section describes the Haystack 4 method for encoding Haystack
@@ -298,7 +301,8 @@ type,val
 
 The following is an alternate encoding of Haystack to JSON. This encoding was the default
 for Haystack version 3, but has been supplanted by the above (version 4) encoding. It
-is supported for backwards compatibility.
+is supported for backwards compatibility, but is deprecated and will be removed in a
+future version.
 
 The following is the mapping between Haystack (version 3) and JSON types:
 

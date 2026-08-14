@@ -1,20 +1,23 @@
 # Overview
 
-**Jeto** is the representation of Xeto [instances](Instances.md) in the
-widely used data interchange format [JSON](https://en.wikipedia.org/wiki/JSON).
+**Jeto** is xeto-typed JSON: the spec supplies the types, so the values don't
+have to declare them.  It is the representation of Xeto
+[instances](Instances.md) in the widely used data interchange format
+[JSON](https://en.wikipedia.org/wiki/JSON).
 
 Jeto reads as ordinary JSON.  A date is the string `"2024-11-26"` and a dict is
 a plain object, so a consumer which does not know Xeto still sees data it can
-work with.  The type a value had in Xeto is recovered from where the value sits
-rather than from a wrapper around it, which is what keeps the encoding clean.
+work with.
 
 Jeto is represented by the file spec [sys.files::JetoFile].
 
-Jeto is distinct from [Hayson](ph.doc::Hayson), the Haystack 4 JSON encoding, which
-tags every typed scalar with a `_kind` discriminator.  The two are different formats
-with different goals: Hayson makes every value self-describing at the cost of
-verbosity, while Jeto stays terse and resolves types from context, boxing only
-the values that need it.
+Jeto is distinct from [Hayson](ph.doc::Hayson), the Haystack 4 JSON encoding,
+which is self-typed JSON: each value declares its own kind.  The two are
+different formats with different goals.  Hayson makes every value
+self-describing at the cost of verbosity, and needs no schema to read back.
+Hayson only supports the original fixed scalar types, while Jeto supports the full
+Xeto type system. Jeto stays terse by leaning on the spec, and boxes only the
+values a spec does not cover.
 
 ## Scalars
 

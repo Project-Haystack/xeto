@@ -203,6 +203,7 @@ The following "Accept" header MIME types are standardized:
   - [Zinc](Zinc.md): `text/zinc`, `*/*`, or unspecified
   - [Hayson](Hayson.md): `application/json`, or `application/vnd.haystack+json;version=4`
   - [Hayson v3](Hayson.md#json-version-3): `application/vnd.haystack+json;version=3`
+    (deprecated, will be removed in a future version)
   - [Trio](Trio.md): `text/trio`
   - [Csv](Csv.md): `text/csv`
   - [Turtle](doc.xeto::Rdf): `text/turtle`

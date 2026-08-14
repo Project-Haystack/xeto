@@ -36,12 +36,13 @@ JsonLdFile : JsonFile <mimeType:"application/ld+json", fileExts:"jsonld">
 // wherever it appears.
 HaysonFile : JsonFile <mimeType:"application/vnd.haystack+json;version=4">
 
-// The Haystack 3 encoding of JSON, retained for existing clients - see
+// The Haystack 3 encoding of JSON, retained for existing clients but
+// deprecated and will be removed in a future version - see
 // [ph.doc::Hayson#json-version-3]
 HaysonV3File : HaysonFile <nodoc, mimeType:"application/vnd.haystack+json;version=3">
 
-// Xeto JSON text file - see [doc.xeto::Jeto].  A value's type comes from
-// its position rather than a wrapper, so the encoding stays terse.
+// Xeto JSON text file - see [doc.xeto::Jeto].  Jeto is xeto-typed JSON: the
+// spec supplies the types, so the values don't have to declare them.
 JetoFile : JsonFile <mimeType:"text/jeto">
 
 // Markdown text file

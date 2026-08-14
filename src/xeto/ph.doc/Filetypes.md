@@ -28,15 +28,15 @@ types to JSON without loss of information by tagging each typed scalar with
 a `_kind` discriminator.  There are two versions:
  - [Version 4](Hayson#json-version-4) - The default JSON encoding for Haystack
  - [Version 3](Hayson#json-version-3) - The Haystack 3 encoding for JSON. This encoding
- is supplanted by the version 4 encoding but still supported for backwards
- compatibility.
+ is supplanted by the version 4 encoding.  It is still supported for backwards
+ compatibility, but is deprecated and will be removed in a future version.
 
 See [Hayson] chapter for further details.
 
-Hayson is not the only JSON encoding in use: [Jeto](doc.xeto::Jeto) encodes
-Xeto data, resolving a value's type from its position rather than tagging
-each value with its kind.  Both are JSON, so a file extension of "json" does
-not say which one a file holds.
+Hayson is not the only JSON encoding in use: [Jeto](doc.xeto::Jeto) is
+xeto-typed JSON, where the spec supplies the types instead of each value
+declaring its own kind.  Both are JSON, so a file extension of "json" does not
+say which one a file holds.
 
 # Trio
 Trio is an acronym for Tag Record Input/Output.  Trio is derived from
