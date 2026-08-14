@@ -1,7 +1,11 @@
 # Overview
 
 Sugar specs are convenience names for a nominal type plus a set of structural
-typing constraints.  They are declared with the `sugar` marker meta:
+typing constraints.  The term borrows from *syntax sugar* in programming
+languages: syntax that makes code sweeter to write but adds nothing that could
+not be expressed without it.
+
+They are declared with the `sugar` marker meta:
 
 ```xeto
 FanRunCmd: MotorRunCmd <sugar> { fan }
