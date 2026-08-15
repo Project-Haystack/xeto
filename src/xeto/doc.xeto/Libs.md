@@ -60,6 +60,10 @@ These restrictions apply to the names of the Xeto source files and the
 resource files, as well as any subdirectory names used to organize them.
 Files starting with a dot are considered hidden and excluded from the lib.
 
+The prefix "xeto-" is reserved for the system level files which the build
+packages into the [xetolib](#xetolib).  Source and resource files may not
+use this prefix.
+
 Example of valid vs invalid file names:
 
 ```
@@ -67,10 +71,12 @@ Readme.md     // ok
 res/a.txt     // ok
 foo-bar.txt   // ok
 foo_bar.txt   // ok
+xetodoc.md    // ok - the reserved prefix includes the dash
 foo bar.txt   // error - spaces are not permitted
 foo~bar.txt   // error - tilde is reserved
 foo#bar.txt   // error - invalid char "#"
 café.txt      // error - only ASCII chars permitted
+xeto-foo.txt  // error - "xeto-" prefix is reserved
 ```
 
 Note that markdown chapter names have the additional restriction that they
@@ -193,14 +199,18 @@ Xeto libraries are distributed as zip file named as `{name}.xetolib`.
 This file is a zip of the source directory with the following extra
 files:
 
-- `meta.props`: required precompiled lib meta
-- `build.props`: optional build variables required to compile source
+- `xeto-meta.props`: required precompiled lib meta
+- `xeto-build.props`: optional build variables required to compile source
 
-## meta.props
+These system files use the reserved "xeto-" prefix, sit in the zip root, and
+are not lib files.  Readers consume the names they know and ignore any
+others, so new system files may be added without breaking older readers.
 
-The `meta.props` file is required to optimize reading out critcal metadata
-in local repositories without a full compile.  It is formatted as a
-[props file](Grammar.md#props-file) with following names:
+## xeto-meta.props
+
+The `xeto-meta.props` file is required to optimize reading out critcal
+metadata in local repositories without a full compile.  It is formatted as
+a [props file](Grammar.md#props-file) with following names:
 
   - `name`: name of the lib
   - `version`: version of the lib
@@ -216,11 +226,11 @@ depends=sys 5.0.x;ph 5.0.x
 doc=Project haystack points library
 ```
 
-## build.props
+## xeto-build.props
 
-The optional `build.props` file specifies all build variables captured from
-the source environment required to recompile the Xeto source with metadata
-as it was originally built.  Only variables actually referenced by a
+The optional `xeto-build.props` file specifies all build variables captured
+from the source environment required to recompile the Xeto source with
+metadata as it was originally built.  Only variables actually referenced by a
 [BuildVar](BuildVars.md) placeholder are captured; reserved `xeto.` vars
 which configure the build are not.
 

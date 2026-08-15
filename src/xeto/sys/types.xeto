@@ -154,7 +154,7 @@ File: Entity
 // field and method slots.
 Interface: Dict
 
-// BuildVar is string macro from "build.props" injected at build time.
+// BuildVar is string macro from "xeto-build.props" injected at build time.
 // See [doc.xeto::BuildVars] for details.
 BuildVar: Scalar
 

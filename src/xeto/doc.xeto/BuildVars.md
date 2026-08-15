@@ -4,7 +4,7 @@ It is common to define many Xeto libs that all share the same metadata such
 as version, dependency constraints, or org meta.  You can define this
 metadata once and reference it using *build variables*.
 
-Build variables are defined in a file named `src/xeto/build.props` in the
+Build variables are defined in a file named `src/xeto/xeto-build.props` in the
 root of your source environment.  It is formatted as a [props file](Grammar.md#props-file).
 The same file also carries a small number of reserved variables which configure
 the compiler itself; see [Reserved Vars](#reserved-vars).
