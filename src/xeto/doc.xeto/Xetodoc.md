@@ -3,9 +3,13 @@
 All xeto documentation uses a flavor of markdown we term *xetodoc*.  Every
 library has zero or more markdown *chapters* which are resource files in the
 root directory of the lib with a ".md" extension.  You can define a table of
-contents in "index.md" discussed below.  Each markdown filename must
+contents in "index.md" discussed below.  Each chapter filename must
 not collide with any type or instance names to ensure consistent URIs when
 generated to HTML pages.
+
+Only root level markdown files are chapters.  Markdown nested under a
+subdirectory is an ordinary resource file: it is not generated as a page
+and its name may collide freely.
 
 Xetodoc is formally based on [Commonmark](https://commonmark.org/), with
 the following extensions:

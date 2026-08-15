@@ -47,6 +47,11 @@ All ".xeto" files in the source directory are compiled into the lib
 regardless of how deeply they are nested.  Every other file is a resource
 file addressed by its lib relative URI.
 
+Markdown files at the lib root are *chapters*: they take a name in the
+lib's documentation alongside the specs and instances, so they may not
+collide with one.  Markdown nested under a subdirectory is an ordinary
+resource file.  See [Xetodoc](Xetodoc.md).
+
 # File Names
 
 Libs package source files and additional resource files such as markdown,
