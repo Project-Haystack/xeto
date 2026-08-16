@@ -22,7 +22,7 @@
 - [Rdf](Rdf.md): RDF interoperability
 - [Comps](Comps.md): standard model for component oriented applications
 - [Xetodoc](Xetodoc.md): markdown flavor
-- [BuildVars](BuildVars.md): build variables and compiler build config
+- [Build](Build.md): build variables and lib packaging
 
 # Appendix
 

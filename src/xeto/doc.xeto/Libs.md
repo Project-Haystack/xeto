@@ -6,7 +6,7 @@ source for the library's specs, instances, and additional resource
 files.  Libs define explicit dependencies for the specs and instances they
 import into their namespace.
 
-# Names
+# Lib Names
 
 Libs have a globally unique dotted name.  Lib names must obey the following
 restrictions:
@@ -29,63 +29,7 @@ foo.barBaz  // error - only lower case ASCII letters permitted
 ```
 
 The lib name is determined by the directory name of the Xeto source
-code.  For example to create library called "acme.assets", then your
-source tree would be organized:
-
-```
-  src/xeto/
-    acme.assets/      // directory name determines lib name
-      lib.xeto        // must have a pragma file with this name
-      specs.xeto      // additional definitions
-      specs/          // may organize into subdirectories
-        more.xeto     // compiled just like a top level source file
-      res/
-        logo.svg      // resource file addressed as `/res/logo.svg`
-```
-
-All ".xeto" files in the source directory are compiled into the lib
-regardless of how deeply they are nested.  Every other file is a resource
-file addressed by its lib relative URI.
-
-Markdown files at the lib root are *chapters*: they take a name in the
-lib's documentation alongside the specs and instances, so they may not
-collide with one.  Markdown nested under a subdirectory is an ordinary
-resource file.  See [Xetodoc](Xetodoc.md).
-
-# File Names
-
-Libs package source files and additional resource files such as markdown,
-images, etc.  These files are addressed by URI relative to the lib, so their
-names must map directly to a URI path section without any escaping.  File
-names must obey the following restrictions:
-  - Must contain only ASCII letters, digits, dash, underbar, or dot
-  - The tilde char is reserved for infrastructure use
-
-These restrictions apply to the names of the Xeto source files and the
-resource files, as well as any subdirectory names used to organize them.
-Files starting with a dot are considered hidden and excluded from the lib.
-
-The prefix "xeto-" is reserved for the system level files which the build
-packages into the [xetolib](#xetolib).  Source and resource files may not
-use this prefix.
-
-Example of valid vs invalid file names:
-
-```
-Readme.md     // ok
-res/a.txt     // ok
-foo-bar.txt   // ok
-foo_bar.txt   // ok
-xetodoc.md    // ok - the reserved prefix includes the dash
-foo bar.txt   // error - spaces are not permitted
-foo~bar.txt   // error - tilde is reserved
-foo#bar.txt   // error - invalid char "#"
-café.txt      // error - only ASCII chars permitted
-xeto-foo.txt  // error - "xeto-" prefix is reserved
-```
-
-Note that markdown chapter names have the additional restriction that they
-must not collide with type or instance names; see [Xetodoc](Xetodoc.md#overview).
+code.
 
 # Lib Name Prefixes
 
@@ -113,6 +57,66 @@ developing a community contribution for a vendor named "Baz", you
 can request "cc.baz".  Top-level prefixes that would conflict with
 DNS top level domains such as country codes will not be granted.
 
+# Source Tree
+
+Here is an example of a source tree for a library named "acme.assets":
+
+```
+  src/xeto/
+    acme.assets/      // directory name determines lib name
+      lib.xeto        // must have a pragma file with this name
+      specs.xeto      // additional definitions
+      specs/          // may organize into subdirectories
+        more.xeto     // compiled just like a top level source file
+      res/
+        logo.svg      // resource file addressed as `/res/logo.svg`
+```
+
+All ".xeto" files in the source directory are compiled into the lib
+regardless of how deeply they are nested.  Every lib must have a file
+named "lib.xeto" that defines the library metadata.
+
+Markdown files at the lib root are *chapters*: they take a name in the
+lib's documentation alongside the specs and instances, so they may not
+collide.  Markdown nested under a subdirectory is an ordinary resource
+file. Also see [Xetodoc](Xetodoc.md).
+
+Every other file is a *resource file* addressed by its lib relative URI, but
+only if the lib includes it at build time - see [packaging](Build.md#packaging).
+Some resource files are *published* which means they are served with a URI
+of their own under the lib.
+
+# File Names
+
+The prefix "xeto-" is reserved for the system level files.  It is invalid
+for any resource file to start with this prefix.
+
+A [published](Build.md#packaging) file is addressed by URI relative to the
+lib, so its name must map directly to a URI path section without any
+escaping.  Published file names must obey the following restrictions:
+  - Must contain only ASCII letters, digits, dash, underbar, or dot
+  - The tilde char is reserved for infrastructure use
+  - These restrictions apply to the name and every directory which contains it
+
+An included file takes no URI of its own, so its name is unrestricted.
+
+Example of valid vs invalid published file names:
+
+```
+res/a.txt     // ok
+foo-bar.txt   // ok
+foo_bar.txt   // ok
+xetodoc.md    // ok - the reserved prefix includes the dash
+foo bar.txt   // error - spaces are not permitted
+foo~bar.txt   // error - tilde is reserved
+foo#bar.txt   // error - invalid char "#"
+café.txt      // error - only ASCII chars permitted
+xeto-foo.txt  // error - "xeto-" prefix is reserved
+```
+
+Note that markdown chapter names have the additional restriction that they
+must not collide with type or instance names; see [Xetodoc](Xetodoc.md#overview).
+
 # Pragma
 
 All libs must define their metadata file in a file named "lib.xeto".
@@ -121,6 +125,7 @@ Lib meta includes:
   - dependencies
   - summary documentation
   - organization metadata
+  - which files to [package and publish](Build.md#packaging)
 
 Lib metadata is declared in lib.xeto via the *pragma*.  Here is an
 example template:
@@ -144,18 +149,18 @@ Specific lib metadata is discussed in detail below.
 
 ## Doc
 
-The pragma 'doc' tag declares a short summary of the library.  This tag should
+The pragma [sys::Lib.doc] tag declares a short summary of the library.  This tag should
 be used for summary information only, not the complete documentation.  The
 first sentence will be used for the lib in documentation indexes.
 
 ## Version
 
-The pragma 'version' tag declares the library version.  This must be
+The pragma [sys::Lib.version] tag declares the library version.  This must be
 string formatted as three decimal digits separated by a dot.
 
 ## Depends
 
-The pragma 'depends' tag specifies a list of lib dependencies that are
+The pragma [sys::Lib.depends] tag specifies a list of lib dependencies that are
 formatted as lib name and version constraints.  Depends are used
 to define the dependency graph of a lib which imports all spec and
 instance names from the dependencies in to the library's namespace.
@@ -187,22 +192,23 @@ to be "x.x.x" (any version).
 
 ## Org
 
-The pragma 'org' tag specifies summary information for the organization
+The pragma [sys::Lib.org] tag specifies summary information for the organization
 publishing the library. Org is a dict with the following tags:
-  - 'dis': display name for the organization
-  - 'uri': URL to the organization's web site
+  - `dis`: display name for the organization
+  - `uri`: URL to the organization's web site
 
 # Build Vars
 
 Lib metadata such as version, dependencies, and org can be factored out
 into build variables shared by every lib in a source environment.  See
-[BuildVars](BuildVars.md) for details.
+[Build](Build.md) for details.
 
 # Xetolib
 
 Xeto libraries are distributed as zip file named as `{name}.xetolib`.
-This file is a zip of the source directory with the following extra
-files:
+This file zips the lib's xeto source, its markdown chapters, and
+the [included](Build.md#packaging) resource files, plus the following system
+level files:
 
 - `xeto-meta.props`: required precompiled lib meta
 - `xeto-build.props`: optional build variables required to compile source
@@ -236,6 +242,5 @@ doc=Project haystack points library
 The optional `xeto-build.props` file specifies all build variables captured
 from the source environment required to recompile the Xeto source with
 metadata as it was originally built.  Only variables actually referenced by a
-[BuildVar](BuildVars.md) placeholder are captured; reserved `xeto.` vars
-which configure the build are not.
+[BuildVar](Build.md) placeholder are captured.
 

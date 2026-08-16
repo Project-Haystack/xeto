@@ -12,6 +12,7 @@ pragma: Lib <
   depends: {
     { lib: "sys", versions: BuildVar "ph.depend" }
   }
+  publish: {"/*.props"}
   categories: {"sys"}
   license: BuildVar "ph.license"
   org: {

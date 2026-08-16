@@ -78,7 +78,7 @@ Spec: Dict <sealed> {
   // Indicates an immutable value
   const: Marker?
 
-  // Documentation description
+  // Documentation formatted as [xetodoc](doc.xeto::Xetodoc)
   doc: Str?
 
   // Indicates a global slot that defines a shape for all types that might override

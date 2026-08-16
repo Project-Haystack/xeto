@@ -6,7 +6,7 @@
 //   18 Jul 2022  Brian Frank  Creation
 //
 
-// Library module meta data
+// Library module meta data - see [doc.xeto::Libs#pragma].
 Lib: Dict <sealed> {
 
 //////////////////////////////////////////////////////////////////////////
@@ -44,11 +44,15 @@ Lib: Dict <sealed> {
   // Free form category tags
   categories: List? <of:Str>
 
-  // Summary description
+  // Short summary formatted as [xetodoc](doc.xeto::Xetodoc)
   doc: Str?
 
   // Library dependencies
   depends: List <of:LibDepend>
+
+  // Patterns selecting the files to package into the lib which are
+  // not published; see [packaging](doc.xeto::Build#packaging)
+  include: List? <of:LibFilePattern>
 
   // License [SPDX name](https://spdx.org/licenses/) or "commerical"
   license: Str?
@@ -58,6 +62,10 @@ Lib: Dict <sealed> {
 
   // Library organization information
   org: LibOrg?
+
+  // Patterns selecting the files to package into the lib and publish
+  // with their own uri; see [packaging](doc.xeto::Build#packaging)
+  publish: List? <of:LibFilePattern>
 
   // Library version control system metadata
   vcs: LibVcs?
@@ -95,7 +103,24 @@ LibDepend: Dict <sealed> {
 // ```
 LibDependVersions: Scalar <sealed>
 
-// Organization library metadata
+// Path used to select files from a lib's source directory for
+// [packaging](doc.xeto::Build#packaging).  A pattern takes one of
+// three forms:
+//
+// ```
+// /doc            // directory: every file in the subtree
+// /doc/index.md   // file: exactly one file
+// /*.svg          // extension: the svg files at the lib root
+// /doc/*.svg      // extension: the svg files directly in "/doc"
+// ```
+//
+// A pattern is written the same way a lib file is addressed, rooted at
+// the lib with a leading slash.  The "*" wildcard may appear only as the
+// whole final section in the form "*.ext".  Patterns have no trailing
+// slash, no "..", and no backslashes.
+LibFilePattern: Scalar <sealed>
+
+// Organization library metadata - see [doc.xeto::Libs#org].
 LibOrg: Dict {
   dis: Str     // Display name for the organization
   uri: Uri     // URI for organization website

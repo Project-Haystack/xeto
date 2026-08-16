@@ -155,7 +155,7 @@ File: Entity
 Interface: Dict
 
 // BuildVar is string macro from "xeto-build.props" injected at build time.
-// See [doc.xeto::BuildVars] for details.
+// See [doc.xeto::Build] for details.
 BuildVar: Scalar
 
 // Err represents an error condition.

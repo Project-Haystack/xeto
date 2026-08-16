@@ -28,7 +28,7 @@ to contain "::" double colons; that format is reserved
 for lib instances.
 
 The scope of uniqueness for lib instances is global due to the
-fact that lib names are [globally unique](Libs.md#names).  For
+fact that lib names are [globally unique](Libs.md#lib-names).  For
 non-lib instances the id must at least be unique within the
 containing dataset.
 
