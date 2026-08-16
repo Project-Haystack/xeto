@@ -72,6 +72,8 @@ Resource files are included via the following lib pragma fields:
     for files your code reads at runtime.
   - `publish`: packaged *and* given its own uri so it can be linked and
     fetched individually.
+  - hidden files starting with a "." are always ignored
+  - files starting with "xeto-" are reserved and cannot be used
 
 Selecting a file with `publish` implies `include`, so a file is never
 listed twice.  A file selected by neither is not packaged at all.
