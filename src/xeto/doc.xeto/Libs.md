@@ -36,8 +36,8 @@ code.
 In order to guarantee globally unique names, the following conventions are
 used for lib name prefixes:
 
-- Reverse DNS names are reserved for the top level domains: com, org, net,
-  gov, edu, and io
+- Reverse DNS names are reserved for the top level domains: ai, app, com,
+  dev, edu, gov, io, net, and org
 - The prefix "cc." is reserved for community contributions
 - Top level prefixes are granted when appropriate to avoid name squatting
 
