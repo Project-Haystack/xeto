@@ -53,7 +53,7 @@ built in support for linking by relative or qualified names:
 [doc.xeto::Xetodoc]          Markdown chapter via qname
 [doc.xeto::Xetodoc#tables]   Markdown chapter via qname
 [readAll()]                  Unqualified func name in namespace
-[hx::readAll()]              Qualilfied func name within namespace
+[hx::readAll()]              Qualified func name within namespace
 
 --- Lib Relative Links ---
 [Str]                        Spec type name in lib or its depends

@@ -9,7 +9,7 @@ The API is version 5 of the Haystack REST API.  It shares its transport
 with [version 4](ph.doc::HttpApi) - same URIs, same authentication, same
 format table - and differs in four behaviors covered in [Versions](#versions)
 below.  Its primary encoding is [Jeto](Jeto.md): plain JSON typed
-by the xeto function signatgure.
+by the xeto function signature.
 
 Because every operation declares typed parameters and a typed return,
 the whole API exports as a [Swagger](https://swagger.io/) document - see
@@ -56,7 +56,7 @@ behaviors:
 ## Filetypes
 
 Both versions share one table of formats.  Each format has a
-programmatic name used for `xeto-filetype` query parameter, and a
+programmatic name used for the `xeto-filetype` query parameter, and a
 mime type used with the `Content-Type` and `Accept` headers:
 
 | Name    | Mime Type                                 | Spec                     | Doc                        |
@@ -223,7 +223,7 @@ must be deliverable even when content negotiation is itself what failed.
 Servers may omit `errTrace` in deployments which disable traces.
 
 Version 4 keeps its legacy contract for errors raised by the op itself:
-a 200 response carrying an error grid. Failures in the HTTP processing
+a 200 response carrying an error grid.  Failures in the HTTP processing
 before the op still answer HTTP status codes.
 
 ## JSON Schema
