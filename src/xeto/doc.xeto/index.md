@@ -19,6 +19,7 @@
 - [Constraints](Constraints.md): constraint rules used for validation
 - [Fidelity](Fidelity.md): type erasure rules when mapping to other data formats
 - [Jeto](Jeto.md): JSON representation
+- [HttpApi](HttpApi.md): HTTP API protocol
 - [Rdf](Rdf.md): RDF interoperability
 - [Comps](Comps.md): standard model for component oriented applications
 - [Xetodoc](Xetodoc.md): markdown flavor

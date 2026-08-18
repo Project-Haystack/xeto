@@ -21,6 +21,19 @@ Both requests and responses are modeled as [grids](Kinds#grid).  Grids
 are encoded using one the standard MIME types for grid serialization,
 or may be pluggable using HTTP content negotiation.
 
+This chapter specifies version 4 of the protocol.  [Version 5](doc.xeto::HttpApi)
+shares the same transport URIs, authentication, and formats, but differs
+as follows:
+
+1. ops declare individually typed parameters rather than modeling every exchange
+   as a grid
+2. bare `application/json` encodes as [Jeto](doc.xeto::Jeto) rather than [Hayson]
+3. errors report real HTTP status codes with a JSON error body rather than a 200
+   response carrying an error grid
+4. responses default to JSON rather than [Zinc] when no Accept header is given.
+
+Clients select version 5 with the `Xeto-Version: 5` request header.
+
 # Authentication
 Compliant HTTP API implementations must implement the authentication
 protocol specified in the [Auth] chapter.

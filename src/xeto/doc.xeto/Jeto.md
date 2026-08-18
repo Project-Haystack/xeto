@@ -110,8 +110,9 @@ Encoders support three boxing modes:
 | auto | box only where the plain form would not decode back |
 | all  | box every scalar                                    |
 
-The default is none.  It is lossy in any position with no type: markers, refs,
-dates and unitless numbers all decode as Str.  The auto mode is lossless.
+The default is auto.  The none mode is lossy in any position with no type:
+markers, refs, dates and unitless numbers all decode as Str.  The auto mode
+is lossless.
 
 The reserved structural properties are never boxed in any mode: a dict's
 `spec`, a column's `name` and `of`, and a grid's `spec` and `of`.
