@@ -42,4 +42,12 @@
   //   - `version`: exact version to fetch
   repoFetch: Func <op, noSideEffects> { lib: Str, version: Version, returns: XetoLibFile }
 
+  // Publish a lib version to the repo.  The posted xetolib zip is
+  // validated, compiled, and becomes immediately servable at its pin.
+  // Repos which do not support publishing report a 501 error.
+  //
+  // Parameters:
+  //   - `file`: xetolib zip file as the raw POST body
+  repoPublish: Func <op> { file: XetoLibFile, returns: RepoLib }
+
 }
