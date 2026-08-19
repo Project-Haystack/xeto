@@ -20,7 +20,7 @@ such as 'Bool', 'Int', and 'Str' are sealed to more easily map to the
 native types of the implementation programming language.
 
 The only data serialization format that supports full fidelity is the
-Xeto format itself.
+Xeto format itself and [Jeto] with boxing.
 
 The Haxall reference implementation uses the following strategy:
 1. Map all system level specs to built-in Fantom classes
@@ -38,32 +38,30 @@ The Project Haystack type system provides a fixed set of types similar to
 that found in XML Schema.  The Haystack kinds map one-to-one to Xeto
 specs as follows:
 
-```
-  Xeto              Haystack
-  -----------       -----
-  sys::Marker       Marker
-  sys::NA           NA
-  sys::None         Remove
-  sys::Bool         Bool
-  sys::Number       Number
-  sys::Int          Number  (no unit)
-  sys::Float        Number  (no unit)
-  sys::Duration     Number  (time unit)
-  sys::Str          Str
-  sys::Ref          Ref
-  sys::Uri          Uri
-  sys::Date         Date
-  sys::Time         Time
-  sys::DateTime     DateTime
-  sys::List         List
-  sys::Dict         Dict
-  sys::Grid         Grid
-  ph::Coord         Coord
-  ph::Symbol        Symbol
-```
+| Xeto          | Haystack           |
+| ----          | ----               |
+| sys::Marker   | Marker             |
+| sys::NA       | NA                 |
+| sys::None     | Remove             |
+| sys::Bool     | Bool               |
+| sys::Number   | Number             |
+| sys::Int      | Number (no unit)   |
+| sys::Float    | Number (no unit)   |
+| sys::Duration | Number (time unit) |
+| sys::Str      | Str                |
+| sys::Ref      | Ref                |
+| sys::Uri      | Uri                |
+| sys::Date     | Date               |
+| sys::Time     | Time               |
+| sys::DateTime | DateTime           |
+| sys::List     | List               |
+| sys::Dict     | Dict               |
+| sys::Grid     | Grid               |
+| ph::Coord     | Coord              |
+| ph::Symbol    | Symbol             |
 
 Any scalar not mapped above is encoded in Haystack as a simple string.
-All dicts must declare a 'spec' tag to declare their Xeto spec.
+All dicts must declare a `spec` tag to declare their Xeto spec.
 Lists are untyped in Haystack.  We do not currently define a mapping
 for XStr - they should map to a specific scalar spec.
 
@@ -90,4 +88,5 @@ mapping scalars to JSON objects).  The following mapping is used:
   sys::Dict      object
   ```
 
-All dicts should include a 'spec' property with the type qname.
+All dicts should include a `spec` property with the type qname.
+

@@ -191,13 +191,13 @@ Specs are modeled as dict data just like [instance data](Instances.md).
 The following tags are defined by Xeto itself and may not be used
 as metadata tags:
 
-  - 'id': a Ref which is the spec qname
-  - 'base': a qname Ref to the type inherited from; null for `sys::Obj`;
-  - 'type': a qname Ref to slot type
-  - 'parent': a qname Ref to the parent dict if spec is a slot
-  - 'doc': documentation from comments
-  - 'spec': always a Ref to `sys::Spec` (the spec is an instance of Spec)
-  - 'slots': the slot specs of a dict spec
+  - `id`: a Ref which is the spec qname
+  - `base`: a qname Ref to the type inherited from; null for `sys::Obj`;
+  - `type`: a qname Ref to slot type
+  - `parent`: a qname Ref to the parent dict if spec is a slot
+  - `doc`: documentation from comments
+  - `spec`: always a Ref to `sys::Spec` (the spec is an instance of Spec)
+  - `slots`: the slot specs of a dict spec
 
 Type specs use 'base' and slot specs use 'type'.
 

@@ -119,7 +119,7 @@ The reserved structural properties are never boxed in any mode: a dict's
 
 ## Dicts
 
-Dicts are mapped as JSON objects.  A dict with a known type includes a 'spec'
+Dicts are mapped as JSON objects.  A dict with a known type includes a `spec`
 property with the type qname.  For example, for a Dict conforming to the Xeto
 spec `foo::Bar`:
 
@@ -131,7 +131,7 @@ spec `foo::Bar`:
 }
 ```
 
-Dicts with no known type omit the 'spec' property.  The 'spec' property is
+Dicts with no known type omit the `spec` property.  The `spec` property is
 reserved: it always holds a type qname and is never one of the dict's own
 tags.
 

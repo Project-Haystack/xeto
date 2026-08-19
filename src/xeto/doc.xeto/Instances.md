@@ -6,26 +6,25 @@ JSON objects.  Instances may be defined within a [lib](Libs.md)
 or outside of a lib.
 
 # Id
-All instances must define an `id` tag that is the unique identifier
-for the data entity.  The `id` tag must always be a Ref value and cannot
-start with an uppercase letter nor contains the `:` character; valid
-characters are ASCI letters, digits, or `_ - . ~` characters.  Instances
-which are defined within a lib will have a id formed from the qname:
+All instances must define an `id` tag that is the unique identifier for
+the data entity.  The `id` tag is always a [sys::Ref] value.  Names within
+a lib are limited to ASCII letters, digits, and the `_ - . ~` characters,
+and must not start with an uppercase letter.
+
+Instances defined within a lib have an id formed from the qname:
 
 ```xeto
 // instance in lib acme.widgets; id is @acme.widgets::sku-123
 @sku-123: Part {...}
 ```
 
-Instances defined within a lib must not start with a uppercase letter.
-This allows us to infer from a qname id whether it is a spec or
-an instance.  Also it invalid to have a lib instance with the same
-case insensitive name as a spec in the same lib.
+The lowercase rule is what allows a qname id to be inferred as either
+a spec or an instance.  It is also invalid for a lib instance to have
+the same case insensitive name as a spec in the same lib.
 
-Instances outside of a lib will have an identifier that is
-project or system based.  It is illegal for a non-lib id
-to contain "::" double colons; that format is reserved
-for lib instances.
+Instances outside of a lib have an identifier that is project or
+system based.  It is illegal for a non-lib id to contain "::" double
+colons; that format is reserved for lib instances and specs.
 
 The scope of uniqueness for lib instances is global due to the
 fact that lib names are [globally unique](Libs.md#lib-names).  For
@@ -34,9 +33,9 @@ containing dataset.
 
 # Spec
 
-Instances declare their type spec via the 'spec' tag.  The value
+Instances declare their type spec via the `spec` tag.  The value
 is a Ref with the spec qname.  When the instance is declared via
-Xeto in a lib, the 'spec' tag is implied:
+Xeto in a lib, the `spec` tag is implied:
 
 ```
 // Xeto instance - spec is ph::ElecMeter via name resolution
