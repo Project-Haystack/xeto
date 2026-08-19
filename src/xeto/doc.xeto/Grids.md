@@ -20,6 +20,10 @@ dict shape used by [Jeto](Jeto.md#grids) rendered in Xeto syntax.  A
 grid is instance data, so the shape never uses the `<>` meta syntax -
 it is nested curly braces only.
 
+A grid is always a value: it stands alone in a data file or nests
+as a slot value within a named instance.  A grid itself cannot be
+a named instance with an id, the same rule as List.
+
 A grid is a dict with the following slots:
 
 - The type declares the grid spec: `Grid` or a subtype
@@ -31,7 +35,7 @@ A grid is a dict with the following slots:
 For example:
 
 ```xeto
-@sample: Grid {
+Grid {
   meta: {foo: "quux"}
   cols: {
     {name: "a"},
@@ -59,13 +63,20 @@ The `of` slots sit beside the thing they describe rather than inside
 its `meta` because they are structural rather than domain tags; `meta`
 holds only domain tags at both the grid and column level.
 
+The precedence for typing a cell: a cell or row that declares its own
+type keeps it, then the column `of`, then the row spec member, where
+the row spec is the row's own type else the grid `of`.  A column `of`
+that contradicts a typed row's declared member is an error.  The row
+type governs how its cells decode; the rows of the resulting grid are
+columnar, so the type itself is not carried as a cell.
+
 For example:
 
 ```xeto
-@history: Grid {
+Grid {
   cols: {
-    {name: "ts", of: @sys::DateTime},
-    {name: "val", of: @sys::Number}
+    {name: "ts", of: DateTime},
+    {name: "val", of: Number}
   }
   rows: {
     {ts: "2026-01-01T00:00:00Z", val: 72°F},
@@ -73,6 +84,10 @@ For example:
   }
 }
 ```
+
+The `of` values are spec names, not `@` refs: an `@` ref resolves in
+the instance space.  A simple name resolves against the namespace or
+use the qualified name such as `sys::DateTime`.
 
 # Jeto
 
