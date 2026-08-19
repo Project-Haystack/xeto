@@ -89,9 +89,11 @@
 
   // Poll a watch for changes to the subscribed entities.
   //
-  // Request: grid meta:
+  // Parameters:
   //   - `watchId`: required Str identifier of the watch
-  //   - `refresh`: Marker tag to request a full refresh
+  //   - `refresh`: Marker to request a full refresh
+  //   - `curValSub`: Marker to project the rows to just their id,
+  //     curVal, and curStatus columns
   //
   // Response: a grid where each row corresponds to a watched entity.  The
   // `id` tag of each row identifies the changed entity and correlates to
@@ -106,27 +108,27 @@
   // If the response is an error grid then the client must assume the watch
   // is no longer valid and open a new one.
   //
+  // A version 4 request carries the parameters as the request grid meta.
+  //
   // See [ph.doc::Ops#watchpoll].
-  watchPoll: Func <op> { req: Grid, returns: Grid }
+  watchPoll: Func <op> { watchId: Str, refresh: Marker?, curValSub: Marker?, returns: Grid }
 
 //////////////////////////////////////////////////////////////////////////
 // Point Write
 //////////////////////////////////////////////////////////////////////////
 
   // Read the current status of a writable point's priority array, or write
-  // to one of its levels.  The mode is determined by the presence of a
-  // `level` column in the request.
+  // to one of its levels.  The mode is determined by the presence of the
+  // `level` parameter.
   //
-  // Read request: a grid with a single row and an `id` column with the Ref
-  // of the writable point.
-  //
-  // Read response: a grid with the current priority array state:
+  // Read: pass only `id` and the response is a grid with the current
+  // priority array state:
   //   - `level`: number from 1 - 17 (17 is default)
   //   - `levelDis`: human description of the level
   //   - `val`: current value at the level or null
   //   - `who`: who last controlled the value at this level
   //
-  // Write request: a grid with a single row and following columns:
+  // Write parameters:
   //   - `id`: Ref identifier of the writable point
   //   - `level`: Number from 1-17 for the level to write
   //   - `val`: value to write, or null to auto the level
@@ -136,8 +138,11 @@
   //
   // Write response: empty grid
   //
+  // A version 4 request carries the parameters as the columns of a
+  // single row request grid.
+  //
   // See [ph.doc::Ops#pointwrite].
-  pointWrite: Func <op> { req: Grid, returns: Grid }
+  pointWrite: Func <op> { id: Ref, level: Number?, val: Obj?, who: Str?, duration: Number?, returns: Grid }
 
 //////////////////////////////////////////////////////////////////////////
 // History
