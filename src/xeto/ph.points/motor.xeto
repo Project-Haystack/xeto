@@ -33,20 +33,19 @@ MotorSpeedEnumSensor : MotorSpeedEnumPoint & SensorPoint
 // increase from slowest to highest speed.
 MotorSpeedEnumCmd : MotorSpeedEnumPoint & CmdPoint
 
-// Point for modulating motor speed.  Speed is measured as a
+// Sensor for modulating motor speed.  Speed is measured as a
 // percentage where 0% is off and 100% is full speed.
-MotorSpeedModulatingPoint : ModulatingPoint <abstract> {
+MotorSpeedModulatingSensor : ModulatingSensor {
   motor
   speed
 }
 
-// Sensor for modulating motor speed.  Speed is measured as a
-// percentage where 0% is off and 100% is full speed.
-MotorSpeedModulatingSensor : MotorSpeedModulatingPoint & SensorPoint
-
 // Command for modulating motor speed.  Speed is measured as a
 // percentage where 0% is off and 100% is full speed.
-MotorSpeedModulatingCmd : MotorSpeedModulatingPoint & CmdPoint
+MotorSpeedModulatingCmd : ModulatingCmd {
+  motor
+  speed
+}
 
 // Sensor for mechanical frequency
 MechFreqSensor : NumberPoint & SensorPoint <abstract> { mech, freq }
