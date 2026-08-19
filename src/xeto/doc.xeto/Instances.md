@@ -260,3 +260,8 @@ Note that in the reflection APIs the nested instances can be looked
 up directly.  However, when exporting libs that contain nested instances
 only top-level instances are included (with their nested instances).
 
+# Grids
+
+Grids are tabular instance data with a formal dict shape covered
+in the [Grids](Grids.md) chapter.
+

@@ -7,6 +7,7 @@
 - [Libs](Libs.md): library modules
 - [Specs](Specs.md): specification type definitions
 - [Instances](Instances.md): instance data
+- [Grids](Grids.md): tabular data structure
 - [Namespaces](Namespaces.md): closed set of libs that define name space
 
 # Type System
