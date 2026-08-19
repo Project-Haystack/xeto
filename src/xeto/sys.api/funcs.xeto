@@ -87,11 +87,16 @@
   // List the operations this server supports, one row per op; see
   // `OpInfo` for the columns.  This is a quick summary for debugging
   // and discovery - to inspect an op's full definition, or to generate
-  // a client or an API schema, use the spec op instead.
+  // a client or an API schema, use the openapi op instead.
   //
   // Clients written against an older protocol version receive that
   // version's format instead; see [ph.doc::Ops#ops].
   ops: Func <op, noSideEffects> { returns: Grid<of:OpInfo> }
+
+  // List the libraries composing the server's namespace, one row per
+  // lib sorted by name; see [LibInfo] for the columns.  These are the
+  // libs a client resolves to mirror the namespace locally.
+  libs: Func <op, noSideEffects> { returns: Grid<of:LibInfo> }
 
 }
 

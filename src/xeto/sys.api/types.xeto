@@ -53,7 +53,7 @@ AboutInfo: Dict {
 
 // Summary of one operation as reported by [ops()].  This is a quick
 // listing for debugging and discovery, not a machine readable schema:
-// use the spec op to get the full definition of an op and its types.
+// use the openapi op to generate a schema of the ops and their types.
 OpInfo: Dict {
   // Qualified name of the op's spec.  A request may use either this or
   // the simple name, but the qname is always unambiguous where a simple
@@ -70,5 +70,17 @@ OpInfo: Dict {
   // The format is deliberately undefined and may change, so parse the
   // op's spec rather than this string.
   signature: Str
+}
+
+// Summary of one library in the namespace as reported by [libs()]
+LibInfo: Dict {
+  // Dotted library name
+  name: Str
+
+  // Library version
+  version: Version
+
+  // First sentence of the library documentation
+  doc: Str?
 }
 

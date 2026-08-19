@@ -77,9 +77,10 @@ An op is a function marked `op` in its declaring lib.  A function also
 marked `noSideEffects` may be invoked with GET; every op may be invoked
 with POST.  A GET of an op with side effects answers 405.
 
-The `ops` operation lists the ops available in the namespace with their
-signatures.  It is a discovery and debugging summary, not a schema; the
-[Swagger export](#json-schema) serves machine consumption.
+The [sys.api::ops()] function lists the ops available in the namespace with
+their signatures.  It is a discovery and debugging summary, not a schema; the
+[Swagger export](#json-schema) serves machine consumption.  Also see [sys.api::libs()]
+operation to list the libraries composing the namespace by name and version.
 
 ## GET Requests
 
@@ -116,8 +117,13 @@ all.
 
 Any other format in the [filetype table](#filetypes) decodes the
 body as a grid: the first row's cells supply the arguments by name, which
-is also how a version 4 client posts to a modeled op.  An op which still
-declares the legacy `req: Grid` parameter receives the grid whole.
+is also how a version 4 client posts to a modeled op.
+
+The batch and tabular ops such as `hisWrite` and the watches keep the
+grid itself as their contract: they declare a single `req: Grid`
+parameter.  A JSON client passes the grid as the named `req` argument
+encoded per the [Jeto grid rules](Jeto.md#grids); any other format posts
+the grid as the whole body, exactly as version 4 does.
 
 ### File Upload
 
@@ -196,7 +202,7 @@ body conforming to [sys.api::ApiErr]:
     {
       "spec": "sys.api::PermissionErr",
       "status": 403,
-      "dis": "Cannot call func: commit",
+      "dis": "Cannot call func: hisWrite",
       "errTrace": "..."
     }
 
