@@ -75,18 +75,16 @@ limited type system, which requires significant type erasure.  We opt for
 a clean, simple JSON mapping where most scalars are mapped to a string (versus
 mapping scalars to JSON objects).  The following mapping is used:
 
-```
-  Xeto           JSON
-  ----           ----
-  sys::Bool      boolean
-  sys::Int       number
-  sys::Float     number
-  sys::Number    number (if no unit)
-  sys::Number    string (if there is a unit or NaN/-INF/INF)
-  sys::Scalar    string (all other scalars encode as string)
-  sys::List      array
-  sys::Dict      object
-  ```
+| Xeto        | JSON                                        |
+| ----        | ----                                        |
+| sys::Bool   | boolean                                     |
+| sys::Int    | number                                      |
+| sys::Float  | number                                      |
+| sys::Number | number (if no unit)                         |
+| sys::Number | string (if there is a unit or NaN/-INF/INF) |
+| sys::Scalar | string (all other scalars encode as string) |
+| sys::List   | array                                       |
+| sys::Dict   | object                                      |
 
 All dicts should include a `spec` property with the type qname.
 
