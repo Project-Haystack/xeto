@@ -12,7 +12,7 @@ Obj: <sealed, abstract>
 // This is a placeholder that always represents the parent type
 This: Obj <sealed>
 
-// Scalar is an atomic value kind
+// Scalar is an atomic value kind with a string encoding
 Scalar: Obj <abstract>
 
 // None represents the absense of value
@@ -30,7 +30,20 @@ Str: Scalar <sealed> ""
 // Boolean value either true or false
 Bool: Scalar <sealed, pattern: "true|false"> "false"
 
-// Integer or floating point numbers annotated with an optional unit
+// Number is an integer or floating point value with an optional
+// unit of measurement. Unit symbols are defined by [Unit] enum.
+// ```
+// 45             // unitless integer
+// -23.45         // unitless floating point
+// 5.4e-7         // unitless exponent format
+// 45°F           // integer with unit
+// -23.45m²       // floating point with unit
+// 10_000         // underbar is allowed as a separator
+// 5.4E+8kW       // exponent format with unit
+// NaN            // not a number - unit is invalid
+// INF            // positive infinity - unit is invalid
+// -INF           // negative infinity - unit is invalid
+// ```
 Number: Scalar <sealed, pattern: "(-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?[a-zA-Z%_/$\\P{ASCII}]*|\"(?:NaN|-?INF)\")"> "0"
 
 // Unitless integer number
@@ -45,24 +58,41 @@ Duration: Number <sealed, quantity:"time"> "0sec"
 // Universal resource identifier
 Uri: Scalar <sealed>  ""
 
-// Reference to another dict.  The `of` meta defines target type
-Ref: Scalar <sealed, pattern: "[a-zA-Z\\d\\._~]*"> "x"
+// Reference to another dict.  The `of` meta defines target type.
+// Refs must adhere to the following limited set of ASCII characters:
+// - ASCII lower case letter a-z
+// - ASCII upper case letter A-Z
+// - ASCII digit 0-9
+// - Underbar "_"
+// - Colon ":"
+// - Dash "-"
+// - Period "."
+// - Tilde "~"
+// - Double colon "::" is reserved for specs/instances in a xeto lib
+Ref: Scalar <sealed, pattern: "[a-zA-Z\\d\\._~:-]*"> "x"
 
 // Reference or list of references.  The `of` meta defines target type.
 // The value may be either a single ref or a list of refs.
 MultiRef: Obj <sealed>
 
-// Version string formatted as decimal digits separated by a dot
+// Version string formatted as decimal digits separated by a dot: `5.0.3`
 Version: Scalar <sealed, pattern: "\\d+(\\.\\d+)*"> "0"
 
 // ISO 8601 date as year, month, day: `2011-06-07`
 Date: Scalar <sealed, pattern: "\\d{4}-\\d{2}-\\d{2}"> "2000-01-01"
 
 // ISO 8601 time as hour, minute, seconds: `09:51:27.354`
-Time: Scalar <sealed, pattern: "\\d{2}:\\d{2}:\\d{2}(\\.\\d+)*"> "00:00:00"
+Time: Scalar <sealed, pattern: "\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?"> "00:00:00"
 
-// ISO 8601 timestamp followed by timezone identifier
-DateTime: Scalar <sealed, pattern: "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)*[Z+-][\\d:]*[ ]*[-+a-zA-Z_\\d]*"> "2000-01-01T00:00:00Z UTC"
+// ISO 8601 timestamp followed by timezone identifier. All timestamps
+// must include a [timezone](TimeZone) unless UTC zero offset. Examples:
+// ```
+// 2026-08-19T16:50:23-04:00 New_York   // eastern daylight time
+// 2026-08-19T20:50:23Z UTC             // same time in UTC
+// 2026-08-19T20:50:23Z                 // may omit timezone if offset is Z
+// 2026-08-19T14:50:23.507-06:00 Denver // fractional seconds
+// ```
+DateTime: Scalar <sealed, pattern: "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[+-]\\d{2}:\\d{2})( [a-zA-Z_\\d+-]+)?"> "2000-01-01T00:00:00Z UTC"
 
 // Span models a time range between two DateTimes.
 // It supports the following string encoding:
@@ -107,7 +137,7 @@ Dict: Collection
 // Ordered list of zero or more values
 List: Collection <sealed>
 
-// Two dimension table of columns and rows.
+// Two dimension table of columns and rows - see [doc.xeto::Grids]
 Grid: Collection <of:Dict>
 
 // Or type is a choice between one of multiple types.

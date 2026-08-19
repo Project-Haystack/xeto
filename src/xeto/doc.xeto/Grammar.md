@@ -51,7 +51,7 @@ The formal BNF grammar for Xeto:
 <markerName>   :=  <alphaLower> <nameRest>*
 <nameRest>     :=  alpha | digit | '_'
 <ref>          :=  "@" <refChar>* <refEnd> [<sp> <quotedStr>]
-<refChar>      :=  <alpha> | <digit> | "_" | "~" | ":" | "-"
+<refChar>      :=  <alpha> | <digit> | "_" | "~" | ":" | "-" | "."
 <refEnd>       :=  <alpha> | <digit> | "_" | "~"  // cannot end with ":" or "-"
 <alpha>        :=  alphaLower | alphaUpper
 <alphaLower>   :=  'a' - 'z'

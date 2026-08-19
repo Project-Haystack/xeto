@@ -4,7 +4,8 @@
 // Auto-generated 17-Feb-2026
 //
 
-// TimeZone names for standardized database
+// TimeZone names for standardized database.  TimeZone enums are defined as
+// city names from the [zoneinfo db](https://en.wikipedia.org/wiki/Tz_database).
 TimeZone: Enum {
   utc <key:"UTC">
   abidjan <key:"Abidjan">
@@ -348,3 +349,4 @@ TimeZone: Enum {
   yerevan <key:"Yerevan">
   zurich <key:"Zurich">
 }
+
