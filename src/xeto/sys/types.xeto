@@ -176,13 +176,13 @@ Entity: Dict <abstract> {
   spec: Ref?<of:Spec>  // Type of this entity
 }
 
-// Entity that represents a file containing textual or binary data.
-// Common MIME types are mapped to specs by the `lib.files` library.
-File: Entity
-
 // Interface is an object oriented API defined as set of named
 // field and method slots.
 Interface: Dict
+
+// Entity that represents a file containing textual or binary data.
+// Common MIME types are mapped to specs by the `lib.files` library.
+File: Interface
 
 // BuildVar is string macro from "xeto-build.props" injected at build time.
 // See [doc.xeto::Build] for details.
