@@ -69,7 +69,8 @@ mime type used with the `Content-Type` and `Accept` headers:
 | xeto    | `text/xeto`                               | [sys.files::XetoFile]    | [Instances](Instances.md)  |
 
 Bare `application/json` resolves per version as covered in [Versions](#versions).
-Servers may register additional formats.
+Servers may register additional formats.  The [sys.api::filetypes()] function
+lists the registered formats with their mime types and read/write support.
 
 ## Operations
 
@@ -164,6 +165,9 @@ answers JSON null, or an empty body for xeto.  A Haystack grid format
 bridges the result through a grid, so `Accept: text/zinc` on a version 5
 call returns the same grid encoding a version 4 client would see.
 Version 4 responses are always grids in every format.
+
+Every JSON dialect - jeto, Hayson, and version 3 - is served with
+`Content-Type: application/json` no matter which mime type requested it.
 
 Responses honor `Accept-Encoding: gzip`.
 
