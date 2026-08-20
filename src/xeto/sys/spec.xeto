@@ -146,6 +146,12 @@ Spec: Dict <sealed> {
   // which are part of the documented API surface.
   op: Marker?
 
+  // Marks an op whose request grid is passed whole as its single
+  // parameter when the request arrives as a grid, rather than mapping
+  // the first row's cells to arguments by name.  Used by batch and
+  // tabular ops which carry semantics in grid meta and multiple rows.
+  opGrid: Marker?
+
   // Regex pattern for scalar string encoding
   pattern: Str?
 

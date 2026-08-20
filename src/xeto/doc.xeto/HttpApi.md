@@ -120,10 +120,11 @@ body as a grid: the first row's cells supply the arguments by name, which
 is also how a version 4 client posts to a modeled op.
 
 The batch and tabular ops such as `hisWrite` and the watches keep the
-grid itself as their contract: they declare a single `req: Grid`
-parameter.  A JSON client passes the grid as the named `req` argument
-encoded per the [Jeto grid rules](Jeto.md#grids); any other format posts
-the grid as the whole body, exactly as version 4 does.
+grid itself as their contract: they declare the `opGrid` marker and a
+single `req: Grid` parameter.  A JSON client passes the grid as the
+named `req` argument encoded per the [Jeto grid rules](Jeto.md#grids);
+any other format posts the grid as the whole body, exactly as version 4
+does.
 
 ### File Upload
 
