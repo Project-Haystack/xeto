@@ -103,9 +103,10 @@ dash.
 ## POST Requests
 
 The `Content-Type` header selects how the body is decoded; a request
-without one answers 415.  With `application/json` the body is one JSON
-object whose members are the named arguments, each decoded against its own
-parameter spec under the [Jeto](Jeto.md) rules:
+without one answers 415.  With `application/json`, `text/jeto`, or
+`text/xeto` the body is one object whose members are the named
+arguments, each decoded against its own parameter spec under the
+[Jeto](Jeto.md) rules:
 
     POST /api/demo/readById
     Content-Type: application/json
@@ -115,15 +116,16 @@ parameter spec under the [Jeto](Jeto.md) rules:
 An op whose parameters all have defaults may be posted with no body at
 all.
 
-Any other format in the [filetype table](#filetypes) decodes the
-body as a grid: the first row's cells supply the arguments by name, which
-is also how a version 4 client posts to a modeled op.
+A Haystack grid format (zinc, trio, hayson, csv) decodes the body as a
+grid: the first row's cells supply the arguments by name, which is also
+how a version 4 client posts to a modeled op.  A version 4 request
+carries the request grid in every format.
 
 The batch and tabular ops such as `hisWrite` and the watches keep the
 grid itself as their contract: they declare the `opGrid` marker and a
-single `req: Grid` parameter.  A JSON client passes the grid as the
-named `req` argument encoded per the [Jeto grid rules](Jeto.md#grids);
-any other format posts the grid as the whole body, exactly as version 4
+single `req: Grid` parameter.  A named args client passes the grid as
+the `req` member encoded per the [Jeto grid rules](Jeto.md#grids); a
+grid format posts the grid as the whole body, exactly as version 4
 does.
 
 ### File Upload
@@ -156,10 +158,12 @@ With no preference the response defaults per version: `text/zinc` for
 version 4, `application/json` for version 5.  A format the server cannot
 write answers 406.
 
-Version 5 JSON responses are the result encoded as Jeto with no envelope:
-a function which returns nothing answers JSON null.  Every other format
+Version 5 `application/json`, `text/jeto`, and `text/xeto` responses are
+the bare result value with no envelope: a function which returns nothing
+answers JSON null, or an empty body for xeto.  A Haystack grid format
 bridges the result through a grid, so `Accept: text/zinc` on a version 5
 call returns the same grid encoding a version 4 client would see.
+Version 4 responses are always grids in every format.
 
 Responses honor `Accept-Encoding: gzip`.
 

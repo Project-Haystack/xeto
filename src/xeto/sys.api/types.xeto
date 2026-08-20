@@ -84,3 +84,28 @@ LibInfo: Dict {
   doc: Str?
 }
 
+// Summary of one filetype for content negotiation as reported
+// by [filetypes()]
+FiletypeInfo: Dict {
+  // Programmatic name such as "xeto"
+  name: Str
+
+  // Display name such as "Xeto"
+  dis: Str
+
+  // Mime type for the Content-Type and Accept headers such as "text/xeto"
+  mime: Str
+
+  // File extension without the dot
+  fileExt: Str
+
+  // The `sys.files` spec which models this format
+  fileSpec: Ref
+
+  // Can this format encode an HTTP request body
+  canRead: Bool
+
+  // Can this format encode an HTTP response body
+  canWrite: Bool
+}
+

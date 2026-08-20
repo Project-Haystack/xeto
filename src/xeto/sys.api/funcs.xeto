@@ -98,5 +98,13 @@
   // libs a client resolves to mirror the namespace locally.
   libs: Func <op, noSideEffects> { returns: Grid<of:LibInfo> }
 
+  // List the filetypes available for content negotiation, one row per
+  // format sorted by name; see [FiletypeInfo] for the columns and
+  // [doc.xeto::HttpApi#filetypes] for how a format is selected.
+  //
+  // Clients written against an older protocol version receive the
+  // legacy def format instead.
+  filetypes: Func <op, noSideEffects> { returns: Grid<of:FiletypeInfo> }
+
 }
 
