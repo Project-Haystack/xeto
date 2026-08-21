@@ -40,8 +40,11 @@ header, or the `xeto-version` query parameter for easy testing:
 
 The default when neither is given is version 4, so existing Haystack
 clients are unaffected.  An unsupported token answers 400
-[sys.api::UnsupportedVersionErr] naming the supported versions.
-Responses carry the negotiated version back in the same header.
+[sys.api::UnsupportedVersionErr] naming the supported versions; note
+version resolution happens after authentication, so an unauthenticated
+request answers its auth challenge before any version error.  Version 5
+responses echo the version back in the same header, and every
+[error response](#errors) reports the server's current version.
 
 Both versions accept and serve the same formats.  They differ in four
 behaviors:
@@ -59,18 +62,20 @@ Both versions share one table of formats.  Each format has a
 programmatic name used for the `xeto-filetype` query parameter, and a
 mime type used with the `Content-Type` and `Accept` headers:
 
-| Name    | Mime Type                                 | Spec                     | Doc                        |
-| ----    | ----                                      | ----                     | ----                       |
-| zinc    | `text/zinc`                               | [sys.files::ZincFile]    | [Zinc](ph.doc::Zinc)       |
-| trio    | `text/trio`                               | [sys.files::TrioFile]    | [Trio](ph.doc::Trio)       |
-| hayson  | `application/vnd.haystack+json;version=4` | [sys.files::HaysonFile]  | [Hayson](ph.doc::Hayson)   |
-| csv     | `text/csv`                                | [sys.files::CsvFile]     | [Csv](ph.doc::Csv)         |
-| jeto    | `text/jeto`                               | [sys.files::JetoFile]    | [Jeto](Jeto.md)            |
-| xeto    | `text/xeto`                               | [sys.files::XetoFile]    | [Instances](Instances.md)  |
+| Name    | Mime Type                        | Spec                     | Doc                        |
+| ----    | ----                             | ----                     | ----                       |
+| zinc    | `text/zinc`                      | [sys.files::ZincFile]    | [Zinc](ph.doc::Zinc)       |
+| trio    | `text/trio`                      | [sys.files::TrioFile]    | [Trio](ph.doc::Trio)       |
+| hayson  | `application/vnd.haystack+json`  | [sys.files::HaysonFile]  | [Hayson](ph.doc::Hayson)   |
+| csv     | `text/csv`                       | [sys.files::CsvFile]     | [Csv](ph.doc::Csv)         |
+| jeto    | `text/jeto`                      | [sys.files::JetoFile]    | [Jeto](Jeto.md)            |
+| xeto    | `text/xeto`                      | [sys.files::XetoFile]    | [Instances](Instances.md)  |
 
 Bare `application/json` resolves per version as covered in [Versions](#versions).
-Servers may register additional formats.  The [sys.api::filetypes()] function
-lists the registered formats with their mime types and read/write support.
+The hayson mime also resolves with an explicit `;version=4` param. The deprecated
+version 3 JSON uses `application/vnd.haystack+json;version=3` if supported.
+The [sys.api::filetypes()] function is the authoritative catalog for an endpoint,
+listing every registered format with its mime type and read/write support.
 
 ## Operations
 
@@ -236,6 +241,11 @@ Common mappings:
 Error bodies are always JSON regardless of the Accept header: an error
 must be deliverable even when content negotiation is itself what failed.
 Servers may omit `errTrace` in deployments which disable traces.
+
+Every error response carries a `Xeto-Version` header reporting the
+server's current version, no matter which version the request selected:
+many errors occur before version resolution, so echoing the negotiated
+version is not even well defined on the error path.
 
 Version 4 keeps its legacy contract for errors raised by the op itself:
 a 200 response carrying an error grid.  Failures in the HTTP processing
