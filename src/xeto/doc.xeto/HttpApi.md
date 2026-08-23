@@ -171,7 +171,7 @@ bridges the result through a grid, so `Accept: text/zinc` on a version 5
 call returns the same grid encoding a version 4 client would see.
 Version 4 responses are always grids in every format.
 
-Every JSON dialect - jeto, Hayson, and version 3 - is served with
+Every JSON dialect - Jeto, Hayson, and version 3 - is served with
 `Content-Type: application/json` no matter which mime type requested it.
 
 Responses honor `Accept-Encoding: gzip`.
