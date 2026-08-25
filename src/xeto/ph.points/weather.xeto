@@ -62,7 +62,7 @@ WeatherHumidityPoint : WeatherNumberPoint {
 // Weather enthalpy is sum of heat energy in the dry air and water vapor
 WeatherEnthalpyPoint : WeatherNumberPoint {
   enthalpy
-  unit: Unit <quantity:"enthalpy"> "BTU/lb"
+  unit: Unit <quantity:"specificEnthalpy"> "BTU/lb"
 }
 
 // Weather barometric pressure in millibar or inHg

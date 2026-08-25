@@ -1,7 +1,7 @@
 //
-// Copyright (c) 2011-2024, Project-Haystack
+// Copyright (c) 2011-2026, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 29-Nov-2024
+// Auto-generated 25-Aug-2026
 //
 
 // Unit symbols for standardized database
@@ -294,15 +294,17 @@ Unit: Enum {
   gigajoules_per_cubic_meter <key:"GJ/m³", quantity:"energyByVolume">
   kilowatt_hours_per_cubic_meter <key:"kWh/m³", quantity:"energyByVolume">
 
-  joules_per_gram <key:"J/g", quantity:"enthalpy">
-  joules_per_kilogram <key:"J/kg", quantity:"enthalpy">
-  joules_per_kilogram_dry_air <key:"J/kg_dry", quantity:"enthalpy">
-  btu_per_pound <key:"BTU/lb", quantity:"enthalpy">
-  btus_per_pound_dry_air <key:"btu/lb_dry", quantity:"enthalpy">
-  kilojoules_per_kilogram <key:"kJ/kg", quantity:"enthalpy">
-  kilojoules_per_kilogram_dry_air <key:"kJ/kg_dry", quantity:"enthalpy">
-  megajoules_per_kilogram_dry_air <key:"MJ/kg_dry", quantity:"enthalpy">
-  calorie_per_gram <key:"cal/g", quantity:"enthalpy">
+  joules_per_gram <key:"J/g", quantity:"specificEnthalpy">
+  joules_per_kilogram <key:"J/kg", quantity:"specificEnthalpy">
+  joules_per_kilogram_dry_air <key:"J/kg_dry", quantity:"specificEnthalpy">
+  btu_per_pound <key:"BTU/lb", quantity:"specificEnthalpy">
+  btu_per_pound_dry_air <key:"BTU/lb_dry", quantity:"specificEnthalpy">
+  kilobtu_per_pound <key:"kBTU/lb", quantity:"specificEnthalpy">
+  kilobtu_per_pound_dry_air <key:"kBTU/lb_dry", quantity:"specificEnthalpy">
+  kilojoules_per_kilogram <key:"kJ/kg", quantity:"specificEnthalpy">
+  kilojoules_per_kilogram_dry_air <key:"kJ/kg_dry", quantity:"specificEnthalpy">
+  megajoules_per_kilogram_dry_air <key:"MJ/kg_dry", quantity:"specificEnthalpy">
+  calorie_per_gram <key:"cal/g", quantity:"specificEnthalpy">
 
   joules_per_degree_kelvin <key:"J/°K", quantity:"entropy">
   kilojoules_per_degree_kelvin <key:"kJ/°K", quantity:"entropy">
@@ -551,7 +553,7 @@ UnitQuantity: Enum {
   reactiveEnergy
   energyByArea
   energyByVolume
-  enthalpy
+  specificEnthalpy
   entropy
   force
   frequency
@@ -587,3 +589,4 @@ UnitQuantity: Enum {
   volumetricFlow
   bytes
 }
+
