@@ -247,7 +247,7 @@ sugar spec:
 +StandardVav {
   hotWaterHeating
   points: {
-    HotWaterValveCmd
+    HotWaterValveModulatingCmd
   }
 }
 
