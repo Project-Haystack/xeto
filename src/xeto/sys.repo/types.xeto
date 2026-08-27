@@ -24,11 +24,14 @@ RepoLib: Dict {
   // Lib version
   version: Version
 
-  // Publication lifecycle status
-  pubStatus: RepoPubStatus
+  // Publication maturity as claimed by the lib author
+  maturity: LibMaturity
 
-  // Additional message associated with publication lifecycle status
-  pubStatusMsg: Str?
+  // Availability lifecycle state of this version in the repo
+  availability: RepoLibAvailability
+
+  // Additional message associated with the availability state
+  availabilityMsg: Str?
 
   // Summary documentation from the lib meta
   doc: Str?
@@ -42,14 +45,14 @@ RepoLib: Dict {
   digest: Str?
 }
 
-// Publication lifecycle status of a lib version as reported by the
+// Availability lifecycle state of a lib version as reported by the
 // repo.  This is mutable repo catalog state, not metadata of the lib
-// artifact itself.
-RepoPubStatus: Enum {
-  alpha     // Early experimental prerelease
-  beta      // Feature complete prerelease
-  stable    // Stable production release - used to determine latest and matching
-  yanked    // Withdrawn from new resolution
+// artifact itself - a version may be yanked or deleted after
+// publication without its zip ever changing.
+RepoLibAvailability: Enum {
+  available // Served normally
+  yanked    // Withdrawn from new resolution; exact pins still resolve
+  deleted   // Content deleted from storage; never served, version stays burned
 }
 
 // Search results with paging metadata as reported by [repoSearch()].

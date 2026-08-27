@@ -9,6 +9,7 @@
 pragma: Lib <
   doc: "System library of built-in types"
   version: BuildVar "ph.version"
+  maturity: BuildVar "ph.maturity"
   categories: {"sys"}
   license: BuildVar "ph.license"
   org: {

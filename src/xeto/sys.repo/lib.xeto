@@ -9,6 +9,7 @@
 pragma: Lib <
   doc: "System library for lib repository network API"
   version: BuildVar "ph.version"
+  maturity: BuildVar "ph.maturity"
   depends: {
     { lib: "sys",       versions: BuildVar "ph.depend" }
     { lib: "sys.api",   versions: BuildVar "ph.depend" }

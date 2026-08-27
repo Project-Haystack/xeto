@@ -10,6 +10,7 @@ pragma: Lib <
   nodoc
   doc: "Project haystack example data"
   version: BuildVar "ph.version"
+  maturity: BuildVar "ph.maturity"
   depends: {
     { lib: "sys", versions: BuildVar "ph.depend" }
     { lib: "ph",  versions: BuildVar "ph.depend" }

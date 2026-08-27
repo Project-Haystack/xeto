@@ -225,6 +225,7 @@ a [props file](Grammar.md#props-file) with following names:
 
   - `name`: name of the lib
   - `version`: version of the lib
+  - `maturity`: maturity level - alpha, beta, stable
   - `depends`: semicolon separated list of depends formatted as `{name} {versions}`
   - `doc`: summary documentation for lib
 

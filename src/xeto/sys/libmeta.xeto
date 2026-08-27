@@ -57,6 +57,10 @@ Lib: Dict <sealed> {
   // License [SPDX name](https://spdx.org/licenses/) or "commerical"
   license: Str?
 
+  // Publication maturity declared by the library author.
+  // Defaults to `stable` if omitted.
+  maturity: LibMaturity?
+
   // Marks library as undocumented
   nodoc: Marker?
 
@@ -130,5 +134,15 @@ LibOrg: Dict {
 LibVcs: Dict {
   type: Str    // Type of VCS such as "git" or "mercurial"
   uri: Uri     // URI for repository to be used directly by a VCS program (not the HTML page)
+}
+
+// Publication maturity of a library version as claimed by its author.
+// A repo seeds its catalog maturity from this claim at publish.
+// Maturity is orthogonal to a repo's availability lifecycle - see
+// [sys.repo::RepoLibAvailability].
+LibMaturity: Enum {
+  alpha     // Early experimental prerelease
+  beta      // Feature complete prerelease
+  stable    // Stable production release
 }
 

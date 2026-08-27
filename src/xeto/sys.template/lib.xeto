@@ -9,6 +9,7 @@
 pragma: Lib <
   doc: "System library for creating template transform functions"
   version: BuildVar "ph.version"
+  maturity: BuildVar "ph.maturity"
   depends: {
     { lib: "sys", versions: BuildVar "ph.depend" }
   }

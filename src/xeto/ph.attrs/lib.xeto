@@ -9,6 +9,7 @@
 pragma: Lib <
   doc: "Project haystack experimental attributes library"
   version: BuildVar "ph.version"
+  maturity: BuildVar "ph.maturity"
   depends: {
     { lib: "sys", versions: BuildVar "ph.depend" }
     { lib: "ph",  versions: BuildVar "ph.depend" }
