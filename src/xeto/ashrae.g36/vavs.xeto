@@ -31,7 +31,7 @@ G36FanPoweredTerminalUnit : G36Vav {
     DischargeFanRunSensor
     DischargeFanRunCmd
     DischargeDamperCmd
-    HotWaterValveCmd
+    HotWaterValveModulatingCmd
     DischargeAirFlowSensor
     DischargeAirTempSensor
   }
@@ -65,7 +65,7 @@ G36ReheatVav : G36Vav {
   hotWaterHeating
   singleDuct
   points: {
-    HotWaterValveCmd
+    HotWaterValveModulatingCmd
     DischargeDamperCmd
     DischargeAirFlowSensor
     DischargeAirTempSensor
