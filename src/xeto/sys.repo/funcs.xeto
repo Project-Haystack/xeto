@@ -15,8 +15,9 @@
   // Search the repo for libs matching the query string.  The query "*"
   // matches all libs, otherwise a lib matches when its dotted name
   // contains the query as a substring; servers may support additional
-  // query syntax.  The result reports the latest version of each
-  // matching lib as the best matches in relevance order.
+  // query syntax.  The result summarizes each matching lib as the best
+  // matches in relevance order; only libs which currently serve a
+  // version are reported.
   //
   // Parameters:
   //   - `query`: search query
@@ -30,7 +31,7 @@
   //   - `lib`: dotted lib name
   //   - `versions`: version constraints to filter results
   //   - `limit`: max results to return
-  repoVersions: Func <op, noSideEffects> { lib: Str, versions: LibDependVersions?, limit: Int?, returns: List <of:RepoLib> }
+  repoVersions: Func <op, noSideEffects> { lib: Str, versions: LibDependVersions?, limit: Int?, returns: List <of:RepoLibVersion> }
 
   // Download the xetolib zip file for the given lib name and version.
   // If the lib is not available raise `UnknownLibErr`, or if the lib
@@ -47,6 +48,6 @@
   //
   // Parameters:
   //   - `file`: xetolib zip file as the raw POST body
-  repoPublish: Func <op> { file: XetoLibFile, returns: RepoLib }
+  repoPublish: Func <op> { file: XetoLibFile, returns: RepoLibVersion }
 
 }

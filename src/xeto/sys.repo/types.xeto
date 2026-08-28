@@ -15,8 +15,8 @@ RepoPing: Dict {
 }
 
 // Summary of one lib version available in a repo as reported by
-// [repoSearch()] and [repoVersions()].
-RepoLib: Dict {
+// [repoVersions()], [repoFetch()], and [repoPublish()].
+RepoLibVersion: Dict {
 
   // Dotted lib name
   lib: Str
@@ -59,8 +59,8 @@ RepoLibAvailability: Enum {
 // matches in server-chosen relevance order, up to the applied limit.
 RepoSearch: Dict {
 
-  // Matching libs for this query reporting the latest version of each
-  libs: List <of:RepoLib>
+  // Matching libs for this query
+  libs: List <of:RepoLibSummary>
 
   // Present when additional matches exist beyond those returned; the
   // client should refine the query (or raise the limit) to see more
@@ -70,5 +70,25 @@ RepoSearch: Dict {
   // it.  Null means unreported, not zero; servers may omit or cap
   // this when counting is expensive.
   total: Int?
+}
+
+// Summary of one lib as reported by [repoSearch()].
+RepoLibSummary: Dict {
+
+  // Dotted lib name
+  lib: Str
+
+  // Newest served version
+  latestVersion: Version
+
+  // Maturity of the latest version as claimed by the lib author
+  latestMaturity: LibMaturity
+
+  // Newest served version with stable maturity; null when the lib has
+  // no stable release, such as one which has only ever shipped alphas
+  latestStable: Version?
+
+  // Summary documentation from the lib meta
+  doc: Str?
 }
 
