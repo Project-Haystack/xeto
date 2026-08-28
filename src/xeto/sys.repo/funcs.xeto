@@ -16,13 +16,12 @@
   // matches all libs, otherwise a lib matches when its dotted name
   // contains the query as a substring; servers may support additional
   // query syntax.  The result reports the latest version of each
-  // matching lib along with paging metadata.
+  // matching lib as the best matches in relevance order.
   //
   // Parameters:
   //   - `query`: search query
   //   - `limit`: max results to return; server may clamp
-  //   - `offset`: paging offset into the total matches
-  repoSearch: Func <op, noSideEffects> { query: Str, limit: Int?, offset: Int?, returns: RepoSearch }
+  repoSearch: Func <op, noSideEffects> { query: Str, limit: Int?, returns: RepoSearch }
 
   // List the versions available for the given lib sorted from latest
   // to oldest.  If the lib name is unknown return an empty list.

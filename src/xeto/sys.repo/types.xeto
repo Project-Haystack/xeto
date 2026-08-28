@@ -55,19 +55,20 @@ RepoLibAvailability: Enum {
   deleted   // Content deleted from storage; never served, version stays burned
 }
 
-// Search results with paging metadata as reported by [repoSearch()].
+// Search results as reported by [repoSearch()].  Results are the best
+// matches in server-chosen relevance order, up to the applied limit.
 RepoSearch: Dict {
 
-  // Matching libs for this page reporting the latest version of each lib
+  // Matching libs for this query reporting the latest version of each
   libs: List <of:RepoLib>
 
-  // Total count of matching libs across all pages
-  total: Int
+  // Present when additional matches exist beyond those returned; the
+  // client should refine the query (or raise the limit) to see more
+  more: Marker?
 
-  // Actual limit applied by the server
-  limit: Int
-
-  // Offset of this page into the total matches
-  offset: Int
+  // Total count of matching libs when the server chooses to compute
+  // it.  Null means unreported, not zero; servers may omit or cap
+  // this when counting is expensive.
+  total: Int?
 }
 
