@@ -75,6 +75,21 @@ HeatEnableCmd : EnableCmd {
   stage: Int?
 }
 
+// Point associated with the open/close state of equipment
+OpenPoint : BoolPoint <abstract> {
+  open
+  enum: Obj <val:OpenEnum>
+}
+
+// Open and close enumeration
+OpenEnum: Enum { close, open }
+
+// Sensor for open/close state of equipment
+OpenSensor : OpenPoint & SensorPoint
+
+// Command for open/close state of equipment
+OpenCmd : OpenPoint & CmdPoint
+
 // Boolean alarm condition
 AlarmSensor : BoolPoint & SensorPoint <abstract> { alarm }
 

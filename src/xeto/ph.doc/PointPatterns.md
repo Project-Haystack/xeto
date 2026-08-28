@@ -11,7 +11,7 @@ found on equipment.  This chapter describes the patterns these specs
 follow so that points are modeled consistently across equipment and
 can be queried by their Xeto types.
 
-# Run and Enable
+# Binary Run and Enable
 The on/off state of equipment is modeled with [ph.points::RunPoint]:
 
   - [ph.points::RunCmd]: commands equipment to run or stop running
@@ -25,6 +25,21 @@ conjunction with a run point:
 
 Permission from an enable command may be required for a run command to
 take effect.
+
+# Binary Open and Close
+The open/close state of two-position equipment, such as an actuator
+(e.g., for a damper or valve), a door, or a circuit breaker, is
+modeled with [ph.points::OpenPoint]:
+
+  - [ph.points::OpenCmd]: commands equipment to open or close
+  - [ph.points::OpenSensor]: senses the actual open/close state of
+    equipment
+
+These generic points may be specialized for particular equipment, such
+as [ph.points::ActuatorOpenCmd] and [ph.points::ActuatorOpenSensor]
+for an actuator.  Use the open/close pattern for two-position
+equipment, and the modulating pattern below for equipment whose
+position varies continuously from 0% to 100%.
 
 # Controlling Equipment Capacity
 Equipment with more than simple on/off control varies its capacity
