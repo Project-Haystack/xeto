@@ -81,15 +81,15 @@ RepoLibSummary: Dict {
   // Newest served version
   latestVersion: Version
 
-  // Maturity of the latest version as claimed by the lib author
+  // Maturity of the latestVersion as claimed by the lib author
   latestMaturity: LibMaturity
+
+  // Publish timestamp of latestVersion or null if unknown
+  latestPublished: DateTime?
 
   // Newest served version with stable maturity; null when the lib has
   // no stable release, such as one which has only ever shipped alphas
   latestStable: Version?
-
-  // Publish timestamp of latestVersion; null when the repo does not report it
-  latestPublished: DateTime?
 
   // Summary documentation from the lib meta
   doc: Str?
