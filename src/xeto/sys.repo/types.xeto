@@ -88,6 +88,9 @@ RepoLibSummary: Dict {
   // no stable release, such as one which has only ever shipped alphas
   latestStable: Version?
 
+  // Publish timestamp of latestVersion; null when the repo does not report it
+  latestPublished: DateTime?
+
   // Summary documentation from the lib meta
   doc: Str?
 }
