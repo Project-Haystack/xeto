@@ -6,6 +6,12 @@
 //   26 Aug 2026  Rick Jennings  Creation
 //
 
+// Sensor for open/close state of an actuator
+ActuatorOpenSensor : OpenSensor { actuator }
+
+// Command for open/close state of an actuator
+ActuatorOpenCmd : OpenCmd { actuator }
+
 // Sensor for modulating actuator position.  Position is measured as a
 // percentage where 0% is closed and 100% is fully open.
 ActuatorModulatingSensor : ModulatingSensor { actuator }
