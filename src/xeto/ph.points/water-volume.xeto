@@ -6,19 +6,6 @@
 //   21 Mar 2024  Brian Frank  Creation
 //
 
-// Point associated with volumetric consumption of water
-WaterVolumePoint : NumberPoint <abstract> {
-  water
-  volume
-  unit: Unit <quantity:"volume"> "gal"
-}
-
-// Sensor for volumetric consumption of water
-WaterVolumeSensor : WaterVolumePoint & SensorPoint <abstract>
-
-// Setpoint for volumetric consumption of water
-WaterVolumeSp : WaterVolumePoint & SpPoint <abstract>
-
 //////////////////////////////////////////////////////////////////////////
 // Domestic
 //////////////////////////////////////////////////////////////////////////

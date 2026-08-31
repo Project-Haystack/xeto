@@ -1,0 +1,66 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   1 Sep 2026  Rick Jennings  Creation
+//
+
+//////////////////////////////////////////////////////////////////////////
+// Flow
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for volumetric air flow
+AirFlowSensor : FluidFlowSensor {
+  air
+  unit: Unit "cfm"
+}
+
+// Setpoint for volumetric air flow
+AirFlowSp : FluidFlowSp {
+  air
+  unit: Unit "cfm"
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Pressure
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for static air pressure
+AirPressureSensor : FluidPressureSensor {
+  air
+  unit: Unit "inH₂O"
+}
+
+// Setpoint for static air pressure
+AirPressureSp : FluidPressureSp {
+  air
+  unit: Unit "inH₂O"
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Temp
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for drybulb air temperature
+AirTempSensor : FluidTempSensor { air }
+
+// Setpoint for drybulb air temperature
+AirTempSp : FluidTempSp { air }
+
+//////////////////////////////////////////////////////////////////////////
+// Humidity
+//////////////////////////////////////////////////////////////////////////
+
+// Point associated with relative humidity; measure of moisture in the air
+AirHumidityPoint : NumberPoint <abstract> {
+  air
+  humidity
+  unit: Unit <invariant> "%RH"
+}
+
+// Sensor for relative humidity
+AirHumiditySensor : AirHumidityPoint & SensorPoint <abstract>
+
+// Setpoint for relative humidity
+AirHumiditySp : AirHumidityPoint & SpPoint <abstract>

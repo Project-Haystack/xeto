@@ -6,19 +6,6 @@
 //   5 Apr 2023  Brian Frank  Creation
 //
 
-// Point associated with relative humidity; measure of moisture in the air
-AirHumidityPoint : NumberPoint <abstract> {
-  air
-  humidity
-  unit: Unit <invariant> "%RH"
-}
-
-// Sensor for relative humidity
-AirHumiditySensor : AirHumidityPoint & SensorPoint <abstract>
-
-// Setpoint for relative humidity
-AirHumiditySp : AirHumidityPoint & SpPoint <abstract>
-
 //////////////////////////////////////////////////////////////////////////
 // Discharge
 //////////////////////////////////////////////////////////////////////////

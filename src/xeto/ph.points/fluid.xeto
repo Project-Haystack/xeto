@@ -1,0 +1,58 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   31 Aug 2026  Rick Jennings  Creation
+//
+
+//////////////////////////////////////////////////////////////////////////
+// Flow
+//////////////////////////////////////////////////////////////////////////
+
+// Point associated with rate of volumetric flow of fluid
+FluidFlowPoint : NumberPoint <abstract> {
+  fluid
+  flow
+  unit: Unit <quantity:"volumetricFlow">
+}
+
+// Sensor for volumetric flow of fluid
+FluidFlowSensor : FluidFlowPoint & SensorPoint <abstract>
+
+// Setpoint for volumetric flow of fluid
+FluidFlowSp : FluidFlowPoint & SpPoint <abstract>
+
+//////////////////////////////////////////////////////////////////////////
+// Pressure
+//////////////////////////////////////////////////////////////////////////
+
+// Point associated with fluid pressure
+FluidPressurePoint : NumberPoint <abstract> {
+  fluid
+  pressure
+  unit: Unit <quantity:"pressure">
+}
+
+// Sensor for fluid pressure
+FluidPressureSensor : FluidPressurePoint & SensorPoint <abstract>
+
+// Setpoint for fluid pressure
+FluidPressureSp : FluidPressurePoint & SpPoint <abstract>
+
+//////////////////////////////////////////////////////////////////////////
+// Temp
+//////////////////////////////////////////////////////////////////////////
+
+// Point associated with fluid temperature
+FluidTempPoint : NumberPoint <abstract> {
+  fluid
+  temp
+  unit: Unit <quantity:"temperature"> "°F"
+}
+
+// Sensor for fluid temperature
+FluidTempSensor : FluidTempPoint & SensorPoint <abstract>
+
+// Setpoint for fluid temperature
+FluidTempSp : FluidTempPoint & SpPoint <abstract>

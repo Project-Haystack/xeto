@@ -1,0 +1,68 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   1 Sep 2026  Rick Jennings  Creation
+//
+
+//////////////////////////////////////////////////////////////////////////
+// Flow
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for volumetric flow of water
+WaterFlowSensor : FluidFlowSensor {
+  water
+  unit: Unit "gal/min"
+}
+
+// Setpoint for volumetric flow of water
+WaterFlowSp : FluidFlowSp {
+  water
+  unit: Unit "gal/min"
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Pressure
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for water pressure
+WaterPressureSensor : FluidPressureSensor {
+  water
+  unit: Unit "psi"
+}
+
+// Setpoint for water pressure
+WaterPressureSp : FluidPressureSp {
+  water
+  unit: Unit "psi"
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Temp
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for water temperature
+WaterTempSensor : FluidTempSensor { water }
+
+// Setpoint for water temperature
+WaterTempSp : FluidTempSp { water }
+
+//////////////////////////////////////////////////////////////////////////
+// Volume
+//////////////////////////////////////////////////////////////////////////
+
+// Point associated with volumetric consumption of water
+WaterVolumePoint : NumberPoint <abstract> {
+  fluid
+  water
+  volume
+  unit: Unit <quantity:"volume"> "gal"
+}
+
+// Sensor for volumetric consumption of water
+WaterVolumeSensor : WaterVolumePoint & SensorPoint
+
+// Setpoint for volumetric consumption of water
+WaterVolumeSp : WaterVolumePoint & SpPoint
+
