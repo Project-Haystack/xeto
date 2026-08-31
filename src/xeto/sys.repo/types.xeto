@@ -91,6 +91,12 @@ RepoLibSummary: Dict {
   // no stable release, such as one which has only ever shipped alphas
   latestStable: Version?
 
+  // Present when this lib is deprecated: no further development is
+  // expected and new adoption is discouraged.  The message provides
+  // migration guidance; see the lib's page on the repo website for
+  // full details.
+  deprecated: Str?
+
   // Summary documentation from the lib meta
   doc: Str?
 }
