@@ -562,7 +562,7 @@ PhEntity: Entity <abstract> {
   // assigned a floorNum of 0.
   *floorNum: Number
 
-  // Measure of volumetric flow of fluid
+  // Measure of the flow rate of a fluid or substance
   *flow: Marker
 
   // System to change direction of substance flow
@@ -570,6 +570,9 @@ PhEntity: Entity <abstract> {
 
   // Duct for exhausting combustion
   *flue: Marker
+
+  // Liquid or gas
+  *fluid: Marker
 
   // Measurement through a given surface
   *flux: Marker

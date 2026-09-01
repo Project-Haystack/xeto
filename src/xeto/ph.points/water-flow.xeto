@@ -6,19 +6,6 @@
 //   21 Mar 2024  Brian Frank  Creation
 //
 
-// Point associated with rate of volumetric flow of water
-WaterFlowPoint : NumberPoint <abstract> {
-  water
-  flow
-  unit: Unit <quantity:"volumetricFlow"> "gal/min"
-}
-
-// Sensor for volumetric flow of water
-WaterFlowSensor : WaterFlowPoint & SensorPoint <abstract>
-
-// Setpoint for volumetric flow of water
-WaterFlowSp : WaterFlowPoint & SpPoint <abstract>
-
 //////////////////////////////////////////////////////////////////////////
 // Domestic
 //////////////////////////////////////////////////////////////////////////

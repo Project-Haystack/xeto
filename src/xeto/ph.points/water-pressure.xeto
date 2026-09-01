@@ -6,19 +6,6 @@
 //   5 Jan 2025 Creation - Water pressure points from community documentation
 //
 
-// Point associated with water pressure
-WaterPressurePoint : NumberPoint <abstract> {
-  water
-  pressure
-  unit: Unit <quantity:"pressure"> "psi"
-}
-
-// Sensor for water pressure
-WaterPressureSensor : WaterPressurePoint & SensorPoint <abstract>
-
-// Setpoint for water pressure
-WaterPressureSp : WaterPressurePoint & SpPoint <abstract>
-
 //////////////////////////////////////////////////////////////////////////
 // Chilled Water Pressure
 //////////////////////////////////////////////////////////////////////////
