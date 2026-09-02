@@ -1,0 +1,14 @@
+//
+// QUDT release and namespaces used by the Xeto correspondence tables.
+// Changing this file is an explicit mapping-version upgrade.
+//
+
+release=2.1.47
+revision=2.1.47
+unitGraphUri=http://qudt.org/2.1/vocab/unit
+unitGraphContentHash=561165e1aba0a9ddb93df6cf2d45e8c25101b3a02c4db13aa1801dbecdf8eedd
+unitNamespace=http://qudt.org/vocab/unit/
+currencyGraphUri=http://qudt.org/2.1/vocab/currency
+currencyGraphContentHash=1c88e056990538e98f1e3e64cc3ac7cfe204fb28051a416b424874662d6bfd39
+currencyNamespace=http://qudt.org/vocab/currency/
+quantityKindNamespace=http://qudt.org/vocab/quantitykind/
