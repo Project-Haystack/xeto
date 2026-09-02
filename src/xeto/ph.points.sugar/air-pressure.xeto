@@ -11,18 +11,18 @@
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for static air pressure in discharge duct
-DischargeAirPressureSensor : AirPressureSensor { discharge }
+DischargeAirPressureSensor : AirPressureSensor <sugar> { discharge }
 
 // Setpoint for static air pressure in discharge duct
-DischargeAirPressureSp : AirPressureSp { discharge }
+DischargeAirPressureSp : AirPressureSp <sugar> { discharge }
 
 //////////////////////////////////////////////////////////////////////////
 // Return
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for static air pressure in return duct
-ReturnAirPressureSensor : AirPressureSensor { return }
+ReturnAirPressureSensor : AirPressureSensor <sugar> { return }
 
 // Setpoint for static air pressure in return duct
-ReturnAirPressureSp : AirPressureSp { return }
+ReturnAirPressureSp : AirPressureSp <sugar> { return }
 

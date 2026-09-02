@@ -11,10 +11,10 @@
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for drybulb air temperature of discharge duct
-DischargeAirTempSensor : AirTempSensor { discharge }
+DischargeAirTempSensor : AirTempSensor <sugar> { discharge }
 
 // Setpoint for drybulb air temperature of discharge duct
-DischargeAirTempSp : AirTempSp { discharge }
+DischargeAirTempSp : AirTempSp <sugar> { discharge }
 
 //////////////////////////////////////////////////////////////////////////
 // Economizing
@@ -22,27 +22,27 @@ DischargeAirTempSp : AirTempSp { discharge }
 
 // Sensor for drybulb air temperature of economizing duct.
 // Used when there are separate ducts for minimum fresh air vs economizing.
-EconomizingAirTempSensor : AirTempSensor { economizing  }
+EconomizingAirTempSensor : AirTempSensor <sugar> { economizing  }
 
 //////////////////////////////////////////////////////////////////////////
 // Inlet
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for drybulb air temperature of inlet duct
-InletAirTempSensor : AirTempSensor { inlet }
+InletAirTempSensor : AirTempSensor <sugar> { inlet }
 
 // Setpoint for drybulb air temperature of inlet duct
-InletAirTempSp : AirTempSp { inlet }
+InletAirTempSp : AirTempSp <sugar> { inlet }
 
 //////////////////////////////////////////////////////////////////////////
 // Mixed
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for drybulb air temperature of mixed duct
-MixedAirTempSensor : AirTempSensor { mixed }
+MixedAirTempSensor : AirTempSensor <sugar> { mixed }
 
 // Setpoint for drybulb air temperature of mixed duct
-MixedAirTempSp : AirTempSp { mixed }
+MixedAirTempSp : AirTempSp <sugar> { mixed }
 
 //////////////////////////////////////////////////////////////////////////
 // Outside
@@ -50,17 +50,17 @@ MixedAirTempSp : AirTempSp { mixed }
 
 // Sensor for drybulb air temperature of outside duct.
 // Used when there one duct for both minimum fresh air and economizing.
-OutsideAirTempSensor : AirTempSensor { outside  }
+OutsideAirTempSensor : AirTempSensor <sugar> { outside  }
 
 //////////////////////////////////////////////////////////////////////////
 // Return
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for drybulb air temperature of return duct
-ReturnAirTempSensor : AirTempSensor { return }
+ReturnAirTempSensor : AirTempSensor <sugar> { return }
 
 // Setpoint for drybulb air temperature of return duct
-ReturnAirTempSp : AirTempSp { return }
+ReturnAirTempSp : AirTempSp <sugar> { return }
 
 //////////////////////////////////////////////////////////////////////////
 // Ventilation
@@ -68,17 +68,17 @@ ReturnAirTempSp : AirTempSp { return }
 
 // Sensor for drybulb air temperature of ventilation or minimum fresh  duct.
 // Used when there are separate ducts for minimum fresh air vs economizing.
-VentilationAirTempSensor : AirTempSensor { ventilation  }
+VentilationAirTempSensor : AirTempSensor <sugar> { ventilation  }
 
 //////////////////////////////////////////////////////////////////////////
 // Zone
 //////////////////////////////////////////////////////////////////////////
 
 // Drybulb air temperature sensor for zone
-ZoneAirTempSensor : AirTempSensor { zone }
+ZoneAirTempSensor : AirTempSensor <sugar> { zone }
 
 // Setpoint for drybulb air temperature zone
-ZoneAirTempSp : AirTempSp <abstract> { zone }
+ZoneAirTempSp : AirTempSp <sugar, abstract> { zone }
 
 // Effective setpoint for drybulb air temperature a zone
 ZoneAirTempEffectiveSp : ZoneAirTempSp { effective }
@@ -112,4 +112,4 @@ ZoneAirTempStandbyHeatingSp : ZoneAirTempHeatingSp { standby }
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for air temperature inside an enclosure
-EnclosureAirTempSensor : AirTempSensor { enclosure }
+EnclosureAirTempSensor : AirTempSensor <sugar> { enclosure }

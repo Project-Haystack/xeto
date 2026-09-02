@@ -11,29 +11,29 @@
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for chilled water leaving pressure
-ChilledWaterLeavingPressureSensor : WaterPressureSensor { chilled, leaving }
+ChilledWaterLeavingPressureSensor : WaterPressureSensor <sugar> { chilled, leaving }
 
 // Sensor for chilled water entering pressure
-ChilledWaterEnteringPressureSensor : WaterPressureSensor { chilled, entering }
+ChilledWaterEnteringPressureSensor : WaterPressureSensor <sugar> { chilled, entering }
 
 // Setpoint for chilled water leaving pressure
-ChilledWaterLeavingPressureSp : WaterPressureSp { chilled, leaving }
+ChilledWaterLeavingPressureSp : WaterPressureSp <sugar> { chilled, leaving }
 
 // Setpoint for chilled water entering pressure
-ChilledWaterEnteringPressureSp : WaterPressureSp { chilled, entering }
+ChilledWaterEnteringPressureSp : WaterPressureSp <sugar> { chilled, entering }
 
 //////////////////////////////////////////////////////////////////////////
 // Hot Water Pressure
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for hot water leaving pressure
-HotWaterLeavingPressureSensor : WaterPressureSensor { hot, leaving }
+HotWaterLeavingPressureSensor : WaterPressureSensor <sugar> { hot, leaving }
 
 // Sensor for hot water entering pressure
-HotWaterEnteringPressureSensor : WaterPressureSensor { hot, entering }
+HotWaterEnteringPressureSensor : WaterPressureSensor <sugar> { hot, entering }
 
 // Setpoint for hot water leaving pressure
-HotWaterLeavingPressureSp : WaterPressureSp { hot, leaving }
+HotWaterLeavingPressureSp : WaterPressureSp <sugar> { hot, leaving }
 
 // Setpoint for hot water entering pressure
-HotWaterEnteringPressureSp : WaterPressureSp { hot, entering }
+HotWaterEnteringPressureSp : WaterPressureSp <sugar> { hot, entering }

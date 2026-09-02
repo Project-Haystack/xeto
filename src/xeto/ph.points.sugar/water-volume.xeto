@@ -11,8 +11,8 @@
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for volumetric consumption of domestic water
-DomesticWaterVolumeSensor : WaterVolumeSensor { domestic }
+DomesticWaterVolumeSensor : WaterVolumeSensor <sugar> { domestic }
 
 // Setpoint for volumetric consumption of domestic water
-DomesticWaterVolumeSp : WaterVolumeSp { domestic }
+DomesticWaterVolumeSp : WaterVolumeSp <sugar> { domestic }
 

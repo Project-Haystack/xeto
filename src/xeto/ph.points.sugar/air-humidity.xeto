@@ -11,28 +11,28 @@
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for relative humidity in discharge duct
-DischargeAirHumiditySensor : AirHumiditySensor { discharge }
+DischargeAirHumiditySensor : AirHumiditySensor <sugar> { discharge }
 
 // Setpoint for relative humidity in discharge duct
-DischargeAirHumiditySp : AirHumiditySp { discharge }
+DischargeAirHumiditySp : AirHumiditySp <sugar> { discharge }
 
 //////////////////////////////////////////////////////////////////////////
 // Outdoor
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for relative humidity in outside duct
-OutsideAirHumiditySensor : AirHumiditySensor { outside }
+OutsideAirHumiditySensor : AirHumiditySensor <sugar> { outside }
 
 // Setpoint for relative humidity in outside duct
-OutsideAirHumiditySp : AirHumiditySp { outside }
+OutsideAirHumiditySp : AirHumiditySp <sugar> { outside }
 
 //////////////////////////////////////////////////////////////////////////
 // Zone
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for relative humidity in the zone
-ZoneAirHumiditySensor : AirHumiditySensor { zone }
+ZoneAirHumiditySensor : AirHumiditySensor <sugar> { zone }
 
 // Setpoint for relative humidity in the zone
-ZoneAirHumiditySp : AirHumiditySp { zone }
+ZoneAirHumiditySp : AirHumiditySp <sugar> { zone }
 
