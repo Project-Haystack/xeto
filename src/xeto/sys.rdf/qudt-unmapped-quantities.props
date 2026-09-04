@@ -1,0 +1,6 @@
+//
+// Xeto sys::UnitQuantity name = reasonCode|review note
+// Every quantity appears here or qudt-quantities.props, never both.
+//
+
+powerByVolumetricFlow=noEquivalent|QUDT 2.1 has no quantity kind for power divided by volume flow

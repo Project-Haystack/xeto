@@ -1,0 +1,55 @@
+//
+// Canonical Xeto sys::Unit name = reasonCode|review note
+// Every catalog unit appears in a mapped file or this file, never both.
+//
+
+// Xeto defines obsolete BYR; the current Belarusian ruble BYN is not in this catalog.
+belarussian_ruble=noEquivalent|QUDT 2.1 currency graph does not contain obsolete ISO 4217 code BYR
+bolivar_fuerte=noEquivalent|QUDT 2.1 currency graph does not contain obsolete ISO 4217 code VEF
+centum_cubic_feet_natural_gas=noEquivalent|depends on assumed fuel energy content; no fixed QUDT unit
+cfa_franc_bceao=ambiguous|Xeto names BCEAO (XOF) but assigns ISO code XAF (BEAC)
+cubic_feet_natural_gas=noEquivalent|depends on assumed fuel energy content; no fixed QUDT unit
+cubic_meters_natural_gas=noEquivalent|depends on assumed fuel energy content; no fixed QUDT unit
+db_microvolt=nonLinear|QUDT 2.1 has no matching logarithmic reference unit
+db_millivolt=nonLinear|QUDT 2.1 has no matching logarithmic reference unit
+degree_days_celsius=noEquivalent|no equivalent QUDT 2.1 unit resource
+degree_days_fahrenheit=noEquivalent|no equivalent QUDT 2.1 unit resource
+// Xeto defines obsolete STD; the current Sao Tome and Principe dobra STN is not in this catalog.
+dobra=noEquivalent|QUDT 2.1 currency graph does not contain obsolete ISO 4217 code STD
+energy_efficiency_ratio=noEquivalent|no equivalent QUDT 2.1 unit resource
+formazin_nephelometric_unit=noEquivalent|no equivalent QUDT 2.1 unit resource
+gigajoules_per_cubic_meter=noEquivalent|QUDT 2.1 has no gigajoule-per-cubic-meter unit resource
+hectoliters_per_second=noEquivalent|no equivalent QUDT 2.1 unit resource
+horsepower_hour=noEquivalent|no equivalent QUDT 2.1 unit resource
+hundred_cubic_feet_natural_gas=noEquivalent|depends on assumed fuel energy content; no fixed QUDT unit
+hundredths_second=noEquivalent|no equivalent QUDT 2.1 unit resource
+inches_per_hour=noEquivalent|no equivalent QUDT 2.1 unit resource
+kilobtus_per_hour_per_square_foot=noEquivalent|no equivalent QUDT 2.1 unit resource
+kilobtu_per_pound=noEquivalent|QUDT 2.1 has no kilobtu-per-pound unit resource
+kilobtu_per_pound_dry_air=noEquivalent|QUDT 2.1 has no kilobtu-per-pound-dry-air unit resource
+kilocubic_feet_per_minute=noEquivalent|no equivalent QUDT 2.1 unit resource
+kilogallon=noEquivalent|no equivalent QUDT 2.1 unit resource
+kilopound=noEquivalent|no equivalent QUDT 2.1 unit resource
+kilowatt_hours_per_square_foot=noEquivalent|no equivalent QUDT 2.1 unit resource
+kilowatt_per_ton=noEquivalent|no equivalent QUDT 2.1 unit resource
+kilowatts_per_gallons_per_minute=noEquivalent|no equivalent QUDT 2.1 unit resource
+kilowatts_per_kilocubic_feet_per_minute=noEquivalent|no equivalent QUDT 2.1 unit resource
+kilowatts_per_square_foot=noEquivalent|no equivalent QUDT 2.1 unit resource
+leone=noEquivalent|QUDT 2.1 currency graph does not contain obsolete ISO 4217 code SLL
+megabtu=noEquivalent|no equivalent QUDT 2.1 unit resource
+megabtu_per_square_foot=noEquivalent|no equivalent QUDT 2.1 unit resource
+megajoules_per_square_foot=noEquivalent|no equivalent QUDT 2.1 unit resource
+megawatt_hours_per_square_foot=noEquivalent|no equivalent QUDT 2.1 unit resource
+megawatt_hours_per_square_meter=noEquivalent|no equivalent QUDT 2.1 unit resource
+million_cubic_feet=noEquivalent|no equivalent QUDT 2.1 unit resource
+million_cubic_feet_natural_gas=noEquivalent|depends on assumed fuel energy content; no fixed QUDT unit
+// Xeto defines obsolete MRO; the current Mauritanian ouguiya MRU is not in this catalog.
+ouguiya=noEquivalent|QUDT 2.1 currency graph does not contain obsolete ISO 4217 code MRO
+parts_per_unit=ambiguous|QUDT 2.1 has several generic dimensionless resources but none unambiguously represents parts per unit
+percent_obscuration_per_foot=noEquivalent|no equivalent QUDT 2.1 unit resource
+percent_per_second=noEquivalent|no equivalent QUDT 2.1 unit resource
+psi_per_degree_fahrenheit=noEquivalent|no equivalent QUDT 2.1 unit resource
+thousand_cubic_feet_natural_gas=noEquivalent|depends on assumed fuel energy content; no fixed QUDT unit
+watt_hours_per_square_foot=noEquivalent|no equivalent QUDT 2.1 unit resource
+watts_per_cubic_feet_per_minute=noEquivalent|no equivalent QUDT 2.1 unit resource
+watts_per_cubic_meters_per_second=noEquivalent|no equivalent QUDT 2.1 unit resource
