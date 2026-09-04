@@ -6,12 +6,6 @@
 //   5 Apr 2023  Brian Frank  Creation
 //
 
-// Dessicant dehumidifier enable command
-DessicantDehumidifierCmd : BoolPoint { dessicantDehumidifier }
-
-// Temperature conditioning mode for a zone in an HVAC system
-ZoneAirHvacModeSp : EnumPoint & SpPoint { zone, air, hvacMode }
-
 // Point associated with the on/off state of equipment
 RunPoint : BoolPoint <abstract> {
   run
@@ -136,3 +130,10 @@ RuntimeSensor : NumberPoint & SensorPoint {
   runtime
   unit: Unit <quantity:"time"> "hr"
 }
+
+// Dessicant dehumidifier enable command
+DessicantDehumidifierCmd : BoolPoint { dessicantDehumidifier }
+
+// Temperature conditioning mode for a zone in an HVAC system
+ZoneAirHvacModeSp : EnumPoint & SpPoint { zone, air, hvacMode }
+

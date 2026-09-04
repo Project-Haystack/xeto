@@ -1,21 +1,19 @@
 //
-// Copyright (c) 2025, Project-Haystack
+// Copyright (c) 2026, Project-Haystack
 // Licensed under the Academic Free License version 3.0
 //
 // History:
-//   6 Feb 2025  Brian Frank  Creation
+//   4 Sep 2026  Brian Frank  Creation
 //
 
 pragma: Lib <
-  nodoc
-  doc: "Project haystack example data"
+  doc: "Project haystack sugar points library"
   version: BuildVar "ph.version"
   maturity: BuildVar "ph.maturity"
   depends: {
-    { lib: "sys",             versions: BuildVar "ph.depend" }
-    { lib: "ph",              versions: BuildVar "ph.depend" }
-    { lib: "ph.points",       versions: BuildVar "ph.depend" }
-    { lib: "ph.points.sugar", versions: BuildVar "ph.depend" }
+    { lib: "sys",       versions: BuildVar "ph.depend" }
+    { lib: "ph",        versions: BuildVar "ph.depend" }
+    { lib: "ph.points", versions: BuildVar "ph.depend" }
   }
   categories: {"ph"}
   license: BuildVar "ph.license"
