@@ -30,7 +30,7 @@ G36FanPoweredTerminalUnit : G36Vav {
     DischargeFanSpeedModulatingCmd
     DischargeFanRunSensor
     DischargeFanRunCmd
-    DischargeDamperCmd
+    DischargeDamperModulatingCmd
     HotWaterValveModulatingCmd
     DischargeAirFlowSensor
     DischargeAirTempSensor
@@ -42,8 +42,8 @@ G36DualDuctVavInlet : G36Vav {
   dualDuct
   coolingOnly
   points: {
-    ColdDeckDischargeDamperCmd
-    HotDeckDischargeDamperCmd
+    ColdDeckDischargeDamperModulatingCmd
+    HotDeckDischargeDamperModulatingCmd
     ColdDeckDischargeAirFlowSensor
     HotDeckDischargeAirFlowSensor
   }
@@ -54,8 +54,8 @@ G36DualDuctVavOutlet : G36Vav {
   dualDuct
   coolingOnly
   points: {
-    ColdDeckDischargeDamperCmd
-    HotDeckDischargeDamperCmd
+    ColdDeckDischargeDamperModulatingCmd
+    HotDeckDischargeDamperModulatingCmd
     DischargeAirFlowSensor
   }
 }
@@ -66,7 +66,7 @@ G36ReheatVav : G36Vav {
   singleDuct
   points: {
     HotWaterValveModulatingCmd
-    DischargeDamperCmd
+    DischargeDamperModulatingCmd
     DischargeAirFlowSensor
     DischargeAirTempSensor
   }
@@ -77,7 +77,7 @@ G36CoolingOnlyVav : G36Vav {
   singleDuct
   coolingOnly
   points: {
-    DischargeDamperCmd
+    DischargeDamperModulatingCmd
     DischargeAirFlowSensor
   }
 }
