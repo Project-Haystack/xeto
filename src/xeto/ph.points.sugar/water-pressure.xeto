@@ -7,33 +7,49 @@
 //
 
 //////////////////////////////////////////////////////////////////////////
+// Water Pressure
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for water pressure leaving a component of a system
+WaterLeavingPressureSensor : WaterPressureSensor { leaving }
+
+// Sensor for water pressure entering a component of a system
+WaterEnteringPressureSensor : WaterPressureSensor { entering }
+
+// Setpoint for water pressure leaving a component of a system
+WaterLeavingPressureSp : WaterPressureSp { leaving }
+
+// Setpoint for water pressure entering a component of a system
+WaterEnteringPressureSp : WaterPressureSp { entering }
+
+//////////////////////////////////////////////////////////////////////////
 // Chilled Water Pressure
 //////////////////////////////////////////////////////////////////////////
 
-// Sensor for chilled water leaving pressure
-ChilledWaterLeavingPressureSensor : WaterPressureSensor { chilled, leaving }
+// Sensor for chilled water pressure leaving a component of a system
+ChilledWaterLeavingPressureSensor : WaterLeavingPressureSensor { chilled }
 
-// Sensor for chilled water entering pressure
-ChilledWaterEnteringPressureSensor : WaterPressureSensor { chilled, entering }
+// Sensor for chilled water pressure entering a component of a system
+ChilledWaterEnteringPressureSensor : WaterEnteringPressureSensor { chilled }
 
-// Setpoint for chilled water leaving pressure
-ChilledWaterLeavingPressureSp : WaterPressureSp { chilled, leaving }
+// Setpoint for chilled water pressure leaving a component of a system
+ChilledWaterLeavingPressureSp : WaterLeavingPressureSp { chilled }
 
-// Setpoint for chilled water entering pressure
-ChilledWaterEnteringPressureSp : WaterPressureSp { chilled, entering }
+// Setpoint for chilled water pressure entering a component of a system
+ChilledWaterEnteringPressureSp : WaterEnteringPressureSp { chilled }
 
 //////////////////////////////////////////////////////////////////////////
 // Hot Water Pressure
 //////////////////////////////////////////////////////////////////////////
 
-// Sensor for hot water leaving pressure
-HotWaterLeavingPressureSensor : WaterPressureSensor { hot, leaving }
+// Sensor for hot water pressure leaving a component of a system
+HotWaterLeavingPressureSensor : WaterLeavingPressureSensor { hot }
 
-// Sensor for hot water entering pressure
-HotWaterEnteringPressureSensor : WaterPressureSensor { hot, entering }
+// Sensor for hot water pressure entering a component of a system
+HotWaterEnteringPressureSensor : WaterEnteringPressureSensor { hot }
 
-// Setpoint for hot water leaving pressure
-HotWaterLeavingPressureSp : WaterPressureSp { hot, leaving }
+// Setpoint for hot water pressure leaving a component of a system
+HotWaterLeavingPressureSp : WaterLeavingPressureSp { hot }
 
-// Setpoint for hot water entering pressure
-HotWaterEnteringPressureSp : WaterPressureSp { hot, entering }
+// Setpoint for hot water pressure entering a component of a system
+HotWaterEnteringPressureSp : WaterEnteringPressureSp { hot }
