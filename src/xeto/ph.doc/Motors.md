@@ -55,14 +55,14 @@ is more easily modeled as just a [ph::PhEntity.point].
 ## Fan Points
 Standardized points for motors are extended to fans as follows:
 
-  - [ph.points::FanEnableCmd]: command that permits or prohibits a fan to operate
-  - [ph.points::FanRunCmd]: commands a fan to run or stop running
-  - [ph.points::FanRunSensor]: senses the on/off state of a fan
-  - [ph.points::FanSpeedModulatingCmd]: command for modulating fan speed
+  - [ph.points.sugar::FanEnableCmd]: command that permits or prohibits a fan to operate
+  - [ph.points.sugar::FanRunCmd]: commands a fan to run or stop running
+  - [ph.points.sugar::FanRunSensor]: senses the on/off state of a fan
+  - [ph.points.sugar::FanSpeedModulatingCmd]: command for modulating fan speed
 
 Modulating speed is defined as a percentage where 0% is off and 100% is full speed.
 
-Permission from [ph.points::FanEnableCmd] may be required for [ph.points::FanRunCmd] to
+Permission from [ph.points.sugar::FanEnableCmd] may be required for [ph.points.sugar::FanRunCmd] to
 take effect.
 
 ## Fan Equips
