@@ -9,6 +9,13 @@
 // Sensor for open/close state of a window
 WindowOpenSensor : OpenSensor { window }
 
+// Command to override normal automatic operation when a window is open
+WindowOverrideCmd : OverrideCmd { window }
+
 // Sensor for open/close state of a door
 DoorOpenSensor : OpenSensor { door }
+
+// Command to override normal automatic operation to occupied mode,
+// initiated by an occupant pressing a local button or switch.
+OccupantOverrideCmd : OverrideCmd { occupant }
 

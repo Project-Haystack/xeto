@@ -137,3 +137,14 @@ DessicantDehumidifierCmd : BoolPoint { dessicantDehumidifier }
 // Temperature conditioning mode for a zone in an HVAC system
 ZoneAirHvacModeSp : EnumPoint & SpPoint { zone, air, hvacMode }
 
+// Auto and override enumeration
+OverrideEnum: Enum { auto, override }
+
+// Point associated with an override of normal automatic operation
+OverridePoint : BoolPoint <abstract> {
+  override
+  enum: Obj <val:OverrideEnum>
+}
+
+// Command to override normal automatic operation
+OverrideCmd : OverridePoint & CmdPoint

@@ -1043,6 +1043,10 @@ PhEntity: Entity <abstract> {
   // See [ph.doc::Zones#occupancy] chapter.
   *occupancy: Marker
 
+  // A person who uses or occupies a space.
+  // See [ph.doc::Zones#occupancy] chapter.
+  *occupant: Marker
+
   // People who use the built environment.
   // See [ph.doc::Zones#occupancy] chapter.
   *occupants: Marker
@@ -1071,6 +1075,10 @@ PhEntity: Entity <abstract> {
 
   // Duct to access fresh outside air for both ventilation and economizer.
   *outside: Marker
+
+  // Manual, local, or other higher-priority control that supersedes
+  // normal automatic operation.
+  *override: Marker
 
   // Enclosure for electrical and control equipment.  Panels may be
   // used to isolate electrical connections and provide environmental
