@@ -1278,8 +1278,13 @@ Card : Dict {
 ### Vocabulary
 
 An enum spec is exported as a class, and the slot using it is exported as an
-RDF property. Enum values are strings rather than RDF individuals, so the
-vocabulary graph does not create a resource for each entry.
+RDF property. Ordinary enum values are strings rather than RDF individuals,
+so the vocabulary graph does not create a resource for each entry.
+
+Some built-in enums have their own RDF mappings instead of this default string
+mapping. For example, `Unit` and
+[UnitQuantity](#standalone-unitquantity-values) represent their values as
+resources, as described in their respective sections.
 
 ```turtle
 ex:Suit a sys:Class, rdfs:Class ;
@@ -1292,7 +1297,7 @@ ex:Card.suit a rdf:Property ;
 
 ### SHACL Validation
 
-Enum slots are string-valued and use `sh:in` for the allowed values. For the
+Ordinary enum slots are string-valued and use `sh:in` for the allowed values. For the
 unkeyed `Suit` above, the entry names are used directly:
 
 ```turtle
@@ -2083,6 +2088,75 @@ The QUDT declarations and quantity-kind facts referenced by these values are
 loaded separately during validation as described under
 [Metadata and External Vocabularies](#metadata-and-external-vocabularies).
 
+## Standalone UnitQuantity Values
+
+A standalone `UnitQuantity` value maps to `sys:UnitQuantity.<key>`, using the
+exact, case-sensitive enum key and the versioned `sys` namespace. One Xeto
+quantity can correspond to several QUDT quantity kinds, or have no QUDT match.
+Giving it its own resource preserves one Xeto value without choosing a single
+QUDT match or turning it into several values.
+
+```xeto
+Reading : Dict {
+  quantity: UnitQuantity
+}
+
+@reading1: Reading { quantity: "energy" }
+```
+
+```turtle
+ex:reading1 a sys:Entity, ex:Reading ;
+  ex:Reading.quantity sys:UnitQuantity.energy .
+
+sys:UnitQuantity.energy a sys:UnitQuantity ;
+  rdfs:label "energy"@en ;
+  rdfs:seeAlso quantitykind:Energy, quantitykind:MomentOfForce,
+    quantitykind:Torque .
+```
+
+Each quantity resource has a label and `rdfs:seeAlso` links to its matching
+QUDT quantity kinds, of which there may be several. For example, Xeto's
+`energy` category maps to both `quantitykind:Energy` and `quantitykind:Torque`.
+These links do not assert equivalence: the link to `quantitykind:Torque` does
+not mean that every instance with quantity `energy` measures torque. A quantity without
+a QUDT match, such as `powerByVolumetricFlow`, has its own resource and label,
+but no QUDT links.
+
+All standalone `UnitQuantity` slots reference a shared
+`sys:UnitQuantityShape`:
+
+```turtle
+sys:UnitQuantityShape a sh:NodeShape ;
+  sh:nodeKind sh:IRI ;
+  sh:in (sys:UnitQuantity.energy sys:UnitQuantity.temperature # ...
+  ) .
+```
+
+Each exported schema graph containing a `UnitQuantity` slot includes this
+shape once. It requires the value to be an IRI from the quantity catalog.
+The `sh:in` list contains a resource for every effective `sys::UnitQuantity`
+enum entry, using the versioned `sys` namespace. The example above abbreviates
+that list.
+
+The property shape for each standalone `UnitQuantity` slot references the
+shared shape and defines that slot's cardinality and invariant constraints.
+For example, `Reading.quantity`
+requires exactly one quantity value:
+
+```turtle
+ex:Reading a sh:NodeShape ;
+  sh:targetClass ex:Reading ;
+  sh:property [
+    sh:path ex:Reading.quantity ;
+    sh:node sys:UnitQuantityShape ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .
+```
+
+An optional slot omits `sh:minCount`. An invariant adds, for example,
+`sh:hasValue sys:UnitQuantity.energy`.
+
 ## Queries
 
 ### SHACL Validation
@@ -2678,8 +2752,6 @@ define error codes or prescribe programming-language error types.
 - Direct `Scalar` slots, pending a SHACL mapping for the abstract family of
   special and custom representations. Concrete custom scalars use the mapping
   in [Custom Scalar Datatypes](#custom-scalar-datatypes).
-- `UnitQuantity` values. Quantity metadata on `Unit` and `Number` slots remains
-  supported as defined in [Units and Quantities](#units-and-quantities).
 - `Grid` and the abstract `Collection` type, pending a complete collection and
   table mapping.
 - `Func`, `Interface`, and `Funcs`, whose API and execution semantics are
