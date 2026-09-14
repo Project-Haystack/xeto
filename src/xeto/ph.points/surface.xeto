@@ -1,0 +1,17 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   14 Sep 2026  Rick Jennings  Creation
+//
+
+// Point associated with surface temperature
+SurfaceTempPoint : NumberPoint <abstract> {
+  surface
+  temp
+  unit: Unit <quantity:"temperature"> "°F"
+}
+
+// Sensor that measures surface temperature
+SurfaceTempSensor : SurfaceTempPoint & SensorPoint <abstract>

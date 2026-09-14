@@ -6,18 +6,8 @@
 //   10 Dec 2025  Rick Jennings  Creation
 //
 
-// Point associated with surface temperature
-SurfaceTempPoint : NumberPoint <abstract> {
-  surface
-  temp
-  unit: Unit <quantity:"temperature"> "°F"
-}
-
-// Sensor that measures surface temperature
-SurfaceTempSensor : SurfaceTempPoint & SensorPoint <abstract>
-
 // Sensor that measures temperature of a heatsink
-HeatsinkSurfaceTempSensor : SurfaceTempSensor { heatsink }
+HeatsinkTempSensor : SurfaceTempSensor { heatsink }
 
 // Sensor that measures temperature of an electric cable
 ElecCableTempSensor : SurfaceTempSensor {

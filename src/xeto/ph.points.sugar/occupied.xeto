@@ -1,0 +1,27 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   14 Sep 2026  Rick Jennings  Creation
+//
+
+//////////////////////////////////////////////////////////////////////////
+// Zone
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for the occupied state of a zone space; true when occupied,
+// false when unoccupied
+ZoneOccupiedSensor : OccupiedSensor { zone }
+
+// Setpoint for the occupied state of a zone space; true when occupied,
+// false when unoccupied
+ZoneOccupiedSp : OccupiedSp { zone }
+
+//////////////////////////////////////////////////////////////////////////
+// Other
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for the occupied state of a parking bay; true when occupied,
+// false when unoccupied
+ParkingBayOccupiedSensor : OccupiedSensor { parkingBay }
