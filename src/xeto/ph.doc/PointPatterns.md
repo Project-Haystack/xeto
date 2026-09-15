@@ -69,10 +69,10 @@ equipment from 0% to 100%, such as valve position or motor speed:
 A command models the desired state of equipment, while a sensor models
 its actual state.  When equipment provides feedback, both should be
 modeled as separate points.  For example a fan is commanded on/off with
-[ph.points.sugar::FanRunCmd] and its actual status is proven with
-[ph.points.sugar::FanRunSensor].  Likewise a damper is commanded to a
-position with [ph.points.sugar::DamperModulatingCmd] and its actual position is sensed
-with [ph.points.sugar::DamperModulatingSensor].  Comparing the pair detects failures
+[ph.points::FanRunCmd] and its actual status is proven with
+[ph.points::FanRunSensor].  Likewise a damper is commanded to a
+position with [ph.points::DamperModulatingCmd] and its actual position is sensed
+with [ph.points::DamperModulatingSensor].  Comparing the pair detects failures
 such as a fan commanded on that is not running.
 
 # Setpoints
@@ -266,7 +266,7 @@ are the points for modulated cooling:
 # Equipment Points
 These patterns are extended to specific equipment with specialized
 point specs, for example [ph.points::MotorRunCmd],
-[ph.points.sugar::FanRunSensor], and [ph.points.sugar::FanSpeedModulatingCmd].  See
+[ph.points::FanRunSensor], and [ph.points::FanSpeedModulatingCmd].  See
 the equipment chapters for the standardized points of each vertical:
 
   - [Motors](Motors): fans, pumps, and other motors

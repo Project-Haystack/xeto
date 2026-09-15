@@ -6,71 +6,37 @@
 //   3 Nov 2022  Brian Frank  Creation
 //
 
-// Point associated with a fan
-FanPoint : Point <abstract> {
-  air
-  fan
-}
-
-// Command to permit/prohibit a fan to run.
-// Used as an interlock with a run command.
-FanEnableCmd : FanPoint & MotorEnableCmd
-
-// Sensor for on/off state of a fan
-FanRunSensor : FanPoint & MotorRunSensor
-
-// On/off command to run a fan
-FanRunCmd : FanPoint & MotorRunCmd
-
-// Sensor for enumerated fan speed level.  The enum value indicates the
-// current speed level, where the first value is off and subsequent values
-// increase from slowest to highest speed.
-FanSpeedEnumSensor : FanPoint & MotorSpeedEnumSensor
-
-// Command for enumerated fan speed level.  The enum value indicates the
-// current speed level, where the first value is off and subsequent values
-// increase from slowest to highest speed.
-FanSpeedEnumCmd : FanPoint & MotorSpeedEnumCmd
-
-// Sensor for modulating speed of a fan.  Speed is measured as a
-// percentage where 0% is off and 100% is full speed.
-FanSpeedModulatingSensor : FanPoint & MotorSpeedModulatingSensor
-
-// Command for modulating speed of a fan.  Speed is measured as a
-// percentage where 0% is off and 100% is full speed.
-FanSpeedModulatingCmd : FanPoint & MotorSpeedModulatingCmd
-
 //////////////////////////////////////////////////////////////////////////
 // Discharge
 //////////////////////////////////////////////////////////////////////////
 
 // Command to permit/prohibit a fan in a discharge duct to run.
 // Used as an interlock with a run command.
-DischargeFanEnableCmd : FanEnableCmd { discharge }
+DischargeFanEnableCmd : DuctFanEnableCmd { discharge }
 
 // Sensor for on/off state of a fan in a discharge duct
-DischargeFanRunSensor : FanRunSensor { discharge }
+DischargeFanRunSensor : DuctFanRunSensor { discharge }
 
 // On/off command to run a fan in a discharge duct
-DischargeFanRunCmd : FanRunCmd { discharge }
+DischargeFanRunCmd : DuctFanRunCmd { discharge }
 
 // Sensor for enumerated speed level of a fan in a discharge duct.  The enum
 // value indicates the current speed level, where the first value is off and
 // subsequent values increase from slowest to highest speed.
-DischargeFanSpeedEnumSensor : FanSpeedEnumSensor { discharge }
+DischargeFanSpeedEnumSensor : DuctFanSpeedEnumSensor { discharge }
 
 // Command for enumerated speed level of a fan in a discharge duct.  The enum
 // value indicates the current speed level, where the first value is off and
 // subsequent values increase from slowest to highest speed.
-DischargeFanSpeedEnumCmd : FanSpeedEnumCmd { discharge }
+DischargeFanSpeedEnumCmd : DuctFanSpeedEnumCmd { discharge }
 
 // Sensor for modulating speed of a fan in a discharge duct.  Speed is
 // measured as a percentage where 0% is off and 100% is full speed.
-DischargeFanSpeedModulatingSensor : FanSpeedModulatingSensor { discharge }
+DischargeFanSpeedModulatingSensor : DuctFanSpeedModulatingSensor { discharge }
 
 // Command for modulating speed of a fan in a discharge duct.  Speed is
 // measured as a percentage where 0% is off and 100% is full speed.
-DischargeFanSpeedModulatingCmd : FanSpeedModulatingCmd { discharge }
+DischargeFanSpeedModulatingCmd : DuctFanSpeedModulatingCmd { discharge }
 
 //////////////////////////////////////////////////////////////////////////
 // Return
@@ -78,29 +44,28 @@ DischargeFanSpeedModulatingCmd : FanSpeedModulatingCmd { discharge }
 
 // Command to permit/prohibit a fan in a return duct to run.
 // Used as an interlock with a run command.
-ReturnFanEnableCmd : FanEnableCmd { return }
+ReturnFanEnableCmd : DuctFanEnableCmd { return }
 
 // Sensor for on/off state of a fan in a return duct
-ReturnFanRunSensor : FanRunSensor { return }
+ReturnFanRunSensor : DuctFanRunSensor { return }
 
 // On/off command to run a fan in a return duct
-ReturnFanRunCmd : FanRunCmd { return }
+ReturnFanRunCmd : DuctFanRunCmd { return }
 
 // Sensor for enumerated speed level of a fan in a return duct.  The enum
 // value indicates the current speed level, where the first value is off and
 // subsequent values increase from slowest to highest speed.
-ReturnFanSpeedEnumSensor : FanSpeedEnumSensor { return }
+ReturnFanSpeedEnumSensor : DuctFanSpeedEnumSensor { return }
 
 // Command for enumerated speed level of a fan in a return duct.  The enum
 // value indicates the current speed level, where the first value is off and
 // subsequent values increase from slowest to highest speed.
-ReturnFanSpeedEnumCmd : FanSpeedEnumCmd { return }
+ReturnFanSpeedEnumCmd : DuctFanSpeedEnumCmd { return }
 
 // Sensor for modulating speed of a fan in a return duct.  Speed is
 // measured as a percentage where 0% is off and 100% is full speed.
-ReturnFanSpeedModulatingSensor : FanSpeedModulatingSensor { return }
+ReturnFanSpeedModulatingSensor : DuctFanSpeedModulatingSensor { return }
 
 // Command for modulating speed of a fan in a return duct.  Speed is
 // measured as a percentage where 0% is off and 100% is full speed.
-ReturnFanSpeedModulatingCmd : FanSpeedModulatingCmd { return }
-
+ReturnFanSpeedModulatingCmd : DuctFanSpeedModulatingCmd { return }

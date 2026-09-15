@@ -1,0 +1,61 @@
+//
+// Copyright (c) 2022, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   3 Nov 2022  Brian Frank  Creation
+//
+
+// Sensor for open/close state of a damper
+DamperOpenSensor : ActuatorOpenSensor {
+  damper
+  air
+}
+
+// Command for open/close state of a damper
+DamperOpenCmd : ActuatorOpenCmd {
+  damper
+  air
+}
+
+// Sensor for modulating position of a damper.  Position is measured as a
+// percentage where 0% is closed and 100% is fully open.
+DamperModulatingSensor : ActuatorModulatingSensor {
+  damper
+  air
+}
+
+// Command for modulating position of a damper.  Position is measured as a
+// percentage where 0% is closed and 100% is fully open.
+DamperModulatingCmd : ActuatorModulatingCmd {
+  damper
+  air
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Duct
+//////////////////////////////////////////////////////////////////////////
+
+// Sensor for open/close state of a damper in a duct section
+DuctAirDamperOpenSensor : DamperOpenSensor {
+  ductSection: DuctSection
+  ductDeck: DuctDeck?
+}
+
+// Command for open/close state of a damper in a duct section
+DuctAirDamperOpenCmd : DamperOpenCmd {
+  ductSection: DuctSection
+  ductDeck: DuctDeck?
+}
+
+// Sensor for modulating position of a damper in a duct section
+DuctAirDamperModulatingSensor : DamperModulatingSensor {
+  ductSection: DuctSection
+  ductDeck: DuctDeck?
+}
+
+// Command for modulating position of a damper in a duct section
+DuctAirDamperModulatingCmd : DamperModulatingCmd {
+  ductSection: DuctSection
+  ductDeck: DuctDeck?
+}
