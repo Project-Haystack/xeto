@@ -84,6 +84,15 @@ DuctAirTempSp : AirTempSp {
   ductDeck: DuctDeck?
 }
 
+// Drybulb air temperature sensor for zone
+ZoneAirTempSensor : AirTempSensor { zone }
+
+// Setpoint for drybulb air temperature zone
+ZoneAirTempSp : AirTempSp { zone }
+
+// Sensor for air temperature inside an enclosure
+EnclosureAirTempSensor : AirTempSensor { enclosure }
+
 //////////////////////////////////////////////////////////////////////////
 // Humidity
 //////////////////////////////////////////////////////////////////////////
@@ -112,4 +121,10 @@ DuctAirHumiditySp : AirHumiditySp {
   ductSection: DuctSection
   ductDeck: DuctDeck?
 }
+
+// Sensor for relative humidity in the zone
+ZoneAirHumiditySensor : AirHumiditySensor { zone }
+
+// Setpoint for relative humidity in the zone
+ZoneAirHumiditySp : AirHumiditySp { zone }
 

@@ -22,6 +22,18 @@ OccupiedSensor : OccupiedPoint & SensorPoint <abstract>
 // Setpoint for the occupied state; true when occupied, false when unoccupied
 OccupiedSp : OccupiedPoint & SpPoint <abstract>
 
+// Sensor for the occupied state of a zone space; true when occupied,
+// false when unoccupied
+ZoneOccupiedSensor : OccupiedSensor { zone }
+
+// Setpoint for the occupied state of a zone space; true when occupied,
+// false when unoccupied
+ZoneOccupiedSp : OccupiedSp { zone }
+
+// Sensor for the occupied state of a parking bay; true when occupied,
+// false when unoccupied
+ParkingBayOccupiedSensor : OccupiedSensor { parkingBay }
+
 // Point associated with the number of occupants
 OccupancyPoint : NumberPoint <abstract> {
   occupancy

@@ -26,13 +26,3 @@ OutsideAirHumiditySensor : DuctAirHumiditySensor { outside }
 // Setpoint for relative humidity in outside duct
 OutsideAirHumiditySp : DuctAirHumiditySp { outside }
 
-//////////////////////////////////////////////////////////////////////////
-// Zone
-//////////////////////////////////////////////////////////////////////////
-
-// Sensor for relative humidity in the zone
-ZoneAirHumiditySensor : AirHumiditySensor { zone }
-
-// Setpoint for relative humidity in the zone
-ZoneAirHumiditySp : AirHumiditySp { zone }
-

@@ -74,12 +74,6 @@ VentilationAirTempSensor : DuctAirTempSensor { ventilation }
 // Zone
 //////////////////////////////////////////////////////////////////////////
 
-// Drybulb air temperature sensor for zone
-ZoneAirTempSensor : AirTempSensor { zone }
-
-// Setpoint for drybulb air temperature zone
-ZoneAirTempSp : AirTempSp <abstract> { zone }
-
 // Effective setpoint for drybulb air temperature a zone
 ZoneAirTempEffectiveSp : ZoneAirTempSp { effective }
 
@@ -106,10 +100,3 @@ ZoneAirTempUnoccHeatingSp : ZoneAirTempHeatingSp { unocc }
 
 // Heating mode temperature setpoint for zone when in standby mode
 ZoneAirTempStandbyHeatingSp : ZoneAirTempHeatingSp { standby }
-
-//////////////////////////////////////////////////////////////////////////
-// Other
-//////////////////////////////////////////////////////////////////////////
-
-// Sensor for air temperature inside an enclosure
-EnclosureAirTempSensor : AirTempSensor { enclosure }
