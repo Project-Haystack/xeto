@@ -26,33 +26,31 @@ NaturalGasFlowSp : FluidVolumetricFlowSp {
 // Volume
 //////////////////////////////////////////////////////////////////////////
 
-// Point associated with volumetric consumption of natural gas
-NaturalGasVolumePoint : NumberPoint <abstract> {
-  naturalGas
-  volume
-  unit: Unit <quantity:"volume"> "Ccf"
-}
-
 // Sensor for volumetric consumption of natural gas
-NaturalGasVolumeSensor : NaturalGasVolumePoint & SensorPoint
+NaturalGasVolumeSensor : FluidVolumeSensor {
+  naturalGas
+  unit: Unit "Ccf"
+}
 
 // Setpoint for volumetric consumption of natural gas
-NaturalGasVolumeSp : NaturalGasVolumePoint & SpPoint
-
-//////////////////////////////////////////////////////////////////////////
-// Volume
-//////////////////////////////////////////////////////////////////////////
-
-// Point associated with energy consumption of natural gas
-NaturalGasEnergyPoint : NumberPoint <abstract> {
+NaturalGasVolumeSp : FluidVolumeSp {
   naturalGas
-  energy
-  unit: Unit <quantity:"energy"> "Ccf_natural_gas"
+  unit: Unit "Ccf"
 }
 
+//////////////////////////////////////////////////////////////////////////
+// Energy
+//////////////////////////////////////////////////////////////////////////
+
 // Sensor for energy consumption of natural gas
-NaturalGasEnergySensor : NaturalGasEnergyPoint & SensorPoint
+NaturalGasEnergySensor : FluidEnergySensor {
+  naturalGas
+  unit: Unit "Ccf_natural_gas"
+}
 
 // Setpoint for energy consumption of natural gas
-NaturalGasEnergySp : NaturalGasEnergyPoint & SpPoint
+NaturalGasEnergySp : FluidEnergySp {
+  naturalGas
+  unit: Unit "Ccf_natural_gas"
+}
 

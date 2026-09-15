@@ -11,7 +11,10 @@
 //////////////////////////////////////////////////////////////////////////
 
 // Point associated with flow of fluid
-FluidFlowPoint : NumberPoint <abstract> { flow }
+FluidFlowPoint : NumberPoint <abstract> {
+  flow
+  fluid: Fluid
+}
 
 // Point associated with volumetric flow of fluid
 FluidVolumetricFlowPoint : FluidFlowPoint <abstract> {
@@ -20,10 +23,10 @@ FluidVolumetricFlowPoint : FluidFlowPoint <abstract> {
 }
 
 // Sensor for volumetric flow of fluid
-FluidVolumetricFlowSensor : FluidVolumetricFlowPoint & SensorPoint <abstract>
+FluidVolumetricFlowSensor : FluidVolumetricFlowPoint & SensorPoint
 
 // Setpoint for volumetric flow of fluid
-FluidVolumetricFlowSp : FluidVolumetricFlowPoint & SpPoint <abstract>
+FluidVolumetricFlowSp : FluidVolumetricFlowPoint & SpPoint
 
 // Point associated with mass flow of fluid
 FluidMassFlowPoint : FluidFlowPoint <abstract> {
@@ -32,10 +35,10 @@ FluidMassFlowPoint : FluidFlowPoint <abstract> {
 }
 
 // Sensor for mass flow of fluid
-FluidMassFlowSensor : FluidMassFlowPoint & SensorPoint <abstract>
+FluidMassFlowSensor : FluidMassFlowPoint & SensorPoint
 
 // Setpoint for mass flow of fluid
-FluidMassFlowSp : FluidMassFlowPoint & SpPoint <abstract>
+FluidMassFlowSp : FluidMassFlowPoint & SpPoint
 
 //////////////////////////////////////////////////////////////////////////
 // Pressure
@@ -44,14 +47,15 @@ FluidMassFlowSp : FluidMassFlowPoint & SpPoint <abstract>
 // Point associated with fluid pressure
 FluidPressurePoint : NumberPoint <abstract> {
   pressure
+  fluid: Fluid
   unit: Unit <quantity:"pressure">
 }
 
 // Sensor for fluid pressure
-FluidPressureSensor : FluidPressurePoint & SensorPoint <abstract>
+FluidPressureSensor : FluidPressurePoint & SensorPoint
 
 // Setpoint for fluid pressure
-FluidPressureSp : FluidPressurePoint & SpPoint <abstract>
+FluidPressureSp : FluidPressurePoint & SpPoint
 
 //////////////////////////////////////////////////////////////////////////
 // Temp
@@ -60,12 +64,47 @@ FluidPressureSp : FluidPressurePoint & SpPoint <abstract>
 // Point associated with fluid temperature
 FluidTempPoint : NumberPoint <abstract> {
   temp
+  fluid: Fluid
   unit: Unit <quantity:"temperature"> "°F"
 }
 
 // Sensor for fluid temperature
-FluidTempSensor : FluidTempPoint & SensorPoint <abstract>
+FluidTempSensor : FluidTempPoint & SensorPoint
 
 // Setpoint for fluid temperature
-FluidTempSp : FluidTempPoint & SpPoint <abstract>
+FluidTempSp : FluidTempPoint & SpPoint
+
+//////////////////////////////////////////////////////////////////////////
+// Volume
+//////////////////////////////////////////////////////////////////////////
+
+// Point associated with volumetric consumption of fluid
+FluidVolumePoint : NumberPoint <abstract> {
+  volume
+  fluid: Fluid
+  unit: Unit <quantity:"volume">
+}
+
+// Sensor for volumetric consumption of fluid
+FluidVolumeSensor : FluidVolumePoint & SensorPoint
+
+// Setpoint for volumetric consumption of fluid
+FluidVolumeSp : FluidVolumePoint & SpPoint
+
+//////////////////////////////////////////////////////////////////////////
+// Energy
+//////////////////////////////////////////////////////////////////////////
+
+// Point associated with energy consumption of fluid
+FluidEnergyPoint : NumberPoint <abstract> {
+  energy
+  fluid: Fluid
+  unit: Unit <quantity:"energy">
+}
+
+// Sensor for energy consumption of fluid
+FluidEnergySensor : FluidEnergyPoint & SensorPoint
+
+// Setpoint for energy consumption of fluid
+FluidEnergySp : FluidEnergyPoint & SpPoint
 

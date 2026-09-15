@@ -576,7 +576,7 @@ PhEntity: Entity <abstract> {
   *flue: Marker
 
   // Liquid or gas
-  *fluid: Marker
+  *fluid: Fluid?
 
   // Measurement through a given surface
   *flux: Marker
