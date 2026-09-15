@@ -84,6 +84,12 @@ OpenSensor : OpenPoint & SensorPoint
 // Command for open/close state of equipment
 OpenCmd : OpenPoint & CmdPoint
 
+// Sensor for open/close state of a window
+WindowOpenSensor : OpenSensor { window }
+
+// Sensor for open/close state of a door
+DoorOpenSensor : OpenSensor { door }
+
 // Boolean alarm condition
 AlarmSensor : BoolPoint & SensorPoint <abstract> { alarm }
 
