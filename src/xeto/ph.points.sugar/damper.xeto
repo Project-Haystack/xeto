@@ -99,26 +99,26 @@ HotDeckDischargeAirDamperModulatingSensor : DischargeAirDamperModulatingSensor {
 HotDeckDischargeAirDamperModulatingCmd : DischargeAirDamperModulatingCmd { hotDeck }
 
 //////////////////////////////////////////////////////////////////////////
-// Economizing Air
+// Economizer Air
 //////////////////////////////////////////////////////////////////////////
 
-// Sensor for open/close state of a damper in an economizing air duct
-EconomizingAirDamperOpenSensor : AirDamperOpenSensor { economizing }
+// Sensor for open/close state of a damper in an economizer air duct
+EconomizerAirDamperOpenSensor : AirDamperOpenSensor { economizer }
 
-// Command for open/close state of a damper in an economizing air duct
-EconomizingAirDamperOpenCmd : AirDamperOpenCmd { economizing }
+// Command for open/close state of a damper in an economizer air duct
+EconomizerAirDamperOpenCmd : AirDamperOpenCmd { economizer }
 
-// Sensor for modulating position of a damper in an economizing air duct.
+// Sensor for modulating position of a damper in an economizer air duct.
 // Position is measured as a percentage where 0% is closed and 100% is fully
 // open.  Used when there are separate ducts for minimum fresh air vs
 // economizing.
-EconomizingAirDamperModulatingSensor : AirDamperModulatingSensor { economizing }
+EconomizerAirDamperModulatingSensor : AirDamperModulatingSensor { economizer }
 
-// Command for modulating position of a damper in an economizing air duct.
+// Command for modulating position of a damper in an economizer air duct.
 // Position is measured as a percentage where 0% is closed and 100% is fully
 // open.  Used when there are separate ducts for minimum fresh air vs
 // economizing.
-EconomizingAirDamperModulatingCmd : AirDamperModulatingCmd { economizing }
+EconomizerAirDamperModulatingCmd : AirDamperModulatingCmd { economizer }
 
 //////////////////////////////////////////////////////////////////////////
 // Exhaust Air

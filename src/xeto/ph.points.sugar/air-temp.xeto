@@ -17,12 +17,12 @@ DischargeAirTempSensor : DuctAirTempSensor { discharge }
 DischargeAirTempSp : DuctAirTempSp { discharge }
 
 //////////////////////////////////////////////////////////////////////////
-// Economizing
+// Economizer
 //////////////////////////////////////////////////////////////////////////
 
-// Sensor for drybulb air temperature of economizing duct.
+// Sensor for drybulb air temperature of economizer duct.
 // Used when there are separate ducts for minimum fresh air vs economizing.
-EconomizingAirTempSensor : DuctAirTempSensor { economizer }
+EconomizerAirTempSensor : DuctAirTempSensor { economizer }
 
 //////////////////////////////////////////////////////////////////////////
 // Inlet

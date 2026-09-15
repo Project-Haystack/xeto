@@ -37,15 +37,15 @@ HotDeckDischargeAirFlowSensor : DischargeAirFlowSensor { hotDeck }
 HotDeckDischargeAirFlowSp : DischargeAirFlowSp { hotDeck }
 
 //////////////////////////////////////////////////////////////////////////
-// Economizing
+// Economizer
 //////////////////////////////////////////////////////////////////////////
 
-// Sensor for volumetric air flow in economizing duct.
+// Sensor for volumetric air flow in economizer duct.
 // Used when there are separate ducts for minimum fresh air vs economizing.
-EconomizingAirFlowSensor : DuctAirFlowSensor { economizer }
+EconomizerAirFlowSensor : DuctAirFlowSensor { economizer }
 
-// Setpoint for volumetric air flow in economizing duct.
-EconomizingAirFlowSp : DuctAirFlowSp { economizer }
+// Setpoint for volumetric air flow in economizer duct.
+EconomizerAirFlowSp : DuctAirFlowSp { economizer }
 
 //////////////////////////////////////////////////////////////////////////
 // Exhaust

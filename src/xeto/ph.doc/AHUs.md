@@ -105,7 +105,7 @@ Most points in an AHU are associated with one of the following
 
 If the AHU has one duct used for both fresh air and economizing then use the
 [ph::PhEntity.outside] tag.  If there are two dedicated ducts, then use the [ph::PhEntity.ventilation]
-and [ph::PhEntity.economizing] tags for the respective ducts.
+and [ph::PhEntity.economizer] tags for the respective ducts.
 
 The follow diagram shows the AHU sections and logical flow of air:
 
