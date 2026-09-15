@@ -11,13 +11,13 @@
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for volumetric flow of natural gas
-NaturalGasFlowSensor : FluidVolumetricFlowSensor {
+NaturalGasFlowSensor : FluidVolumetricFlowSensor <sugar> {
   naturalGas
   unit: Unit "cfm"
 }
 
 // Setpoint for volumetric flow of natural gas
-NaturalGasFlowSp : FluidVolumetricFlowSp {
+NaturalGasFlowSp : FluidVolumetricFlowSp <sugar> {
   naturalGas
   unit: Unit "cfm"
 }
@@ -27,13 +27,13 @@ NaturalGasFlowSp : FluidVolumetricFlowSp {
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for volumetric consumption of natural gas
-NaturalGasVolumeSensor : FluidVolumeSensor {
+NaturalGasVolumeSensor : FluidVolumeSensor <sugar> {
   naturalGas
   unit: Unit "Ccf"
 }
 
 // Setpoint for volumetric consumption of natural gas
-NaturalGasVolumeSp : FluidVolumeSp {
+NaturalGasVolumeSp : FluidVolumeSp <sugar> {
   naturalGas
   unit: Unit "Ccf"
 }
@@ -43,13 +43,13 @@ NaturalGasVolumeSp : FluidVolumeSp {
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for energy consumption of natural gas
-NaturalGasEnergySensor : FluidEnergySensor {
+NaturalGasEnergySensor : FluidEnergySensor <sugar> {
   naturalGas
   unit: Unit "Ccf_natural_gas"
 }
 
 // Setpoint for energy consumption of natural gas
-NaturalGasEnergySp : FluidEnergySp {
+NaturalGasEnergySp : FluidEnergySp <sugar> {
   naturalGas
   unit: Unit "Ccf_natural_gas"
 }

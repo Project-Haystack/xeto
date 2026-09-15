@@ -11,37 +11,37 @@
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for open/close state of a valve in a chilled water pipe
-ChilledWaterValveOpenSensor : WaterValveOpenSensor { chilled }
+ChilledWaterValveOpenSensor : WaterValveOpenSensor <sugar> { chilled }
 
 // Command for open/close state of a valve in a chilled water pipe
-ChilledWaterValveOpenCmd : WaterValveOpenCmd { chilled }
+ChilledWaterValveOpenCmd : WaterValveOpenCmd <sugar> { chilled }
 
 // Sensor for modulating position of a valve in a chilled water pipe.
 // Position is measured as a percentage where 0% is closed and 100% is
 // fully open.
-ChilledWaterValveModulatingSensor : WaterValveModulatingSensor { chilled }
+ChilledWaterValveModulatingSensor : WaterValveModulatingSensor <sugar> { chilled }
 
 // Command for modulating position of a valve in a chilled water pipe.
 // Position is measured as a percentage where 0% is closed and 100% is
 // fully open.
-ChilledWaterValveModulatingCmd : WaterValveModulatingCmd { chilled }
+ChilledWaterValveModulatingCmd : WaterValveModulatingCmd <sugar> { chilled }
 
 //////////////////////////////////////////////////////////////////////////
 // Hot Water
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for open/close state of a valve in a hot water pipe
-HotWaterValveOpenSensor : WaterValveOpenSensor { hot }
+HotWaterValveOpenSensor : WaterValveOpenSensor <sugar> { hot }
 
 // Command for open/close state of a valve in a hot water pipe
-HotWaterValveOpenCmd : WaterValveOpenCmd { hot }
+HotWaterValveOpenCmd : WaterValveOpenCmd <sugar> { hot }
 
 // Sensor for modulating position of a valve in a hot water pipe.
 // Position is measured as a percentage where 0% is closed and 100% is
 // fully open.
-HotWaterValveModulatingSensor : WaterValveModulatingSensor { hot }
+HotWaterValveModulatingSensor : WaterValveModulatingSensor <sugar> { hot }
 
 // Command for modulating position of a valve in a hot water pipe.
 // Position is measured as a percentage where 0% is closed and 100% is
 // fully open.
-HotWaterValveModulatingCmd : WaterValveModulatingCmd { hot }
+HotWaterValveModulatingCmd : WaterValveModulatingCmd <sugar> { hot }

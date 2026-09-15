@@ -7,16 +7,16 @@
 //
 
 // Sensor that measures temperature of a heatsink
-HeatsinkTempSensor : SurfaceTempSensor { heatsink }
+HeatsinkTempSensor : SurfaceTempSensor <sugar> { heatsink }
 
 // Sensor that measures temperature of an electric cable
-ElecCableTempSensor : SurfaceTempSensor {
+ElecCableTempSensor : SurfaceTempSensor <sugar> {
   elec
   cable
 }
 
 // Sensor that measures temperature of a motor
-MotorTempSensor : SurfaceTempSensor { motor }
+MotorTempSensor : SurfaceTempSensor <sugar> { motor }
 
 // Sensor that measures temperature of a motor winding
 MotorWindingTempSensor : MotorTempSensor { winding }
@@ -32,4 +32,4 @@ MotorBearingTempSensor : MotorTempSensor { bearing }
 EvseCableTempSensor : ElecCableTempSensor { evse }
 
 // Sensor that measures temperature of an EVSE connector
-EvseConnectorTempSensor : SurfaceTempSensor { evseConnector }
+EvseConnectorTempSensor : SurfaceTempSensor <sugar> { evseConnector }

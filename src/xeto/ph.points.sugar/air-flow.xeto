@@ -11,10 +11,10 @@
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for volumetric air flow in discharge duct
-DischargeAirFlowSensor : DuctAirFlowSensor { discharge }
+DischargeAirFlowSensor : DuctAirFlowSensor <sugar> { discharge }
 
 // Setpoint for volumetric air flow in discharge duct
-DischargeAirFlowSp : DuctAirFlowSp { discharge }
+DischargeAirFlowSp : DuctAirFlowSp <sugar> { discharge }
 
 //////////////////////////////////////////////////////////////////////////
 // ColdDeck Discharge
@@ -42,30 +42,30 @@ HotDeckDischargeAirFlowSp : DischargeAirFlowSp { hotDeck }
 
 // Sensor for volumetric air flow in economizer duct.
 // Used when there are separate ducts for minimum fresh air vs economizing.
-EconomizerAirFlowSensor : DuctAirFlowSensor { economizer }
+EconomizerAirFlowSensor : DuctAirFlowSensor <sugar> { economizer }
 
 // Setpoint for volumetric air flow in economizer duct.
-EconomizerAirFlowSp : DuctAirFlowSp { economizer }
+EconomizerAirFlowSp : DuctAirFlowSp <sugar> { economizer }
 
 //////////////////////////////////////////////////////////////////////////
 // Exhaust
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for volumetric air flow in exhaust duct
-ExhaustAirFlowSensor : DuctAirFlowSensor { exhaust }
+ExhaustAirFlowSensor : DuctAirFlowSensor <sugar> { exhaust }
 
 // Setpoint for volumetric air flow in exhaust duct
-ExhaustAirFlowSp : DuctAirFlowSp { exhaust }
+ExhaustAirFlowSp : DuctAirFlowSp <sugar> { exhaust }
 
 //////////////////////////////////////////////////////////////////////////
 // Inlet
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for volumetric air flow in inlet duct
-InletAirFlowSensor : DuctAirFlowSensor { inlet }
+InletAirFlowSensor : DuctAirFlowSensor <sugar> { inlet }
 
 // Setpoint for volumetric air flow in inlet duct
-InletAirFlowSp : DuctAirFlowSp { inlet }
+InletAirFlowSp : DuctAirFlowSp <sugar> { inlet }
 
 //////////////////////////////////////////////////////////////////////////
 // Outside
@@ -73,21 +73,21 @@ InletAirFlowSp : DuctAirFlowSp { inlet }
 
 // Sensor for volumetric air flow in outside duct.
 // Used when there is one duct for both minimum fresh air and economizing.
-OutsideAirFlowSensor : DuctAirFlowSensor { outside }
+OutsideAirFlowSensor : DuctAirFlowSensor <sugar> { outside }
 
 // Setpoint for volumetric air flow in outside duct.
 // Used when there is one duct for both minimum fresh air and economizing.
-OutsideAirFlowSp : DuctAirFlowSp { outside }
+OutsideAirFlowSp : DuctAirFlowSp <sugar> { outside }
 
 //////////////////////////////////////////////////////////////////////////
 // Return
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for volumetric air flow in return duct
-ReturnAirFlowSensor : DuctAirFlowSensor { return }
+ReturnAirFlowSensor : DuctAirFlowSensor <sugar> { return }
 
 // Setpoint for volumetric air flow in return duct
-ReturnAirFlowSp : DuctAirFlowSp { return }
+ReturnAirFlowSp : DuctAirFlowSp <sugar> { return }
 
 //////////////////////////////////////////////////////////////////////////
 // Ventilation
@@ -95,9 +95,9 @@ ReturnAirFlowSp : DuctAirFlowSp { return }
 
 // Sensor for volumetric air flow in ventilation or minimum fresh air duct.
 // Used when there are separate ducts for minimum fresh air vs economizing.
-VentilationAirFlowSensor : DuctAirFlowSensor { ventilation }
+VentilationAirFlowSensor : DuctAirFlowSensor <sugar> { ventilation }
 
 // Setpoint for volumetric air flow in ventilation or minimum fresh air duct.
 // Used when there are separate ducts for minimum fresh air vs economizing.
-VentilationAirFlowSp : DuctAirFlowSp { ventilation }
+VentilationAirFlowSp : DuctAirFlowSp <sugar> { ventilation }
 

@@ -11,10 +11,10 @@
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for drybulb air temperature of discharge duct
-DischargeAirTempSensor : DuctAirTempSensor { discharge }
+DischargeAirTempSensor : DuctAirTempSensor <sugar> { discharge }
 
 // Setpoint for drybulb air temperature of discharge duct
-DischargeAirTempSp : DuctAirTempSp { discharge }
+DischargeAirTempSp : DuctAirTempSp <sugar> { discharge }
 
 //////////////////////////////////////////////////////////////////////////
 // Economizer
@@ -22,27 +22,27 @@ DischargeAirTempSp : DuctAirTempSp { discharge }
 
 // Sensor for drybulb air temperature of economizer duct.
 // Used when there are separate ducts for minimum fresh air vs economizing.
-EconomizerAirTempSensor : DuctAirTempSensor { economizer }
+EconomizerAirTempSensor : DuctAirTempSensor <sugar> { economizer }
 
 //////////////////////////////////////////////////////////////////////////
 // Inlet
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for drybulb air temperature of inlet duct
-InletAirTempSensor : DuctAirTempSensor { inlet }
+InletAirTempSensor : DuctAirTempSensor <sugar> { inlet }
 
 // Setpoint for drybulb air temperature of inlet duct
-InletAirTempSp : DuctAirTempSp { inlet }
+InletAirTempSp : DuctAirTempSp <sugar> { inlet }
 
 //////////////////////////////////////////////////////////////////////////
 // Mixed
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for drybulb air temperature of mixed duct
-MixedAirTempSensor : DuctAirTempSensor { mixed }
+MixedAirTempSensor : DuctAirTempSensor <sugar> { mixed }
 
 // Setpoint for drybulb air temperature of mixed duct
-MixedAirTempSp : DuctAirTempSp { mixed }
+MixedAirTempSp : DuctAirTempSp <sugar> { mixed }
 
 //////////////////////////////////////////////////////////////////////////
 // Outside
@@ -50,17 +50,17 @@ MixedAirTempSp : DuctAirTempSp { mixed }
 
 // Sensor for drybulb air temperature of outside duct.
 // Used when there is one duct for both minimum fresh air and economizing.
-OutsideAirTempSensor : DuctAirTempSensor { outside }
+OutsideAirTempSensor : DuctAirTempSensor <sugar> { outside }
 
 //////////////////////////////////////////////////////////////////////////
 // Return
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for drybulb air temperature of return duct
-ReturnAirTempSensor : DuctAirTempSensor { return }
+ReturnAirTempSensor : DuctAirTempSensor <sugar> { return }
 
 // Setpoint for drybulb air temperature of return duct
-ReturnAirTempSp : DuctAirTempSp { return }
+ReturnAirTempSp : DuctAirTempSp <sugar> { return }
 
 //////////////////////////////////////////////////////////////////////////
 // Ventilation
@@ -68,17 +68,17 @@ ReturnAirTempSp : DuctAirTempSp { return }
 
 // Sensor for drybulb air temperature of ventilation or minimum fresh air duct.
 // Used when there are separate ducts for minimum fresh air vs economizing.
-VentilationAirTempSensor : DuctAirTempSensor { ventilation }
+VentilationAirTempSensor : DuctAirTempSensor <sugar> { ventilation }
 
 //////////////////////////////////////////////////////////////////////////
 // Zone
 //////////////////////////////////////////////////////////////////////////
 
 // Effective setpoint for drybulb air temperature a zone
-ZoneAirTempEffectiveSp : ZoneAirTempSp { effective }
+ZoneAirTempEffectiveSp : ZoneAirTempSp <sugar> { effective }
 
 // Cooling mode temperature setpoint for zone
-ZoneAirTempCoolingSp : ZoneAirTempSp { cooling }
+ZoneAirTempCoolingSp : ZoneAirTempSp <sugar> { cooling }
 
 // Cooling mode temperature setpoint for zone when occupied
 ZoneAirTempOccCoolingSp : ZoneAirTempCoolingSp { occ }
@@ -90,7 +90,7 @@ ZoneAirTempUnoccCoolingSp : ZoneAirTempCoolingSp { unocc }
 ZoneAirTempStandbyCoolingSp : ZoneAirTempCoolingSp { standby }
 
 // Heating mode temperature setpoint for zone
-ZoneAirTempHeatingSp : ZoneAirTempSp { heating }
+ZoneAirTempHeatingSp : ZoneAirTempSp <sugar> { heating }
 
 // Heating mode temperature setpoint for zone when occupied
 ZoneAirTempOccHeatingSp : ZoneAirTempHeatingSp { occ }
@@ -100,3 +100,4 @@ ZoneAirTempUnoccHeatingSp : ZoneAirTempHeatingSp { unocc }
 
 // Heating mode temperature setpoint for zone when in standby mode
 ZoneAirTempStandbyHeatingSp : ZoneAirTempHeatingSp { standby }
+
