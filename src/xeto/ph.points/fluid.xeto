@@ -13,12 +13,14 @@
 // Point associated with flow of fluid
 FluidFlowPoint : NumberPoint <abstract> {
   flow
+  pointQuantity: Flow
   pointSubject: Fluid
 }
 
 // Point associated with volumetric flow of fluid
 FluidVolumetricFlowPoint : FluidFlowPoint <abstract> {
   volume
+  pointQuantity: VolumetricFlow
   unit: Unit <quantity:"volumetricFlow">
 }
 
@@ -31,6 +33,7 @@ FluidVolumetricFlowSp : FluidVolumetricFlowPoint & SpPoint
 // Point associated with mass flow of fluid
 FluidMassFlowPoint : FluidFlowPoint <abstract> {
   mass
+  pointQuantity: MassFlow
   unit: Unit <quantity:"massFlow">
 }
 
@@ -47,6 +50,7 @@ FluidMassFlowSp : FluidMassFlowPoint & SpPoint
 // Point associated with fluid pressure
 FluidPressurePoint : NumberPoint <abstract> {
   pressure
+  pointQuantity: Pressure
   pointSubject: Fluid
   unit: Unit <quantity:"pressure">
 }
@@ -64,6 +68,7 @@ FluidPressureSp : FluidPressurePoint & SpPoint
 // Point associated with fluid temperature
 FluidTempPoint : NumberPoint <abstract> {
   temp
+  pointQuantity: Temp
   pointSubject: Fluid
   unit: Unit <quantity:"temperature"> "°F"
 }
@@ -81,6 +86,7 @@ FluidTempSp : FluidTempPoint & SpPoint
 // Point associated with volumetric consumption of fluid
 FluidVolumePoint : NumberPoint <abstract> {
   volume
+  pointQuantity: Volume
   pointSubject: Fluid
   unit: Unit <quantity:"volume">
 }
@@ -98,6 +104,7 @@ FluidVolumeSp : FluidVolumePoint & SpPoint
 // Point associated with energy consumption of fluid
 FluidEnergyPoint : NumberPoint <abstract> {
   energy
+  pointQuantity: Energy
   pointSubject: Fluid
   unit: Unit <quantity:"energy">
 }

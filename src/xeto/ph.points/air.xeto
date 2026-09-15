@@ -101,6 +101,7 @@ EnclosureAirTempSensor : AirTempSensor { enclosure }
 AirHumidityPoint : NumberPoint <abstract> {
   air
   humidity
+  pointQuantity: Humidity
   unit: Unit <invariant> "%RH"
 }
 
