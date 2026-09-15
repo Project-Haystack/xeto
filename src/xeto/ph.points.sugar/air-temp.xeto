@@ -70,34 +70,3 @@ ReturnAirTempSp : DuctAirTempSp <sugar> { return }
 // Used when there are separate ducts for minimum fresh air vs economizing.
 VentilationAirTempSensor : DuctAirTempSensor <sugar> { ventilation }
 
-//////////////////////////////////////////////////////////////////////////
-// Zone
-//////////////////////////////////////////////////////////////////////////
-
-// Effective setpoint for drybulb air temperature a zone
-ZoneAirTempEffectiveSp : ZoneAirTempSp <sugar> { effective }
-
-// Cooling mode temperature setpoint for zone
-ZoneAirTempCoolingSp : ZoneAirTempSp <sugar> { cooling }
-
-// Cooling mode temperature setpoint for zone when occupied
-ZoneAirTempOccCoolingSp : ZoneAirTempCoolingSp { occ }
-
-// Cooling mode temperature setpoint for zone when unoccupied
-ZoneAirTempUnoccCoolingSp : ZoneAirTempCoolingSp { unocc }
-
-// Cooling mode temperature setpoint for zone when in standby mode
-ZoneAirTempStandbyCoolingSp : ZoneAirTempCoolingSp { standby }
-
-// Heating mode temperature setpoint for zone
-ZoneAirTempHeatingSp : ZoneAirTempSp <sugar> { heating }
-
-// Heating mode temperature setpoint for zone when occupied
-ZoneAirTempOccHeatingSp : ZoneAirTempHeatingSp { occ }
-
-// Heating mode temperature setpoint for zone when unoccupied
-ZoneAirTempUnoccHeatingSp : ZoneAirTempHeatingSp { unocc }
-
-// Heating mode temperature setpoint for zone when in standby mode
-ZoneAirTempStandbyHeatingSp : ZoneAirTempHeatingSp { standby }
-
