@@ -71,13 +71,22 @@ NumberPoint : Point <abstract> {
 //////////////////////////////////////////////////////////////////////////
 
 // Point is a command, actuator, AO/BO.
-CmdPoint: Point <abstract> { cmd }
+CmdPoint: Point <abstract> {
+  cmd
+  pointFunction: CmdPointFunction
+}
 
 // Point is a sensor, input, AI/BI.
-SensorPoint: Point <abstract> { sensor }
+SensorPoint: Point <abstract> {
+  sensor
+  pointFunction: SensorPointFunction
+}
 
 // Point is a setpoint, soft point, internal control variable, schedule.
-SpPoint: Point <abstract> { sp }
+SpPoint: Point <abstract> {
+  sp
+  pointFunction: SpPointFunction
+}
 
 //////////////////////////////////////////////////////////////////////////
 // Cur/His/Writable
@@ -157,6 +166,7 @@ WritablePoint: Point <abstract> {
 // See [ph.doc::Synthetics] chapter.
 SyntheticPoint: Point <abstract> {
   synthetic
+  pointFunction: SyntheticPointFunction
   syntheticModelRef: Ref?
 }
 
@@ -168,6 +178,7 @@ SyntheticModel: PhEntity {
 // See [ph.doc::Synthetics] chapter.
 ComputedPoint: SyntheticPoint <abstract> {
   computed
+  pointFunction: ComputedSyntheticPointFunction
 }
 
 // See [ph.doc::Synthetics] chapter.
@@ -178,6 +189,7 @@ ComputedModel: SyntheticModel {
 // See [ph.doc::Synthetics] chapter.
 MlPoint: SyntheticPoint <abstract> {
   ml
+  pointFunction: MlSyntheticPointFunction
 }
 
 // See [ph.doc::Synthetics] chapter.
@@ -200,6 +212,7 @@ MlVar: PhEntity {
 // See [ph.doc::Synthetics] chapter.
 SimPoint: SyntheticPoint <abstract> {
   sim
+  pointFunction: SimSyntheticPointFunction
   pointRef:    Ref?
   simScenario: SimScenario?
 }
