@@ -575,9 +575,6 @@ PhEntity: Entity <abstract> {
   // Duct for exhausting combustion
   *flue: Marker
 
-  // Liquid or gas
-  *fluid: Fluid?
-
   // Measurement through a given surface
   *flux: Marker
 

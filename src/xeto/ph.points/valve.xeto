@@ -9,27 +9,27 @@
 // Sensor for open/close state of a valve
 ValveOpenSensor : ActuatorOpenSensor {
   valve
-  fluid: Fluid
+  pointSubject: Fluid
 }
 
 // Command for open/close state of a valve
 ValveOpenCmd : ActuatorOpenCmd {
   valve
-  fluid: Fluid
+  pointSubject: Fluid
 }
 
 // Sensor for modulating position of a valve.  Position is measured as a
 // percentage where 0% is closed and 100% is fully open.
 ValveModulatingSensor : ActuatorModulatingSensor {
   valve
-  fluid: Fluid
+  pointSubject: Fluid
 }
 
 // Command for modulating position of a valve.  Position is measured as a
 // percentage where 0% is closed and 100% is fully open.
 ValveModulatingCmd : ActuatorModulatingCmd {
   valve
-  fluid: Fluid
+  pointSubject: Fluid
 }
 
 //////////////////////////////////////////////////////////////////////////
