@@ -8,13 +8,13 @@ not be expressed without it.
 They are declared with the `sugar` marker meta:
 
 ```xeto
-FanRunCmd: MotorRunCmd <sugar> { fan }
+DischargeFanRunCmd: DuctFanRunCmd <sugar> { discharge }
 ```
 
-This defines `FanRunCmd` as a name for "a `MotorRunCmd` with the `fan`
-marker".  Any instance that matches `MotorRunCmd` and has the `fan` tag
-matches `FanRunCmd` - whether or not the instance references `FanRunCmd`
-by name.
+This defines `DischargeFanRunCmd` as a name for "a `DuctFanRunCmd` with
+the `discharge` marker".  Any instance that matches `DuctFanRunCmd` and
+has the `discharge` tag matches `DischargeFanRunCmd` - whether or not
+the instance references `DischargeFanRunCmd` by name.
 
 Sugar specs are eliminable vocabulary: they add names, not semantics.
 Every sugar spec can be mechanically replaced by its nominal anchor plus
@@ -24,21 +24,22 @@ carry the semantics.
 
 # Motivation
 
-Ontology concepts frequently vary along orthogonal dimensions.  A motor
-run command is one concept along the *function* axis, but the motor may
-drive a fan or a pump; the fan may sit in the discharge, return, or
-exhaust duct section; it may be stage one or stage two of a fan array.
+Ontology concepts frequently vary along orthogonal dimensions.  A fan
+run command is one concept along the *function* axis, but the fan may
+sit in the discharge, return, or exhaust duct section; it may serve the
+cold or hot deck; it may be stage one or stage two of a fan array.
 These dimensions multiply.  Modeling every combination as its own
-nominal spec explodes the type system: 100 motor points across two
-loads and five duct sections is a thousand specs, hand-authored and
-always incomplete.
+nominal spec explodes the type system: 100 fan and damper points across
+nine duct sections and three decks is thousands of specs, hand-authored
+and always incomplete.
 
 Sugar specs factor the model instead:
 
-- The nominal hierarchy carries one axis: function.  `MotorRunCmd` is
-  a nominal spec.
-- The other dimensions are ordinary tags on the instance: `fan`,
-  `discharge`, `stage`.  [Choices](Choices.md) ensure coherent
+- The nominal hierarchy carries one axis: function.  `DuctFanRunCmd` is
+  a nominal spec, and its `ductSection` choice slot declares the
+  dimension.
+- The dimension values are ordinary tags on the instance: `discharge`,
+  `coldDeck`, `stage`.  [Choices](Choices.md) ensure coherent
   selection.
 - Combinations that need names get them as sugar one-liners.
   Combinations that don't remain fully queryable as filters.
@@ -53,13 +54,13 @@ A sugar spec is any spec with the [sys::Spec.sugar] marker in its meta.  The
 marker is inherited, so every subtype of a sugar spec is itself sugar:
 
 ```xeto
-FanRunCmd: MotorRunCmd <sugar> { fan }
+DischargeFanRunCmd: DuctFanRunCmd <sugar> { discharge }
 
-// sugar is inherited from FanRunCmd
-DischargeFanRunCmd: FanRunCmd { discharge }
+// sugar is inherited from DischargeFanRunCmd
+ColdDeckDischargeFanRunCmd: DischargeFanRunCmd { coldDeck }
 
 // scalar value constraint
-Stage2FanRunCmd: FanRunCmd { stage: 2 }
+Stage2DischargeFanRunCmd: DischargeFanRunCmd { stage: 2 }
 ```
 
 Because the marker is inherited, the nominal/sugar boundary is crossed
@@ -84,10 +85,10 @@ structure is nominal-spec work; a sugar spec only names and constrains.
 The following are compile errors:
 
 ```xeto
-Bad1: MotorRunCmd <sugar> { surgeMargin: Number }  // new structural slot
-Bad2: MotorRunCmd <sugar> { dischrage }            // unresolvable tag
-Bad3: MotorRunCmd <sugar> { stage: "two" }         // literal type error
-Bad4: MotorRunCmd <sugar> { discharge, return }    // unsatisfiable (exclusive choice)
+Bad1: DuctFanRunCmd <sugar> { surgeMargin: Number }  // new structural slot
+Bad2: DuctFanRunCmd <sugar> { dischrage }            // unresolvable tag
+Bad3: DuctFanRunCmd <sugar> { stage: "two" }         // literal type error
+Bad4: DuctFanRunCmd <sugar> { discharge, return }    // unsatisfiable (exclusive choice)
 ```
 
 Because constraint names must resolve, misspelled tags are compile
@@ -103,8 +104,8 @@ sugar spec, or an `And` of specs - but after flattening, the nominal
 ancestors must reduce to a single most specific anchor:
 
 ```xeto
-// legal: both operands anchor on MotorRunCmd
-X: FanRunCmd & Stage2FanRunCmd <sugar>
+// legal: both operands anchor on DuctFanRunCmd
+X: DischargeFanRunCmd & Stage2DischargeFanRunCmd <sugar>
 
 // compile error: two unrelated nominal anchors
 Y: Foo & Bar <sugar>
@@ -117,12 +118,13 @@ one anchor plus constraints.
 
 At compile time every sugar spec is flattened to its *nominal anchor*
 and its *effective constraints* (the union of constraints down the
-chain, canonically sorted).  For example `DischargeFanRunCmd` above
-flattens to anchor `MotorRunCmd` with constraints `{fan, discharge}`.
-Note the flattening stops at the nominal anchor: `MotorRunCmd`'s own
-body tags do *not* become matching constraints.  For a nominal spec,
-body tags are necessary conditions checked by validation, never
-sufficient conditions for membership.
+chain, canonically sorted).  For example `ColdDeckDischargeFanRunCmd`
+above flattens to anchor `DuctFanRunCmd` with constraints `{discharge,
+coldDeck}`.  Note the flattening stops at the nominal anchor:
+`DuctFanRunCmd`'s own body tags such as `fan` and `air` do *not* become
+matching constraints.  For a nominal spec, body tags are necessary
+conditions checked by validation, never sufficient conditions for
+membership.
 
 # Matching
 
@@ -137,10 +139,10 @@ prove.  This is the same rule as nominal specs with the second clause
 added; for a nominal spec the second clause contributes nothing.
 
 ```xeto
-// all of these match FanRunCmd
-{spec: @ph::MotorRunCmd, fan}          // by anchor + tags
-{spec: @acme::FanRunCmd, fan}          // by assertion (and tags)
-{spec: @acme::FanRunCmd}               // by assertion (invalid - see below)
+// all of these match DischargeFanRunCmd
+{spec: @ph.points::DuctFanRunCmd, discharge}   // by anchor + tags
+{spec: @acme::DischargeFanRunCmd, discharge}   // by assertion (and tags)
+{spec: @acme::DischargeFanRunCmd}              // by assertion (invalid - see below)
 ```
 
 Matching tests only the anchor and constraints.  It never checks the
@@ -167,7 +169,7 @@ DischargeFanRunCmd
 is equivalent to:
 
 ```
-MotorRunCmd and fan and discharge
+DuctFanRunCmd and discharge
 ```
 
 (plus the nominal assertion clause described above).  There is no
@@ -179,7 +181,7 @@ Filters also accept anonymous sugar syntax - a spec name followed by a
 constraint body:
 
 ```
-MotorRunCmd { fan, discharge }
+DuctFanRunCmd { discharge, coldDeck }
 ```
 
 This is an anonymous sugar spec: same body rules, same lowering, no
@@ -194,7 +196,7 @@ The canonical instance form asserts the most specific nominal spec and
 carries the dimensions as tags:
 
 ```xeto
-{spec: @ph::MotorRunCmd, fan, discharge, stage: 2}
+{spec: @ph.points::DuctFanRunCmd, discharge, stage: 2}
 ```
 
 Instances may also assert a sugar spec directly in their `spec` tag.
@@ -282,6 +284,43 @@ Sugar names are minted on demand - when documentation, common queries,
 or validation profiles need a handle - never speculatively to
 enumerate a product space.  Unnamed combinations cost nothing: they
 remain fully expressible as anonymous sugar in filters and slot types.
+
+# Design Rationale
+
+The split between `ph.points` and `ph.points.sugar` illustrates these
+rules.  The principles used to draw that line generalize to any core/sugar
+lib pair.
+
+**Structure lives on nominal specs.**  A dimension enters the model as
+a choice slot, and sugar bodies cannot declare slots - so every
+constrained dimension needs a nominal home.  `DuctAirTempSensor`
+declares `ductSection: DuctSection` and `ductDeck: DuctDeck?`;
+`PipeWaterTempSensor` declares `pipeSection: PipeSection`; the fluid
+point bases narrow `pointSubject` to a required `Fluid`.  Sugar then
+names points along the dimension - `DischargeAirTempSensor`,
+`HotWaterValveModulatingCmd` - and its constraint markers
+simultaneously satisfy matching and the choice validation.
+
+**A required choice replaces abstract.**  The choice-gated bases are
+deliberately concrete.  A `DuctAirTempSensor` cannot validly exist
+without selecting a duct section, which makes it effectively abstract -
+but it must remain assertable, because the canonical instance form is
+the base plus tags: `{spec: @ph.points::DuctAirTempSensor, discharge}`.
+Marking it abstract would leave sugar names as the only route into the
+extension, breaking the rule that sugar is eliminable.
+
+**Which concepts get nominal names.**  A spec must be nominal when
+other nominal specs extend it, since a nominal spec may not extend
+sugar: `AirTempSensor` and `WaterFlowSensor` are nominal because the
+`Duct*` and `Pipe*` layers anchor on them.  A subject marker with no
+choice machinery and no combinatorics is a first-class concept rather
+than sugar: `ZoneAirTempSensor`, `ParkingBayOccupiedSensor`,
+`WindowOpenSensor` are nominal.  Sugar earns its keep only where a
+choice-validated dimension or a combinatorial space needs names -
+`naturalGas` over the fluid choice, `discharge` over the duct section
+choice.  Beyond these tests, a core ontology may deliberately grant
+first-class nominal treatment to important vocabulary, as `ph.points`
+does for the air, water, steam, and refrigerant point families.
 
 # Versioning
 
