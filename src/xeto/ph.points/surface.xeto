@@ -10,8 +10,9 @@
 SurfaceTempPoint : NumberPoint <abstract> {
   surface
   temp
+  pointQuantity: Temp
   unit: Unit <quantity:"temperature"> "°F"
 }
 
 // Sensor that measures surface temperature
-SurfaceTempSensor : SurfaceTempPoint & SensorPoint <abstract>
+SurfaceTempSensor : SurfaceTempPoint & SensorPoint
