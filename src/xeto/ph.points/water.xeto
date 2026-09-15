@@ -22,6 +22,16 @@ WaterFlowSp : FluidVolumetricFlowSp {
   unit: Unit "gal/min"
 }
 
+// Sensor for volumetric flow of water in a pipe
+PipeWaterFlowSensor : WaterFlowSensor {
+  pipeSection: PipeSection
+}
+
+// Setpoint for volumetric flow of water in a pipe
+PipeWaterFlowSp : WaterFlowSp {
+  pipeSection: PipeSection
+}
+
 //////////////////////////////////////////////////////////////////////////
 // Pressure
 //////////////////////////////////////////////////////////////////////////
@@ -38,6 +48,16 @@ WaterPressureSp : FluidPressureSp {
   unit: Unit "psi"
 }
 
+// Sensor for water pressure in a pipe
+PipeWaterPressureSensor : WaterPressureSensor {
+  pipeSection: PipeSection
+}
+
+// Setpoint for water pressure in a pipe
+PipeWaterPressureSp : WaterPressureSp {
+  pipeSection: PipeSection
+}
+
 //////////////////////////////////////////////////////////////////////////
 // Temp
 //////////////////////////////////////////////////////////////////////////
@@ -47,6 +67,16 @@ WaterTempSensor : FluidTempSensor { water }
 
 // Setpoint for water temperature
 WaterTempSp : FluidTempSp { water }
+
+// Sensor for water temperature in a pipe
+PipeWaterTempSensor : WaterTempSensor {
+  pipeSection: PipeSection
+}
+
+// Setpoint for water temperature in a pipe
+PipeWaterTempSp : WaterTempSp {
+  pipeSection: PipeSection
+}
 
 //////////////////////////////////////////////////////////////////////////
 // Volume

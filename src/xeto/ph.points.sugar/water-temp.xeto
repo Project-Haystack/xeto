@@ -11,13 +11,13 @@
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for Hot Water Temperature Entering a component of a system
-HotWaterEnteringTempSensor : WaterTempSensor { hot, entering }
+HotWaterEnteringTempSensor : PipeWaterTempSensor { hot, entering }
 
 // Sensor for Hot Water Temperature Leaving a component of a system
-HotWaterLeavingTempSensor : WaterTempSensor { hot, leaving }
+HotWaterLeavingTempSensor : PipeWaterTempSensor { hot, leaving }
 
 // Setpoint for Hot Water Temperature Leaving a component of a system
-HotWaterLeavingTempSp : WaterTempSp { hot, leaving }
+HotWaterLeavingTempSp : PipeWaterTempSp { hot, leaving }
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -25,13 +25,13 @@ HotWaterLeavingTempSp : WaterTempSp { hot, leaving }
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for Chilled Water Temperature Entering a component of a system
-ChilledWaterEnteringTempSensor : WaterTempSensor { chilled, entering }
+ChilledWaterEnteringTempSensor : PipeWaterTempSensor { chilled, entering }
 
 // Sensor for Chilled Water Temperature Leaving a component of a system
-ChilledWaterLeavingTempSensor : WaterTempSensor { chilled, leaving }
+ChilledWaterLeavingTempSensor : PipeWaterTempSensor { chilled, leaving }
 
 // Setpoint for Chilled Water Temperature Leaving a component of a system
-ChilledWaterLeavingTempSp : WaterTempSp { chilled, leaving }
+ChilledWaterLeavingTempSp : PipeWaterTempSp { chilled, leaving }
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -39,11 +39,11 @@ ChilledWaterLeavingTempSp : WaterTempSp { chilled, leaving }
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for Condenser Water Temperature Entering a component of a system
-CondenserWaterEnteringTempSensor : WaterTempSensor { condenser, entering }
+CondenserWaterEnteringTempSensor : PipeWaterTempSensor { condenser, entering }
 
 // Sensor for Condenser Water Temperature Leaving a component of a system
-CondenserWaterLeavingTempSensor : WaterTempSensor { condenser, leaving }
+CondenserWaterLeavingTempSensor : PipeWaterTempSensor { condenser, leaving }
 
 // Setpoint for Condenser Water Temperature Leaving a component of a system
-CondenserWaterLeavingTempSp : WaterTempSp { condenser, leaving }
+CondenserWaterLeavingTempSp : PipeWaterTempSp { condenser, leaving }
 

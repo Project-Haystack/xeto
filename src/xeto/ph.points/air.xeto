@@ -22,6 +22,18 @@ AirFlowSp : FluidVolumetricFlowSp {
   unit: Unit "cfm"
 }
 
+// Sensor for volumetric air flow in a duct
+DuctAirFlowSensor : AirFlowSensor {
+  ductSection: DuctSection
+  ductDeck: DuctDeck?
+}
+
+// Setpoint for volumetric air flow in a duct
+DuctAirFlowSp : AirFlowSp {
+  ductSection: DuctSection
+  ductDeck: DuctDeck?
+}
+
 //////////////////////////////////////////////////////////////////////////
 // Pressure
 //////////////////////////////////////////////////////////////////////////
@@ -38,6 +50,18 @@ AirPressureSp : FluidPressureSp {
   unit: Unit "inH₂O"
 }
 
+// Sensor for static air pressure in a duct
+DuctAirPressureSensor : AirPressureSensor {
+  ductSection: DuctSection
+  ductDeck: DuctDeck?
+}
+
+// Setpoint for static air pressure in a duct
+DuctAirPressureSp : AirPressureSp {
+  ductSection: DuctSection
+  ductDeck: DuctDeck?
+}
+
 //////////////////////////////////////////////////////////////////////////
 // Temp
 //////////////////////////////////////////////////////////////////////////
@@ -47,6 +71,18 @@ AirTempSensor : FluidTempSensor { air }
 
 // Setpoint for drybulb air temperature
 AirTempSp : FluidTempSp { air }
+
+// Sensor for drybulb air temperature in a duct
+DuctAirTempSensor : AirTempSensor {
+  ductSection: DuctSection
+  ductDeck: DuctDeck?
+}
+
+// Setpoint for drybulb air temperature in a duct
+DuctAirTempSp : AirTempSp {
+  ductSection: DuctSection
+  ductDeck: DuctDeck?
+}
 
 //////////////////////////////////////////////////////////////////////////
 // Humidity
@@ -64,3 +100,16 @@ AirHumiditySensor : AirHumidityPoint & SensorPoint <abstract>
 
 // Setpoint for relative humidity
 AirHumiditySp : AirHumidityPoint & SpPoint <abstract>
+
+// Sensor for relative humidity in a duct
+DuctAirHumiditySensor : AirHumiditySensor {
+  ductSection: DuctSection
+  ductDeck: DuctDeck?
+}
+
+// Setpoint for relative humidity in a duct
+DuctAirHumiditySp : AirHumiditySp {
+  ductSection: DuctSection
+  ductDeck: DuctDeck?
+}
+
