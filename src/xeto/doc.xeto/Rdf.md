@@ -716,9 +716,7 @@ instance's concrete spec and entry name. An undeclared marker uses
 `sys:hasMarker` and the corresponding marker IRI. These extra entries do not
 cause the open SHACL shape to reject an otherwise valid instance.
 
-## Scalar Slots
-
-### SHACL Validation
+## Standard Scalar Slots
 
 A plain Xeto scalar maps to an RDF typed literal. A typed literal contains a
 lexical form and a datatype. The quoted text in Turtle is the lexical form; it
@@ -766,8 +764,7 @@ The same type mapping selects the SHACL datatype:
 | `Uri` | `xsd:anyURI` |
 | `TimeZone` | `xsd:string` |
 
-A custom spec derived from `Scalar` maps to `xsd:string`; its scalar
-constraints, such as `pattern`, are expressed in SHACL.
+### SHACL Validation
 
 A unit bearing `Number` is an exception, it maps to a `qudt:QuantityValue` node
 rather than a plain literal, as described under
@@ -800,15 +797,13 @@ ex:Sensor a sh:NodeShape ;
   ] .
 ```
 
-String `minSize`, `maxSize`, `nonEmpty`, and scalar `pattern` metadata map to
-`sh:minLength`, `sh:maxLength`, and `sh:pattern`. `nonEmpty` uses the pattern
-`\\S`, which requires at least one non-whitespace character.
+String `minSize`, `maxSize`, and `nonEmpty` map to `sh:minLength`,
+`sh:maxLength`, and `sh:pattern`. `nonEmpty` uses the pattern `\\S`, which
+requires at least one non-whitespace character. Explicit `pattern` metadata
+also maps to `sh:pattern`.
 
 ```xeto
-Code : Scalar <pattern:"[A-Z]{2}">
-
 Asset : Dict {
-  code: Code
   dis: Str <nonEmpty, minSize:2, maxSize:40>
 }
 ```
@@ -816,13 +811,6 @@ Asset : Dict {
 ```turtle
 ex:Asset a sh:NodeShape ;
   sh:targetClass ex:Asset ;
-  sh:property [
-    sh:path ex:Asset.code ;
-    sh:datatype xsd:string ;
-    sh:pattern "[A-Z]{2}" ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-  ] ;
   sh:property [
     sh:path ex:Asset.dis ;
     sh:datatype xsd:string ;
@@ -833,37 +821,6 @@ ex:Asset a sh:NodeShape ;
     sh:maxCount 1 ;
   ] .
 ```
-
-A custom scalar may refine another custom scalar. Every pattern in that
-inheritance chain remains part of the value contract.
-
-```xeto
-UpperCode : Scalar <pattern:"[A-Z]+">
-FourCharacterCode : UpperCode <pattern:"[A-Z0-9]{4}">
-
-Asset : Dict {
-  code: FourCharacterCode
-}
-```
-
-```turtle
-ex:Asset a sh:NodeShape ;
-  sh:targetClass ex:Asset ;
-  sh:property [
-    sh:path ex:Asset.code ;
-    sh:datatype xsd:string ;
-    sh:pattern "[A-Z]+" ;
-    sh:pattern "[A-Z0-9]{4}" ;
-    sh:minCount 1 ;
-    sh:maxCount 1 ;
-  ] .
-```
-
-The two patterns are combined: a value must satisfy both the rule inherited
-from `UpperCode` and the refinement declared by `FourCharacterCode`. The same
-rule applies when a scalar base comes from a loaded dependency. If the same
-pattern appears at more than one level, the exporter emits it once; a pattern
-declared on the slot is combined with the inherited type patterns.
 
 An invariant slot value maps to `sh:hasValue` with the scalar's RDF datatype.
 An ordinary default value does not constrain instance data.
@@ -921,6 +878,222 @@ ex:sensor1 a sys:Entity, ex:Sensor ;
   ex:Sensor.commissioned "2026-07-19"^^xsd:date .
 ```
 
+## Custom Scalar Datatypes
+
+A custom Xeto scalar is a named type derived from `Scalar`, directly or through
+another scalar type, with its own value constraints or encoding.
+
+A concrete Xeto scalar without a specialized RDF mapping maps to a custom RDF
+datatype. Its datatype IRI is the scalar spec's IRI in its versioned library
+namespace. For example, `Code` in the example library maps to `ex:Code`.
+
+Each value maps to an RDF literal whose datatype is that IRI and whose lexical
+form is Xeto's string encoding of the value: `"AB"^^ex:Code`. This encoding
+represents the scalar value; it does not imply that the value is a string.
+The encoded form may differ from the original Xeto source spelling.
+
+The mapping preserves type identity and encoded content. SHACL enforces
+explicit constraints such as patterns, but does not reproduce native parsing,
+comparison, execution, or resource lookup. These rules apply equally to
+user-defined scalars and the built-in scalars listed below.
+
+Types with an existing special mapping keep that mapping, including
+refinements of [standard scalars](#standard-scalar-mappings), enums, markers,
+references, and units. The built-in scalars covered by the custom datatype
+rule are listed [below](#built-in-and-library-scalars).
+
+### Vocabulary
+
+The vocabulary declares the scalar spec's IRI as an `rdfs:Datatype`:
+
+```xeto
+Code : Scalar <pattern:"[A-Z]{2}">
+
+Asset : Dict {
+  code: Code
+}
+```
+
+```turtle
+ex:Code a rdfs:Datatype ;
+  rdfs:label "Code"@en .
+```
+
+The declaration names the datatype. The following shape enforces its pattern
+when a value is used in `Asset.code`.
+
+### SHACL Validation
+
+A custom scalar slot checks the value's datatype with `sh:datatype` and its
+declared pattern with `sh:pattern`. Required and optional slots follow the
+ordinary cardinality rules.
+
+```turtle
+ex:Asset a sh:NodeShape ;
+  sh:targetClass ex:Asset ;
+  sh:property [
+    sh:path ex:Asset.code ;
+    sh:datatype ex:Code ;
+    sh:pattern "[A-Z]{2}" ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+```
+
+A custom scalar subtype maps to its own RDF datatype. Its shape preserves
+both its declared patterns and those inherited from its base type:
+
+```xeto
+UpperCode : Scalar <pattern:"[A-Z]+">
+FourCharacterCode : UpperCode <pattern:"[A-Z0-9]{4}">
+
+Asset : Dict {
+  code: FourCharacterCode
+}
+```
+
+```turtle
+ex:UpperCode a rdfs:Datatype ;
+  rdfs:label "UpperCode"@en .
+
+ex:FourCharacterCode a rdfs:Datatype ;
+  rdfs:label "FourCharacterCode"@en ;
+  rdfs:subClassOf ex:UpperCode .
+
+ex:Asset a sh:NodeShape ;
+  sh:targetClass ex:Asset ;
+  sh:property [
+    sh:path ex:Asset.code ;
+    sh:datatype ex:FourCharacterCode ;
+    sh:and (
+      [ sh:pattern "[A-Z]+" ]
+      [ sh:pattern "[A-Z0-9]{4}" ]
+    ) ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+```
+
+The slot's pattern constraints come from its declared scalar type, that type's
+base types, and any pattern declared directly on the slot. Every applicable
+pattern must be satisfied. Multiple distinct patterns map to separate shapes
+within `sh:and`. SHACL permits only one `sh:pattern` value per shape under its
+[multiple-parameter rule](https://www.w3.org/TR/shacl/#multiple-parameters).
+
+An invariant custom scalar value maps to `sh:hasValue` with the slot's
+datatype:
+
+```xeto
+Code : Scalar <pattern:"[A-Z]{2}">
+
+FixedAsset : Dict {
+  code: Code <invariant> "AB"
+}
+```
+
+```turtle
+ex:Code a rdfs:Datatype ;
+  rdfs:label "Code"@en .
+
+ex:FixedAsset a sh:NodeShape ;
+  sh:targetClass ex:FixedAsset ;
+  sh:property [
+    sh:path ex:FixedAsset.code ;
+    sh:datatype ex:Code ;
+    sh:pattern "[A-Z]{2}" ;
+    sh:hasValue "AB"^^ex:Code ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+```
+
+`"AB"^^ex:Code` and `"AB"^^xsd:string` have the same text but different
+datatypes. Only the first satisfies this invariant. An ordinary default does
+not produce an `sh:hasValue` constraint.
+
+### Instance Data
+
+Using the `Code` and `Asset` declarations above:
+
+```xeto
+@asset1: Asset {
+  code: "AB"
+}
+```
+
+```turtle
+ex:asset1 a sys:Entity, ex:Asset ;
+  ex:Asset.code "AB"^^ex:Code .
+```
+
+For a slot declared with a custom scalar type, the slot's effective type
+determines the literal's datatype. A slot declared as `UpperCode` therefore
+uses `ex:UpperCode`, matching its `sh:datatype` constraint. The same rule
+applies to supported list items with a declared scalar type and to scalar
+slots in nested values.
+
+An `Obj` slot does not declare a specific scalar type. The RDF datatype
+therefore comes from the stored value's Xeto type. An explicitly typed `Code`
+value retains that type; an ordinary string remains `xsd:string`:
+
+```xeto
+Envelope : Dict {
+  value: Obj
+}
+
+@coded: Envelope {
+  value: Code "AB"
+}
+
+@plain: Envelope {
+  value: "AB"
+}
+```
+
+```turtle
+ex:coded a sys:Entity, ex:Envelope ;
+  ex:Envelope.value "AB"^^ex:Code .
+
+ex:plain a sys:Entity, ex:Envelope ;
+  ex:Envelope.value "AB"^^xsd:string .
+```
+
+The export input must preserve a custom scalar value's type information.
+If that information is missing, the exporter reports an error rather than
+converting the custom value to an ordinary string.
+
+### Built-in and Library Scalars
+
+The same rule covers built-in and library scalars without another special
+mapping. For example:
+
+```turtle
+sys:Version a rdfs:Datatype .
+sys:Buf a rdfs:Datatype .
+
+ex:record ex:version "1.2.3"^^sys:Version ;
+  ex:payload "-_8"^^sys:Buf .
+```
+
+The text preserves what Xeto encoded. It does not make RDF tools understand
+version ordering or binary data. `Duration` also uses this rule, even though
+its Xeto base is `Number`.
+
+| Other scalar | RDF representation | What RDF does not do |
+| --- | --- | --- |
+| `Version` | Xeto version text with datatype `sys:Version` | Compare version parts or check native parser limits |
+| `Buf` | Xeto base64url text with datatype `sys:Buf` | Convert to `xsd:base64Binary` or decode the bytes |
+| `Duration` | Xeto duration text with datatype `sys:Duration` | Perform time arithmetic or convert to a QUDT quantity |
+| `Span` | Xeto span text with datatype `sys:Span` | Resolve relative dates or preserve context absent from the encoding |
+| `Filter` | Xeto filter text with datatype `sys:Filter` | Parse, execute, or translate the filter to SPARQL |
+| `LibDependVersions`, `LibFilePattern` | Selector text with the corresponding Xeto datatype | Resolve dependencies or inspect files |
+| `None`, `NA` | The explicit value's Xeto encoding with its own datatype | Treat the value as omission, JSON null, or numeric NaN |
+| `BuildVar` | A surviving placeholder's encoding with datatype `sys:BuildVar` | Perform build substitution |
+| Other scalars, such as `pi::Icon`, `ph::Coord`, and user-defined `Code` | Xeto-encoded text with the scalar's versioned type IRI | Look up resources, split values into fields, or add type-specific parsing |
+
+Values already replaced or removed by Xeto are not recreated during export.
+A resolved build variable uses the mapping for its resulting value.
+
 ## Other Core Types
 
 Most dictionary types need no special mapping. A type derived from `Dict` uses
@@ -953,13 +1126,10 @@ The following core types do not have mappings in this version:
 
 | Xeto type | Reason |
 | --- | --- |
-| `None` | RDF absence is represented by no statement; the `None` value needs a separate mapping. |
-| `NA` | The not-available sentinel needs an RDF representation distinct from an ordinary string. |
 | `Grid` | A grid mapping must define rows, columns, cells, metadata, and ordering. |
 | `Collection` | The abstract collection type does not identify a concrete RDF value representation. |
 | `Func` | Function parameters, return values, and execution are outside the current data profiles. |
 | `Interface`, `Funcs`, and `File` | API contracts, callable operations, and file handles are outside the current data profiles. |
-| `BuildVar` | A build variable needs an explicit rule for resolved and unresolved build-time values. |
 
 An exporter reports that the affected spec is unsupported when one of these
 types is used as an RDF value type. It does not treat the value as a string,
@@ -2505,9 +2675,9 @@ define error codes or prescribe programming-language error types.
   fidelity fixes.
 - `List` item types for units and refs, and nested `List` values, pending a
   complete instance and validation mapping.
-- Built-in scalar types not listed in the scalar datatype table, including
-  `None`, `NA`, `Duration`, `Version`, `Buf`, `Span`, `Filter`, and
-  `BuildVar`, pending explicit RDF datatype and lexical-form mappings.
+- Direct `Scalar` slots, pending a SHACL mapping for the abstract family of
+  special and custom representations. Concrete custom scalars use the mapping
+  in [Custom Scalar Datatypes](#custom-scalar-datatypes).
 - `UnitQuantity` values. Quantity metadata on `Unit` and `Number` slots remains
   supported as defined in [Units and Quantities](#units-and-quantities).
 - `Grid` and the abstract `Collection` type, pending a complete collection and
