@@ -9,9 +9,9 @@
 +PhEntity {
 
   // BACnet protocol addressing
-  bacnetAddr: BacnetAddr?
+  *bacnetAddr: BacnetAddr
 
   // Modbus protocol addressing
-  modbusAddr: ModbusAddr?
+  *modbusAddr: ModbusAddr
 }
 
