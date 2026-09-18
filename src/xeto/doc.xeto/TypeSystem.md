@@ -29,6 +29,10 @@ age: Number?
 When validating instance data, maybe slots can be omitted.  However, if
 defined they must meet the slot spec's type and constraint requirements.
 
+Maybe applies only to slots.  A top level spec cannot be maybe - a
+named type has no container to be optional in.  [Globals](Globals.md#maybe)
+are implicitly maybe and declaring it explicitly is an error.
+
 Xeto's covariance rules allow a maybe slot to be overridden as a non-maybe
 type, but not vice versa.  For example the following is legal because
 we are narrowing the value space in the subtype:

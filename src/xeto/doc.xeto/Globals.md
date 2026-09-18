@@ -24,6 +24,37 @@ Globals follow same rules as [slot names](Specs.md#names):
 Additionally, it is invalid to declare a global that is already
 defined by the parent type.
 
+# Maybe
+
+Globals are implicitly [maybe types](TypeSystem.md#maybe): a global
+declares what a name *means*, not that any type must carry it, so it
+has no containing type to be required of.  Because the maybe is
+implied, it is an error to declare it:
+
+```xeto
+MyType: {
+  *badTag: Str?          // Error: Global cannot be maybe
+  *alsoBad: Str <maybe>  // Error: Global cannot be maybe
+}
+```
+
+Requiredness is decided where a type declares a slot for the name:
+
+```xeto
+Person: {
+  *height: Number <quantity:"length", minVal:0>
+}
+
+// explicit type: height is required
+A: Person { height: Number }
+
+// explicit maybe type: height is optional
+B: Person { height: Number? }
+
+// value only: type is inferred from the global, height is optional
+C: Person { height: 100cm }
+```
+
 # Syntax
 
 Global members look just like  [slot specs](Specs.md#slots)
@@ -81,7 +112,7 @@ Globals also restrict instance data:
 // OK because slot matches global slot restrictions
 @instance-1: Person { height: Number "12m" }
 
-// Error: Global slot type is 'sys::Number', value type is 'sys::Date'
+// Error: Global type is 'sys::Number', value type is 'sys::Date'
 @instance-2: Person { height: Date "2024-12-03" }
 
 // Error: Number must be 'length' unit; '°C' has quantity of 'temperature'
@@ -96,6 +127,21 @@ the slot will have a 'base' which references the global.  The dict
 slot will inherit all the global's metadata.  In the example above, both
 'SomePerson.height' and 'AnotherPerson.height' will inherit
 the 'quantity' and 'minVal' metadata tag from the global spec.
+
+A slot declared with only a value also inherits from the global and
+infers its type from it:
+
+```xeto
+// height slot infers Number type from the Person.height global
+SomePerson: Person {
+  height: 100cm
+}
+```
+
+Globals may also be contributed to a type by another library using
+a [mixin](Mixins.md#globals); such globals participate in inheritance
+the same way for libraries that declare the mixin's library as a
+dependency.
 
 # Representation
 
