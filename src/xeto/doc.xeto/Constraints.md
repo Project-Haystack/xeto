@@ -114,3 +114,53 @@ Foo: {
 @a: Foo {unit:"meter"}
 ```
 
+
+# Query Constraints
+
+Query slots may declare constraints used to validate an instance's
+reference graph.  The canonical example is the required points of
+an equip:
+
+```xeto
+StandardVav: Equip {
+  points: {
+    temp: ZoneAirTempSensor
+    co2: ZoneCo2Sensor?
+  }
+}
+```
+
+Query constraints validated by computing the queries extent.  In the
+example above the points contained by the equip.  Then each constraint
+must match *exactly one* entity in the extent:
+  - zero matches is an error unless the constraint is a maybe type
+  - multiple matches is always an error, even for a maybe type,
+    because the match is ambiguous
+
+Constraints may be declared as named types or as inline as anonymous tags:
+
+```xeto
+DTemp: {discharge, temp}
+DFlow: {discharge, flow}
+
+Ahu1: Equip {
+  points: {
+    // named shape types; auto-named constraints report by type qname
+    DTemp
+    DFlow
+
+    // inline anonymous marker sets
+    Point {run, cmd}
+  }
+}
+```
+
+An extent entity matches a constraint using the same rules as
+[sugar matching](Sugar.md#matching): the constraint's nominal type
+plus its constraint tags.
+
+Queries make specs suitable as named validation profiles: a
+shareable, versioned spec describing the required shape of an
+installation - for example the required points of an ASHRAE
+Guideline 36 VAVs.
+
