@@ -1,0 +1,251 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   17 Sep 2026  Brian Frank  Creation
+//
+
+// ValidateRule defines one validation diagnostic registered on a spec.
+// Constraint rules register on the meta spec they enforce such as
+// `Spec.maxVal`; structural rules register on the type they check.
+// The rule id is the stable key used to attach custom messages,
+// localization, documentation, and tooling to a diagnostic.
+ValidateRule: Dict {
+  on: Ref<of:Spec>                    // Spec this rule is registered on
+  unless: MultiRef? <of:ValidateRule> // Skip when any referenced rule fired on same value
+  level: ValidateLevel "err"          // Diagnostic level
+  msg: Str                            // Message template with $arg macro substitution
+}
+
+// ValidateItem models one diagnostic reported by validation.  The rule's
+// msg template is rendered by the engine with transient args; the item
+// persists only the key fields tools need for tables and forms.  Look
+// back at the spec itself for constraint details such as minSize.
+ValidateItem: Dict {
+  rule: Ref<of:ValidateRule>  // Rule which reported this item
+  level: ValidateLevel        // Effective diagnostic level
+  msg: Str                    // Diagnostic message
+  subjectId: Ref?             // Id of subject entity when validating instances
+  slot: Str?                  // Dotted slot path within subject
+  val: Obj?                   // Offending value when applicable
+}
+
+// Diagnostic level for a validation rule
+ValidateLevel: Enum {
+  warn   // Warning level
+  err    // Error level
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Intrinsic
+//////////////////////////////////////////////////////////////////////////
+
+// Instance has no spec tag to validate against
+@missingSpecRef: ValidateRule {
+  on: Spec
+  msg: "Missing 'spec' ref tag"
+}
+
+// Instance spec tag is not resolved against namespace
+@unknownSpecRef: ValidateRule {
+  on: Spec
+  msg: "Unknown 'spec' ref: $spec"
+}
+
+// Value cannot be mapped to a spec in the namespace
+@unknownType: ValidateRule {
+  on: Spec
+  msg: "Value not mapped to data type [$valType]"
+}
+
+// Value type does not fit the declared slot, global, or spec type
+@invalidType: ValidateRule {
+  on: Spec
+  msg: "Invalid type '$valType', expecting '$type'"
+}
+
+// Instance is missing a required slot
+@missingSlot: ValidateRule {
+  on: Spec
+  msg: "Missing required slot '$slot'"
+}
+
+// Instance asserts a sugar spec but is missing or contradicting
+// its effective constraint tags
+@sugarConstraint: ValidateRule {
+  on: Spec.sugar
+  msg: "Missing constraint tag '$tag' for '$type'"
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Number Constraints
+//////////////////////////////////////////////////////////////////////////
+
+// Number is less than inclusive minimum
+@underMinVal: ValidateRule {
+  on: Spec.minVal
+  unless: @minValUnit
+  msg: "Number $val < minVal $minVal"
+}
+
+// Number is greater than inclusive maximum
+@overMaxVal: ValidateRule {
+  on: Spec.maxVal
+  unless: @maxValUnit
+  msg: "Number $val > maxVal $maxVal"
+}
+
+// Number unit does not match the unit declared on minVal
+@minValUnit: ValidateRule {
+  on: Spec.minVal
+  msg: "Number $val has unit incompatible with minVal $minVal"
+}
+
+// Number unit does not match the unit declared on maxVal
+@maxValUnit: ValidateRule {
+  on: Spec.maxVal
+  msg: "Number $val has unit incompatible with maxVal $maxVal"
+}
+
+// Number does not have the required unit
+@wrongUnit: ValidateRule {
+  on: Spec.unit
+  msg: "Number $val must have unit of '$unit'"
+}
+
+// Number must be unitless
+@unitless: ValidateRule {
+  on: Spec.unitless
+  msg: "Number $val must be unitless"
+}
+
+// Number or unit enum does not have a unit of the required quantity
+@wrongQuantity: ValidateRule {
+  on: Spec.quantity
+  msg: "Number must be '$quantity' unit; $reason"
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Scalar Constraints
+//////////////////////////////////////////////////////////////////////////
+
+// Scalar string encoding does not match regex pattern
+@patternMismatch: ValidateRule {
+  on: Spec.pattern
+  msg: "String encoding does not match pattern for '$type'"
+}
+
+// Slot does not have its fixed invariant value
+@invariantVal: ValidateRule {
+  on: Spec.invariant
+  msg: "Must have invariant value '$expect'"
+}
+
+// Enum value is not a string key type
+@enumValType: ValidateRule {
+  on: Enum
+  msg: "Invalid enum value type, $valType not Str"
+}
+
+// Enum key is not defined by the enum type
+@wrongEnumKey: ValidateRule {
+  on: Enum
+  unless: @enumValType
+  msg: "Invalid key '$val' for enum type '$type'"
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Size Constraints
+//////////////////////////////////////////////////////////////////////////
+
+// String or list must be non-empty
+@nonEmpty: ValidateRule {
+  on: Spec.nonEmpty
+  msg: "Must be non-empty"
+}
+
+// String or list size is less than inclusive minimum
+@underMinSize: ValidateRule {
+  on: Spec.minSize
+  msg: "Size $size < minSize $minSize"
+}
+
+// String or list size is greater than inclusive maximum
+@overMaxSize: ValidateRule {
+  on: Spec.maxSize
+  msg: "Size $size > maxSize $maxSize"
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Lists
+//////////////////////////////////////////////////////////////////////////
+
+// List of non-maybe item type contains null
+@listNullItem: ValidateRule {
+  on: List
+  msg: "List type cannot contain nulls"
+}
+
+// List instance data cannot use named items
+@listNamedItem: ValidateRule {
+  on: List
+  msg: "List cannot contain named items"
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Refs
+//////////////////////////////////////////////////////////////////////////
+
+// Ref does not resolve to a spec, instance, or context record
+@unresolvedRef: ValidateRule {
+  on: Ref
+  msg: "Unresolved ref @$ref"
+}
+
+// Ref target has a missing or unresolvable spec tag
+@refTargetSpec: ValidateRule {
+  on: Ref
+  unless: @unresolvedRef
+  msg: "Ref target spec not found: @$ref"
+}
+
+// Ref target does not fit the parameterized target type
+@refTargetType: ValidateRule {
+  on: Ref
+  unless: {@unresolvedRef, @refTargetSpec}
+  msg: "Ref target must be '$of', target is '$targetSpec'"
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Choices
+//////////////////////////////////////////////////////////////////////////
+
+// Instance does not have a required choice selection
+@missingChoice: ValidateRule {
+  on: Choice
+  msg: "Missing required choice '$choice'"
+}
+
+// Instance has conflicting selections for an exclusive choice
+@conflictingChoice: ValidateRule {
+  on: Choice
+  msg: "Conflicting choice '$choice': $selections"
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Queries
+//////////////////////////////////////////////////////////////////////////
+
+// Graph query is missing a required constraint match
+@missingQuery: ValidateRule {
+  on: Query
+  msg: "Missing required $of: $constraint"
+}
+
+// Graph query constraint matches more than one entity
+@ambiguousQuery: ValidateRule {
+  on: Query
+  msg: "Ambiguous match for $of: $constraint [$matches]"
+}
+
