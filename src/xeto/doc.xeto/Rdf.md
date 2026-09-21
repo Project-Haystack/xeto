@@ -2446,13 +2446,13 @@ instances members of `ThermalProcess`.
 ## Globals and Covariant Overrides
 
 A global slot defines a contract for uses of the same slot name on descendant
-specs. It does not necessarily require every descendant instance to carry that
-slot. In this example, `maybe` makes `height` optional, but any descendant that
-declares or supplies `height` must preserve the global contract:
+specs. A global is implicitly optional and cannot declare `maybe`. Any
+descendant that declares or supplies the slot must preserve the global
+contract:
 
 ```xeto
 Person : Dict {
-  *height: Number <minVal:0, maxVal:300, maybe>
+  *height: Number <minVal:0, maxVal:300>
 }
 
 TallPerson : Person {
