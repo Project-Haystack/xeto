@@ -11,7 +11,9 @@
 // one of its `on` types; the rule body then narrows on the constraint
 // meta it enforces.  A rule listing several types applies to any of them.
 // The rule id is the stable key used to attach custom messages,
-// localization, documentation, and tooling to a diagnostic.
+// localization, documentation, and tooling to a diagnostic.  Check are
+// supplied by the implementation.  A func can implement a rule via
+// the `validateRule` metadata tag.
 ValidateRule: Dict {
   on: MultiRef<of:Spec>               // Types this rule applies to
   unless: MultiRef? <of:ValidateRule> // Skip when any referenced rule fired on same value

@@ -194,6 +194,20 @@ Spec: Dict <sealed> {
   // Default value for this slot
   val: Obj?
 
+  // Marks a func as the check for a `ValidateRule`.  The func is called
+  // as 'func(spec, val)' where val is the value at the position the rule
+  // fired on: the instance itself for a rule registered on a dict type,
+  // or the slot value for one registered on a value type.
+  //
+  // Return null or an empty list when the value is ok.  Otherwise return
+  // a dict per problem, or a list of them.  An empty dict reports the
+  // rule at its own position; a 'slot' tag reports it against that tag
+  // of the dict instead, and any other tags are `msg` template args.
+  //
+  //   // ok, or flag the min tag of the instance
+  //   if (val->min > val->max) {slot:"min"}
+  validateRule: Ref?<of:ValidateRule>
+
   // Named path to traverse to execute query
   via: Str?
 
