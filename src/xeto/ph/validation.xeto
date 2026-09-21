@@ -1,0 +1,57 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   21 Sep 2026  Brian Frank  Creation
+//
+
+// Rules for constraints the ontology cannot express as slots: agreement
+// between a rec and the recs it references.  The slot declarations handle
+// which tags may be present and what they point to; these handle whether
+// the values agree once they are.
+
+//////////////////////////////////////////////////////////////////////////
+// Point
+//////////////////////////////////////////////////////////////////////////
+
+// Point must be associated with a site or a weather station
+@pointMissingSiteRef: ValidateRule {
+  on: Point
+  msg: "Point must have siteRef or weatherStationRef"
+}
+
+// Point should declare the timezone of its histories
+@pointMissingTz: ValidateRule {
+  on: Point
+  level: "warn"
+  msg: "Point should have tz"
+}
+
+// Point timezone must match the site it belongs to
+@pointSiteTz: ValidateRule {
+  on: Point
+  msg: "Point tz '$val' does not match site tz '$siteTz'"
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Site Containment
+//////////////////////////////////////////////////////////////////////////
+
+// Rec's equipRef must lead to the same site as its own siteRef
+@equipRefSite: ValidateRule {
+  on: PhEntity
+  msg: "equipRef site @$refSite does not match siteRef @$val"
+}
+
+// Rec's spaceRef must lead to the same site as its own siteRef
+@spaceRefSite: ValidateRule {
+  on: PhEntity
+  msg: "spaceRef site @$refSite does not match siteRef @$val"
+}
+
+// Rec's systemRef must lead to the same site as its own siteRef
+@systemRefSite: ValidateRule {
+  on: PhEntity
+  msg: "systemRef site @$refSite does not match siteRef @$val"
+}

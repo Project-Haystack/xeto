@@ -145,16 +145,9 @@ ValidateLevel: Enum {
   msg: "Must have invariant value '$expect'"
 }
 
-// Enum value is not a string key type
-@enumValType: ValidateRule {
-  on: Enum
-  msg: "Invalid enum value type, $valType not Str"
-}
-
 // Enum key is not defined by the enum type
 @wrongEnumKey: ValidateRule {
   on: Enum
-  unless: @enumValType
   msg: "Invalid key '$val' for enum type '$type'"
 }
 
