@@ -6,10 +6,7 @@
 //   5 Feb 2025 James Gessel Creation
 //
 
-// BacnetAddr contains all addressing info to communicate with a BACnet
-// point.  The `addr` field is used to specify the primary object to
-// read present value and issue writes.  Optionally the `trend` field
-// can be used to specify the trend log object for historical data.
+// BacnetAddr contains all addressing info to communicate with a BACnet point.
 //
 // Address fields are formatted as XXXNNN where XXX is an objec type
 // code in the table below and NNN is the object identifer number
@@ -38,6 +35,5 @@
 //
 BacnetAddr: ProtocolAddr {
   addr:  Str <pattern:"[A-Z]+\\d+">  // cur/write address (such as AO4, AI3, BO2, BI1)
-  trend: Str? <pattern:"TL\\d+">     // optional trend log address (such as TL1)
 }
 

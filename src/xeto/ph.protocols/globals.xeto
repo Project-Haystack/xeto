@@ -8,10 +8,19 @@
 
 +PhEntity {
 
-  // BACnet protocol addressing
-  *bacnetAddr: BacnetAddr
+  // BACnet protocol address to read current value
+  *bacnetCurAddr: BacnetAddr
 
-  // Modbus protocol addressing
-  *modbusAddr: ModbusAddr
+  // BACnet protocol address to write a writable point
+  *bacnetWriteAddr: BacnetAddr
+
+  // BACnet protocol address for trend object history synchronization
+  *bacnetHisAddr: BacnetAddr
+
+  // Modbus protocol address to read current value
+  *modbusCurAddr: ModbusAddr
+
+  // Modbus protocol address to write a writable point
+  *modbusWriteAddr: ModbusAddr
 }
 
