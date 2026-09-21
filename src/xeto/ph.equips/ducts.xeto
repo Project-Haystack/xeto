@@ -31,7 +31,7 @@ ExhaustDuct: Duct { exhaust }
 ReturnDuct: Duct { return }
 
 // Duct where fresh outside air and return air is mixed together
-MixedDuct: DuctSection { mixed }
+MixedDuct: Duct { mixed }
 
 // Discharge duct for cooling
 ColdDeckDischargeDuct: DischargeDuct { coldDeck }
