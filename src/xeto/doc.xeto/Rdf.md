@@ -898,9 +898,9 @@ comparison, execution, or resource lookup. These rules apply equally to
 user-defined scalars and the built-in scalars listed below.
 
 Types with an existing special mapping keep that mapping, including
-refinements of [standard scalars](#standard-scalar-mappings), enums, markers,
+refinements of [standard scalars](#standard-scalar-slots), enums, markers,
 references, and units. The built-in scalars covered by the custom datatype
-rule are listed [below](#built-in-and-library-scalars).
+rule are listed [below](#builtin-and-library-scalars).
 
 ### Vocabulary
 
