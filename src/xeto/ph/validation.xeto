@@ -34,24 +34,34 @@
   msg: "Point tz '$val' does not match site tz '$siteTz'"
 }
 
-//////////////////////////////////////////////////////////////////////////
-// Site Containment
-//////////////////////////////////////////////////////////////////////////
-
-// Rec's equipRef must lead to the same site as its own siteRef
-@equipRefSite: ValidateRule {
-  on: PhEntity
-  msg: "equipRef site @$refSite does not match siteRef @$val"
+// Point value constraints must use the point's own unit
+@pointValUnit: ValidateRule {
+  on: NumberPoint
+  msg: "$slot $val must have unit of '$unit'"
 }
 
-// Rec's spaceRef must lead to the same site as its own siteRef
-@spaceRefSite: ValidateRule {
-  on: PhEntity
-  msg: "spaceRef site @$refSite does not match siteRef @$val"
+// Point minimum must not exceed its maximum
+@pointMinMax: ValidateRule {
+  on: NumberPoint
+  msg: "minVal $val is above maxVal $maxVal"
 }
 
-// Rec's systemRef must lead to the same site as its own siteRef
-@systemRefSite: ValidateRule {
+//////////////////////////////////////////////////////////////////////////
+// Containment
+//////////////////////////////////////////////////////////////////////////
+
+// Everything the containment refs lead to must be in the same site.  The
+// equipRef, spaceRef, and systemRef tags form a tree rooted at a site, so
+// every ancestor of a rec must agree with its siteRef.
+@refSite: ValidateRule {
   on: PhEntity
-  msg: "systemRef site @$refSite does not match siteRef @$val"
+  unless: @refCycle
+  msg: "$refTag leads to site @$refSite, not siteRef @$val"
+}
+
+// The containment refs must form a tree, not a cycle.  A cycle makes the
+// parent and child queries which walk them recurse forever.
+@refCycle: ValidateRule {
+  on: PhEntity
+  msg: "$refTag forms a cycle: $path"
 }
