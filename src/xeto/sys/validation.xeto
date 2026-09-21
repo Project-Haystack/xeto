@@ -6,13 +6,14 @@
 //   17 Sep 2026  Brian Frank  Creation
 //
 
-// ValidateRule defines one validation diagnostic registered on a spec.
-// Constraint rules register on the meta spec they enforce such as
-// `Spec.maxVal`; structural rules register on the type they check.
+// ValidateRule defines one validation diagnostic registered on the types
+// it applies to.  The engine runs a rule only where the value's spec is
+// one of its `on` types; the rule body then narrows on the constraint
+// meta it enforces.  A rule listing several types applies to any of them.
 // The rule id is the stable key used to attach custom messages,
 // localization, documentation, and tooling to a diagnostic.
 ValidateRule: Dict {
-  on: Ref<of:Spec>                    // Spec this rule is registered on
+  on: MultiRef<of:Spec>               // Types this rule applies to
   unless: MultiRef? <of:ValidateRule> // Skip when any referenced rule fired on same value
   level: ValidateLevel "err"          // Diagnostic level
   msg: Str                            // Message template with $arg macro substitution
@@ -74,7 +75,7 @@ ValidateLevel: Enum {
 // Instance asserts a sugar spec but is missing or contradicting
 // its effective constraint tags
 @sugarConstraint: ValidateRule {
-  on: Spec.sugar
+  on: Dict
   msg: "Missing constraint tag '$tag' for '$type'"
 }
 
@@ -84,45 +85,45 @@ ValidateLevel: Enum {
 
 // Number is less than inclusive minimum
 @underMinVal: ValidateRule {
-  on: Spec.minVal
+  on: Number
   unless: @minValUnit
   msg: "Number $val < minVal $minVal"
 }
 
 // Number is greater than inclusive maximum
 @overMaxVal: ValidateRule {
-  on: Spec.maxVal
+  on: Number
   unless: @maxValUnit
   msg: "Number $val > maxVal $maxVal"
 }
 
 // Number unit does not match the unit declared on minVal
 @minValUnit: ValidateRule {
-  on: Spec.minVal
+  on: Number
   msg: "Number $val has unit incompatible with minVal $minVal"
 }
 
 // Number unit does not match the unit declared on maxVal
 @maxValUnit: ValidateRule {
-  on: Spec.maxVal
+  on: Number
   msg: "Number $val has unit incompatible with maxVal $maxVal"
 }
 
 // Number does not have the required unit
 @wrongUnit: ValidateRule {
-  on: Spec.unit
+  on: Number
   msg: "Number $val must have unit of '$unit'"
 }
 
 // Number must be unitless
 @unitless: ValidateRule {
-  on: Spec.unitless
+  on: Number
   msg: "Number $val must be unitless"
 }
 
 // Number or unit enum does not have a unit of the required quantity
 @wrongQuantity: ValidateRule {
-  on: Spec.quantity
+  on: {Number, Unit}
   msg: "Number must be '$quantity' unit; $reason"
 }
 
@@ -132,13 +133,13 @@ ValidateLevel: Enum {
 
 // Scalar string encoding does not match regex pattern
 @patternMismatch: ValidateRule {
-  on: Spec.pattern
+  on: Scalar
   msg: "String encoding does not match pattern for '$type'"
 }
 
 // Slot does not have its fixed invariant value
 @invariantVal: ValidateRule {
-  on: Spec.invariant
+  on: Obj
   msg: "Must have invariant value '$expect'"
 }
 
@@ -159,21 +160,21 @@ ValidateLevel: Enum {
 // Size Constraints
 //////////////////////////////////////////////////////////////////////////
 
-// String or list must be non-empty
+// Scalar or list must be non-empty
 @nonEmpty: ValidateRule {
-  on: Spec.nonEmpty
+  on: {Scalar, List}
   msg: "Must be non-empty"
 }
 
-// String or list size is less than inclusive minimum
+// Scalar or list size is less than inclusive minimum
 @underMinSize: ValidateRule {
-  on: Spec.minSize
+  on: {Scalar, List}
   msg: "Size $size < minSize $minSize"
 }
 
-// String or list size is greater than inclusive maximum
+// Scalar or list size is greater than inclusive maximum
 @overMaxSize: ValidateRule {
-  on: Spec.maxSize
+  on: {Scalar, List}
   msg: "Size $size > maxSize $maxSize"
 }
 
@@ -199,20 +200,20 @@ ValidateLevel: Enum {
 
 // Ref does not resolve to a spec, instance, or context record
 @unresolvedRef: ValidateRule {
-  on: Ref
+  on: {Ref, MultiRef}
   msg: "Unresolved ref @$ref"
 }
 
 // Ref target has a missing or unresolvable spec tag
 @refTargetSpec: ValidateRule {
-  on: Ref
+  on: {Ref, MultiRef}
   unless: @unresolvedRef
   msg: "Ref target spec not found: @$ref"
 }
 
 // Ref target does not fit the parameterized target type
 @refTargetType: ValidateRule {
-  on: Ref
+  on: {Ref, MultiRef}
   unless: {@unresolvedRef, @refTargetSpec}
   msg: "Ref target must be '$of', target is '$targetSpec'"
 }
