@@ -183,12 +183,6 @@ ValidateLevel: Enum {
   msg: "List type cannot contain nulls"
 }
 
-// List instance data cannot use named items
-@listNamedItem: ValidateRule {
-  on: List
-  msg: "List cannot contain named items"
-}
-
 //////////////////////////////////////////////////////////////////////////
 // Refs
 //////////////////////////////////////////////////////////////////////////
