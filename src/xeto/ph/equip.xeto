@@ -253,6 +253,7 @@ Escalator: VerticalTransport {
 // The [ph::PhEntity.evseConnectorType] tag distinguishes the type of connector.
 // See [ph.doc::EVSE#evse-connector] chapter.
 EvseConnector: EvseEquip <abstract> {
+  evseConnector
   evseConnectorType: EvseConnectorType?
 }
 

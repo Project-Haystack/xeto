@@ -470,7 +470,8 @@ PhEntity: Entity <abstract> {
   // Pipe conveys fluid into an equipment
   *entering: Marker
 
-  // Total heat content of a system. It is defined as internal energy of the system plus the product of pressure and volume.
+  // Total heat content of a system. It is defined as internal energy of the
+  // system plus the product of pressure and volume.
   *enthalpy: Marker
 
   // Defines an eumeration of string key names.  The range may also be applied
@@ -503,6 +504,11 @@ PhEntity: Entity <abstract> {
 
   // Electric Vehicle Supply Equipment.  See [ph.doc::EVSE] chapter.
   *evse: Marker
+
+  // Plug, socket/receptacle, or wireless inductive charging pad that connects
+  // an EVSE to a vehicle inlet.  The [ph::PhEntity.evseConnectorType] tag
+  // distinguishes the type of connector.
+  *evseConnector: Marker
 
   // Physical type of [ph::EvseConnector].
   *evseConnectorType: EvseConnectorType
