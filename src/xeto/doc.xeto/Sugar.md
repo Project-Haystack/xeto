@@ -59,8 +59,8 @@ DischargeFanRunCmd: DuctFanRunCmd <sugar> { discharge }
 // sugar is inherited from DischargeFanRunCmd
 ColdDeckDischargeFanRunCmd: DischargeFanRunCmd { coldDeck }
 
-// scalar value constraint
-Stage2DischargeFanRunCmd: DischargeFanRunCmd { stage: 2 }
+// invariant scalar constraint
+Stage2DischargeFanRunCmd: DischargeFanRunCmd { stage: Int <invariant> 2 }
 ```
 
 Because the marker is inherited, the nominal/sugar boundary is crossed
@@ -69,32 +69,52 @@ nominal spec may not extend a sugar spec.
 
 # Body Rules
 
-A sugar spec's body may declare only:
+Every slot in a sugar spec's body must resolve to a
+[global slot](Globals.md) thru the inheritance chain of the spec's
+type.  Each slot is exactly one of:
 
-- **Marker constraints**: `discharge` - the name must resolve in the
-  dependency namespace to a [global slot](Globals.md) or a
-  [choice](Choices.md) marker
-- **Scalar constraints**: `stage: 2` - the name must resolve to a
-  global slot and the literal must be assignable to that slot's type;
-  scalars are matched by equality only
-- **Queries**: query slots that constrain the graph neighborhood, such
+- **Marker constraints**: `discharge` - a required marker; the instance
+  must have the tag
+- **Invariant constraints**: `stage: Int <invariant> 2` - a scalar the
+  instance must equal; scalars are matched by equality only
+- **Defaults**: `unit: "cfm"`, `bacnetCurAddr: { addr: "AI3" }` -
+  scalar and nested values used by instantiation
+- **Queries**: query slots that constrain the graph, such
   as required points on an equip; see [Queries](#queries) below
 
-A sugar spec may *not* declare new structural slots.  Declaring
-structure is nominal-spec work; a sugar spec only names and constrains.
-The following are compile errors:
+Only markers and invariants are constraints.  The distinction is
+syntactic: a bare marker or a slot with the `invariant` meta constrains
+membership; any other value is a default and never participates in
+matching or filters:
 
 ```xeto
-Bad1: DuctFanRunCmd <sugar> { surgeMargin: Number }  // new structural slot
-Bad2: DuctFanRunCmd <sugar> { dischrage }            // unresolvable tag
-Bad3: DuctFanRunCmd <sugar> { stage: "two" }         // literal type error
-Bad4: DuctFanRunCmd <sugar> { discharge, return }    // unsatisfiable (exclusive choice)
+NaturalGasFlowSp: FluidVolumetricFlowSp <sugar> {
+  naturalGas          // constraint
+  unit: "cfm"         // default
+}
 ```
 
-Because constraint names must resolve, misspelled tags are compile
-errors rather than silently empty specs.  The compiler also rejects
-unsatisfiable constraint sets: conflicting scalar values, or two
-markers from the same exclusive choice.
+Any fluid volumetric flow setpoint with the `naturalGas` tag matches
+`NaturalGasFlowSp` whatever its unit; instantiating it defaults unit to `cfm`.
+
+A sugar spec may *not* declare new structural slots.  Declaring
+structure is nominal-spec work; a sugar spec only names, constrains,
+and defaults.  The following are compile errors:
+
+```xeto
+Bad1: DuctFanRunCmd <sugar> { surgeMargin: Number }  // not a global tag
+Bad2: DuctFanRunCmd <sugar> { dischrage }            // not a global tag
+Bad3: DuctFanRunCmd <sugar> { stage: Int }           // neither constraint nor default
+Bad4: DuctFanRunCmd <sugar> { discharge: Marker? }   // optional marker constrains nothing
+Bad5: DuctFanRunCmd <sugar> { *newTag: Marker }      // declares a global
+```
+
+Because every name must resolve, misspelled tags are compile errors
+rather than silently new slots.  Invariants follow the normal rule
+that a subtype cannot redeclare an invariant value, so conflicting
+scalar constraints down a chain are compile errors.  Two markers which
+select different options of one exclusive choice, such as `{discharge,
+return}`, are reported by [choice](Choices.md) validation.
 
 # Nominal Anchor
 
@@ -187,7 +207,7 @@ DuctFanRunCmd { discharge, coldDeck }
 This is an anonymous sugar spec: same body rules, same lowering, no
 name.  It lets any tag combination be queried in type form whether or
 not a named sugar spec was ever minted for it.  The braces admit
-exactly the sugar body fragment (markers and scalar equality); richer
+only constraints (markers and scalar equality); richer
 predicates such as ranges compose outside the braces with `and`.
 
 # Instances
@@ -200,8 +220,8 @@ carries the dimensions as tags:
 ```
 
 Instances may also assert a sugar spec directly in their `spec` tag.
-Instantiation stamps the spec's effective constraints onto the
-instance, and validation requires the constraints to be present even
+Instantiation stamps the spec's effective constraints and defaults
+onto the instance, and validation requires the constraints to be present even
 when the name is asserted - the name never substitutes for the tags.
 An instance that asserts a sugar spec but is missing or contradicting
 its constraint tags is invalid.
@@ -237,12 +257,32 @@ Queries make sugar specs suitable as named validation profiles: a
 shareable, versioned spec describing the required shape of an
 installation that any party can publish over the core ontology.
 
+Each item in a query body is itself an anonymous sugar spec: its
+declared type is the anchor and its body follows the same
+[body rules](#body-rules).  Named and anonymous items are equivalent,
+and an item may carry defaults for instantiation and tooling:
+
+```xeto
+points: {
+  DischargeFanRunCmd                // named sugar
+  DuctFanRunCmd { discharge }       // same constraints, anonymous
+  zoneTemp: ZoneAirTempSensor {     // no constraints beyond the type
+    dis: "Zone Temp"                // default
+    bacnetCurAddr: { addr: "AI1" }  // default
+  }
+}
+```
+
+Validation matches each item against the query's extent by anchor and
+constraints only; defaults such as `dis` and protocol addresses are
+never matched.
+
 # Mixins
 
 [Mixins](Mixins.md) may target sugar specs, subject to the same body
-rules: a mixin on a sugar spec may add constraint slots and queries,
-but not structural slots, so that the extended spec remains a valid
-sugar spec:
+rules: a mixin on a sugar spec may add constraints, defaults, and
+queries, but not structural slots, so that the extended spec remains a
+valid sugar spec:
 
 ```xeto
 // legal: adds a constraint and a query requirement
@@ -292,7 +332,7 @@ rules.  The principles used to draw that line generalize to any core/sugar
 lib pair.
 
 **Structure lives on nominal specs.**  A dimension enters the model as
-a choice slot, and sugar bodies cannot declare slots - so every
+a choice slot, and sugar bodies cannot declare new slots - so every
 constrained dimension needs a nominal home.  `DuctAirTempSensor`
 declares `ductSection: DuctSection` and `ductDeck: DuctDeck?`;
 `PipeWaterTempSensor` declares `pipeSection: PipeSection`; the fluid
@@ -329,4 +369,6 @@ lib version.  Adding a constraint to a published sugar spec narrows
 its extension and is a breaking change, exactly as adding a required
 slot to a nominal spec is.  The non-breaking way to tighten is to
 publish a new, more specific sugar spec alongside the old one.
+Adding or changing a default leaves the extension unchanged and is not
+a breaking change.
 
