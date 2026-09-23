@@ -688,6 +688,9 @@ PhEntity: Entity <abstract> {
   // Equipment without cooling
   *heatingOnly: Marker
 
+  // Passive heat exchanger which dissipates heat from electronic or mechanical components.
+  *heatsink: Marker
+
   // Dimensional height of the asset
   *height: Marker
 
