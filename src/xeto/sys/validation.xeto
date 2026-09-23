@@ -65,7 +65,7 @@ ValidateLevel: Enum {
 // Value type does not fit the declared slot, global, or spec type
 @invalidType: ValidateRule {
   on: Spec
-  msg: "Invalid type '$valType', expecting '$type'"
+  msg: "Invalid type '$valType', expecting $expecting"
 }
 
 // Instance is missing a required slot
