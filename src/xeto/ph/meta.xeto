@@ -1,0 +1,15 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   23 Sep 2026  Brian Frank  Creation
+//
+
++Spec {
+  // Indicates an entity intentionally not fully modeled by the standard
+  // Haystack ontology.  Used in vendor and site-specific models for
+  // functionality that has no standardized semantics.
+  notHaystack: Marker?
+}
+

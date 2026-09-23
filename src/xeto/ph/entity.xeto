@@ -1021,11 +1021,6 @@ PhEntity: Entity <abstract> {
   // Do not include source code in documentation
   *nosrc: Marker
 
-  // Indicates an entity intentionally not fully modeled by the standard
-  // Haystack ontology.  Used in vendor and site-specific models for
-  // functionality that has no standardized semantics.
-  *notHaystack: Marker
-
   // Oxygen (O₂) - the common dioxygen allotrope in the air
   *o2: Marker
 
