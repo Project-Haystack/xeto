@@ -32,4 +32,4 @@ MotorBearingTempSensor : MotorTempSensor { bearing }
 EvseCableTempSensor : ElecCableTempSensor { evse }
 
 // Sensor that measures temperature of an EVSE connector
-EvseConnectorTempSensor : SurfaceTempSensor <sugar> { evse }
+EvseConnectorTempSensor : SurfaceTempSensor <sugar> { evseConnector }
