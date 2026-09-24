@@ -1464,9 +1464,6 @@ PhEntity: Entity <abstract> {
   // Pipework which circulates within the building.
   *tertiaryLoop: Marker
 
-  // Total harmonic distortion
-  *thd: Marker
-
   // Related to energy of heat
   *thermal: Marker
 

@@ -1,0 +1,54 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   24 Sep 2026  Rick Jennings  Creation
+//
+
++PhEntity {
+
+  // Crest Factor. Ratio of a waveform's peak value to its RMS value. A clean
+  // sine wave reads about 1.4; values that differ indicate waveform distortion
+  // that can stress equipment.
+  *crestFactor: Marker
+
+  // Order of the AC harmonic being measured, expressed as an integer
+  // multiple of the fundamental frequency. For example on a 60Hz system an
+  // order of 1 is the fundamental (60Hz), 3 is the third harmonic (180Hz),
+  // and 5 is the fifth harmonic (300Hz).
+  *elecAcHarmonicOrder: Int <minVal: 2>
+
+  // Even Total Harmonic Distortion (Even THD). THD computed from only the
+  // even harmonics. Even harmonics can indicate asymmetry between the
+  // positive and negative halves of a waveform, such as from half-wave
+  // rectification or DC offset.
+  *evenTotalHarmonicDistortion: Marker
+
+  // Individual Harmonic Distortion (IHD). Magnitude of a single harmonic
+  // as a percentage of the fundamental. Used to find which harmonic orders
+  // dominate and to check them against per-order limits in standards such
+  // as IEEE 519.
+  *individualHarmonicDistortion: Marker
+
+  // K-Factor. Weights harmonic currents by the square of their order to
+  // estimate the added heating they cause in transformer windings. The
+  // reading can be compared against a transformer's K-rating to check
+  // whether it was designed to carry the load.
+  *kFactor: Marker
+
+  // Odd Total Harmonic Distortion (Odd THD). THD computed from only the odd
+  // harmonics. These dominate in typical nonlinear loads such as drives and
+  // rectifiers.
+  *oddTotalHarmonicDistortion: Marker
+
+  // Telephone Harmonic Form Factor (THFF). Ratio of the frequency weighted
+  // components of a waveform to its RMS value. Estimates the potential for
+  // interference with nearby communication circuits.
+  *telephoneHarmonicFormFactor: Marker
+
+  // Total Harmonic Distortion (THD). Combined magnitude of all harmonics as
+  // a percentage of the fundamental. The primary overall indicator of
+  // waveform distortion and power quality.
+  *totalHarmonicDistortion: Marker
+}
