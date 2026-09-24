@@ -9,8 +9,8 @@ license:    Licensed under the Academic Free License version 3.0
 Filters are a simple declarative language used to query Haystack
 data.  A filter is a predicate function that takes a dict and
 returns true/false (match/no match).  Some filter constructs
-require the use of [specs](doc.xeto::Specs) in which case the filter
-must be evaluated in the context of a [namespace](doc.xeto::Namespaces).
+require the use of [specs](Specs) in which case the filter
+must be evaluated in the context of a [namespace](Namespaces).
 
 # Usage
 The simplest filter is just a tag name that matches any record that
@@ -28,7 +28,7 @@ operators:
     curVal > 75                // greater than
     curVal >= 75               // greater than or equal to
 
-The scalars to compare against are encoded using [Zinc]
+The scalars to compare against are encoded using [Zinc](ph.doc::Zinc)
 encoding (with a couple of exceptions noted below).
 
 You can combine filters using `and`, `or`, or `not`:
@@ -38,11 +38,48 @@ You can combine filters using `and`, `or`, or `not`:
     equip and hvac            // has equip and hvac tag
     equip and not ahu         // has equip tag, but not the ahu tag
 
-You can also use a Xeto spec name to match by nominal typing:
+You can also use a Xeto spec name to match records of that spec; see
+[Specs](#specs) below:
 
     Meter
     ph::Meter
     ph.points::OutsideAirTempSensor
+
+# Specs
+A spec name matches a record that *fits* the spec:
+
+  - the record's `spec` tag references the spec or one of its subtypes
+  - or the spec is a [sugar spec](Sugar) and the record's `spec` tag
+    references the sugar's nominal anchor or one of its subtypes, and
+    the record has every constraint tag: markers must be present and
+    invariant values must be equal
+
+For example given the sugar spec:
+
+    DischargeFanRunCmd: DuctFanRunCmd <sugar> { discharge }
+
+The filter `DischargeFanRunCmd` matches the same records as:
+
+    DuctFanRunCmd and discharge
+
+plus any record whose `spec` tag asserts `DischargeFanRunCmd` directly.
+Combinations without a sugar name are queried the same way, as the
+anchor and its tags:
+
+    DuctFanRunCmd and discharge and coldDeck
+
+Matching uses only the `spec` tag and constraint tags.  It never checks
+required slots or queries; use validation for that.  So a record which
+asserts a sugar spec but lacks a constraint tag still matches, and
+`DischargeFanRunCmd and not discharge` finds such malformed records.
+
+A record without a `spec` tag matches only `Dict`: tags alone never
+make a record match a spec.  Constraints added to a sugar spec by
+[mixins](Mixins) do not apply to filters.
+
+Spec names may be qualified such as `ph::Meter` or unqualified such
+as `Meter`.  An unqualified name must resolve to exactly one type in
+the namespace.
 
 # Number Comparisons
 Equality and comparison operators for Numbers require an exact unit match,
@@ -118,7 +155,6 @@ The formal grammar of the filter langauge:
      <cmpOp>      :=  "==" | "!=" | "<" | "<=" | ">" | ">="
      <isSpec>     :=  [<specLib> "::"] <specName>
      <specLib>    :=  <name> ("." <name>)*
-     <specType>   :=
      <path>       :=  <name> ("->" <name>)*
 
      <val>        :=  <bool> | <ref> | <str> | <uri> |
@@ -134,6 +170,5 @@ The formal grammar of the filter langauge:
      <name>       := same as Zinc <id>
      <specName>   := <alphaHi> (<alphaLo> | <alphaHi> | <digit> | '_')*
 
-See [Zinc grammar](Zinc#grammar) for productions reused from Zinc.  Bools
-are encoded as "true" or "false" (Zinc encodes as "T" or "F").
-
+See [Zinc grammar](ph.doc::Zinc#grammar) for productions reused from Zinc.
+Bools are encoded as "true" or "false" (Zinc encodes as "T" or "F").

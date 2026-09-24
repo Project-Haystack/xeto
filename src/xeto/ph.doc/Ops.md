@@ -100,7 +100,7 @@ The `read` op is used to read a set of entity records either by their
 unique identifier or using a filter.
 
 **Request (by filter)**: a grid with a single row and following columns:
-  - `filter`: required Str encoding of [filter](Filters)
+  - `filter`: required Str encoding of [filter](doc.xeto::Filters)
   - `limit`: optional Number that specifies maximum number of entities
     to return in response
 

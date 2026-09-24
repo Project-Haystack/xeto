@@ -5,7 +5,6 @@
 - [Kinds](Kinds.md): Data types
 - [TimeZones](TimeZones.md): Respresentation of timezones
 - [Units](Units.md): Respresentation  of units of measurement
-- [Filters](Filters.md): Predicates for querying Haystack data
 
 # Ontology
 

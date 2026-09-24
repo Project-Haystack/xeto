@@ -9,6 +9,7 @@
 - [Instances](Instances.md): instance data
 - [Grids](Grids.md): tabular data structure
 - [Namespaces](Namespaces.md): closed set of libs that define name space
+- [Filters](Filters.md): predicates for querying Haystack data
 
 # Type System
 

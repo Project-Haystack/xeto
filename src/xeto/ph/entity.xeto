@@ -557,7 +557,7 @@ PhEntity: Entity <abstract> {
   // Related to an air or fluid filter.
   *filter: Marker
 
-  // Haystack filter string.  See [ph.doc::Filters]
+  // Haystack filter string.  See [doc.xeto::Filters]
   *filterStr: Str
 
   // Storey of a building.  See [ph.doc::Spaces#floors] chapter.

@@ -35,7 +35,7 @@
   //     readByIds([@2af6f9ce-6ddc5075, @2af6f9ce-2d56b43a], false)
   readByIds: Func <op, noSideEffects> { ids: List <of:Ref>, checked: Bool "true", returns: Grid }
 
-  // Read the first entity which matches [filter](ph.doc::Filters).
+  // Read the first entity which matches [filter](doc.xeto::Filters).
   // If no matches found raise error or return null based on checked
   // flag.  If there are multiple matches it is indeterminate which one is
   // returned.
@@ -48,7 +48,7 @@
   //     read(Room, false)          // return null if no room entities
   read: Func <op, noSideEffects> { filter: Filter, checked: Bool "true", returns: Dict? }
 
-  // Read all entities which match the [filter](ph.doc::Filters).
+  // Read all entities which match the [filter](doc.xeto::Filters).
   //
   // Options:
   //   - `limit`: max number of entities to return

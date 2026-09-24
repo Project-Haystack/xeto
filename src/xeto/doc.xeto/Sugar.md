@@ -45,8 +45,9 @@ Sugar specs factor the model instead:
   Combinations that don't remain fully queryable as filters.
 
 No combination is ever enumerated up front, yet every combination can be
-queried and validated on demand as anonymous sugar - named sugar specs are
-minted only where a handle is useful, never to make a combination usable.
+queried on demand with filters and validated as anonymous sugar in query
+constraints - named sugar specs are minted only where a handle is useful,
+never to make a combination usable.
 
 # Syntax
 
@@ -195,18 +196,12 @@ DuctFanRunCmd and discharge
 no structural evaluator: it is an is-a test against the anchor plus tag
 tests on the record.
 
-Filters also accept anonymous sugar syntax - a spec name followed by a
-constraint body:
+Combinations without a sugar name are queried the same way, as the
+anchor and its tags:
 
 ```
-DuctFanRunCmd { discharge, coldDeck }
+DuctFanRunCmd and discharge and coldDeck
 ```
-
-This is an anonymous sugar spec: same body rules, same lowering, no
-name.  It lets any tag combination be queried in type form whether or
-not a named sugar spec was ever minted for it.  The braces admit
-only constraints (markers and scalar equality); richer
-predicates such as ranges compose outside the braces with `and`.
 
 # Instances
 
@@ -224,10 +219,9 @@ when the name is asserted - the name never substitutes for the tags.
 An instance that asserts a sugar spec but is missing or contradicting
 its constraint tags is invalid.
 
-When data is exported for interchange, tools should normalize asserted
-sugar specs to the canonical form so that sugar names never travel on
-the wire.  This preserves the rule that sugar libs are never required
-for interoperability.
+Instances and exports always carry the spec they declare, sugar or
+not.  As with any spec, understanding an asserted sugar name requires
+its lib.
 
 # Queries
 
@@ -315,15 +309,14 @@ The convention carries a contract:
   nominal specs
 - A sugar lib is a conservative extension: eliminating it changes no
   semantics, only names
-- A sugar lib is optional; conforming implementations must not require
-  it for interoperability
 - Core libs never depend on sugar libs; shapes in core libs use
   anonymous sugar syntax instead of sugar names
 
 Sugar names are minted on demand - when documentation, common queries,
 or validation profiles need a handle - never speculatively to
 enumerate a product space.  Unnamed combinations cost nothing: they
-remain fully expressible as anonymous sugar in filters and slot types.
+remain fully expressible as filters and as anonymous sugar in query
+constraints.
 
 # Design Rationale
 
