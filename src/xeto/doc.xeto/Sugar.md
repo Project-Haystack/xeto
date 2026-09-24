@@ -178,9 +178,8 @@ superset of B's.
 
 # Filters
 
-A sugar spec name in a filter denotes its computed extension.  The
-name lowers at compile time into primitives the filter engine already
-executes:
+A sugar spec name in a filter denotes its computed extension, using
+the same membership rule as [matching](#matching):
 
 ```
 DischargeFanRunCmd
@@ -192,10 +191,9 @@ is equivalent to:
 DuctFanRunCmd and discharge
 ```
 
-(plus the nominal assertion clause described above).  There is no
-structural evaluator at runtime; after lowering, the filter consists
-only of is-a tests and tag tests, so existing indexes and query
-planning apply unchanged.
+(plus the nominal assertion clause described above).  Evaluation needs
+no structural evaluator: it is an is-a test against the anchor plus tag
+tests on the record.
 
 Filters also accept anonymous sugar syntax - a spec name followed by a
 constraint body:
@@ -299,9 +297,11 @@ valid sugar spec:
 }
 ```
 
-Note that mixin constraints narrow the sugar spec's extension within
-the namespaces that include the mixin's lib.  As with all mixins, the
-extended spec is namespace dependent.
+Mixin constraints apply when matching against the extended spec, such
+as the one returned by `specx`, which narrows the sugar spec's
+extension within the namespaces that include the mixin's lib.  As with
+all mixins, the extended spec is namespace dependent.  Matching the
+plain spec, as filters do by name, uses only its declared constraints.
 
 # Sugar Libs
 
