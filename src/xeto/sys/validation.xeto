@@ -74,13 +74,6 @@ ValidateLevel: Enum {
   msg: "Missing required slot '$slot'"
 }
 
-// Instance asserts a sugar spec but is missing or contradicting
-// its effective constraint tags
-@sugarConstraint: ValidateRule {
-  on: Dict
-  msg: "Missing constraint tag '$tag' for '$type'"
-}
-
 //////////////////////////////////////////////////////////////////////////
 // Number Constraints
 //////////////////////////////////////////////////////////////////////////
