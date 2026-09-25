@@ -159,6 +159,14 @@ An extent entity matches a constraint using the same rules as
 [sugar matching](Sugar.md#matching): the constraint's nominal type
 plus its constraint tags.
 
+An entity whose `spec` tag names a constraint slot itself (such as
+`acme::Vav.points.zoneTemp`), or a subtype's override of it, is
+anchored to that constraint and matches it alone.  Constraints with
+no anchored entity fall back to matching the unanchored entities by
+type and tags.  So a template may declare constraints which differ
+only by name, such as vendor configuration points, and instances
+created from it still match exactly one each.
+
 Queries make specs suitable as named validation profiles: a
 shareable, versioned spec describing the required shape of an
 installation - for example the required points of an ASHRAE
