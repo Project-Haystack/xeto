@@ -269,13 +269,20 @@ xeto uninstall foo -y        // skip confirmation
 
 ## publish
 
-Publish a xetolib file to a remote repo.  You may publish a single
-xetolib file or a directory of xetolibs, in which case every xetolib
-in the directory is published in dependency order over a single
-session.  Files are loaded and validated locally before any network
-traffic, so a corrupt file fails fast.
+Publish a xetolib file to a remote repo.  You may publish a lib by
+name, a single xetolib file, or a directory of xetolibs, in which case
+every xetolib in the directory is published in dependency order over a
+single session.  A lib name publishes its xetolib from the local repo:
+for a source lib that is the zip produced by `xeto build`.  Files are
+loaded and validated locally before any network traffic, so a corrupt
+file fails fast.
+
+If no [auth token](#auth-tokens) is configured for the repo, then publish
+logs in thru your browser: the command opens the repo's login page and
+continues once you have authenticated.  Each run requires a new login.
 
 ```
+xeto publish foo                   // publish xetolib of lib named 'foo'
 xeto publish foo.xetolib           // publish to default repo
 xeto publish foo.xetolib -r acme   // publish to repo named 'acme'
 xeto publish foo.xetolib -preview  // report without publishing
