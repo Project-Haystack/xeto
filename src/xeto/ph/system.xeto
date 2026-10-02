@@ -11,8 +11,8 @@
 // See [ph.doc::Systems] chapter.
 System: PhEntity {
   system
-  siteRef:   Ref
-  systemRef: MultiRef?
+  siteRef:   ContainedByRef
+  systemRef: MemberOfRef?
 }
 
 //////////////////////////////////////////////////////////////////////////

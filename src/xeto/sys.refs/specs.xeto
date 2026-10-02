@@ -1,0 +1,36 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   2 Oct 2026  Brian Frank  Creation
+//
+
+// Ref to an entity which logically contains this entity.  This is
+// the parent in a containment hierarchy such as site/space/equip.
+// Containment is transitive: if A is contained by B and B is
+// contained by C, then A is contained by C.
+ContainedByRef: Ref <transitive>
+
+// Ref to a group entity this entity is a member of.  Groups
+// cross-cut the containment hierarchy and may overlap, so an
+// entity may be a member of multiple groups.  Membership is
+// transitive thru nested groups: a member of a subsystem is a
+// member of the parent system.
+MemberOfRef: MultiRef <transitive>
+
+// Ref to an entity which feeds this entity.  The medium meta
+// names the spec of what is fed, such as air, chilled water, or
+// data.  Feeding is transitive: if A is fed by B and B is fed by
+// C, then A is fed by C.
+FedByRef: MultiRef <transitive>
+
++Spec {
+  // Spec of what is fed for a FedByRef relationship
+  medium: Ref?
+
+  // Marker applied to a relationship ref type to indicate it is
+  // transitive: if the relationship applies to A,B and B,C then
+  // it also applies to A,C
+  transitive: Marker?
+}

@@ -30,7 +30,7 @@ Computer: Device {
 // actuators or via network [protocols](ph::PhEntity.protocol).
 Controller: Device {
   controller
-  equipRef: Ref?
+  equipRef: ContainedByRef?
 }
 
 // Cellular phone providing telecommunication over radio links.

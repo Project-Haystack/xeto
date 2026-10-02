@@ -11,10 +11,10 @@
 // See [ph.doc::Equips] chapter.
 Equip: PhEntity <abstract> {
   equip
-  equipRef:     Ref?
-  siteRef:      Ref
-  spaceRef:     Ref?
-  systemRef:    MultiRef?
+  equipRef:     ContainedByRef?
+  siteRef:      ContainedByRef
+  spaceRef:     ContainedByRef?
+  systemRef:    MemberOfRef?
   parentEquips: Query<of:Equip, via:"equipRef+">                  // Parent Equips that contain this Equip
   childEquips:  Query<of:Equip, inverse:"ph::Equip.parentEquips"> // Child Equips contained by this Equip
   points:       Query<of:Point, inverse:"ph::Point.equips">       // Child Points contained by this Equip

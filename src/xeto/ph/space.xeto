@@ -12,8 +12,8 @@
 Space: PhEntity <abstract> {
   space
   area:     Number?
-  siteRef:  Ref
-  spaceRef: Ref?
+  siteRef:  ContainedByRef
+  spaceRef: ContainedByRef?
 }
 
 // Space used to house computer and networking gear.

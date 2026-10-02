@@ -40,7 +40,7 @@ PhEntity: Entity <abstract> {
   *airCooling: Marker
 
   // Air flows from the referent to this entity
-  *airRef: MultiRef
+  *airRef: FedByRef <medium:Air>
 
   // Notification of a condition which requires attention
   *alarm: Marker
@@ -114,7 +114,7 @@ PhEntity: Entity <abstract> {
   *blowdown: Marker
 
   // Blowdown water flows from the referent to this entity
-  *blowdownWaterRef: MultiRef
+  *blowdownWaterRef: FedByRef <medium:BlowdownWater>
 
   // Short range wireless communication protocol
   *bluetooth: Marker
@@ -160,7 +160,7 @@ PhEntity: Entity <abstract> {
   *chilledWaterCooling: Marker
 
   // Chilled water flows from the referent to this entity
-  *chilledWaterRef: MultiRef
+  *chilledWaterRef: FedByRef <medium:ChilledWater>
 
   // Equipment to remove heat from a liquid.  Chillers typically use a vapor
   // compression or an absorption refrigeration cycle.
@@ -228,7 +228,7 @@ PhEntity: Entity <abstract> {
   *condensate: Marker
 
   // Condensate flows from the referent to this entity
-  *condensateRef: MultiRef
+  *condensateRef: FedByRef <medium:Condensate>
 
   // Device or related to process of condensation
   *condenser: Marker
@@ -243,7 +243,7 @@ PhEntity: Entity <abstract> {
   *condenserOpenLoop: Marker
 
   // Condenser water flows from the referent to this entity
-  *condenserWaterRef: MultiRef
+  *condenserWaterRef: FedByRef <medium:CondenserWater>
 
   // Related to cleaning, heating, cooling, humidifying, dehumidifying,
   // ventilating or circulating  air. 
@@ -386,7 +386,7 @@ PhEntity: Entity <abstract> {
   *domestic: Marker
 
   // Domestic water flows from the referent to this entity
-  *domesticWaterRef: MultiRef
+  *domesticWaterRef: FedByRef <medium:DomesticWater>
 
   // Opening in a building, enclosure, or vehicle body fitted with a
   // panel that opens to admit passage and closes to block it.
@@ -441,7 +441,7 @@ PhEntity: Entity <abstract> {
   *elecQuadrant: ElecAcQuadrant
 
   // Electricity flows from the referent to this entity
-  *elecRef: MultiRef
+  *elecRef: FedByRef <medium:Elec>
 
   // Enclosure used to move people between floors.
   *elevator: Marker
@@ -494,7 +494,7 @@ PhEntity: Entity <abstract> {
   *equip: Marker
 
   // Reference to equip which contains this entity
-  *equipRef: Ref <of:Equip>
+  *equipRef: ContainedByRef <of:Equip>
 
   // Moving staircase used to move people between floors.
   *escalator: Marker
@@ -602,7 +602,7 @@ PhEntity: Entity <abstract> {
   *fuelOilHeating: Marker
 
   // Fuel oil flows from the referent to this entity
-  *fuelOilRef: MultiRef
+  *fuelOilRef: FedByRef <medium:FuelOil>
 
   // Ventilation equipment to limit exposure to hazardous fumes.
   *fumeHood: Marker
@@ -611,7 +611,7 @@ PhEntity: Entity <abstract> {
   *gasoline: Marker
 
   // Gasoline flows from the referent to this entity
-  *gasolineRef: MultiRef
+  *gasolineRef: FedByRef <medium:Gasoline>
 
   // Free form street address.  Best practice is to follow local
   // norms for a postal address.  Typically this string includes
@@ -738,7 +738,7 @@ PhEntity: Entity <abstract> {
   *hotWaterHeating: Marker
 
   // Hot water flows from the referent to this entity
-  *hotWaterRef: MultiRef
+  *hotWaterRef: FedByRef <medium:HotWater>
 
   // Hypertext Transfer Protocol which is foundation of the web
   *http: Marker
@@ -845,7 +845,7 @@ PhEntity: Entity <abstract> {
   *makeup: Marker
 
   // Makeup water flows from the referent to this entity
-  *makeupWaterRef: MultiRef
+  *makeupWaterRef: FedByRef <medium:MakeupWater>
 
   // Company name that produced the asset.
   *manufacturer: Marker
@@ -984,7 +984,7 @@ PhEntity: Entity <abstract> {
   *naturalGasHeating: Marker
 
   // Natural gas flows from the referent to this entity
-  *naturalGasRef: MultiRef
+  *naturalGasRef: FedByRef <medium:NaturalGas>
 
   // Difference between import and export
   *net: Marker
@@ -1259,7 +1259,7 @@ PhEntity: Entity <abstract> {
   *refrig: Marker
 
   // Refrigerant flows from the referent to this entity
-  *refrigRef: MultiRef
+  *refrigRef: FedByRef <medium:Refrig>
 
   // Command point for reheating process
   *reheat: Marker
@@ -1359,7 +1359,7 @@ PhEntity: Entity <abstract> {
   *siteMeter: Marker
 
   // Reference to site which contains the entity
-  *siteRef: Ref <of:Site>
+  *siteRef: ContainedByRef <of:Site>
 
   // Simple Mail Transfer Protocol for sending email
   *smtp: Marker
@@ -1385,7 +1385,7 @@ PhEntity: Entity <abstract> {
   *space: Marker
 
   // Reference to space which contains this entity
-  *spaceRef: Ref <of:Space>
+  *spaceRef: ContainedByRef <of:Space>
 
   // Distance per unit time
   *speed: Marker
@@ -1416,7 +1416,7 @@ PhEntity: Entity <abstract> {
   *steamHeating: Marker
 
   // Steam flows from the referent to this entity
-  *steamRef: MultiRef
+  *steamRef: FedByRef <medium:Steam>
 
   // Submeters measure usage of a sub-system or equipment within a site
   *submeter: Marker
@@ -1450,7 +1450,7 @@ PhEntity: Entity <abstract> {
   *system: Marker
 
   // Reference to system
-  *systemRef: MultiRef <of:System>
+  *systemRef: MemberOfRef <of:System>
 
   // Mobile device with touch screen for user input.
   *tablet: Marker

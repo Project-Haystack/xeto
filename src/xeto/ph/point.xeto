@@ -12,15 +12,15 @@
 Point: PhEntity <abstract> {
   point
   cur:           Marker?
-  equipRef:      Ref?
+  equipRef:      ContainedByRef?
   his:           Marker?
   kind:          Kind
   pointFunction: PointFunction?  // Sensor, command, setpoint/softpoint
   pointQuantity: Quantity?       // Quantity measured or controlled
   pointSubject:  Phenomenon?     // Substance/phenomenon measured or controlled
-  siteRef:       Ref?
-  spaceRef:      Ref?
-  systemRef:     MultiRef?
+  siteRef:       ContainedByRef?
+  spaceRef:      ContainedByRef?
+  systemRef:     MemberOfRef?
   tz:            TimeZone?
   writable:      Marker?
   equips:        Query<of:Equip, via:"equipRef+">  // Parent Equips that contain this Point

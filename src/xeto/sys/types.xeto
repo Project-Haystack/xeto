@@ -59,6 +59,11 @@ Duration: Number <sealed, quantity:"time"> "0sec"
 Uri: Scalar <sealed>  ""
 
 // Reference to another dict.  The `of` meta defines target type.
+// Ref may be subtyped to classify relationship semantics such as
+// `sys.refs::ContainedByRef`.  Subtypes are nominal metadata on the
+// spec only, never value identity: values are always plain refs,
+// so reflection of a ref value always yields sys::Ref and a plain
+// ref value fits any Ref subtype.
 // Refs must adhere to the following limited set of ASCII characters:
 // - ASCII lower case letter a-z
 // - ASCII upper case letter A-Z
@@ -69,11 +74,11 @@ Uri: Scalar <sealed>  ""
 // - Period "."
 // - Tilde "~"
 // - Double colon "::" is reserved for specs/instances in a xeto lib
-Ref: Scalar <sealed, pattern: "[a-zA-Z\\d\\._~:-]*"> "x"
+Ref: Scalar <pattern: "[a-zA-Z\\d\\._~:-]*"> "x"
 
 // Reference or list of references.  The `of` meta defines target type.
 // The value may be either a single ref or a list of refs.
-MultiRef: Obj <sealed>
+MultiRef: Obj
 
 // Version string formatted as decimal digits separated by a dot: `5.0.3`
 Version: Scalar <sealed, pattern: "\\d+(\\.\\d+)*"> "0"
