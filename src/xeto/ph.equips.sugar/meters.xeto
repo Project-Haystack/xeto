@@ -1,0 +1,25 @@
+//
+// Copyright (c) 2024, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   21 Mar 2024 Brian Frank  Creation
+//
+
+// Water flow meter
+WaterMeter : FlowMeter <sugar> { water }
+
+// Domestic water flow meter
+DomesticWaterMeter : WaterMeter { domestic }
+
+// Hot water flow meter
+HotWaterMeter : WaterMeter { hot }
+
+// Chilled water flow meter
+ChilledWaterMeter : WaterMeter { chilled }
+
+// Steam flow meter
+SteamMeter : FlowMeter <sugar> { steam }
+
+// Natural gas flow meter
+NaturalGasMeter : FlowMeter <sugar> { naturalGas }

@@ -7,31 +7,31 @@
 //
 
 // Duct to access fresh outside air only for economizing, not ventilation
-EconomizerDuct: Duct { economizer }
+EconomizerDuct: Duct <sugar> { economizer }
 
 // Duct for exhausting combustion
-FlueDuct: Duct { flue }
+FlueDuct: Duct <sugar> { flue }
 
 // Duct with air entering an equipment
-InletDuct: Duct { inlet }
+InletDuct: Duct <sugar> { inlet }
 
 // Duct to access fresh outside air only for ventilation, not economizing
-VentilationDuct: Duct { ventilation }
+VentilationDuct: Duct <sugar> { ventilation }
 
 // Duct to access fresh outside air for both ventilation and economizer.
-OutsideDuct: Duct { outside }
+OutsideDuct: Duct <sugar> { outside }
 
 // Duct for air leaving an equipment
-DischargeDuct: Duct { discharge }
+DischargeDuct: Duct <sugar> { discharge }
 
 // Duct used to expel air back outside
-ExhaustDuct: Duct { exhaust }
+ExhaustDuct: Duct <sugar> { exhaust }
 
 // Duct returning air back to equipment
-ReturnDuct: Duct { return }
+ReturnDuct: Duct <sugar> { return }
 
 // Duct where fresh outside air and return air is mixed together
-MixedDuct: Duct { mixed }
+MixedDuct: Duct <sugar> { mixed }
 
 // Discharge duct for cooling
 ColdDeckDischargeDuct: DischargeDuct { coldDeck }
@@ -41,4 +41,3 @@ HotDeckDischargeDuct: DischargeDuct { hotDeck }
 
 // Discharge duct which by-passes both heating and cooling coils
 NeutralDeckDischargeDuct: DischargeDuct { neutralDeck }
-

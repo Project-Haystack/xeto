@@ -7,13 +7,4 @@
 //
 
 // Air handler which feeds VAVs
-VavZoneAhu : Ahu {
-  vavZone
-  vavs: Query <of:Vav, inverse:"ph.equips::AhuVav.ahu">
-}
-
-// VAV which is fed by an AHU
-AhuVav : Vav {
-  myAhu: Query<of:Ahu, via:"airRef+">
-}
-
+VavZoneAhu : Ahu <sugar> { vavZone }

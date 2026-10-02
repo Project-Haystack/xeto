@@ -39,6 +39,10 @@ AcElecMeter: ElecMeter {
 // [ph.doc::Meters#electric-meters] chapter for more details.
 AcEvsePort: EvsePort & ElecAcEquip
 
+// An AC EVSE port with a single AC EVSE connector, modeled as one combined
+// entity.  See [ph.doc::EVSE] chapter.
+AcEvsePortConnector: AcEvsePort & AcEvseConnector
+
 // Equipment to move or control a mechanism.  Actuators may be manually
 // operated or automated via a control system to convert an energy source
 // into mechanical energy.  Typically the energy source is electricity,
@@ -198,6 +202,10 @@ DcElecMeter: ElecMeter {
 // EVSE port, but not both.  Usually it is preferred to control a DC EVSE
 // port using a max power setpoint.
 DcEvsePort: EvsePort & ElecDcEquip
+
+// A DC EVSE port with a single DC EVSE connector, modeled as one combined
+// entity.  See [ph.doc::EVSE] chapter.
+DcEvsePortConnector: DcEvsePort & DcEvseConnector
 
 // Dedicated Outside Air System: An AHU that brings in 100% outside air and
 // no recirculated air in order to provide ventilation to spaces.

@@ -30,8 +30,8 @@ globally unique.  Examples:
 ```
   Str                         // simple name
   sys::Str                    // qualified name
-  NaturalGasMeter             // simple name
-  ph.equips::NaturalGasMeter  // qualified name
+  AirTempSensor               // simple name
+  ph.points::AirTempSensor    // qualified name
 ```
 
 Dict slots are also specs that follow same naming restrictions but must start

@@ -1,0 +1,16 @@
+//
+// Copyright (c) 2023, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   22 Mar 2023  Brian Frank  Creation
+//
+
+// Pump circulating hot water
+HotWaterPump : Pump <sugar> { hot, water }
+
+// Pump circulating chilled water
+ChilledWaterPump : Pump <sugar> { chilled, water }
+
+// Pump circulating condenser water
+CondenserWaterPump : Pump <sugar> { condenser, water }

@@ -7,7 +7,7 @@
 //
 
 pragma: Lib <
-  doc: "Project haystack experimental equips library"
+  doc: "Project haystack sugar equips library"
   version: BuildVar "ph.version"
   maturity: BuildVar "ph.maturity"
   depends: {
@@ -25,4 +25,3 @@ pragma: Lib <
     uri:  BuildVar "ph.vcs.uri"
   }
 >
-
