@@ -8,3 +8,9 @@
 
 // Air handler which feeds VAVs
 VavZoneAhu : Ahu <sugar> { vavZone }
+
+// VAV with hot water reheat
+ReheatVav : Vav <sugar> { hotWaterHeating }
+
+// Cooling only VAV with no local heat
+CoolingOnlyVav : Vav <sugar> { coolingOnly }
