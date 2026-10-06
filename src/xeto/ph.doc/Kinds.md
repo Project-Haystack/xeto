@@ -88,7 +88,7 @@ measurement.  Implementations should represent a number as a 64-bit IEEE 754
 floating point and provide 52 bits of lossless integer representation.
 
 All Haystack Numbers may include an optional unit of measurement.  This
-unit must be a symbol defined in the standard [unit database](Units).
+unit must be a symbol defined in the standard [unit database](doc.xeto::Units).
 
 Encodings:
 
@@ -210,7 +210,7 @@ Time is an ISO 8601 time of day.  It is encoded as hh:mm:ss.sss:
 # DateTime
 DateTime is an ISO 8601 timestamp paired with a timezone name.  Haystack
 requires all timestamps to include a timezone.  Timezone names are standardized
-in the [timezone database](TimeZones) (city name from zoneinfo database).
+in the [timezone database](doc.xeto::TimeZones) (city name from zoneinfo database).
 Implementations should support DateTime precision at least down to the millisecond.
 
 The encoding of DateTime is the ISO 8601 representation followed by a space

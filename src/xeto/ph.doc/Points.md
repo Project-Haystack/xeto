@@ -29,8 +29,12 @@ Points must be classified as analog, digital, or multi-state using the [ph::PhEn
     define an `enum` tag for the text to use for the false/true states
   - [ph::NumberPoint]: models analog points, such as temperature or pressure.
     These points should also include the `unit` to indicate the point's
-    unit of measurement.
+    unit of measurement from the standard [unit database](doc.xeto::Units).
   - [ph::EnumPoint]: models an enumerated point with a mode such as "Off, Slow, Fast".
+
+As a general principle, all the data associated with a given site should
+exclusively use either the SI metric system or the US customary system.
+Mixing unit systems within one site will cause serious headaches.
 
 # Point Min/Max
 Analog points may define a minimum and/or maximum for the point:

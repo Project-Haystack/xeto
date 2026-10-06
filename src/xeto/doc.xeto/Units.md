@@ -7,18 +7,12 @@ license:    Licensed under the Academic Free License version 3.0
 -->
 
 # Overview
-All number tag values can be annotated with an optional unit.  In addition,
-it is required to annotate each numeric [ph::PhEntity.point] with the [ph::PhEntity.unit] tag.  In
-both cases, the unit must be an identifier defined by the standard unit
-database.
-
-# Unit System
-As a general principle, all the data associated with a given site should
-exclusively use either the SI metric system or the US customary system.
-Mixing unit systems within one site will cause serious headaches.
+All Number values can be annotated with an optional unit.  The unit must be
+an identifier defined by the standard unit database, which is standardized
+by the [sys::Unit] enum.
 
 # Database
-The unit database used by Project Haystack is managed by the
+The unit database is managed by the
 [Fantom](http://fantom.org/) open source community as part of the
 [sys::Unit](http://fantom.org/doc/sys/Unit.html) API.
 This database was originally based on the [oBIX](http://en.wikipedia.org/wiki/OBIX)
@@ -51,8 +45,8 @@ to the BACnet "no-units" engineering unit and the QUDT `unit:UNITLESS`.
 Formatted display omits it, so `3unitless` shows as "3".
 
 # Common Units
-Below are some commonly used units.  You can download the full unit database
-from [project-haystack.org](https://project-haystack.org/download#units) website.
+Below are some commonly used units.  The full unit database is defined
+by the [sys::Unit] enum.
 
     --- Misc ---
     percent, %

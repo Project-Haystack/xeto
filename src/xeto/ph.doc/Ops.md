@@ -18,7 +18,7 @@ The `about` op queries basic information about the server.
 
 **Response**: single row grid with following columns:
   - `haystackVersion`: Str version `ph` library
-  - `tz`: Str of server's default [timezone](ph.doc::TimeZones)
+  - `tz`: Str of server's default [timezone](doc.xeto::TimeZones)
   - `serverName`: Str name of the server or project database
   - `serverTime`: current DateTime of server's clock
   - `serverBootTime`: DateTime when server was booted up

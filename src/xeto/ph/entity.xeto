@@ -1497,10 +1497,10 @@ PhEntity: Entity <abstract> {
   // modern [ph::PhEntity.threePhase] systems.
   *twoPhase: Marker
 
-  // Timezone identifier from standard [timezone database](ph.doc::TimeZones)
+  // Timezone identifier from standard [timezone database](doc.xeto::TimeZones)
   *tz: TimeZone
 
-  // Unit identifier from standard unit database
+  // Unit identifier from standard [unit database](doc.xeto::Units)
   *unit: Unit
 
   // Unit Ventilator: An FCU that has direct access to outside air to provide

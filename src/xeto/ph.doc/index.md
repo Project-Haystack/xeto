@@ -3,8 +3,6 @@
 # Data Model
 
 - [Kinds](Kinds.md): Data types
-- [TimeZones](TimeZones.md): Respresentation of timezones
-- [Units](Units.md): Respresentation  of units of measurement
 
 # Ontology
 
@@ -18,6 +16,7 @@
 - [PointPatterns](PointPatterns.md): Standardized specs and patterns for points
 - [Weather](Weather.md): Weather station entities
 - [Devices](Devices.md): Device entities including controllers and networks
+- [EquipTemplates](EquipTemplates.md): Vendor equip templates with BACnet and Modbus addresses
 
 # Verticals
 
