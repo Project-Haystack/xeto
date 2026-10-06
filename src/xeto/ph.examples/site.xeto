@@ -14,6 +14,7 @@
   geoState: "VA"
   geoPostalCode: "23220"
   geoCountry: "US"
+  tz: "New_York"
 }
 
 @a-ahu-1: Ahu {
@@ -27,5 +28,6 @@
   dis: "AHU-1 Discharge Temp Sensor"
   siteRef: @a
   equipRef: @a-ahu-1
+  tz: "New_York"
 }
 

@@ -56,7 +56,7 @@ NumberPoint : Point <abstract> {
   // Number points are required to have `"Number"` kind
   kind: Kind <invariant> "Number"
 
-  // Unit of measurement for the point
+  // Unit of measurement for the point; use `unitless` for dimensionless values
   unit: Unit
 
   // Inclusive maximum expected or writable value for the point

@@ -43,6 +43,13 @@ By convention, the symbol is the preferred notation.  If there are multiple
 symbols, then the last symbol defined by the database is the preferred
 one.
 
+# Unitless
+The `unitless` unit marks a number which is intentionally dimensionless: a
+count or ratio with no standard unit.  Use it where a unit is required but none
+applies, such as a number point for a vendor configuration code.  It corresponds
+to the BACnet "no-units" engineering unit and the QUDT `unit:UNITLESS`.
+Formatted display omits it, so `3unitless` shows as "3".
+
 # Common Units
 Below are some commonly used units.  You can download the full unit database
 from [project-haystack.org](https://project-haystack.org/download#units) website.
@@ -95,3 +102,4 @@ from [project-haystack.org](https://project-haystack.org/download#units) website
     --- Volumetric Flow ---
     liters_per_second, L/s
     cubic_feet_per_minute, cfm
+

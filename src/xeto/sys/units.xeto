@@ -1,11 +1,12 @@
 //
 // Copyright (c) 2011-2026, Project-Haystack
 // Licensed under the Academic Free License version 3.0
-// Auto-generated 25-Aug-2026
+// Auto-generated 06-Oct-2026
 //
 
 // Unit symbols for standardized database
 Unit: Enum {
+  unitless <key:"unitless">
   percent <key:"%">
   percent_relative_humidity <key:"%RH">
   pixel <key:"px">
@@ -589,4 +590,3 @@ UnitQuantity: Enum {
   volumetricFlow
   bytes
 }
-

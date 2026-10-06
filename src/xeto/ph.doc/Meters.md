@@ -180,7 +180,7 @@ characteristics:
   - [ph::PhEntity.magnitude]: RMS magnitude
   - [ph::PhEntity.angle]: phase angle, typically measured in "deg"
   - [ph::PhEntity.imbalance]: imbalance, measured in "%"
-  - [ph::PhEntity.thd]: total harmonic distortion, measured in "%"
+  - [ph.elec::PhEntity.totalHarmonicDistortion]: total harmonic distortion, measured in "%"
 
 If a voltage or current characteristic tag is not specified, then [ph::PhEntity.magnitude]
 is the assumed or default characteristic.
