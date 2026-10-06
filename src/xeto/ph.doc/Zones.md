@@ -74,8 +74,8 @@ In addition, we might also find the following points:
 All the points above must also be tagged with [ph::PhEntity.zone], [ph::PhEntity.air], and [ph::PhEntity.point].
 
 # Air Quality
-It is also common in an HVAC zone to also measure and control air quality.
-Typical air quality points include:
+It is also common in an HVAC zone to also measure and control air quality
+using a [ph::ZoneMonitor].  Typical air quality points include:
 
   - [ph::Ch2oConcentration] [ph::PhEntity.sensor]: measured formaldehyde (CH₂O)
   - [ph::CoConcentration] [ph::PhEntity.sensor]: measured carbon monoxide (CO)

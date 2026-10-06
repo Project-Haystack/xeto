@@ -604,3 +604,9 @@ Wire: Conduit {
   wire
 }
 
+// Device that measures zone conditions such as temperature, humidity,
+// occupancy, or air quality.
+ZoneMonitor: Equip {
+  zoneMonitor
+}
+

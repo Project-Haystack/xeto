@@ -1649,6 +1649,10 @@ PhEntity: Entity <abstract> {
   // Related to spaces from a system perspective
   *zone: Marker
 
+  // Wall mounted device which measures the conditions of a zone without
+  // controlling them. See [ph::ZoneMonitor].
+  *zoneMonitor: Marker
+
   // Low power wireless communication protocol for home automation
   *zwave: Marker
 }
