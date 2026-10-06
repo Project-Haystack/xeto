@@ -7,11 +7,12 @@
 - [Libs](Libs.md): library modules
 - [Specs](Specs.md): specification type definitions
 - [Instances](Instances.md): instance data
-- [Grids](Grids.md): tabular data structure
 - [Namespaces](Namespaces.md): closed set of libs that define name space
 
 # Data Model
 
+- [Types](Types.md): core scalar and collection types
+- [Grids](Grids.md): tabular data structure
 - [Filters](Filters.md): predicates for querying Haystack data
 - [TimeZones](TimeZones.md): representation of timezones
 - [Units](Units.md): representation of units of measurement
