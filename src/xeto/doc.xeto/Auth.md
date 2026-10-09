@@ -7,15 +7,15 @@ license:    Licensed under the Academic Free License version 3.0
 -->
 
 # Overview
-This section covers various aspects of authentication in Haystack. There are
-two supported authentication paths:
+This section covers various aspects of authentication in [Xeto HTTP API](HttpApi.md).
+There are two supported authentication paths:
 
-1. **Haystack HTTP Authentication** — A general-purpose, pluggable protocol
+1. **Xeto HTTP Authentication** — A general-purpose, pluggable protocol
    where the client completes a hello/exchange handshake directly with the
-   Haystack server and receives an `authToken`.
+   Xeto server and receives an `authToken`.
 2. **OAuth 2.0** — The client obtains an access token from an authorization
-   server — which may be the Haystack server itself or an external identity
-   provider — and then presents that token to the Haystack server as its auth
+   server — which may be the Xeto server itself or an external identity
+   provider — and then presents that token to the Xeto server as its auth
    token. The server advertises OAuth 2.0 support alongside other mechanisms in
    its hello handshake response.
 
@@ -106,7 +106,7 @@ that user may authenticate with SCRAM. A "handshakeToken" is included in
 the response, so the client must include it on its next request.
 
 ```
-C: GET /haystack/about HTTP/1.1
+C: GET /api/about HTTP/1.1
    Host: server.example.com
    Authorization: HELLO username=dXNlcg
 
@@ -195,7 +195,7 @@ are without padding.
 The client sends a hello message identifying itself as "user".
 
 ```
-C: GET /haystack/about HTTP/1.1
+C: GET /api/about HTTP/1.1
    Host: server.example.com
    Authorization: HELLO username=dXNlcg
 ```
@@ -223,7 +223,7 @@ to the hello message.
 - The “data" attribute contains the base64url-encoded “client-first-message".
 
 ```
-C: GET /haystack/about HTTP/1.1
+C: GET /api/about HTTP/1.1
    Host: server.example.com
    Authorization: SCRAM handshakeToken=aabbcc,
        data=biwsbj11c2VyLHI9ck9wck5HZndFYmVSV2diTkVrcU8K
@@ -244,7 +244,7 @@ S: HTTP/1.1 401 Unauthorized
            bGopaE5sRixzPVcyMlphSjBTTlk3c29Fc1VFamI2Z1E9PSxpPTQwOTYK
 ```
 
-The client continues the authentication exchange with another GET to /haystack/about.
+The client continues the authentication exchange with another GET to /api/about.
 The following attributes are specified:
 
 - The “handshakeToken" is included since the server included one in its
@@ -252,7 +252,7 @@ previous response.
 - The “data" attribute contains the base64url-encoded “client-final-message".
 
 ```
-C: GET /haystack/about HTTP/1.1
+C: GET /api/about HTTP/1.1
    Host: server.example.com
    Authorization: SCRAM handshakeToken=authAABBCC,
        data=Yz1iaXdzLHI9ck9wck5HZndFYmVSV2diTkVrcU8laHZZRHBXVWEyUmFUQ
@@ -291,7 +291,7 @@ password `password` authenticates with the server.
 The client sends a hello message identifying the user as `user`.
 
 ```
-C: GET /haystack/about HTTP/1.1
+C: GET /api/about HTTP/1.1
    HOST: server.example.com
    Authorization: HELLO username=dXNlcg
 ```
@@ -311,7 +311,7 @@ The client continues the authentication exchange. The following attributes are i
 - `password`: the base64url-encoded password
 
 ```
-C: GET /haystack/about HTTP/1.1
+C: GET /api/about HTTP/1.1
    Host: server.example.com
    Authorization: PLAINTEXT username=dXNlcg, password=cGFzc3dvcmQ
 ```
@@ -324,9 +324,9 @@ S: HTTP/1.1 200 Ok
 ```
 # OAuth 2.0
 A server MAY offer OAuth 2.0 [RFC6749](#references) as an alternative to the
-Haystack authentication exchange. The client obtains an access token from an
-authorization server (the Haystack server itself or an external identity
-provider) and presents it to the Haystack server as its auth token. How the
+Xeto authentication exchange. The client obtains an access token from an
+authorization server (the Xeto server itself or an external identity
+provider) and presents it to the Xeto server as its auth token. How the
 token is obtained is outside the scope of this specification and is left to the
 OAuth 2.0 specifications and the implementation.
 
@@ -348,7 +348,7 @@ padding. The following parameters are defined:
 - `scopes` (optional): a space-separated list of scopes to request.
 
 ```
-C: GET /haystack/about HTTP/1.1
+C: GET /api/about HTTP/1.1
    Host: server.example.com
    Authorization: HELLO username=dXNlcg
 
@@ -365,7 +365,7 @@ advertised mechanism.
 
 ## Using the Access Token
 The client presents the access token exactly like an `authToken` obtained from
-the Haystack exchange, as described in the [Auth Token](#auth-token) section:
+the Xeto exchange, as described in the [Auth Token](#auth-token) section:
 
 ```
 C: GET /some/resource HTTP/1.1
@@ -397,3 +397,4 @@ padding.
  [RFC8414](https://tools.ietf.org/html/rfc8414): OAuth 2.0 Authorization Server Metadata
 
  [RFC9700](https://tools.ietf.org/html/rfc9700): Best Current Practice for OAuth 2.0 Security
+
