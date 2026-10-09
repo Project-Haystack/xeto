@@ -62,7 +62,7 @@ A simple HTTP protocol is specified by Haystack to facilitate exchanging
 data between servers and devices.  The protocol is based on a set of
 *ops* (short for operations) that provide a RPC mechanism to send a request
 and receive a response as grids encoded in one of the supported file types.
-Included in the specification is a pluggable SCRAM based [authentication](Auth)
+Included in the specification is a pluggable SCRAM based [authentication](doc.xeto::Auth)
 protocol.
 
 Some of the standard ops used for common IoT data exchanges:

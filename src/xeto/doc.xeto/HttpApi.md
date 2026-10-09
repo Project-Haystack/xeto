@@ -6,7 +6,7 @@ operation clients may invoke by URI.  The core operations are declared by
 [sys.api::index]; servers may add additional libs such as [ph.api::index].
 
 The API is version 5 of the Haystack REST API.  It shares its transport
-with [version 4](ph.doc::HttpApi) - same URIs, same authentication, same
+with [version 4](ph.doc::HttpApi) - same URIs, same [authentication](Auth.md), same
 format table - and differs in four behaviors covered in [Versions](#versions)
 below.  Its primary encoding is [Jeto](Jeto.md): plain JSON typed
 by the xeto function signature.

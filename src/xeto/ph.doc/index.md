@@ -44,7 +44,6 @@
 
 - [HttpApi](HttpApi.md): Haystack HTTP API
 - [Ops](Ops.md): HTTP API operations
-- [Auth](Auth.md): HTTP API authentication
 
 # Appendix
 

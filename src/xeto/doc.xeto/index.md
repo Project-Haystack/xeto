@@ -34,6 +34,7 @@
 - [Fidelity](Fidelity.md): type erasure rules when mapping to other data formats
 - [Jeto](Jeto.md): JSON representation
 - [HttpApi](HttpApi.md): HTTP API protocol
+- [Auth](Auth.md): HTTP API authentication
 - [Rdf](Rdf.md): RDF interoperability
 
 # Development

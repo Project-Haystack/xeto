@@ -57,7 +57,7 @@ Example response as grid:
 
 # Close
 The `close` op closes the current authentication session.  Sessions
-are established by the [auth handshake](Auth) and identified by the bearer
+are established by the [auth handshake](doc.xeto::Auth) and identified by the bearer
 token.  Calling this op should close the session on the server and invalidate
 the bearer token.
 

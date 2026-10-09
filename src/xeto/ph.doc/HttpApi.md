@@ -36,7 +36,7 @@ Clients select version 5 with the `Xeto-Version: 5` request header.
 
 # Authentication
 Compliant HTTP API implementations must implement the authentication
-protocol specified in the [Auth] chapter.
+protocol specified in the [Auth](doc.xeto::Auth) chapter.
 
 # URI Namespace
 A haystack server defines a HTTP URI as its base address.  Operations
