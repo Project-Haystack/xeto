@@ -7,7 +7,17 @@ license:    Licensed under the Academic Free License version 3.0
 -->
 
 # Overview
-This section covers various aspects of authentication in Haystack.
+This section covers various aspects of authentication in Haystack. There are
+two supported authentication paths:
+
+1. **Haystack HTTP Authentication** — A general-purpose, pluggable protocol
+   where the client completes a hello/exchange handshake directly with the
+   Haystack server and receives an `authToken`.
+2. **OAuth 2.0** — The client obtains an access token from an authorization
+   server — which may be the Haystack server itself or an external identity
+   provider — and then presents that token to the Haystack server as its auth
+   token. The server advertises OAuth 2.0 support alongside other mechanisms in
+   its hello handshake response.
 
 # HTTP Authentication
 HTTP authentication defines a general purpose, pluggable, authentication protocol
@@ -30,7 +40,7 @@ The rest of this document describes this process in more detail. We also define
 a standard set of authentication mechanisms and define how the authentication
 exchange should work for each mechanism.
 
-## HTTP1/1. Authentication
+## HTTP/1.1 Authentication
 This specification is based on the authentication framework presented in
 "HTTP/1.1: Authentication" [RFC7235](#references). We build on this framework
 by adding an explicit method for establishing what the supported
@@ -182,7 +192,7 @@ is used as the cryptographic hash function.
 Note: Header lines have been split to ease readability. All base64url encodings
 are without padding.
 
-The client sends a hello message indicating identifying itself as "user".
+The client sends a hello message identifying itself as "user".
 
 ```
 C: GET /haystack/about HTTP/1.1
@@ -312,14 +322,78 @@ The final server message indicates the user is authenticated.
 S: HTTP/1.1 200 Ok
    Authentication-Info: authToken=AuthTokenXXYYZZ
 ```
+# OAuth 2.0
+A server MAY offer OAuth 2.0 [RFC6749](#references) as an alternative to the
+Haystack authentication exchange. The client obtains an access token from an
+authorization server (the Haystack server itself or an external identity
+provider) and presents it to the Haystack server as its auth token. How the
+token is obtained is outside the scope of this specification and is left to the
+OAuth 2.0 specifications and the implementation.
+
+Implementations SHOULD follow current OAuth 2.0 security best practices, in
+particular the OAuth 2.0 Security Best Current Practice [RFC9700](#references)
+and, for native and command-line clients, OAuth 2.0 for Native Apps
+[RFC8252](#references).
+
+## Advertising OAuth 2.0 Support
+A server that supports OAuth 2.0 includes an `OAUTH2` challenge in the
+`WWW-Authenticate` header of its hello response, alongside any other supported
+mechanisms. All `OAUTH2` parameter values MUST be `base64url`-encoded with no
+padding. The following parameters are defined:
+
+- `issuer` (required): the issuer URI of the authorization server. Clients
+  typically use it to discover the authorization server's endpoints
+  [RFC8414](#references).
+- `clientId` (required): the OAuth 2.0 client identifier the client should use.
+- `scopes` (optional): a space-separated list of scopes to request.
+
+```
+C: GET /haystack/about HTTP/1.1
+   Host: server.example.com
+   Authorization: HELLO username=dXNlcg
+
+S: HTTP/1.1 401 Unauthorized
+   WWW-Authenticate: SCRAM hash=SHA-256, handshakeToken=aabbbcc,
+       OAUTH2 issuer=aHR0cHM6Ly9zZXJ2ZXIuZXhhbXBsZS5jb20,
+           clientId=aGF5c3RhY2stY2xpZW50,
+           scopes=aGF5c3RhY2s
+```
+
+A client that cannot complete an OAuth 2.0 flow (for example, a non-interactive
+client with no user present) MAY ignore the `OAUTH2` challenge and use another
+advertised mechanism.
+
+## Using the Access Token
+The client presents the access token exactly like an `authToken` obtained from
+the Haystack exchange, as described in the [Auth Token](#auth-token) section:
+
+```
+C: GET /some/resource HTTP/1.1
+   Host: server.example.com
+   Authorization: BEARER authToken=<access_token>
+```
+
+The access token MUST consist of valid `token` characters so it fits the
+restricted header syntax; if it does not, it MUST be `base64url`-encoded with no
+padding.
+
+
 
 # References
  [RFC4648](https://tools.ietf.org/pdf/rfc4648.pdf): The Base16, Base32, Base64 Data Encodings
 
  [RFC5802](https://tools.ietf.org/html/rfc5802): Salted Challenge Response Authentication Mechanism (SCRAM) SASL and GSS-API Mechanism
 
+ [RFC6749](https://tools.ietf.org/html/rfc6749): The OAuth 2.0 Authorization Framework
+
  [RFC7235](https://tools.ietf.org/html/rfc7235): Hypertext Transfer Protocol (HTTP/1.1) : Authentication
 
  [RFC7615](https://tools.ietf.org/html/rfc7615): HTTP Authentication-Info and Proxy-Authentication-Info Response Header Fields
 
  [RFC7804](https://tools.ietf.org/html/rfc7804): Salted Challenge Response HTTP Authentication Mechanism
+
+ [RFC8252](https://tools.ietf.org/html/rfc8252): OAuth 2.0 for Native Apps
+
+ [RFC8414](https://tools.ietf.org/html/rfc8414): OAuth 2.0 Authorization Server Metadata
+
+ [RFC9700](https://tools.ietf.org/html/rfc9700): Best Current Practice for OAuth 2.0 Security
