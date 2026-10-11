@@ -76,7 +76,7 @@ OpenPoint : BoolPoint <abstract> {
 }
 
 // Open and close enumeration
-OpenEnum: Enum { close, open }
+OpenEnum: Enum { closed, open }
 
 // Sensor for open/close state of equipment
 OpenSensor : OpenPoint & SensorPoint
