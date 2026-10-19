@@ -1448,20 +1448,108 @@ Equip : Dict {
 ex:site1 a sys:Entity, ex:Site .
 
 ex:equip2 a sys:Entity, ex:Equip ;
-  ex:Equip.siteRef ex:site1 .
+  ex:Equip.siteRef ex:site1 ;
+  sys:hasRefField ex:Equip.siteRef .
 
 ex:equip3 a sys:Entity, ex:Equip ;
-  ex:Equip.siteRef ex:site1 .
+  ex:Equip.siteRef ex:site1 ;
+  sys:hasRefField ex:Equip.siteRef .
 
 ex:equip1 a sys:Entity, ex:Equip ;
   ex:Equip.siteRef ex:site1 ;
-  ex:Equip.related ex:equip2, ex:equip3 .
+  ex:Equip.related ex:equip2, ex:equip3 ;
+  sys:hasRefField ex:Equip.siteRef, ex:Equip.related .
 ```
 
 The single `siteRef` value produces one statement. The two `related` values
 produce two statements with the same subject and property. Referenced Xeto
 entities are exported with their own `sys:Entity` and concrete spec types so
 typed and untyped reference shapes can validate them.
+
+#### Reference-field metadata
+
+RDF uses IRIs for Refs, Units, UnitQuantity values, and named nested Dicts.
+A link alone does not show which Xeto value produced it. `sys:hasRefField`
+identifies a Ref or MultiRef field on the record that stores it; the value of
+`sys:hasRefField` is the field's property IRI.
+
+| Stored Xeto value | Xeto Query behavior |
+| --- | --- |
+| Ref to an existing record | Follow it and consider that record for results. |
+| Ref to a missing record | Return no result from that branch. |
+| Unit, UnitQuantity, or named nested Dict | Fail if the Query tries to follow it as a Ref. |
+
+Without this metadata, SPARQL could return an empty result for the last case
+where Xeto reports an error. Query input validation uses `sys:hasRefField` to
+preserve that distinction.
+
+A Ref contains the ID of another record. That referenced record need not be
+present in the dataset. In library `example.people`, the metadata belongs to
+the record holding the Ref (`ex:` denotes that library's RDF namespace):
+
+The following RDF excerpts show instance data; schema triples are omitted.
+
+```xeto
+Person: Dict { address: Ref }
+@person1: Person { address: Ref "example.people::missingAddress" }
+```
+
+```turtle
+ex:person1 a sys:Entity, ex:Person ;
+  ex:Person.address ex:missingAddress ;
+  sys:hasRefField ex:Person.address .
+# No record for ex:missingAddress is present in this graph.
+```
+
+The graph contains the IRI `ex:missingAddress`, but no record describing that
+address, so this branch returns no result. `sys:hasRefField` describes the Ref
+stored on person1, not whether the address record exists. Separate record
+validation may reject the dangling Ref.
+
+Before following a field with values, Query input validation requires its
+`sys:hasRefField` statement. For example, following `address` on person1 above
+passes this check; removing the statement makes it fail. This prevents a nested
+Dict or a Unit IRI such as `unit:PA` from being mistaken for a Ref. An absent
+field or an empty MultiRef has nothing to follow and needs no statement.
+Consumers must preserve these statements when copying or transforming RDF.
+
+Exporters use the stored value to decide whether to add `sys:hasRefField`,
+including for `Obj` slots and undeclared fields. If a field is exported under
+several property IRIs, such as inherited aliases, the exporter lists each
+property IRI as a value of `sys:hasRefField` on the owning record.
+For example, an override narrows an inherited Ref to an Address Ref. The
+export retains both property IRIs and identifies both as reference fields:
+
+```xeto
+Address: Dict {}
+Person: Dict { address: Ref }
+Employee: Person { address: Ref<of:Address> }
+@address1: Address {}
+@employee1: Employee { address: @address1 }
+```
+
+```turtle
+ex:address1 a sys:Entity, ex:Address .
+ex:employee1 a sys:Entity, ex:Employee ;
+  ex:Person.address ex:address1 ;
+  ex:Employee.address ex:address1 ;
+  sys:hasRefField ex:Person.address, ex:Employee.address .
+```
+
+For an explicitly stored empty MultiRef, the exporter lists the field's
+property IRI under `sys:hasRefField`, but there are no referenced IDs to export.
+An absent field produces neither reference values nor `sys:hasRefField` metadata:
+
+```xeto
+Group: Dict { members: MultiRef? }
+@group1: Group { members: MultiRef {} }
+```
+
+```turtle
+ex:group1 a sys:Entity, ex:Group ;
+  sys:hasRefField ex:Group.members .
+# No ex:Group.members values: the MultiRef is empty.
+```
 
 ## Nested Object Slots
 
@@ -2159,11 +2247,16 @@ An optional slot omits `sh:minCount`. An invariant adds, for example,
 
 ## Queries
 
+Query traversal uses the [reference-field metadata](#reference-field-metadata)
+in exported instance data to distinguish Refs from other IRI-valued fields.
+
 ### SHACL Validation
 
 A Xeto `Query` is computed navigation, not a stored required field. Query slots
-therefore have no `sh:minCount` or `sh:maxCount`. Their `of` type becomes
-`sh:class`, and `via` or `inverse` metadata becomes a SHACL property path.
+without named body requirements impose no validation constraints. Their
+`via` or `inverse` metadata is retained as a SHACL property path, without
+`sh:class`, `sh:minCount`, or `sh:maxCount`. The `of` type selects query results;
+it does not require every record along the path to have that type.
 
 #### Supported Query Paths
 
@@ -2189,36 +2282,50 @@ ex:Equip a sh:NodeShape ;
   sh:targetClass ex:Equip ;
   sh:property [
     sh:path ex:Equip.plainPoints ;
-    sh:class ex:Point ;
   ] ;
   sh:property [
     sh:path [
       sh:oneOrMorePath [ sh:inversePath ex:Point.equipRef ]
     ] ;
-    sh:class ex:Point ;
   ] .
 
 ex:Point a sh:NodeShape ;
   sh:targetClass ex:Point ;
   sh:property [
-    sh:path [ sh:oneOrMorePath ex:Point.equipRef ] ;
+    sh:path ex:Point.equipRef ;
     sh:class ex:Equip ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path [ sh:oneOrMorePath ex:Point.equipRef ] ;
   ] .
 
 ex:Node a sh:NodeShape ;
   sh:targetClass ex:Node ;
   sh:property [
-    sh:path [ sh:zeroOrMorePath ex:Node.next ] ;
+    sh:path ex:Node.next ;
     sh:class ex:Node ;
+    sh:nodeKind sh:IRI ;
+    sh:maxCount 1 ;
+  ] ;
+  sh:property [
+    sh:path [ sh:zeroOrMorePath ex:Node.next ] ;
   ] .
 ```
 
-A Query does not require a particular number of matches. Its path may find no
-values, one value, or many values. Every value it finds must fit the Query's
-`of` type. A `+` path follows the named slot one or more times. A `*` path also
-includes the record being checked before following the slot, so that record
-must also fit the `of` type. Cycles are allowed and do not cause the traversal
-to continue forever.
+A Query without named body requirements does not require a particular number
+of matches. Its path may reach no records, one record, or many records. Only
+records that fit the Query's `of` type are returned; reaching other types does
+not invalidate the record containing the Query. A `+` path follows one or more
+references and may pass through records that do not fit `of`. Cycles are allowed,
+and each matching record is returned once.
+
+The Query's SHACL property path imposes no class or cardinality constraint.
+Constraints on the stored Ref or MultiRef remain unchanged: `Ref<of:Point>`
+still requires its referenced record to have class Point. Query execution and
+validation of the returned records are separate operations.
 
 Given only this instance relationship:
 
@@ -2234,7 +2341,7 @@ ex:equip1 ex:Equip.points ex:point1 .
 ```
 
 A plain query without `via` or `inverse` uses its slot property as `sh:path`,
-but still has no cardinality constraint. Required members declared inside a
+but still has no cardinality constraint. Required and optional members declared inside a
 query body are not mapped in this version; see
 [Deferred Mappings](#deferred-mappings).
 
@@ -2314,11 +2421,9 @@ ex:Equip a sh:NodeShape ;
     sh:path [
       sh:oneOrMorePath [ sh:inversePath ex:Point.equipRef ]
     ] ;
-    sh:class ex:Point ;
   ] ;
   sh:property [
     sh:path [ sh:inversePath ex:Point.equipRef ] ;
-    sh:class ex:Point ;
   ] .
 ```
 
@@ -2372,15 +2477,12 @@ base:Equip a sh:NodeShape ;
   sh:targetClass base:Equip ;
   sh:property [
     sh:path app:Equip.pointRef ;
-    sh:class base:Point
   ] ;
   sh:property [
     sh:path base:Equip.basePointRef ;
-    sh:class base:Point
   ] ;
   sh:property [
     sh:path [ sh:inversePath app:Point.equipRef ] ;
-    sh:class base:Point
   ] .
 ```
 
@@ -2743,7 +2845,7 @@ RDF or SHACL. The error identifies the unsupported construct and, when it is
 available, the affected qualified spec or slot. This specification does not
 define error codes or prescribe programming-language error types.
 
-- Required members inside a `Query` body. Their validation requires graph-mode
+- Required or optional members inside a `Query` body. Their validation requires graph-mode
   query traversal plus qualified SHACL value constraints.
 - `List` item types for enums and choices, pending Xeto/Haystack instance
   fidelity fixes.
