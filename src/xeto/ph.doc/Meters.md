@@ -285,34 +285,47 @@ Haystack recommends normalizing AC RMS current points as follows:
    normalized `absolute` value by taking the absolute value of the signed
    current point.
 
-## Locations for AC Measurements
+## Locations for AC Electrical Points
 
-AC electrical measurement locations are qualified by:
+The location of an `ac` electrical point, whether a sensor measurement or a
+setpoint, is qualified by the [ph.elec::ElecLocation] choice. Exactly one of
+its marker tags is applied to the point entity.
 
-  - [ph::PhEntity.phase]: for electrical measurements "L1", "L2", "L3", "L1-L2", "L2-L3", and
-  "L3-L1". Line-to-neutral voltage measurements are described using "L1", "L2", and "L3".
-  - [ph::PhEntity.ground]: for electrical current measurement of the electrical ground conductor
-  - [ph::PhEntity.neutral]: for electrical current measurement of the electrical neutral conductor
+Single line locations ([ph.elec::ElecLine]), which also describe
+line-to-neutral voltage measurements:
 
-Aggregated `ac` electrical measurements are qualified by:
+  - [ph.elec::PhEntity.elecL1]: line 1 ("L1")
+  - [ph.elec::PhEntity.elecL2]: line 2 ("L2")
+  - [ph.elec::PhEntity.elecL3]: line 3 ("L3")
 
-  - [ph::PhEntity.elecLAvg]: Average of "L1", "L2", and "L3" measurements (three-phase), or "L1" and "L2" (split-phase).
-  - [ph::PhEntity.elecLLAvg]: Average of "L1-L2", "L2-L3", and "L3-L1" measurements (three-phase only).
-  - [ph::PhEntity.total]: Sum of "L1", "L2", and "L3" measurements (three-phase), or "L1" and "L2" (split-phase). Applies only to `power`, `demand`, or `energy` point entities.
+Line-to-line locations ([ph.elec::ElecLineToLine]):
 
-Only the available measurements are averaged or totaled. For example,
-`elecLAvg` voltage in a three-phase power system represents the average of
-the "L1", "L2", and "L3" voltage measurements, but `elecLAvg`
+  - [ph.elec::PhEntity.elecL1L2]: between line 1 and line 2 ("L1-L2")
+  - [ph.elec::PhEntity.elecL2L3]: between line 2 and line 3 ("L2-L3")
+  - [ph.elec::PhEntity.elecL3L1]: between line 3 and line 1 ("L3-L1")
+
+Conductor locations:
+
+  - [ph::PhEntity.ground]: electrical current measurement of the ground conductor ([ph.elec::ElecGround])
+  - [ph::PhEntity.neutral]: electrical current measurement of the neutral conductor ([ph.elec::ElecNeutral])
+
+Aggregated locations:
+
+  - [ph.elec::PhEntity.elecLineAvg]: Average of "L1", "L2", and "L3" values (three-phase), or "L1" and "L2" (split-phase) ([ph.elec::ElecLineAvg])
+  - [ph.elec::PhEntity.elecLineToLineAvg]: Average of "L1-L2", "L2-L3", and "L3-L1" values (three-phase only) ([ph.elec::ElecLineToLineAvg])
+  - [ph::PhEntity.total]: Sum of "L1", "L2", and "L3" values (three-phase), "L1" and "L2" (split-phase), or "L1" (single-phase) ([ph.elec::ElecTotal]). Applies only to `power`, `demand`, `energy`, or `pf` point entities.
+
+Only the available values are averaged or totaled. For example,
+`elecLineAvg` voltage in a three-phase power system represents the average of
+the "L1", "L2", and "L3" voltage measurements, but `elecLineAvg`
 voltage in a split-phase power system represents the average of only the
 "L1" and "L2" measurements (because an "L3" measurement is not
 available in a split-phase system).
 
-Only one tag indicating the location of a measurement should be applied to
-a point entity. The `total` tag takes precedence when applicable to allow
-for common queries between three-phase and split-phase AC electrical systems.
-For example, in a split-phase `ac` electrical system the `total` tag should
-be applied to a point entity instead of `phase` to indicate the
-"L1-L2" power measurement.
+The `total` tag takes precedence when applicable to allow for common queries
+between three-phase and split-phase AC electrical systems. For example, in a
+split-phase `ac` electrical system the `total` tag should be applied to a
+point entity instead of `elecL1L2` to indicate the "L1-L2" power value.
 
 Note:  The primary quantity `freq` does not have location related tags.
 

@@ -8,6 +8,33 @@
 
 +PhEntity {
 
+  // Line 1 (L1) of an AC electric power system.
+  *elecL1: Marker
+
+  // Line 2 (L2) of an AC electric power system.
+  *elecL2: Marker
+
+  // Line 3 (L3) of an AC electric power system.
+  *elecL3: Marker
+
+  // Between line 1 (L1) and line 2 (L2) of an AC electric power system.
+  *elecL1L2: Marker
+
+  // Between line 2 (L2) and line 3 (L3) of an AC electric power system.
+  *elecL2L3: Marker
+
+  // Between line 3 (L3) and line 1 (L1) of an AC electric power system.
+  *elecL3L1: Marker
+
+  // Average of the L1-L2, L2-L3, and L3-L1 values of a three-phase AC
+  // electric power system.
+  *elecLineToLineAvg: Marker
+
+  // Average of the L1, L2, and L3 values of a three-phase AC electric power
+  // system, or the L1 and L2 values of an AC electric power system with two
+  // lines.
+  *elecLineAvg: Marker
+
   // Crest Factor. Ratio of a waveform's peak value to its RMS value. A clean
   // sine wave reads about 1.4; values that differ indicate waveform distortion
   // that can stress equipment.

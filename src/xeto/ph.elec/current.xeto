@@ -18,11 +18,7 @@ ElecAcUnsignedRmsCurrentSensor : ElecAcRmsCurrentSensor {
 
 // Sensor for line average RMS of AC electric current. Reports magnitude only;
 // does not use a sign to indicate whether electricity is imported or exported.
-ElecAcLAvgUnsignedRmsCurrentSensor : ElecAcUnsignedRmsCurrentSensor { elecLAvg }
-
-// Sensor for phase RMS of AC electric current. Reports magnitude only;
-// does not use a sign to indicate whether electricity is imported or exported.
-ElecAcPhaseUnsignedRmsCurrentSensor : ElecAcUnsignedRmsCurrentSensor { phase: Phase }
+ElecAcLineAvgUnsignedRmsCurrentSensor : ElecAcUnsignedRmsCurrentSensor { elecLineAvg }
 
 // Sensor for neutral RMS of AC electric current. Reports magnitude only;
 // does not use a sign to indicate whether electricity is imported or exported.
@@ -32,20 +28,14 @@ ElecAcNeutralUnsignedRmsCurrentSensor : ElecAcUnsignedRmsCurrentSensor { neutral
 // does not use a sign to indicate whether electricity is imported or exported.
 ElecAcGroundUnsignedRmsCurrentSensor : ElecAcUnsignedRmsCurrentSensor { ground }
 
-// Sensor for phase angle of AC electric current
-ElecAcPhaseAngleCurrentSensor : ElecAcAngleCurrentSensor { phase: Phase }
-
 // Sensor for neutral angle of AC electric current
 ElecAcNeutralAngleCurrentSensor : ElecAcAngleCurrentSensor { neutral }
 
 // Sensor for ground angle of AC electric current
 ElecAcGroundAngleCurrentSensor : ElecAcAngleCurrentSensor { ground }
 
-// Sensor for phase metric of AC electric current
-ElecAcPhaseQualityCurrentSensor : ElecAcQualityCurrentSensor { phase: Phase }
-
-// Sensor for phase average metric of AC electric current
-ElecAcLAvgQualityCurrentSensor : ElecAcQualityCurrentSensor { elecLAvg }
+// Sensor for line average metric of AC electric current
+ElecAcLineAvgQualityCurrentSensor : ElecAcQualityCurrentSensor { elecLineAvg }
 
 // Sensor for neutral metric of AC electric current
 ElecAcNeutralQualityCurrentSensor : ElecAcQualityCurrentSensor { neutral }
@@ -72,9 +62,6 @@ ElecDcNetCurrentSensor : ElecDcCurrentSensor { net }
 
 // Max setpoint for import of RMS of AC electric current
 ElecAcImportCurrentMaxSp : ElecAcCurrentMaxSp { import }
-
-// Max setpoint for phase import of RMS of AC electric current
-ElecAcPhaseImportCurrentMaxSp : ElecAcImportCurrentMaxSp { phase: Phase }
 
 //////////////////////////////////////////////////////////////////////////
 // DC Setpoints

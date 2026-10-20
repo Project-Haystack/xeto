@@ -60,33 +60,6 @@ ElecAcTotalExportApparentEnergySensor : ElecAcExportApparentEnergySensor { total
 // Sensor for total net of AC electric apparent energy
 ElecAcTotalNetApparentEnergySensor : ElecAcNetApparentEnergySensor { total }
 
-// Sensor for phase import of AC electric active energy
-ElecAcPhaseImportActiveEnergySensor : ElecAcImportActiveEnergySensor { phase: Phase }
-
-// Sensor for phase export of AC electric active energy
-ElecAcPhaseExportActiveEnergySensor : ElecAcExportActiveEnergySensor { phase: Phase }
-
-// Sensor for phase net of AC electric active energy
-ElecAcPhaseNetActiveEnergySensor : ElecAcNetActiveEnergySensor { phase: Phase }
-
-// Sensor for phase import of AC electric reactive energy
-ElecAcPhaseImportReactiveEnergySensor : ElecAcImportReactiveEnergySensor { phase: Phase }
-
-// Sensor for phase export of AC electric reactive energy
-ElecAcPhaseExportReactiveEnergySensor : ElecAcExportReactiveEnergySensor { phase: Phase }
-
-// Sensor for phase net of AC electric reactive energy
-ElecAcPhaseNetReactiveEnergySensor : ElecAcNetReactiveEnergySensor { phase: Phase }
-
-// Sensor for phase import of AC electric apparent energy
-ElecAcPhaseImportApparentEnergySensor : ElecAcImportApparentEnergySensor { phase: Phase }
-
-// Sensor for phase export of AC electric apparent energy
-ElecAcPhaseExportApparentEnergySensor : ElecAcExportApparentEnergySensor { phase: Phase }
-
-// Sensor for phase net of AC electric apparent energy
-ElecAcPhaseNetApparentEnergySensor : ElecAcNetApparentEnergySensor { phase: Phase }
-
 //////////////////////////////////////////////////////////////////////////
 // DC Sensors
 //////////////////////////////////////////////////////////////////////////
