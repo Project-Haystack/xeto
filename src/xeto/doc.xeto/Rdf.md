@@ -2495,6 +2495,147 @@ For `pointsInverse`, `Point.equips` first resolves to the query contributed by
 `app.equips`. That query traverses `app:Point.equipRef`, so reversing it
 produces `[ sh:inversePath app:Point.equipRef ]`.
 
+### Query Execution and Result Validation
+
+An executable translation has three parts: SHACL checks for inputs that would
+cause a query execution error, a SPARQL query that selects records, and SHACL
+constraints for separately validating those records. The property-path metadata
+above does not perform these operations by itself.
+
+Query selection and returned-record validation are separate operations. For
+example:
+
+```xeto
+Target: Dict { hit }
+Holder: Dict {
+  next: MultiRef?
+  direct: Query<of:Target, via:"next">
+}
+@a: Holder { next: MultiRef { @t } }
+@t: Target { hit }
+```
+
+The Query `direct` starting at `a` returns `t`. Validation against `Target`
+checks that `t` has `hit`. Nominal membership in Target does not establish
+that its required fields are present.
+
+The corresponding instance RDF is:
+
+```turtle
+ex:a a sys:Entity, ex:Holder ;
+  ex:Holder.next ex:t ;
+  sys:hasRefField ex:Holder.next .
+ex:t a sys:Entity, ex:Target ;
+  sys:hasMarker ex:Target.hit .
+```
+
+Here, `ex:` and `sys:` denote the concrete library-version namespaces.
+The following fragments show the translation for the property and result class
+used in this example. A translation must also include other property IRIs
+representing the followed tag and eligible result subclasses in the resolved
+schemas; it must not restrict traversal to the Query owner's property alone.
+
+#### Query Input Validation
+
+Input SHACL requires the starting record to exist and populated fields followed
+by the Query to contain references. These checks must pass before the SELECT
+is executed. For the starting record `a`:
+
+```turtle
+[] a sh:NodeShape ;
+  sh:targetNode ex:a ;
+  sh:nodeKind sh:IRI ;
+  sh:property [ sh:path rdf:type ; sh:hasValue sys:Entity ] ;
+  sh:or (
+    [ sh:property [ sh:path ex:Holder.next ; sh:maxCount 0 ] ]
+    [ sh:property [ sh:path sys:hasRefField ; sh:hasValue ex:Holder.next ] ]
+  ) ;
+  sh:property [ sh:path ex:Holder.next ; sh:nodeKind sh:IRI ] ;
+  sh:property [
+    sh:path sys:hasMarker ;
+    sh:not [ sh:in ( ex:Holder.next ) ]
+  ] .
+```
+
+The existence check requires an exported record at `ex:a`. The remaining checks
+allow an absent field, require reference-field metadata for a populated field,
+and reject literal, blank-node, or Marker values. A failed input check is an
+execution error; the consumer must not turn it into an empty query result.
+
+The starting record must exist. If the supplied starting ID has no record,
+execution must report an error, rather than return an empty result. This differs
+from a missing referenced target, which ends only that traversal branch:
+
+| Input | Correct behavior | Incorrect translation |
+| --- | --- | --- |
+| Starting record `a` is missing | Report an execution error. | Return no results. |
+| `a.next` is a Ref to an existing `t: Target` | Return `t`. | Drop `t`. |
+| `a.next` is a Ref to a missing record | End that branch without a result. | Report an execution error. |
+| `a.next` stores a Unit or named nested Dict | Report an error when trying to follow it. | Follow its IRI or silently return no results. |
+| A Ref reaches `t: Target`, but `t` lacks `hit` | Return `t`; report its validation failure separately if validation is requested. | Remove `t` from the results. |
+
+The [reference-field rules](#reference-field-metadata) govern whether populated
+fields can be followed; the [Query path rules](#supported-query-paths) govern
+which records are selected. For `via+`, reference checks apply wherever
+traversal continues; unreachable records are outside those checks. Source-type and declared Ref
+cardinality constraints must not be added as query execution requirements.
+
+#### SPARQL Result Selection
+
+The SELECT binds the starting identity, follows the translated property path,
+and selects reached records belonging to the Query's `of` type. Results are
+unique record identities with no guaranteed order:
+
+```sparql
+SELECT DISTINCT ?result WHERE {
+  VALUES ?subject { ex:a }
+  ?subject ex:Holder.next ?result .
+  ?result a sys:Entity .
+  FILTER(isIRI(?result))
+  FILTER EXISTS {
+    ?result a ?resultType . VALUES ?resultType { ex:Target }
+  }
+}
+```
+
+This returns `ex:t`. `VALUES` binds the starting record, the property pattern
+follows its reference, and the type pattern selects Target records. `DISTINCT`
+returns each identity once; the query promises no order. A missing reference
+target has no exported Entity record and produces no result.
+
+#### Returned-Record Validation
+
+Returned-record validation applies the Query's `of` constraints only to the
+selected identities. A selection shape uses `sh:targetNode` for each returned
+IRI and `sh:node` for reusable constraints without automatic targets. For the
+result `ex:t`:
+
+```turtle
+ex:SelectedResults a sh:NodeShape ;
+  sh:targetNode ex:t ;
+  sh:node ex:TargetResultConstraints .
+
+ex:TargetResultConstraints a sh:NodeShape ;
+  sh:property [
+    sh:path sys:hasMarker ;
+    sh:hasValue ex:Target.hit
+  ] .
+```
+
+Target requires only the `hit` marker, represented here by `sh:hasValue`.
+The reusable constraints must not independently target unrelated records.
+The full instance graph and schema vocabulary remain available during
+validation so constraints on references can inspect the referenced records.
+
+With the RDF above, result validation passes. Removing
+`ex:t sys:hasMarker ex:Target.hit` leaves the query result unchanged but makes
+result validation fail. Selecting a record and validating its contents thus
+remain separate, as they are in Xeto.
+
+A translation must use the same resolved library versions as the RDF export.
+It must reject query forms for which it cannot preserve these behaviors rather
+than silently omit traversal or validation rules.
+
 ## Intersections and Unions
 
 An intersection is a subtype of every member:
@@ -2867,7 +3008,6 @@ concrete descendants. An instance cannot name the abstract spec as its direct
 type, so its node shape rejects an `rdf:type` value equal to that abstract
 class. An instance of a concrete descendant remains valid.
 
-SPARQL generation for executing a Xeto `Query` as an application query is also
-outside these three profiles. The SHACL query-path mapping above preserves
-validation traversal; a future query API can use equivalent SPARQL property
-paths without requiring stored reverse triples.
+Translating a Xeto `Query` into executable SPARQL and companion SHACL is
+specified separately from the three RDF export profiles. See
+[Query Execution and Result Validation](#query-execution-and-result-validation).
