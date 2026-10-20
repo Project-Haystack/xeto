@@ -8,6 +8,3 @@
 
 // Sensor for net of AC electric current demand
 ElecAcNetCurrentDemandSensor : ElecAcCurrentDemandSensor { net }
-
-// Sensor for line net of AC electric current demand
-ElecAcPhaseNetCurrentDemandSensor : ElecAcNetCurrentDemandSensor { phase: Phase }

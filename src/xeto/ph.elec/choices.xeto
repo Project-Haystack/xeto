@@ -1,0 +1,60 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   20 Oct 2026  Rick Jennings  Creation
+//
+
+//////////////////////////////////////////////////////////////////////////
+// ElecLocation
+//////////////////////////////////////////////////////////////////////////
+
+// Location within an AC electric power system to which a point's value
+// applies.
+ElecLocation: Choice
+
+// A single line of an AC electric power system.
+ElecLine: ElecLocation
+
+// Line 1 (L1) of an AC electric power system.
+ElecL1: ElecLine { elecL1 }
+
+// Line 2 (L2) of an AC electric power system.
+ElecL2: ElecLine { elecL2 }
+
+// Line 3 (L3) of an AC electric power system.
+ElecL3: ElecLine { elecL3 }
+
+// Between two lines of an AC electric power system.
+ElecLineToLine: ElecLocation
+
+// Between line 1 (L1) and line 2 (L2) of an AC electric power system.
+ElecL1L2: ElecLineToLine { elecL1L2 }
+
+// Between line 2 (L2) and line 3 (L3) of an AC electric power system.
+ElecL2L3: ElecLineToLine { elecL2L3 }
+
+// Between line 3 (L3) and line 1 (L1) of an AC electric power system.
+ElecL3L1: ElecLineToLine { elecL3L1 }
+
+// Total across all lines of an AC electric power system: L1, L2, and L3 of
+// a three-phase system, L1 and L2 of a system with two lines, or L1 of a
+// system with one line. For example, total active power is the sum of the
+// active power on each line.
+ElecTotal: ElecLocation { total }
+
+// Average of the L1-L2, L2-L3, and L3-L1 values of a three-phase AC
+// electric power system.
+ElecLineToLineAvg: ElecLocation { elecLineToLineAvg }
+
+// Average of the L1, L2, and L3 values of a three-phase AC electric power
+// system, or the L1 and L2 values of an AC electric power system with two
+// lines.
+ElecLineAvg: ElecLocation { elecLineAvg }
+
+// Ground conductor of an AC electric power system.
+ElecGround: ElecLocation { ground }
+
+// Neutral conductor of an AC electric power system.
+ElecNeutral: ElecLocation { neutral }

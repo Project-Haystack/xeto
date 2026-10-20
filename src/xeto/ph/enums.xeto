@@ -421,16 +421,6 @@ Kind: Enum {
   grid <key:"Grid">          // two dimensional tabular data collection
 }
 
-// Single-phase measurement of an electric quantity in a multi-phase AC electric power system.
-Phase: Enum {
-  l1 <key:"L1">
-  l2 <key:"L2">
-  l3 <key:"L3">
-  l1L2 <key:"L1-L2">
-  l2L3 <key:"L2-L3">
-  l3L1 <key:"L3-L1">
-}
-
 // Primary function of building as US Energy Star key
 PrimaryFunction: Enum {
   adultEducation <key:"Adult Education">

@@ -60,15 +60,6 @@ ElecAcTotalExportActivePowerSensor : ElecAcExportActivePowerSensor { total }
 // Sensor for total net of average magnitude of AC electric active power
 ElecAcTotalNetActivePowerSensor : ElecAcNetActivePowerSensor { total }
 
-// Sensor for phase import of average magnitude of AC electric active power
-ElecAcPhaseImportActivePowerSensor : ElecAcImportActivePowerSensor { phase: Phase }
-
-// Sensor for phase export of average magnitude of AC electric active power
-ElecAcPhaseExportActivePowerSensor : ElecAcExportActivePowerSensor { phase: Phase }
-
-// Sensor for phase net of average magnitude of AC electric active power
-ElecAcPhaseNetActivePowerSensor : ElecAcNetActivePowerSensor { phase: Phase }
-
 // Sensor for total import of average magnitude of AC electric reactive power
 ElecAcTotalImportReactivePowerSensor : ElecAcImportReactivePowerSensor { total }
 
@@ -77,15 +68,6 @@ ElecAcTotalExportReactivePowerSensor : ElecAcExportReactivePowerSensor { total }
 
 // Sensor for total net of average magnitude of AC electric reactive power
 ElecAcTotalNetReactivePowerSensor : ElecAcNetReactivePowerSensor { total }
-
-// Sensor for phase import of average magnitude of AC electric reactive power
-ElecAcPhaseImportReactivePowerSensor : ElecAcImportReactivePowerSensor { phase: Phase }
-
-// Sensor for phase export of average magnitude of AC electric reactive power
-ElecAcPhaseExportReactivePowerSensor : ElecAcExportReactivePowerSensor { phase: Phase }
-
-// Sensor for phase net of average magnitude of AC electric reactive power
-ElecAcPhaseNetReactivePowerSensor : ElecAcNetReactivePowerSensor { phase: Phase }
 
 // Sensor for total import of average magnitude of AC electric apparent power
 ElecAcTotalImportApparentPowerSensor : ElecAcImportApparentPowerSensor { total }
@@ -99,19 +81,6 @@ ElecAcTotalNetApparentPowerSensor : ElecAcNetApparentPowerSensor { total }
 // Sensor for total average magnitude of AC electric apparent power. Reports magnitude only;
 // does not use a sign to indicate whether electricity is imported or exported.
 ElecAcTotalUnsignedApparentPowerSensor : ElecAcUnsignedApparentPowerSensor { total }
-
-// Sensor for phase import of average magnitude of AC electric apparent power
-ElecAcPhaseImportApparentPowerSensor : ElecAcImportApparentPowerSensor { phase: Phase }
-
-// Sensor for phase export of average magnitude of AC electric apparent power
-ElecAcPhaseExportApparentPowerSensor : ElecAcExportApparentPowerSensor { phase: Phase }
-
-// Sensor for phase net of average magnitude of AC electric apparent power
-ElecAcPhaseNetApparentPowerSensor : ElecAcNetApparentPowerSensor { phase: Phase }
-
-// Sensor for phase average magnitude of AC electric apparent power. Reports magnitude only;
-// does not use a sign to indicate whether electricity is imported or exported.
-ElecAcPhaseUnsignedApparentPowerSensor : ElecAcUnsignedApparentPowerSensor { phase: Phase }
 
 //////////////////////////////////////////////////////////////////////////
 // DC Sensors

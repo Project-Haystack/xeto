@@ -8,6 +8,3 @@
 
 // Sensor for total AC electric power factor
 ElecAcTotalPfSensor : ElecAcPfSensor { total }
-
-// Sensor for phase AC electric power factor
-ElecAcPhasePfSensor : ElecAcPfSensor { phase: Phase }
