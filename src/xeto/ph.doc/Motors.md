@@ -36,9 +36,9 @@ with the [ph::PhEntity.vfd] marker.
 Points related to motor speed control:
 
   - [ph.points::MotorSpeedModulatingCmd]: command for modulating motor speed
-  - [ph.elec::VfdOutputElecAcFreqCmd]: command for a VFD's output AC electric frequency
+  - [ph.elec.sugar::VfdOutputElecAcFreqCmd]: command for a VFD's output AC electric frequency
   - [ph.points::MotorSpeedModulatingSensor]: sensor for modulating motor speed
-  - [ph.elec::VfdOutputElecAcFreqSensor]: sensor for a VFD's output AC electric frequency
+  - [ph.elec.sugar::VfdOutputElecAcFreqSensor]: sensor for a VFD's output AC electric frequency
 
 Modulating speed is defined as a percentage where 0% is off and 100% is full speed.
 
