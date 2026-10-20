@@ -58,3 +58,163 @@ ElecGround: ElecLocation { ground }
 
 // Neutral conductor of an AC electric power system.
 ElecNeutral: ElecLocation { neutral }
+
+//////////////////////////////////////////////////////////////////////////
+// ElecDirection
+//////////////////////////////////////////////////////////////////////////
+
+// Direction of electricity flow to which a value applies.
+ElecDirection: Choice
+
+// Electricity flowing toward the load. Always a non-negative value. For
+// reactive power, import is reactive power consumed by an inductive load.
+ElecImport: ElecDirection { import }
+
+// Electricity flowing toward the grid, in the direction of the site meter.
+// Always a non-negative value. For reactive power, export is reactive power
+// supplied by a capacitive load.
+ElecExport: ElecDirection { export }
+
+// Difference between import and export of the same quantity, such as power,
+// demand, or energy. Uses the load convention, where positive values indicate
+// electricity consumed and negative values indicate electricity produced.
+ElecNet: ElecDirection { net }
+
+// Sum of import and export of the same quantity, such as power, demand, or
+// energy. Always a non-negative value. For example, if a battery imports
+// 10 kWh while charging and exports 8 kWh while discharging over a day, its
+// absolute energy for that day is 18 kWh and its net energy is 2 kWh. For
+// instantaneous power, import and export are never both nonzero at the same
+// time. The absolute value equals whichever one is nonzero, or zero when no
+// power is flowing.
+ElecAbsolute: ElecDirection { absolute }
+
+//////////////////////////////////////////////////////////////////////////
+// ElecPowerSubtype
+//////////////////////////////////////////////////////////////////////////
+
+// AC power quantity to which a value applies. Also applies to AC energy and
+// demand, which are derived from the selected power quantity.
+ElecPowerSubtype: Choice
+
+// Active power. The portion of AC electricity that performs useful work.
+ElecActivePower: ElecPowerSubtype { active }
+
+// Reactive power. The portion of AC electricity that oscillates between the
+// source and the load without performing useful work.
+ElecReactivePower: ElecPowerSubtype { reactive }
+
+// Apparent power. The combination of active and reactive power, reflecting
+// the total electricity delivered.
+ElecApparentPower: ElecPowerSubtype { apparent }
+
+//////////////////////////////////////////////////////////////////////////
+// ElecDemandCalc
+//////////////////////////////////////////////////////////////////////////
+
+// Method used to calculate the electric demand to which a value applies.
+ElecDemandCalc: Choice
+
+// Fixed window, also called block interval. Power or current is averaged
+// over consecutive, non-overlapping intervals, such as every 15 minutes, and
+// updates at the end of each interval.
+ElecFixedWindow: ElecDemandCalc { fixedWindow }
+
+// Sliding window, also called rolling interval. Power or current is averaged
+// over the most recent interval, such as the last 15 minutes, and updates at
+// a shorter step within it, such as every minute.
+ElecSlidingWindow: ElecDemandCalc { slidingWindow }
+
+//////////////////////////////////////////////////////////////////////////
+// ElecSpectralContent
+//////////////////////////////////////////////////////////////////////////
+
+// Frequency content of an electrical waveform to which a value applies.
+ElecSpectralContent: Choice
+
+// Full spectrum. A waveform including all frequency content without
+// filtering, such as the fundamental, harmonics, and any DC or interharmonic
+// components.
+ElecWaveform: ElecSpectralContent { waveform }
+
+// Fundamental. Component of a waveform at its base frequency. For example,
+// the 60Hz component of a 60Hz AC electric power system.
+ElecFundamental: ElecSpectralContent { fundamental }
+
+// Harmonic. A component of a waveform at an integer multiple of the
+// fundamental frequency, excluding the fundamental itself. The harmonic is
+// identified by [ph.elec::PhEntity.elecHarmonicOrder].
+ElecHarmonic: ElecSpectralContent { harmonic }
+
+//////////////////////////////////////////////////////////////////////////
+// ElecWaveformMagnitude
+//////////////////////////////////////////////////////////////////////////
+
+// Calculation used to determine the magnitude of an electrical signal to
+// which a value applies.
+ElecWaveformMagnitude: Choice
+
+// Average of an electrical signal over a measurement interval.
+ElecAvg: ElecWaveformMagnitude { avg }
+
+// Root mean square (RMS). Square root of the mean of the squared values of
+// an electrical signal over a measurement interval.
+ElecRms: ElecWaveformMagnitude { rootMeanSquare }
+
+// Maximum absolute value of an electrical signal over a measurement
+// interval.
+ElecPeak: ElecWaveformMagnitude { peak }
+
+// Difference between the maximum and minimum values of an electrical signal
+// over a measurement interval.
+ElecPeakToPeak: ElecWaveformMagnitude { peakToPeak }
+
+//////////////////////////////////////////////////////////////////////////
+// ElecQualityMetric
+//////////////////////////////////////////////////////////////////////////
+
+// Power quality metric to which a value applies.
+ElecQualityMetric: Choice
+
+// Telephone Harmonic Form Factor (THFF). Ratio of the frequency weighted
+// components of a waveform to its RMS value. Estimates the potential for
+// interference with nearby communication circuits.
+ElecThff: ElecQualityMetric { elecThff }
+
+// Individual Harmonic Distortion (IHD). Magnitude of a single harmonic
+// as a percentage of the fundamental. Used to find which harmonic orders
+// dominate and to check them against per-order limits in standards such
+// as IEEE 519.
+ElecIhd: ElecQualityMetric { elecIhd }
+
+// Total Harmonic Distortion (THD). Combined magnitude of all harmonics as
+// a percentage of the fundamental. The primary overall indicator of
+// waveform distortion and power quality.
+ElecThd: ElecQualityMetric { elecThd }
+
+// Odd Total Harmonic Distortion (Odd THD). THD computed from only the odd
+// harmonics. These dominate in typical nonlinear loads such as drives and
+// rectifiers.
+ElecOddThd: ElecQualityMetric { elecOddThd }
+
+// Even Total Harmonic Distortion (Even THD). THD computed from only the
+// even harmonics. Even harmonics can indicate asymmetry between the
+// positive and negative halves of a waveform, such as from half-wave
+// rectification or DC offset.
+ElecEvenThd: ElecQualityMetric { elecEvenThd }
+
+// K-Factor. Weights harmonic currents by the square of their order to
+// estimate the added heating they cause in transformer windings. The
+// reading can be compared against a transformer's K-rating to check
+// whether it was designed to carry the load.
+ElecKFactor: ElecQualityMetric { elecKFactor }
+
+// Crest Factor. Ratio of a waveform's peak value to its RMS value. A clean
+// sine wave reads about 1.4; values that differ indicate waveform distortion
+// that can stress equipment.
+ElecCrestFactor: ElecQualityMetric { elecCrestFactor }
+
+// Imbalance. How far a three-phase AC electric power system is from
+// balanced, where all three lines have equal magnitudes 120 degrees apart,
+// expressed as a percentage. Imbalance can overheat motors and transformers.
+ElecImbalance: ElecQualityMetric { imbalance }
