@@ -11,52 +11,52 @@
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for line average RMS of AC electric current.
-ElecAcLineAvgRmsCurrentSensor : ElecAcRmsCurrentSensor { elecLineAvg }
+ElecAcLineAvgRmsCurrentSensor : ElecAcRmsCurrentSensor <sugar> { elecLineAvg }
 
 // Sensor for neutral RMS of AC electric current.
-ElecAcNeutralRmsCurrentSensor : ElecAcRmsCurrentSensor { neutral }
+ElecAcNeutralRmsCurrentSensor : ElecAcRmsCurrentSensor <sugar> { neutral }
 
 // Sensor for ground RMS of AC electric current.
-ElecAcGroundRmsCurrentSensor : ElecAcRmsCurrentSensor { ground }
+ElecAcGroundRmsCurrentSensor : ElecAcRmsCurrentSensor <sugar> { ground }
 
 // Sensor for neutral angle of AC electric current
-ElecAcNeutralAngleCurrentSensor : ElecAcAngleCurrentSensor { neutral }
+ElecAcNeutralAngleCurrentSensor : ElecAcAngleCurrentSensor <sugar> { neutral }
 
 // Sensor for ground angle of AC electric current
-ElecAcGroundAngleCurrentSensor : ElecAcAngleCurrentSensor { ground }
+ElecAcGroundAngleCurrentSensor : ElecAcAngleCurrentSensor <sugar> { ground }
 
 // Sensor for line average metric of AC electric current
-ElecAcLineAvgQualityCurrentSensor : ElecAcQualityCurrentSensor { elecLineAvg }
+ElecAcLineAvgQualityCurrentSensor : ElecAcQualityCurrentSensor <sugar> { elecLineAvg }
 
 // Sensor for neutral metric of AC electric current
-ElecAcNeutralQualityCurrentSensor : ElecAcQualityCurrentSensor { neutral }
+ElecAcNeutralQualityCurrentSensor : ElecAcQualityCurrentSensor <sugar> { neutral }
 
 // Sensor for ground metric of AC electric current
-ElecAcGroundQualityCurrentSensor : ElecAcQualityCurrentSensor { ground }
+ElecAcGroundQualityCurrentSensor : ElecAcQualityCurrentSensor <sugar> { ground }
 
 //////////////////////////////////////////////////////////////////////////
 // DC Sensors
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for import of DC electric current
-ElecDcImportCurrentSensor : ElecDcCurrentSensor { import }
+ElecDcImportCurrentSensor : ElecDcCurrentSensor <sugar> { import }
 
 // Sensor for export of DC electric current
-ElecDcExportCurrentSensor : ElecDcCurrentSensor { export }
+ElecDcExportCurrentSensor : ElecDcCurrentSensor <sugar> { export }
 
 // Sensor for net of DC electric current
-ElecDcNetCurrentSensor : ElecDcCurrentSensor { net }
+ElecDcNetCurrentSensor : ElecDcCurrentSensor <sugar> { net }
 
 //////////////////////////////////////////////////////////////////////////
 // AC Setpoints
 //////////////////////////////////////////////////////////////////////////
 
 // Max setpoint for import of RMS of AC electric current
-ElecAcImportCurrentMaxSp : ElecAcCurrentMaxSp { import }
+ElecAcImportCurrentMaxSp : ElecAcCurrentMaxSp <sugar> { import }
 
 //////////////////////////////////////////////////////////////////////////
 // DC Setpoints
 //////////////////////////////////////////////////////////////////////////
 
 // Max setpoint for import of DC electric current
-ElecDcImportCurrentMaxSp : ElecDcCurrentMaxSp { import }
+ElecDcImportCurrentMaxSp : ElecDcCurrentMaxSp <sugar> { import }

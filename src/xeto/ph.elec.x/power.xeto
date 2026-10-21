@@ -7,82 +7,82 @@
 //
 
 // Sensor for import of average magnitude of AC electric active power
-ElecAcImportActivePowerSensor : ElecAcActivePowerSensor {
+ElecAcImportActivePowerSensor : ElecAcActivePowerSensor <sugar> {
   import
   minVal: Number 0.0
 }
 
 // Sensor for export of average magnitude of AC electric active power
-ElecAcExportActivePowerSensor : ElecAcActivePowerSensor {
+ElecAcExportActivePowerSensor : ElecAcActivePowerSensor <sugar> {
   export
   minVal: Number 0.0
 }
 
 // Sensor for net of average magnitude of AC electric active power
-ElecAcNetActivePowerSensor : ElecAcActivePowerSensor { net }
+ElecAcNetActivePowerSensor : ElecAcActivePowerSensor <sugar> { net }
 
 // Sensor for import of average magnitude of AC electric reactive power
-ElecAcImportReactivePowerSensor : ElecAcReactivePowerSensor {
+ElecAcImportReactivePowerSensor : ElecAcReactivePowerSensor <sugar> {
   import
   minVal: Number 0.0
 }
 
 // Sensor for export of average magnitude of AC electric reactive power
-ElecAcExportReactivePowerSensor : ElecAcReactivePowerSensor {
+ElecAcExportReactivePowerSensor : ElecAcReactivePowerSensor <sugar> {
   export
   minVal: Number 0.0
 }
 
 // Sensor for net of average magnitude of AC electric reactive power
-ElecAcNetReactivePowerSensor : ElecAcReactivePowerSensor { net }
+ElecAcNetReactivePowerSensor : ElecAcReactivePowerSensor <sugar> { net }
 
 // Sensor for total import of average magnitude of AC electric active power
-ElecAcTotalImportActivePowerSensor : ElecAcImportActivePowerSensor { total }
+ElecAcTotalImportActivePowerSensor : ElecAcImportActivePowerSensor <sugar> { total }
 
 // Sensor for total export of average magnitude of AC electric active power
-ElecAcTotalExportActivePowerSensor : ElecAcExportActivePowerSensor { total }
+ElecAcTotalExportActivePowerSensor : ElecAcExportActivePowerSensor <sugar> { total }
 
 // Sensor for total net of average magnitude of AC electric active power
-ElecAcTotalNetActivePowerSensor : ElecAcNetActivePowerSensor { total }
+ElecAcTotalNetActivePowerSensor : ElecAcNetActivePowerSensor <sugar> { total }
 
 // Sensor for total import of average magnitude of AC electric reactive power
-ElecAcTotalImportReactivePowerSensor : ElecAcImportReactivePowerSensor { total }
+ElecAcTotalImportReactivePowerSensor : ElecAcImportReactivePowerSensor <sugar> { total }
 
 // Sensor for total export of average magnitude of AC electric reactive power
-ElecAcTotalExportReactivePowerSensor : ElecAcExportReactivePowerSensor { total }
+ElecAcTotalExportReactivePowerSensor : ElecAcExportReactivePowerSensor <sugar> { total }
 
 // Sensor for total net of average magnitude of AC electric reactive power
-ElecAcTotalNetReactivePowerSensor : ElecAcNetReactivePowerSensor { total }
+ElecAcTotalNetReactivePowerSensor : ElecAcNetReactivePowerSensor <sugar> { total }
 
 // Sensor for total average magnitude of AC electric apparent power.
-ElecAcTotalApparentPowerSensor : ElecAcApparentPowerSensor { total }
+ElecAcTotalApparentPowerSensor : ElecAcApparentPowerSensor <sugar> { total }
 
 //////////////////////////////////////////////////////////////////////////
 // DC Sensors
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for import of DC electric power
-ElecDcImportPowerSensor : ElecDcPowerSensor { import }
+ElecDcImportPowerSensor : ElecDcPowerSensor <sugar> { import }
 
 // Sensor for export of DC electric power
-ElecDcExportPowerSensor : ElecDcPowerSensor { export }
+ElecDcExportPowerSensor : ElecDcPowerSensor <sugar> { export }
 
 // Sensor for net of DC electric power
-ElecDcNetPowerSensor : ElecDcPowerSensor { net }
+ElecDcNetPowerSensor : ElecDcPowerSensor <sugar> { net }
 
 //////////////////////////////////////////////////////////////////////////
 // AC Setpoints
 //////////////////////////////////////////////////////////////////////////
 
 // Max setpoint for import of average magnitude of AC electric active power
-ElecAcImportActivePowerMaxSp : ElecAcActivePowerMaxSp { import }
+ElecAcImportActivePowerMaxSp : ElecAcActivePowerMaxSp <sugar> { import }
 
 // Max setpoint for total import of average magnitude of AC electric active power
-ElecAcTotalImportActivePowerMaxSp : ElecAcImportActivePowerMaxSp { total }
+ElecAcTotalImportActivePowerMaxSp : ElecAcImportActivePowerMaxSp <sugar> { total }
 
 //////////////////////////////////////////////////////////////////////////
 // DC Setpoints
 //////////////////////////////////////////////////////////////////////////
 
 // Max setpoint for import of DC electric power
-ElecDcImportPowerMaxSp : ElecDcPowerMaxSp { import }
+ElecDcImportPowerMaxSp : ElecDcPowerMaxSp <sugar> { import }

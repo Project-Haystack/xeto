@@ -8,4 +8,4 @@
 
 // Max setpoint for import of DC electric power to one or more
 // EVSE ports. Determined by an Energy Management System (EMS).
-EmsElecDcImportPowerMaxSp : ElecDcImportPowerMaxSp { ems }
+EmsElecDcImportPowerMaxSp : ElecDcImportPowerMaxSp <sugar> { ems }

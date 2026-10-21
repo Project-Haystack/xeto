@@ -8,7 +8,7 @@
 
 // Max setpoint for import of DC electric power to a vehicle inlet.
 // Determined by a vehicle's battery management system.
-VehicleInputElecDcImportPowerMaxSp : ElecDcImportPowerMaxSp {
+VehicleInputElecDcImportPowerMaxSp : ElecDcImportPowerMaxSp <sugar> {
   vehicle
   input
 }

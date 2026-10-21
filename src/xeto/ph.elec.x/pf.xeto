@@ -7,4 +7,4 @@
 //
 
 // Sensor for total AC electric power factor
-ElecAcTotalPfSensor : ElecAcPfSensor { total }
+ElecAcTotalPfSensor : ElecAcPfSensor <sugar> { total }

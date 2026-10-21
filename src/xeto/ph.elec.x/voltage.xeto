@@ -7,13 +7,13 @@
 //
 
 // Sensor for line-to-line average RMS of AC electric voltage
-ElecAcLineToLineAvgRmsVoltageSensor : ElecAcRmsVoltageSensor { elecLineToLineAvg }
+ElecAcLineToLineAvgRmsVoltageSensor : ElecAcRmsVoltageSensor <sugar> { elecLineToLineAvg }
 
 // Sensor for line average RMS of AC electric voltage
-ElecAcLineAvgRmsVoltageSensor : ElecAcRmsVoltageSensor { elecLineAvg }
+ElecAcLineAvgRmsVoltageSensor : ElecAcRmsVoltageSensor <sugar> { elecLineAvg }
 
 // Sensor for line-to-line average metric of AC electric voltage
-ElecAcLineToLineAvgQualityVoltageSensor : ElecAcQualityVoltageSensor { elecLineToLineAvg }
+ElecAcLineToLineAvgQualityVoltageSensor : ElecAcQualityVoltageSensor <sugar> { elecLineToLineAvg }
 
 // Sensor for line average metric of AC electric voltage
-ElecAcLineAvgQualityVoltageSensor : ElecAcQualityVoltageSensor { elecLineAvg }
+ElecAcLineAvgQualityVoltageSensor : ElecAcQualityVoltageSensor <sugar> { elecLineAvg }
