@@ -106,8 +106,8 @@ mechanisms:
     enumerated series, such as the [ph::PhEntity.stage] of a run
     command
   - a more specific spec, when points differ in scope, such as
-    [ph.points.sugar::ZoneAirTempOccHeatingSp] versus
-    [ph.points.sugar::ZoneAirTempUnoccHeatingSp]
+    [ph.points.x::ZoneAirTempOccHeatingSp] versus
+    [ph.points.x::ZoneAirTempUnoccHeatingSp]
   - a [ph::PhEntity.dis] tag with a human display name, when points
     have no modeled distinction, such as redundant sensors of the
     same quantity

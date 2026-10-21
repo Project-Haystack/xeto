@@ -22,8 +22,8 @@ then use it to:
 
 Templates are built from these standard libs:
 
-  - [ph.points](ph.points::index), [ph.points.sugar](ph.points.sugar::index),
-    [ph.elec](ph.elec::index), and [ph.elec.sugar](ph.elec.sugar::index):
+  - [ph.points](ph.points::index), [ph.points.x](ph.points.x::index),
+    [ph.elec](ph.elec::index), and [ph.elec.x](ph.elec.x::index):
     the Haystack point types
   - [ph.attrs](ph.attrs::index): nameplate attributes
   - [ph.protocols](ph.protocols::index): the protocol address specs
@@ -42,13 +42,13 @@ pragma: Lib <
     { lib: "ph" }
     { lib: "ph.attrs" }
     { lib: "ph.points" }
-    { lib: "ph.points.sugar" }
+    { lib: "ph.points.x" }
     { lib: "ph.protocols" }
   }
 >
 ```
 
-Add `ph.elec` and `ph.elec.sugar` for electrical points.  Device configuration the template
+Add `ph.elec` and `ph.elec.x` for electrical points.  Device configuration the template
 depends on goes in the lib's `readme.md` - see [Configuration](#configuration).
 
 # Equip Spec

@@ -301,7 +301,7 @@ plain spec, as filters do by name, uses only its declared constraints.
 
 By convention, sugar specs for a core ontology library are distributed
 in a companion library with the `sugar` suffix.  For example the sugar
-vocabulary over `ph.points` is published as `ph.points.sugar`.
+vocabulary over `ph.points` is published as `ph.points.x`.
 
 The convention carries a contract:
 
@@ -320,7 +320,7 @@ constraints.
 
 # Design Rationale
 
-The split between `ph.points` and `ph.points.sugar` illustrates these
+The split between `ph.points` and `ph.points.x` illustrates these
 rules.  The principles used to draw that line generalize to any core/sugar
 lib pair.
 
