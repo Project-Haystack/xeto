@@ -45,7 +45,7 @@ ElecAcMagnitudeCurrentSensor : ElecAcCurrentSensor <abstract> {
 }
 
 // Sensor for RMS of AC electric current.
-ElecAcRmsCurrentSensor : ElecAcMagnitudeCurrentSensor <abstract> {
+ElecAcRmsCurrentSensor : ElecAcMagnitudeCurrentSensor {
   rootMeanSquare
   minVal: Number 0.0
 }
@@ -57,19 +57,19 @@ ElecAcWaveformCurrentSensor : ElecAcCurrentSensor {
 }
 
 // Sensor for angle of AC electric current
-ElecAcAngleCurrentSensor : ElecAcCurrentSensor <abstract> {
+ElecAcAngleCurrentSensor : ElecAcCurrentSensor {
   angle
   unit: "deg"
 }
 
 // Sensor for metric of AC electric current
-ElecAcQualityCurrentSensor : ElecAcCurrentSensor <abstract> {
+ElecAcQualityCurrentSensor : ElecAcCurrentSensor {
   elecQualityMetric: ElecQualityMetric
   unit: Unit <invariant> "%"
 }
 
 // Sensor for DC electric current
-ElecDcCurrentSensor : ElecCurrentSensor <abstract> {
+ElecDcCurrentSensor : ElecCurrentSensor {
   dc
   unit: Unit <quantity:"electricCurrent"> "A"
 }
@@ -81,7 +81,7 @@ ElecCurrentMaxSp : ElecMaxSp <abstract> {
 }
 
 // Max setpoint for RMS of AC electric current
-ElecAcCurrentMaxSp : ElecCurrentMaxSp <abstract> {
+ElecAcCurrentMaxSp : ElecCurrentMaxSp {
   ac
   magnitude
   rootMeanSquare
@@ -89,14 +89,14 @@ ElecAcCurrentMaxSp : ElecCurrentMaxSp <abstract> {
 }
 
 // Max setpoint for DC electric current
-ElecDcCurrentMaxSp : ElecCurrentMaxSp <abstract> { dc }
+ElecDcCurrentMaxSp : ElecCurrentMaxSp { dc }
 
 //////////////////////////////////////////////////////////////////////////
 // Current Demand
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for AC electric current demand
-ElecAcCurrentDemandSensor : ElecAcDemandSensor <abstract> {
+ElecAcCurrentDemandSensor : ElecAcDemandSensor {
   current
   unit: "A"
   minVal: Number 0.0
@@ -114,19 +114,19 @@ ElecAcPowerDemandSensor : ElecAcDemandSensor <abstract> {
 }
 
 // Sensor for AC electric active power demand
-ElecAcActiveDemandSensor : ElecAcPowerDemandSensor <abstract> {
+ElecAcActiveDemandSensor : ElecAcPowerDemandSensor {
   active
   unit: Unit <quantity:"power"> "kW"
 }
 
 // Sensor for AC electric reactive power demand
-ElecAcReactiveDemandSensor : ElecAcPowerDemandSensor <abstract> {
+ElecAcReactiveDemandSensor : ElecAcPowerDemandSensor {
   reactive
   unit: Unit <quantity:"reactivePower"> "kVAR"
 }
 
 // Sensor for AC electric apparent power demand
-ElecAcApparentDemandSensor : ElecAcPowerDemandSensor <abstract> {
+ElecAcApparentDemandSensor : ElecAcPowerDemandSensor {
   apparent
   unit: Unit <quantity:"apparentPower"> "kVA"
 }
@@ -138,7 +138,7 @@ ElecDemandMaxSp : ElecMaxSp <abstract> {
 }
 
 // Max setpoint for AC electric active power demand
-ElecAcActiveDemandMaxSp : ElecDemandMaxSp <abstract> {
+ElecAcActiveDemandMaxSp : ElecDemandMaxSp {
   ac
   active
   elecLocation: ElecLocation
@@ -175,25 +175,25 @@ ElecAcEnergySensor : ElecEnergySensor <abstract> {
 }
 
 // Sensor for AC electric active energy
-ElecAcActiveEnergySensor : ElecAcEnergySensor <abstract> {
+ElecAcActiveEnergySensor : ElecAcEnergySensor {
   active
   unit: Unit <quantity:"energy"> "kWh"
 }
 
 // Sensor for AC electric reactive energy
-ElecAcReactiveEnergySensor : ElecAcEnergySensor <abstract> {
+ElecAcReactiveEnergySensor : ElecAcEnergySensor {
   reactive
   unit: Unit <quantity:"reactiveEnergy"> "kVARh"
 }
 
 // Sensor for AC electric apparent energy
-ElecAcApparentEnergySensor : ElecAcEnergySensor <abstract> {
+ElecAcApparentEnergySensor : ElecAcEnergySensor {
   apparent
   unit: Unit <quantity:"apparentEnergy"> "kVAh"
 }
 
 // Sensor for DC electric energy
-ElecDcEnergySensor : ElecEnergySensor <abstract> {
+ElecDcEnergySensor : ElecEnergySensor {
   dc
   unit: Unit <quantity:"energy"> "kWh"
 }
@@ -221,7 +221,7 @@ ElecAcFreqCmd : ElecCmd {
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for AC electric power factor
-ElecAcPfSensor : ElecSensor <abstract> {
+ElecAcPfSensor : ElecSensor {
   pf
   unit: Unit <invariant> "pf"
   ac
@@ -247,34 +247,34 @@ ElecAcAvgMagnitudePowerSensor : ElecPowerSensor <abstract> {
 }
 
 // Sensor for average magnitude of AC electric active power
-ElecAcActivePowerSensor : ElecAcAvgMagnitudePowerSensor <abstract> {
+ElecAcActivePowerSensor : ElecAcAvgMagnitudePowerSensor {
   active
   unit: Unit <quantity:"power"> "kW"
   elecDirection: ElecDirection
 }
 
 // Sensor for average magnitude of AC electric reactive power
-ElecAcReactivePowerSensor : ElecAcAvgMagnitudePowerSensor <abstract> {
+ElecAcReactivePowerSensor : ElecAcAvgMagnitudePowerSensor {
   reactive
   unit: Unit <quantity:"reactivePower"> "kVAR"
   elecDirection: ElecDirection
 }
 
 // Sensor for average magnitude of AC electric apparent power
-ElecAcApparentPowerSensor : ElecAcAvgMagnitudePowerSensor <abstract> {
+ElecAcApparentPowerSensor : ElecAcAvgMagnitudePowerSensor {
   apparent
   unit: Unit <quantity:"apparentPower"> "kVA"
   minVal: Number 0.0
 }
 
 // Max setpoint for DC electric power
-ElecDcPowerMaxSp : ElecPowerMaxSp <abstract> {
+ElecDcPowerMaxSp : ElecPowerMaxSp {
   dc
   elecDirection: ElecDirection
 }
 
 // Sensor for DC electric power
-ElecDcPowerSensor : ElecPowerSensor <abstract> {
+ElecDcPowerSensor : ElecPowerSensor {
   dc
   unit: Unit <quantity:"power"> "kW"
   elecDirection: ElecDirection
@@ -299,7 +299,7 @@ ElecAcMagnitudePowerMaxSp : ElecAcPowerMaxSp <abstract> {
 }
 
 // Max setpoint for average magnitude of AC electric active power
-ElecAcActivePowerMaxSp : ElecAcMagnitudePowerMaxSp <abstract> {
+ElecAcActivePowerMaxSp : ElecAcMagnitudePowerMaxSp {
   avg
   active
   elecDirection: ElecDirection
