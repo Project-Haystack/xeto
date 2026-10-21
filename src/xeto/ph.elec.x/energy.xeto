@@ -34,31 +34,31 @@ ElecAcExportApparentEnergySensor : ElecAcApparentEnergySensor <sugar> { export }
 ElecAcNetApparentEnergySensor : ElecAcApparentEnergySensor <sugar> { net }
 
 // Sensor for total import of AC electric active energy
-ElecAcTotalImportActiveEnergySensor : ElecAcImportActiveEnergySensor <sugar> { total }
+ElecAcTotalImportActiveEnergySensor : ElecAcImportActiveEnergySensor { total }
 
 // Sensor for total export of AC electric active energy
-ElecAcTotalExportActiveEnergySensor : ElecAcExportActiveEnergySensor <sugar> { total }
+ElecAcTotalExportActiveEnergySensor : ElecAcExportActiveEnergySensor { total }
 
 // Sensor for total net of AC electric active energy
-ElecAcTotalNetActiveEnergySensor : ElecAcNetActiveEnergySensor <sugar> { total }
+ElecAcTotalNetActiveEnergySensor : ElecAcNetActiveEnergySensor { total }
 
 // Sensor for total import of AC electric reactive energy
-ElecAcTotalImportReactiveEnergySensor : ElecAcImportReactiveEnergySensor <sugar> { total }
+ElecAcTotalImportReactiveEnergySensor : ElecAcImportReactiveEnergySensor { total }
 
 // Sensor for total export of AC electric reactive energy
-ElecAcTotalExportReactiveEnergySensor : ElecAcExportReactiveEnergySensor <sugar> { total }
+ElecAcTotalExportReactiveEnergySensor : ElecAcExportReactiveEnergySensor { total }
 
 // Sensor for total net of AC electric reactive energy
-ElecAcTotalNetReactiveEnergySensor : ElecAcNetReactiveEnergySensor <sugar> { total }
+ElecAcTotalNetReactiveEnergySensor : ElecAcNetReactiveEnergySensor { total }
 
 // Sensor for total import of AC electric apparent energy
-ElecAcTotalImportApparentEnergySensor : ElecAcImportApparentEnergySensor <sugar> { total }
+ElecAcTotalImportApparentEnergySensor : ElecAcImportApparentEnergySensor { total }
 
 // Sensor for total export of AC electric apparent energy
-ElecAcTotalExportApparentEnergySensor : ElecAcExportApparentEnergySensor <sugar> { total }
+ElecAcTotalExportApparentEnergySensor : ElecAcExportApparentEnergySensor { total }
 
 // Sensor for total net of AC electric apparent energy
-ElecAcTotalNetApparentEnergySensor : ElecAcNetApparentEnergySensor <sugar> { total }
+ElecAcTotalNetApparentEnergySensor : ElecAcNetApparentEnergySensor { total }
 
 //////////////////////////////////////////////////////////////////////////
 // DC Sensors

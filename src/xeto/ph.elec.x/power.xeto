@@ -37,22 +37,22 @@ ElecAcExportReactivePowerSensor : ElecAcReactivePowerSensor <sugar> {
 ElecAcNetReactivePowerSensor : ElecAcReactivePowerSensor <sugar> { net }
 
 // Sensor for total import of average magnitude of AC electric active power
-ElecAcTotalImportActivePowerSensor : ElecAcImportActivePowerSensor <sugar> { total }
+ElecAcTotalImportActivePowerSensor : ElecAcImportActivePowerSensor { total }
 
 // Sensor for total export of average magnitude of AC electric active power
-ElecAcTotalExportActivePowerSensor : ElecAcExportActivePowerSensor <sugar> { total }
+ElecAcTotalExportActivePowerSensor : ElecAcExportActivePowerSensor { total }
 
 // Sensor for total net of average magnitude of AC electric active power
-ElecAcTotalNetActivePowerSensor : ElecAcNetActivePowerSensor <sugar> { total }
+ElecAcTotalNetActivePowerSensor : ElecAcNetActivePowerSensor { total }
 
 // Sensor for total import of average magnitude of AC electric reactive power
-ElecAcTotalImportReactivePowerSensor : ElecAcImportReactivePowerSensor <sugar> { total }
+ElecAcTotalImportReactivePowerSensor : ElecAcImportReactivePowerSensor { total }
 
 // Sensor for total export of average magnitude of AC electric reactive power
-ElecAcTotalExportReactivePowerSensor : ElecAcExportReactivePowerSensor <sugar> { total }
+ElecAcTotalExportReactivePowerSensor : ElecAcExportReactivePowerSensor { total }
 
 // Sensor for total net of average magnitude of AC electric reactive power
-ElecAcTotalNetReactivePowerSensor : ElecAcNetReactivePowerSensor <sugar> { total }
+ElecAcTotalNetReactivePowerSensor : ElecAcNetReactivePowerSensor { total }
 
 // Sensor for total average magnitude of AC electric apparent power.
 ElecAcTotalApparentPowerSensor : ElecAcApparentPowerSensor <sugar> { total }
@@ -78,7 +78,7 @@ ElecDcNetPowerSensor : ElecDcPowerSensor <sugar> { net }
 ElecAcImportActivePowerMaxSp : ElecAcActivePowerMaxSp <sugar> { import }
 
 // Max setpoint for total import of average magnitude of AC electric active power
-ElecAcTotalImportActivePowerMaxSp : ElecAcImportActivePowerMaxSp <sugar> { total }
+ElecAcTotalImportActivePowerMaxSp : ElecAcImportActivePowerMaxSp { total }
 
 //////////////////////////////////////////////////////////////////////////
 // DC Setpoints
