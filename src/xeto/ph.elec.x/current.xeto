@@ -10,23 +10,14 @@
 // AC Sensors
 //////////////////////////////////////////////////////////////////////////
 
-// Sensor for RMS of AC electric current. Reports magnitude only; does not
-// use a sign to indicate whether electricity is imported or exported.
-ElecAcUnsignedRmsCurrentSensor : ElecAcRmsCurrentSensor {
-  minVal: Number 0.0
-}
+// Sensor for line average RMS of AC electric current.
+ElecAcLineAvgRmsCurrentSensor : ElecAcRmsCurrentSensor { elecLineAvg }
 
-// Sensor for line average RMS of AC electric current. Reports magnitude only;
-// does not use a sign to indicate whether electricity is imported or exported.
-ElecAcLineAvgUnsignedRmsCurrentSensor : ElecAcUnsignedRmsCurrentSensor { elecLineAvg }
+// Sensor for neutral RMS of AC electric current.
+ElecAcNeutralRmsCurrentSensor : ElecAcRmsCurrentSensor { neutral }
 
-// Sensor for neutral RMS of AC electric current. Reports magnitude only;
-// does not use a sign to indicate whether electricity is imported or exported.
-ElecAcNeutralUnsignedRmsCurrentSensor : ElecAcUnsignedRmsCurrentSensor { neutral }
-
-// Sensor for ground RMS of AC electric current. Reports magnitude only;
-// does not use a sign to indicate whether electricity is imported or exported.
-ElecAcGroundUnsignedRmsCurrentSensor : ElecAcUnsignedRmsCurrentSensor { ground }
+// Sensor for ground RMS of AC electric current.
+ElecAcGroundRmsCurrentSensor : ElecAcRmsCurrentSensor { ground }
 
 // Sensor for neutral angle of AC electric current
 ElecAcNeutralAngleCurrentSensor : ElecAcAngleCurrentSensor { neutral }

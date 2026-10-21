@@ -238,48 +238,6 @@ SiteMeterScope: MeterScope { siteMeter }
 SubmeterMeterScope: MeterScope { submeter }
 
 //////////////////////////////////////////////////////////////////////////
-// PfScope
-//////////////////////////////////////////////////////////////////////////
-
-// Power factor scope
-PfScope: Choice
-
-// Displacement power factor, which accounts for the phase angle between
-// voltage and current but excludes effects of nonlinear waveforms (
-// harmonic distortion).
-DisplacementPfScope: PfScope { pfDisplacement }
-
-// Distortion power factor, which measures the component of power factor
-// attributable to harmonic distortion in voltage and current waveforms.
-DistortionPfScope: PfScope { pfDistortion }
-
-// True power factor, which includes effects of harmonic distortion.
-// Power factor is assumed to be true power factor when [ph::PfScope] is not
-// defined.  However, it is recommended to specify a scope for power
-// factor to help avoid misinterpretation of data.
-TruePfScope: PfScope { pfTrue }
-
-//////////////////////////////////////////////////////////////////////////
-// PfStandard
-//////////////////////////////////////////////////////////////////////////
-
-// Standard for interpreting power factor's positive or negative sign
-PfStandard: Choice
-
-// Power factor according to the IEC convention defines a positive or
-// negative sign based on the direction of active power flow.  Power factor
-// is positive when active power flows into a load.  Power factor is negative
-// when active power flows out of a load.
-IecPfStandard: PfStandard { pfIec }
-
-// Power factor according to the IEEE convention defines a positive or
-// negative sign based on whether the load is capacitive or inductive.  Power
-// factor is positive when the load is capacitive, or when voltage lags behind
-// current.  Power factor is negative when the load is inductive, or when
-// current lags behind voltage.
-IeeePfStandard: PfStandard { pfIeee }
-
-//////////////////////////////////////////////////////////////////////////
 // PhaseCount
 //////////////////////////////////////////////////////////////////////////
 
