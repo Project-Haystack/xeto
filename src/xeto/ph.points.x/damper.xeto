@@ -31,40 +31,40 @@ DischargeAirDamperModulatingCmd : DuctAirDamperModulatingCmd <sugar> { discharge
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for open/close state of a damper in a cold deck discharge air duct
-ColdDeckDischargeAirDamperOpenSensor : DischargeAirDamperOpenSensor { coldDeck }
+ColdDeckDischargeAirDamperOpenSensor : DischargeAirDamperOpenSensor <sugar> { coldDeck }
 
 // Command for open/close state of a damper in a cold deck discharge air duct
-ColdDeckDischargeAirDamperOpenCmd : DischargeAirDamperOpenCmd { coldDeck }
+ColdDeckDischargeAirDamperOpenCmd : DischargeAirDamperOpenCmd <sugar> { coldDeck }
 
 // Sensor for modulating position of a damper in a cold deck discharge air
 // duct.  Position is measured as a percentage where 0% is closed and 100% is
 // fully open.
-ColdDeckDischargeAirDamperModulatingSensor : DischargeAirDamperModulatingSensor { coldDeck }
+ColdDeckDischargeAirDamperModulatingSensor : DischargeAirDamperModulatingSensor <sugar> { coldDeck }
 
 // Command for modulating position of a damper in a cold deck discharge air
 // duct.  Position is measured as a percentage where 0% is closed and 100% is
 // fully open.
-ColdDeckDischargeAirDamperModulatingCmd : DischargeAirDamperModulatingCmd { coldDeck }
+ColdDeckDischargeAirDamperModulatingCmd : DischargeAirDamperModulatingCmd <sugar> { coldDeck }
 
 //////////////////////////////////////////////////////////////////////////
 // Hot Deck Discharge Air
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for open/close state of a damper in a hot deck discharge air duct
-HotDeckDischargeAirDamperOpenSensor : DischargeAirDamperOpenSensor { hotDeck }
+HotDeckDischargeAirDamperOpenSensor : DischargeAirDamperOpenSensor <sugar> { hotDeck }
 
 // Command for open/close state of a damper in a hot deck discharge air duct
-HotDeckDischargeAirDamperOpenCmd : DischargeAirDamperOpenCmd { hotDeck }
+HotDeckDischargeAirDamperOpenCmd : DischargeAirDamperOpenCmd <sugar> { hotDeck }
 
 // Sensor for modulating position of a damper in a hot deck discharge air duct.
 // Position is measured as a percentage where 0% is closed and 100% is fully
 // open.
-HotDeckDischargeAirDamperModulatingSensor : DischargeAirDamperModulatingSensor { hotDeck }
+HotDeckDischargeAirDamperModulatingSensor : DischargeAirDamperModulatingSensor <sugar> { hotDeck }
 
 // Command for modulating position of a damper in a hot deck discharge air
 // duct.  Position is measured as a percentage where 0% is closed and 100% is
 // fully open.
-HotDeckDischargeAirDamperModulatingCmd : DischargeAirDamperModulatingCmd { hotDeck }
+HotDeckDischargeAirDamperModulatingCmd : DischargeAirDamperModulatingCmd <sugar> { hotDeck }
 
 //////////////////////////////////////////////////////////////////////////
 // Economizer Air

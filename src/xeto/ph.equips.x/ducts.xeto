@@ -34,10 +34,10 @@ ReturnDuct: Duct <sugar> { return }
 MixedDuct: Duct <sugar> { mixed }
 
 // Discharge duct for cooling
-ColdDeckDischargeDuct: DischargeDuct { coldDeck }
+ColdDeckDischargeDuct: DischargeDuct <sugar> { coldDeck }
 
 // Discharge duct for heating
-HotDeckDischargeDuct: DischargeDuct { hotDeck }
+HotDeckDischargeDuct: DischargeDuct <sugar> { hotDeck }
 
 // Discharge duct which by-passes both heating and cooling coils
-NeutralDeckDischargeDuct: DischargeDuct { neutralDeck }
+NeutralDeckDischargeDuct: DischargeDuct <sugar> { neutralDeck }

@@ -19,17 +19,17 @@ ElecCableTempSensor : SurfaceTempSensor <sugar> {
 MotorTempSensor : SurfaceTempSensor <sugar> { motor }
 
 // Sensor that measures temperature of a motor winding
-MotorWindingTempSensor : MotorTempSensor { winding }
+MotorWindingTempSensor : MotorTempSensor <sugar> { winding }
 
 // Sensor that measures temperature of a motor bearing
-MotorBearingTempSensor : MotorTempSensor { bearing }
+MotorBearingTempSensor : MotorTempSensor <sugar> { bearing }
 
 //////////////////////////////////////////////////////////////////////////
 // EVSE
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor that measures temperature of an EVSE cable
-EvseCableTempSensor : ElecCableTempSensor { evse }
+EvseCableTempSensor : ElecCableTempSensor <sugar> { evse }
 
 // Sensor that measures temperature of an EVSE connector
 EvseConnectorTempSensor : SurfaceTempSensor <sugar> { evseConnector }

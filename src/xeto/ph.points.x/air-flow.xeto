@@ -21,20 +21,20 @@ DischargeAirFlowSp : DuctAirFlowSp <sugar> { discharge }
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for volumetric air flow in cold deck discharge duct
-ColdDeckDischargeAirFlowSensor : DischargeAirFlowSensor { coldDeck }
+ColdDeckDischargeAirFlowSensor : DischargeAirFlowSensor <sugar> { coldDeck }
 
 // Setpoint for volumetric air flow in cold deck discharge duct
-ColdDeckDischargeAirFlowSp : DischargeAirFlowSp { coldDeck }
+ColdDeckDischargeAirFlowSp : DischargeAirFlowSp <sugar> { coldDeck }
 
 //////////////////////////////////////////////////////////////////////////
 // HotDeck Discharge
 //////////////////////////////////////////////////////////////////////////
 
 // Sensor for volumetric air flow in hot deck discharge duct
-HotDeckDischargeAirFlowSensor : DischargeAirFlowSensor { hotDeck }
+HotDeckDischargeAirFlowSensor : DischargeAirFlowSensor <sugar> { hotDeck }
 
 // Setpoint for volumetric air flow in hot deck discharge duct
-HotDeckDischargeAirFlowSp : DischargeAirFlowSp { hotDeck }
+HotDeckDischargeAirFlowSp : DischargeAirFlowSp <sugar> { hotDeck }
 
 //////////////////////////////////////////////////////////////////////////
 // Economizer

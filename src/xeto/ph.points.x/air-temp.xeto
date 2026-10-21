@@ -81,23 +81,23 @@ ZoneAirTempEffectiveSp : ZoneAirTempSp <sugar> { effective }
 ZoneAirTempCoolingSp : ZoneAirTempSp <sugar> { cooling }
 
 // Cooling mode temperature setpoint for zone when occupied
-ZoneAirTempOccCoolingSp : ZoneAirTempCoolingSp { occ }
+ZoneAirTempOccCoolingSp : ZoneAirTempCoolingSp <sugar> { occ }
 
 // Cooling mode temperature setpoint for zone when unoccupied
-ZoneAirTempUnoccCoolingSp : ZoneAirTempCoolingSp { unocc }
+ZoneAirTempUnoccCoolingSp : ZoneAirTempCoolingSp <sugar> { unocc }
 
 // Cooling mode temperature setpoint for zone when in standby mode
-ZoneAirTempStandbyCoolingSp : ZoneAirTempCoolingSp { standby }
+ZoneAirTempStandbyCoolingSp : ZoneAirTempCoolingSp <sugar> { standby }
 
 // Heating mode temperature setpoint for zone
 ZoneAirTempHeatingSp : ZoneAirTempSp <sugar> { heating }
 
 // Heating mode temperature setpoint for zone when occupied
-ZoneAirTempOccHeatingSp : ZoneAirTempHeatingSp { occ }
+ZoneAirTempOccHeatingSp : ZoneAirTempHeatingSp <sugar> { occ }
 
 // Heating mode temperature setpoint for zone when unoccupied
-ZoneAirTempUnoccHeatingSp : ZoneAirTempHeatingSp { unocc }
+ZoneAirTempUnoccHeatingSp : ZoneAirTempHeatingSp <sugar> { unocc }
 
 // Heating mode temperature setpoint for zone when in standby mode
-ZoneAirTempStandbyHeatingSp : ZoneAirTempHeatingSp { standby }
+ZoneAirTempStandbyHeatingSp : ZoneAirTempHeatingSp <sugar> { standby }
 
