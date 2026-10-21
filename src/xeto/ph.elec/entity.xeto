@@ -69,6 +69,34 @@
   // rectifiers.
   *elecOddThd: Marker
 
+  // Displacement power factor, which accounts for the phase angle between
+  // voltage and current but excludes effects of nonlinear waveforms
+  // (harmonic distortion).
+  *elecPfDisplacement: Marker
+
+  // Distortion power factor, which measures the component of power factor
+  // attributable to harmonic distortion in voltage and current waveforms.
+  *elecPfDistortion: Marker
+
+  // Power factor according to the IEC convention defines a positive or
+  // negative sign based on the direction of active power flow. Power factor
+  // is positive when active power flows into a load. Power factor is negative
+  // when active power flows out of a load.
+  *elecPfIec: Marker
+
+  // Power factor according to the IEEE convention defines a positive or
+  // negative sign based on whether the load is capacitive or inductive. Power
+  // factor is positive when the load is capacitive, or when voltage lags
+  // behind current. Power factor is negative when the load is inductive, or
+  // when current lags behind voltage.
+  *elecPfIeee: Marker
+
+  // True power factor, which includes effects of harmonic distortion. Power
+  // factor is assumed to be true power factor when [ph.elec::ElecPfScope] is
+  // not defined. However, it is recommended to specify a scope for power
+  // factor to help avoid misinterpretation of data.
+  *elecPfTrue: Marker
+
   // Total Harmonic Distortion (THD). Combined magnitude of all harmonics as
   // a percentage of the fundamental. The primary overall indicator of
   // waveform distortion and power quality.

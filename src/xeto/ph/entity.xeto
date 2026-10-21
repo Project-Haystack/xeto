@@ -12,6 +12,10 @@
 // to ensure consistent usage of terminology.
 PhEntity: Entity <abstract> {
 
+  // Non-negative numeric value expressed without regard to sign or
+  // direction.
+  *absolute: Marker
+
   // Cooling process using energy from heat source such as hot water
   *absorption: Marker
 
@@ -554,6 +558,10 @@ PhEntity: Entity <abstract> {
   // Haystack filter string.  See [doc.xeto::Filters]
   *filterStr: Str
 
+  // Calculation over consecutive, non-overlapping time intervals of fixed
+  // length, updated at the end of each interval.
+  *fixedWindow: Marker
+
   // Storey of a building.  See [ph.doc::Spaces#floors] chapter.
   *floor: Marker
 
@@ -600,6 +608,14 @@ PhEntity: Entity <abstract> {
 
   // Ventilation equipment to limit exposure to hazardous fumes.
   *fumeHood: Marker
+
+  // A waveform including all frequency content without filtering, such as
+  // the fundamental, harmonics, and any DC or interharmonic components.
+  *fullSpectrum: Marker
+
+  // Component of a periodic waveform at its base frequency. For example, the
+  // 60Hz component of a 60Hz AC electric system.
+  *fundamental: Marker
 
   // Petroleum derived liquid used as a fuel source
   *gasoline: Marker
@@ -653,6 +669,10 @@ PhEntity: Entity <abstract> {
   // current being measured on an electrical ground conductor when applied to
   // a point entity that has the [ph::PhEntity.elec] and [ph::PhEntity.current] tags.
   *ground: Marker
+
+  // Component of a periodic waveform at an integer multiple of the
+  // fundamental frequency, excluding the fundamental itself.
+  *harmonic: Marker
 
   // Haystack HTTP protocol for exchanging tagged data
   *haystack: Marker
@@ -1078,6 +1098,13 @@ PhEntity: Entity <abstract> {
   // Individual space in a parking area for a single vehicle
   *parkingBay: Marker
 
+  // Maximum absolute value of a signal over a measurement interval
+  *peak: Marker
+
+  // Difference between the maximum and minimum values of a signal over a
+  // measurement interval
+  *peakToPeak: Marker
+
   // Auxiliary heating points associated with a [ph::PhEntity.vav]
   *perimeterHeat: Marker
 
@@ -1088,34 +1115,6 @@ PhEntity: Entity <abstract> {
   // electrical current leads the electrical voltage and a positive value
   // indicates the electrical current lags the electrical voltage.
   *pf: Marker
-
-  // Displacement power factor, which accounts for the phase angle between
-  // voltage and current but excludes effects of nonlinear waveforms (
-  // harmonic distortion).
-  *pfDisplacement: Marker
-
-  // Distortion power factor, which measures the component of power factor
-  // attributable to harmonic distortion in voltage and current waveforms.
-  *pfDistortion: Marker
-
-  // Power factor according to the IEC convention defines a positive or
-  // negative sign based on the direction of active power flow.  Power factor
-  // is positive when active power flows into a load.  Power factor is negative
-  // when active power flows out of a load.
-  *pfIec: Marker
-
-  // Power factor according to the IEEE convention defines a positive or
-  // negative sign based on whether the load is capacitive or inductive.  Power
-  // factor is positive when the load is capacitive, or when voltage lags behind
-  // current.  Power factor is negative when the load is inductive, or when
-  // current lags behind voltage.
-  *pfIeee: Marker
-
-  // True power factor, which includes effects of harmonic distortion.
-  // Power factor is assumed to be true power factor when [ph::PfScope] is not
-  // defined.  However, it is recommended to specify a scope for power
-  // factor to help avoid misinterpretation of data.
-  *pfTrue: Marker
 
   // Perfluorocarbons
   *pfc: Marker
@@ -1264,6 +1263,10 @@ PhEntity: Entity <abstract> {
   // Enclosed room of a building
   *room: Marker
 
+  // Root mean square (RMS). Square root of the mean of the squared values of
+  // a signal over a measurement interval.
+  *rootMeanSquare: Marker
+
   // Rotary screw compression
   *rotaryScrew: Marker
 
@@ -1351,6 +1354,11 @@ PhEntity: Entity <abstract> {
 
   // Reference to site which contains the entity
   *siteRef: ContainedByRef <of:Site>
+
+  // Calculation over the most recent time interval of fixed length, updated
+  // at a shorter step within the interval so that successive intervals
+  // overlap.
+  *slidingWindow: Marker
 
   // Simple Mail Transfer Protocol for sending email
   *smtp: Marker
@@ -1561,6 +1569,11 @@ PhEntity: Entity <abstract> {
 
   // Cooling using transfer of heat to water which is not explicitly chilled
   *waterCooling: Marker
+
+  // A signal's value as a function of time. May describe the full spectrum
+  // signal or a single frequency component of it, such as the fundamental
+  // or a harmonic.
+  *waveform: Marker
 
   // Associated with atmospheric air or phenomenon.
   // See [ph.doc::Weather] chapter.

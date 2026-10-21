@@ -90,23 +90,23 @@ ElecNet: ElecDirection { net }
 ElecAbsolute: ElecDirection { absolute }
 
 //////////////////////////////////////////////////////////////////////////
-// ElecPowerSubtype
+// ElecPowerQuantity
 //////////////////////////////////////////////////////////////////////////
 
 // AC power quantity to which a value applies. Also applies to AC energy and
 // demand, which are derived from the selected power quantity.
-ElecPowerSubtype: Choice
+ElecPowerQuantity: Choice
 
 // Active power. The portion of AC electricity that performs useful work.
-ElecActivePower: ElecPowerSubtype { active }
+ElecActive: ElecPowerQuantity { active }
 
 // Reactive power. The portion of AC electricity that oscillates between the
 // source and the load without performing useful work.
-ElecReactivePower: ElecPowerSubtype { reactive }
+ElecReactive: ElecPowerQuantity { reactive }
 
 // Apparent power. The combination of active and reactive power, reflecting
 // the total electricity delivered.
-ElecApparentPower: ElecPowerSubtype { apparent }
+ElecApparent: ElecPowerQuantity { apparent }
 
 //////////////////////////////////////////////////////////////////////////
 // ElecDemandCalc
@@ -126,48 +126,48 @@ ElecFixedWindow: ElecDemandCalc { fixedWindow }
 ElecSlidingWindow: ElecDemandCalc { slidingWindow }
 
 //////////////////////////////////////////////////////////////////////////
-// ElecSpectralContent
+// ElecSpectralScope
 //////////////////////////////////////////////////////////////////////////
 
 // Frequency content of an electrical waveform to which a value applies.
-ElecSpectralContent: Choice
+ElecSpectralScope: Choice
 
 // Full spectrum. A waveform including all frequency content without
 // filtering, such as the fundamental, harmonics, and any DC or interharmonic
 // components.
-ElecWaveform: ElecSpectralContent { waveform }
+ElecFullSpectrum: ElecSpectralScope { fullSpectrum }
 
 // Fundamental. Component of a waveform at its base frequency. For example,
 // the 60Hz component of a 60Hz AC electric power system.
-ElecFundamental: ElecSpectralContent { fundamental }
+ElecFundamental: ElecSpectralScope { fundamental }
 
 // Harmonic. A component of a waveform at an integer multiple of the
 // fundamental frequency, excluding the fundamental itself. The harmonic is
 // identified by [ph.elec::PhEntity.elecHarmonicOrder].
-ElecHarmonic: ElecSpectralContent { harmonic }
+ElecHarmonic: ElecSpectralScope { harmonic }
 
 //////////////////////////////////////////////////////////////////////////
-// ElecWaveformMagnitude
+// ElecMagnitudeCalc
 //////////////////////////////////////////////////////////////////////////
 
 // Calculation used to determine the magnitude of an electrical signal to
 // which a value applies.
-ElecWaveformMagnitude: Choice
+ElecMagnitudeCalc: Choice
 
 // Average of an electrical signal over a measurement interval.
-ElecAvg: ElecWaveformMagnitude { avg }
+ElecAvg: ElecMagnitudeCalc { avg }
 
 // Root mean square (RMS). Square root of the mean of the squared values of
 // an electrical signal over a measurement interval.
-ElecRms: ElecWaveformMagnitude { rootMeanSquare }
+ElecRms: ElecMagnitudeCalc { rootMeanSquare }
 
 // Maximum absolute value of an electrical signal over a measurement
 // interval.
-ElecPeak: ElecWaveformMagnitude { peak }
+ElecPeak: ElecMagnitudeCalc { peak }
 
 // Difference between the maximum and minimum values of an electrical signal
 // over a measurement interval.
-ElecPeakToPeak: ElecWaveformMagnitude { peakToPeak }
+ElecPeakToPeak: ElecMagnitudeCalc { peakToPeak }
 
 //////////////////////////////////////////////////////////////////////////
 // ElecQualityMetric
@@ -218,3 +218,45 @@ ElecCrestFactor: ElecQualityMetric { elecCrestFactor }
 // balanced, where all three lines have equal magnitudes 120 degrees apart,
 // expressed as a percentage. Imbalance can overheat motors and transformers.
 ElecImbalance: ElecQualityMetric { imbalance }
+
+//////////////////////////////////////////////////////////////////////////
+// ElecPfScope
+//////////////////////////////////////////////////////////////////////////
+
+// Power factor scope
+ElecPfScope: Choice
+
+// Displacement power factor, which accounts for the phase angle between
+// voltage and current but excludes effects of nonlinear waveforms
+// (harmonic distortion).
+ElecPfDisplacement: ElecPfScope { elecPfDisplacement }
+
+// Distortion power factor, which measures the component of power factor
+// attributable to harmonic distortion in voltage and current waveforms.
+ElecPfDistortion: ElecPfScope { elecPfDistortion }
+
+// True power factor, which includes effects of harmonic distortion. Power
+// factor is assumed to be true power factor when [ph.elec::ElecPfScope] is
+// not defined. However, it is recommended to specify a scope for power factor
+// to help avoid misinterpretation of data.
+ElecPfTrue: ElecPfScope { elecPfTrue }
+
+//////////////////////////////////////////////////////////////////////////
+// ElecPfStandard
+//////////////////////////////////////////////////////////////////////////
+
+// Standard for interpreting power factor's positive or negative sign
+ElecPfStandard: Choice
+
+// Power factor according to the IEC convention defines a positive or
+// negative sign based on the direction of active power flow. Power factor is
+// positive when active power flows into a load. Power factor is negative when
+// active power flows out of a load.
+ElecPfIec: ElecPfStandard { elecPfIec }
+
+// Power factor according to the IEEE convention defines a positive or
+// negative sign based on whether the load is capacitive or inductive. Power
+// factor is positive when the load is capacitive, or when voltage lags behind
+// current. Power factor is negative when the load is inductive, or when
+// current lags behind voltage.
+ElecPfIeee: ElecPfStandard { elecPfIeee }
