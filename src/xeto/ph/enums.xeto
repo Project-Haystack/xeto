@@ -400,6 +400,9 @@ HvacMode: Enum {
   pressurize
   depressurize
   manual
+  cooldown      // pre-occupancy cooldown where AHU is supplying cool air
+  neutral       // within temperature deadband; ventilation only
+  off           // equipment is not operating
 }
 
 // Kind name used to identity a value data type

@@ -141,5 +141,10 @@ RuntimeSensor : NumberPoint & SensorPoint {
 DessicantDehumidifierCmd : BoolPoint { dessicantDehumidifier }
 
 // Temperature conditioning mode for a zone in an HVAC system
-ZoneAirHvacModeSp : EnumPoint & SpPoint { zone, air, hvacMode }
+ZoneAirHvacModeSp : EnumPoint & SpPoint {
+  zone
+  air
+  hvacMode
+  enum: Obj <val:HvacMode>
+}
 
