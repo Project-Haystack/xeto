@@ -2247,13 +2247,18 @@ An optional slot omits `sh:minCount`. An invariant adds, for example,
 
 ## Queries
 
+A Xeto `Query` is computed navigation, not a stored required field. It selects
+records by following references from a starting record. This section calls a
+SPARQL query that performs that selection over exported RDF data a
+**SPARQL selection query**. The term Query refers to the Xeto definition;
+SPARQL selection query refers to its SPARQL translation.
+
 Query traversal uses the [reference-field metadata](#reference-field-metadata)
 in exported instance data to distinguish Refs from other IRI-valued fields.
 
 ### SHACL Validation
 
-A Xeto `Query` is computed navigation, not a stored required field. Query slots
-without named body requirements impose no validation constraints. Their
+Query slots without named body requirements impose no validation constraints. Their
 `via` or `inverse` metadata is retained as a SHACL property path, without
 `sh:class`, `sh:minCount`, or `sh:maxCount`. The `of` type selects query results;
 it does not require every record along the path to have that type.
@@ -2498,8 +2503,8 @@ produces `[ sh:inversePath app:Point.equipRef ]`.
 ### Query Execution and Result Validation
 
 An executable translation has three parts: SHACL checks for inputs that would
-cause a query execution error, a SPARQL query that selects records, and SHACL
-constraints for separately validating those records. The property-path metadata
+cause a query execution error, a SPARQL selection query, and SHACL constraints for
+separately validating the selected records. The property-path metadata
 above does not perform these operations by itself.
 
 Query selection and returned-record validation are separate operations. For
@@ -2530,10 +2535,20 @@ ex:t a sys:Entity, ex:Target ;
 ```
 
 Here, `ex:` and `sys:` denote the concrete library-version namespaces.
-The following fragments show the translation for the property and result class
-used in this example. A translation must also include other property IRIs
-representing the followed tag and eligible result subclasses in the resolved
-schemas; it must not restrict traversal to the Query owner's property alone.
+The following fragments show only `ex:Holder.next` and `ex:Target`. A complete
+translation must preserve two separate rules:
+
+- **Follow the field by name.** `via:"next"` reads the starting record's `next`
+  field. `via:"next+"` also reads `next` on reached records. Different specs may
+  map that field name to different RDF property IRIs; the SPARQL path must
+  recognize all of them.
+- **Include result subtypes.** The SPARQL selection query must accept records
+  of type `Target` or any of its subtypes.
+
+For this one-hop example, traversal follows `ex:Holder.next` from `ex:a`.
+For `via:"next+"`, traversal continues through each reached record's `next`
+field, which may use a different property IRI. Including those IRIs does not
+select unrelated records; the path still starts at the supplied starting record.
 
 #### Query Input Validation
 
@@ -2576,15 +2591,42 @@ from a missing referenced target, which ends only that traversal branch:
 
 The [reference-field rules](#reference-field-metadata) govern whether populated
 fields can be followed; the [Query path rules](#supported-query-paths) govern
-which records are selected. For `via+`, reference checks apply wherever
-traversal continues; unreachable records are outside those checks. Source-type and declared Ref
+which records are selected. For forward `via+` traversal, reference checks apply wherever
+traversal continues; unreachable records are outside those checks. The
+[inverse traversal rules](#inverse-result-selection) specify the wider scope
+for transitive inverse queries. Source-type and declared Ref
 cardinality constraints must not be added as query execution requirements.
 
 #### SPARQL Result Selection
 
-The SELECT binds the starting identity, follows the translated property path,
-and selects reached records belonging to the Query's `of` type. Results are
-unique record identities with no guaranteed order:
+A SPARQL selection query follows the Query's reference-field path from the
+starting record and returns distinct matching records. Each result must be an IRI
+identifying an exported Entity and must have an RDF type corresponding to the
+Query's `of` type or one of its subtypes. Results have no guaranteed order.
+
+Traversal may be forward or inverse, and may follow one hop or one or more
+hops. The result-type constraint applies only to the final record, not to
+intermediate records. Inverse traversal does not apply the referenced Query's
+result constraints to intermediate records either.
+
+The reference-field tag followed by the path can map to one or several
+property IRIs:
+
+- A single property uses its IRI directly.
+- Multiple properties use a parenthesized `|` alternative.
+- Inverse traversal reverses the property path with `^`.
+- One-hop traversal uses the forward or inverse path directly; one-or-more
+  traversal appends `+` to that path.
+
+The property path includes all IRIs representing the traversed reference-field
+tag across the effective specs in the current namespace, using the declared-slot
+and undeclared-field mapping rules. This set is independent of the eligible
+result classes.
+
+For `Holder.direct` in the
+[Query execution example](#query-execution-and-result-validation), the SPARQL
+selection query binds the starting record `ex:a`, follows `ex:Holder.next`, and
+selects records of type `ex:Target`:
 
 ```sparql
 SELECT DISTINCT ?result WHERE {
@@ -2635,6 +2677,105 @@ remain separate, as they are in Xeto.
 A translation must use the same resolved library versions as the RDF export.
 It must reject query forms for which it cannot preserve these behaviors rather
 than silently omit traversal or validation rules.
+
+#### Inverse Result Selection
+
+An inverse Query uses the referenced Query's path in reverse and its own
+`of` type to select results. The referenced Query's `of` type does not filter
+the starting record or intermediate records. No stored triples for computed
+Query slots are required.
+
+For example, in library `example.inverse`:
+
+```xeto
+Equipment: Dict {
+  points: Query<of:Point, inverse:"example.inverse::Point.equips">
+}
+Point: Dict {
+  point
+  equipRef: Ref?
+  equips: Query<of:Equipment, via:"equipRef+">
+}
+Relay: Dict { equipRef: Ref? }
+@equip1: Equipment {}
+@p1: Point { point, equipRef: @relay1 }
+@relay1: Relay { equipRef: @equip1 }
+@p2: Point { point, equipRef: @p1 }
+```
+
+Starting `points` at `equip1` returns `p1` and `p2`. Both have a nonempty
+`equipRef` path to `equip1`; the Relay is traversed but is not a Point result.
+The corresponding SELECT uses inverse property alternatives:
+
+```sparql
+SELECT DISTINCT ?result WHERE {
+  VALUES ?subject { ex:equip1 }
+  ?subject (^(ex:Point.equipRef|ex:Relay.equipRef))+ ?result .
+  ?result a sys:Entity .
+  FILTER(isIRI(?result))
+  FILTER EXISTS {
+    ?result a ?resultType . VALUES ?resultType { ex:Point }
+  }
+}
+```
+
+As in the forward example, the displayed path includes the properties used by
+the instances; a translation includes all properties representing the followed
+tag across the effective specs in the current namespace. Inherited and
+dependency Query definitions supply their effective path. A missing referenced Query or one without a `via` path
+is an error, rather than an empty result.
+Executable inverse queries require a fully qualified reference such as
+`example.inverse::Point.equips`. Native execution does not resolve an
+unqualified inverse name, even though the schema property-path mapping accepts
+local names.
+
+An inverse of a one-hop path omits `+`. Native one-hop inverse matching compares
+stored values with the starting record's ID without dereferencing them. A
+non-Ref value does not match, even if it exports to the same IRI as that record.
+The SELECT must therefore require reference-field evidence on a matching edge.
+Its existence test binds `?referenceProperty` to the same property set used in
+the path, requires the result record's `sys:hasRefField` to name that property,
+and requires that property to point to the starting record. These two triples
+must use the same property binding; evidence for a different field is not
+sufficient.
+
+For a one-hop version of the example's `equips` Query, the complete SELECT
+structure is shown below. Its property alternatives are abbreviated to the
+properties used by these instances; the full set also includes the other
+resolved mappings for `equipRef`, including undeclared fields.
+
+```sparql
+SELECT DISTINCT ?result WHERE {
+  VALUES ?subject { ex:equip1 }
+  ?subject ^(ex:Point.equipRef|ex:Relay.equipRef) ?result .
+  ?result a sys:Entity .
+  FILTER(isIRI(?result))
+  FILTER EXISTS {
+    VALUES ?referenceProperty { ex:Point.equipRef ex:Relay.equipRef }
+    ?result sys:hasRefField ?referenceProperty ;
+            ?referenceProperty ?subject .
+  }
+  FILTER EXISTS {
+    ?result a ?resultType . VALUES ?resultType { ex:Point }
+  }
+}
+```
+
+This one-hop query returns no Points in the example: only `relay1` points
+directly to `equip1`, and Relay does not match Point. The earlier `+` query
+also follows the incoming links to `p1` and `p2` and returns both.
+
+Inverse traversal searches records carrying the followed tag throughout the
+input graph. Unlike forward traversal, its search is not limited to records
+reachable from the starting record. For an inverse of `via+`, input checks
+therefore cover those candidate records even in disconnected components.
+Direct inverse matching requires an existing starting record but does not
+reject non-Ref fields merely because they are present elsewhere in the graph.
+
+Repeated links and cycles do not duplicate results. The starting record is
+eligible only if a nonempty path leads back to it and it fits the inverse
+Query's `of` type. Returned-record SHACL uses that same `of` type, independently
+of the referenced Query's result constraints.
 
 ## Intersections and Unions
 
