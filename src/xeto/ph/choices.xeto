@@ -396,3 +396,24 @@ PressureDependentVavModulation: VavModulation { pressureDependent }
 // setpoint; independent of the duct pressure
 PressureIndependentVavModulation: VavModulation { pressureIndependent }
 
+//////////////////////////////////////////////////////////////////////////
+// ZoneOccMode
+//////////////////////////////////////////////////////////////////////////
+
+// Zone occupancy mode to which a point applies, such as a
+// temperature setpoint used only when the zone is unoccupied.
+// See [ph.doc::Zones#occupancy] chapter.
+ZoneOccMode: Choice
+
+// Applies when the zone is occupied; the normal comfort mode used
+// during scheduled occupancy or a temporary occupancy override
+ZoneOcc: ZoneOccMode { occ }
+
+// Applies when the zone is unoccupied; the energy saving setback
+// mode used outside of scheduled occupancy
+ZoneUnocc: ZoneOccMode { unocc }
+
+// Applies when the zone is in standby; a reduced comfort mode used
+// during scheduled occupancy when the space is vacant so it can quickly
+// return to occupied comfort conditions
+ZoneStandby: ZoneOccMode { standby }
