@@ -2698,8 +2698,9 @@ cardinality constraints must not be added as query execution requirements.
 
 A SPARQL selection query follows the Query's reference-field path from the
 starting record and returns distinct matching records. Each result must be an IRI
-identifying an exported Entity and must have an RDF type corresponding to the
-Query's `of` type or one of its subtypes. Results have no guaranteed order.
+identifying an exported Entity and must fit the Query's `of` type. For a
+nominal target this is type membership; sugar also permits the structural
+matching described below. Results have no guaranteed order.
 
 Traversal may be forward or inverse, and may follow one hop or one or more
 hops. The result-type constraint applies only to the final record, not to
@@ -2742,6 +2743,289 @@ follows its reference, and the type pattern selects Target records. `DISTINCT`
 returns each identity once; the query promises no order. A missing reference
 target has no exported Entity record and produces no result.
 
+#### Sugar and Compound Result Selection
+
+Sugar targets allow type membership or structural matching against an
+underlying named type. Union and intersection targets use type membership.
+Result selection does not perform full record validation.
+
+##### Sugar Matching
+
+For example, consider these definitions. The illustrative library name is
+`example.fitting`, and `ex:` denotes its versioned RDF namespace:
+
+```xeto
+Base: Dict { required, *hot: Marker, *extra: Marker, *label: Str }
+Sweet: Base <sugar> { hot, label: "default" }
+Queries: Dict {
+  sweet: Query<of:Sweet, via:"id">
+}
+@candidate: Base { required, hot }
+```
+
+The relevant instance RDF is:
+
+```turtle
+ex:candidate a sys:Entity, ex:Base ;
+  sys:hasMarker ex:Base.required, ex:Base.hot .
+```
+
+`candidate` is declared as `Base`, not `Sweet`. It still matches `of:Sweet`
+because its type matches Sweet's underlying named type, or **nominal anchor**,
+`Base`, and it has the required `hot` field. The default `label` value is not
+a selection requirement.
+
+The `via:"id"` path selects the starting record itself. Its SPARQL translation
+uses `BIND(?subject AS ?result)` rather than following a stored property.
+The result predicate has two alternatives:
+
+- The record's type fits `Sweet`.
+- The record's type fits `Base`, and its `hot` field is present.
+
+Class and property lists are abbreviated to the relevant definitions. A
+translation must include all applicable alternatives in the current namespace.
+The SPARQL selection query is:
+
+```sparql
+SELECT DISTINCT ?result WHERE {
+  VALUES ?subject { ex:candidate }
+  BIND(?subject AS ?result)
+  ?result a sys:Entity .
+  FILTER(isIRI(?result))
+  FILTER(
+    EXISTS { ?result a ?type . VALUES ?type { ex:Sweet } }
+    || (
+      EXISTS { ?result a ?anchor . VALUES ?anchor { ex:Base ex:Sweet } }
+      && (
+        EXISTS {
+          VALUES ?property { ex:Base.hot ex:Sweet.hot }
+          ?result ?property ?value .
+        }
+        || EXISTS {
+          VALUES ?property { ex:Base.hot ex:Sweet.hot }
+          ?result sys:hasMarker ?property .
+        }
+      )
+    )
+  )
+}
+```
+
+The second alternative selects `ex:candidate`. The two presence tests recognize
+a field stored as an ordinary value or as a Marker, respectively.
+
+##### Selection Is Not Validation
+
+A runtime record with `hot` but no `required` marker has this relevant RDF:
+
+```turtle
+ex:candidate a sys:Entity, ex:Base ;
+  sys:hasMarker ex:Base.hot .
+```
+
+The SPARQL selection query is unchanged:
+
+| Operation | Outcome |
+| --- | --- |
+| Select with `of:Sweet` | Return `candidate`: `hot` is still present. |
+| Validate against `Sweet` | Fail: the inherited `required` marker is missing. |
+
+Sugar's structural alternative checks its required markers and invariant
+values, including requirements inherited from other sugar definitions. It does
+not check defaults or ordinary required fields inherited from its nominal
+anchor. A required marker checks field presence, not the stored value's type.
+Returned-record validation checks those additional requirements.
+
+Runtime records can be missing required fields. Each table row represents a
+separate starting record with an `id`; the other fields use Trio notation,
+separated by semicolons.
+
+| Runtime fields | Selected by `sweet`? | Valid against Sweet? |
+| --- | --- | --- |
+| `spec: @example.fitting::Base`; `required`; `hot` | Yes | Yes |
+| `spec: @example.fitting::Base`; `hot` | Yes | No: `required` is missing |
+| `spec: @example.fitting::Base`; `required`; `hot: "oops"` | Yes | No: `hot` is not a Marker |
+| `spec: @example.fitting::Base`; `required`; `hot`; `label: "different"` | Yes | Yes: the default does not require this value to equal `"default"` |
+| `spec: @example.fitting::Base`; `required` | No | No: `hot` is missing |
+| `spec: @example.fitting::Sweet`; `required` | Yes: its declared type matches | No: `hot` is missing |
+
+##### Computed Sugar Subtyping
+
+A sugar type with the same anchor and additional requirements can fit `Sweet`
+without a declared inheritance link:
+
+```xeto
+MoreSweet: Base <sugar> { hot, extra }
+```
+
+`MoreSweet` does not declare `Sweet` as its base. It nevertheless fits `Sweet`:
+both have the anchor `Base`, and MoreSweet's requirements include Sweet's
+required `hot` marker. The `label` default does not participate in this comparison.
+
+The type-membership alternative for `of:Sweet` must therefore include both
+classes:
+
+```sparql
+EXISTS {
+  ?result a ?type .
+  VALUES ?type { ex:Sweet ex:MoreSweet }
+}
+```
+
+For example, this runtime record declares `MoreSweet` but has no markers:
+
+```trio
+id: @example.fitting::typedCandidate
+spec: @example.fitting::MoreSweet
+```
+
+Its relevant RDF is:
+
+```turtle
+ex:typedCandidate a sys:Entity, ex:MoreSweet .
+```
+
+It matches the type-membership alternative for `of:Sweet`, then fails
+returned-record validation because the required markers are missing. In
+general, computed sugar subtyping requires a compatible anchor and every target
+requirement with the same required value; the candidate may add requirements.
+
+##### Invariant Values
+
+An invariant, unlike a default, adds a value-equality test to sugar's structural
+alternative. For example:
+
+```xeto
+Named: Base <sugar> {
+  label: Str <invariant> "wanted"
+}
+```
+
+For records declared as `Base`, the structural alternative for `of:Named`
+requires `label` to equal `"wanted"`:
+
+```sparql
+EXISTS {
+  VALUES ?property { ex:Base.label ex:Named.label }
+  ?result ?property ?label .
+  FILTER(?label = "wanted")
+}
+```
+
+This fragment supplies the value test alongside the anchor-membership test.
+As with `Sweet`, a declared type that fits `Named` can match the separate
+type-membership alternative without running the structural tests.
+
+Each structural test must recognize all property IRIs representing its field
+name, including inherited and undeclared-field mappings. Invariant comparisons
+must preserve Xeto value equality, including supported full-fidelity and
+Haystack representations; RDF lexical equality alone is insufficient. A
+translation must reject an invariant whose equality it cannot preserve rather
+than omit the requirement.
+
+##### Union Targets
+
+A union target can include a sugar type:
+
+```xeto
+Other: Dict { other }
+Either: Sweet | Other
+CompoundQueries: Dict {
+  either: Query<of:Either, via:"id">
+}
+```
+
+With `candidate` declared as `Base` and containing `required` and `hot`, the
+two Query result types produce different selections:
+
+| Query result type | Selected? |
+| --- | --- |
+| `Sweet` | Yes: Base membership and the `hot` field satisfy sugar's structural alternative. |
+| `Either` | No: Base does not fit either union member by type membership. |
+
+A union target checks type membership in its alternatives. It does not apply
+each member's structural sugar alternative. The identity binding, Entity check,
+and IRI check stay the same; only the result predicate changes:
+
+```sparql
+FILTER EXISTS {
+  ?result a ?type .
+  VALUES ?type { ex:Sweet ex:MoreSweet ex:Other ex:Either }
+}
+```
+
+The list includes computed sugar subtypes such as `MoreSweet`, but no structural
+`hot` test. Other qualifying types in the current namespace must also be included.
+
+##### Intersection Targets
+
+An intersection also selects by type membership, not by checking whether a
+record happens to have all of its members' fields. For example:
+
+```xeto
+Both: Base & Other
+IntersectionQueries: Dict {
+  both: Query<of:Both, via:"id">
+}
+```
+
+These runtime records have the same marker names but different declared types:
+
+```trio
+id: @example.fitting::baseRecord
+spec: @example.fitting::Base
+required
+other
+---
+id: @example.fitting::bothRecord
+spec: @example.fitting::Both
+required
+other
+```
+
+Their relevant RDF is:
+
+```turtle
+ex:baseRecord a sys:Entity, ex:Base ;
+  sys:hasMarker ex:Base.required, ex:Base.other .
+ex:bothRecord a sys:Entity, ex:Both ;
+  sys:hasMarker ex:Base.required, ex:Other.other .
+```
+
+| Starting record | Selected by `both`? |
+| --- | --- |
+| `baseRecord` | No: having both fields does not make its declared type fit Both. |
+| `bothRecord` | Yes: its declared type is Both. |
+
+The result predicate tests the eligible classes, not the fields:
+
+```sparql
+FILTER EXISTS {
+  ?result a ?type .
+  VALUES ?type { ex:Both }
+}
+```
+
+Compound source types also participate in membership. `Both` fits `Base`
+through its Base member, and fits `Either` through its Other member. `Either`
+does not fit `Base`, because its Other alternative does not fit Base. Thus an
+intersection source can match through a member, while a union source must
+match through all members. Ordinary inheritance still applies.
+
+A named subtype of a union does not itself acquire the union target's
+member-selection rule. Nested compounds use the same membership rules. Class
+alternatives must be computed from these relationships, not inferred merely
+from the fields on a record.
+
+##### Other Result Types
+
+Choice targets also use type membership; missing member markers are validation
+failures rather than selection failures. Scalar targets do not match ordinary
+records. Malformed runtime records can assert a scalar type and pass the
+initial type-membership check. A translator that does not support the resulting
+scalar conformance checks must reject that Query rather than assume its result
+is always empty.
+
 #### Returned-Record Validation
 
 Returned-record validation applies the Query's `of` constraints only to the
@@ -2774,6 +3058,48 @@ remain separate, as they are in Xeto.
 A translation must use the same resolved library versions as the RDF export.
 It must reject query forms for which it cannot preserve these behaviors rather
 than silently omit traversal or validation rules.
+
+##### Validating Sugar Results
+
+A sugar result can be declared as its nominal anchor rather than the sugar
+type. Validation must recognize the field IRIs used by those records. For
+`candidate` in [Sugar Matching](#sugar-matching), that means recognizing Base's
+field IRIs as well as Sweet's.
+
+Checking only `ex:Sweet.hot` would miss the candidate's
+`sys:hasMarker ex:Base.hot` statement. The required-marker checks accept the
+relevant `hot` marker IRIs:
+
+```turtle
+ex:SelectedSugarResults a sh:NodeShape ;
+  sh:targetNode ex:candidate ;
+  sh:node ex:SweetResultConstraints .
+
+ex:SweetResultConstraints a sh:NodeShape ;
+  sh:property [
+    sh:path sys:hasMarker ;
+    sh:hasValue ex:Base.required
+  ] ;
+  sh:property [
+    sh:path sys:hasMarker ;
+    sh:qualifiedValueShape [
+      sh:in ( ex:Base.hot ex:Sweet.hot ex:MoreSweet.hot )
+    ] ;
+    sh:qualifiedMinCount 1
+  ] .
+```
+
+The `candidate` record with both `required` and `hot` passes these marker checks. Removing `required` causes
+validation to fail without changing selection. Replacing the `hot` Marker
+with a string also fails validation: the ordinary value establishes presence
+for selection, but does not supply the required Marker statement.
+
+The fragment shows only the marker checks. Complete reusable constraints must
+recognize all applicable field mappings across the current namespace and check
+required fields, value types, and invariants, including inherited requirements.
+Ordinary value-bearing fields use alternative property paths; marker checks
+accept alternative marker IRIs on `sys:hasMarker`. This changes which RDF
+properties represent a field, not the requirements that field must satisfy.
 
 #### Inverse Result Selection
 
