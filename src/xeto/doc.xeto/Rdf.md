@@ -610,6 +610,47 @@ The type and value constraints still apply when a `maybe` slot is present.
 Marker, choice, and list cardinality have additional rules described in their
 sections below.
 
+#### Constraints on the `spec` Field
+
+The type in a Xeto instance declaration, such as `@meter1: ElecMeter {}`,
+implies a `spec` field referring to `ElecMeter`. When that name resolves to
+`ph::ElecMeter`, a Trio representation expresses the field explicitly as
+`spec: @ph::ElecMeter`. These are two ways to declare the same instance type;
+see [Instance Specs](Instances.md#spec).
+
+A type definition can declare requirements for the `spec` field using a slot
+declaration, just as it does for other fields. For example:
+
+```xeto
+Record: Dict {
+  spec: Ref
+}
+```
+
+The [`spec` field](#the-spec-field) identifies the record's declared type and
+is exported as `sys:spec`. SHACL therefore checks that property, not an
+owner-qualified property such as `ex:Record.spec`:
+
+```turtle
+ex:Record a sh:NodeShape ;
+  sh:targetClass ex:Record ;
+  sh:property [
+    sh:path sys:spec ;
+    sh:nodeKind sh:IRI ;
+    sh:class rdfs:Class ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .
+```
+
+The shape requires exactly one `sys:spec` value identifying an exported schema
+class. It checks that the field contains a reference to a type definition; it
+does not select which type the record declares.
+
+Inherited requirements and reusable constraints for returned Query records
+check the same `sys:spec` property. See [The `spec` Field](#the-spec-field) for
+how subtype instances satisfy inherited requirements.
+
 ### Instance Data
 
 A Xeto instance id becomes the subject IRI. A local id uses the instance
@@ -630,15 +671,69 @@ effective spec.
 
 ```turtle
 ex:site1 a sys:Entity, ex:Site ;
+  sys:spec ex:Site ;
+  sys:hasRefField sys:spec ;
   sys:hasMarker ex:Site.site .
 
 ex:equip1 a sys:Entity, ex:Equip ;
+  sys:spec ex:Equip ;
+  sys:hasRefField sys:spec ;
   ex:Equip.dis "AHU-1"^^xsd:string ;
   ex:Equip.siteRef ex:site1 .
 ```
 
 The subject IRI carries the Xeto id. No additional id predicate is required by
 this profile.
+
+#### The `spec` Field
+
+Xeto instance syntax puts the declared type after the colon. The declaration
+`@equip1: Equip` in the instance example identifies `Equip` as the instance's
+type and implies a `spec` field referring to that definition. If `Equip` belongs
+to library `example`, the corresponding `id` and `spec` fields in Trio are:
+
+```trio
+id: @example::equip1
+spec: @example::Equip
+```
+
+The field identifies this record's declared type. Other Ref fields can also
+refer to schema definitions; the special meaning of `spec` is that it names
+the record's own type.
+
+A Query can follow this Ref with `via:"spec"`. To preserve that traversal,
+RDF needs a property containing the exact Ref in the field. `rdf:type` cannot
+serve that purpose: it records type membership, which may include supertypes
+or other type assertions. Following those memberships would introduce
+traversal destinations that are not in the `spec` field.
+
+The field therefore uses the shared RDF property `sys:spec`, separately from
+`rdf:type`. The corresponding type and reference statements are:
+
+```turtle
+ex:equip1 a sys:Entity, ex:Equip ;
+  sys:spec ex:Equip ;
+  sys:hasRefField sys:spec .
+```
+
+An instance declared as a subtype identifies that subtype in its `spec` field,
+not its parent type. It can therefore satisfy an inherited `spec: Ref`
+requirement without referring to the parent: the requirement asks for a type
+reference, not a reference to one particular type. Additional type memberships
+must not create additional `sys:spec` values.
+
+Following `sys:spec` looks for a runtime record with the referenced ID; the
+schema definition alone is not a Query result. See
+[Spec-Reference Traversal](#spec-reference-traversal) for the selection rules
+and examples.
+
+Trio can also represent records without a `spec` field. If a record has no
+stored `spec` field, the exporter must not add `sys:spec`, even when it assigns
+the record an effective RDF type. Whether the field is required depends on
+the applicable validation constraints. The same field mapping applies to
+nested Dicts.
+
+#### Effective Instance Values
 
 Before exporting an instance, the exporter looks up the complete definition of
 its spec in the active namespace. That definition includes inherited and global
@@ -684,6 +779,8 @@ nested dictionaries, lists, and Choices. It also applies to defaults inherited
 from a base spec, declared by a global slot, or contributed by a mixin. The
 exporter writes such a default only when it is present in the resolved instance
 values.
+
+#### Undeclared Fields
 
 The following `Person` spec declares only `dis`:
 
@@ -2765,8 +2862,8 @@ This one-hop query returns no Points in the example: only `relay1` points
 directly to `equip1`, and Relay does not match Point. The earlier `+` query
 also follows the incoming links to `p1` and `p2` and returns both.
 
-Inverse traversal searches records carrying the followed tag throughout the
-input graph. Unlike forward traversal, its search is not limited to records
+Inverse traversal over ordinary reference fields searches records carrying the
+followed tag throughout the input graph. Unlike forward traversal, its search is not limited to records
 reachable from the starting record. For an inverse of `via+`, input checks
 therefore cover those candidate records even in disconnected components.
 Direct inverse matching requires an existing starting record but does not
@@ -2776,6 +2873,219 @@ Repeated links and cycles do not duplicate results. The starting record is
 eligible only if a nonempty path leads back to it and it fits the inverse
 Query's `of` type. Returned-record SHACL uses that same `of` type, independently
 of the referenced Query's result constraints.
+
+#### Identity Traversal
+
+The `id` field is a reference to the record itself. RDF represents that value
+as the record's subject IRI, not as a property ending in `.id`. An executable
+translation of `via:"id"` must therefore select the starting identity directly.
+One identity step is a self-link: repeating it with `+`, or reversing it with
+`inverse`, reaches the same identity. This is a nonempty native traversal,
+not a rule that all one-or-more paths include their starting record.
+
+For example, in library `example.identity`:
+
+```xeto
+Target: Dict { hit }
+Other: Dict {}
+Queries: Dict {
+  self: Query<of:Target, via:"id">
+  repeatedSelf: Query<of:Target, via:"id+">
+  inverseSelf: Query<of:Target, inverse:"example.identity::Queries.self">
+  inverseRepeatedSelf: Query<of:Target, inverse:"example.identity::Queries.repeatedSelf">
+}
+@t: Target { hit }
+@outsider: Other {}
+```
+
+Each of these Queries returns `t` when started at `t`, and no results when
+started at `outsider`. The common SELECT structure substitutes the supplied
+starting IRI into `VALUES` and the Query's own eligible result classes into
+the result-type test. Its navigation clause is `BIND(?subject AS ?result)`;
+it requires no tag-property alternatives or reference-field evidence.
+For this example, the complete selection query starting at `t` is:
+
+```sparql
+SELECT DISTINCT ?result WHERE {
+  VALUES ?subject { ex:t }
+  BIND(?subject AS ?result)
+  ?result a sys:Entity .
+  FILTER(isIRI(?result))
+  FILTER EXISTS {
+    ?result a ?resultType . VALUES ?resultType { ex:Target }
+  }
+}
+```
+
+As with other nominal selection queries, the result-class set includes any
+subtypes in the resolved schemas. For an inverse Query it comes from that
+Query's own `of`, independently of the referenced Query's `of`.
+
+Input validation must still reject a missing starting record. Identity
+traversal does not inspect other fields or disconnected records. Its input
+shape for the same start is:
+
+```turtle
+[] a sh:NodeShape ;
+  sh:targetNode ex:t ;
+  sh:nodeKind sh:IRI ;
+  sh:property [ sh:path rdf:type ; sh:hasValue sys:Entity ] .
+```
+
+Result validation remains separate. The returned `t` is checked against
+Target using a selection shape, with the complete graph available:
+
+```turtle
+ex:SelectedResults a sh:NodeShape ;
+  sh:targetNode ex:t ;
+  sh:node ex:TargetResultConstraints .
+ex:TargetResultConstraints a sh:NodeShape ;
+  sh:property [ sh:path sys:hasMarker ; sh:hasValue ex:Target.hit ] .
+```
+
+Removing `t`'s `hit` marker does not remove `t` from the query result; it makes
+the separate validation fail. A missing starting record instead fails the
+input check before selection, even if the SELECT alone would return no rows.
+
+#### Spec-Reference Traversal
+
+The [`spec` field](#the-spec-field) identifies a record's declared Xeto type.
+Its Ref can be used in two different operations:
+
+- **Type validation** resolves the Ref to a schema definition and checks the
+  record against that definition.
+- **Query traversal** reads the Ref and looks for a runtime record with that
+  ID. As with other Query paths, that record is returned only if it exists and
+  matches the Query's `of` type. The schema definition alone is not a result.
+
+A SPARQL selection query must therefore follow `sys:spec`, which preserves
+the exact Ref in the field, rather than `rdf:type`, which may include other
+type memberships. The instance must also have `sys:hasRefField sys:spec`.
+A record without a stored `spec` field has no `sys:spec` value; type membership
+alone must not create one.
+
+For example, these definitions belong to library `example.spec`:
+
+```xeto
+Base: Dict { hit }
+Child: Base {}
+Queries: Dict {
+  direct: Query<of:Base, via:"spec">
+  transitive: Query<of:Base, via:"spec+">
+  directInverse: Query<of:Base, inverse:"example.spec::Queries.direct">
+  transitiveInverse: Query<of:Base, inverse:"example.spec::Queries.transitive">
+}
+```
+
+Runtime records may have IDs that equal type names. These runtime records are
+shown in Trio; library instance declarations cannot reuse a type's name:
+
+```trio
+id: @example.spec::reading
+spec: @example.spec::Child
+hit
+---
+id: @example.spec::Child
+spec: @example.spec::Base
+hit
+```
+
+Their instance RDF is:
+
+```turtle
+ex:reading a sys:Entity, ex:Child ;
+  sys:spec ex:Child ;
+  sys:hasRefField sys:spec ;
+  sys:hasMarker ex:Base.hit .
+ex:Child a sys:Entity, ex:Base ;
+  sys:spec ex:Base ;
+  sys:hasRefField sys:spec ;
+  sys:hasMarker ex:Base.hit .
+```
+
+Starting `direct` at `reading` returns the runtime record named `Child`.
+Starting `transitive` there also returns only `Child`: the schema defines
+Base, but the instance graph contains no runtime record named Base. A schema
+class alone is not a query result. Conversely, inverse traversal from Child
+returns reading. Reading's subtype membership makes it eligible for `of:Base`;
+it does not create a direct spec reference from reading to Base.
+
+The traversal property set is exactly `sys:spec`. Direction and repetition
+compose with this property as follows:
+
+| Query form | SPARQL path |
+| --- | --- |
+| `via:"spec"` | `sys:spec` |
+| `via:"spec+"` | `(sys:spec)+` |
+| Inverse of `via:"spec"` | `^sys:spec` |
+| Inverse of `via:"spec+"` | `(^sys:spec)+` |
+
+The starting IRI and eligible result classes supply the remaining substitutions
+in the [selection structure](#query-execution-and-result-validation). For the
+transitive Query above, the complete SELECT is:
+
+```sparql
+SELECT DISTINCT ?result WHERE {
+  VALUES ?subject { ex:reading }
+  ?subject (sys:spec)+ ?result .
+  ?result a sys:Entity .
+  FILTER(isIRI(?result))
+  FILTER EXISTS {
+    ?result a ?resultType . VALUES ?resultType { ex:Base ex:Child }
+  }
+}
+```
+
+Reference-field checks use `sys:spec` in place of ordinary tag-property
+alternatives. Forward one-hop checks the start; forward `+` also checks reached
+records. Direct inverse selection requires reference-field evidence on the
+matching edge, and transitive inverse checks all candidate records, as specified
+in [Inverse Result Selection](#inverse-result-selection). An absent spec field
+ends a branch; a present non-Ref must not silently become an empty forward result.
+
+The input shape for `transitive` starting at reading is:
+
+```turtle
+[] a sh:NodeShape ;
+  sh:targetNode ex:reading ;
+  sh:nodeKind sh:IRI ;
+  sh:property [ sh:path rdf:type ; sh:hasValue sys:Entity ] ;
+  sh:property [
+    sh:path [ sh:zeroOrMorePath sys:spec ] ;
+    sh:node [
+      sh:or (
+        [ sh:property [ sh:path sys:spec ; sh:maxCount 0 ] ]
+        [ sh:property [ sh:path sys:hasRefField ; sh:hasValue sys:spec ] ]
+      ) ;
+      sh:property [ sh:path sys:spec ; sh:nodeKind sh:IRI ] ;
+      sh:property [ sh:path sys:hasMarker ; sh:not [ sh:in ( sys:spec ) ] ]
+    ]
+  ] .
+```
+
+The zero-or-more path includes the starting record in input checks. The SELECT
+still requires one or more steps. After selection, the returned Child record
+is validated against Base independently:
+
+```turtle
+ex:SelectedResults a sh:NodeShape ;
+  sh:targetNode ex:Child ;
+  sh:node ex:BaseResultConstraints .
+ex:BaseResultConstraints a sh:NodeShape ;
+  sh:property [ sh:path sys:hasMarker ; sh:hasValue ex:Base.hit ] .
+```
+
+Selection operates on instance data. Schema descriptions must not supply
+runtime field values. For returned-record validation, the complete instance
+graph remains available, together with supporting vocabulary. When a runtime
+record and a schema class share an IRI, the schema's `rdfs:subClassOf`
+statements and `rdf:type rdfs:Class` declaration at that IRI are retained.
+The class declaration allows a stored spec Ref to identify its schema target;
+it does not supply a runtime field. Other schema
+statements remain outside the data graph. For example, the schema's declaration
+of Base's required `hit` marker cannot satisfy a missing `hit` on a runtime
+record named Base. Removing a returned record's marker therefore still fails
+result validation, without removing the record from the SELECT results.
 
 ## Intersections and Unions
 
