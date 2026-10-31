@@ -3208,7 +3208,7 @@ test below:
 
 | Predicate | Translation rule |
 | --- | --- |
-| `present(tag)` | An `EXISTS` test for any value of a property representing the tag, OR an `EXISTS` test for that property's IRI as a `sys:hasMarker` value. |
+| `present(tag)` | An `EXISTS` test for any value of a property representing the tag, OR an `EXISTS` test for that property's IRI as a `sys:hasMarker` or `sys:hasRefField` value. Reference-field metadata preserves presence for an explicitly stored empty MultiRef. |
 | `equal(tag, value)` | An `EXISTS` test for a property representing the tag whose value equals the invariant under Xeto's value-equality rules. |
 
 Each `EXISTS` checks the current `?result` for a matching field. It uses the
@@ -3270,16 +3270,22 @@ SELECT DISTINCT ?result WHERE {
           VALUES ?property { ex:Base.hot ex:Sweet.hot }
           ?result sys:hasMarker ?property .
         }
+        || EXISTS {
+          VALUES ?property { ex:Base.hot ex:Sweet.hot }
+          ?result sys:hasRefField ?property .
+        }
       )
     )
   )
 }
 ```
 
-The last two `EXISTS` blocks check whether `hot` is present:
+The last three `EXISTS` blocks check whether `hot` is present:
 
 - `?result ?property ?value` checks for a field stored as an ordinary value.
 - `?result sys:hasMarker ?property` checks for a field stored as a Marker.
+- `?result sys:hasRefField ?property` also recognizes an explicitly stored empty
+  MultiRef, which has no ordinary property values.
 
 The Marker check matches `ex:candidate`, so the second alternative selects it.
 
@@ -3358,6 +3364,10 @@ SELECT DISTINCT ?result WHERE {
         || EXISTS {
           VALUES ?property { ex:Base.hot ex:Sweet.hot ex:MoreSweet.hot }
           ?result sys:hasMarker ?property .
+        }
+        || EXISTS {
+          VALUES ?property { ex:Base.hot ex:Sweet.hot ex:MoreSweet.hot }
+          ?result sys:hasRefField ?property .
         }
       )
     )
@@ -3584,6 +3594,10 @@ FILTER(
         # A valid hot Marker uses sys:hasMarker.
         VALUES ?property { ex:Derived.hot ex:NarrowSweet.hot }
         ?result sys:hasMarker ?property .
+      }
+      || EXISTS {
+        VALUES ?property { ex:Derived.hot ex:NarrowSweet.hot }
+        ?result sys:hasRefField ?property .
       }
     )
   )
