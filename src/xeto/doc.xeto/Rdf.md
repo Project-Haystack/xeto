@@ -1515,6 +1515,14 @@ ex:Equip a sh:NodeShape ;
 
 Every value of a `MultiRef` must satisfy the node-kind and class constraints.
 
+A record declared as a [Query body member](#query-body-validation) can also
+satisfy a typed reference. For example, if `Twins.results.first` derives from
+`Target`, `Ref<of:Target>` accepts a reference to a record declared as
+`Twins.results.first`. When the validation vocabulary omits the member's
+subclass chain, the class check uses `sh:or` to accept `Target` or any matching
+body-member class in the resolved namespace. This rule applies to `MultiRef`
+and reusable returned-record constraints as well.
+
 ### Instance Data
 
 A `Ref` becomes one object IRI. A `MultiRef` becomes one triple per referenced
@@ -2443,8 +2451,11 @@ ex:equip1 ex:Equip.points ex:point1 .
 ```
 
 A plain query without `via` or `inverse` uses its slot property as `sh:path`,
-but still has no cardinality constraint. Required and optional members declared inside a
-query body are not mapped in this version; see
+but still has no cardinality constraint. Exporting schema SHACL and compiling
+Query-body validation are separate operations. The schema-only exporter does
+not yet support Query bodies; the Query compiler produces the SPARQL and SHACL
+needed to check required and optional body members. See
+[Query-Body Validation](#query-body-validation) and
 [Deferred Mappings](#deferred-mappings).
 
 `via` and `inverse` are mutually exclusive. A `via` path is an unqualified
@@ -2626,6 +2637,10 @@ If a returned record fails validation, its identity remains in the results and
 its validation failure is reported alongside them; it is not a query execution
 error. The schema property-path metadata above describes navigation but does
 not execute these stages.
+
+The translation must use the same resolved library versions as the RDF export.
+If it cannot preserve a Query's traversal or validation rules, it must report
+a translation error.
 
 For example:
 ```xeto
@@ -3760,10 +3775,12 @@ records such as `invalid`.
 
 #### Validation
 
-Input validation asks whether execution can proceed. Returned-record validation
-asks whether the selected records conform to `of`. These have different targets
-and must remain separate; a matching record's invalid contents are not an input
-error unless traversal itself encounters an invalid reference value.
+Input validation asks whether execution can proceed. Query-body validation
+checks how many selected records match each required or optional member.
+Returned-record validation asks whether the selected records conform to `of`.
+These checks have different targets and must remain separate; a matching
+record's invalid contents are not an input error unless traversal itself
+encounters an invalid reference value.
 
 ##### Query Input Validation
 
@@ -3821,12 +3838,250 @@ All forms require the starting record to exist. They do not require it to have
 the Query owner's type. Declared Ref cardinality is a record-validation rule
 and must not be added as a query execution requirement.
 
+##### Query-Body Validation
+
+A Query body declares requirements on the result set. Each declaration inside
+the braces is a **body member**. For example, this Query has two body members,
+`temperatureSensor` and `pressureSensor`:
+
+```xeto
+Point: Dict {}
+Temperature: Point { temperature }
+Pressure: Point { pressure }
+Equipment: Dict {
+  pointRefs: MultiRef?
+  points: Query<of:Point, via:"pointRefs"> {
+    temperatureSensor: Temperature
+    pressureSensor: Pressure?
+  }
+}
+@equip: Equipment { pointRefs: MultiRef { @t, @p, @other } }
+@t: Temperature { temperature }
+@p: Pressure { pressure }
+@other: Point {}
+```
+
+Starting `points` at `equip` selects `t`, `p`, and `other`.
+The Query body adds requirements on that result set:
+
+| Xeto declaration | Meaning |
+| --- | --- |
+| `of:Point, via:"pointRefs"` | Select reached records that fit Point. |
+| `temperatureSensor: Temperature` | Require exactly one Temperature match among the results. |
+| `pressureSensor: Pressure?` | Allow zero or one Pressure match among the results. |
+
+The names `temperatureSensor` and `pressureSensor` identify requirements;
+the selected records do not need fields with those names. Removing `t` from
+`pointRefs` leaves `temperatureSensor` missing. Adding another Temperature
+record makes that requirement ambiguous. Removing `p` is valid because
+`pressureSensor` is optional. The additional Point `other` remains a Query
+result even though it satisfies neither requirement.
+
+Each body member counts distinct matching records independently. Repeating a
+Ref does not increase the count. One record can satisfy two members if the
+record fits both requirements. Body validation does not assign records to names
+as `queryNamed` does, or establish that matching records pass full validation.
+
+###### Composing Body Validation
+
+Body validation reuses the existing translation of traversal and `of`
+matching. The checks on each *body member* are described by the
+following rules. Let `R` be the Query's result set, and let `M` be one body-member
+declaration, such as `temperatureSensor: Temperature`.
+
+```text
+Existing query translation:
+    starting record + traversal + of matching → result set R
+
+Body-validation additions, for each declaration M:
+    R + member matching and claim rules → matches(R, M)
+    matches(R, M) → temporary RDF links
+    temporary RDF links + required/optional count → SHACL verdict
+```
+
+Input SHACL runs before traversal. Inverse and repeated paths change how the
+Query obtains its result set `R`; they do not change how body members match
+and count those results.
+
+A result's `spec` field can name an ordinary type or a particular body member.
+This determines whether the record is **free** or **claimed**.
+
+In the sensor example, a record with the following `spec` is **free**: it does
+not name a body member. Validation considers it for each member whose
+requirements it fits:
+
+```trio
+spec: @example.body::Temperature
+```
+
+A record with this `spec` is **claimed** by `temperatureSensor` and counts
+only toward that member:
+
+```trio
+spec: @example.body::Equipment.points.temperatureSensor
+```
+
+Xeto calls this explicit association **anchoring**; see
+[Query Constraints](Constraints.md#query-constraints).
+Creating the second record requires knowing the body member's qualified name.
+Ordinary records do not need that knowledge. Matching free records uses the
+existing [result-matching rules](#result-matching), including sugar constraints.
+
+To identify a record's claim, start at its declared type and follow its nominal
+base chain. The first body member encountered is the one it claims. Matching
+a member through sugar's structural rules does not create a claim.
+
+For each body member, count its claimed records if any are present in `R`.
+Otherwise, count the free records that fit it. A claimed record never counts
+toward a different member.
+
+```text
+claims(R, M) = records in R whose declared type claims member M
+free(R)      = records in R that claim no member of this Query body
+
+matches(R, M) = claims(R, M), if claims(R, M) is nonempty
+                otherwise records in free(R) that fit member M
+```
+
+A claimed record still counts if it is missing required fields; a matching
+free record does not replace it. Field validation remains a separate check.
+
+###### Representing Matches for SHACL
+
+Once the matching records for each body member are known, SHACL needs RDF
+links it can count. A SPARQL `CONSTRUCT` creates these links: where a `SELECT`
+returns rows, a `CONSTRUCT` produces triples using the bindings from its
+`WHERE` clause. For body validation, each triple links the starting record to
+a matching result through the body member's IRI:
+
+```sparql
+CONSTRUCT { ?subject ?requirement ?result }
+```
+
+Here, `?subject` is the starting record, `?requirement` is the body member's
+IRI, and `?result` is one record in `matches(R, M)`. The template does not
+introduce new traversal or fitting rules. The `WHERE` clause combines the
+existing result selection with the member-matching and claim rules above.
+
+For the sensor example, the temporary graph contains:
+
+```turtle
+ex:equip ex:Equipment.points.temperatureSensor ex:t ;
+         ex:Equipment.points.pressureSensor ex:p .
+```
+
+There is no link for `other`, because that result matches neither member.
+These triples are validation evidence. The temporary graph must remain
+separate from stored instances.
+
+Each body-member declaration contributes one SHACL property constraint.
+The required/optional distinction changes only the minimum count:
+
+```turtle
+[] a sh:NodeShape ;
+  sh:targetNode ex:equip ;
+  sh:property [
+    sh:path ex:Equipment.points.temperatureSensor ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path ex:Equipment.points.pressureSensor ;
+    sh:minCount 0 ;
+    sh:maxCount 1
+  ] .
+```
+
+A minimum-count violation corresponds to `sys::missingQuery`; a maximum-count
+violation corresponds to `sys::ambiguousQuery`. The report identifies the
+affected body member. A Query without body members imposes no member counts.
+Input or traversal failures remain execution errors and must not become a
+successful body-validation report.
+
+###### Complete Match Projection
+
+The complete `CONSTRUCT` below brings these steps together for the sensor
+example. It first selects the Point records that form `R`, then uses a `VALUES`
+table to pair each body member with the types that fit it. The final filter
+keeps records that claim the member, or matching free records if none claim it.
+
+```sparql
+CONSTRUCT { ?subject ?requirement ?result }
+WHERE {
+  # Existing traversal and of:Point matching produce R.
+  VALUES ?subject { ex:equip }
+  ?subject ex:Equipment.pointRefs ?result .
+  ?result a sys:Entity .
+  FILTER(isIRI(?result))
+  FILTER EXISTS {
+    ?result a ?resultType .
+    VALUES ?resultType {
+      ex:Point ex:Temperature ex:Pressure
+      ex:Equipment.points.temperatureSensor ex:Equipment.points.pressureSensor
+    }
+  }
+  # Each body member supplies its name and matching types.
+  VALUES (?requirement ?matchingType) {
+    (ex:Equipment.points.temperatureSensor ex:Temperature)
+    (ex:Equipment.points.temperatureSensor ex:Equipment.points.temperatureSensor)
+    (ex:Equipment.points.pressureSensor ex:Pressure)
+    (ex:Equipment.points.pressureSensor ex:Equipment.points.pressureSensor)
+  }
+  # Count an explicit claim, or a free match if no result claims this member.
+  FILTER (
+    EXISTS { ?result sys:spec ?requirement }
+    || (
+      NOT EXISTS {
+        ?result sys:spec ?claimedMember .
+        VALUES ?claimedMember {
+          ex:Equipment.points.temperatureSensor ex:Equipment.points.pressureSensor
+        }
+      }
+      && EXISTS { ?result a ?matchingType }
+      && NOT EXISTS {
+        ?subject ex:Equipment.pointRefs ?claim .
+        ?claim a sys:Entity ; sys:spec ?requirement .
+        FILTER(isIRI(?claim))
+        FILTER EXISTS {
+          ?claim a ?claimType .
+          VALUES ?claimType {
+            ex:Point ex:Temperature ex:Pressure
+            ex:Equipment.points.temperatureSensor ex:Equipment.points.pressureSensor
+          }
+        }
+      }
+    )
+  )
+}
+```
+
+The property and type lists show only the definitions needed for this example.
+A translation must resolve the complete sets using the
+[field-name](#resolving-a-field-name) and [type-membership](#type-membership)
+rules. Claim tests must also include subtypes that claim a member through their
+nominal base chain, as described in [Composing Body Validation](#composing-body-validation).
+
+For a member with sugar constraints, replace `EXISTS { ?result a ?matchingType }`
+with the full [sugar-matching predicate](#sugar-matching).
+
+The `?claim` check searches all of `R` for a record that claims the current
+member. Only claims within `R` take precedence over free matches; a record
+outside the Query's results has no effect on that member's count.
+
 ##### Returned-Record Validation
 
-Returned-record validation applies the Query's `of` constraints only to the
-selected identities. A selection shape uses `sh:targetNode` for each returned
-IRI and `sh:node` for reusable constraints without automatic targets. For the
-result `ex:t`:
+Returned-record validation checks the selected records against the Query's
+`of` type. Use `sh:targetNode` to name each returned record to validate, and
+`sh:node` to name the shape containing the constraints to apply. That constraint
+shape has no targets of its own, so it does not independently select other
+records for validation.
+
+**Validate the selected records using the full graph.** The Query results
+determine where validation starts, not which triples the validator can access.
+Keep all instance and schema triples available so reference constraints can
+check other records as needed.
+
+For the result `ex:t`:
 
 ```turtle
 ex:SelectedResults a sh:NodeShape ;
@@ -3841,29 +4096,25 @@ ex:TargetResultConstraints a sh:NodeShape ;
 ```
 
 Target requires only the `hit` marker, represented here by `sh:hasValue`.
-The reusable constraints must not independently target unrelated records.
-The full instance graph and schema vocabulary remain available during
-validation so constraints on references can inspect the referenced records.
 
 With the RDF above, result validation passes. Removing
 `ex:t sys:hasMarker ex:Target.hit` leaves the query result unchanged but makes
-result validation fail. Selecting a record and validating its contents thus
+result validation fail because `ex:t` no longer has Target's required `hit`
+marker. Selecting a record and validating its contents thus
 remain separate, as they are in Xeto.
-
-A translation must use the same resolved library versions as the RDF export.
-It must reject query forms for which it cannot preserve these behaviors rather
-than silently omit traversal or validation rules.
 
 ###### Validating Sugar Results
 
-A sugar result can be declared as its nominal anchor rather than the sugar
-type. Validation must recognize the field IRIs used by those records. For
-`candidate` in [Sugar Matching](#sugar-matching), that means recognizing Base's
-field IRIs as well as Sweet's.
+A record selected by a sugar target may declare the sugar's nominal anchor
+as its type. Validation must account for the field IRIs associated with that
+declared type. For example, `candidate` in [Sugar Matching](#sugar-matching)
+declares Base, so validation against Sweet must recognize Base's field IRIs
+as well as Sweet's.
 
 Checking only `ex:Sweet.hot` would miss the candidate's
-`sys:hasMarker ex:Base.hot` statement. The required-marker checks accept the
-relevant `hot` marker IRIs:
+`sys:hasMarker ex:Base.hot` statement. After selection, use the following SHACL
+shapes to validate `candidate` against Sweet. The `hot` requirement accepts any
+of the relevant marker IRIs:
 
 ```turtle
 ex:SelectedSugarResults a sh:NodeShape ;
@@ -3884,32 +4135,50 @@ ex:SweetResultConstraints a sh:NodeShape ;
   ] .
 ```
 
-The `candidate` record with both `required` and `hot` passes these marker checks.
-Removing `required` causes validation to fail without changing selection. Replacing the `hot` Marker
-with a string also fails validation: the ordinary value establishes presence
-for selection, but does not supply the required Marker statement.
+With `required` and `hot` present as Markers, `candidate` passes both checks.
+It is still selected if `required` is missing or `hot` contains a string, but
+validation fails: `required` must be present, and `hot` must be a Marker.
 
-The fragment shows only the marker checks. Complete reusable constraints must
-recognize all applicable field mappings across the current namespace and check
-required fields, value types, and invariants, including inherited requirements.
-Ordinary value-bearing fields use alternative property paths; marker checks
-accept alternative marker IRIs on `sys:hasMarker`. This changes which RDF
-properties represent a field, not the requirements that field must satisfy.
+These shapes show only the marker checks. A complete validation shape must
+check all required fields, value types, and invariants, including inherited
+requirements, using the SHACL mappings defined throughout
+[Mapping Rules](#mapping-rules).
+
+Each field check must accept all IRIs resolved by the
+[field-name rule](#resolving-a-field-name). For value-bearing fields, combine
+the property IRIs in an alternative path. For Markers, use `sys:hasMarker`
+and accept any of the applicable marker IRIs, as shown above.
 
 ###### Instance Data and Schema Vocabulary
 
-Selection operates on instance data. Schema descriptions must not supply
-runtime field values. For returned-record validation, the complete instance
-graph remains available, together with supporting vocabulary. When a runtime
-record and a schema class share an IRI, the schema's `rdfs:subClassOf`
-statements and `rdf:type rdfs:Class` declaration at that IRI are retained.
-The class declaration allows a stored spec Ref to identify its schema target;
-it does not supply a runtime field. Other schema
-statements remain outside the data graph. In the
-[spec-reference example](#spec-reference-traversal), the schema's declaration
-of Base's required `hit` marker cannot satisfy a missing `hit` on a runtime
-record named Base. Removing a returned record's marker therefore still fails
-result validation, without removing the record from the SELECT results.
+A runtime record and a schema class can share the same IRI. When combining
+instance and schema triples for validation, schema statements at that IRI must
+not fill in missing fields on the record.
+
+For example, these schema triples declare Base's required `hit` marker:
+
+```turtle
+ex:Base a rdfs:Class ;
+  rdfs:subClassOf sys:Dict ;
+  sys:hasMarker ex:Base.hit .
+```
+
+These instance triples describe a record also named `ex:Base`, but without `hit`:
+
+```turtle
+ex:Base a sys:Entity, ex:Base .
+```
+
+| How the validation data graph is built | Result of checking the required `hit` marker |
+| --- | --- |
+| **Bad:** merge all schema and instance triples. | Passes incorrectly: the schema's `sys:hasMarker` triple supplies the missing marker. |
+| **Good:** keep the instance triples and only the schema's class and subclass declarations at the shared IRI. | Fails correctly: the record has no `hit` marker. |
+
+Keep the full instance graph and supporting schema vocabulary available. At
+each shared IRI, include only the schema's `rdf:type rdfs:Class` declaration
+and `rdfs:subClassOf` statements in the validation data graph. These let the
+validator identify the class targeted by a spec Ref and determine its
+supertypes. Keep other schema statements about that IRI outside the data graph.
 
 ## Intersections and Unions
 
@@ -4261,8 +4530,11 @@ RDF or SHACL. The error identifies the unsupported construct and, when it is
 available, the affected qualified spec or slot. This specification does not
 define error codes or prescribe programming-language error types.
 
-- Required or optional members inside a `Query` body. Their validation requires graph-mode
-  query traversal plus qualified SHACL value constraints.
+- Query-body checks in schema-only exports. The
+  [Query-body validation](#query-body-validation) operation produces separate
+  SPARQL and SHACL for those checks.
+- Named-result assignment through `queryNamed`, including its selection-order
+  policy. Query-body validation does not assign one record to each name.
 - `List` item types for enums and choices, pending Xeto/Haystack instance
   fidelity fixes.
 - `List` item types for units and refs, and nested `List` values, pending a
