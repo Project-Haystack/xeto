@@ -2712,6 +2712,80 @@ not to the `of` predicate.
 
 #### Traversal
 
+##### Effective Query Definitions
+
+An inherited Query uses the inherited path and result type. A Query override
+uses the override's effective metadata, including any changed `via` or `of`.
+For example:
+
+```xeto
+Target: Dict { hit }
+Narrow: Target { narrow }
+Owner: Dict {
+  next: Ref?
+  alternate: Ref?
+  selected: Query<of:Target, via:"next">
+}
+Inherited: Owner {}
+Override: Owner { selected: Query<of:Narrow, via:"alternate+"> }
+@start: Override { next: @ordinary, alternate: @narrowRecord }
+@ordinary: Target { hit }
+@narrowRecord: Narrow { hit, narrow }
+```
+
+Starting `Inherited.selected` at `start` returns `ordinary`.
+Starting `Override.selected` at the same record returns `narrowRecord`.
+The requested Query definition determines the path and result type; the
+starting record's type does not choose a different Query automatically.
+
+For `Owner.selected`, or the unchanged `Inherited.selected`, starting at
+`start` follows `next` and returns `ordinary`:
+
+```sparql
+SELECT DISTINCT ?result WHERE {
+  VALUES ?subject { ex:start }
+  ?subject ex:Owner.next ?result .
+  ?result a sys:Entity .
+  FILTER(isIRI(?result))
+  FILTER EXISTS {
+    ?result a ?resultType . VALUES ?resultType { ex:Target ex:Narrow }
+  }
+}
+```
+
+For `Override.selected`, the same starting record follows `alternate+` and
+returns `narrowRecord`:
+
+```sparql
+SELECT DISTINCT ?result WHERE {
+  VALUES ?subject { ex:start }
+  ?subject (ex:Owner.alternate)+ ?result .
+  ?result a sys:Entity .
+  FILTER(isIRI(?result))
+  FILTER EXISTS {
+    ?result a ?resultType . VALUES ?resultType { ex:Narrow }
+  }
+}
+```
+
+The property and class lists are abbreviated to the example's records.
+The inherited `alternate` slot retains the property `ex:Owner.alternate`;
+overriding `selected` does not create a new stored-link property.
+
+Global and mixin-contributed fields use the same property identities as
+instance export. A global supplies a field contract; an instance's concrete
+slot determines the stored property. A mixin-contributed slot retains the
+contributor's property IRI, including when a subtype inherits the contribution.
+See [Globals and Covariant Overrides](#globals-and-covariant-overrides) and
+[Mixins](#mixins) for those mappings.
+
+The translation must use one resolved namespace for Query definitions, property
+identities, result types, and returned-record constraints. Active mixin
+constraints apply during result validation, including when the result type
+belongs to a dependency library. Ordinary required fields added by a mixin
+do not become selection predicates. Every IRI uses the selected concrete
+library version; a dependency version range is not an RDF namespace.
+
 ##### Resolving a Field Name
 
 `via:"next"` reads the runtime field named `next`. That field can have different
