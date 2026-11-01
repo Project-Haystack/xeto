@@ -610,6 +610,41 @@ The type and value constraints still apply when a `maybe` slot is present.
 Marker, choice, and list cardinality have additional rules described in their
 sections below.
 
+#### Abstract Specs
+
+An `abstract` spec defines a class and field constraints. Existing records
+are validated against those constraints whether they declare the abstract type
+directly or a concrete descendant. The RDF shape must not reject a record
+solely because its declared type is abstract.
+
+For example:
+
+```xeto
+Abstract: Dict <abstract> { label: Str }
+```
+
+In library `example`, this runtime record fails validation because the required
+`label` field is missing:
+
+```trio
+id: @example::record
+spec: @example::Abstract
+```
+
+Adding `label: "Example"` to the runtime record makes it pass validation.
+The following Xeto instance declaration also passes:
+
+```xeto
+@record: Abstract { label: "Example" }
+```
+
+The declared type is still Abstract. Giving `label` a value of the wrong type
+would also fail validation.
+
+Xeto's default `instantiate` operation rejects abstract specs when creating a
+record. That restriction applies to construction; it does not make an existing
+record invalid.
+
 #### Constraints on the `spec` Field
 
 The type in a Xeto instance declaration, such as `@meter1: ElecMeter {}`,
@@ -4534,11 +4569,20 @@ define error codes or prescribe programming-language error types.
   [Query-body validation](#query-body-validation) operation produces separate
   SPARQL and SHACL for those checks.
 - Named-result assignment through `queryNamed`, including its selection-order
-  policy. Query-body validation does not assign one record to each name.
+  policy when several records match the same name or one record matches several
+  names. Query-body validation does not assign one record to each name.
+- Single-result selection through `query`, and display-name sorting and result
+  limits through `queryAll`. The current mapping defines the complete set of
+  selected identities. Choosing one result, sorting results, and limiting results
+  require a separate host-executor policy; SPARQL `ORDER BY` and `LIMIT` alone
+  do not establish compatibility with those Xeto operations.
 - `List` item types for enums and choices, pending Xeto/Haystack instance
   fidelity fixes.
 - `List` item types for units and refs, and nested `List` values, pending a
   complete instance and validation mapping.
+- Reference lists stored in undeclared fields, pending a consistent distinction
+  between runtime `MultiRef` values and `List<of:Ref>` values during export.
+  Declared `MultiRef` slots remain supported.
 - Direct `Scalar` slots, pending a SHACL mapping for the abstract family of
   special and custom representations. Concrete custom scalars use the mapping
   in [Custom Scalar Datatypes](#custom-scalar-datatypes).
@@ -4549,11 +4593,6 @@ define error codes or prescribe programming-language error types.
 - `sys::This`, `Ref<of:This>`, and `MultiRef<of:This>` slots, pending a
   parent-relative RDF and SHACL mapping.
 - Runtime component and function-block constructs from `sys.comp`.
-
-An `abstract` spec still defines a class and constraints inherited by its
-concrete descendants. An instance cannot name the abstract spec as its direct
-type, so its node shape rejects an `rdf:type` value equal to that abstract
-class. An instance of a concrete descendant remains valid.
 
 Translating a Xeto `Query` into executable SPARQL and companion SHACL is
 specified separately from the three RDF export profiles. See
