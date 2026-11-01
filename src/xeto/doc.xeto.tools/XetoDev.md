@@ -1,7 +1,7 @@
 # Overview
 
-[xeto.dev](https://xeto.dev/) is the central repository for publishing and
-distributing Xeto libraries.  This chapter walks through the full process
+The [xeto.dev](https://xeto.dev/) website is the central repository for publishing
+and distributing Xeto libraries.  This chapter walks through the full process
 to publish a library there for the first time.
 
 Publishing requires three things, in order:
@@ -81,7 +81,7 @@ ability to publish libraries under the org's prefixes.
 
 Registering a prefix reserves it for your org and lets you publish any
 library whose name falls under it.  Read
-[Libs](../doc.xeto/Libs.md#lib-name-prefixes) for the full naming conventions
+[Libs](doc.xeto::Libs#lib-name-prefixes) for the full naming conventions
 before you choose one.
 
 ## Choosing a Prefix
@@ -161,7 +161,7 @@ See [Setting Up the CLI](#setting-up-the-cli) to get ready, and
 Your lib's name must fall under a prefix your org owns.  The lib name is
 determined by the directory name of its source tree, and that directory must
 contain a `lib.xeto` pragma file, which must sit on the env path (see
-[Setting Up the CLI](#setting-up-the-cli)).  See [Libs](../doc.xeto/Libs.md#source-tree).
+[Setting Up the CLI](#setting-up-the-cli)).  See [Libs](doc.xeto::Libs#source-tree).
 
 In `lib.xeto`, set the `org` metadata so the published lib records who owns it:
 
@@ -180,7 +180,7 @@ pragma: Lib <
 >
 ```
 
-See [Meta](../doc.xeto/Meta.md) and [Build](../doc.xeto/Build.md) for the full
+See [Meta](doc.xeto::Meta) and [Build](doc.xeto::Build) for the full
 set of lib metadata and build variables.
 
 ## Build and Publish
@@ -208,7 +208,7 @@ published*.
 
 The version may be a literal such as `"1.0.0"`, or come from a build variable
 in `xeto-build.props` shared across a set of libs.  See
-[Libs](../doc.xeto/Libs.md#version) and [Build](../doc.xeto/Build.md).  There
+[Libs](doc.xeto::Libs#version) and [Build](doc.xeto::Build).  There
 is also a per-lib daily publish limit.
 
 ## Maturity
@@ -336,3 +336,4 @@ the lib that supersedes it.  **Undeprecate** clears it.
 Once published, your library appears on [xeto.dev](https://xeto.dev/) with its
 documentation, source, and downloads, and others can install it with
 `xeto install`.
+
