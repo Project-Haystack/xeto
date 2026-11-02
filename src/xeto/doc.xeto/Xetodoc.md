@@ -52,7 +52,7 @@ built in support for linking by relative or qualified names:
 [lib::my-instance]           Instance via qname
 [doc.xeto::Xetodoc]          Markdown chapter via qname
 [doc.xeto::Xetodoc#tables]   Markdown chapter via qname
-[readAll()]                  Unqualified func name in namespace
+[readAll()]                  Unqualified func name in lib or its depends
 [hx::readAll()]              Qualified func name within namespace
 
 --- Lib Relative Links ---
@@ -95,7 +95,7 @@ Examples:
 # Class Path - Runtime     =>  class-path---runtime
 # Explicit (Non-Transparent) Web Proxy  =>  explicit-non-transparent-web-proxy
 # Café Résumé              =>  café-résumé
-# 🏢 Building              =>  -building
+# � Building              =>  -building
 ```
 
 # Tables
