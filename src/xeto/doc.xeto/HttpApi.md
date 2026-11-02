@@ -139,7 +139,7 @@ does.
 Some ops take a file rather than named arguments.  Such an op declares a
 single parameter typed as a [sys.files::index] file spec, and the client posts
 the file's raw bytes as the body - no argument encoding wraps them.  For
-example [repoPublish()] declares its parameter as [sys.files::XetoLibFile]
+example [sys.repo::repoPublish()] declares its parameter as [sys.files::XetoLibFile]
 and is invoked as:
 
     POST /api/sys/repoPublish
