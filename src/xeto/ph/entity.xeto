@@ -326,10 +326,19 @@ PhEntity: Entity <abstract> {
   // Relating to direct current (DC) electricity
   *dc: Marker
 
-  // The range in a process where no changes to output are made.
-  // May also indicate the difference between a base setpoint and effective
-  // setpoint.
+  // The range of input values around a target setpoint, from a low edge to
+  // a high edge, within which a control loop takes no corrective action.
   *deadband: Marker
+
+  // Distance from a target setpoint to the high edge of its deadband.
+  *deadbandHighOffset: Number <minVal: Number 0.0>
+
+  // Distance from a target setpoint to the low edge of its deadband.
+  *deadbandLowOffset: Number <minVal: Number 0.0>
+
+  // Distance from a target setpoint to each edge of its deadband.
+  // Applies only when both edges are the same distance from the target.
+  *deadbandOffset: Number <minVal: Number 0.0>
 
   // Differential of fluid between entering and leaving sensors.
   *delta: Marker
