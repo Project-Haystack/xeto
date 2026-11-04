@@ -326,9 +326,23 @@ PhEntity: Entity <abstract> {
   // Relating to direct current (DC) electricity
   *dc: Marker
 
-  // The range in a process where no changes to output are made.
-  // May also indicate the difference between a base setpoint and effective
-  // setpoint.
+  // The range of input values around a target setpoint, from a low edge to
+  // a high edge, within which a control loop takes no corrective action.
+  // A deadband moves with its target, but its total width and offsets are
+  // defined independently of it, so changing the target does not
+  // necessarily change them.
+  //
+  // The total width of a deadband is the sum of the distances from its
+  // target to the low and high edges of the range, which need not be
+  // equal.
+  //
+  // For example, in a zone temperature control loop with a 72°F target
+  // and a 4°F total deadband width split evenly around it, the input is
+  // the zone temperature and the output is the heating or cooling command.
+  // Neither heating nor cooling is called for while the zone temperature
+  // is between 70°F and 74°F.  The 4°F total deadband width is the sum of
+  // a heating (low) offset of 2°F below the target and a cooling (high)
+  // offset of 2°F above it.
   *deadband: Marker
 
   // Differential of fluid between entering and leaving sensors.
