@@ -1526,13 +1526,79 @@ ex:Equip a sh:NodeShape ;
 
 Every value of a `MultiRef` must satisfy the node-kind and class constraints.
 
-A record declared as a [Query body member](#query-body-validation) can also
-satisfy a typed reference. For example, if `Twins.results.first` derives from
-`Target`, `Ref<of:Target>` accepts a reference to a record declared as
-`Twins.results.first`. When the validation vocabulary omits the member's
-subclass chain, the class check uses `sh:or` to accept `Target` or any matching
-body-member class in the resolved namespace. This rule applies to `MultiRef`
-and reusable returned-record constraints as well.
+A record declared as a [Query body member](#query-body-validation) can satisfy
+a typed reference through inheritance. For example:
+
+```xeto
+Target: Dict {}
+Twins: Dict {
+  next: MultiRef?
+  results: Query<of:Target, via:"next"> {
+    first: Target
+  }
+}
+Holder: Dict { targetRef: Ref<of:Target> }
+```
+
+The `first` declaration creates the type `Twins.results.first`, which derives
+from Target. A record declared as that type can therefore be the value of
+Holder's `targetRef`. This is an ordinary reference check; it does not require
+running Query-body validation.
+
+The exporter declares the member's class and nominal inheritance in the
+validation vocabulary:
+
+```turtle
+ex:Twins.results.first a rdfs:Class ;
+  rdfs:subClassOf ex:Target .
+```
+
+The reference therefore uses the ordinary class constraint:
+
+```turtle
+sh:class ex:Target
+```
+
+An unchanged inherited member retains the declaring member's identity. An
+override has its own member identity and exports its effective nominal base.
+These declarations describe types; they do not run Query-body validation.
+
+Computed sugar membership needs a separate check. For example:
+
+```xeto
+Target: Dict { *hot: Marker, *label: Str }
+Hot: Target <sugar> { hot, label: Str "default" }
+Owner: Dict {
+  results: Query<of:Target, via:"next"> {
+    wanted: Target { hot }
+  }
+}
+Holder: Dict { targetRef: Ref<of:Hot> }
+```
+
+Xeto recognizes `Owner.results.wanted` as a computed sugar subtype of Hot
+because the member requires `hot`. The member does not inherit Hot's `label`
+field. A reference to Hot must accept records declared as this member without
+applying Hot's additional field constraints:
+
+```turtle
+sh:or (
+  [ sh:class ex:Hot ]
+  [ sh:class ex:Owner.results.wanted ]
+)
+```
+
+Keep this alternative in the reference's validation shape. Under the current
+validation mapping, do not export this computed relationship as
+`rdfs:subClassOf ex:Hot`: that statement would also cause Hot's validation shape
+to check the member records and require `label`.
+
+When matching against sugar, a body-member type (such as `Owner.results.wanted`)
+may need a `sh:or` alternative. Include matching member types from the resolved
+namespace only when inheritance does not already satisfy the class check.
+Apply the same rule to `MultiRef` and reusable result constraints. Keep computed
+sugar matches separate from subclass relationships, which also activate
+validation constraints.
 
 ### Instance Data
 
@@ -2402,9 +2468,11 @@ Node : Dict {
 ex:Equip a sh:NodeShape ;
   sh:targetClass ex:Equip ;
   sh:property [
+    # Equip.plainPoints
     sh:path ex:Equip.plainPoints ;
   ] ;
   sh:property [
+    # Equip.points: inverse of Point.equips
     sh:path [
       sh:oneOrMorePath [ sh:inversePath ex:Point.equipRef ]
     ] ;
@@ -2420,6 +2488,7 @@ ex:Point a sh:NodeShape ;
     sh:maxCount 1 ;
   ] ;
   sh:property [
+    # Point.equips: follows equipRef one or more times
     sh:path [ sh:oneOrMorePath ex:Point.equipRef ] ;
   ] .
 
@@ -2432,6 +2501,7 @@ ex:Node a sh:NodeShape ;
     sh:maxCount 1 ;
   ] ;
   sh:property [
+    # Node.reachable: follows next zero or more times
     sh:path [ sh:zeroOrMorePath ex:Node.next ] ;
   ] .
 ```
@@ -2728,13 +2798,12 @@ SELECT DISTINCT ?result WHERE {
 }
 ```
 
-Traversal and matching are independent. The path determines which records can
-be reached; `of` tests only the final record, not intermediate records. No
-stored triples for computed Query slots are required. The SELECT runs against
-instance data without inference: a schema class alone must not become a result.
-Some traversal forms also contribute an edge check, such as the reference
-evidence required for direct inverse traversal. That check belongs to traversal,
-not to the `of` predicate.
+The path determines which records can be reached; `of` matching only applies
+to the final record. Intermediate records do not need to match `of`. References
+followed during traversal must still pass the applicable reference checks.
+
+Run the SELECT over instance data without inference. Schema classes alone are
+not results. No stored triples for computed Query slots are required.
 
 #### Traversal
 
