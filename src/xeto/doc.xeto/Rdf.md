@@ -2810,7 +2810,8 @@ not results. No stored triples for computed Query slots are required.
 ##### Effective Query Definitions
 
 An inherited Query uses the inherited path and result type. A Query override
-uses the override's effective metadata, including any changed `via` or `of`.
+uses the `via` or `inverse` path and `of` result type defined by the override.
+Values not changed by the override remain inherited.
 For example:
 
 ```xeto
@@ -2863,31 +2864,23 @@ SELECT DISTINCT ?result WHERE {
 }
 ```
 
-The property and class lists are abbreviated to the example's records.
-The inherited `alternate` slot retains the property `ex:Owner.alternate`;
-overriding `selected` does not create a new stored-link property.
+Since `alternate` is inherited from `Owner`, the path still uses
+`ex:Owner.alternate`. This example abbreviates the property and class
+lists for demonstration.
 
-Global and mixin-contributed fields use the same property identities as
-instance export. A global supplies a field contract; an instance's concrete
-slot determines the stored property. A mixin-contributed slot retains the
-contributor's property IRI, including when a subtype inherits the contribution.
-See [Globals and Covariant Overrides](#globals-and-covariant-overrides) and
-[Mixins](#mixins) for those mappings.
+For global and mixin-contributed fields, resolve property IRIs using the
+mappings in [Globals and Covariant Overrides](#globals-and-covariant-overrides)
+and [Mixins](#mixins).
 
-The translation must use one resolved namespace for Query definitions, property
-identities, result types, and returned-record constraints. Active mixin
-constraints apply during result validation, including when the result type
-belongs to a dependency library. Ordinary required fields added by a mixin
-do not become selection predicates. Every IRI uses the selected concrete
-library version; a dependency version range is not an RDF namespace.
+Resolve Query definitions using the [Complete Spec Definition](#complete-spec-definition)
+and [Concrete Library Versions](#concrete-library-versions) rules.
 
 ##### Resolving a Field Name
 
-`via:"next"` reads the runtime field named `next`. That field can have different
-RDF property IRIs on different record types. A translation first resolves the
-set of properties representing the tag across the effective specs in the
-namespace, including inherited slots, dependency libraries, and undeclared
-fields. This set is independent of the Query's `of` type.
+`via:"next"` follows the `next` field, which can use different property IRIs on
+different record types. Include every IRI used for `next` in the resolved
+namespace, including inherited and undeclared fields and fields from dependency
+libraries. Do not limit the list to types matching `of`.
 
 For example, this Query reaches a Target through a Bridge:
 
@@ -2957,26 +2950,19 @@ Its property alternatives are abbreviated as in the one-hop example. With
 additional links, the same clause follows `next` on every reached record,
 regardless of whether that intermediate record matches Target.
 
-Input checks use a **zero-or-more** path to include the start as well as reached
-records: the start's field must be checked before the first hop. Result traversal
-uses **one-or-more** because `via:"next+"` requires at least one hop. A zero-hop
-match would incorrectly select the start merely because it fits `of`; the start
-is eligible only if a self-link or cycle reaches it again. Unreachable records
-are outside forward reference checks. The
-[input-validation rules](#query-input-validation) define the checks applied to
-each field.
+Input validation uses a **zero-or-more** path to apply the
+[reference checks](#query-input-validation) to the starting record and every
+reached record. Result traversal uses **one-or-more** because `via:"next+"`
+requires at least one hop. The starting record is returned only if a self-link
+or cycle reaches the starting record again and the record matches `of`.
+Forward traversal does not check unreachable records.
 
 ##### Inverse Result Selection
 
-An [inverse Query](#inverse-query-and-direct-inverse-property) uses the
-referenced Query's path in reverse and its own
+An [inverse Query](#inverse-query-and-direct-inverse-property) uses the referenced Query's path in reverse and its own
 `of` type to select results. The referenced Query's `of` type does not filter
 the starting record or intermediate records. No stored triples for computed
 Query slots are required.
-
-The referenced Query supplies the tag and repetition; the inverse Query
-supplies its own `of`. Reversal changes the traversal and reference-check scope,
-but does not replace the result-matching predicate with the referenced Query's.
 
 | Referenced path | Inverse traversal fragment | Reference handling |
 | --- | --- | --- |
@@ -3003,6 +2989,8 @@ Relay: Dict { equipRef: Ref? }
 
 Starting `points` at `equip1` returns `p1` and `p2`. Both have a nonempty
 `equipRef` path to `equip1`; the Relay is traversed but is not a Point result.
+The SELECT examples abbreviate the property and class lists; translations
+include every resolved mapping for `equipRef` and every matching Point subtype.
 The corresponding SELECT uses inverse property alternatives:
 
 ```sparql
@@ -3017,15 +3005,10 @@ SELECT DISTINCT ?result WHERE {
 }
 ```
 
-As in the forward example, the displayed path includes the properties used by
-the instances; a translation includes all properties representing the followed
-tag across the effective specs in the current namespace. Inherited and
-dependency Query definitions supply their effective path. A missing referenced Query or one without a `via` path
-is an error, rather than an empty result.
-Executable inverse queries require a fully qualified reference such as
-`example.inverse::Point.equips`. Native execution does not resolve an
-unqualified inverse name, even though the schema property-path mapping accepts
-local names.
+Executable inverse Queries require a fully qualified reference, such as
+`example.inverse::Point.equips`. A missing Query or a Query without `via` causes
+an execution error. Local names are accepted only by the
+[schema property-path mapping](#inverse-query-and-direct-inverse-property).
 
 For a one-hop version, change the referenced Query's path to `via:"equipRef"`.
 The inverse declaration stays the same:
@@ -3042,69 +3025,33 @@ Point: Dict {
 Relay: Dict { equipRef: Ref? }
 ```
 
-These declarations supply three parts of the SELECT:
-
-| Xeto declaration | SPARQL component |
-| --- | --- |
-| `inverse:"example.inverse::Point.equips"`, whose path is `via:"equipRef"` | Follow the resolved `equipRef` properties backward by exactly one link. |
-| One-hop inverse matching of stored Refs | Require the matching property to be marked by `sys:hasRefField`. |
-| `of:Point` on `points` | Require the result's type to match Point. |
-
-The first component finds an incoming link:
-
-```sparql
-?subject ^(ex:Point.equipRef|ex:Relay.equipRef) ?result .
-```
-
-That link alone is insufficient. Native one-hop inverse matching compares
-stored Refs with the starting record's ID; a non-Ref does not match, even if
-it exports to the same IRI. The second component checks that the incoming link
-represents a Ref, using [reference-field metadata](#reference-field-metadata):
-
-```sparql
-FILTER EXISTS {
-  VALUES ?referenceProperty { ex:Point.equipRef ex:Relay.equipRef }
-  ?result sys:hasRefField ?referenceProperty .
-  ?result ?referenceProperty ?subject .
-}
-```
-
-`VALUES` lists the properties representing `equipRef`. For at least one of
-them, the result record must both mark that property as a reference field and
-use it to point to the starting record. Reusing `?referenceProperty` in both
-triples ensures that the marker describes the very field containing the link.
-A Ref in some other field cannot make this link eligible.
-
-The third component selects Points:
-
-```sparql
-FILTER EXISTS {
-  ?result a ?resultType . VALUES ?resultType { ex:Point }
-}
-```
-
-Combining these components with the starting binding, record restriction, and
-unique-result projection gives the complete SELECT below. The displayed
-property and class sets are abbreviated to those needed by these instances;
-the full sets include other resolved `equipRef` mappings, including undeclared
-fields, and any matching Point subtypes.
+One-hop inverse matching accepts only stored Refs. An incoming RDF link alone
+is insufficient: a non-Ref value can export to the same IRI. The complete
+SELECT therefore checks the link's [reference-field metadata](#reference-field-metadata):
 
 ```sparql
 SELECT DISTINCT ?result WHERE {
   VALUES ?subject { ex:equip1 }
+  # Follow one incoming equipRef link.
   ?subject ^(ex:Point.equipRef|ex:Relay.equipRef) ?result .
   ?result a sys:Entity .
   FILTER(isIRI(?result))
+  # Require Ref metadata for the property containing that link.
   FILTER EXISTS {
     VALUES ?referenceProperty { ex:Point.equipRef ex:Relay.equipRef }
     ?result sys:hasRefField ?referenceProperty .
     ?result ?referenceProperty ?subject .
   }
+  # Select results matching the inverse Query's of:Point.
   FILTER EXISTS {
     ?result a ?resultType . VALUES ?resultType { ex:Point }
   }
 }
 ```
+
+Using `?referenceProperty` in both triples ensures that the Ref metadata
+describes the field containing the incoming link. A Ref in another field
+does not make the link eligible.
 
 This one-hop query returns no Points in the example: only `relay1` points
 directly to `equip1`, and Relay does not match Point. The earlier `+` query
