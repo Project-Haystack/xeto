@@ -612,49 +612,30 @@ sections below.
 
 #### Abstract Specs
 
-An `abstract` spec defines a class and field constraints. Existing records
-are validated against those constraints whether they declare the abstract type
-directly or a concrete descendant. The RDF shape must not reject a record
-solely because its declared type is abstract.
-
-For example:
+Translate abstract specs using the same class and field-constraint mappings as
+other specs. The `abstract` marker does not add a SHACL constraint prohibiting
+records from declaring that type directly. For example:
 
 ```xeto
 Abstract: Dict <abstract> { label: Str }
 ```
-
-In library `example`, this runtime record fails validation because the required
-`label` field is missing:
-
-```trio
-id: @example::record
-spec: @example::Abstract
+translates to:
+```turtle
+ex:Abstract a sh:NodeShape ;
+  sh:targetClass ex:Abstract ;
+  sh:property [
+    sh:path ex:Abstract.label ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .
 ```
-
-Adding `label: "Example"` to the runtime record makes it pass validation.
-The following Xeto instance declaration also passes:
-
-```xeto
-@record: Abstract { label: "Example" }
-```
-
-The declared type is still Abstract. Giving `label` a value of the wrong type
-would also fail validation.
-
-Xeto's default `instantiate` operation rejects abstract specs when creating a
-record. That restriction applies to construction; it does not make an existing
-record invalid.
 
 #### Constraints on the `spec` Field
 
-The type in a Xeto instance declaration, such as `@meter1: ElecMeter {}`,
-implies a `spec` field referring to `ElecMeter`. When that name resolves to
-`ph::ElecMeter`, a Trio representation expresses the field explicitly as
-`spec: @ph::ElecMeter`. These are two ways to declare the same instance type;
-see [Instance Specs](Instances.md#spec).
-
-A type definition can declare requirements for the `spec` field using a slot
-declaration, just as it does for other fields. For example:
+In Trio, the `spec` field identifies the record's declared Xeto type.
+Constraints on this field use the shared RDF property `sys:spec`, including
+inherited constraints and returned-record validation. For example:
 
 ```xeto
 Record: Dict {
@@ -662,9 +643,7 @@ Record: Dict {
 }
 ```
 
-The [`spec` field](#the-spec-field) identifies the record's declared type and
-is exported as `sys:spec`. SHACL therefore checks that property, not an
-owner-qualified property such as `ex:Record.spec`:
+The slot constraint translates to:
 
 ```turtle
 ex:Record a sh:NodeShape ;
@@ -678,13 +657,10 @@ ex:Record a sh:NodeShape ;
   ] .
 ```
 
-The shape requires exactly one `sys:spec` value identifying an exported schema
-class. It checks that the field contains a reference to a type definition; it
-does not select which type the record declares.
-
-Inherited requirements and reusable constraints for returned Query records
-check the same `sys:spec` property. See [The `spec` Field](#the-spec-field) for
-how subtype instances satisfy inherited requirements.
+This shape requires exactly one `sys:spec` value identifying an exported schema
+class. It does not require that value to identify Record itself: a subtype
+instance can refer to its own declared type. See [The `spec` Field](#the-spec-field)
+for the instance mapping.
 
 ### Instance Data
 
