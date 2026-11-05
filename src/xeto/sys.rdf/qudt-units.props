@@ -51,6 +51,7 @@ cycles_per_hour=PER-HR
 cycles_per_minute=PER-MIN
 // DCIE is a ratio of IT power to total facility power.
 data_center_infrastructure_efficiency=UNITLESS
+unitless=UNITLESS
 day=DAY
 decibel=DeciB
 // QUDT DEG is angular degree; phase and ordinary angles use the same unit.
