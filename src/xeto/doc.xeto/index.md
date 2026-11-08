@@ -35,7 +35,7 @@
 - [Jeto](Jeto.md): JSON representation
 - [HttpApi](HttpApi.md): HTTP API protocol
 - [Auth](Auth.md): HTTP API authentication
-- [Rdf](Rdf.md): RDF interoperability
+- [Rdf](Rdf.md): introduction to RDF export, SHACL validation, and SPARQL Queries
 
 # Development
 
