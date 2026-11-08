@@ -173,9 +173,10 @@ point is an *invalid* member, not a non-member; it still matches
 queries for its type, which is essential for finding and fixing
 malformed data.  See [Constraints](Constraints.md) for validation.
 
-Subtyping between sugar specs is computed: `A` is a subtype of `B` iff
-A's anchor is a subtype of B's anchor and A's constraints are a
-superset of B's.
+Fits between sugar specs is computed: `A` fits `B` when A's anchor is a
+subtype of B's anchor and A's constraints are a superset of B's.  Subtyping
+itself stays nominal: `A` is a subtype of `B` only if it declares `B` in its
+inheritance chain.
 
 # Filters
 
