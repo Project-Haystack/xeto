@@ -1,0 +1,24 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+
+pragma: Lib <
+  doc: "Xeto RDF mapping specification"
+  version: BuildVar "ph.version"
+  maturity: BuildVar "ph.maturity"
+  depends: {
+    { lib: "sys", versions: BuildVar "ph.depend" }
+  }
+  categories: {"sys", "doc"}
+  license: BuildVar "ph.license"
+  org: {
+    dis: BuildVar "ph.org.dis"
+    uri: BuildVar "ph.org.uri"
+  }
+  vcs: {
+    type: BuildVar "ph.vcs.type"
+    uri:  BuildVar "ph.vcs.uri"
+  }
+>
+
