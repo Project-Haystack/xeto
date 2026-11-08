@@ -1,6 +1,8 @@
-# Mapping Context
+# Foundations
 
-## Namespace
+## Mapping Context
+
+### Namespace
 
 Xeto resolves names within a namespace: the set of libraries and exact library
 versions currently in use. RDF export uses that same namespace so a name refers
@@ -20,7 +22,7 @@ name `Person` therefore has one match and resolves to `base.people::Person`. If
 `app.people` also declared its own `Person`, the simple name would be ambiguous;
 neither library would automatically take priority.
 
-## Complete Spec Definition
+### Complete Spec Definition
 
 An exporter does not translate each Xeto source file in isolation. It exports
 the complete definition of each spec as it exists in the current namespace.
@@ -52,11 +54,11 @@ the same `Person` shape contains both `dis` and `orgRef` constraints. The mixin
 does not become a separate RDF class; it changes the exported shape of
 `base.people::Person` in that namespace.
 
-The [Mixins](Mappings.md#mixins) section describes how the contributed `orgRef` slot keeps
+The [Mixins](TypeComposition.md#mixins) section describes how the contributed `orgRef` slot keeps
 its `app.people` identity in RDF without creating a separate `app.people::Person`
 class.
 
-## Concrete Library Versions
+### Concrete Library Versions
 
 A library declares its dependencies as library names plus acceptable version
 ranges. When that library is compiled, its namespace contains concrete library
@@ -95,7 +97,7 @@ Export requires exactly one version for every referenced library. For example:
   `1.0.7`, export fails with `Ambiguous Xeto library version for base.people:
   1.0.3 and 1.0.7`.
 
-# RDF Graphs
+## RDF Graphs
 
 Each Turtle output document represents one RDF graph. An exporter may write
 selected items to separate files or place their RDF statements together in one
@@ -122,9 +124,9 @@ general dictionary behavior, not a special case for mixins or marker tags.
 For example, a `Person` shape can require `base:Person.dis` and still accept an
 undeclared `nickname` entry. It continues to reject the instance if the required
 `dis` entry is missing or has the wrong type. The exporter therefore does not
-add `sh:closed true` unless a later mapping rule explicitly requires it.
+add `sh:closed true` unless a construct's mapping rule explicitly requires it.
 
-# Namespaces and IRIs
+## Namespaces and IRIs
 
 Every Xeto library version has this RDF namespace IRI:
 
@@ -177,7 +179,7 @@ finds the matching spec in the current namespace. In both cases, the exporter
 ends with the same fully qualified Xeto name and builds the same RDF IRI.
 
 The following prefixes are used by the Turtle examples and qualified names in
-this chapter:
+this specification:
 
 ```turtle
 @prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -196,10 +198,11 @@ this chapter:
 
 The `sys:` and `ex:` versions above are examples. An actual export uses the
 concrete versions selected by its Xeto namespace. The `owl:` prefix is used only
-for the optional ontology-packaging terms described below; the mapping itself
-does not require OWL inference.
+for the optional ontology-packaging terms described in
+[Metadata and External Vocabularies](Metadata.md#metadata-and-external-vocabularies).
+The mapping itself does not require OWL inference.
 
-## Turtle-safe names and values
+### Turtle-safe names and values
 
 Turtle uses characters such as quotes and backslashes as syntax. When those
 characters occur in Xeto text, enum keys, patterns, or documentation, the

@@ -16,17 +16,17 @@ statements from all three profiles, or an exporter may write each profile to a
 separate file. The profiles do not need to be separated into named graphs
 inside an RDF dataset.
 
-**Profile applicability.** Each construct later in this chapter includes only
+**Profile applicability.** Each construct in the mapping chapters includes only
 the profile subsections that apply to it. If a construct has no `Vocabulary`,
 `SHACL Validation`, or `Instance Data` subsection, that profile adds no separate
 RDF statements for the construct. The omission is intentional; it does not mean
 that the mapping is unfinished. Mappings that are not yet supported are listed
 explicitly under [Deferred Mappings](Deferred.md#deferred-mappings).
 
-# Conformance
+## Conformance
 
 The Xeto project maintains an implementation of this mapping for normal RDF
-export. This chapter calls it the **reference exporter**. It supports all three
+export. This specification calls it the **reference exporter**. It supports all three
 profiles, but this specification defines conformance; the reference exporter's
 exact Turtle output does not.
 
@@ -60,14 +60,14 @@ results rather than their Turtle text. Likewise, RDF-consuming applications
 should therefore parse the RDF graph instead of comparing Turtle files line
 by line.
 
-This chapter defines what RDF an exporter produces, but it does not prescribe
+This specification defines what RDF an exporter produces, but it does not prescribe
 how a user asks for that output. One tool might write vocabulary, SHACL shapes,
 and instance data into one Turtle file. Another might provide separate commands
 or options for producing three files. Both approaches conform when each
 requested profile contains the statements defined here. No particular command
 name, option name, file layout, or named-graph layout is required.
 
-# Non-Goals
+## Non-Goals
 
 This mapping does not require:
 

@@ -96,7 +96,7 @@ performs those checks.
 The vocabulary, instance data, and shapes have different roles, even when an
 export puts all three in one Turtle file. See
 [RDF Graphs](doc.xeto.rdf::Foundations#rdf-graphs) for how consumers use them,
-and [Mapping Rules](doc.xeto.rdf::Mappings) for each Xeto construct's constraints.
+and [Mapping Rules](doc.xeto.rdf::index) for each Xeto construct's constraints.
 
 ## Queries Become SPARQL
 
@@ -143,7 +143,7 @@ and Query-body requirements.
 - [Overview](doc.xeto.rdf::Overview): supported profiles, conformance, and scope.
 - [Foundations](doc.xeto.rdf::Foundations): resolved libraries, graphs, and identifiers.
 - [Metadata](doc.xeto.rdf::Metadata): metadata and links to external vocabularies.
-- [Mappings](doc.xeto.rdf::Mappings): rules and examples for individual Xeto constructs,
+- [Mappings](doc.xeto.rdf::index): rules and examples for individual Xeto constructs,
   including units and quantities mapped to QUDT.
 - [Queries](doc.xeto.rdf::Queries): executable Query translation and validation.
 - [Deferred Mappings](doc.xeto.rdf::Deferred): forms without a supported mapping.

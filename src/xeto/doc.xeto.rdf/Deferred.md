@@ -26,7 +26,7 @@ define error codes or prescribe programming-language error types.
   Declared `MultiRef` slots remain supported.
 - Direct `Scalar` slots, pending a SHACL mapping for the abstract family of
   special and custom representations. Concrete custom scalars use the mapping
-  in [Custom Scalar Datatypes](Mappings.md#custom-scalar-datatypes).
+  in [Custom Scalar Datatypes](Scalars.md#custom-scalar-datatypes).
 - `Grid` and the abstract `Collection` type, pending a complete collection and
   table mapping.
 - `Func`, `Interface`, and `Funcs`, whose API and execution semantics are
