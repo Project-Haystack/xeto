@@ -117,7 +117,7 @@ unit:DEG_F a qudt:Unit ;
 
 The path also accepts more specific QUDT quantity kinds. This rule and its
 required QUDT data are explained under
-[Units and Quantities](Mappings.md#quantity-kind-hierarchy).
+[Units and Quantities](UnitsAndQuantities.md#quantity-kind-hierarchy).
 
 The validator loads these facts from QUDT separately. It loads both the unit
 graph and, when currency values are present, the currency graph. An instance
