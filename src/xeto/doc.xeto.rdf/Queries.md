@@ -1,38 +1,58 @@
 # Query Execution and Result Validation
 
-A Xeto Query names a path to follow and a type of record to return. An
-executable RDF translation preserves those two choices and separates execution
-errors from validation failures:
+This section defines how to execute Xeto Queries over exported RDF using
+SPARQL, with SHACL checks before and after Result Selection. SPARQL follows the
+Query's path and selects records matching its `of` type. SHACL checks whether execution
+can proceed and, when requested, validates the returned records. Execution
+errors and validation failures are reported separately.
+
+The translation has three stages: Input Validation, Result Selection, and
+optional Result Validation:
 
 ```text
-Input SHACL
+Input Validation (SHACL)
     starting-record existence
     + reference checks required by traversal
 
-SPARQL SELECT
+Result Selection (SPARQL)
     starting-record binding
     + traversal
     + record restriction
     + result-matching predicate
     + unique-result projection
 
-Result SHACL (when validation is requested)
+Result Validation (SHACL, when requested)
     target the returned identities
     + apply the Query's of constraints
 ```
 
-Input checks must pass before selection. A failure is an execution error, not
-an empty result. When requested, result validation happens after selection.
-If a returned record fails validation, its identity remains in the results and
-its validation failure is reported alongside them; it is not a query execution
-error. The [schema property-path mapping](QuerySlots.md#shacl-validation)
+Input Validation checks conditions that native Xeto checks during execution.
+Failed Input Validation returns an execution error rather than an empty result.
+Records that fail Result Validation remain in the results, with validation
+failures reported alongside them. The [schema property-path mapping](QuerySlots.md#shacl-validation)
 describes navigation but does not execute these stages.
 
-The translation must use the same resolved library versions as the RDF export.
-If it cannot preserve a Query's traversal or validation rules, it must report
-a translation error.
+Use the same [resolved library versions](Foundations.md#concrete-library-versions) as the RDF export. Apply the
+[conformance error rule](Overview.md#conformance) when a Query cannot be translated faithfully.
 
-For example:
+## Execution Request
+
+A Query begins with a request to a query executor. This **execution request**
+supplies:
+
+| Input | Meaning |
+| --- | --- |
+| Query definition | The specific Query slot to execute, such as `ex::Holder.direct`. |
+| Starting record | The RDF IRI of the record from which traversal starts. |
+| Instance graph | The records to search, exported using the [instance profile](Overview.md#overview). |
+| [Resolved namespace](Foundations.md#namespace) | The library definitions and concrete versions used for the instance export, including active mixins. |
+| Validate results | Boolean: run Result Validation when `true`; skip it when `false`. |
+
+## Worked Example
+
+The following example shows how Result Selection and Result Validation
+translate a Xeto Query:
+
 ```xeto
 Target: Dict { hit }
 Holder: Dict {
@@ -44,12 +64,21 @@ Holder: Dict {
 @t: Target { hit }
 ```
 
-The Query `direct` starting at `a` returns `t`. Validation against `Target`
-checks that `t` has `hit`. Nominal membership in Target does not establish
-that its required fields are present.
+Result Selection returns `t` when `direct` starts at `a`. Result Validation
+checks that `t` has the required `hit` marker. A record declared as Target can
+still be missing that marker.
 
-(The following excerpt shows the instance triples relevant to query execution.
-The full RDF export includes additional metadata.)
+The records to be searched must first be exported to RDF using the instance
+profile. Run the SELECT against the resulting RDF. Result Selection must run
+using only triples produced by the instance export. Do not include schema
+triples or add extra triples derived from schema relationships.
+
+The same example exports to the following RDF triples. (Not a full export; only
+the triples needed for demonstration are shown):
+
+In these examples, `ex:` denotes the example library's concrete versioned
+namespace, and `sys:` denotes the resolved sys library namespace. Standard
+prefixes follow [Namespaces and IRIs](Foundations.md#namespaces-and-iris).
 
 ```turtle
 ex:a a sys:Entity, ex:Holder ;
@@ -59,15 +88,19 @@ ex:t a sys:Entity, ex:Target ;
   sys:hasMarker ex:Target.hit .
 ```
 
-Throughout this chapter, `ex:` denotes the example library's concrete
-versioned namespace, and `sys:` denotes the resolved sys library namespace.
-The examples assume the standard `rdf:`, `rdfs:`, and `sh:` prefixes.
+The three stages use these triples as follows:
 
-## SPARQL Result Selection
+| Stage | Operation on the exported RDF |
+| --- | --- |
+| [Input Validation](#input-validation) | SHACL checks that `ex:a` exists and that `next` contains references, using `sys:hasRefField` and the reference values. |
+| [Result Selection](#result-selection) | SPARQL follows `ex:Holder.next` and returns `ex:t` because `ex:t` has type `ex:Target`. |
+| [Result Validation](#result-validation) | SHACL checks that `ex:t` has the required `sys:hasMarker ex:Target.hit` statement. |
 
-For `Holder.direct` started at `a`, the complete SELECT has this structure.
-The displayed property and class lists are abbreviated to those needed by
-these instances; the resolution rules below define the complete sets.
+## Result Selection
+
+For `Holder.direct` in the [worked example](Queries.md#worked-example), Result
+Selection uses the following SELECT. Property and class lists are abbreviated
+for demonstration:
 
 ```sparql
 SELECT DISTINCT ?result WHERE {             # Unique-result projection
@@ -81,8 +114,8 @@ SELECT DISTINCT ?result WHERE {             # Unique-result projection
 }
 ```
 
-This returns `ex:t`. Removing `t`'s `hit` marker does not change the SELECT
-result: `t` still belongs to Target. The separate result validation then fails.
+The query returns `ex:t`, which is reached through `ex:Holder.next` and has
+type `ex:Target`.
 
 Each part has one responsibility:
 
@@ -107,21 +140,15 @@ SELECT DISTINCT ?result WHERE {
 }
 ```
 
-The path determines which records can be reached; `of` matching only applies
-to the final record. Intermediate records do not need to match `of`. References
-followed during traversal must still pass the applicable reference checks.
-
-Run the SELECT over instance data without inference. Schema classes alone are
-not results. No stored triples for computed Query slots are required.
-
 ## Traversal
 
-### Effective Query Definitions
+The following sections show how Xeto Query traversal paths translate to SPARQL.
 
-An inherited Query uses the inherited path and result type. A Query override
-uses the `via` or `inverse` path and `of` result type defined by the override.
-Values not changed by the override remain inherited.
-For example:
+### Inherited and Overridden Queries
+
+A Query's `of` type and `via` or `inverse` path can be inherited from a parent
+type or overridden by a subtype's Query slot of the same name. The following
+example shows both cases:
 
 ```xeto
 Target: Dict { hit }
@@ -138,13 +165,17 @@ Override: Owner { selected: Query<of:Narrow, via:"alternate+"> }
 @narrowRecord: Narrow { hit, narrow }
 ```
 
-Starting `Inherited.selected` at `start` returns `ordinary`.
-Starting `Override.selected` at the same record returns `narrowRecord`.
-The requested Query definition determines the path and result type; the
-starting record's type does not choose a different Query automatically.
+Query execution takes a starting record and a specific Query definition.
+The following [execution requests](Queries.md#execution-request) use the same
+starting record but different Query definitions:
 
-For `Owner.selected`, or the unchanged `Inherited.selected`, starting at
-`start` follows `next` and returns `ordinary`:
+| Starting record | Query definition supplied | Result |
+| --- | --- | --- |
+| `start` | `Inherited.selected` | `ordinary` |
+| `start` | `Override.selected` | `narrowRecord` |
+
+For `Owner.selected` and the unchanged `Inherited.selected`, Result Selection
+uses the inherited `via:"next"` path and `of:Target` type:
 
 ```sparql
 SELECT DISTINCT ?result WHERE {
@@ -158,8 +189,8 @@ SELECT DISTINCT ?result WHERE {
 }
 ```
 
-For `Override.selected`, the same starting record follows `alternate+` and
-returns `narrowRecord`:
+For `Override.selected`, Result Selection uses `via:"alternate+"` and
+`of:Narrow`:
 
 ```sparql
 SELECT DISTINCT ?result WHERE {
@@ -172,6 +203,10 @@ SELECT DISTINCT ?result WHERE {
   }
 }
 ```
+
+The requested Query definition determines the path and result type; the
+starting record's type does not choose a different Query automatically.
+Values not changed by an override remain inherited.
 
 Since `alternate` is inherited from `Owner`, the path still uses
 `ex:Owner.alternate`. This example abbreviates the property and class
@@ -212,15 +247,15 @@ ex:a ex:Holder.next ex:b .
 ex:b ex:Bridge.next ex:t .
 ```
 
-Following only `ex:Holder.next` would stop at `b` and miss `t`. The property
-path combines both alternatives with `|`:
+The SPARQL property path combines both alternatives with `|`:
 
 ```text
 (ex:Holder.next|ex:Bridge.next)
 ```
 
-Repeating this path with `+` reaches `b` and then `t`; `of:Target` selects only
-`t`. These alternatives show the properties used by the example's links; the
+Following only `ex:Holder.next` would stop at `b` and miss `t`. Repeating the
+combined path with `+` reaches `b` and then `t`; `of:Target` selects only `t`.
+These alternatives show the properties used by the example's links; the
 resolved set also includes mappings for undeclared `next` fields on other
 record types, as required above.
 
@@ -230,17 +265,17 @@ variable.
 
 ### Forward and Repeated Traversal
 
+Forward traversal follows the named field. A one-hop path follows one link;
+a repeated path follows one or more links:
+
 | Xeto path | Traversal fragment | Fields subject to reference checks |
 | --- | --- | --- |
 | `via:"next"` | `?subject P ?result .` | The starting record's `next` field |
 | `via:"next+"` | `?subject (P)+ ?result .` | `next` on the start and every reached record where traversal continues |
 
-One-or-more traversal follows at least one link. It does not include the start
-merely because the start fits `of`; a self-link or a cycle can reach it again.
-Duplicate links and multiple paths to a record do not duplicate results.
-Missing referenced records end their branches without an execution error.
-
-For `Holder.deep` in the opening example, only the traversal changes:
+The [worked example](Queries.md#worked-example) declares `Holder.direct` with
+`via:"next"` and `Holder.deep` with `via:"next+"`. For `Holder.deep`, the
+corresponding SELECT repeats the path with `+`:
 
 ```sparql
 SELECT DISTINCT ?result WHERE {
@@ -259,8 +294,13 @@ Its property alternatives are abbreviated as in the one-hop example. With
 additional links, the same clause follows `next` on every reached record,
 regardless of whether that intermediate record matches Target.
 
-Input validation uses a **zero-or-more** path to apply the
-[reference checks](#query-input-validation) to the starting record and every
+One-or-more traversal does not include the start merely because the start
+fits `of`; a self-link or a cycle can reach it again. Duplicate links and
+multiple paths to a record do not duplicate results. Missing referenced records
+end their branches without an execution error.
+
+Input Validation uses a **zero-or-more** path to apply the
+[reference checks](#input-validation) to the starting record and every
 reached record. Result traversal uses **one-or-more** because `via:"next+"`
 requires at least one hop. The starting record is returned only if a self-link
 or cycle reaches the starting record again and the record matches `of`.
@@ -268,59 +308,24 @@ Forward traversal does not check unreachable records.
 
 ### Inverse Result Selection
 
-An [inverse Query](QuerySlots.md#inverse-query-and-direct-inverse-property) uses the referenced Query's path in reverse and its own
-`of` type to select results. The referenced Query's `of` type does not filter
-the starting record or intermediate records. No stored triples for computed
-Query slots are required.
-
-| Referenced path | Inverse traversal fragment | Reference handling |
-| --- | --- | --- |
-| One hop | `?subject ^(P) ?result .` | Require reference evidence on each matching edge; ignore non-Ref candidates. |
-| One or more | `?subject (^(P))+ ?result .` | Check the followed field throughout the candidate record set, including disconnected records. |
-
-For example, in library `example.inverse`:
-
-```xeto
-Equipment: Dict {
-  points: Query<of:Point, inverse:"example.inverse::Point.equips">
-}
-Point: Dict {
-  point
-  equipRef: Ref?
-  equips: Query<of:Equipment, via:"equipRef+">
-}
-Relay: Dict { equipRef: Ref? }
-@equip1: Equipment {}
-@p1: Point { point, equipRef: @relay1 }
-@relay1: Relay { equipRef: @equip1 }
-@p2: Point { point, equipRef: @p1 }
-```
-
-Starting `points` at `equip1` returns `p1` and `p2`. Both have a nonempty
-`equipRef` path to `equip1`; the Relay is traversed but is not a Point result.
-The SELECT examples abbreviate the property and class lists; translations
-include every resolved mapping for `equipRef` and every matching Point subtype.
-The corresponding SELECT uses inverse property alternatives:
-
-```sparql
-SELECT DISTINCT ?result WHERE {
-  VALUES ?subject { ex:equip1 }
-  ?subject (^(ex:Point.equipRef|ex:Relay.equipRef))+ ?result .
-  ?result a sys:Entity .
-  FILTER(isIRI(?result))
-  FILTER EXISTS {
-    ?result a ?resultType . VALUES ?resultType { ex:Point }
-  }
-}
-```
+An [inverse Query](QuerySlots.md#inverse-query-and-direct-inverse-property) uses the referenced Query's path in reverse and its own `of` type
+to select results. The referenced Query's `of` type does not filter the starting record
+or intermediate records. No stored triples for computed Query slots are required.
 
 Executable inverse Queries require a fully qualified reference, such as
 `example.inverse::Point.equips`. A missing Query or a Query without `via` causes
-an execution error. Local names are accepted only by the
-[schema property-path mapping](QuerySlots.md#inverse-query-and-direct-inverse-property).
+an execution error. Local names are accepted only by the [schema property-path mapping](QuerySlots.md#inverse-query-and-direct-inverse-property).
 
-For a one-hop version, change the referenced Query's path to `via:"equipRef"`.
-The inverse declaration stays the same:
+Both examples use library `example.inverse` and the following `equipRef` links:
+
+```text
+p2 (Point) → p1 (Point) → relay1 (Relay) → equip1 (Equipment)
+```
+
+#### One-Hop Inverse Traversal
+
+A one-hop inverse Query follows one incoming reference. The referenced Query
+uses `via:"equipRef"`:
 
 ```xeto
 Equipment: Dict {
@@ -334,9 +339,7 @@ Point: Dict {
 Relay: Dict { equipRef: Ref? }
 ```
 
-One-hop inverse matching accepts only Ref values. An incoming RDF link alone
-is insufficient: a non-Ref value can export to the same IRI. The complete
-SELECT therefore checks the link's [reference-field metadata](References.md#reference-field-metadata):
+The corresponding SELECT checks the incoming link and its Ref metadata:
 
 ```sparql
 SELECT DISTINCT ?result WHERE {
@@ -358,22 +361,76 @@ SELECT DISTINCT ?result WHERE {
 }
 ```
 
-Using `?referenceProperty` in both triples ensures that the Ref metadata
-describes the field containing the incoming link. A Ref in another field
-does not make the link eligible.
+Starting `points` at `equip1` returns no Points: only `relay1` points directly
+to `equip1`, and Relay does not match Point.
 
-This one-hop query returns no Points in the example: only `relay1` points
-directly to `equip1`, and Relay does not match Point. The earlier `+` query
-also follows the incoming links to `p1` and `p2` and returns both.
+An incoming RDF link alone is insufficient: a non-Ref value can export to the
+same IRI. One-hop inverse matching accepts only Ref values, so Result Selection
+checks the link's [reference-field metadata](References.md#reference-field-metadata).
+Using `?referenceProperty` in both triples ensures that the Ref metadata
+describes the field containing the incoming link. A Ref in another field does
+not make the link eligible.
+
+#### Repeated Inverse Traversal
+
+A repeated inverse Query follows one or more incoming references. Change the
+referenced Query's path to `via:"equipRef+"`; the inverse declaration stays
+the same:
+
+```xeto
+Equipment: Dict {
+  points: Query<of:Point, inverse:"example.inverse::Point.equips">
+}
+Point: Dict {
+  point
+  equipRef: Ref?
+  equips: Query<of:Equipment, via:"equipRef+">
+}
+Relay: Dict { equipRef: Ref? }
+@equip1: Equipment {}
+@p1: Point { point, equipRef: @relay1 }
+@relay1: Relay { equipRef: @equip1 }
+@p2: Point { point, equipRef: @p1 }
+```
+
+The corresponding SELECT repeats the inverse path with `+`:
+
+```sparql
+SELECT DISTINCT ?result WHERE {
+  VALUES ?subject { ex:equip1 }
+  ?subject (^(ex:Point.equipRef|ex:Relay.equipRef))+ ?result .
+  ?result a sys:Entity .
+  FILTER(isIRI(?result))
+  FILTER EXISTS {
+    ?result a ?resultType . VALUES ?resultType { ex:Point }
+  }
+}
+```
+
+Starting `points` at `equip1` returns `p1` and `p2`. Both have a nonempty
+`equipRef` path to `equip1`; the Relay is traversed but is not a Point result.
+
+The SELECT examples abbreviate the property and class lists; translations
+include every resolved mapping for `equipRef` and every matching Point subtype.
+
+#### Input Validation Differences
+
+One-hop inverse traversal checks Ref metadata during Result Selection.
+Repeated inverse traversal checks candidate records during Input Validation:
+
+| Referenced path | Inverse traversal fragment | Reference handling |
+| --- | --- | --- |
+| One hop | `?subject ^(P) ?result .` | Require reference evidence on each matching edge; ignore non-Ref candidates. |
+| One or more | `?subject (^(P))+ ?result .` | Check the followed field throughout the candidate record set, including disconnected records. |
 
 For transitive inverse traversal over ordinary reference fields, reference
 checks include records carrying the followed tag in disconnected parts of the
 graph, even when they cannot contribute a result. This preserves native Xeto's
 execution-error behavior: a non-Ref in such a field can cause the query to fail.
-Direct inverse matching requires an existing starting record but does not
-reject non-Ref fields merely because they are present elsewhere in the graph.
+Both forms require an existing starting record. One-hop inverse matching does
+not reject non-Ref fields merely because they are present elsewhere in the graph.
 
-For example, add this runtime record to the preceding example's input:
+For example, add this runtime record to either example's input:
 
 ```trio
 id: @example.inverse::unrelated
@@ -381,21 +438,15 @@ equipRef: "not a Ref"
 ```
 
 This record has no path to `equip1`, but its `equipRef` field causes the
-transitive inverse query to fail its reference checks. The one-hop inverse
-query ignores this non-Ref value and still returns no Points.
+repeated inverse Query to fail its reference checks. The one-hop inverse
+Query ignores this non-Ref value and still returns no Points.
 
 ### Identity Traversal
 
-The `id` field is a reference to the record itself. RDF represents that value
-as the record's subject IRI, not as a property ending in `.id`. An executable
-translation of `via:"id"` must therefore select the starting identity directly.
-One identity step is a self-link: repeating it with `+`, or reversing it with
-`inverse`, reaches the same identity. This is a nonempty native traversal,
-not a rule that all one-or-more paths include their starting record.
-
-For all four forms, the traversal fragment is `BIND(?subject AS ?result)`.
-It replaces the property-path clause. Only starting-record existence needs
-input validation; matching and returned-record validation remain unchanged.
+A Query with `via:"id"` selects the starting record itself. RDF represents the
+record's identity as its subject IRI, so the SPARQL translation does not follow
+a separate `id` property. Repeating or reversing identity traversal still
+reaches the starting record; each identity step counts as a hop.
 
 For example, in library `example.identity`:
 
@@ -412,12 +463,10 @@ Queries: Dict {
 @outsider: Other {}
 ```
 
-Each of these Queries returns `t` when started at `t`, and no results when
-started at `outsider`. The common SELECT structure substitutes the supplied
-starting IRI into `VALUES` and the Query's own eligible result classes into
-the result-type test. Its navigation clause is `BIND(?subject AS ?result)`;
-it requires no tag-property alternatives or reference-field evidence.
-For this example, the complete selection query starting at `t` is:
+The instance mapping translates a record's Xeto `id` to the record's RDF
+subject IRI. All four Query forms in the example therefore use
+`BIND(?subject AS ?result)` in place of a property path. For `self`
+starting at `t`, the SELECT is:
 
 ```sparql
 SELECT DISTINCT ?result WHERE {
@@ -431,16 +480,18 @@ SELECT DISTINCT ?result WHERE {
 }
 ```
 
-As with other nominal selection queries, the result-class set includes any
-subtypes in the resolved schemas. An inverse Query uses its own `of` type to
-filter results. The referenced Query supplies the path, not the result filter.
+All four Queries return `t` when started at `t`, because `t` matches `of:Target`.
+Starting at `outsider` returns no results because Other does not match Target.
+For another starting record or Query, bind the supplied starting IRI and use
+the Query's own `of` type for Result Selection.
 
-Input validation must still reject a missing starting record. Identity
-traversal does not inspect other fields or disconnected records. It uses only
-the starting-node checks in [Query Input Validation](#query-input-validation).
-The returned `t` uses the same Target constraints shown in
-[Returned-Record Validation](#returned-record-validation). Removing `hit` still
-returns `t`, with a failing validation verdict.
+[Input Validation](#input-validation) checks only that the starting record
+exists. Identity traversal needs no field-property alternatives or Ref
+metadata, and does not inspect other fields or disconnected records.
+
+[Result Validation](#result-validation) checks Target's required `hit` marker
+as usual. Removing `hit` leaves `t` in Result Selection but causes Result
+Validation to fail.
 
 ### Spec-Reference Traversal
 
@@ -500,13 +551,6 @@ ex:Child a sys:Entity, ex:Base ;
   sys:hasMarker ex:Base.hit .
 ```
 
-Starting `direct` at `reading` returns the runtime record named `Child`.
-Starting `transitive` there also returns only `Child`: the schema defines
-Base, but the instance graph contains no runtime record named Base. A schema
-class alone is not a query result. Conversely, inverse traversal from Child
-returns reading. Reading's subtype membership makes it eligible for `of:Base`;
-it does not create a direct spec reference from reading to Base.
-
 The traversal property set is exactly `sys:spec`. Direction and repetition
 compose with this property as follows:
 
@@ -518,7 +562,7 @@ compose with this property as follows:
 | Inverse of `via:"spec+"` | `(^sys:spec)+` |
 
 The complete SELECT combines this path with the starting record and the Query's
-result filter, following the [selection structure](#sparql-result-selection).
+result filter, following the [Result Selection structure](#result-selection).
 Here, `VALUES ?subject` binds the start to `ex:reading`, and `of:Base` selects
 records typed as Base or its subtype Child:
 
@@ -533,6 +577,13 @@ SELECT DISTINCT ?result WHERE {
   }
 }
 ```
+
+Starting `direct` at `reading` returns the runtime record named `Child`.
+Starting `transitive` there also returns only `Child`: the schema defines
+Base, but the instance graph contains no runtime record named Base. A schema
+class alone is not a query result. Conversely, inverse traversal from Child
+returns reading. Reading's subtype membership makes it eligible for `of:Base`;
+it does not create a direct spec reference from reading to Base.
 
 Traversal through `spec` uses the same reference checks as ordinary fields,
 with `sys:spec` as the property being checked. For forward traversal, a missing
@@ -567,8 +618,8 @@ Together, these produce:
   ] .
 ```
 
-The SELECT still requires one or more steps. After selection, the returned Child record
-is validated against Base independently, by targeting `ex:Child` with Base's
+Result Selection still requires one or more steps. Result Validation checks
+the returned Child record against Base, by targeting `ex:Child` with Base's
 reusable constraints. Schema triples must not supply runtime fields when an
 IRI is shared; see [Instance Data and Schema Vocabulary](#instance-data-and-schema-vocabulary).
 
@@ -577,7 +628,7 @@ IRI is shared; see [Instance Data and Schema Vocabulary](#instance-data-and-sche
 Result matching decides which records reached by traversal are returned,
 using the Query's `of` type. For an ordinary named type such as `Target`, a
 reached record matches when its declared type is Target or a subtype of Target.
-Required fields are checked separately during result validation.
+Required fields are checked separately during Result Validation.
 
 Sugar types also allow a reached record to match based on the record's field
 values, even when the record's declared type is not a subtype of the sugar type.
@@ -662,7 +713,7 @@ ex:candidate a sys:Entity, ex:Base ;
 `candidate` is declared as `Base`, not `Sweet`. It still matches `of:Sweet`
 because its type matches Sweet's underlying named type, or **nominal anchor**,
 `Base`, and it has the required `hot` field. The default `label` value is not
-a selection requirement.
+a Result Selection requirement.
 
 The `via:"id"` path selects the starting record itself. Its SPARQL translation
 uses `BIND(?subject AS ?result)` rather than following a stored property.
@@ -715,10 +766,10 @@ The Marker check matches `ex:candidate`, so the second alternative selects it.
 
 Because `hot` is a Marker, valid RDF stores it using `sys:hasMarker`. The
 ordinary-value check also selects records with an invalid value such as
-`hot: "oops"`, matching Xeto's presence check. Validation rejects the invalid
+`hot: "oops"`, matching Xeto's presence check. Result Validation rejects the invalid
 value, as shown below.
 
-#### Selection Is Not Validation
+#### Result Selection and Result Validation
 
 A runtime record with `hot` but no `required` marker has this relevant RDF:
 
@@ -731,14 +782,14 @@ The SPARQL selection query is unchanged:
 
 | Operation | Outcome |
 | --- | --- |
-| Select with `of:Sweet` | Return `candidate`: `hot` is still present. |
-| Validate against `Sweet` | Fail: the inherited `required` marker is missing. |
+| Result Selection with `of:Sweet` | Return `candidate`: `hot` is still present. |
+| Result Validation against `Sweet` | Fail: the inherited `required` marker is missing. |
 
 Sugar's structural alternative checks its required markers and invariant
 values, including requirements inherited from other sugar definitions. It does
 not check defaults or ordinary required fields inherited from its nominal
 anchor. A required marker checks field presence, not the stored value's type.
-Returned-record validation checks those additional requirements.
+Result Validation checks those additional requirements.
 
 Runtime records can be missing required fields. Each table row represents a
 separate starting record with an `id`; the other fields use Trio notation,
@@ -813,7 +864,7 @@ ex:typedCandidate a sys:Entity, ex:MoreSweet .
 ```
 
 It matches the type-membership alternative for `of:Sweet`, then fails
-returned-record validation because the required markers are missing. In
+Result Validation because the required markers are missing. In
 general, computed sugar subtyping requires a compatible anchor and every target
 requirement with the same required value. The sugar subtype may impose additional
 requirements, as `MoreSweet` does with `extra`.
@@ -878,8 +929,8 @@ Other: Dict { other }
 BaseOrOther: Base | Other
 ```
 
-A record declared as `Base` or `Other` matches `of:BaseOrOther`. Selection
-checks its declared type; required fields are checked during validation.
+A record declared as `Base` or `Other` matches `of:BaseOrOther`. Result Selection
+checks its declared type; Result Validation checks required fields.
 
 A union can also include a sugar member:
 
@@ -891,7 +942,7 @@ CompoundQueries: Dict {
 ```
 
 With `candidate` declared as `Base` and containing `required` and `hot`, the
-two Query result types produce different selections:
+two Query result types produce different Result Selection outcomes:
 
 | Query result type | Selected? |
 | --- | --- |
@@ -977,7 +1028,7 @@ SELECT DISTINCT ?result WHERE {
 }
 ```
 
-If the intersection itself resolves to a sugar type, selection uses the
+If the intersection itself resolves to a sugar type, Result Selection uses the
 [sugar matching rule](#sugar-matching) instead. Its nominal types must reduce
 to one most specific anchor. The other member can narrow the anchor to a
 subtype; it need not be the original anchor itself:
@@ -1037,8 +1088,8 @@ sugar target; the `&&` requires its anchor and field constraints together.
 ### Records Declared with Compound Types
 
 The previous examples use a compound as the Query's target type. A record's
-declared type can also be a compound. In that case, selection depends on what
-the declared type guarantees:
+declared type can also be a compound. In that case, Result Selection depends on
+what the declared type guarantees:
 
 - `Both: Base & Other` guarantees membership in both Base and Other. A record
   declared as `Both` therefore matches a Query targeting either type. It also
@@ -1081,9 +1132,9 @@ id: @example.fitting::vanilla
 spec: @example.fitting::Vanilla
 ```
 
-Its declared type matches both Flavor and Vanilla. Validation checks the
-Query's target type, so the missing marker produces different validation
-results:
+Its declared type matches both Flavor and Vanilla. Result Validation checks the
+Query's target type, so the missing marker produces different Result Validation
+outcomes:
 
 | Query target | Selected? | Valid against the target? |
 | --- | --- | --- |
@@ -1104,24 +1155,24 @@ If traversal reaches this record, native Xeto selects it for `of:Str` because
 its declared type matches. The record still fails validation: declaring Str
 does not make a record a string.
 
-A translator that cannot support scalar result validation must reject the
-Query. Returning an empty result would disagree with native selection for
-records such as `invalid`.
+A translator that cannot support Result Validation for scalar targets must
+reject the Query. Returning an empty result would disagree with native Query
+execution for records such as `invalid`.
 
 ## Validation
 
-Input validation asks whether execution can proceed. Query-body validation
+Input Validation asks whether execution can proceed. Query-Body Validation
 checks how many selected records match each required or optional member.
-Returned-record validation asks whether the selected records conform to `of`.
+Result Validation asks whether the selected records conform to `of`.
 These checks have different targets and must remain separate; a matching
 record's invalid contents are not an input error unless traversal itself
 encounters an invalid reference value.
 
-### Query Input Validation
+### Input Validation
 
-Input SHACL requires the starting record to exist and populated fields followed
-by the Query to contain references. These checks must pass before the SELECT
-is executed. For the starting record `a`:
+Input Validation uses SHACL to require the starting record to exist and
+populated fields followed by the Query to contain references. Input Validation
+must pass before Result Selection. For the starting record `a`:
 
 ```turtle
 [] a sh:NodeShape ;
@@ -1214,35 +1265,36 @@ result even though it satisfies neither requirement.
 
 Each body member counts distinct matching records independently. Repeating a
 Ref does not increase the count. One record can satisfy two members if the
-record fits both requirements. Body validation does not assign records to names
-as `queryNamed` does, or establish that matching records pass full validation.
+record fits both requirements. Query-Body Validation does not assign records
+to names as `queryNamed` does, or establish that matching records pass Result
+Validation.
 
 #### Composing Body Validation
 
-Body validation reuses the existing translation of traversal and `of`
+Query-Body Validation reuses Result Selection's traversal and `of`
 matching. The checks on each *body member* are described by the
 following rules. Let `R` be the Query's result set, and let `M` be one body-member
 declaration, such as `temperatureSensor: Temperature`.
 
 ```text
-Existing query translation:
+Result Selection:
     starting record + traversal + of matching → result set R
 
-Body-validation additions, for each declaration M:
+Query-Body Validation, for each declaration M:
     R + member matching and claim rules → matches(R, M)
     matches(R, M) → temporary RDF links
     temporary RDF links + required/optional count → SHACL verdict
 ```
 
-Input SHACL runs before traversal. Inverse and repeated paths change how the
-Query obtains its result set `R`; they do not change how body members match
-and count those results.
+Input Validation runs before Result Selection. Inverse and repeated paths
+change how the Query obtains its result set `R`; they do not change how body
+members match and count those results.
 
 A result's `spec` field can name an ordinary type or a particular body member.
 This determines whether the record is **free** or **claimed**.
 
 In the sensor example, a record with the following `spec` is **free**: it does
-not name a body member. Validation considers it for each member whose
+not name a body member. Query-Body Validation considers it for each member whose
 requirements it fits:
 
 ```trio
@@ -1279,15 +1331,15 @@ matches(R, M) = claims(R, M), if claims(R, M) is nonempty
 ```
 
 A claimed record still counts if it is missing required fields; a matching
-free record does not replace it. Field validation remains a separate check.
+free record does not replace it. Result Validation checks record fields separately.
 
 #### Representing Matches for SHACL
 
 Once the matching records for each body member are known, SHACL needs RDF
 links it can count. A SPARQL `CONSTRUCT` creates these links: where a `SELECT`
 returns rows, a `CONSTRUCT` produces triples using the bindings from its
-`WHERE` clause. For body validation, each triple links the starting record to
-a matching result through the body member's IRI:
+`WHERE` clause. For Query-Body Validation, each triple links the starting record
+to a matching result through the body member's IRI:
 
 ```sparql
 CONSTRUCT { ?subject ?requirement ?result }
@@ -1296,7 +1348,7 @@ CONSTRUCT { ?subject ?requirement ?result }
 Here, `?subject` is the starting record, `?requirement` is the body member's
 IRI, and `?result` is one record in `matches(R, M)`. The template does not
 introduce new traversal or fitting rules. The `WHERE` clause combines the
-existing result selection with the member-matching and claim rules above.
+existing Result Selection with the member-matching and claim rules above.
 
 For the sensor example, the temporary graph contains:
 
@@ -1331,7 +1383,7 @@ A minimum-count violation corresponds to `sys::missingQuery`; a maximum-count
 violation corresponds to `sys::ambiguousQuery`. The report identifies the
 affected body member. A Query without body members imposes no member counts.
 Input or traversal failures remain execution errors and must not become a
-successful body-validation report.
+successful Query-Body Validation report.
 
 #### Complete Match Projection
 
@@ -1403,16 +1455,16 @@ The `?claim` check searches all of `R` for a record that claims the current
 member. Only claims within `R` take precedence over free matches; a record
 outside the Query's results has no effect on that member's count.
 
-### Returned-Record Validation
+### Result Validation
 
-Returned-record validation checks the selected records against the Query's
+Result Validation checks the selected records against the Query's
 `of` type. Use `sh:targetNode` to name each returned record to validate, and
 `sh:node` to name the shape containing the constraints to apply. That constraint
 shape has no targets of its own, so it does not independently select other
 records for validation.
 
 **Validate the selected records using the full graph.** The Query results
-determine where validation starts, not which triples the validator can access.
+determine where Result Validation starts, not which triples the validator can access.
 Keep all instance and schema triples available so reference constraints can
 check other records as needed.
 
@@ -1432,23 +1484,22 @@ ex:TargetResultConstraints a sh:NodeShape ;
 
 Target requires only the `hit` marker, represented here by `sh:hasValue`.
 
-With the RDF above, result validation passes. Removing
+With the RDF above, Result Validation passes. Removing
 `ex:t sys:hasMarker ex:Target.hit` leaves the query result unchanged but makes
-result validation fail because `ex:t` no longer has Target's required `hit`
-marker. Selecting a record and validating its contents thus
-remain separate, as they are in Xeto.
+Result Validation fail because `ex:t` no longer has Target's required `hit`
+marker. Result Selection and Result Validation remain separate, as they are in Xeto.
 
 #### Validating Sugar Results
 
 A record selected by a sugar target may declare the sugar's nominal anchor
-as its type. Validation must account for the field IRIs associated with that
-declared type. For example, `candidate` in [Sugar Matching](#sugar-matching)
-declares Base, so validation against Sweet must recognize Base's field IRIs
-as well as Sweet's.
+as its type. Result Validation must account for the field IRIs associated with
+that declared type. For example, `candidate` in [Sugar Matching](#sugar-matching)
+declares Base, so Result Validation against Sweet must recognize Base's field
+IRIs as well as Sweet's.
 
 Checking only `ex:Sweet.hot` would miss the candidate's
-`sys:hasMarker ex:Base.hot` statement. After selection, use the following SHACL
-shapes to validate `candidate` against Sweet. The `hot` requirement accepts any
+`sys:hasMarker ex:Base.hot` statement. Result Validation uses the following SHACL
+shapes to check `candidate` against Sweet. The `hot` requirement accepts any
 of the relevant marker IRIs:
 
 ```turtle
@@ -1472,7 +1523,7 @@ ex:SweetResultConstraints a sh:NodeShape ;
 
 With `required` and `hot` present as Markers, `candidate` passes both checks.
 It is still selected if `required` is missing or `hot` contains a string, but
-validation fails: `required` must be present, and `hot` must be a Marker.
+Result Validation fails: `required` must be present, and `hot` must be a Marker.
 
 These shapes show only the marker checks. A complete validation shape must
 check all required fields, value types, and invariants, including inherited
@@ -1514,4 +1565,3 @@ each shared IRI, include only the schema's `rdf:type rdfs:Class` declaration
 and `rdfs:subClassOf` statements in the validation data graph. These let the
 validator identify the class targeted by a spec Ref and determine its
 supertypes. Keep other schema statements about that IRI outside the data graph.
-

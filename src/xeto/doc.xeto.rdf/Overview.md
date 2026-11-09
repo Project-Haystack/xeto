@@ -16,6 +16,11 @@ statements from all three profiles, or an exporter may write each profile to a
 separate file. The profiles do not need to be separated into named graphs
 inside an RDF dataset.
 
+This specification also defines how to execute Xeto Queries over exported RDF
+using SPARQL, with SHACL checks for query inputs and returned records. See
+[Query Execution and Result Validation](Queries.md). Query execution is
+specified separately from the three export profiles.
+
 **Profile applicability.** Each construct in the mapping chapters includes only
 the profile subsections that apply to it. If a construct has no `Vocabulary`,
 `SHACL Validation`, or `Instance Data` subsection, that profile adds no separate
@@ -77,6 +82,5 @@ This mapping does not require:
 - copying complete external ontologies into every export; or
 - a production dependency between Haxall and any independent conformance tool.
 
-SPARQL query generation and optional relationship materialization are separate
-concerns from RDF vocabulary, SHACL validation, and instance projection.
+Optional relationship materialization is outside the scope of this mapping.
 
