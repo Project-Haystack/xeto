@@ -118,6 +118,65 @@ the same rule applies using the dependency library's RDF namespace. A loaded
 The nested node may itself contain scalar, ref, marker, unit, list, choice, or
 further nested values supported by this specification.
 
+### Nested Sugar Types
+
+A nested slot typed as a sugar spec checks both
+[type matching and field validation](Mappings.md#type-matching-and-field-validation).
+For example:
+
+```xeto
+Target: Dict { *hot: Marker, *label: Str }
+Hot: Target <sugar> { hot, label: Str "default" }
+Envelope: Dict { value: Hot }
+```
+
+The following runtime value fits Hot through its `hot` tag and passes Hot's
+field checks:
+
+```trio
+id: @envelope
+spec: @example::Envelope
+value: {spec:@example::Target hot label:"ok"}
+```
+
+These excerpts show field validation only. The complete constraints also
+include the fitting predicate and Hot's marker check:
+
+```turtle
+ex:Envelope sh:property [
+  sh:path ex:Envelope.value ;
+  sh:node ex:Hot ;
+  sh:minCount 1 ;
+  sh:maxCount 1
+] .
+
+ex:Hot sh:property [
+  sh:path [
+    # Read label through either property; the constraints require
+    # one distinct label value.
+    sh:alternativePath ( ex:Target.label ex:Hot.label )
+  ] ;
+  sh:datatype xsd:string ;
+  sh:minCount 1 ;
+  sh:maxCount 1
+] .
+```
+
+Hot's shape checks the fields using their applicable RDF properties. The
+`label` constraint accepts either `ex:Target.label` or `ex:Hot.label`; the
+property list is abbreviated to these types.
+
+Removing `label` makes the nested `value` invalid: Hot requires a string field
+named `label`, even though the default does not participate in sugar matching.
+A non-Marker `hot` value can satisfy the presence test but fails field validation.
+If the slot were instead `value: Ref<of:Hot>`, a referenced Target record with
+`hot` but no `label` would still satisfy the reference constraint. Reference
+fitting does not apply Hot's full field validation; see
+[Ref Slots](References.md#shacl-validation).
+
+Without a `spec` field, a nested dictionary can proceed directly to field
+validation. The missing type declaration alone does not cause failure.
+
 ### Instance Data
 
 A nested dictionary without its own Xeto id becomes an RDF blank node. It is
@@ -164,4 +223,3 @@ ex:person1 ex:Person.address ex:address1 .
 ex:address1 a sys:Entity, ex:Address ;
   ex:Address.city "Richmond"^^xsd:string .
 ```
-
