@@ -7,7 +7,7 @@ available, the affected qualified spec or slot. This specification does not
 define error codes or prescribe programming-language error types.
 
 - Query-body checks in schema-only exports. The
-  [Query-body validation](Queries.md#query-body-validation) operation produces separate
+  [Query-body validation](QueryBodyValidation.md#query-body-validation) operation produces separate
   SPARQL and SHACL for those checks.
 - Named-result assignment through `queryNamed`, including its selection-order
   policy when several records match the same name or one record matches several
@@ -37,4 +37,4 @@ define error codes or prescribe programming-language error types.
 
 Translating a Xeto `Query` into executable SPARQL and companion SHACL is
 specified separately from the three RDF export profiles. See
-[Query Execution and Result Validation](Queries.md#query-execution-and-result-validation).
+[Query Execution](Queries.md#query-execution).

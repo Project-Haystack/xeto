@@ -134,7 +134,7 @@ selection. When result validation is requested, SHACL then checks the returned
 records. A record that fails result validation remains in the results, with its
 validation failure reported alongside it.
 
-See [Query Execution and Result Validation](doc.xeto.rdf::Queries) for the
+See [Query Execution](doc.xeto.rdf::Queries) for the
 complete workflow, including input shapes, inverse paths, repeated traversal,
 and Query-body requirements.
 

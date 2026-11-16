@@ -247,7 +247,7 @@ must not create additional `sys:spec` values.
 
 Following `sys:spec` looks for a runtime record with the referenced ID; the
 schema definition alone is not a Query result. See
-[Spec-Reference Traversal](Queries.md#spec-reference-traversal) for the selection rules
+[Spec-Reference Traversal](QueryTraversal.md#spec-reference-traversal) for the selection rules
 and examples.
 
 Trio can also represent records without a `spec` field. If a record has no

@@ -19,6 +19,10 @@
 
 - [Query Slot Mapping](QuerySlots.md): schema paths and contributed Query definitions
 - [Query Execution](Queries.md): executable Query traversal, result matching, and validation
+- [Query Traversal and Input Validation](QueryTraversal.md): traversal paths and execution input checks
+- [Query Result Matching](QueryResultMatching.md): matching reached records against the Query target
+- [Query-Body Validation](QueryBodyValidation.md): member matching and result-set counts
+- [Query Result Validation](QueryResultValidation.md): selected-record constraints and validation graphs
 
 # Scope Limits
 

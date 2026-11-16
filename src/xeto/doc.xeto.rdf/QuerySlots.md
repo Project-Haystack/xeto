@@ -107,7 +107,7 @@ but still has no cardinality constraint. Exporting schema SHACL and compiling
 Query-body validation are separate operations. The schema-only exporter does
 not yet support Query bodies; the Query compiler produces the SPARQL and SHACL
 needed to check required and optional body members. See
-[Query-Body Validation](Queries.md#query-body-validation) and
+[Query-Body Validation](QueryBodyValidation.md#query-body-validation) and
 [Deferred Mappings](Deferred.md#deferred-mappings).
 
 `via` and `inverse` are mutually exclusive. A `via` path is an unqualified

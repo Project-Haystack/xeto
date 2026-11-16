@@ -47,7 +47,7 @@ Every value of a `MultiRef` must pass the same reference checks as a single `Ref
 
 ### Query Body Member Types
 
-A record declared as a [Query body member](Queries.md#query-body-validation) can satisfy
+A record declared as a [Query body member](QueryBodyValidation.md#query-body-validation) can satisfy
 a typed reference through inheritance. For example:
 
 ```xeto
@@ -185,7 +185,7 @@ The property lists are abbreviated. A translation resolves every property for
 presence checks cover ordinary values, Markers, and explicitly stored empty
 MultiRefs. Presence does not require the stored value to be a Marker.
 Invariant requirements instead compare the stored value with the required
-value. The [invariant comparison rules](Queries.md#sugar-matching) also apply
+value. The [invariant comparison rules](QueryResultMatching.md#sugar-matching) also apply
 to reference fitting; the output here is a SHACL constraint, not a Query.
 
 Apply these fitting rules to every `MultiRef` target and to reusable result
