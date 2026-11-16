@@ -1,6 +1,6 @@
 # Type Composition
 
-## Intersections and Unions
+## Intersections
 
 An intersection is a subtype of every member:
 
@@ -10,7 +10,7 @@ Located : Dict { geoCity: Str }
 NamedLocation : Named & Located
 ```
 
-### Vocabulary
+### Intersection Vocabulary
 
 ```turtle
 ex:Named a sys:Class, rdfs:Class ;
@@ -34,28 +34,9 @@ The inherited slots keep the property IRIs of the specs that declared them:
 `ex:Named.dis` and `ex:Located.geoCity`. They are not copied to new properties
 such as `ex:NamedLocation.dis`.
 
-A union is a supertype of every member:
+### Intersection Validation
 
-```xeto
-Heating : Dict
-Cooling : Dict
-ThermalProcess : Heating | Cooling
-```
-
-```turtle
-ex:ThermalProcess a sys:Class, rdfs:Class .
-
-ex:Heating a sys:Class, rdfs:Class ;
-  rdfs:subClassOf ex:ThermalProcess .
-
-ex:Cooling a sys:Class, rdfs:Class ;
-  rdfs:subClassOf ex:ThermalProcess .
-```
-
-### SHACL Validation
-
-**Intersection.** The member shapes define the constraints inherited by an
-intersection:
+The member shapes define the constraints inherited by an intersection:
 
 ```turtle
 ex:Named a sh:NodeShape ;
@@ -80,49 +61,123 @@ ex:Located a sh:NodeShape ;
 Because `NamedLocation` is a subtype of both `Named` and `Located`, its
 instances must satisfy both shapes.
 
-**Union.** A union shape requires an instance to use at least one concrete
-member class:
+## Unions
+
+A union is a supertype of every member:
+
+```xeto
+Heating : Dict
+Cooling : Dict
+ThermalProcess : Heating | Cooling
+```
+
+### Union Vocabulary
+
+```turtle
+ex:ThermalProcess a sys:Class, rdfs:Class .
+
+ex:Heating a sys:Class, rdfs:Class ;
+  rdfs:subClassOf ex:ThermalProcess .
+
+ex:Cooling a sys:Class, rdfs:Class ;
+  rdfs:subClassOf ex:ThermalProcess .
+```
+
+### Union Validation
+
+A union combines alternative types: a value matching either
+`Heating` or `Cooling` also matches `ThermalProcess`. Direct validation checks
+the union's own fields, however, not membership in those alternatives or their
+field requirements. `ThermalProcess` declares no fields, so its shape requires
+only a dictionary node:
 
 ```turtle
 ex:ThermalProcess a sh:NodeShape ;
   sh:targetClass ex:ThermalProcess ;
-  sh:or (
-    [ sh:class ex:Heating ]
-    [ sh:class ex:Cooling ]
-  ) .
+  sh:nodeKind sh:BlankNodeOrIRI .
 ```
 
-This Xeto instance selects the concrete `Heating` member:
+A record can declare a concrete member:
 
 ```xeto
 @heating1: Heating {}
 ```
 
-Its RDF representation conforms to the union shape because its type is one of
-the member classes:
+The member-to-union subclass relationship also makes this record a member of
+ThermalProcess:
 
 ```turtle
 ex:heating1 a sys:Entity, ex:Heating .
 ```
 
-The union type itself cannot be used as the instance's concrete type:
+A record can instead declare the union itself and pass direct validation:
 
 ```xeto
-// Invalid: no concrete union member is selected.
 @process1: ThermalProcess {}
 ```
-
-If represented in RDF, that invalid instance names only the union class:
 
 ```turtle
 ex:process1 a sys:Entity, ex:ThermalProcess .
 ```
 
-That RDF fails `sh:or` because it has neither `rdf:type ex:Heating` nor
-`rdf:type ex:Cooling`. Adding fields associated with a member does not select
-that member; the instance must use the member spec as its concrete Xeto type.
-The `rdfs:subClassOf` statements still make valid `Heating` and `Cooling`
-instances members of `ThermalProcess`.
+Nested union-typed slots are not supported.
+
+### Fields Declared on a Union
+
+A union can declare required fields of its own:
+
+```xeto
+Email: Dict { email: Str }
+Phone: Dict { phone: Str }
+Contact: Email | Phone { label: Str }
+```
+
+Direct validation against Contact requires `label`, but does not require
+`email` or `phone`. For example, the first runtime record passes validation
+against Contact; the second fails because `label` is missing:
+
+```trio
+id: @labelled
+spec: @example::Contact
+label: "Reception"
+---
+id: @unlabelled
+spec: @example::Contact
+```
+
+Being an alternative in a union does not mean inheriting the union's fields.
+Contact's schema shape therefore requires `label` only for records declared as
+Contact or a type that inherits its fields:
+
+```turtle
+ex:Contact a sh:NodeShape ;
+  sh:targetClass ex:Contact ;
+  sh:nodeKind sh:BlankNodeOrIRI ;
+  sh:or (
+    # Skip Contact's fields when the record has another declared type.
+    [ sh:not [ sh:property [
+        sh:path sys:spec ; sh:in ( ex:Contact ) ; sh:minCount 1
+    ] ] ]
+    # A record declared as Contact must supply Contact's required field.
+    [ sh:property [
+        sh:path ex:Contact.label ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1
+    ] ]
+  ) .
+```
+
+The `sh:in` list includes Contact and types that inherit from it, such as
+`SpecialContact: Contact`, including intersections such as
+`LocatedContact: Contact & Located`. It excludes the union alternatives Email
+and Phone.
+
+**Query Result Validation with `of:Contact`** checks Contact's `label`
+requirement on every selected record. It omits the `sys:spec` condition and
+uses the applicable field-property alternatives; see
+[Nested Sugar Types](ObjectSlots.md#nested-sugar-types) for an alternative
+property-path example.
 
 ## Globals and Covariant Overrides
 
@@ -341,4 +396,3 @@ app:p1 a sys:Entity, base:Person ;
   sys:hasMarker app:Person.staff ;
   app:Person.orgRef app:o1 .
 ```
-

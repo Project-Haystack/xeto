@@ -1457,9 +1457,10 @@ outside the Query's results has no effect on that member's count.
 
 ### Result Validation
 
-Result Validation checks the selected records against the Query's
-`of` type. Use `sh:targetNode` to name each returned record to validate, and
-`sh:node` to name the shape containing the constraints to apply. That constraint
+Result Selection has already established that each returned record fits the
+Query's `of` type. Optional Result Validation checks the `of` type's field
+requirements on those records. Use `sh:targetNode` to name each returned record
+to validate, and `sh:node` to name the shape containing the constraints to apply. That constraint
 shape has no targets of its own, so it does not independently select other
 records for validation.
 
@@ -1488,6 +1489,10 @@ With the RDF above, Result Validation passes. Removing
 `ex:t sys:hasMarker ex:Target.hit` leaves the query result unchanged but makes
 Result Validation fail because `ex:t` no longer has Target's required `hit`
 marker. Result Selection and Result Validation remain separate, as they are in Xeto.
+
+Result Validation does not change Result Selection or which Query-body member
+a record claims. Matching records may use different field IRIs, as shown in
+[Validating Sugar Results](#validating-sugar-results).
 
 #### Validating Sugar Results
 
@@ -1529,11 +1534,6 @@ These shapes show only the marker checks. A complete validation shape must
 check all required fields, value types, and invariants, including inherited
 requirements, using the SHACL rules in the
 [mapping chapters](doc.xeto.rdf::index).
-
-Each field check must accept all IRIs resolved by the
-[field-name rule](#resolving-a-field-name). For value-bearing fields, combine
-the property IRIs in an alternative path. For Markers, use `sys:hasMarker`
-and accept any of the applicable marker IRIs, as shown above.
 
 #### Instance Data and Schema Vocabulary
 

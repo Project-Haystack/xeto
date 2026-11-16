@@ -94,7 +94,7 @@ ex:Equip a sh:NodeShape ;
 Vocabulary relationships determine which shapes apply. For example, a subtype
 inherits its supertypes' constraints, an intersection is a subtype of every
 member, and mixin properties are attached directly to the target shape. The corresponding RDF statements are shown under
-[Intersections and Unions](TypeComposition.md#intersections-and-unions) and [Mixins](TypeComposition.md#mixins).
+[Intersections](TypeComposition.md#intersections), [Unions](TypeComposition.md#unions), and [Mixins](TypeComposition.md#mixins).
 
 Ordinary Xeto slots use these cardinalities:
 
@@ -112,22 +112,15 @@ Additional cardinality rules apply to [markers](MarkersAndChoices.md#markers),
 
 #### Type Matching and Field Validation
 
-**Type matching (Xeto fitting)** determines whether a value matches the
-requested type. A declared type can establish a match without checking the
-record's fields. Sugar types also allow structural matching: the record must
-match the sugar type's anchor and satisfy the sugar matching conditions, such
-as tag presence and invariant values. These conditions do not include every
-field constraint. For example, a required marker tests presence during matching,
-not whether the stored value is a Marker; a default value adds no matching test.
+**Type matching (Xeto fitting)** checks whether a value matches a requested
+type. **Field validation** checks that type's field requirements. A successful
+match does not guarantee valid fields: a record can fit its declared type while
+missing a required field. Sugar matching can also succeed on a field's presence
+even when the field contains the wrong value type.
 
-**Field validation** checks the target type's field requirements, including
-required fields, value types, and other constraints. A record can therefore
-match a sugar type and still fail field validation: a present marker field
-might contain a string, or another required field might be missing.
+See [reference constraints](References.md#sugar-reference-targets) and
+[nested sugar slots](ObjectSlots.md#nested-sugar-types) for field-level examples.
 
-[Reference constraints](References.md#sugar-reference-targets) check whether
-the referenced record fits the target type without validating the target's
-fields. [Nested sugar slots](ObjectSlots.md#nested-sugar-types) check both.
 
 #### Abstract Specs
 

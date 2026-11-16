@@ -28,6 +28,27 @@ RDF statements for the construct. The omission is intentional; it does not mean
 that the mapping is unfinished. Mappings that are not yet supported are listed
 explicitly under [Deferred Mappings](Deferred.md#deferred-mappings).
 
+## Validation and Type Matching
+
+Xeto supports two ways to choose a validation spec:
+
+| Request | Validation spec |
+| --- | --- |
+| Validate this record. | The type named by its `spec` field. |
+| Validate this record against Person. | The explicitly requested Person spec. |
+
+SHACL reproduces Xeto's validation requirements, including fitting checks where
+required. For example, `Ref<of:Person>` requires its target to fit Person.
+Explicit validation against Person checks its field requirements without adding
+a separate type-membership check.
+
+In this specification, ordinary validation uses the record's declared spec.
+Optional Query Result Validation uses the Query's `of` spec after selection has
+established fitting, including structural sugar matching. In both workflows,
+SHACL checks the applicable field requirements. A matching record can still
+have missing or invalid fields; see
+[Type Matching and Field Validation](Mappings.md#type-matching-and-field-validation).
+
 ## Conformance
 
 The Xeto project maintains an implementation of this mapping for normal RDF
