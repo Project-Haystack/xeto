@@ -6,7 +6,7 @@ Query's path and selects records matching its `of` type. SHACL checks whether ex
 can proceed and, when requested, validates the returned records. Execution
 errors and validation failures are reported separately.
 
-The translation has three stages: Input Validation, Result Selection, and
+Query execution has three stages: Input Validation, Result Selection, and
 optional Result Validation:
 
 ```text
@@ -47,6 +47,19 @@ supplies:
 | Instance graph | The records to search, exported using the [instance profile](Overview.md#overview). |
 | [Resolved namespace](Foundations.md#namespace) | The library definitions and concrete versions used for the instance export, including active mixins. |
 | Validate results | Boolean: run Result Validation when `true`; skip it when `false`. |
+
+**Query-body counts are checked separately from result fields.**
+[Query-Body Validation](#query-body-validation) runs Input Validation and
+Result Selection, then reports missing or ambiguous body members.
+`Validate results` does not request these count checks, and records with
+invalid fields still count.
+
+**All stages must use the same Query, starting record, instance snapshot, and
+resolved namespace; but different graph inputs.**
+Input Validation and Result Selection read instance-export triples. Query-Body
+Validation adds match information in a separate temporary graph. Result
+Validation also uses supporting schema vocabulary; see
+[Instance Data and Schema Vocabulary](#instance-data-and-schema-vocabulary).
 
 ## Worked Example
 
@@ -1464,10 +1477,11 @@ to validate, and `sh:node` to name the shape containing the constraints to apply
 shape has no targets of its own, so it does not independently select other
 records for validation.
 
-**Validate the selected records using the full graph.** The Query results
+**Keep the full instance graph available during validation.** The Query results
 determine where Result Validation starts, not which triples the validator can access.
-Keep all instance and schema triples available so reference constraints can
-check other records as needed.
+Reference constraints may need other records. Include supporting schema
+vocabulary using the [shared-IRI rules](#instance-data-and-schema-vocabulary),
+so schema metadata cannot supply missing record fields.
 
 For the result `ex:t`:
 
