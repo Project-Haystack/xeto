@@ -1,12 +1,13 @@
 # Query Result Matching
 
 Result matching decides which records reached by traversal are returned,
-using the Query's `of` type. For an ordinary named type such as [`Target`](QueryExecution.md#worked-example), a
-reached record matches when its declared type is Target or a subtype of Target.
+using the Query's `of` type. For an ordinary named type such as
+[`Target`](QueryExecution.md#worked-example), matching is nominal: a reached
+record matches when its declared type is Target or a subtype of Target.
 Required fields are checked separately during [Result Validation](QueryResultValidation.md#query-result-validation).
 
-Sugar types also allow a reached record to match based on the record's field
-values, even when the record's declared type is not a subtype of the sugar type.
+Sugar types also allow structural matching based on the record's field values,
+even when the record's declared type is not a subtype of the sugar type.
 Non-sugar unions and intersections use type membership. The rules below define
 how each target forms the SELECT's result-matching predicate.
 

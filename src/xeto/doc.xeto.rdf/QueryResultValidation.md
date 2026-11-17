@@ -1,9 +1,10 @@
 # Query Result Validation
 
 Result Selection has already established that each returned record fits the
-Query's `of` type. Optional Result Validation checks the `of` type's field
-requirements on those records. Use `sh:targetNode` to name each returned record
-to validate, and `sh:node` to name the shape containing the constraints to apply. That constraint
+Query's `of` type. Optional Result Validation performs field validation:
+it checks the `of` type's field requirements on those records. Use `sh:targetNode`
+to name each returned record to validate, and `sh:node` to name the shape
+containing the constraints to apply. That constraint
 shape has no targets of its own, so it does not independently select other
 records for validation.
 

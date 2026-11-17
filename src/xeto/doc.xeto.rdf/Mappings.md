@@ -113,13 +113,24 @@ Additional cardinality rules apply to [markers](MarkersAndChoices.md#markers),
 #### Type Matching and Field Validation
 
 **Type matching (Xeto fitting)** checks whether a value matches a requested
-type. **Field validation** checks that type's field requirements. A successful
-match does not guarantee valid fields: a record can fit its declared type while
-missing a required field. Sugar matching can also succeed on a field's presence
-even when the field contains the wrong value type.
+type. For ordinary named types, matching is **nominal**: it uses the record's
+declared type and its type relationships. Sugar also supports **structural
+matching**, using the anchor type and the sugar's required tags and invariants.
 
-See [reference constraints](References.md#sugar-reference-targets) and
-[nested sugar slots](ObjectSlots.md#nested-sugar-types) for field-level examples.
+**Field validation** checks a spec's slot requirements against a record's
+fields, including required fields and value types. Neither nominal matching nor
+structural sugar matching establishes that a record passes field validation:
+
+- *Nominal matching* can accept a record's declared type even when the record
+  lacks a required field. *Field validation* reports the missing field.
+- For required markers, *structural sugar matching* requires the tag to be present
+  but accepts any value type. *Field validation* requires a Marker value.
+  For example, in the [nested sugar example](ObjectSlots.md#nested-sugar-types),
+  a Target record with `hot: "oops"` structurally matches Hot because the `hot`
+  tag exists, but fails field validation because the value is a string.
+
+See also [reference constraints](References.md#sugar-reference-targets) for how
+type matching applies to a Ref target.
 
 
 #### Abstract Specs
@@ -335,4 +346,3 @@ An undeclared value-bearing entry uses a property IRI formed from the
 instance's concrete spec and entry name. An undeclared marker uses
 `sys:hasMarker` and the corresponding marker IRI. These extra entries do not
 cause the open SHACL shape to reject an otherwise valid instance.
-

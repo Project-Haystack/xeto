@@ -5,10 +5,11 @@
 ### Ordinary Reference Targets
 
 A `Ref` maps to an IRI identifying its target. With `of`, the target must fit
-the specified type. Ordinary types use RDF class membership. A sugar target
-accepts either a matching type or a compatible base type with fields satisfying
-its sugar requirements. Without `of`, the target must be a `sys:Entity`, so an
-IRI with no corresponding record does not satisfy the constraint.
+the specified type. Ordinary types use nominal matching, expressed as RDF class
+membership. A sugar target accepts either a matching type or a compatible base
+type with fields satisfying its sugar requirements. Without `of`, the target
+must be a `sys:Entity`, so an IRI with no corresponding record does not satisfy
+the constraint.
 
 ```xeto
 Site : Dict

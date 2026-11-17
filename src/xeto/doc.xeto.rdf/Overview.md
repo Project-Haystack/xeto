@@ -37,10 +37,11 @@ Xeto supports two ways to choose a validation spec:
 | Validate this record. | The type named by its `spec` field. |
 | Validate this record against Person. | The explicitly requested Person spec. |
 
-SHACL reproduces Xeto's validation requirements, including fitting checks where
-required. For example, `Ref<of:Person>` requires its target to fit Person.
+SHACL reproduces Xeto's validation requirements, including type
+matching where required. For example, `Ref<of:Person>` requires its target to
+fit Person.
 Explicit validation against Person checks its field requirements without adding
-a separate type-membership check.
+a separate nominal type-membership check.
 
 In this specification, ordinary validation uses the record's declared spec.
 Optional Query Result Validation uses the Query's `of` spec after selection has
