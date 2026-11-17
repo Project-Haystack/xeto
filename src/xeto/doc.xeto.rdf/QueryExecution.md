@@ -111,7 +111,7 @@ The three stages use these triples as follows:
 
 ## Result Selection
 
-For `Holder.direct` in the [worked example](Queries.md#worked-example), Result
+For `Holder.direct` in the [worked example](QueryExecution.md#worked-example), Result
 Selection uses the following SELECT. Property and class lists are abbreviated
 for demonstration:
 

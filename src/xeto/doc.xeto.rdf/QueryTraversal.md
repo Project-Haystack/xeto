@@ -9,7 +9,7 @@ execution order.
 
 Input Validation uses SHACL to require the starting record to exist and
 populated fields followed by the Query to contain references. Input Validation
-must pass before Result Selection. For the starting record [`a`](Queries.md#worked-example):
+must pass before Result Selection. For the starting record [`a`](QueryExecution.md#worked-example):
 
 ```turtle
 [] a sh:NodeShape ;
@@ -87,7 +87,7 @@ Override: Owner { selected: Query<of:Narrow, via:"alternate+"> }
 ```
 
 Query execution takes a starting record and a specific Query definition.
-The following [execution requests](Queries.md#execution-request) use the same
+The following [execution requests](QueryExecution.md#execution-request) use the same
 starting record but different Query definitions:
 
 | Starting record | Query definition supplied | Result |
@@ -194,7 +194,7 @@ a repeated path follows one or more links:
 | `via:"next"` | `?subject P ?result .` | The starting record's `next` field |
 | `via:"next+"` | `?subject (P)+ ?result .` | `next` on the start and every reached record where traversal continues |
 
-The [worked example](Queries.md#worked-example) declares `Holder.direct` with
+The [worked example](QueryExecution.md#worked-example) declares `Holder.direct` with
 `via:"next"` and `Holder.deep` with `via:"next+"`. For `Holder.deep`, the
 corresponding SELECT repeats the path with `+`:
 
@@ -483,7 +483,7 @@ compose with this property as follows:
 | Inverse of `via:"spec+"` | `(^sys:spec)+` |
 
 The complete SELECT combines this path with the starting record and the Query's
-result filter, following the [Result Selection structure](Queries.md#result-selection).
+result filter, following the [Result Selection structure](QueryExecution.md#result-selection).
 Here, `VALUES ?subject` binds the start to `ex:reading`, and `of:Base` selects
 records typed as Base or its subtype Child:
 

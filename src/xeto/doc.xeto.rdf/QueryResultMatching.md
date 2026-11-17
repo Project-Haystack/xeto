@@ -1,7 +1,7 @@
 # Query Result Matching
 
 Result matching decides which records reached by traversal are returned,
-using the Query's `of` type. For an ordinary named type such as [`Target`](Queries.md#worked-example), a
+using the Query's `of` type. For an ordinary named type such as [`Target`](QueryExecution.md#worked-example), a
 reached record matches when its declared type is Target or a subtype of Target.
 Required fields are checked separately during [Result Validation](QueryResultValidation.md#query-result-validation).
 
@@ -28,7 +28,7 @@ ordinary and computed sugar subtypes. This check uses the record's declared
 type; it does not inspect required fields.
 
 The rules below refer to this check as `type_match(T)`, where `T` is the target
-type. In the [worked example](Queries.md#worked-example),
+type. In the [worked example](QueryExecution.md#worked-example),
 `type_match(Target)` is the complete result predicate.
 
 ## Sugar Matching
@@ -477,6 +477,13 @@ type guarantees:
 An intersection's declared type can therefore fit a target through one member;
 a union's declared type fits a target only if every alternative fits it.
 
+For `of:Base`, the class list in [Type Membership](#type-membership) includes
+Both but excludes Either. An abbreviated replacement for the `VALUES` list is:
+
+```sparql
+VALUES ?type { ex:Base ex:Both }
+```
+
 Ordinary inheritance still applies. For example:
 
 ```xeto
@@ -494,11 +501,18 @@ establish type membership.
 
 ## Choice Targets
 
-Choice targets select records by type membership. For example:
+Choice targets use [Type Membership](#type-membership). For example:
 
 ```xeto
 Flavor: Choice
 Vanilla: Flavor { vanilla }
+```
+
+For `of:Flavor`, replace the matching-class list in the Type Membership
+pattern with:
+
+```sparql
+VALUES ?type { ex:Flavor ex:Vanilla }
 ```
 
 This runtime record declares Vanilla but omits its required marker:
@@ -519,6 +533,10 @@ outcomes:
 
 ## Scalar Targets
 
+> **Translation error:** Scalar Query targets are not supported by this mapping.
+> The translator must reject a Query with a scalar `of` type; see
+> [Deferred Mappings](Deferred.md#deferred-mappings).
+
 Scalar targets do not match ordinary records. However, a malformed runtime
 record can declare a scalar type:
 
@@ -527,10 +545,9 @@ id: @invalid
 spec: @sys::Str
 ```
 
-If traversal reaches this record, native Xeto selects it for `of:Str` because
-its declared type matches. The record still fails validation: declaring Str
-does not make a record a string.
+If traversal reaches this record, native Xeto selects it for `of:Str` through
+[Type Membership](#type-membership). The record still fails validation:
+declaring Str does not make a record a string.
 
-A translator that cannot support Result Validation for scalar targets must
-reject the Query. Returning an empty result would disagree with native Query
-execution for records such as `invalid`.
+Returning an empty result instead of a translation error would disagree with
+native Query execution for records such as `invalid`.

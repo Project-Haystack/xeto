@@ -134,7 +134,7 @@ selection. When result validation is requested, SHACL then checks the returned
 records. A record that fails result validation remains in the results, with its
 validation failure reported alongside it.
 
-See [Query Execution](doc.xeto.rdf::Queries) for the
+See [Query Execution](doc.xeto.rdf::QueryExecution) for the
 complete workflow, including input shapes, inverse paths, repeated traversal,
 and Query-body requirements.
 
@@ -145,5 +145,5 @@ and Query-body requirements.
 - [Metadata](doc.xeto.rdf::Metadata): metadata and links to external vocabularies.
 - [Mappings](doc.xeto.rdf::index): rules and examples for individual Xeto constructs,
   including units and quantities mapped to QUDT.
-- [Queries](doc.xeto.rdf::Queries): executable Query translation and validation.
+- [Queries](doc.xeto.rdf::QueryExecution): executable Query translation and validation.
 - [Deferred Mappings](doc.xeto.rdf::Deferred): forms without a supported mapping.

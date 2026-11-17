@@ -12,6 +12,8 @@ define error codes or prescribe programming-language error types.
 - Named-result assignment through `queryNamed`, including its selection-order
   policy when several records match the same name or one record matches several
   names. Query-body validation does not assign one record to each name.
+- Scalar Query targets, pending a complete mapping for scalar result selection
+  and validation. See [Scalar Targets](QueryResultMatching.md#scalar-targets).
 - Single-result selection through `query`, and display-name sorting and result
   limits through `queryAll`. The current mapping defines the complete set of
   selected identities. Choosing one result, sorting results, and limiting results
@@ -37,4 +39,4 @@ define error codes or prescribe programming-language error types.
 
 Translating a Xeto `Query` into executable SPARQL and companion SHACL is
 specified separately from the three RDF export profiles. See
-[Query Execution](Queries.md#query-execution).
+[Query Execution](QueryExecution.md#query-execution).

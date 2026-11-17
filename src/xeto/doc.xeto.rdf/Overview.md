@@ -18,7 +18,7 @@ inside an RDF dataset.
 
 This specification also defines how to execute Xeto Queries over exported RDF
 using SPARQL, with SHACL checks for query inputs and returned records. See
-[Query Execution](Queries.md). Query execution is
+[Query Execution](QueryExecution.md). Query execution is
 specified separately from the three export profiles.
 
 **Profile applicability.** Each construct in the mapping chapters includes only

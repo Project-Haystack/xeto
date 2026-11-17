@@ -13,7 +13,7 @@ Reference constraints may need other records. Include supporting schema
 vocabulary using the [shared-IRI rules](#instance-data-and-schema-vocabulary),
 so schema metadata cannot supply missing record fields.
 
-For the result [`ex:t`](Queries.md#worked-example):
+For the result [`ex:t`](QueryExecution.md#worked-example):
 
 ```turtle
 ex:SelectedResults a sh:NodeShape ;
