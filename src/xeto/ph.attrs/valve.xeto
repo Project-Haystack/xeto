@@ -1,0 +1,16 @@
+//
+// Copyright (c) 2026, Project-Haystack
+// Licensed under the Academic Free License version 3.0
+//
+// History:
+//   10 Mar 2026  Adam Garnhart  Creation
+//
+
+// Valve function specified by engineer (isolation, control, mixing, etc.)
+ValveFunctionDesignAttr : EnumAttr { design, valve, val: ValveFunction }
+
+// Valve port configuration from manufacturer (twoWay, threeWay, fourWay)
+ValvePortsRatedAttr : EnumAttr { rated, valve, val: ValvePorts }
+
+// Valve body construction type from manufacturer (globe, butterfly, ball, etc.)
+ValveBodyTypeRatedAttr : EnumAttr { rated, valve, val: ValveBodyType }
