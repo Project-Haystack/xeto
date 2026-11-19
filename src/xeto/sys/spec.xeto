@@ -78,6 +78,9 @@ Spec: Dict <sealed> {
   // Indicates an immutable value
   const: Marker?
 
+  // Obsolete feature which should no longer be used
+  deprecated: Marker?
+
   // Documentation formatted as [xetodoc](doc.xeto::Xetodoc)
   doc: Str?
 
@@ -161,6 +164,9 @@ Spec: Dict <sealed> {
   // Indicates a readonly value that may not be written (but may mutate)
   readonly: Marker?
 
+  // First lib version which includes this spec
+  since: Version? <noInherit>
+
   // Sealed types cannot be extended outside of their own lib. If used
   // on a interface slot, the slot cannot be overridden in a subtype.
   sealed: Marker? <noInherit>
@@ -190,6 +196,9 @@ Spec: Dict <sealed> {
 
   // Restrict a number to have no unit
   unitless: Marker?
+
+  // First lib version which no longer includes this spec (exclusive)
+  until: Version? <noInherit>
 
   // Default value for this slot
   val: Obj?
