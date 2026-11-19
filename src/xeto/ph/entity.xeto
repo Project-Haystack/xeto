@@ -346,9 +346,6 @@ PhEntity: Entity <abstract> {
   // Rate required for a process.
   *demand: Marker
 
-  // Obsoleted
-  *deprecated: Marker
-
   // Data related to intended design and operating conditions.  This
   // includes sizing and other data specified by design engineers and
   // engineered drawings.  Also see [ph::PhEntity.rated].
@@ -1044,9 +1041,6 @@ PhEntity: Entity <abstract> {
   // same arguments always evaluates to the same result.
   *noSideEffects: Marker
 
-  // Undocumented and not officially supported
-  *nodoc: Marker
-
   // Do not include source code in documentation
   *nosrc: Marker
 
@@ -1074,9 +1068,6 @@ PhEntity: Entity <abstract> {
   // Setpoint or sensor indicating occupancy of a space.
   // See [ph.doc::Zones#occupancy] chapter.
   *occupied: Marker
-
-  // Expected value type of a collection, reference, or choice
-  *of: Symbol
 
   // Operation for HTTP API.
   // See [ph.doc::Ops] chapter.
@@ -1180,9 +1171,6 @@ PhEntity: Entity <abstract> {
 
   // Amount of atmospheric water vapor fallen including rain, sleet, snow, and hail
   *precipitation: Marker
-
-  // Defines a preferred unit to be used with a quantity
-  *prefUnit: List <of:Str>
 
   // Measure of force applied
   *pressure: Marker
@@ -1613,9 +1601,6 @@ PhEntity: Entity <abstract> {
 
   // Dimensional width of the asset
   *width: Marker
-
-  // Hyperlink to the subject's page on Wikipedia
-  *wikipedia: Uri
 
   // Flow of air on surface of the Earth
   *wind: Marker
