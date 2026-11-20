@@ -1,17 +1,19 @@
-# Query Result Matching
+<!--
+title:      Query Result Matching
+-->
 
 Result matching decides which records reached by traversal are returned,
 using the Query's `of` type. For an ordinary named type such as
 [`Target`](QueryExecution.md#worked-example), matching is nominal: a reached
 record matches when its declared type is Target or a subtype of Target.
-Required fields are checked separately during [Result Validation](QueryResultValidation.md#query-result-validation).
+Required fields are checked separately during [Result Validation](QueryResultValidation.md).
 
 Sugar types also allow structural matching based on the record's field values,
 even when the record's declared type is not a subtype of the sugar type.
 Non-sugar unions and intersections use type membership. The rules below define
 how each target forms the SELECT's result-matching predicate.
 
-## Type Membership
+# Type Membership
 
 A record matches a target type when its declared type is the target itself or
 one of its subtypes. The SPARQL query checks this by comparing the record's
@@ -32,7 +34,7 @@ The rules below refer to this check as `type_match(T)`, where `T` is the target
 type. In the [worked example](QueryExecution.md#worked-example),
 `type_match(Target)` is the complete result predicate.
 
-## Sugar Matching
+# Sugar Matching
 
 For a sugar target `S`, `anchor(S)` means its underlying named, non-sugar type.
 For example, the anchor of `Sweet: Base <sugar>` is Base. Matching has two
@@ -145,7 +147,7 @@ ordinary-value check also selects records with an invalid value such as
 `hot: "oops"`, matching Xeto's presence check. Result Validation rejects the invalid
 value, as shown below.
 
-### Result Selection and Result Validation
+## Result Selection and Result Validation
 
 A runtime record with `hot` but no `required` marker has this relevant RDF:
 
@@ -180,7 +182,7 @@ separated by semicolons.
 | `spec: @example.fitting::Base`; `required` | No | No: `hot` is missing |
 | `spec: @example.fitting::Sweet`; `required` | Yes: its declared type matches | No: `hot` is missing |
 
-### Computed Sugar Subtyping
+## Computed Sugar Subtyping
 
 A sugar type can fit another sugar type without a declared inheritance link
 when they have the same anchor and its requirements include all of the target's
@@ -245,7 +247,7 @@ general, computed sugar subtyping requires a compatible anchor and every target
 requirement with the same required value. The sugar subtype may impose additional
 requirements, as `MoreSweet` does with `extra`.
 
-### Invariant Values
+## Invariant Values
 
 An invariant, unlike a default, adds a value-equality test to sugar's structural
 alternative. For example:
@@ -295,7 +297,7 @@ If the translator cannot express an invariant's comparison using those rules,
 it must report a translation error. Skipping the comparison would allow records
 that do not satisfy the invariant to match.
 
-## Union Targets
+# Union Targets
 
 A union target selects records whose declared type fits at least one member.
 For example:
@@ -345,7 +347,7 @@ SELECT DISTINCT ?result WHERE {
 The list includes computed sugar subtypes such as `MoreSweet`, but no structural
 `hot` test. Other qualifying types in the current namespace must also be included.
 
-## Intersection Targets
+# Intersection Targets
 
 An ordinary intersection target selects records whose declared type is the
 intersection's type or a subtype of that intersection. Intersections are
@@ -461,7 +463,7 @@ full resolved sets. `bothRecord` does not fit the Derived anchor, so adding
 matches the structural branch. The `||` separates the two ways to match the
 sugar target; the `&&` requires its anchor and field constraints together.
 
-## Records Declared with Compound Types
+# Records Declared with Compound Types
 
 [Union Targets](#union-targets) and [Intersection Targets](#intersection-targets)
 use a compound as the Query's target type. A record's declared type can also
@@ -500,7 +502,7 @@ Apply these membership rules recursively to nested compounds. Use the type
 relationships to determine the matching RDF classes; a record's fields do not
 establish type membership.
 
-## Choice Targets
+# Choice Targets
 
 Choice targets use [Type Membership](#type-membership). For example:
 
@@ -532,11 +534,11 @@ outcomes:
 | `Flavor` | Yes | Yes: Flavor does not require the `vanilla` marker. |
 | `Vanilla` | Yes | No: Vanilla requires the `vanilla` marker. |
 
-## Scalar Targets
+# Scalar Targets
 
 > **Translation error:** Scalar Query targets are not supported by this mapping.
 > The translator must reject a Query with a scalar `of` type; see
-> [Deferred Mappings](Deferred.md#deferred-mappings).
+> [Deferred Mappings](Deferred.md).
 
 Scalar targets do not match ordinary records. However, a malformed runtime
 record can declare a scalar type:

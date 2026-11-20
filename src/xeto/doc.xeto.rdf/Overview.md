@@ -1,5 +1,3 @@
-# Overview
-
 Xeto defines a standard mapping of specs and instance data to RDF 1.1. The
 mapping uses RDFS for vocabulary relationships, SHACL Core for validation, and
 QUDT identifiers for units and quantity kinds.
@@ -26,9 +24,9 @@ the profile subsections that apply to it. If a construct has no `Vocabulary`,
 `SHACL Validation`, or `Instance Data` subsection, that profile adds no separate
 RDF statements for the construct. The omission is intentional; it does not mean
 that the mapping is unfinished. Mappings that are not yet supported are listed
-explicitly under [Deferred Mappings](Deferred.md#deferred-mappings).
+explicitly under [Deferred Mappings](Deferred.md).
 
-## Validation and Type Matching
+# Validation and Type Matching
 
 Xeto supports two ways to choose a validation spec:
 
@@ -50,7 +48,7 @@ SHACL checks the applicable field requirements. A matching record can still
 have missing or invalid fields; see
 [Type Matching and Field Validation](Mappings.md#type-matching-and-field-validation).
 
-## Conformance
+# Conformance
 
 The Xeto project maintains an implementation of this mapping for normal RDF
 export. This specification calls it the **reference exporter**. It supports all three
@@ -67,7 +65,7 @@ An RDF export conforms to:
   each instance included in the export.
 
 Although this specification aims to cover all Xeto constructs, some do not yet
-have a mapping; see [Deferred Mappings](Deferred.md#deferred-mappings). Conformance is
+have a mapping; see [Deferred Mappings](Deferred.md). Conformance is
 fail-closed, an exporter must reject an unsupported construct rather than
 silently omit it or emit weaker RDF or SHACL.
 
@@ -94,7 +92,7 @@ or options for producing three files. Both approaches conform when each
 requested profile contains the statements defined here. No particular command
 name, option name, file layout, or named-graph layout is required.
 
-## Non-Goals
+# Non-Goals
 
 This mapping does not require:
 

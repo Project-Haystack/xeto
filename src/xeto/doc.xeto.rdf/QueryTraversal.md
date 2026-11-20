@@ -1,11 +1,13 @@
-# Query Traversal and Input Validation
+<!--
+title:      Query Traversal and Input Validation
+-->
 
 Input checks execute first, before Result Selection. Each traversal subsection
 presents the Xeto declaration and its meaning, then the SPARQL traversal, then
 any traversal-specific input checks. This teaching order does not change the
 execution order.
 
-## Input Validation
+# Input Validation
 
 Input Validation uses SHACL to require the starting record to exist and
 populated fields followed by the Query to contain references. Input Validation
@@ -61,11 +63,11 @@ All forms require the starting record to exist. They do not require it to have
 the Query owner's type. Declared Ref cardinality is a record-validation rule
 and must not be added as a query execution requirement.
 
-## Traversal
+# Traversal
 
 The following sections show how Xeto Query traversal paths translate to SPARQL.
 
-### Inherited and Overridden Queries
+## Inherited and Overridden Queries
 
 A Query's `of` type and `via` or `inverse` path can be inherited from a parent
 type or overridden by a subtype's Query slot of the same name. The following
@@ -140,7 +142,7 @@ and [Mixins](TypeComposition.md#mixins).
 Resolve Query definitions using the [Complete Spec Definition](Foundations.md#complete-spec-definition)
 and [Concrete Library Versions](Foundations.md#concrete-library-versions) rules.
 
-### Resolving a Field Name
+## Resolving a Field Name
 
 `via:"next"` follows the `next` field, which can use different property IRIs on
 different record types. Include every IRI used for `next` in the resolved
@@ -184,7 +186,7 @@ A path uses one property directly or combines several with `|`. The traversal
 rules use `P` for that resolved property path; `P` is notation, not a SPARQL
 variable.
 
-### Forward and Repeated Traversal
+## Forward and Repeated Traversal
 
 Forward traversal follows the named field. A one-hop path follows one link;
 a repeated path follows one or more links:
@@ -227,7 +229,7 @@ requires at least one hop. The starting record is returned only if a self-link
 or cycle reaches the starting record again and the record matches `of`.
 Forward traversal does not check unreachable records.
 
-### Inverse Result Selection
+## Inverse Result Selection
 
 An [inverse Query](QuerySlots.md#inverse-query-and-direct-inverse-property) uses the referenced Query's path in reverse and its own `of` type
 to select results. The referenced Query's `of` type does not filter the starting record
@@ -243,7 +245,7 @@ Both examples use library `example.inverse` and the following `equipRef` links:
 p2 (Point) → p1 (Point) → relay1 (Relay) → equip1 (Equipment)
 ```
 
-#### One-Hop Inverse Traversal
+### One-Hop Inverse Traversal
 
 A one-hop inverse Query follows one incoming reference. The referenced Query
 uses `via:"equipRef"`:
@@ -292,7 +294,7 @@ Using `?referenceProperty` in both triples ensures that the Ref metadata
 describes the field containing the incoming link. A Ref in another field does
 not make the link eligible.
 
-#### Repeated Inverse Traversal
+### Repeated Inverse Traversal
 
 A repeated inverse Query follows one or more incoming references. Change the
 referenced Query's path to `via:"equipRef+"`; the inverse declaration stays
@@ -334,7 +336,7 @@ Starting `points` at `equip1` returns `p1` and `p2`. Both have a nonempty
 The SELECT examples abbreviate the property and class lists; translations
 include every resolved mapping for `equipRef` and every matching Point subtype.
 
-#### Input Validation Differences
+### Input Validation Differences
 
 One-hop inverse traversal checks Ref metadata during Result Selection.
 Repeated inverse traversal checks candidate records during Input Validation:
@@ -362,7 +364,7 @@ This record has no path to `equip1`, but its `equipRef` field causes the
 repeated inverse Query to fail its reference checks. The one-hop inverse
 Query ignores this non-Ref value and still returns no Points.
 
-### Identity Traversal
+## Identity Traversal
 
 A Query with `via:"id"` selects the starting record itself. RDF represents the
 record's identity as its subject IRI, so the SPARQL translation does not follow
@@ -410,11 +412,11 @@ the Query's own `of` type for Result Selection.
 exists. Identity traversal needs no field-property alternatives or Ref
 metadata, and does not inspect other fields or disconnected records.
 
-[Result Validation](QueryResultValidation.md#query-result-validation) checks Target's required `hit` marker
+[Result Validation](QueryResultValidation.md) checks Target's required `hit` marker
 as usual. Removing `hit` leaves `t` in Result Selection but causes Result
 Validation to fail.
 
-### Spec-Reference Traversal
+## Spec-Reference Traversal
 
 The [`spec` field](Mappings.md#the-spec-field) identifies a record's declared Xeto type.
 Its Ref can be used in two different operations:

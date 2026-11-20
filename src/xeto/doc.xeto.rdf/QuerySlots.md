@@ -1,4 +1,6 @@
-# Query Slot Mapping
+<!--
+title:      Query Slot Mapping
+-->
 
 A Xeto `Query` is computed navigation, not a stored required field. It selects
 records by following references from a starting record. This chapter calls a
@@ -9,14 +11,14 @@ SPARQL selection query refers to its SPARQL translation.
 Query traversal uses the [reference-field metadata](References.md#reference-field-metadata)
 in exported instance data to distinguish Refs from other IRI-valued fields.
 
-## SHACL Validation
+# SHACL Validation
 
 Query slots without named body requirements impose no validation constraints. Their
 `via` or `inverse` metadata is retained as a SHACL property path, without
 `sh:class`, `sh:minCount`, or `sh:maxCount`. The `of` type selects query results;
 it does not require every record along the path to have that type.
 
-### Supported Query Paths
+## Supported Query Paths
 
 ```xeto
 Equip : Dict {
@@ -107,8 +109,8 @@ but still has no cardinality constraint. Exporting schema SHACL and compiling
 Query-body validation are separate operations. The schema-only exporter does
 not yet support Query bodies; the Query compiler produces the SPARQL and SHACL
 needed to check required and optional body members. See
-[Query-Body Validation](QueryBodyValidation.md#query-body-validation) and
-[Deferred Mappings](Deferred.md#deferred-mappings).
+[Query-Body Validation](QueryBodyValidation.md) and
+[Deferred Mappings](Deferred.md).
 
 `via` and `inverse` are mutually exclusive. A `via` path is an unqualified
 slot name, a `Spec.slot` name, or a fully qualified `lib::Spec.slot` name,
@@ -116,7 +118,7 @@ optionally followed by `+` or `*`. An `inverse` reference uses the same name
 forms without a path suffix. Empty paths, malformed names, repeated suffixes,
 and a Query declaring both forms are export errors.
 
-### Rejected Query Metadata
+## Rejected Query Metadata
 
 The following complete definitions are rejected during RDF export. Declaring
 both traversal forms is ambiguous:
@@ -155,7 +157,7 @@ Equip : Dict {
 The exporter reports an invalid Query path for
 `fixture.example::Equip.points`, including the rejected value `pointRef++`.
 
-### Inverse Query and Direct Inverse Property
+## Inverse Query and Direct Inverse Property
 
 An inverse reference is resolved in the library that declares the Query. If
 the referenced name identifies another Query, that Query must declare `via`;
@@ -200,7 +202,7 @@ A referenced Query without `via` does not contain enough traversal metadata
 to invert and is therefore an export error. It is not silently treated as an
 ordinary stored property.
 
-## Queries Contributed by Mixins
+# Queries Contributed by Mixins
 
 A query contributed by a mixin may traverse a slot from the contributing
 library or a slot from the target spec's library. The path name determines

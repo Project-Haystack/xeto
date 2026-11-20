@@ -1,6 +1,8 @@
-# Object Slots
+<!--
+title:      Object Slots
+-->
 
-## Other Core Types
+# Other Core Types
 
 Most dictionary types need no special mapping. A type derived from `Dict` uses
 the [class and slot rules](Mappings.md#specs-slots-and-instances) and the
@@ -49,9 +51,11 @@ This check follows the complete inheritance chain. For example, a
 core type an application-specific name does not turn it into a dictionary or
 an unconstrained object.
 
-## Unconstrained Object Slots
+# Unconstrained Object Slots
 
-### SHACL Validation
+A slot declared as `Obj` can hold values of different types.
+
+## SHACL Validation
 
 An `Obj` slot constrains presence and single-value cardinality but deliberately
 does not constrain the RDF term's datatype, class, or node kind.
@@ -72,9 +76,11 @@ ex:Envelope a sh:NodeShape ;
   ] .
 ```
 
-## Nested Object Slots
+# Nested Object Slots
 
-### SHACL Validation
+A slot can also specify the type of a nested dictionary.
+
+## SHACL Validation
 
 A slot typed as another dictionary spec uses `sh:node` to apply that spec's
 shape to the nested value.
@@ -118,7 +124,7 @@ the same rule applies using the dependency library's RDF namespace. A loaded
 The nested node may itself contain scalar, ref, marker, unit, list, choice, or
 further nested values supported by this specification.
 
-### Nested Sugar Types
+## Nested Sugar Types
 
 A nested slot typed as a sugar spec checks both
 [type matching and field validation](Mappings.md#type-matching-and-field-validation).
@@ -177,7 +183,7 @@ fitting does not apply Hot's full field validation; see
 Without a `spec` field, a nested dictionary can proceed directly to field
 validation. The missing type declaration alone does not cause failure.
 
-### Instance Data
+## Instance Data
 
 A nested dictionary without its own Xeto id becomes an RDF blank node. It is
 typed with its nested spec so both class-based and `sh:node` constraints can

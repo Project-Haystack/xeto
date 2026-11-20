@@ -1,13 +1,17 @@
-# Mapping Rules
+<!--
+title:      Mapping Rules
+-->
 
 This chapter describes the shared mappings for specs, slots, and instances.
 The [mapping chapters](doc.xeto.rdf::index) group each construct's RDF vocabulary, SHACL
 validation, and instance-data mappings. A subsection is omitted when the
 construct has no separate mapping for that profile.
 
-## Specs, Slots, and Instances
+# Specs, Slots, and Instances
 
-### Vocabulary
+A single Xeto spec can supply RDF classes, SHACL shapes, and the properties used on instances.
+
+## Vocabulary
 
 Every Xeto spec is both a Xeto class and an RDFS class. Its name becomes an
 English label, and its `doc` text becomes an English comment when present.
@@ -77,11 +81,11 @@ ex:Equip.siteRef a rdf:Property ;
 
 The output preserves both classes and both slot properties. Property
 declarations do not add an RDF domain or range: the
-[SHACL Ref mapping](References.md#ref-and-multiref-slots) states that `ex:Equip.siteRef`
+[SHACL Ref mapping](References.md) states that `ex:Equip.siteRef`
 must point to an `ex:Site`, while the class declarations identify `Equip` and
 `Site` themselves.
 
-### SHACL Validation
+## SHACL Validation
 
 A spec with instance constraints is a `sh:NodeShape` targeting the same IRI as
 its RDF class.
@@ -108,9 +112,9 @@ Ordinary Xeto slots use these cardinalities:
 
 The type and value constraints still apply when a `maybe` slot is present.
 Additional cardinality rules apply to [markers](MarkersAndChoices.md#markers),
-[choices](MarkersAndChoices.md#choices), and [lists](Lists.md#lists).
+[choices](MarkersAndChoices.md#choices), and [lists](Lists.md).
 
-#### Type Matching and Field Validation
+### Type Matching and Field Validation
 
 **Type matching (Xeto fitting)** checks whether a value matches a requested
 type. For ordinary named types, matching is **nominal**: it uses the record's
@@ -133,7 +137,7 @@ See also [reference constraints](References.md#sugar-reference-targets) for how
 type matching applies to a Ref target.
 
 
-#### Abstract Specs
+### Abstract Specs
 
 Translate abstract specs using the same class and field-constraint mappings as
 other specs. The `abstract` marker does not add a SHACL constraint prohibiting
@@ -154,7 +158,7 @@ ex:Abstract a sh:NodeShape ;
   ] .
 ```
 
-#### Constraints on the `spec` Field
+### Constraints on the `spec` Field
 
 In Trio, the `spec` field identifies the record's declared Xeto type.
 Constraints on this field use the shared RDF property `sys:spec`, including
@@ -185,7 +189,7 @@ class. It does not require that value to identify Record itself: a subtype
 instance can refer to its own declared type. See [The `spec` Field](#the-spec-field)
 for the instance mapping.
 
-### Instance Data
+## Instance Data
 
 A Xeto instance id becomes the subject IRI. A local id uses the instance
 library's versioned namespace; a qualified id uses the named library's
@@ -219,7 +223,7 @@ ex:equip1 a sys:Entity, ex:Equip ;
 The subject IRI carries the Xeto id. No additional id predicate is required by
 this profile.
 
-#### The `spec` Field
+### The `spec` Field
 
 Xeto instance syntax puts the declared type after the colon. The declaration
 `@equip1: Equip` in the instance example identifies `Equip` as the instance's
@@ -267,7 +271,7 @@ the record an effective RDF type. Whether the field is required depends on
 the applicable validation constraints. The same field mapping applies to
 nested Dicts.
 
-#### Effective Instance Values
+### Effective Instance Values
 
 Before exporting an instance, the exporter looks up the complete definition of
 its spec in the active namespace. That definition includes inherited and global
@@ -314,7 +318,7 @@ from a base spec, declared by a global slot, or contributed by a mixin. The
 exporter writes such a default only when it is present in the resolved instance
 values.
 
-#### Undeclared Fields
+### Undeclared Fields
 
 The following `Person` spec declares only `dis`:
 

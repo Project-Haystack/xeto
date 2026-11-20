@@ -1,3 +1,7 @@
+<!--
+title:      RDF
+-->
+
 # Overview
 
 Xeto maps specs and instances to RDF for interoperability with RDF-based systems.
@@ -7,7 +11,7 @@ for executable Queries.
 This chapter introduces the main transformations. The detailed specification
 lives in [doc.xeto.rdf::Overview].
 
-## Specs Become Classes and Properties
+# Specs Become Classes and Properties
 
 Consider a Person with a required name, and one instance:
 
@@ -42,7 +46,7 @@ a full export includes additional metadata.
 See [Specs, Slots, and Instances](doc.xeto.rdf::Mappings#specs-slots-and-instances)
 and [Namespaces and IRIs](doc.xeto.rdf::Foundations#namespaces-and-iris).
 
-## Instances Become Triples
+# Instances Become Triples
 
 The same `@ada` instance becomes:
 
@@ -73,7 +77,7 @@ a Ref. Type membership and the actual Ref are kept separate so a Query
 can follow the stored reference without also following inferred types.
 See [The spec Field](doc.xeto.rdf::Mappings#the-spec-field).
 
-## Constraints Become SHACL Shapes
+# Constraints Become SHACL Shapes
 
 `name: Str` requires one string value. Its SHACL mapping is:
 
@@ -98,7 +102,7 @@ export puts all three in one Turtle file. See
 [RDF Graphs](doc.xeto.rdf::Foundations#rdf-graphs) for how consumers use them,
 and [Mapping Rules](doc.xeto.rdf::index) for each Xeto construct's constraints.
 
-## Queries Become SPARQL
+# Queries Become SPARQL
 
 Using Person and Ada above, a directory can refer to Ada and declare a Query
 that follows the reference:
@@ -138,7 +142,7 @@ See [Query Execution](doc.xeto.rdf::QueryExecution) for the
 complete workflow, including input shapes, inverse paths, repeated traversal,
 and Query-body requirements.
 
-## Detailed Specification
+# Detailed Specification
 
 - [Overview](doc.xeto.rdf::Overview): supported profiles, conformance, and scope.
 - [Foundations](doc.xeto.rdf::Foundations): resolved libraries, graphs, and identifiers.

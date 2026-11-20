@@ -1,4 +1,6 @@
-# Deferred Mappings
+<!--
+title:      Deferred Mappings
+-->
 
 The following forms do not have a conformance mapping in this version. An
 exporter encountering one of them fails instead of silently emitting weaker
@@ -7,7 +9,7 @@ available, the affected qualified spec or slot. This specification does not
 define error codes or prescribe programming-language error types.
 
 - Query-body checks in schema-only exports. The
-  [Query-body validation](QueryBodyValidation.md#query-body-validation) operation produces separate
+  [Query-body validation](QueryBodyValidation.md) operation produces separate
   SPARQL and SHACL for those checks.
 - Named-result assignment through `queryNamed`, including its selection-order
   policy when several records match the same name or one record matches several
@@ -39,4 +41,4 @@ define error codes or prescribe programming-language error types.
 
 Translating a Xeto `Query` into executable SPARQL and companion SHACL is
 specified separately from the three RDF export profiles. See
-[Query Execution](QueryExecution.md#query-execution).
+[Query Execution](QueryExecution.md).

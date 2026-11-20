@@ -1,4 +1,6 @@
-# Query Result Validation
+<!--
+title:      Query Result Validation
+-->
 
 Result Selection has already established that each returned record fits the
 Query's `of` type. Optional Result Validation performs field validation:
@@ -39,7 +41,7 @@ Result Validation does not change Result Selection or which Query-body member
 a record claims. Matching records may use different field IRIs, as shown in
 [Validating Sugar Results](#validating-sugar-results).
 
-## Validating Sugar Results
+# Validating Sugar Results
 
 A record selected by a sugar target may declare the sugar's nominal anchor
 as its type. Result Validation must account for the field IRIs associated with
@@ -80,7 +82,7 @@ check all required fields, value types, and invariants, including inherited
 requirements, using the SHACL rules in the
 [mapping chapters](doc.xeto.rdf::index).
 
-## Instance Data and Schema Vocabulary
+# Instance Data and Schema Vocabulary
 
 A runtime record and a schema class can share the same IRI. When combining
 instance and schema triples for validation, schema statements at that IRI must

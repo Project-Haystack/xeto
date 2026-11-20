@@ -1,4 +1,6 @@
-# Query-Body Validation
+<!--
+title:      Query-Body Validation
+-->
 
 A Query body declares requirements on the result set. Each declaration inside
 the braces is a **body member**. For example, this Query has two body members,
@@ -43,7 +45,7 @@ record fits both requirements. Query-Body Validation does not assign records
 to names as `queryNamed` does, or establish that matching records pass Result
 Validation.
 
-## Composing Body Validation
+# Composing Body Validation
 
 Query-Body Validation reuses Result Selection's traversal and `of`
 matching. The checks on each *body member* are described by the
@@ -86,7 +88,7 @@ Xeto calls this explicit association **anchoring**; see
 [Query Constraints](doc.xeto::Constraints#query-constraints).
 Creating the second record requires knowing the body member's qualified name.
 Ordinary records do not need that knowledge. Matching free records uses the
-existing [result-matching rules](QueryResultMatching.md#query-result-matching), including sugar constraints.
+existing [result-matching rules](QueryResultMatching.md), including sugar constraints.
 
 To identify a record's claim, start at its declared type and follow its nominal
 base chain. The first body member encountered is the one it claims. Matching
@@ -107,7 +109,7 @@ matches(R, M) = claims(R, M), if claims(R, M) is nonempty
 A claimed record still counts if it is missing required fields; a matching
 free record does not replace it. Result Validation checks record fields separately.
 
-## Representing Matches for SHACL
+# Representing Matches for SHACL
 
 Once the matching records for each body member are known, SHACL needs RDF
 links it can count. A SPARQL `CONSTRUCT` creates these links: where a `SELECT`
@@ -160,7 +162,7 @@ affected body member. A Query without body members imposes no member counts.
 Input or traversal failures remain execution errors and must not become a
 successful Query-Body Validation report.
 
-## Complete Match Projection
+# Complete Match Projection
 
 The complete `CONSTRUCT` below brings these steps together for the sensor
 example. It first selects the Point records that form `R`, then uses a `VALUES`
