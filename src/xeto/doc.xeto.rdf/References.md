@@ -1,8 +1,12 @@
-# Ref and MultiRef Slots
+<!--
+title:      Ref and MultiRef Slots
+-->
 
-## SHACL Validation
+# SHACL Validation
 
-### Ordinary Reference Targets
+Reference constraints apply to a single Ref target or to each target in a MultiRef.
+
+## Ordinary Reference Targets
 
 A `Ref` maps to an IRI identifying its target. With `of`, the target must fit
 the specified type. Ordinary types use nominal matching, expressed as RDF class
@@ -46,9 +50,9 @@ ex:Equip a sh:NodeShape ;
 
 Every value of a `MultiRef` must pass the same reference checks as a single `Ref`.
 
-### Query Body Member Types
+## Query Body Member Types
 
-A record declared as a [Query body member](QueryBodyValidation.md#query-body-validation) can satisfy
+A record declared as a [Query body member](QueryBodyValidation.md) can satisfy
 a typed reference through inheritance. For example:
 
 ```xeto
@@ -85,7 +89,7 @@ An unchanged inherited member retains the declaring member's identity. An
 override has its own member identity and exports its effective nominal base.
 These declarations describe types; they do not run Query-body validation.
 
-### Sugar Reference Targets
+## Sugar Reference Targets
 
 To validate `Ref<of:Hot>`, the SHACL constraint checks whether the referenced
 record fits Hot. [Type matching](Mappings.md#type-matching-and-field-validation)
@@ -193,7 +197,7 @@ Apply these fitting rules to every `MultiRef` target and to reusable result
 constraints. Keep fitting predicates local to the reference shape; do not add
 computed subclass relationships or apply the target's full validation shape.
 
-## Instance Data
+# Instance Data
 
 A `Ref` becomes one object IRI. A `MultiRef` becomes one triple per referenced
 IRI using the same property.
@@ -241,7 +245,7 @@ produce two statements with the same subject and property. Referenced Xeto
 entities are exported with their own `sys:Entity` and concrete spec types so
 typed and untyped reference shapes can validate them.
 
-### Reference-field metadata
+## Reference-field metadata
 
 RDF uses IRIs for Refs, Units, UnitQuantity values, and named nested Dicts.
 A link alone does not show which Xeto value produced it. `sys:hasRefField`

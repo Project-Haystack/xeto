@@ -1,6 +1,4 @@
-# Lists
-
-## SHACL Validation
+# SHACL Validation
 
 A Xeto `List` is one ordered collection, not several independent values for the
 same slot. RDF represents that collection as a linked list: each node stores
@@ -77,9 +75,9 @@ spec, so the exporter uses `sh:class`. Scalar item types instead use
 
 Lists of enum values, Choice selections, units, references, or other lists are
 not supported in this version. Exporting one of these list forms is an error;
-see [Deferred Mappings](Deferred.md#deferred-mappings).
+see [Deferred Mappings](Deferred.md).
 
-## Instance Data
+# Instance Data
 
 A Xeto list becomes an RDF collection, preserving item order.
 

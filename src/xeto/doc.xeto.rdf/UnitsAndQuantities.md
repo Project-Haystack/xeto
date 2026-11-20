@@ -1,8 +1,12 @@
-# Units and Quantity Values
+<!--
+title:      Units and Quantity Values
+-->
 
-## Units and Quantities
+# Units and Quantities
 
-### Unit and Quantity Correspondence
+The RDF mapping uses the Xeto unit catalog to identify units and their quantities.
+
+## Unit and Quantity Correspondence
 
 Xeto defines `sys::Unit` from the standard Project Haystack unit database. Each
 unit has a full name and may have one or more symbol aliases. For example,
@@ -68,7 +72,7 @@ QUDT publishes its unit definitions in the
 provides downloadable vocabulary graphs through the
 [QUDT catalog](https://www.qudt.org/catalog/qudt-catalog.html).
 
-### SHACL Validation
+## SHACL Validation
 
 A `Unit` slot contains a canonical QUDT unit IRI. The shape requires
 `qudt:Unit`. If the slot specifies a quantity, the unit's QUDT quantity kind
@@ -101,7 +105,7 @@ ex:Sensor a sh:NodeShape ;
   ] .
 ```
 
-#### Quantity Kind Hierarchy
+### Quantity Kind Hierarchy
 
 The standard Xeto unit catalog groups each unit under a quantity. For example,
 `gallon`, `fluid_ounce`, and `imperial_gallon` are in Xeto's `volume` group.
@@ -186,7 +190,7 @@ ex:Meter a sh:NodeShape ;
 The `power` shape has the same structure but replaces the exact unit with a
 `qudt:hasQuantityKind quantitykind:Power` constraint.
 
-### Instance Data
+## Instance Data
 
 A `Unit` value becomes its canonical QUDT unit IRI:
 
@@ -244,9 +248,9 @@ or integer-minor-unit convention before RDF export.
 
 The QUDT declarations and quantity-kind facts referenced by these values are
 loaded separately during validation as described under
-[Metadata and External Vocabularies](Metadata.md#metadata-and-external-vocabularies).
+[Metadata and External Vocabularies](Metadata.md).
 
-## Standalone UnitQuantity Values
+# Standalone UnitQuantity Values
 
 A standalone `UnitQuantity` value maps to `sys:UnitQuantity.<key>`, using the
 exact, case-sensitive enum key and the versioned `sys` namespace. One Xeto

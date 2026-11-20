@@ -1,8 +1,12 @@
-# Markers and Choices
+<!--
+title:      Markers and Choices
+-->
 
-## Markers
+# Markers
 
-### Vocabulary
+A marker records the presence of a tag on a Xeto instance.
+
+## Vocabulary
 
 A marker slot is represented as a named marker resource rather than as a
 boolean-valued property.
@@ -24,7 +28,7 @@ The first statement records that `equip` is a marker declared by `Equip`. The
 instance-data mapping uses the same marker IRI when an instance carries that
 marker.
 
-### SHACL Validation
+## SHACL Validation
 
 A required marker uses `sh:hasValue` on `sys:hasMarker`. It does not use
 `sh:maxCount`, because one instance may carry many different markers.
@@ -60,7 +64,7 @@ ex:Asset a sh:NodeShape ;
 The marker is part of the exported vocabulary, but an `Asset` instance may
 omit it because the shape has no `sh:hasValue ex:Asset.temporary` constraint.
 
-### Instance Data
+## Instance Data
 
 An instance marker uses `sys:hasMarker` and the marker resource declared by the
 vocabulary mapping above.
@@ -94,9 +98,11 @@ ex:equip1 a sys:Entity, ex:Equip ;
   sys:hasMarker ex:Equip.equip .
 ```
 
-## Choices
+# Choices
 
-### Vocabulary
+A choice groups the members a slot can select.
+
+## Vocabulary
 
 A choice root is a class, and every choice member is its subclass. Each member
 is connected to the marker that selects it in Xeto.
@@ -173,7 +179,7 @@ slot accepts the intermediate member itself and the marker-bearing descendants
 under that branch. Members of sibling branches are not included in its
 `sh:in` list.
 
-### SHACL Validation
+## SHACL Validation
 
 The vocabulary mapping above defines the choice root, member classes, and
 member-marker metadata. The validation mapping defines how a slot selects one
@@ -210,7 +216,7 @@ Choice cardinality follows the call-site metadata:
 Every value, including each value of a multi-choice slot, must appear in the
 `sh:in` list. The list contains all members visible in the active namespace.
 
-### Instance Data
+## Instance Data
 
 The selected choice member is the object of the choice slot property.
 

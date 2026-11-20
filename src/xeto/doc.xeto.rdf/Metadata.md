@@ -1,4 +1,6 @@
-# Metadata and External Vocabularies
+<!--
+title:      Metadata and External Vocabularies
+-->
 
 The RDF mapping does not require OWL reasoning. An exporter may describe a
 library resource as an `owl:Ontology` and may use `owl:imports` as packaging
@@ -41,7 +43,7 @@ In an RDF statement, the predicate names the relationship between the subject
 and object. In this example, `rdfs:label` and `rdfs:comment` are the predicates.
 They relate `lib:Person` to its display label and documentation text.
 
-## Metadata Without an RDF Mapping
+# Metadata Without an RDF Mapping
 
 Xeto libraries can add their own metadata to specs and slots. For example, an
 application can define an `icon` tag and use it to select an icon in its user

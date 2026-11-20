@@ -1,6 +1,4 @@
-# Scalars
-
-## Standard Scalar Slots
+# Standard Scalar Slots
 
 A plain Xeto scalar maps to an RDF typed literal. A typed literal contains a
 lexical form and a datatype. The quoted text in Turtle is the lexical form; it
@@ -48,7 +46,7 @@ The same type mapping selects the SHACL datatype:
 | `Uri` | `xsd:anyURI` |
 | `TimeZone` | `xsd:string` |
 
-### SHACL Validation
+## SHACL Validation
 
 A unit bearing `Number` is an exception, it maps to a `qudt:QuantityValue` node
 rather than a plain literal, as described under
@@ -134,7 +132,7 @@ ex:Thing a sh:NodeShape ;
   ] .
 ```
 
-### Instance Data
+## Instance Data
 
 Scalar values use the datatypes from the scalar mapping table. For example:
 
@@ -162,7 +160,7 @@ ex:sensor1 a sys:Entity, ex:Sensor ;
   ex:Sensor.commissioned "2026-07-19"^^xsd:date .
 ```
 
-## Custom Scalar Datatypes
+# Custom Scalar Datatypes
 
 A custom Xeto scalar is a named type derived from `Scalar`, directly or through
 another scalar type, with its own value constraints or encoding.
@@ -186,7 +184,7 @@ refinements of [standard scalars](#standard-scalar-slots), enums, markers,
 references, and units. The built-in scalars covered by the custom datatype
 rule are listed [below](#built-in-and-library-scalars).
 
-### Vocabulary
+## Vocabulary
 
 The vocabulary declares the scalar spec's IRI as an `rdfs:Datatype`:
 
@@ -206,7 +204,7 @@ ex:Code a rdfs:Datatype ;
 The declaration names the datatype. The following shape enforces its pattern
 when a value is used in `Asset.code`.
 
-### SHACL Validation
+## SHACL Validation
 
 A custom scalar slot checks the value's datatype with `sh:datatype` and its
 declared pattern with `sh:pattern`. Required and optional slots follow the
@@ -295,7 +293,7 @@ ex:FixedAsset a sh:NodeShape ;
 datatypes. Only the first satisfies this invariant. An ordinary default does
 not produce an `sh:hasValue` constraint.
 
-### Instance Data
+## Instance Data
 
 Using the `Code` and `Asset` declarations above:
 
@@ -346,7 +344,7 @@ The export input must preserve a custom scalar value's type information.
 If that information is missing, the exporter reports an error rather than
 converting the custom value to an ordinary string.
 
-### Built-in and Library Scalars
+## Built-in and Library Scalars
 
 The same rule covers built-in and library scalars without another special
 mapping. For example:
@@ -378,7 +376,7 @@ its Xeto base is `Number`.
 Values already replaced or removed by Xeto are not recreated during export.
 A resolved build variable uses the mapping for its resulting value.
 
-## Enums
+# Enums
 
 An enum's entry names define its allowed string values unless an entry supplies
 an explicit `key`.
@@ -394,7 +392,7 @@ Card : Dict {
 }
 ```
 
-### Vocabulary
+## Vocabulary
 
 An enum spec is exported as a class, and the slot using it is exported as an
 RDF property. Ordinary enum values are strings rather than RDF individuals,
@@ -414,7 +412,7 @@ ex:Card.suit a rdf:Property ;
   rdfs:label "suit"@en .
 ```
 
-### SHACL Validation
+## SHACL Validation
 
 Ordinary enum slots are string-valued and use `sh:in` for the allowed values. For the
 unkeyed `Suit` above, the entry names are used directly:
@@ -466,7 +464,7 @@ that attempts to derive from an enum, so an enum slot's allowed values come
 from the enum named by that slot. There is no additional enum-inheritance rule
 in the RDF mapping.
 
-### Instance Data
+## Instance Data
 
 For the unkeyed enum, an instance uses the entry name as its string value:
 

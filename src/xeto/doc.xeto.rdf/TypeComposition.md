@@ -1,6 +1,8 @@
-# Type Composition
+<!--
+title:      Type Composition
+-->
 
-## Intersections
+# Intersections
 
 An intersection is a subtype of every member:
 
@@ -10,7 +12,7 @@ Located : Dict { geoCity: Str }
 NamedLocation : Named & Located
 ```
 
-### Intersection Vocabulary
+## Intersection Vocabulary
 
 ```turtle
 ex:Named a sys:Class, rdfs:Class ;
@@ -34,7 +36,7 @@ The inherited slots keep the property IRIs of the specs that declared them:
 `ex:Named.dis` and `ex:Located.geoCity`. They are not copied to new properties
 such as `ex:NamedLocation.dis`.
 
-### Intersection Validation
+## Intersection Validation
 
 The member shapes define the constraints inherited by an intersection:
 
@@ -61,7 +63,7 @@ ex:Located a sh:NodeShape ;
 Because `NamedLocation` is a subtype of both `Named` and `Located`, its
 instances must satisfy both shapes.
 
-## Unions
+# Unions
 
 A union is a supertype of every member:
 
@@ -71,7 +73,7 @@ Cooling : Dict
 ThermalProcess : Heating | Cooling
 ```
 
-### Union Vocabulary
+## Union Vocabulary
 
 ```turtle
 ex:ThermalProcess a sys:Class, rdfs:Class .
@@ -83,7 +85,7 @@ ex:Cooling a sys:Class, rdfs:Class ;
   rdfs:subClassOf ex:ThermalProcess .
 ```
 
-### Union Validation
+## Union Validation
 
 A union combines alternative types: a value matching either
 `Heating` or `Cooling` also matches `ThermalProcess`. Direct validation checks
@@ -122,7 +124,7 @@ ex:process1 a sys:Entity, ex:ThermalProcess .
 
 Nested union-typed slots are not supported.
 
-### Fields Declared on a Union
+## Fields Declared on a Union
 
 A union can declare required fields of its own:
 
@@ -179,7 +181,7 @@ uses the applicable field-property alternatives; see
 [Nested Sugar Types](ObjectSlots.md#nested-sugar-types) for an alternative
 property-path example.
 
-## Globals and Covariant Overrides
+# Globals and Covariant Overrides
 
 A global slot defines a contract for uses of the same slot name on descendant
 specs. A global is implicitly optional and cannot declare `maybe`. Any
@@ -209,7 +211,7 @@ InvalidPerson : Person {
 }
 ```
 
-### Vocabulary
+## Vocabulary
 
 A concrete slot that overrides a known global is an RDF subproperty of the
 global slot property:
@@ -226,7 +228,7 @@ ex:TallPerson.height a rdf:Property ;
 The subproperty statement records where the concrete slot contract came from.
 It does not by itself enforce the inherited datatype or numeric bounds.
 
-### SHACL Validation
+## SHACL Validation
 
 The effective `TallPerson.height` shape combines the override with inherited
 global metadata:
@@ -251,7 +253,7 @@ and rejects an invalid override. SHACL then validates instance data against the
 accepted effective slot. SHACL is not used to decide whether a Xeto slot
 override only narrows the slot it overrides.
 
-### Instance Data
+## Instance Data
 
 Global-backed values use the concrete slot property of the instance's spec:
 
@@ -270,7 +272,7 @@ The same RDF structure with a value above 300 fails the inherited
 `sh:maxInclusive` constraint. Omitting `height` remains valid because the
 global declared it as `maybe`.
 
-## Sealed Specs
+# Sealed Specs
 
 `sealed` controls where a Xeto spec may be extended. A sealed spec may have
 subtypes in its own library but not in another library. The exporter receives a
@@ -284,7 +286,7 @@ Command : Dict <sealed>
 An exporter reports an error if its input namespace contains an external
 subtype of `Command`; it does not emit a weaker graph for that invalid schema.
 
-## Mixins
+# Mixins
 
 A mixin adds slots to an existing spec in the active namespace. It does not
 become a second RDF class. The target spec receives the mixin constraints, while
@@ -310,7 +312,7 @@ Org : Dict
 }
 ```
 
-### Vocabulary
+## Vocabulary
 
 ```turtle
 app:Org a sys:Class, rdfs:Class ;
@@ -333,7 +335,7 @@ There is no `app:Person` class. The `app:Person.badge`, `app:Person.staff`, and
 `app:Person.orgRef` IRIs identify the scalar, marker, and reference slots
 contributed by `app.people`.
 
-### SHACL Validation
+## SHACL Validation
 
 In a namespace containing both libraries, the mixin constraints are added to
 the effective target shape:
@@ -372,7 +374,7 @@ shape.
 Mixin query-path ownership is defined under
 [Queries Contributed by Mixins](QuerySlots.md#queries-contributed-by-mixins).
 
-### Instance Data
+## Instance Data
 
 An instance uses the target spec's class and the contributed slots' own IRIs:
 
