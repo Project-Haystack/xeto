@@ -17,12 +17,14 @@
 
 # Queries
 
-- [Query Slot Mapping](QuerySlots.md): schema paths and contributed Query definitions
-- [Query Execution](QueryExecution.md): executable Query traversal, result matching, and validation
-- [Query Traversal and Input Validation](QueryTraversal.md): traversal paths and execution input checks
-- [Query Result Matching](QueryResultMatching.md): matching reached records against the Query target
-- [Query-Body Validation](QueryBodyValidation.md): member matching and result-set counts
+- [Query Execution](QueryExecution.md): execution stages and an end-to-end example
+- [Query Input Validation](QueryInputValidation.md): starting-record and reference checks
+- [Query Result Selection](QueryResultSelection.md): assembling the SPARQL SELECT
+- [Query Traversal](QueryTraversal.md): translating Query paths
+- [Query Result Matching](QueryResultMatching.md): matching reached records against `of`
 - [Query Result Validation](QueryResultValidation.md): selected-record constraints and validation graphs
+- [Query-Body Validation](QueryBodyValidation.md): member matching and result-set counts
+- [Query Slot Mapping](QuerySlots.md): schema paths and contributed Query definitions
 
 # Scope Limits
 

@@ -24,7 +24,7 @@ Reading : Dict {
 ```
 
 ```turtle
-ex:reading1 a sys:Entity, ex:Reading ;
+ex:reading1 a xetoRdf:Record, ex:Reading ;
   ex:Reading.label "5"^^xsd:string ;
   ex:Reading.count "5"^^xsd:integer ;
   ex:Reading.value "5.0"^^xsd:double ;
@@ -36,7 +36,7 @@ The same type mapping selects the SHACL datatype:
 | Xeto type | RDF datatype |
 | --- | --- |
 | `Str` | `xsd:string` |
-| `Number` | `xsd:double` |
+| Unitless `Number` | `xsd:double` |
 | `Float` | `xsd:double` |
 | `Int` | `xsd:integer` |
 | `Bool` | `xsd:boolean` |
@@ -48,9 +48,36 @@ The same type mapping selects the SHACL datatype:
 
 ## SHACL Validation
 
-A unit bearing `Number` is an exception, it maps to a `qudt:QuantityValue` node
-rather than a plain literal, as described under
-[Units and Quantities](UnitsAndQuantities.md#units-and-quantities).
+A plain `Number` slot accepts a literal or a quantity value. For example, `20` maps to
+an `xsd:double`, and `20°C` maps to a `qudt:QuantityValue` with magnitude 20
+and the Celsius unit. Suppose `Sensor` declares `reading: Number <minVal:10>`.
+The first branch of `sh:or` checks the literal directly. The second checks
+the magnitude and unit of the quantity value.
+
+```turtle
+ex:Sensor-fields sh:property [
+  sh:path ex:Sensor.reading ;
+  sh:minCount 1 ; sh:maxCount 1 ;
+  sh:or (
+    [ sh:datatype xsd:double ; sh:minInclusive "10.0"^^xsd:double ]
+    [ sh:class qudt:QuantityValue ;
+      sh:node xetoRdf:QuantityUnitNameShape ;
+      sh:property [
+        sh:path qudt:numericValue ;
+        sh:datatype xsd:double ; sh:minInclusive "10.0"^^xsd:double ;
+        sh:minCount 1 ; sh:maxCount 1
+      ] ;
+      sh:property [
+        sh:path qudt:unit ; sh:class qudt:Unit ;
+        sh:minCount 1 ; sh:maxCount 1
+      ]
+    ]
+  )
+] .
+```
+
+Both `20` and `20°C` pass. A slot that requires Celsius also checks for
+`unit:DEG_C`, as shown in [Units and Quantities](UnitsAndQuantities.md#units-and-quantities).
 
 `Float` is always unitless in Xeto and therefore never uses the QUDT quantity
 mapping. Number and Float share the same finite and special double values:
@@ -67,8 +94,7 @@ Sensor : Dict {
 ```
 
 ```turtle
-ex:Sensor a sh:NodeShape ;
-  sh:targetClass ex:Sensor ;
+ex:Sensor-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:Sensor.sampleInterval ;
     sh:datatype xsd:integer ;
@@ -91,8 +117,7 @@ Asset : Dict {
 ```
 
 ```turtle
-ex:Asset a sh:NodeShape ;
-  sh:targetClass ex:Asset ;
+ex:Asset-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:Asset.dis ;
     sh:datatype xsd:string ;
@@ -115,8 +140,7 @@ Thing : Dict {
 ```
 
 ```turtle
-ex:Thing a sh:NodeShape ;
-  sh:targetClass ex:Thing ;
+ex:Thing-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:Thing.fixed ;
     sh:datatype xsd:string ;
@@ -153,7 +177,7 @@ Sensor : Dict {
 ```
 
 ```turtle
-ex:sensor1 a sys:Entity, ex:Sensor ;
+ex:sensor1 a xetoRdf:Record, ex:Sensor ;
   ex:Sensor.dis "Zone Temp"^^xsd:string ;
   ex:Sensor.priority "5"^^xsd:integer ;
   ex:Sensor.enabled "true"^^xsd:boolean ;
@@ -211,8 +235,7 @@ declared pattern with `sh:pattern`. Required and optional slots follow the
 ordinary cardinality rules.
 
 ```turtle
-ex:Asset a sh:NodeShape ;
-  sh:targetClass ex:Asset ;
+ex:Asset-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:Asset.code ;
     sh:datatype ex:Code ;
@@ -242,8 +265,7 @@ ex:FourCharacterCode a rdfs:Datatype ;
   rdfs:label "FourCharacterCode"@en ;
   rdfs:subClassOf ex:UpperCode .
 
-ex:Asset a sh:NodeShape ;
-  sh:targetClass ex:Asset ;
+ex:Asset-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:Asset.code ;
     sh:datatype ex:FourCharacterCode ;
@@ -277,8 +299,7 @@ FixedAsset : Dict {
 ex:Code a rdfs:Datatype ;
   rdfs:label "Code"@en .
 
-ex:FixedAsset a sh:NodeShape ;
-  sh:targetClass ex:FixedAsset ;
+ex:FixedAsset-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:FixedAsset.code ;
     sh:datatype ex:Code ;
@@ -304,7 +325,7 @@ Using the `Code` and `Asset` declarations above:
 ```
 
 ```turtle
-ex:asset1 a sys:Entity, ex:Asset ;
+ex:asset1 a xetoRdf:Record, ex:Asset ;
   ex:Asset.code "AB"^^ex:Code .
 ```
 
@@ -333,10 +354,10 @@ Envelope : Dict {
 ```
 
 ```turtle
-ex:coded a sys:Entity, ex:Envelope ;
+ex:coded a xetoRdf:Record, ex:Envelope ;
   ex:Envelope.value "AB"^^ex:Code .
 
-ex:plain a sys:Entity, ex:Envelope ;
+ex:plain a xetoRdf:Record, ex:Envelope ;
   ex:Envelope.value "AB"^^xsd:string .
 ```
 
@@ -418,8 +439,7 @@ Ordinary enum slots are string-valued and use `sh:in` for the allowed values. Fo
 unkeyed `Suit` above, the entry names are used directly:
 
 ```turtle
-ex:Card a sh:NodeShape ;
-  sh:targetClass ex:Card ;
+ex:Card-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:Card.suit ;
     sh:datatype xsd:string ;
@@ -445,8 +465,7 @@ Card : Dict {
 The vocabulary declarations are unchanged. Only the `sh:in` values differ:
 
 ```turtle
-ex:Card a sh:NodeShape ;
-  sh:targetClass ex:Card ;
+ex:Card-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:Card.suit ;
     sh:datatype xsd:string ;
@@ -475,7 +494,7 @@ For the unkeyed enum, an instance uses the entry name as its string value:
 ```
 
 ```turtle
-ex:card1 a sys:Entity, ex:Card ;
+ex:card1 a xetoRdf:Record, ex:Card ;
   ex:Card.suit "clubs"^^xsd:string .
 ```
 
@@ -488,7 +507,7 @@ For the keyed definition, the instance and RDF literal use the explicit key:
 ```
 
 ```turtle
-ex:card2 a sys:Entity, ex:Card ;
+ex:card2 a xetoRdf:Record, ex:Card ;
   ex:Card.suit "Clubs"^^xsd:string .
 ```
 

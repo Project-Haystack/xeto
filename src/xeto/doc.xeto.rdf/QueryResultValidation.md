@@ -25,7 +25,7 @@ ex:SelectedResults a sh:NodeShape ;
 
 ex:TargetResultConstraints a sh:NodeShape ;
   sh:property [
-    sh:path sys:hasMarker ;
+    sh:path xetoRdf:hasMarker ;
     sh:hasValue ex:Target.hit
   ] .
 ```
@@ -33,7 +33,7 @@ ex:TargetResultConstraints a sh:NodeShape ;
 Target requires only the `hit` marker, represented here by `sh:hasValue`.
 
 With the RDF above, Result Validation passes. Removing
-`ex:t sys:hasMarker ex:Target.hit` leaves the query result unchanged but makes
+`ex:t xetoRdf:hasMarker ex:Target.hit` leaves the query result unchanged but makes
 Result Validation fail because `ex:t` no longer has Target's required `hit`
 marker. Result Selection and Result Validation remain separate, as they are in Xeto.
 
@@ -50,7 +50,7 @@ declares Base, so Result Validation against Sweet must recognize Base's field
 IRIs as well as Sweet's.
 
 Checking only `ex:Sweet.hot` would miss the candidate's
-`sys:hasMarker ex:Base.hot` statement. Result Validation uses the following SHACL
+`xetoRdf:hasMarker ex:Base.hot` statement. Result Validation uses the following SHACL
 shapes to check `candidate` against Sweet. The `hot` requirement accepts any
 of the relevant marker IRIs:
 
@@ -61,11 +61,11 @@ ex:SelectedSugarResults a sh:NodeShape ;
 
 ex:SweetResultConstraints a sh:NodeShape ;
   sh:property [
-    sh:path sys:hasMarker ;
+    sh:path xetoRdf:hasMarker ;
     sh:hasValue ex:Base.required
   ] ;
   sh:property [
-    sh:path sys:hasMarker ;
+    sh:path xetoRdf:hasMarker ;
     sh:qualifiedValueShape [
       sh:in ( ex:Base.hot ex:Sweet.hot ex:MoreSweet.hot )
     ] ;
@@ -84,6 +84,12 @@ requirements, using the SHACL rules in the
 
 # Instance Data and Schema Vocabulary
 
+Supply the vocabulary needed to check the returned values. For example, a
+plain `Number` slot containing `20°C` exports with unit `unit:DEG_C`. To check
+`sh:class qudt:Unit`, the validator needs the fact `unit:DEG_C a qudt:Unit`.
+When a slot also constrains the quantity kind, supply the relationships
+described in [Units and Quantities](UnitsAndQuantities.md#units-and-quantities).
+
 A runtime record and a schema class can share the same IRI. When combining
 instance and schema triples for validation, schema statements at that IRI must
 not fill in missing fields on the record.
@@ -93,18 +99,18 @@ For example, these schema triples declare Base's required `hit` marker:
 ```turtle
 ex:Base a rdfs:Class ;
   rdfs:subClassOf sys:Dict ;
-  sys:hasMarker ex:Base.hit .
+  xetoRdf:hasMarker ex:Base.hit .
 ```
 
 These instance triples describe a record also named `ex:Base`, but without `hit`:
 
 ```turtle
-ex:Base a sys:Entity, ex:Base .
+ex:Base a xetoRdf:Record, ex:Base .
 ```
 
 | How the validation data graph is built | Result of checking the required `hit` marker |
 | --- | --- |
-| **Bad:** merge all schema and instance triples. | Passes incorrectly: the schema's `sys:hasMarker` triple supplies the missing marker. |
+| **Bad:** merge all schema and instance triples. | Passes incorrectly: the schema's `xetoRdf:hasMarker` triple supplies the missing marker. |
 | **Good:** keep the instance triples and only the schema's class and subclass declarations at the shared IRI. | Fails correctly: the record has no `hit` marker. |
 
 Keep the full instance graph and supporting schema vocabulary available. At

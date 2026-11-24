@@ -192,6 +192,7 @@ this specification:
 @prefix currency: <http://qudt.org/vocab/currency/> .
 @prefix quantitykind: <http://qudt.org/vocab/quantitykind/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xetoRdf: <http://xeto.dev/rdf#> .
 @prefix sys:  <http://xeto.dev/rdf/sys-5.0.0#> .
 @prefix ex:   <http://xeto.dev/rdf/example-1.0.0#> .
 ```
@@ -201,6 +202,20 @@ concrete versions selected by its Xeto namespace. The `owl:` prefix is used only
 for the optional ontology-packaging terms described in
 [Metadata and External Vocabularies](Metadata.md).
 The mapping itself does not require OWL inference.
+
+## Project Record IDs
+
+A project record with no library namespace gets its IRI from the project's
+base URI. Haxall takes this URI in the `baseUri` export option and reports an
+error if an unqualified ID needs it and none was supplied.
+
+With `baseUri` set to `https://example.org/rec/`:
+
+- `id: @sensor` gives the record the subject IRI `<https://example.org/rec/sensor>`.
+- `sensorRef: @sensor` points to that same IRI.
+
+The exporter appends the URI-encoded ID to the base as supplied, including
+any separator already at the end of the base.
 
 ## Turtle-safe names and values
 
@@ -259,7 +274,7 @@ Reading : Dict {
 ```
 
 ```turtle
-ex:reading1 a sys:Entity, ex:Reading ;
+ex:reading1 a xetoRdf:Record, ex:Reading ;
   ex:Reading.value "0.1"^^xsd:double ;
   ex:Reading.ratio "1.0E-7"^^xsd:double ;
   ex:Reading.count "5"^^xsd:integer .

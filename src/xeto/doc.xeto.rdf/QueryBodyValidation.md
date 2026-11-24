@@ -175,7 +175,7 @@ WHERE {
   # Existing traversal and of:Point matching produce R.
   VALUES ?subject { ex:equip }
   ?subject ex:Equipment.pointRefs ?result .
-  ?result a sys:Entity .
+  ?result a xetoRdf:Record .
   FILTER(isIRI(?result))
   FILTER EXISTS {
     ?result a ?resultType .
@@ -204,7 +204,7 @@ WHERE {
       && EXISTS { ?result a ?matchingType }
       && NOT EXISTS {
         ?subject ex:Equipment.pointRefs ?claim .
-        ?claim a sys:Entity ; sys:spec ?requirement .
+        ?claim a xetoRdf:Record ; sys:spec ?requirement .
         FILTER(isIRI(?claim))
         FILTER EXISTS {
           ?claim a ?claimType .

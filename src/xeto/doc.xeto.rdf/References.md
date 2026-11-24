@@ -8,12 +8,12 @@ Reference constraints apply to a single Ref target or to each target in a MultiR
 
 ## Ordinary Reference Targets
 
-A `Ref` maps to an IRI identifying its target. With `of`, the target must fit
+A record `Ref` maps to an IRI identifying a lookup record of class
+`xetoRdf:Record`. With `of`, the target must also fit
 the specified type. Ordinary types use nominal matching, expressed as RDF class
 membership. A sugar target accepts either a matching type or a compatible base
-type with fields satisfying its sugar requirements. Without `of`, the target
-must be a `sys:Entity`, so an IRI with no corresponding record does not satisfy
-the constraint.
+type with fields satisfying its sugar requirements. The
+[`spec` field](Mappings.md#constraints-on-the-spec-field) identifies a schema class.
 
 ```xeto
 Site : Dict
@@ -26,11 +26,11 @@ Equip : Dict {
 ```
 
 ```turtle
-ex:Equip a sh:NodeShape ;
-  sh:targetClass ex:Equip ;
+ex:Equip-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:Equip.siteRef ;
     sh:nodeKind sh:IRI ;
+    sh:class xetoRdf:Record ;
     sh:class ex:Site ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
@@ -38,12 +38,13 @@ ex:Equip a sh:NodeShape ;
   sh:property [
     sh:path ex:Equip.related ;
     sh:nodeKind sh:IRI ;
+    sh:class xetoRdf:Record ;
     sh:class ex:Equip ;
   ] ;
   sh:property [
     sh:path ex:Equip.auxRef ;
     sh:nodeKind sh:IRI ;
-    sh:class sys:Entity ;
+    sh:class xetoRdf:Record ;
     sh:maxCount 1 ;
   ] .
 ```
@@ -149,12 +150,12 @@ constraint; neither requires executing a Query. The following excerpt shows
 that constraint inside Holder's shape. Unrelated shape declarations are omitted:
 
 ```turtle
-ex:Holder a sh:NodeShape ;
-  sh:targetClass ex:Holder ; # Check records declared as Holder or its subtypes.
+ex:Holder-fields a sh:NodeShape ;
   # Other shape declarations omitted.
   sh:property [
     sh:path ex:Holder.targetRef ; # The targetRef slot declared above.
     sh:nodeKind sh:IRI ;         # A Ref is represented by an IRI.
+    sh:class xetoRdf:Record ;    # The target is available for lookup.
     sh:minCount 1 ;              # targetRef is required.
     sh:maxCount 1 ;              # Ref holds one value, unlike MultiRef.
     sh:or (
@@ -168,13 +169,7 @@ ex:Holder a sh:NodeShape ;
               sh:minCount 1
           ] ]
           [ sh:property [
-              sh:path sys:hasMarker ; # Evidence that hot stores a Marker.
-              # Count only evidence naming a property for hot.
-              sh:qualifiedValueShape [ sh:in ( ex:Target.hot ex:Hot.hot ) ] ;
-              sh:qualifiedMinCount 1
-          ] ]
-          [ sh:property [
-              sh:path sys:hasRefField ; # Ref evidence also preserves empty MultiRefs.
+              sh:path xetoRdf:hasMarker ; # Evidence that hot stores a Marker.
               # Count only evidence naming a property for hot.
               sh:qualifiedValueShape [ sh:in ( ex:Target.hot ex:Hot.hot ) ] ;
               sh:qualifiedMinCount 1
@@ -224,49 +219,27 @@ Equip : Dict {
 ```
 
 ```turtle
-ex:site1 a sys:Entity, ex:Site .
+ex:site1 a xetoRdf:Record, ex:Site .
 
-ex:equip2 a sys:Entity, ex:Equip ;
-  ex:Equip.siteRef ex:site1 ;
-  sys:hasRefField ex:Equip.siteRef .
+ex:equip2 a xetoRdf:Record, ex:Equip ;
+  ex:Equip.siteRef ex:site1 .
 
-ex:equip3 a sys:Entity, ex:Equip ;
-  ex:Equip.siteRef ex:site1 ;
-  sys:hasRefField ex:Equip.siteRef .
+ex:equip3 a xetoRdf:Record, ex:Equip ;
+  ex:Equip.siteRef ex:site1 .
 
-ex:equip1 a sys:Entity, ex:Equip ;
+ex:equip1 a xetoRdf:Record, ex:Equip ;
   ex:Equip.siteRef ex:site1 ;
-  ex:Equip.related ex:equip2, ex:equip3 ;
-  sys:hasRefField ex:Equip.siteRef, ex:Equip.related .
+  ex:Equip.related ex:equip2, ex:equip3 .
 ```
 
 The single `siteRef` value produces one statement. The two `related` values
 produce two statements with the same subject and property. Referenced Xeto
-entities are exported with their own `sys:Entity` and concrete spec types so
+entities are exported with their own `xetoRdf:Record` and concrete spec types so
 typed and untyped reference shapes can validate them.
 
-## Reference-field metadata
+## Reference Values
 
-RDF uses IRIs for Refs, Units, UnitQuantity values, and named nested Dicts.
-A link alone does not show which Xeto value produced it. `sys:hasRefField`
-identifies a Ref or MultiRef field on the record that stores it; the value of
-`sys:hasRefField` is the field's property IRI.
-
-| Stored Xeto value | Xeto Query behavior |
-| --- | --- |
-| Ref to an existing record | Follow it and consider that record for results. |
-| Ref to a missing record | Return no result from that branch. |
-| Unit, UnitQuantity, or named nested Dict | Fail if the Query tries to follow it as a Ref. |
-
-Without this metadata, SPARQL could return an empty result for the last case
-where Xeto reports an error. Query input validation uses `sys:hasRefField` to
-preserve that distinction.
-
-A Ref contains the ID of another record. That referenced record need not be
-present in the dataset. In library `example.people`, the metadata belongs to
-the record holding the Ref (`ex:` denotes that library's RDF namespace):
-
-The following RDF excerpts show instance data; schema triples are omitted.
+A Ref supplies a target IRI even when the target record is missing. For example:
 
 ```xeto
 Person: Dict { address: Ref }
@@ -274,30 +247,16 @@ Person: Dict { address: Ref }
 ```
 
 ```turtle
-ex:person1 a sys:Entity, ex:Person ;
-  ex:Person.address ex:missingAddress ;
-  sys:hasRefField ex:Person.address .
+ex:person1 a xetoRdf:Record, ex:Person ;
+  ex:Person.address ex:missingAddress .
 # No record for ex:missingAddress is present in this graph.
 ```
 
-The graph contains the IRI `ex:missingAddress`, but no record describing that
-address, so this branch returns no result. `sys:hasRefField` describes the Ref
-stored on person1, not whether the address record exists. Separate record
-validation may reject the dangling Ref.
+Record validation can report the dangling address because `ex:missingAddress`
+has no `xetoRdf:Record` declaration.
 
-Before following a field with values, Query input validation requires its
-`sys:hasRefField` statement. For example, following `address` on person1 above
-passes this check; removing the statement makes it fail. This prevents a nested
-Dict or a Unit IRI such as `unit:PA` from being mistaken for a Ref. An absent
-field or an empty MultiRef has nothing to follow and needs no statement.
-Consumers must preserve these statements when copying or transforming RDF.
-
-Exporters use the stored value to decide whether to add `sys:hasRefField`,
-including for `Obj` slots and undeclared fields. If a field is exported under
-several property IRIs, such as inherited aliases, the exporter lists each
-property IRI as a value of `sys:hasRefField` on the owning record.
-For example, an override narrows an inherited Ref to an Address Ref. The
-export retains both property IRIs and identifies both as reference fields:
+When an override narrows an inherited reference slot, both property IRIs
+link to the same address:
 
 ```xeto
 Address: Dict {}
@@ -308,16 +267,14 @@ Employee: Person { address: Ref<of:Address> }
 ```
 
 ```turtle
-ex:address1 a sys:Entity, ex:Address .
-ex:employee1 a sys:Entity, ex:Employee ;
+ex:address1 a xetoRdf:Record, ex:Address .
+ex:employee1 a xetoRdf:Record, ex:Employee ;
   ex:Person.address ex:address1 ;
-  ex:Employee.address ex:address1 ;
-  sys:hasRefField ex:Person.address, ex:Employee.address .
+  ex:Employee.address ex:address1 .
 ```
 
-For an explicitly stored empty MultiRef, the exporter lists the field's
-property IRI under `sys:hasRefField`, but there are no referenced IDs to export.
-An absent field produces neither reference values nor `sys:hasRefField` metadata:
+An empty MultiRef and an absent MultiRef both export zero links. Traversing
+either yields no records.
 
 ```xeto
 Group: Dict { members: MultiRef? }
@@ -325,8 +282,7 @@ Group: Dict { members: MultiRef? }
 ```
 
 ```turtle
-ex:group1 a sys:Entity, ex:Group ;
-  sys:hasRefField ex:Group.members .
+ex:group1 a xetoRdf:Record, ex:Group .
 # No ex:Group.members values: the MultiRef is empty.
 ```
 

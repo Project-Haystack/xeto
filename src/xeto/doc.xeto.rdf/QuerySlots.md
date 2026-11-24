@@ -8,8 +8,7 @@ SPARQL query that performs that selection over exported RDF data a
 **SPARQL selection query**. The term Query refers to the Xeto definition;
 SPARQL selection query refers to its SPARQL translation.
 
-Query traversal uses the [reference-field metadata](References.md#reference-field-metadata)
-in exported instance data to distinguish Refs from other IRI-valued fields.
+Query traversal follows the [links in the instance graph](References.md#reference-values).
 
 # SHACL Validation
 
@@ -38,8 +37,7 @@ Node : Dict {
 ```
 
 ```turtle
-ex:Equip a sh:NodeShape ;
-  sh:targetClass ex:Equip ;
+ex:Equip-fields a sh:NodeShape ;
   sh:property [
     # Equip.plainPoints
     sh:path ex:Equip.plainPoints ;
@@ -51,10 +49,10 @@ ex:Equip a sh:NodeShape ;
     ] ;
   ] .
 
-ex:Point a sh:NodeShape ;
-  sh:targetClass ex:Point ;
+ex:Point-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:Point.equipRef ;
+    sh:class xetoRdf:Record ;
     sh:class ex:Equip ;
     sh:nodeKind sh:IRI ;
     sh:minCount 1 ;
@@ -65,10 +63,10 @@ ex:Point a sh:NodeShape ;
     sh:path [ sh:oneOrMorePath ex:Point.equipRef ] ;
   ] .
 
-ex:Node a sh:NodeShape ;
-  sh:targetClass ex:Node ;
+ex:Node-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:Node.next ;
+    sh:class xetoRdf:Record ;
     sh:class ex:Node ;
     sh:nodeKind sh:IRI ;
     sh:maxCount 1 ;
@@ -182,8 +180,7 @@ Point : Dict {
 ```
 
 ```turtle
-ex:Equip a sh:NodeShape ;
-  sh:targetClass ex:Equip ;
+ex:Equip-fields a sh:NodeShape ;
   sh:property [
     sh:path [
       sh:oneOrMorePath [ sh:inversePath ex:Point.equipRef ]
@@ -240,8 +237,7 @@ and `app.equips` contributes:
 The relevant part of the resulting target shape is:
 
 ```turtle
-base:Equip a sh:NodeShape ;
-  sh:targetClass base:Equip ;
+base:Equip-fields a sh:NodeShape ;
   sh:property [
     sh:path app:Equip.pointRef ;
   ] ;

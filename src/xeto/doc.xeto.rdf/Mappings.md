@@ -39,10 +39,17 @@ The `rdfs:subClassOf` direction follows Xeto inheritance: every `Employee` is a
 `Person`. References to specs in another library use that library's versioned
 RDF namespace.
 
+The Haxall exporter also writes two statements about the top of the hierarchy:
+
+- `sys:Class rdfs:subClassOf rdfs:Class` identifies the class of exported Xeto
+  specs. Haxall declares `sys:Class` as both an `rdfs:Class` and a `sh:NodeShape`.
+- `sys:Obj rdfs:subClassOf rdfs:Resource` gives the root Xeto type an RDF
+  superclass. `Obj` has no Xeto base type.
+
 A **value-bearing slot** is a slot whose instance value is represented as the
 object of an RDF statement, such as a string, number, reference, nested value,
 choice, or list. This distinguishes it from a marker, which uses
-`sys:hasMarker`, and a computed `Query`, which may use a property path.
+`xetoRdf:hasMarker`, and a computed `Query`, which may use a property path.
 
 Every value-bearing slot has its own property IRI. The local part combines the
 spec name and slot name so slots with the same short name remain distinct.
@@ -62,7 +69,7 @@ Equip : Dict {
 ex:Site a sys:Class, rdfs:Class ;
   rdfs:subClassOf sys:Dict ;
   rdfs:label "Site"@en ;
-  sys:hasMarker ex:Site.site .
+  xetoRdf:hasMarker ex:Site.site .
 
 ex:Site.site a sys:Marker ;
   rdfs:label "site"@en .
@@ -87,13 +94,7 @@ must point to an `ex:Site`, while the class declarations identify `Equip` and
 
 ## SHACL Validation
 
-A spec with instance constraints is a `sh:NodeShape` targeting the same IRI as
-its RDF class.
-
-```turtle
-ex:Equip a sh:NodeShape ;
-  sh:targetClass ex:Equip .
-```
+A spec with instance constraints has a SHACL shape that targets its RDF class.
 
 Vocabulary relationships determine which shapes apply. For example, a subtype
 inherits its supertypes' constraints, an intersection is a subtype of every
@@ -113,6 +114,115 @@ Ordinary Xeto slots use these cardinalities:
 The type and value constraints still apply when a `maybe` slot is present.
 Additional cardinality rules apply to [markers](MarkersAndChoices.md#markers),
 [choices](MarkersAndChoices.md#choices), and [lists](Lists.md).
+
+### Reusable Field Shapes
+
+An inline Dict gets its field checks from the slot that contains it. A
+lookup record gets its field checks from its declared type.
+
+```xeto
+Address: Dict { city: Str }
+SpecialAddress: Address { note: Str }
+Person: Dict { address: Address }
+```
+
+The `person` record contains an inline address. The `home` record is a
+separate address available for lookup.
+
+```trio
+id: @person
+spec: @example::Person
+address: {spec:@example::SpecialAddress city:"Here"}
+---
+id: @home
+spec: @example::SpecialAddress
+city: "Here"
+```
+
+Both addresses declare `SpecialAddress` and omit `note`. Xeto uses the
+containing slot's type to check `person.address`. The slot asks for an
+`Address`, and `SpecialAddress` fits because it's a subtype. The inline value
+has the required `city`, so it passes. For `home`, Xeto checks the record
+against its declared type, `SpecialAddress`. That type requires `note`, so
+`home` fails.
+
+In RDF, both addresses have type `ex:SpecialAddress`.
+A bare `sh:targetClass ex:SpecialAddress` shape with a required `note` check
+would reject both. The `sh:or` lets the inline address pass the class-targeted
+shape so its containing slot can apply `ex:Address-fields`. The class-targeted
+shape applies `ex:SpecialAddress-fields` to `home`.
+
+The schema excerpt shows the class and field shapes for all three specs.
+
+```turtle
+ex:Address a rdfs:Class, sh:NodeShape ;
+  rdfs:subClassOf sys:Dict ;
+  sh:targetClass ex:Address ;
+  sh:or (
+    # Inline values pass this branch. The containing slot checks their fields.
+    [ sh:not [ sh:class xetoRdf:Record ] ]
+    [ sh:node ex:Address-fields ]
+  ) .
+
+ex:Address-fields a sh:NodeShape ;
+  sh:property [
+    sh:path ex:Address.city ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ; sh:maxCount 1
+  ] .
+
+ex:Person a rdfs:Class, sh:NodeShape ;
+  rdfs:subClassOf sys:Dict ;
+  sh:targetClass ex:Person ;
+  sh:or (
+    [ sh:not [ sh:class xetoRdf:Record ] ]
+    # Check the fields of the lookup Person record.
+    [ sh:node ex:Person-fields ]
+  ) .
+
+ex:Person-fields a sh:NodeShape ;
+  sh:property [
+    # Read the address stored on the Person record.
+    sh:path ex:Person.address ;
+    sh:nodeKind sh:BlankNode ;
+    sh:or (
+      [ sh:property [ sh:path sys:spec ; sh:maxCount 0 ] ]
+      [ sh:class ex:Address ]
+    ) ;
+    # Check for the required city on the address value.
+    sh:node ex:Address-fields ;
+    sh:minCount 1 ; sh:maxCount 1
+  ] .
+
+ex:SpecialAddress a rdfs:Class, sh:NodeShape ;
+  rdfs:subClassOf ex:Address ;
+  sh:targetClass ex:SpecialAddress ;
+  sh:or (
+    # The inline address passes this branch.
+    [ sh:not [ sh:class xetoRdf:Record ] ]
+    # The lookup record must satisfy SpecialAddress's field requirements.
+    [ sh:node ex:SpecialAddress-fields ]
+  ) .
+
+ex:SpecialAddress-fields a sh:NodeShape ;
+  sh:property [
+    sh:path ex:Address.city ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ; sh:maxCount 1
+  ] ;
+  sh:property [
+    sh:path ex:SpecialAddress.note ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ; sh:maxCount 1
+  ] .
+```
+
+For every spec with field constraints, append `-fields` to the spec's IRI
+to name its field shape. The class shape or containing slot chooses the
+value to check. The field shape supplies only the checks, applied with
+`sh:node`. See
+[Nested Object Slots](ObjectSlots.md#nested-object-slots) for the RDF
+instance mapping and the slot shape.
 
 ### Type Matching and Field Validation
 
@@ -148,8 +258,7 @@ Abstract: Dict <abstract> { label: Str }
 ```
 translates to:
 ```turtle
-ex:Abstract a sh:NodeShape ;
-  sh:targetClass ex:Abstract ;
+ex:Abstract-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:Abstract.label ;
     sh:datatype xsd:string ;
@@ -173,8 +282,7 @@ Record: Dict {
 The slot constraint translates to:
 
 ```turtle
-ex:Record a sh:NodeShape ;
-  sh:targetClass ex:Record ;
+ex:Record-fields a sh:NodeShape ;
   sh:property [
     sh:path sys:spec ;
     sh:nodeKind sh:IRI ;
@@ -191,10 +299,19 @@ for the instance mapping.
 
 ## Instance Data
 
-A Xeto instance id becomes the subject IRI. A local id uses the instance
-library's versioned namespace; a qualified id uses the named library's
-versioned namespace. The instance is both a `sys:Entity` and an instance of its
-effective spec.
+A record available for lookup uses its Xeto id as its subject IRI. A library
+instance uses its library's versioned namespace. An unqualified runtime id
+uses the [project's base URI](Foundations.md#project-record-ids). The same mapping applies when that
+id appears in a Ref or as a nested dictionary's `xetoRdf:sourceId`.
+
+When an ordinary slot override supplies several property IRIs for one stored
+field, each property points to the same RDF value. For a nested Dict or
+quantity value this means sharing the blank node. For a list it means sharing
+the [collection head](Lists.md#instance-data).
+
+Each lookup record carries the RDF class `xetoRdf:Record`
+and its effective spec. Ordinary Refs and Query execution use `xetoRdf:Record`
+to recognize records available for lookup.
 
 ```xeto
 @site1: Site {
@@ -208,20 +325,20 @@ effective spec.
 ```
 
 ```turtle
-ex:site1 a sys:Entity, ex:Site ;
+ex:site1 a xetoRdf:Record, ex:Site ;
   sys:spec ex:Site ;
-  sys:hasRefField sys:spec ;
-  sys:hasMarker ex:Site.site .
+  xetoRdf:hasMarker ex:Site.site .
 
-ex:equip1 a sys:Entity, ex:Equip ;
+ex:equip1 a xetoRdf:Record, ex:Equip ;
   sys:spec ex:Equip ;
-  sys:hasRefField sys:spec ;
   ex:Equip.dis "AHU-1"^^xsd:string ;
   ex:Equip.siteRef ex:site1 .
 ```
 
-The subject IRI carries the Xeto id. No additional id predicate is required by
-this profile.
+A required `id: Ref`, including `id: Ref<of:Person>`, accepts an IRI subject
+or a nested blank node with exactly one IRI-valued `xetoRdf:sourceId`. An
+optional id permits the blank node to omit that property. See
+[nested object slots](ObjectSlots.md#instance-data).
 
 ### The `spec` Field
 
@@ -249,9 +366,8 @@ The field therefore uses the shared RDF property `sys:spec`, separately from
 `rdf:type`. The corresponding type and reference statements are:
 
 ```turtle
-ex:equip1 a sys:Entity, ex:Equip ;
-  sys:spec ex:Equip ;
-  sys:hasRefField sys:spec .
+ex:equip1 a xetoRdf:Record, ex:Equip ;
+  sys:spec ex:Equip .
 ```
 
 An instance declared as a subtype identifies that subtype in its `spec` field,
@@ -307,9 +423,9 @@ required `label` default and the `implied` marker. Both therefore appear in RDF.
 statement:
 
 ```turtle
-ex:defaults1 a sys:Entity, ex:Defaults ;
+ex:defaults1 a xetoRdf:Record, ex:Defaults ;
   ex:Defaults.label "ready"^^xsd:string ;
-  sys:hasMarker ex:Defaults.implied .
+  xetoRdf:hasMarker ex:Defaults.implied .
 ```
 
 This rule is the same for strings and other scalars, enums, units, references,
@@ -340,13 +456,13 @@ string-valued entry, and `imported` is an undeclared marker entry:
 ```
 
 ```turtle
-ex:person1 a sys:Entity, ex:Person ;
+ex:person1 a xetoRdf:Record, ex:Person ;
   ex:Person.dis "Ann"^^xsd:string ;
   ex:Person.nickname "Annie"^^xsd:string ;
-  sys:hasMarker ex:Person.imported .
+  xetoRdf:hasMarker ex:Person.imported .
 ```
 
 An undeclared value-bearing entry uses a property IRI formed from the
 instance's concrete spec and entry name. An undeclared marker uses
-`sys:hasMarker` and the corresponding marker IRI. These extra entries do not
+`xetoRdf:hasMarker` and the corresponding marker IRI. These extra entries do not
 cause the open SHACL shape to reject an otherwise valid instance.

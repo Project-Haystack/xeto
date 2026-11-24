@@ -61,11 +61,13 @@ test below:
 
 | Predicate | Translation rule |
 | --- | --- |
-| `present(tag)` | An `EXISTS` test for any value of a property representing the tag, OR an `EXISTS` test for that property's IRI as a `sys:hasMarker` or `sys:hasRefField` value. Reference-field metadata preserves presence for an explicitly stored empty MultiRef. |
+| `present(tag)` | An `EXISTS` test for any value of a property representing the tag, OR an `EXISTS` test for that property's IRI as a `xetoRdf:hasMarker` value. |
 | `equal(tag, value)` | An `EXISTS` test for a property representing the tag whose value equals the invariant under Xeto's value-equality rules. |
 
 Each `EXISTS` checks the current `?result` for a matching field. It uses the
 resolved property IRIs without following references or selecting other records.
+An explicitly empty MultiRef emits no triple, so a presence test cannot
+distinguish it from an absent field.
 The example below shows the presence tests;
 [Invariant Values](#invariant-values) shows the equality test.
 
@@ -84,8 +86,8 @@ Queries: Dict {
 The relevant instance RDF is:
 
 ```turtle
-ex:candidate a sys:Entity, ex:Base ;
-  sys:hasMarker ex:Base.required, ex:Base.hot .
+ex:candidate a xetoRdf:Record, ex:Base ;
+  xetoRdf:hasMarker ex:Base.required, ex:Base.hot .
 ```
 
 `candidate` is declared as `Base`, not `Sweet`. It still matches `of:Sweet`
@@ -108,7 +110,7 @@ The SPARQL selection query is:
 SELECT DISTINCT ?result WHERE {
   VALUES ?subject { ex:candidate }
   BIND(?subject AS ?result)
-  ?result a sys:Entity .
+  ?result a xetoRdf:Record .
   FILTER(isIRI(?result))
   FILTER(
     EXISTS { ?result a ?type . VALUES ?type { ex:Sweet } }
@@ -121,11 +123,7 @@ SELECT DISTINCT ?result WHERE {
         }
         || EXISTS {
           VALUES ?property { ex:Base.hot ex:Sweet.hot }
-          ?result sys:hasMarker ?property .
-        }
-        || EXISTS {
-          VALUES ?property { ex:Base.hot ex:Sweet.hot }
-          ?result sys:hasRefField ?property .
+          ?result xetoRdf:hasMarker ?property .
         }
       )
     )
@@ -133,16 +131,14 @@ SELECT DISTINCT ?result WHERE {
 }
 ```
 
-The last three `EXISTS` blocks check whether `hot` is present:
+The last two `EXISTS` blocks check whether `hot` is present:
 
 - `?result ?property ?value` checks for a field stored as an ordinary value.
-- `?result sys:hasMarker ?property` checks for a field stored as a Marker.
-- `?result sys:hasRefField ?property` also recognizes an explicitly stored empty
-  MultiRef, which has no ordinary property values.
+- `?result xetoRdf:hasMarker ?property` checks for a field stored as a Marker.
 
 The Marker check matches `ex:candidate`, so the second alternative selects it.
 
-Because `hot` is a Marker, valid RDF stores it using `sys:hasMarker`. The
+Because `hot` is a Marker, valid RDF stores it using `xetoRdf:hasMarker`. The
 ordinary-value check also selects records with an invalid value such as
 `hot: "oops"`, matching Xeto's presence check. Result Validation rejects the invalid
 value, as shown below.
@@ -152,8 +148,8 @@ value, as shown below.
 A runtime record with `hot` but no `required` marker has this relevant RDF:
 
 ```turtle
-ex:candidate a sys:Entity, ex:Base ;
-  sys:hasMarker ex:Base.hot .
+ex:candidate a xetoRdf:Record, ex:Base ;
+  xetoRdf:hasMarker ex:Base.hot .
 ```
 
 The SPARQL selection query is unchanged:
@@ -203,7 +199,7 @@ classes. For the runtime record shown below, the complete SELECT is:
 SELECT DISTINCT ?result WHERE {
   VALUES ?subject { ex:typedCandidate }
   BIND(?subject AS ?result)
-  ?result a sys:Entity .
+  ?result a xetoRdf:Record .
   FILTER(isIRI(?result))
   FILTER(
     EXISTS { ?result a ?type . VALUES ?type { ex:Sweet ex:MoreSweet } }
@@ -216,11 +212,7 @@ SELECT DISTINCT ?result WHERE {
         }
         || EXISTS {
           VALUES ?property { ex:Base.hot ex:Sweet.hot ex:MoreSweet.hot }
-          ?result sys:hasMarker ?property .
-        }
-        || EXISTS {
-          VALUES ?property { ex:Base.hot ex:Sweet.hot ex:MoreSweet.hot }
-          ?result sys:hasRefField ?property .
+          ?result xetoRdf:hasMarker ?property .
         }
       )
     )
@@ -238,7 +230,7 @@ spec: @example.fitting::MoreSweet
 Its relevant RDF is:
 
 ```turtle
-ex:typedCandidate a sys:Entity, ex:MoreSweet .
+ex:typedCandidate a xetoRdf:Record, ex:MoreSweet .
 ```
 
 It matches the type-membership alternative for `of:Sweet`, then fails
@@ -266,7 +258,7 @@ against Named, the complete SELECT is:
 SELECT DISTINCT ?result WHERE {
   VALUES ?subject { ex:candidate }
   BIND(?subject AS ?result)
-  ?result a sys:Entity .
+  ?result a xetoRdf:Record .
   FILTER(isIRI(?result))
   FILTER(
     EXISTS { ?result a ?type . VALUES ?type { ex:Named } }
@@ -328,14 +320,14 @@ two Query result types produce different Result Selection outcomes:
 | `Either` | No: Base does not fit either union member by type membership. |
 
 Including `Sweet` does not enable its structural matching alternative: the
-union still checks type membership. The identity binding, Entity check,
+union still checks type membership. The identity binding, lookup-record check,
 and IRI check stay the same; only the result predicate changes:
 
 ```sparql
 SELECT DISTINCT ?result WHERE {
   VALUES ?subject { ex:candidate }
   BIND(?subject AS ?result)
-  ?result a sys:Entity .
+  ?result a xetoRdf:Record .
   FILTER(isIRI(?result))
   FILTER EXISTS {
     ?result a ?type .
@@ -379,10 +371,10 @@ other
 Their relevant RDF is:
 
 ```turtle
-ex:baseRecord a sys:Entity, ex:Base ;
-  sys:hasMarker ex:Base.required, ex:Base.other .
-ex:bothRecord a sys:Entity, ex:Both ;
-  sys:hasMarker ex:Base.required, ex:Other.other .
+ex:baseRecord a xetoRdf:Record, ex:Base ;
+  xetoRdf:hasMarker ex:Base.required, ex:Base.other .
+ex:bothRecord a xetoRdf:Record, ex:Both ;
+  xetoRdf:hasMarker ex:Base.required, ex:Other.other .
 ```
 
 | Starting record | Selected by `both`? |
@@ -397,7 +389,7 @@ not the fields:
 SELECT DISTINCT ?result WHERE {
   VALUES ?subject { ex:bothRecord }
   BIND(?subject AS ?result)
-  ?result a sys:Entity .
+  ?result a xetoRdf:Record .
   FILTER(isIRI(?result))
   FILTER EXISTS {
     ?result a ?type .
@@ -444,13 +436,9 @@ FILTER(
         ?result ?property ?value .
       }
       || EXISTS {
-        # A valid hot Marker uses sys:hasMarker.
+        # A valid hot Marker uses xetoRdf:hasMarker.
         VALUES ?property { ex:Derived.hot ex:NarrowSweet.hot }
-        ?result sys:hasMarker ?property .
-      }
-      || EXISTS {
-        VALUES ?property { ex:Derived.hot ex:NarrowSweet.hot }
-        ?result sys:hasRefField ?property .
+        ?result xetoRdf:hasMarker ?property .
       }
     )
   )

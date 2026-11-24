@@ -41,8 +41,7 @@ such as `ex:NamedLocation.dis`.
 The member shapes define the constraints inherited by an intersection:
 
 ```turtle
-ex:Named a sh:NodeShape ;
-  sh:targetClass ex:Named ;
+ex:Named-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:Named.dis ;
     sh:datatype xsd:string ;
@@ -50,8 +49,7 @@ ex:Named a sh:NodeShape ;
     sh:maxCount 1 ;
   ] .
 
-ex:Located a sh:NodeShape ;
-  sh:targetClass ex:Located ;
+ex:Located-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:Located.geoCity ;
     sh:datatype xsd:string ;
@@ -109,7 +107,7 @@ The member-to-union subclass relationship also makes this record a member of
 ThermalProcess:
 
 ```turtle
-ex:heating1 a sys:Entity, ex:Heating .
+ex:heating1 a xetoRdf:Record, ex:Heating .
 ```
 
 A record can instead declare the union itself and pass direct validation:
@@ -119,7 +117,7 @@ A record can instead declare the union itself and pass direct validation:
 ```
 
 ```turtle
-ex:process1 a sys:Entity, ex:ThermalProcess .
+ex:process1 a xetoRdf:Record, ex:ThermalProcess .
 ```
 
 Nested union-typed slots are not supported.
@@ -156,18 +154,21 @@ ex:Contact a sh:NodeShape ;
   sh:targetClass ex:Contact ;
   sh:nodeKind sh:BlankNodeOrIRI ;
   sh:or (
+    [ sh:not [ sh:class xetoRdf:Record ] ]
     # Skip Contact's fields when the record has another declared type.
     [ sh:not [ sh:property [
         sh:path sys:spec ; sh:in ( ex:Contact ) ; sh:minCount 1
     ] ] ]
-    # A record declared as Contact must supply Contact's required field.
-    [ sh:property [
-        sh:path ex:Contact.label ;
-        sh:datatype xsd:string ;
-        sh:minCount 1 ;
-        sh:maxCount 1
-    ] ]
+    [ sh:node ex:Contact-fields ]
   ) .
+
+ex:Contact-fields a sh:NodeShape ;
+  sh:property [
+    sh:path ex:Contact.label ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1
+  ] .
 ```
 
 The `sh:in` list includes Contact and types that inherit from it, such as
@@ -234,8 +235,7 @@ The effective `TallPerson.height` shape combines the override with inherited
 global metadata:
 
 ```turtle
-ex:TallPerson a sh:NodeShape ;
-  sh:targetClass ex:TallPerson ;
+ex:TallPerson-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:TallPerson.height ;
     sh:datatype xsd:integer ;
@@ -264,7 +264,7 @@ Global-backed values use the concrete slot property of the instance's spec:
 ```
 
 ```turtle
-ex:tall1 a sys:Entity, ex:TallPerson ;
+ex:tall1 a xetoRdf:Record, ex:TallPerson ;
   ex:TallPerson.height "175"^^xsd:integer .
 ```
 
@@ -325,7 +325,7 @@ app:Person.badge a rdf:Property ;
 app:Person.staff a sys:Marker ;
   rdfs:label "staff"@en .
 
-base:Person sys:hasMarker app:Person.staff .
+base:Person xetoRdf:hasMarker app:Person.staff .
 
 app:Person.orgRef a rdf:Property ;
   rdfs:label "orgRef"@en .
@@ -341,8 +341,7 @@ In a namespace containing both libraries, the mixin constraints are added to
 the effective target shape:
 
 ```turtle
-base:Person a sh:NodeShape ;
-  sh:targetClass base:Person ;
+base:Person-fields a sh:NodeShape ;
   sh:property [
     sh:path base:Person.dis ;
     sh:datatype xsd:string ;
@@ -355,11 +354,12 @@ base:Person a sh:NodeShape ;
     sh:maxCount 1 ;
   ] ;
   sh:property [
-    sh:path sys:hasMarker ;
+    sh:path xetoRdf:hasMarker ;
     sh:hasValue app:Person.staff ;
   ] ;
   sh:property [
     sh:path app:Person.orgRef ;
+    sh:class xetoRdf:Record ;
     sh:class app:Org ;
     sh:nodeKind sh:IRI ;
     sh:minCount 1 ;
@@ -390,11 +390,11 @@ An instance uses the target spec's class and the contributed slots' own IRIs:
 ```
 
 ```turtle
-app:o1 a sys:Entity, app:Org .
+app:o1 a xetoRdf:Record, app:Org .
 
-app:p1 a sys:Entity, base:Person ;
+app:p1 a xetoRdf:Record, base:Person ;
   base:Person.dis "Ann"^^xsd:string ;
   app:Person.badge "A-17"^^xsd:string ;
-  sys:hasMarker app:Person.staff ;
+  xetoRdf:hasMarker app:Person.staff ;
   app:Person.orgRef app:o1 .
 ```

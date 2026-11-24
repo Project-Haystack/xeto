@@ -86,8 +86,7 @@ Sensor : Dict {
 ```
 
 ```turtle
-ex:Sensor a sh:NodeShape ;
-  sh:targetClass ex:Sensor ;
+ex:Sensor-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:Sensor.unit ;
     sh:class qudt:Unit ;
@@ -145,10 +144,44 @@ Only Xeto units listed in the
 can be exported. Encountering a unit in the unsupported inventory is an export
 error.
 
-A number constrained by `unit` or `quantity` is represented as a
-`qudt:QuantityValue` node rather than as a plain numeric literal. Numeric range
-constraints apply to `qudt:numericValue`; unit constraints apply to
-`qudt:unit`.
+A `Number` slot constrained by `unit` or `quantity` requires a
+`qudt:QuantityValue` node. Numeric range constraints apply to
+`qudt:numericValue`, and unit constraints apply to `qudt:unit`. The exporter
+preserves the stored unit so validation can report a missing or incorrect unit.
+A unit on `minVal`, `maxVal`, or an invariant value also requires that unit.
+For example, `minVal:10°C` accepts `20°C` and rejects both `20s` and `20`.
+An invariant of `20°C` requires both that magnitude and Celsius.
+
+Some distinct Xeto units share a QUDT IRI. Both `20K` and `20Δ°C` use
+`unit:K`. For each such quantity value, the exporter also writes exactly one
+`xetoRdf:unitName` with the stored unit's canonical Xeto name, including in a
+plain `Number` slot:
+
+```turtle
+[] a qudt:QuantityValue ; qudt:numericValue 2.0E1 ;
+   qudt:unit unit:K ; xetoRdf:unitName "kelvin"^^xsd:string .
+[] a qudt:QuantityValue ; qudt:numericValue 2.0E1 ;
+   qudt:unit unit:K ; xetoRdf:unitName "celsius_degrees"^^xsd:string .
+```
+
+An exact unit check uses the canonical name for a shared IRI. For example,
+`minVal:10K` accepts the first value. The quantity shape also requires:
+
+```turtle
+sh:property [ sh:path xetoRdf:unitName ;
+              sh:hasValue "kelvin"^^xsd:string ; sh:maxCount 1 ]
+```
+
+For slots accepting multiple units, `xetoRdf:QuantityUnitNameShape` checks
+that a value with a shared unit IRI has exactly one of the catalog names for
+that IRI. A unit with a unique mapping needs only its QUDT IRI.
+
+A `Number` with a `quantity` constraint also checks that the stored unit
+belongs to the requested Xeto quantity. The `qudt:unit` IRI must occur among
+the catalog units for that quantity. For a shared IRI the canonical name must
+belong to that quantity as well. For example, `quantity:"temperature"`
+accepts `20K` and rejects `20Δ°C`. With `quantity:"temperatureDifferential"`,
+`20Δ°C` passes and `20K` fails.
 
 ```xeto
 Meter : Dict {
@@ -160,8 +193,7 @@ Meter : Dict {
 The `percent` shape is:
 
 ```turtle
-ex:Meter a sh:NodeShape ;
-  sh:targetClass ex:Meter ;
+ex:Meter-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:Meter.percent ;
     sh:minCount 1 ;
@@ -187,8 +219,8 @@ ex:Meter a sh:NodeShape ;
   ] .
 ```
 
-The `power` shape has the same structure but replaces the exact unit with a
-`qudt:hasQuantityKind quantitykind:Power` constraint.
+The `power` shape accepts mapped Xeto power units and checks that the unit's
+QUDT quantity kind reaches `quantitykind:Power` along the path described above.
 
 ## Instance Data
 
@@ -208,7 +240,7 @@ A unit-bearing number becomes a `qudt:QuantityValue` node:
 ```
 
 ```turtle
-ex:meter1 a sys:Entity, ex:Meter ;
+ex:meter1 a xetoRdf:Record, ex:Meter ;
   ex:Meter.percent [
     a qudt:QuantityValue ;
     qudt:numericValue "50.0"^^xsd:double ;
@@ -267,7 +299,7 @@ Reading : Dict {
 ```
 
 ```turtle
-ex:reading1 a sys:Entity, ex:Reading ;
+ex:reading1 a xetoRdf:Record, ex:Reading ;
   ex:Reading.quantity sys:UnitQuantity.energy .
 
 sys:UnitQuantity.energy a sys:UnitQuantity ;
@@ -306,8 +338,7 @@ For example, `Reading.quantity`
 requires exactly one quantity value:
 
 ```turtle
-ex:Reading a sh:NodeShape ;
-  sh:targetClass ex:Reading ;
+ex:Reading-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:Reading.quantity ;
     sh:node sys:UnitQuantityShape ;
