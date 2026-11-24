@@ -18,29 +18,35 @@ Equip : Dict {
 ```
 
 ```turtle
-ex:Equip sys:hasMarker ex:Equip.equip .
+ex:Equip xetoRdf:hasMarker ex:Equip.equip .
 
 ex:Equip.equip a sys:Marker ;
   rdfs:label "equip"@en .
 ```
 
-The first statement records that `equip` is a marker declared by `Equip`. The
-instance-data mapping uses the same marker IRI when an instance carries that
-marker.
+`xetoRdf:hasMarker` links a spec or instance to a marker it carries.
+`sys:Marker` is the Xeto type of a declared marker such as `ex:Equip.equip`.
 
 ## SHACL Validation
 
-A required marker uses `sh:hasValue` on `sys:hasMarker`. It does not use
+A required marker uses `sh:hasValue` on `xetoRdf:hasMarker`. It does not use
 `sh:maxCount`, because one instance may carry many different markers.
 
 ```turtle
-ex:Equip a sh:NodeShape ;
-  sh:targetClass ex:Equip ;
+ex:Equip-fields a sh:NodeShape ;
   sh:property [
-    sh:path sys:hasMarker ;
+    sh:path xetoRdf:hasMarker ;
     sh:hasValue ex:Equip.equip ;
   ] .
 ```
+
+An Equip record may carry extra markers, including tags absent from the vocabulary.
+
+| Markers on the record | Validation |
+| --- | --- |
+| `equip` | Passes. |
+| `equip`, `imported` | Passes. The record has its required marker. |
+| `imported` | Fails. The required `equip` marker is missing. |
 
 A `maybe` marker still has vocabulary metadata, but it does not add a required
 `sh:hasValue` constraint. For example:
@@ -52,7 +58,7 @@ Asset : Dict {
 ```
 
 ```turtle
-ex:Asset sys:hasMarker ex:Asset.temporary .
+ex:Asset xetoRdf:hasMarker ex:Asset.temporary .
 
 ex:Asset.temporary a sys:Marker ;
   rdfs:label "temporary"@en .
@@ -66,7 +72,7 @@ omit it because the shape has no `sh:hasValue ex:Asset.temporary` constraint.
 
 ## Instance Data
 
-An instance marker uses `sys:hasMarker` and the marker resource declared by the
+An instance marker uses `xetoRdf:hasMarker` and the marker resource declared by the
 vocabulary mapping above.
 
 ```xeto
@@ -76,7 +82,7 @@ vocabulary mapping above.
 ```
 
 ```turtle
-ex:equip1 sys:hasMarker ex:Equip.equip .
+ex:equip1 xetoRdf:hasMarker ex:Equip.equip .
 ```
 
 Xeto may supply a required marker from the spec even when it is not repeated in
@@ -94,8 +100,8 @@ The `equip` marker is required by `Equip`, so the exported instance includes
 it once:
 
 ```turtle
-ex:equip1 a sys:Entity, ex:Equip ;
-  sys:hasMarker ex:Equip.equip .
+ex:equip1 a xetoRdf:Record, ex:Equip ;
+  xetoRdf:hasMarker ex:Equip.equip .
 ```
 
 # Choices
@@ -121,7 +127,7 @@ ex:HeatingProcess a sys:Class, rdfs:Class ;
 ex:HotWaterHeating a sys:Class, rdfs:Class ;
   rdfs:subClassOf ex:HeatingProcess ;
   rdfs:label "HotWaterHeating"@en ;
-  sys:hasMarker ex:HotWaterHeating.hotWaterHeating .
+  xetoRdf:hasMarker ex:HotWaterHeating.hotWaterHeating .
 
 ex:HotWaterHeating.hotWaterHeating a sys:Marker ;
   rdfs:label "hotWaterHeating"@en .
@@ -129,7 +135,7 @@ ex:HotWaterHeating.hotWaterHeating a sys:Marker ;
 ex:SteamHeating a sys:Class, rdfs:Class ;
   rdfs:subClassOf ex:HeatingProcess ;
   rdfs:label "SteamHeating"@en ;
-  sys:hasMarker ex:SteamHeating.steamHeating .
+  xetoRdf:hasMarker ex:SteamHeating.steamHeating .
 
 ex:SteamHeating.steamHeating a sys:Marker ;
   rdfs:label "steamHeating"@en .
@@ -157,8 +163,7 @@ Point : Dict {
 The `Point.pointFunction` shape contains all three marker-bearing descendants:
 
 ```turtle
-ex:Point a sh:NodeShape ;
-  sh:targetClass ex:Point ;
+ex:Point-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:Point.pointFunction ;
     sh:in (
@@ -194,8 +199,7 @@ Equip : Dict {
 ```
 
 ```turtle
-ex:Equip a sh:NodeShape ;
-  sh:targetClass ex:Equip ;
+ex:Equip-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:Equip.heatingProcess ;
     sh:in (ex:HotWaterHeating ex:SteamHeating) ;
@@ -245,7 +249,7 @@ MultiFuelEquip : Dict {
 ```
 
 ```turtle
-ex:boiler1 a sys:Entity, ex:MultiFuelEquip ;
+ex:boiler1 a xetoRdf:Record, ex:MultiFuelEquip ;
   ex:MultiFuelEquip.heatingProcesses ex:HotWaterHeating,
                                       ex:SteamHeating .
 ```
@@ -255,7 +259,7 @@ connects that member to the Xeto marker that selects it:
 
 ```turtle
 ex:equip1 ex:Equip.heatingProcess ex:HotWaterHeating .
-ex:HotWaterHeating sys:hasMarker ex:HotWaterHeating.hotWaterHeating .
+ex:HotWaterHeating xetoRdf:hasMarker ex:HotWaterHeating.hotWaterHeating .
 ```
 
 A user can therefore find equipment selected by the `hotWaterHeating` marker
@@ -264,13 +268,14 @@ without requiring a second marker statement on every instance:
 ```sparql
 SELECT ?equip WHERE {
   ?equip ex:Equip.heatingProcess ?choice .
-  ?choice sys:hasMarker ex:HotWaterHeating.hotWaterHeating .
+  ?choice xetoRdf:hasMarker ex:HotWaterHeating.hotWaterHeating .
 }
 ```
 
-The exporter checks the completed instance's marker values, not marker names
-found only on the spec. One matching member produces one choice-property value;
-`multiChoice` produces one value for every matching member. The RDF instance
-does not repeat those selection markers as `sys:hasMarker` statements. Other
-instance markers are still exported normally.
+The exporter checks the completed instance's marker values and keeps the most
+specific matching members. When both a member and its child match, the exporter
+writes only the child. Matches from separate branches each produce a value.
+A single Choice allows at most one such value. A `multiChoice` allows several.
+The RDF instance omits the selection markers from `xetoRdf:hasMarker` and exports
+other instance markers normally.
 

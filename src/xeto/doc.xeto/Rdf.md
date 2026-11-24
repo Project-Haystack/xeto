@@ -51,10 +51,9 @@ and [Namespaces and IRIs](doc.xeto.rdf::Foundations#namespaces-and-iris).
 The same `@ada` instance becomes:
 
 ```turtle
-ex:ada a sys:Entity, ex:Person ;
+ex:ada a xetoRdf:Record, ex:Person ;
   ex:Person.name "Ada" ;
-  sys:spec ex:Person ;
-  sys:hasRefField sys:spec .
+  sys:spec ex:Person .
 ```
 
 Each RDF statement has a subject, a property, and a value. For example,
@@ -71,10 +70,8 @@ spec: @example::Person
 name: "Ada"
 ```
 
-The `@example::Person` value is a Ref. `sys:spec ex:Person` preserves that
-value, and `sys:hasRefField sys:spec` records that the `spec` field contains
-a Ref. Type membership and the actual Ref are kept separate so a Query
-can follow the stored reference without also following inferred types.
+The Ref `@example::Person` becomes the link `ex:ada sys:spec ex:Person`.
+A Query following `spec` uses that stored ID for record lookup.
 See [The spec Field](doc.xeto.rdf::Mappings#the-spec-field).
 
 # Constraints Become SHACL Shapes
@@ -82,8 +79,7 @@ See [The spec Field](doc.xeto.rdf::Mappings#the-spec-field).
 `name: Str` requires one string value. Its SHACL mapping is:
 
 ```turtle
-ex:Person a sh:NodeShape ;
-  sh:targetClass ex:Person ;
+ex:Person-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:Person.name ;
     sh:datatype xsd:string ;
@@ -122,7 +118,7 @@ Starting `Directory.people` at `directory1` returns `ada`. The stored link is
 SELECT DISTINCT ?result WHERE {
   VALUES ?subject { ex:directory1 }
   ?subject ex:Directory.personRef ?result .
-  ?result a sys:Entity .
+  ?result a xetoRdf:Record .
   FILTER(isIRI(?result))
   FILTER EXISTS {
     ?result a ?type . VALUES ?type { ex:Person }

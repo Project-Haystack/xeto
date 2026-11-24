@@ -1,73 +1,21 @@
 <!--
-title:      Query Traversal and Input Validation
+title:      Query Traversal
 -->
 
-Input checks execute first, before Result Selection. Each traversal subsection
-presents the Xeto declaration and its meaning, then the SPARQL traversal, then
-any traversal-specific input checks. This teaching order does not change the
-execution order.
+A Xeto Query can follow outgoing references, follow incoming references, or
+use the starting record itself. During Result Selection, the SPARQL `SELECT`
+uses the translated Query path to reach records.
 
-# Input Validation
+Translate the Query's `via` or `inverse` path into the `[traversal]` part
+of the [SELECT template](QueryResultSelection.md). This part starts at
+`?subject` and binds each value reached by the path to `?result`.
 
-Input Validation uses SHACL to require the starting record to exist and
-populated fields followed by the Query to contain references. Input Validation
-must pass before Result Selection. For the starting record [`a`](QueryExecution.md#worked-example):
+Once [Input Validation](QueryInputValidation.md) passes, the executor runs
+the SELECT. The path reaches records for the `of` filter to check. The
+examples show the SPARQL translation and link to the input checks for each
+path.
 
-```turtle
-[] a sh:NodeShape ;
-  sh:targetNode ex:a ;
-  sh:nodeKind sh:IRI ;
-  sh:property [ sh:path rdf:type ; sh:hasValue sys:Entity ] ;
-  sh:or (
-    [ sh:property [ sh:path ex:Holder.next ; sh:maxCount 0 ] ]
-    [ sh:property [ sh:path sys:hasRefField ; sh:hasValue ex:Holder.next ] ]
-  ) ;
-  sh:property [ sh:path ex:Holder.next ; sh:nodeKind sh:IRI ] ;
-  sh:property [
-    sh:path sys:hasMarker ;
-    sh:not [ sh:in ( ex:Holder.next ) ]
-  ] .
-```
-
-The existence check requires an exported record at `ex:a`. The remaining checks
-allow an absent field, require reference-field metadata for a populated field,
-and reject literal, blank-node, or Marker values. A failed input check is an
-execution error; the consumer must not turn it into an empty query result.
-
-The starting record must exist. If the supplied starting ID has no record,
-execution must report an error, rather than return an empty result. This differs
-from a missing referenced target, which ends only that traversal branch:
-
-| Input | Correct behavior | Incorrect translation |
-| --- | --- | --- |
-| Starting record `a` is missing | Report an execution error. | Return no results. |
-| `a.next` is a Ref to an existing `t: Target` | Return `t`. | Drop `t`. |
-| `a.next` is a Ref to a missing record | End that branch without a result. | Report an execution error. |
-| `a.next` stores a Unit or named nested Dict | Report an error when trying to follow it. | Follow its IRI or silently return no results. |
-| A Ref reaches `t: Target`, but `t` lacks `hit` | Return `t`; report its validation failure separately if validation is requested. | Remove `t` from the results. |
-
-The [reference-field rules](References.md#reference-field-metadata) define the evidence
-required for a populated field. Each resolved property gets the checks shown
-above, and the traversal construct determines which records receive them:
-
-| Traversal | Reference-check scope |
-| --- | --- |
-| Forward one-hop reference | Starting record |
-| Forward repeated reference | Start and reached records, using a zero-or-more SHACL path |
-| Direct inverse reference | Reference evidence is part of SELECT matching, not a global rejection of non-Refs |
-| Repeated inverse reference | All candidate records, including disconnected components |
-| Identity (`id`, repeated or inverse) | No field checks; starting-record existence still applies |
-| Spec reference | Same scope as the corresponding reference traversal, using `sys:spec` |
-
-All forms require the starting record to exist. They do not require it to have
-the Query owner's type. Declared Ref cardinality is a record-validation rule
-and must not be added as a query execution requirement.
-
-# Traversal
-
-The following sections show how Xeto Query traversal paths translate to SPARQL.
-
-## Inherited and Overridden Queries
+# Inherited and Overridden Queries
 
 A Query's `of` type and `via` or `inverse` path can be inherited from a parent
 type or overridden by a subtype's Query slot of the same name. The following
@@ -104,7 +52,7 @@ uses the inherited `via:"next"` path and `of:Target` type:
 SELECT DISTINCT ?result WHERE {
   VALUES ?subject { ex:start }
   ?subject ex:Owner.next ?result .
-  ?result a sys:Entity .
+  ?result a xetoRdf:Record .
   FILTER(isIRI(?result))
   FILTER EXISTS {
     ?result a ?resultType . VALUES ?resultType { ex:Target ex:Narrow }
@@ -119,7 +67,7 @@ For `Override.selected`, Result Selection uses `via:"alternate+"` and
 SELECT DISTINCT ?result WHERE {
   VALUES ?subject { ex:start }
   ?subject (ex:Owner.alternate)+ ?result .
-  ?result a sys:Entity .
+  ?result a xetoRdf:Record .
   FILTER(isIRI(?result))
   FILTER EXISTS {
     ?result a ?resultType . VALUES ?resultType { ex:Narrow }
@@ -142,7 +90,7 @@ and [Mixins](TypeComposition.md#mixins).
 Resolve Query definitions using the [Complete Spec Definition](Foundations.md#complete-spec-definition)
 and [Concrete Library Versions](Foundations.md#concrete-library-versions) rules.
 
-## Resolving a Field Name
+# Resolving a Field Name
 
 `via:"next"` follows the `next` field, which can use different property IRIs on
 different record types. Include every IRI used for `next` in the resolved
@@ -186,15 +134,15 @@ A path uses one property directly or combines several with `|`. The traversal
 rules use `P` for that resolved property path; `P` is notation, not a SPARQL
 variable.
 
-## Forward and Repeated Traversal
+# Forward and Repeated Traversal
 
 Forward traversal follows the named field. A one-hop path follows one link;
 a repeated path follows one or more links:
 
-| Xeto path | Traversal fragment | Fields subject to reference checks |
-| --- | --- | --- |
-| `via:"next"` | `?subject P ?result .` | The starting record's `next` field |
-| `via:"next+"` | `?subject (P)+ ?result .` | `next` on the start and every reached record where traversal continues |
+| Xeto path | Traversal fragment |
+| --- | --- |
+| `via:"next"` | `?subject P ?result .` |
+| `via:"next+"` | `?subject (P)+ ?result .` |
 
 The [worked example](QueryExecution.md#worked-example) declares `Holder.direct` with
 `via:"next"` and `Holder.deep` with `via:"next+"`. For `Holder.deep`, the
@@ -204,7 +152,7 @@ corresponding SELECT repeats the path with `+`:
 SELECT DISTINCT ?result WHERE {
   VALUES ?subject { ex:a }
   ?subject (ex:Holder.next)+ ?result .
-  ?result a sys:Entity .
+  ?result a xetoRdf:Record .
   FILTER(isIRI(?result))
   FILTER EXISTS {
     ?result a ?resultType . VALUES ?resultType { ex:Target }
@@ -222,14 +170,11 @@ fits `of`; a self-link or a cycle can reach it again. Duplicate links and
 multiple paths to a record do not duplicate results. Missing referenced records
 end their branches without an execution error.
 
-Input Validation uses a **zero-or-more** path to apply the
-[reference checks](#input-validation) to the starting record and every
-reached record. Result traversal uses **one-or-more** because `via:"next+"`
-requires at least one hop. The starting record is returned only if a self-link
-or cycle reaches the starting record again and the record matches `of`.
-Forward traversal does not check unreachable records.
+For `via:"next+"`, the SPARQL `+` requires at least one `next` link before a
+record can be returned. See [Input Validation](QueryInputValidation.md) for the
+SHACL path.
 
-## Inverse Result Selection
+# Inverse Result Selection
 
 An [inverse Query](QuerySlots.md#inverse-query-and-direct-inverse-property) uses the referenced Query's path in reverse and its own `of` type
 to select results. The referenced Query's `of` type does not filter the starting record
@@ -239,13 +184,18 @@ Executable inverse Queries require a fully qualified reference, such as
 `example.inverse::Point.equips`. A missing Query or a Query without `via` causes
 an execution error. Local names are accepted only by the [schema property-path mapping](QuerySlots.md#inverse-query-and-direct-inverse-property).
 
+| Referenced path | Inverse traversal fragment |
+| --- | --- |
+| One hop | `?subject ^(P) ?result .` |
+| One or more | `?subject (^(P))+ ?result .` |
+
 Both examples use library `example.inverse` and the following `equipRef` links:
 
 ```text
 p2 (Point) → p1 (Point) → relay1 (Relay) → equip1 (Equipment)
 ```
 
-### One-Hop Inverse Traversal
+## One-Hop Inverse Traversal
 
 A one-hop inverse Query follows one incoming reference. The referenced Query
 uses `via:"equipRef"`:
@@ -262,21 +212,15 @@ Point: Dict {
 Relay: Dict { equipRef: Ref? }
 ```
 
-The corresponding SELECT checks the incoming link and its Ref metadata:
+The corresponding SELECT follows incoming links:
 
 ```sparql
 SELECT DISTINCT ?result WHERE {
   VALUES ?subject { ex:equip1 }
   # Follow one incoming equipRef link.
   ?subject ^(ex:Point.equipRef|ex:Relay.equipRef) ?result .
-  ?result a sys:Entity .
+  ?result a xetoRdf:Record .
   FILTER(isIRI(?result))
-  # Require Ref metadata for the property containing that link.
-  FILTER EXISTS {
-    VALUES ?referenceProperty { ex:Point.equipRef ex:Relay.equipRef }
-    ?result sys:hasRefField ?referenceProperty .
-    ?result ?referenceProperty ?subject .
-  }
   # Select results matching the inverse Query's of:Point.
   FILTER EXISTS {
     ?result a ?resultType . VALUES ?resultType { ex:Point }
@@ -287,14 +231,10 @@ SELECT DISTINCT ?result WHERE {
 Starting `points` at `equip1` returns no Points: only `relay1` points directly
 to `equip1`, and Relay does not match Point.
 
-An incoming RDF link alone is insufficient: a non-Ref value can export to the
-same IRI. One-hop inverse matching accepts only Ref values, so Result Selection
-checks the link's [reference-field metadata](References.md#reference-field-metadata).
-Using `?referenceProperty` in both triples ensures that the Ref metadata
-describes the field containing the incoming link. A Ref in another field does
-not make the link eligible.
+The one-hop inverse Query still returns no Points with the
+[unrelated `equipRef` string](QueryInputValidation.md#inverse-paths).
 
-### Repeated Inverse Traversal
+## Repeated Inverse Traversal
 
 A repeated inverse Query follows one or more incoming references. Change the
 referenced Query's path to `via:"equipRef+"`; the inverse declaration stays
@@ -322,7 +262,7 @@ The corresponding SELECT repeats the inverse path with `+`:
 SELECT DISTINCT ?result WHERE {
   VALUES ?subject { ex:equip1 }
   ?subject (^(ex:Point.equipRef|ex:Relay.equipRef))+ ?result .
-  ?result a sys:Entity .
+  ?result a xetoRdf:Record .
   FILTER(isIRI(?result))
   FILTER EXISTS {
     ?result a ?resultType . VALUES ?resultType { ex:Point }
@@ -335,39 +275,13 @@ Starting `points` at `equip1` returns `p1` and `p2`. Both have a nonempty
 
 The SELECT examples abbreviate the property and class lists; translations
 include every resolved mapping for `equipRef` and every matching Point subtype.
+See [Input Validation for inverse paths](QueryInputValidation.md#inverse-paths)
+for the SHACL checks that run before the SELECT.
 
-### Input Validation Differences
+# Identity Traversal
 
-One-hop inverse traversal checks Ref metadata during Result Selection.
-Repeated inverse traversal checks candidate records during Input Validation:
-
-| Referenced path | Inverse traversal fragment | Reference handling |
-| --- | --- | --- |
-| One hop | `?subject ^(P) ?result .` | Require reference evidence on each matching edge; ignore non-Ref candidates. |
-| One or more | `?subject (^(P))+ ?result .` | Check the followed field throughout the candidate record set, including disconnected records. |
-
-For transitive inverse traversal over ordinary reference fields, reference
-checks include records carrying the followed tag in disconnected parts of the
-graph, even when they cannot contribute a result. This preserves native Xeto's
-execution-error behavior: a non-Ref in such a field can cause the query to fail.
-Both forms require an existing starting record. One-hop inverse matching does
-not reject non-Ref fields merely because they are present elsewhere in the graph.
-
-For example, add this runtime record to either example's input:
-
-```trio
-id: @example.inverse::unrelated
-equipRef: "not a Ref"
-```
-
-This record has no path to `equip1`, but its `equipRef` field causes the
-repeated inverse Query to fail its reference checks. The one-hop inverse
-Query ignores this non-Ref value and still returns no Points.
-
-## Identity Traversal
-
-A Query with `via:"id"` selects the starting record itself. RDF represents the
-record's identity as its subject IRI, so the SPARQL translation does not follow
+A Query starts at a lookup record. With `via:"id"`, reading the id and looking
+it up selects that same record. RDF uses its id as its subject IRI, so the SPARQL translation does not follow
 a separate `id` property. Repeating or reversing identity traversal still
 reaches the starting record; each identity step counts as a hop.
 
@@ -395,7 +309,7 @@ starting at `t`, the SELECT is:
 SELECT DISTINCT ?result WHERE {
   VALUES ?subject { ex:t }
   BIND(?subject AS ?result)
-  ?result a sys:Entity .
+  ?result a xetoRdf:Record .
   FILTER(isIRI(?result))
   FILTER EXISTS {
     ?result a ?resultType . VALUES ?resultType { ex:Target }
@@ -408,15 +322,11 @@ Starting at `outsider` returns no results because Other does not match Target.
 For another starting record or Query, bind the supplied starting IRI and use
 the Query's own `of` type for Result Selection.
 
-[Input Validation](#input-validation) checks only that the starting record
-exists. Identity traversal needs no field-property alternatives or Ref
-metadata, and does not inspect other fields or disconnected records.
+See [Input Validation for identity paths](QueryInputValidation.md#identity-paths)
+for the starting-record check and [Result Validation](QueryResultValidation.md)
+for the required `hit` marker check.
 
-[Result Validation](QueryResultValidation.md) checks Target's required `hit` marker
-as usual. Removing `hit` leaves `t` in Result Selection but causes Result
-Validation to fail.
-
-## Spec-Reference Traversal
+# Spec-Reference Traversal
 
 The [`spec` field](Mappings.md#the-spec-field) identifies a record's declared Xeto type.
 Its Ref can be used in two different operations:
@@ -429,9 +339,7 @@ Its Ref can be used in two different operations:
 
 A SPARQL selection query must therefore follow `sys:spec`, which preserves
 the exact Ref in the field, rather than `rdf:type`, which may include other
-type memberships. The instance must also have `sys:hasRefField sys:spec`,
-identifying the field as a Ref as described in
-[Reference-field metadata](References.md#reference-field-metadata).
+type memberships.
 A record without a stored `spec` field has no `sys:spec` value; type membership
 alone must not create one.
 
@@ -464,14 +372,12 @@ hit
 Their instance RDF is:
 
 ```turtle
-ex:reading a sys:Entity, ex:Child ;
+ex:reading a xetoRdf:Record, ex:Child ;
   sys:spec ex:Child ;
-  sys:hasRefField sys:spec ;
-  sys:hasMarker ex:Base.hit .
-ex:Child a sys:Entity, ex:Base ;
+  xetoRdf:hasMarker ex:Base.hit .
+ex:Child a xetoRdf:Record, ex:Base ;
   sys:spec ex:Base ;
-  sys:hasRefField sys:spec ;
-  sys:hasMarker ex:Base.hit .
+  xetoRdf:hasMarker ex:Base.hit .
 ```
 
 The traversal property set is exactly `sys:spec`. Direction and repetition
@@ -485,7 +391,7 @@ compose with this property as follows:
 | Inverse of `via:"spec+"` | `(^sys:spec)+` |
 
 The complete SELECT combines this path with the starting record and the Query's
-result filter, following the [Result Selection structure](QueryExecution.md#result-selection).
+result filter, following the [Result Selection structure](QueryResultSelection.md).
 Here, `VALUES ?subject` binds the start to `ex:reading`, and `of:Base` selects
 records typed as Base or its subtype Child:
 
@@ -493,7 +399,7 @@ records typed as Base or its subtype Child:
 SELECT DISTINCT ?result WHERE {
   VALUES ?subject { ex:reading }
   ?subject (sys:spec)+ ?result .
-  ?result a sys:Entity .
+  ?result a xetoRdf:Record .
   FILTER(isIRI(?result))
   FILTER EXISTS {
     ?result a ?resultType . VALUES ?resultType { ex:Base ex:Child }
@@ -508,40 +414,8 @@ class alone is not a query result. Conversely, inverse traversal from Child
 returns reading. Reading's subtype membership makes it eligible for `of:Base`;
 it does not create a direct spec reference from reading to Base.
 
-Traversal through `spec` uses the same reference checks as ordinary fields,
-with `sys:spec` as the property being checked. For forward traversal, a missing
-field ends the branch; a present non-Ref causes an execution error. Inverse
-traversal follows the checks in [Inverse Result Selection](#inverse-result-selection).
-
-For `transitive` starting at `reading`, the input shape combines three checks:
-
-| Shape component | Requirement |
-| --- | --- |
-| `sh:targetNode`, `sh:nodeKind`, and the `rdf:type` constraint | `reading` must be an IRI identifying an exported record (`sys:Entity`). |
-| `sh:zeroOrMorePath sys:spec` | Apply the field checks to the start and every node reached through `sys:spec`. |
-| The nested `sh:node` | Allow an absent `spec` field; otherwise require Ref evidence and IRI values. Reject a Marker-valued `spec`, which is represented through `sys:hasMarker`. |
-
-Together, these produce:
-
-```turtle
-[] a sh:NodeShape ;
-  sh:targetNode ex:reading ;
-  sh:nodeKind sh:IRI ;
-  sh:property [ sh:path rdf:type ; sh:hasValue sys:Entity ] ;
-  sh:property [
-    sh:path [ sh:zeroOrMorePath sys:spec ] ;
-    sh:node [
-      sh:or (
-        [ sh:property [ sh:path sys:spec ; sh:maxCount 0 ] ]
-        [ sh:property [ sh:path sys:hasRefField ; sh:hasValue sys:spec ] ]
-      ) ;
-      sh:property [ sh:path sys:spec ; sh:nodeKind sh:IRI ] ;
-      sh:property [ sh:path sys:hasMarker ; sh:not [ sh:in ( sys:spec ) ] ]
-    ]
-  ] .
-```
-
-Result Selection still requires one or more steps. Result Validation checks
-the returned Child record against Base, by targeting `ex:Child` with Base's
-reusable constraints. Schema triples must not supply runtime fields when an
-IRI is shared; see [Instance Data and Schema Vocabulary](QueryResultValidation.md#instance-data-and-schema-vocabulary).
+A missing `spec` field ends a forward branch.
+The [input shape for `transitive`](QueryInputValidation.md#spec-reference-paths)
+shows the checks for `reading`. See
+[Instance Data and Schema Vocabulary](QueryResultValidation.md#instance-data-and-schema-vocabulary)
+for the graph rules when validating the returned `ex:Child` against Base.

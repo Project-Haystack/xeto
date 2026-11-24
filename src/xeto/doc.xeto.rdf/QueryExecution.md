@@ -2,14 +2,28 @@
 title:      Query Execution
 -->
 
-This chapter defines how to execute Xeto Queries over exported RDF using
-SPARQL, with SHACL checks before and after Result Selection. SPARQL follows the
-Query's path and selects records matching its `of` type. SHACL checks whether execution
-can proceed and, when requested, validates the returned records. Execution
-errors and validation failures are reported separately.
+Executing a Xeto Query over exported RDF takes several steps. First, SHACL
+checks whether the Query can run. If those checks pass, a SPARQL `SELECT` finds
+the matching records. If the caller requests Result Validation, SHACL checks
+the selected records.
 
-Query execution has three stages: [Input Validation](QueryTraversal.md#input-validation), Result Selection, and
-optional [Result Validation](QueryResultValidation.md):
+The **Query executor** is the part of an implementation that takes an
+[execution request](#execution-request), coordinates these stages, and reports
+the outcome. This specification defines what the executor receives, runs, and
+reports. Each implementation chooses how callers invoke the executor.
+
+Query results are undefined if the input records fail validation against their
+declared specs. To check the records first, run their SHACL shapes.
+For a slot declared `siteRef: Ref`:
+
+- `siteRef: @hq` supplies a Ref to the record named `hq`.
+- `siteRef: "hq"` fails validation because `"hq"` is a string.
+
+| Stage | What it does |
+| --- | --- |
+| [Input Validation](#input-validation) (SHACL) | Check the starting record and the path. Stop with an error if either check fails. |
+| [Result Selection](#result-selection) (SPARQL) | Follow the path, returning distinct IRIs for records matching `of`. Order is unspecified. |
+| [Result Validation](#result-validation) (SHACL, optional) | Check each returned record against `of`. Keep the record and report any failures. |
 
 ```text
 Input Validation (SHACL)
@@ -28,14 +42,11 @@ Result Validation (SHACL, when requested)
     + apply the Query's of constraints
 ```
 
-Input Validation checks conditions that native Xeto checks during execution.
-Failed Input Validation returns an execution error rather than an empty result.
-Records that fail Result Validation remain in the results, with validation
-failures reported alongside them. The [schema property-path mapping](QuerySlots.md#shacl-validation)
-describes navigation but does not execute these stages.
+[Query Slot Mapping](QuerySlots.md#shacl-validation) describes schema paths.
 
-Use the same [resolved library versions](Foundations.md#concrete-library-versions) as the RDF export. Apply the
-[conformance error rule](Overview.md#conformance) when a Query cannot be translated faithfully.
+Use the RDF export's [resolved library versions](Foundations.md#concrete-library-versions).
+Report a [translation error](Overview.md#conformance) if the Query's behavior
+cannot be preserved.
 
 # Execution Request
 
@@ -49,24 +60,17 @@ supplies:
 | Instance graph | The records to search, exported using the [instance profile](Overview.md). |
 | [Resolved namespace](Foundations.md#namespace) | The library definitions and concrete versions used for the instance export, including active mixins. |
 | Validate results | Boolean: run Result Validation when `true`; skip it when `false`. |
+| Validation vocabulary | When requesting Result Validation, supply the schema and external vocabulary the result shape uses, including QUDT definitions for unit-bearing values. |
 
-**Query-body counts are checked separately from result fields.**
-[Query-Body Validation](QueryBodyValidation.md) runs Input Validation and
-Result Selection, then reports missing or ambiguous body members.
-`Validate results` does not request these count checks, and records with
-invalid fields still count.
-
-**All stages must use the same Query, starting record, instance snapshot, and
-resolved namespace; but different graph inputs.**
-Input Validation and Result Selection read instance-export triples. Query-Body
-Validation adds match information in a separate temporary graph. Result
-Validation also uses supporting schema vocabulary; see
-[Instance Data and Schema Vocabulary](QueryResultValidation.md#instance-data-and-schema-vocabulary).
+All stages must use the same Query, starting record, instance snapshot, and
+resolved namespace. Input Validation and Result Selection use only the
+instance graph. Result Validation also uses
+[supporting vocabulary](QueryResultValidation.md#instance-data-and-schema-vocabulary).
 
 # Worked Example
 
-The following example shows how Result Selection and Result Validation
-translate a Xeto Query:
+This example shows how the RDF export feeds each stage of Query execution.
+Run `Holder.direct` from `a` with Result Validation requested.
 
 ```xeto
 Target: Dict { hit }
@@ -79,49 +83,52 @@ Holder: Dict {
 @t: Target { hit }
 ```
 
-Result Selection returns `t` when `direct` starts at `a`. Result Validation
-checks that `t` has the required `hit` marker. A record declared as Target can
-still be missing that marker.
+Export the records to RDF using the instance profile. Run the SELECT against
+the resulting RDF. Result Selection must use only exported instance triples.
+Do not add schema triples or triples derived from schema relationships.
 
-The records to be searched must first be exported to RDF using the instance
-profile. Run the SELECT against the resulting RDF. Result Selection must run
-using only triples produced by the instance export. Do not include schema
-triples or add extra triples derived from schema relationships.
-
-The same example exports to the following RDF triples. (Not a full export; only
-the triples needed for demonstration are shown):
-
-In these examples, `ex:` denotes the example library's concrete versioned
-namespace, and `sys:` denotes the resolved sys library namespace. Standard
-prefixes follow [Namespaces and IRIs](Foundations.md#namespaces-and-iris).
+In the Turtle excerpt from the instance export, `ex:` is the example library's
+concrete versioned namespace and `sys:` is the resolved sys library namespace.
+Standard prefixes follow [Namespaces and IRIs](Foundations.md#namespaces-and-iris).
 
 ```turtle
-ex:a a sys:Entity, ex:Holder ;
-  ex:Holder.next ex:t ;
-  sys:hasRefField ex:Holder.next .
-ex:t a sys:Entity, ex:Target ;
-  sys:hasMarker ex:Target.hit .
+ex:a a xetoRdf:Record, ex:Holder ;
+  ex:Holder.next ex:t .
+ex:t a xetoRdf:Record, ex:Target ;
+  xetoRdf:hasMarker ex:Target.hit .
 ```
 
-The three stages use these triples as follows:
+```text
+Prepare
+    Translate Holder.direct in the resolved namespace to build the SELECT
+    and SHACL constraints.
+    Export a and t to build the RDF instance graph.
 
-| Stage | Operation on the exported RDF |
-| --- | --- |
-| [Input Validation](QueryTraversal.md#input-validation) | SHACL checks that `ex:a` exists and that `next` contains references, using `sys:hasRefField` and the reference values. |
-| [Result Selection](#result-selection) | SPARQL follows `ex:Holder.next` and returns `ex:t` because `ex:t` has type `ex:Target`. |
-| [Result Validation](QueryResultValidation.md) | SHACL checks that `ex:t` has the required `sys:hasMarker ex:Target.hit` statement. |
+Run
+    Input Validation (SHACL) checks the instance graph.
+        │ If input checks pass, run the SELECT.
+        ▼
+    Result Selection (SPARQL) reads the instance graph and returns ex:t.
+        │ If Result Validation was requested, use ex:t as the SHACL target.
+        ▼
+    Result Validation (SHACL) checks ex:t using the full instance graph
+    and supporting vocabulary, then reports failures.
+```
 
-# Result Selection
+## Input Validation
 
-For `Holder.direct` in the [worked example](QueryExecution.md#worked-example), Result
-Selection uses the following SELECT. Property and class lists are abbreviated
-for demonstration:
+SHACL checks that `ex:a` exists and that each stored `next` value is an IRI.
+See [Query Input Validation](QueryInputValidation.md) for the shape and path-specific checks.
+
+## Result Selection
+
+The SELECT abbreviates the property and class lists.
 
 ```sparql
 SELECT DISTINCT ?result WHERE {             # Unique-result projection
   VALUES ?subject { ex:a }                  # Starting-record binding
   ?subject ex:Holder.next ?result .         # Traversal
-  ?result a sys:Entity .                    # Record restriction
+  ?result a xetoRdf:Record .                    # Record restriction
   FILTER(isIRI(?result))
   FILTER EXISTS {                          # Result matching
     ?result a ?resultType . VALUES ?resultType { ex:Target }
@@ -129,39 +136,23 @@ SELECT DISTINCT ?result WHERE {             # Unique-result projection
 }
 ```
 
-The query returns `ex:t`, which is reached through `ex:Holder.next` and has
-type `ex:Target`.
+The SELECT follows `ex:Holder.next` from `ex:a` and returns `ex:t` because
+`ex:t` has type `ex:Target`. See [Query Result Selection](QueryResultSelection.md)
+for the SELECT template and clause rules.
 
-Each part has one responsibility:
+## Result Validation
 
-| Part | Translation rule | What supplies its contents? |
-| --- | --- | --- |
-| Starting-record binding | Bind `?subject` to the supplied record IRI, using an RDF-term binding or a safely serialized `VALUES` clause. | The execution request |
-| [Traversal](QueryTraversal.md#traversal) | Relate `?subject` to `?result`, or bind them to the same identity for `id`. | The Query's path, direction, repetition, and resolved field properties |
-| Record restriction | Require `?result a sys:Entity` and `isIRI(?result)`. | Fixed structure; the sys namespace uses its resolved version |
-| [Result matching](QueryResultMatching.md) | Require the reached record to fit the Query's `of` type. | The target type and resolved schemas |
-| Unique-result projection | Return `SELECT DISTINCT ?result`, with no ordering guarantee. | Fixed structure |
+SHACL targets the returned `ex:t` and checks for the required
+`xetoRdf:hasMarker ex:Target.hit` statement. If `hit` is missing, `ex:t` stays
+in the results and the report flags the missing marker. See
+[Query Result Validation](QueryResultValidation.md) for the shape and graph rules.
 
-The pieces compose as follows. This is a translation template, not executable
-SPARQL; the bracketed parts stand for the constructs defined in
-[Traversal](QueryTraversal.md#traversal) and
-[Result Matching](QueryResultMatching.md).
+# Query-Body Validation
 
-```text
-SELECT DISTINCT ?result WHERE {
-  [starting-record binding]
-  [traversal]
-  ?result a sys:Entity .
-  FILTER(isIRI(?result))
-  FILTER([result-matching predicate])
-}
-```
+[Query-Body Validation](QueryBodyValidation.md) checks requirements such as
+exactly one match for `temperatureSensor: Temperature`. The workflow takes
+the Query slot, starting record IRI, instance graph, and resolved namespace.
 
-# Validation
-
-[Input Validation](QueryTraversal.md#input-validation) asks whether execution can proceed. [Query-Body Validation](QueryBodyValidation.md)
-checks how many selected records match each required or optional member.
-[Result Validation](QueryResultValidation.md) asks whether the selected records conform to `of`.
-These checks have different targets and must remain separate; a matching
-record's invalid contents are not an input error unless traversal itself
-encounters an invalid reference value.
+After Input Validation passes, SPARQL `CONSTRUCT` writes each member's matches
+as temporary RDF links. SHACL counts the links to report missing required
+matches or ambiguous members. Records with invalid fields can still count.

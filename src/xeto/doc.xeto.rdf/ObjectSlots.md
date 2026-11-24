@@ -22,11 +22,15 @@ ex:Failure a sys:Class, rdfs:Class ;
   rdfs:subClassOf sys:Err ;
   rdfs:label "Failure"@en .
 
-ex:Envelope a sh:NodeShape ;
-  sh:targetClass ex:Envelope ;
+ex:Envelope-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:Envelope.failure ;
-    sh:node ex:Failure ;
+    # RDF represents the inline Failure dictionary as a blank node.
+    sh:nodeKind sh:BlankNode ;
+    sh:or ( [ sh:property [ sh:path sys:spec ; sh:maxCount 0 ] ]
+            [ sh:class ex:Failure ] ) ;
+    # Apply Failure's field checks to the inline dictionary.
+    sh:node ex:Failure-fields ;
     sh:maxCount 1 ;
   ] .
 ```
@@ -67,8 +71,7 @@ Envelope : Dict {
 ```
 
 ```turtle
-ex:Envelope a sh:NodeShape ;
-  sh:targetClass ex:Envelope ;
+ex:Envelope-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:Envelope.value ;
     sh:minCount 1 ;
@@ -83,7 +86,17 @@ A slot can also specify the type of a nested dictionary.
 ## SHACL Validation
 
 A slot typed as another dictionary spec uses `sh:node` to apply that spec's
-shape to the nested value.
+field requirements to the nested value. The property also checks that the value
+is a Dict and that its stored spec, when present, fits the slot's type.
+This also applies to a slot declared directly as `Dict`. Its value must be
+an inline blank node. A Ref to a dictionary record fails that check.
+
+For a bare `Dict` slot, a declared union also fits when every alternative is a
+dictionary type. Given `Either: Left | Right` with two Dict alternatives,
+`loose: {spec:@example::Either}` fits `loose: Dict`. The fitting predicate
+includes `[ sh:class ex:Either ]` alongside `[ sh:class sys:Dict ]` because
+the vocabulary links each alternative to the union. The same predicate applies
+to each item of `List<of:Dict>`.
 
 ```xeto
 Address : Dict {
@@ -99,17 +112,22 @@ Person : Dict {
 ```
 
 ```turtle
-ex:Person a sh:NodeShape ;
-  sh:targetClass ex:Person ;
+ex:Person-fields a sh:NodeShape ;
   sh:property [
     sh:path ex:Person.address ;
-    sh:node ex:Address ;
+    sh:nodeKind sh:BlankNode ;
+    sh:or ( [ sh:property [ sh:path sys:spec ; sh:maxCount 0 ] ]
+            [ sh:class ex:Address ] ) ;
+    sh:node ex:Address-fields ;
     sh:minCount 1 ;
     sh:maxCount 1 ;
   ] ;
   sh:property [
     sh:path ex:Person.postalAddress ;
-    sh:node ex:PostalAddress ;
+    sh:nodeKind sh:BlankNode ;
+    sh:or ( [ sh:property [ sh:path sys:spec ; sh:maxCount 0 ] ]
+            [ sh:class ex:PostalAddress ] ) ;
+    sh:node ex:PostalAddress-fields ;
     sh:maxCount 1 ;
   ] .
 ```
@@ -119,10 +137,40 @@ follows the complete inheritance chain, but `sh:node` names the slot's declared
 type; in this example, `PostalAddress`. If that type is declared by a dependency,
 the same rule applies using the dependency library's RDF namespace. A loaded
 `addresses::PostalAddress`, for example, becomes
-`sh:node addresses:PostalAddress`.
+`sh:node addresses:PostalAddress-fields`.
 
 The nested node may itself contain scalar, ref, marker, unit, list, choice, or
 further nested values supported by this specification.
+
+For example, let `SpecialAddress: Address { note: Str }`. These two addresses
+have the same fields and declare the same type:
+
+```trio
+id: @person
+spec: @example::Person
+address: {id:@home spec:@example::SpecialAddress city:"Here"}
+---
+id: @home
+spec: @example::SpecialAddress
+city: "Here"
+```
+
+The relevant RDF is:
+
+```turtle
+ex:person ex:Person.address [
+  a ex:SpecialAddress ; xetoRdf:sourceId ex:home ;
+  sys:spec ex:SpecialAddress ;
+  ex:Address.city "Here"^^xsd:string
+] .
+ex:home a xetoRdf:Record, ex:SpecialAddress ;
+  ex:Address.city "Here"^^xsd:string .
+```
+
+Person's slot asks for Address, so the inline value passes with its `city`.
+The separate lookup record at `ex:home` also receives SpecialAddress's field
+checks and fails for missing `note`. A list slot with `of:Address` checks each
+item against Address in the same way.
 
 ## Nested Sugar Types
 
@@ -149,14 +197,14 @@ These excerpts show field validation only. The complete constraints also
 include the fitting predicate and Hot's marker check:
 
 ```turtle
-ex:Envelope sh:property [
+ex:Envelope-fields sh:property [
   sh:path ex:Envelope.value ;
-  sh:node ex:Hot ;
+  sh:node ex:Hot-fields ;
   sh:minCount 1 ;
   sh:maxCount 1
 ] .
 
-ex:Hot sh:property [
+ex:Hot-fields sh:property [
   sh:path [
     # Read label through either property; the constraints require
     # one distinct label value.
@@ -185,9 +233,10 @@ validation. The missing type declaration alone does not cause failure.
 
 ## Instance Data
 
-A nested dictionary without its own Xeto id becomes an RDF blank node. It is
-typed with its nested spec so both class-based and `sh:node` constraints can
-recognize it.
+Each nested dictionary becomes a blank node. Its fields describe the value
+stored in the enclosing slot. For example, when an `address: Address` value
+omits `spec`, the exporter uses `Address` for the RDF class and field
+properties. Only a stored `spec` field produces a `sys:spec` triple.
 
 ```xeto
 @person1: Person {
@@ -201,7 +250,7 @@ recognize it.
 ```
 
 ```turtle
-ex:person1 a sys:Entity, ex:Person ;
+ex:person1 a xetoRdf:Record, ex:Person ;
   ex:Person.address [
     a ex:Address ;
     ex:Address.city "Richmond"^^xsd:string
@@ -212,8 +261,39 @@ ex:person1 a sys:Entity, ex:Person ;
   ] .
 ```
 
-If the nested instance has its own Xeto id, that id becomes a named RDF
-individual instead of a blank node.
+When the dictionary contains a Ref-valued `id`, the blank node carries that
+IRI as `xetoRdf:sourceId`. An absent `id` produces no triple. A malformed
+literal ID retains its value. For example:
+
+```trio
+address: {id:42 city:"Here"}
+```
+
+```turtle
+ex:person1 ex:Person.address [
+  a ex:Address ; xetoRdf:sourceId "4.2E1"^^xsd:double ;
+  ex:Address.city "Here"^^xsd:string
+] .
+```
+
+If Address declares `id: Ref?`, its ID constraint is:
+
+```turtle
+ex:Address-fields sh:or (
+  [ sh:nodeKind sh:IRI ]
+  [ sh:nodeKind sh:BlankNode ;
+    sh:property [ sh:path xetoRdf:sourceId ; sh:nodeKind sh:IRI ; sh:maxCount 1 ] ]
+) .
+```
+
+The inline address may omit its ID. The supplied numeric literal fails
+`sh:nodeKind sh:IRI`. For a required `id: Ref`, the property also has
+`sh:minCount 1`. A non-Ref ID without a literal mapping uses a blank node
+so it also fails the IRI check.
+
+For a compiled library, `Lib.instances` supplies the
+lookup records. A named declaration inside another record appears in that
+collection, so the exporter also describes the lookup record once at its IRI.
 
 ```xeto
 @person1: Person {
@@ -224,8 +304,31 @@ individual instead of a blank node.
 ```
 
 ```turtle
-ex:person1 ex:Person.address ex:address1 .
+ex:person1 ex:Person.address [
+  a ex:Address ;
+  xetoRdf:sourceId ex:address1 ;
+  ex:Address.city "Richmond"^^xsd:string
+] .
 
-ex:address1 a sys:Entity, ex:Address ;
+ex:address1 a xetoRdf:Record, ex:Address ;
   ex:Address.city "Richmond"^^xsd:string .
 ```
+
+Runtime input can supply different values under the same id. For example,
+given `Person: Dict { address: Address, targetRef: Ref<of:Address> }`:
+
+```trio
+id: @start
+spec: @example::Person
+address: {id:@home spec:@example::Address city:"Here"}
+targetRef: @home
+---
+id: @home
+spec: @example::Address
+city: "There"
+```
+
+Reading the inline address yields `"Here"`. Following `targetRef` yields the
+lookup record with city `"There"`. Removing the second record leaves the inline
+address intact. The Query path `via:"targetRef"` then returns no record, and
+field validation reports a dangling Ref.
